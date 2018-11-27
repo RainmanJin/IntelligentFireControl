@@ -9,17 +9,18 @@
 left
 
 <ul>
-	<li><a href="#" >系统管理</a>
+	<li><a href="#" >基础管理</a>
 
 		<ul>
-			<li><a href="${basePath}/system/user/userPage" target="iframeContent">用户管理</a></li>
-            <li><a href="${basePath}/system/role/rolePage" target="iframeContent">角色管理</a></li>
-            <li><a href="${basePath}/system/perm/permPage" target="iframeContent">权限管理</a></li>
-
+			<li><a href="${basePath}/basic/user/userPage" target="iframeContent">用户管理</a></li>
+            <li><a href="${basePath}/basic/dept/deptPage" target="iframeContent">部门管理</a></li>
 
 		</ul>
 
 	</li>
+            <li><a href="${basePath}/project/projectPage" target="iframeContent">项目管理</a></li>
+
+    </li>
 </ul>
 
 
