@@ -1,0 +1,38 @@
+#以下是测试和正式环境通用配置
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /ifc
+spring:
+  mvc:
+    static-path-pattern: /static/**
+  freemarker:
+      request-context-attribute: request
+      suffix: .ftl
+      template-loader-path: classpath:/templates/
+---
+#正式环境配置
+spring:
+  datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        initialSize: 20
+        max-active: 100
+        max-idle: 200
+        min-idle: 200
+        test-while-idle: true
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
+        jdbc-url: jdbc:mysql://47.104.156.99:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: duhj
+        password: dhj199211
+primary:
+   mapperLocations: classpath:mapper/**/*.xml
+#配置分页插件pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
