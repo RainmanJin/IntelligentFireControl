@@ -7,11 +7,11 @@ server:
     context-path: /ifc
 spring:
   mvc:
-    static-path-pattern: /static/**
+    static-path-pattern: /cn.com.bgy.ifc/static/**
   freemarker:
       request-context-attribute: request
       suffix: .ftl
-      template-loader-path: classpath:/templates/
+      template-loader-path: classpath:/cn.com.bgy.ifc/templates/
 ---
 #正式环境配置
 spring:
