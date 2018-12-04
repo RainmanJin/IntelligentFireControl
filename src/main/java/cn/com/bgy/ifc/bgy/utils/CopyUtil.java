@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.bgy.utils;
 
-import cn.com.bgy.ifc.entity.bo.basic.UserBo;
 import cn.com.bgy.ifc.entity.po.basic.User;
+import cn.com.bgy.ifc.entity.vo.basic.UserVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -28,7 +28,7 @@ public class CopyUtil {
     }
 
     public static void main(String[] args) {
-        UserBo userBo= new UserBo();
+        UserVo userBo= new UserVo();
         userBo.setEmail("213455");
         User user=new User();
         user.setDeptId(Long.valueOf(10));
