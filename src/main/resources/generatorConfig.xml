@@ -13,18 +13,18 @@
 
 
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://47.104.156.99:3306/test?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC"
-                        userId="duhj"
-                        password="dhj199211" />
+                        connectionURL="jdbc:mysql://47.99.100.79:3306/intelligent_fire_control?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;serverTimezone=UTC"
+                        userId="root"
+                        password="root" />
 
-        <javaModelGenerator targetPackage="cn.com.bgy.ifc.entity.po.projects" targetProject="src/main/java" />
+        <javaModelGenerator targetPackage="cn.com.bgy.ifc.entity.po.basic" targetProject="src/main/java" />
 
-        <sqlMapGenerator targetPackage="mapper/projects" targetProject="src/main/resources" />
+        <sqlMapGenerator targetPackage="mapper/basic" targetProject="src/main/resources" />
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.bgy.ifc.dao.projects" targetProject="src/main/java" />
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.bgy.ifc.dao.basic" targetProject="src/main/java" />
 
 
-       <table tableName="tj_project"  domainObjectName="Project" mapperName="ProjectDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+       <table tableName="account"  domainObjectName="Account" mapperName="AccountDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"/>
 <!--
         <table tableName="tj_dept"  domainObjectName="DeptBo" mapperName="DeptDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
