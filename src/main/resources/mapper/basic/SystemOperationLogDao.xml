@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.basic.SystemOperationLogDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="log_type" jdbcType="INTEGER" property="logType" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.basic.SystemOperationLogWithBLOBs">
+    <result column="operator_content" jdbcType="LONGVARCHAR" property="operatorContent" />
+    <result column="operator_describe" jdbcType="LONGVARCHAR" property="operatorDescribe" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    operator_content, operator_describe
+  </sql>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLogWithBLOBs">
+    insert into system_operation_log (id, user_id, user_name, 
+      log_type, ip, create_time, 
+      logic_remove, operator_content, operator_describe
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, 
+      #{logType,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{logicRemove,jdbcType=BIT}, #{operatorContent,jdbcType=LONGVARCHAR}, #{operatorDescribe,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLogWithBLOBs">
+    insert into system_operation_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="logType != null">
+        log_type,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+      <if test="operatorContent != null">
+        operator_content,
+      </if>
+      <if test="operatorDescribe != null">
+        operator_describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="logType != null">
+        #{logType,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="operatorContent != null">
+        #{operatorContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="operatorDescribe != null">
+        #{operatorDescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

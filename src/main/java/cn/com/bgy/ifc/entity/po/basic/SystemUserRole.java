@@ -1,70 +1,33 @@
 package cn.com.bgy.ifc.entity.po.basic;
 
 public class SystemUserRole {
+    private Long id;
 
-	/**
-	 *系统自增Id
-	 */
-	private Long id;
+    private Long roleId;
 
-	/**
-	 *系统角色表主键Id
-	 */
-	private Long roleId;
+    private Long userId;
 
-	/**
-	 *用户表主键Id
-	 */
-	private Long userId;
+    public Long getId() {
+        return id;
+    }
 
-	public SystemUserRole(){
-}
-	/**
-	 *设置系统自增Id
-	 *@param: id
-	 */
-	public void setId(Long id){
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 *获取系统自增Id
-	 *@return
-	 */
-	public Long getId(){
-		return id;
-	}
+    public Long getRoleId() {
+        return roleId;
+    }
 
-	/**
-	 *设置系统角色表主键Id
-	 *@param: roleId
-	 */
-	public void setRoleId(Long roleId){
-		this.roleId = roleId;
-	}
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
 
-	/**
-	 *获取系统角色表主键Id
-	 *@return
-	 */
-	public Long getRoleId(){
-		return roleId;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	/**
-	 *设置用户表主键Id
-	 *@param: userId
-	 */
-	public void setUserId(Long userId){
-		this.userId = userId;
-	}
-
-	/**
-	 *获取用户表主键Id
-	 *@return
-	 */
-	public Long getUserId(){
-		return userId;
-	}
-
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

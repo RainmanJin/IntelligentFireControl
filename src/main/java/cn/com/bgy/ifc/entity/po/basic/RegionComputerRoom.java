@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.entity.po.basic;
 
 import java.util.Date;
 
-public class RegionStreet {
+public class RegionComputerRoom {
     private Long id;
 
     private Long organizationId;
@@ -13,7 +13,13 @@ public class RegionStreet {
 
     private Long courtId;
 
+    private Long streetId;
+
+    private Long buildingId;
+
     private String name;
+
+    private Long code;
 
     private Date createTime;
 
@@ -59,12 +65,36 @@ public class RegionStreet {
         this.courtId = courtId;
     }
 
+    public Long getStreetId() {
+        return streetId;
+    }
+
+    public void setStreetId(Long streetId) {
+        this.streetId = streetId;
+    }
+
+    public Long getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(Long buildingId) {
+        this.buildingId = buildingId;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getCode() {
+        return code;
+    }
+
+    public void setCode(Long code) {
+        this.code = code;
     }
 
     public Date getCreateTime() {

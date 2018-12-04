@@ -1,154 +1,75 @@
 package cn.com.bgy.ifc.entity.po.basic;
 
-public class RegionProject{
+import java.util.Date;
 
-	/**
-	 *集成平台Id
-	 */
-	private Long id;
+public class RegionProject {
+    private Long id;
 
-	/**
-	 *机构表id，用于区分平台
-	 */
-	private Long organizationId;
+    private Long organizationId;
 
-	/**
-	 *区域表id
-	 */
-	private Long regionId;
+    private Long regionId;
 
-	/**
-	 *项目编码
-	 */
-	private String code;
+    private String code;
 
-	/**
-	 *项目名称
-	 */
-	private String name;
+    private String name;
 
-	/**
-	 *创建、修改时间
-	 */
-	private java.util.Date createTime;
+    private Date createTime;
 
-	/**
-	 *是否逻辑删除
-	 */
-	private int logicRemove;
+    private Boolean logicRemove;
 
-	public RegionProject(){
-}
-	/**
-	 *设置集成平台Id
-	 *@param: id
-	 */
-	public void setId(Long id){
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 *获取集成平台Id
-	 *@return
-	 */
-	public Long getId(){
-		return id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 *设置机构表id，用于区分平台
-	 *@param: organizationId
-	 */
-	public void setOrganizationId(Long organizationId){
-		this.organizationId = organizationId;
-	}
+    public Long getOrganizationId() {
+        return organizationId;
+    }
 
-	/**
-	 *获取机构表id，用于区分平台
-	 *@return
-	 */
-	public Long getOrganizationId(){
-		return organizationId;
-	}
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
 
-	/**
-	 *设置区域表id
-	 *@param: regionId
-	 */
-	public void setRegionId(Long regionId){
-		this.regionId = regionId;
-	}
+    public Long getRegionId() {
+        return regionId;
+    }
 
-	/**
-	 *获取区域表id
-	 *@return
-	 */
-	public Long getRegionId(){
-		return regionId;
-	}
+    public void setRegionId(Long regionId) {
+        this.regionId = regionId;
+    }
 
-	/**
-	 *设置项目编码
-	 *@param: code
-	 */
-	public void setCode(String code){
-		this.code = code;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	/**
-	 *获取项目编码
-	 *@return
-	 */
-	public String getCode(){
-		return code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	/**
-	 *设置项目名称
-	 *@param: name
-	 */
-	public void setName(String name){
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 *获取项目名称
-	 *@return
-	 */
-	public String getName(){
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 *设置创建、修改时间
-	 *@param: createTime
-	 */
-	public void setCreateTime(java.util.Date createTime){
-		this.createTime = createTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	/**
-	 *获取创建、修改时间
-	 *@return
-	 */
-	public java.util.Date getCreateTime(){
-		return createTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	/**
-	 *设置是否逻辑删除
-	 *@param: logicRemove
-	 */
-	public void setLogicRemove(int logicRemove){
-		this.logicRemove = logicRemove;
-	}
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
 
-	/**
-	 *获取是否逻辑删除
-	 *@return
-	 */
-	public int getLogicRemove(){
-		return logicRemove;
-	}
-
+    public void setLogicRemove(Boolean logicRemove) {
+        this.logicRemove = logicRemove;
+    }
 }

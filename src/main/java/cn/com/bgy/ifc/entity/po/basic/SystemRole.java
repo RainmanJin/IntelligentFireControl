@@ -1,91 +1,43 @@
 package cn.com.bgy.ifc.entity.po.basic;
 
 public class SystemRole {
+    private Long id;
 
-	/**
-	 *系统自增Id
-	 */
-	private Long id;
+    private String name;
 
-	/**
-	 *角色名称
-	 */
-	private String name;
+    private Long organizationId;
 
-	/**
-	 *机构表Id，用于区分平台
-	 */
-	private Long organizationId;
+    private Boolean logicRemove;
 
-	/**
-	 *是否逻辑删除
-	 */
-	private int logicRemove;
+    public Long getId() {
+        return id;
+    }
 
-	public SystemRole(){
-}
-	/**
-	 *设置系统自增Id
-	 *@param: id
-	 */
-	public void setId(Long id){
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 *获取系统自增Id
-	 *@return
-	 */
-	public Long getId(){
-		return id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 *设置角色名称
-	 *@param: name
-	 */
-	public void setName(String name){
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 *获取角色名称
-	 *@return
-	 */
-	public String getName(){
-		return name;
-	}
+    public Long getOrganizationId() {
+        return organizationId;
+    }
 
-	/**
-	 *设置机构表Id，用于区分平台
-	 *@param: organizationId
-	 */
-	public void setOrganizationId(Long organizationId){
-		this.organizationId = organizationId;
-	}
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
 
-	/**
-	 *获取机构表Id，用于区分平台
-	 *@return
-	 */
-	public Long getOrganizationId(){
-		return organizationId;
-	}
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
 
-	/**
-	 *设置是否逻辑删除
-	 *@param: logicRemove
-	 */
-	public void setLogicRemove(int logicRemove){
-		this.logicRemove = logicRemove;
-	}
-
-	/**
-	 *获取是否逻辑删除
-	 *@return
-	 */
-	public int getLogicRemove(){
-		return logicRemove;
-	}
-
+    public void setLogicRemove(Boolean logicRemove) {
+        this.logicRemove = logicRemove;
+    }
 }
