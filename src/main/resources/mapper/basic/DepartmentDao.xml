@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.basic.DepartmentDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.Department">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.Department">
+    insert into department (parent_id, name,
+      state, organization_id, create_time, 
+      logic_remove)
+    values (#{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+      #{state,jdbcType=INTEGER}, #{organizationId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{logicRemove,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.Department">
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="organizationId != null">
+        organization_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+		SELECT
+		id,
+		parent_id,
+		name,
+		state,
+		organization_id,
+		create_time,
+		logic_remove
+		FROM department WHERE id = ${id}
+  </select>
+
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.Department">
+		UPDATE department SET
+		parent_id =#{parentId},
+		name =#{name},
+		state =#{state},
+		organization_id =#{organizationId},
+		create_time =#{createTime},
+		logic_remove =#{logicRemove}
+		WHERE id
+		= ${id}
+  </update>
+
+  <delete id="deleteById" parameterType="Long">
+       DELETE FROM department WHERE id = #{id}
+  </delete>
+
+    <delete id="deleteBatchById" parameterType="list">
+        <![CDATA[
+       DELETE FROM department WHERE id IN
+    	]]>
+        <foreach close=")" collection="list" item="id" open="(" separator=",">
+            ${id}
+        </foreach>
+    </delete>
+</mapper>

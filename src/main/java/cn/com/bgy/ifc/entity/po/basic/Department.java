@@ -1,154 +1,88 @@
 package cn.com.bgy.ifc.entity.po.basic;
 
-public class Department{
+import java.util.Date;
 
-	/**
-	 *系统自增Id
-	 */
-	private Long id;
+public class Department {
+    private Long id;
 
-	/**
-	 *父级Id（为0时表示第一级）
-	 */
-	private Long parentId;
+    private Long parentId;
 
-	/**
-	 *部门名称
-	 */
-	private String name;
+    private String name;
 
-	/**
-	 *状态，0表示禁用；1表示启用
-	 */
-	private int state;
+    private Integer state;
 
-	/**
-	 *机构表id，用于区分平台
-	 */
-	private Long organizationId;
+    private Long organizationId;
 
-	/**
-	 *创建、修改时间
-	 */
-	private java.util.Date createTime;
+    private Date createTime;
 
-	/**
-	 *是否逻辑删除
-	 */
-	private int logicRemove;
+    private Boolean logicRemove;
 
-	public Department(){
-}
-	/**
-	 *设置系统自增Id
-	 *@param: id
-	 */
-	public void setId(Long id){
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 *获取系统自增Id
-	 *@return
-	 */
-	public Long getId(){
-		return id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 *设置父级Id（为0时表示第一级）
-	 *@param: parentId
-	 */
-	public void setParentId(Long parentId){
-		this.parentId = parentId;
-	}
+    public Long getParentId() {
+        return parentId;
+    }
 
-	/**
-	 *获取父级Id（为0时表示第一级）
-	 *@return
-	 */
-	public Long getParentId(){
-		return parentId;
-	}
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
 
-	/**
-	 *设置部门名称
-	 *@param: name
-	 */
-	public void setName(String name){
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 *获取部门名称
-	 *@return
-	 */
-	public String getName(){
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 *设置状态，0表示禁用；1表示启用
-	 *@param: state
-	 */
-	public void setState(int state){
-		this.state = state;
-	}
+    public Integer getState() {
+        return state;
+    }
 
-	/**
-	 *获取状态，0表示禁用；1表示启用
-	 *@return
-	 */
-	public int getState(){
-		return state;
-	}
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
-	/**
-	 *设置机构表id，用于区分平台
-	 *@param: organizationId
-	 */
-	public void setOrganizationId(Long organizationId){
-		this.organizationId = organizationId;
-	}
+    public Long getOrganizationId() {
+        return organizationId;
+    }
 
-	/**
-	 *获取机构表id，用于区分平台
-	 *@return
-	 */
-	public Long getOrganizationId(){
-		return organizationId;
-	}
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
 
-	/**
-	 *设置创建、修改时间
-	 *@param: createTime
-	 */
-	public void setCreateTime(java.util.Date createTime){
-		this.createTime = createTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	/**
-	 *获取创建、修改时间
-	 *@return
-	 */
-	public java.util.Date getCreateTime(){
-		return createTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	/**
-	 *设置是否逻辑删除
-	 *@param: logicRemove
-	 */
-	public void setLogicRemove(int logicRemove){
-		this.logicRemove = logicRemove;
-	}
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
 
-	/**
-	 *获取是否逻辑删除
-	 *@return
-	 */
-	public int getLogicRemove(){
-		return logicRemove;
-	}
+    public void setLogicRemove(Boolean logicRemove) {
+        this.logicRemove = logicRemove;
+    }
 
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", name='" + name + '\'' +
+                ", state=" + state +
+                ", organizationId=" + organizationId +
+                ", createTime=" + createTime +
+                ", logicRemove=" + logicRemove +
+                '}';
+    }
 }
