@@ -77,7 +77,7 @@
 		organization_id,
 		create_time,
 		logic_remove
-		FROM department WHERE id = ${id}
+		FROM department WHERE id = #{id}
   </select>
 
   <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.Department">
@@ -89,7 +89,7 @@
 		create_time =#{createTime},
 		logic_remove =#{logicRemove}
 		WHERE id
-		= ${id}
+		= #{id}
   </update>
 
   <delete id="deleteById" parameterType="Long">
@@ -101,7 +101,7 @@
        DELETE FROM department WHERE id IN
     	]]>
         <foreach close=")" collection="list" item="id" open="(" separator=",">
-            ${id}
+            #{id}
         </foreach>
     </delete>
 </mapper>

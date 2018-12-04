@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DepartmentDao {
 
-     Department findById(@Param("id")Long id);
+     Department findById(Long id);
 
      int deleteById(Long id);
 
@@ -15,7 +15,7 @@ public interface DepartmentDao {
 
      int insertSelective(Department record);
 
-     int update(Department department);
+     int update(Department record);
 
      int deleteBatchById(List<Long> ids);
 }
