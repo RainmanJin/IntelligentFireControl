@@ -1,6 +1,6 @@
 #以下是测试和正式环境通用配置
 server:
-  port: 8081
+  port: 8080
   tomcat:
     uri-encoding: UTF-8
   servlet:
@@ -24,9 +24,9 @@ spring:
         test-while-idle: true
         time-between-eviction-runs-millis: 60000
         min-evictable-idle-time-millis: 300000
-        jdbc-url: jdbc:mysql://47.104.156.99:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
-        username: duhj
-        password: dhj199211
+        jdbc-url: jdbc:mysql://47.99.100.79:3306/intelligent_fire_control?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
+        username: root
+        password: root
 primary:
    mapperLocations: classpath:mapper/**/*.xml
 #配置分页插件pagehelper
