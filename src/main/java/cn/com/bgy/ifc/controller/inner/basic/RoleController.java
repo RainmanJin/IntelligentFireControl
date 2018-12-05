@@ -1,11 +1,12 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.domain.interfaces.basic.DepartmentDomain;
-import cn.com.bgy.ifc.entity.po.basic.Department;
-import cn.com.bgy.ifc.entity.po.basic.SystemOperationLog;
+import cn.com.bgy.ifc.domain.interfaces.basic.RoleDomain;
+import cn.com.bgy.ifc.entity.po.basic.SystemPower;
+import cn.com.bgy.ifc.entity.po.basic.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.basic.DepartmentVo;
+import cn.com.bgy.ifc.entity.vo.basic.SystemPowerVo;
+import cn.com.bgy.ifc.entity.vo.basic.SystemRoleVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,58 +17,59 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: ZhangCheng
- * @description:部门管理
- * @date: 2018-12-05 09:30
+ * @description:系统角色管理
+ * @date: 2018-12-05 10:04
  **/
 @Controller
-@RequestMapping("/basic/department")
-public class DepartmentController {
+@RequestMapping("/basic/role")
+public class RoleController {
+
     @Autowired
-    private DepartmentDomain departmentDomain;
+    private RoleDomain roleDomain;
 
     @GetMapping("queryList")
     @ResponseBody
-    public ResponseVO<PageInfo<Department>> queryUserList(Page<Department> page,DepartmentVo departmentVo) {
+    public ResponseVO<PageInfo<SystemRole>> queryUserList(Page<SystemRole> page, SystemRoleVo systemRoleVo) {
         try {
-            Department department = new Department();
-            CopyUtil.copyProperties(departmentVo, department);
-            PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page,department);
-            return ResponseVO.<PageInfo<Department>>success().setData(pageInfo);
+            SystemRole systemRole = new SystemRole();
+            CopyUtil.copyProperties(systemRoleVo, systemRole);
+            PageInfo<SystemRole> pageInfo = roleDomain.queryListByPage(page, systemRole);
+            return ResponseVO.<PageInfo<SystemRole>>success().setData(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseVO.<PageInfo<Department>>exception();
+            return ResponseVO.<PageInfo<SystemRole>>exception();
         }
     }
 
     @GetMapping("queryById/{id}")
     @ResponseBody
-    public ResponseVO<DepartmentVo> queryById(@PathVariable long id) {
+    public ResponseVO<SystemRoleVo> queryById(@PathVariable long id) {
         try {
-            Department department = departmentDomain.findById(id);
-            DepartmentVo departmentVo = new DepartmentVo();
-            CopyUtil.copyProperties(department, departmentVo);
-            return ResponseVO.<DepartmentVo>success().setData(departmentVo);
+            SystemRole systemRole = roleDomain.findById(id);
+            SystemRoleVo systemRoleVo = new SystemRoleVo();
+            CopyUtil.copyProperties(systemRole, systemRoleVo);
+            return ResponseVO.<SystemRoleVo>success().setData(systemRoleVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseVO.<DepartmentVo>exception();
+            return ResponseVO.<SystemRoleVo>exception();
         }
     }
 
     @PostMapping("add")
     @ResponseBody
-    public ResponseVO<Object> add(@Validated DepartmentVo departmentVo, BindingResult error) {
+    public ResponseVO<Object> add(@Validated SystemRoleVo systemRoleVo, BindingResult error) {
         try {
             //参数校检
             if (error.hasErrors()) {
                 return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
             }
-            Department department = new Department();
-            CopyUtil.copyProperties(departmentVo, department);
-            int count = departmentDomain.insert(department);
+            SystemRole systemRole = new SystemRole();
+            CopyUtil.copyProperties(systemRoleVo, systemRole);
+            int count = roleDomain.insert(systemRole);
             if (count == 1) {
                 return ResponseVO.success().setMsg("添加成功！");
             }
-            return ResponseVO.error().setMsg("修改失败！");
+            return ResponseVO.error().setMsg("添加失败！");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.exception();
@@ -76,15 +78,15 @@ public class DepartmentController {
 
     @PostMapping("edit")
     @ResponseBody
-    public ResponseVO<Object> edit(@Validated DepartmentVo departmentVo, BindingResult error) {
+    public ResponseVO<Object> edit(@Validated SystemRoleVo systemRoleVo, BindingResult error) {
         try {
             //参数校检
             if (error.hasErrors()) {
                 return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
             }
-            Department department = new Department();
-            CopyUtil.copyProperties(departmentVo, department);
-            int count = departmentDomain.update(department);
+            SystemRole systemRole = new SystemRole();
+            CopyUtil.copyProperties(systemRoleVo, systemRole);
+            int count = roleDomain.update(systemRole);
             if (count == 1) {
                 return ResponseVO.success().setMsg("修改成功");
             }
@@ -95,15 +97,16 @@ public class DepartmentController {
         }
     }
 
+
     @DeleteMapping("delete/{id}")
     @ResponseBody
     public ResponseVO<Object> delete(@PathVariable long id) {
         try {
-            int count = departmentDomain.deleteById(id);
-            if (count== 1) {
+            int count = roleDomain.deleteById(id);
+            if (count == 1) {
                 return ResponseVO.success().setMsg("删除成功");
             }
-            return ResponseVO.error().setMsg("删除失败！");
+            return ResponseVO.error().setMsg("删除失败");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.exception();

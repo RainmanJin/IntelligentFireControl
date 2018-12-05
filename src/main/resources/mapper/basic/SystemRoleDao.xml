@@ -1,47 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.basic.SystemRoleDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemRole">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
-    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
-  </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
-    insert into system_role (id, name, organization_id, 
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemRole">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="organization_id" jdbcType="BIGINT" property="organizationId"/>
+        <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
+    insert into system_role (name, organization_id,
       logic_remove)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT}, 
+    values (#{name,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT},
       #{logicRemove,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
-    insert into system_role
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
+        insert into system_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="organizationId != null">
+                organization_id,
+            </if>
+            <if test="logicRemove != null">
+                logic_remove,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationId != null">
+                #{organizationId,jdbcType=BIGINT},
+            </if>
+            <if test="logicRemove != null">
+                #{logicRemove,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="queryAllList" resultMap="BaseResultMap">
+		SELECT
+		id,
+		name,
+		organization_id,
+		logic_remove
+		FROM system_role
+  </select>
+
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole" resultMap="BaseResultMap">
+        SELECT
         id,
-      </if>
-      <if test="name != null">
         name,
-      </if>
-      <if test="organizationId != null">
         organization_id,
-      </if>
-      <if test="logicRemove != null">
-        logic_remove,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="organizationId != null">
-        #{organizationId,jdbcType=BIGINT},
-      </if>
-      <if test="logicRemove != null">
-        #{logicRemove,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
+        logic_remove
+        FROM system_role
+        WHERE 1=1
+        <if test="name != null ">
+            AND name=#{name}
+        </if>
+        <if test="organizationId != null ">
+            AND organization_id=#{organizationId}
+        </if>
+        <if test="logicRemove != null ">
+            AND logic_remove=#{logicRemove}
+        </if>
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+		SELECT
+		id,
+		name,
+		organization_id,
+		logic_remove
+		FROM system_role WHERE id = #{id}
+  </select>
+
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
+        UPDATE system_role
+        <set>
+            <if test="name != null">name =#{name},</if>
+            <if test="organizationId != null">organization_id =#{organizationId},</if>
+            <if test="logicRemove != null">logic_remove =#{logicRemove}</if>
+        </set>
+        WHERE id
+        = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+       DELETE FROM system_role WHERE id = #{id}
+  </delete>
 </mapper>

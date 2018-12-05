@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.entity.po.basic;
 
 public class SystemRole {
+
     private Long id;
 
     private String name;

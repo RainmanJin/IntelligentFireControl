@@ -1,43 +1,60 @@
 package cn.com.bgy.ifc.entity.vo.basic;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class SystemRoleVo {
-    private Long id;
 
-    private String name;
+	/**
+	 *系统自增Id
+	 */
+	private Long id;
 
-    private Long organizationId;
+	/**
+	 *角色名称
+	 */
+	@NotBlank(message="角色名称不能为空")
+	@Size(max=40,message="角色名称长度不正确")
+	private String name;
 
-    private Boolean logicRemove;
+	/**
+	 *机构表Id，用于区分平台
+	 */
+	@NotNull(message="机构ID不能为空")
+	private Long organizationId;
 
-    public Long getId() {
-        return id;
-    }
+	/**
+	 *是否逻辑删除
+	 */
+	private Boolean logicRemove;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Long getOrganizationId() {
-        return organizationId;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
-    }
+	public Long getOrganizationId() {
+		return organizationId;
+	}
 
-    public Boolean getLogicRemove() {
-        return logicRemove;
-    }
+	public void setOrganizationId(Long organizationId) {
+		this.organizationId = organizationId;
+	}
 
-    public void setLogicRemove(Boolean logicRemove) {
-        this.logicRemove = logicRemove;
-    }
+	public Boolean getLogicRemove() {
+		return logicRemove;
+	}
+
 }
