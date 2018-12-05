@@ -1,53 +1,77 @@
 package cn.com.bgy.ifc.entity.vo.basic;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class SystemPowerVo {
-    private Long id;
 
-    private String name;
+	/**
+	 *系统自增Id
+	 */
+	private Long id;
 
-    private String displayName;
+	/**
+	 *权限名称
+	 */
+	@NotBlank(message="权限名称不能为空")
+	@Size(max=50,message="权限名称长度不正确")
+	private String name;
 
-    private String remark;
+	/**
+	 *权限展示名称
+	 */
+	@NotBlank(message="权限展示名称不能为空")
+	@Size(max=50,message="权限展示名称长度不正确")
+	private String displayName;
 
-    private Boolean logicRemove;
+	/**
+	 *备注
+	 */
+	private String remark;
 
-    public Long getId() {
-        return id;
-    }
+	/**
+	 *是否逻辑删除
+	 */
+	private Boolean logicRemove;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getDisplayName() {
-        return displayName;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
+	public String getDisplayName() {
+		return displayName;
+	}
 
-    public String getRemark() {
-        return remark;
-    }
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
 
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
+	public String getRemark() {
+		return remark;
+	}
 
-    public Boolean getLogicRemove() {
-        return logicRemove;
-    }
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
-    public void setLogicRemove(Boolean logicRemove) {
-        this.logicRemove = logicRemove;
-    }
+	public Boolean getLogicRemove() {
+		return logicRemove;
+	}
+
+	public void setLogicRemove(Boolean logicRemove) {
+		this.logicRemove = logicRemove;
+	}
+
 }

@@ -1,21 +1,25 @@
 package cn.com.bgy.ifc.dao.basic;
 
 import cn.com.bgy.ifc.entity.po.basic.Department;
-import org.apache.ibatis.annotations.Param;
+import cn.com.bgy.ifc.entity.po.basic.SystemPower;
 
 import java.util.List;
 
 public interface DepartmentDao {
 
-     Department findById(Long id);
+    List<Department> queryAllList();
 
-     int deleteById(Long id);
+    List<Department> queryListByParam(Department record);
 
-     int insert(Department record);
+    Department findById(Long id);
 
-     int insertSelective(Department record);
+    int deleteById(Long id);
 
-     int update(Department record);
+    int insert(Department record);
 
-     int deleteBatchById(List<Long> ids);
+    int insertSelective(Department record);
+
+    int update(Department record);
+
+    int deleteBatchById(List<Long> ids);
 }
