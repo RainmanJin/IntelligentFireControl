@@ -37,4 +37,28 @@
       </if>
     </trim>
   </insert>
+
+  <delete id="deleteById" parameterType="long" >
+    delete  from system_user_role where id=#{id,jdbcType=BIGINT}
+  </delete>
+  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.basic.Account">
+     select  id, role_id, user_id
+      from system_user_role where id=#{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="findByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.Account" resultType="cn.com.bgy.ifc.entity.po.basic.Account">
+    select  id, role_id, user_id
+    from system_user_role
+    <trim prefix="where" suffix="" prefixOverrides="and">
+          <if test="id != null">
+            and id= #{id,jdbcType=BIGINT}
+          </if>
+          <if test="roleId != null">
+            and role_id=#{roleId,jdbcType=BIGINT}
+          </if>
+          <if test="userId != null">
+            and  user_id= #{userId,jdbcType=BIGINT}
+          </if>
+    </trim>
+  </select>
 </mapper>

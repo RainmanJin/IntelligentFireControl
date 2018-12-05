@@ -1,132 +1,65 @@
 package cn.com.bgy.ifc.entity.vo.basic;
 
+import java.util.Date;
+
 public class RegionInfoVo {
-	/**
-	 *集成平台Id
-	 */
-	private Long id;
+    private Long id;
 
-	/**
-	 *机构表Id，用于区分平台
-	 */
-	private Long organizationId;
+    private Long organizationId;
 
-	/**
-	 *区域编码
-	 */
-	private String code;
+    private String code;
 
-	/**
-	 *区域名称
-	 */
-	private String name;
+    private String name;
 
-	/**
-	 *创建、修改时间
-	 */
-	private java.util.Date createTime;
+    private Date createTime;
 
-	/**
-	 *是否逻辑删除
-	 */
-	private int logicRemove;
+    private Boolean logicRemove;
 
-	public RegionInfoVo(){
-}
-	/**
-	 *设置集成平台Id
-	 *@param: id
-	 */
-	public void setId(Long id){
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 *获取集成平台Id
-	 *@return
-	 */
-	public Long getId(){
-		return id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 *设置机构表Id，用于区分平台
-	 *@param: organizationId
-	 */
-	public void setOrganizationId(Long organizationId){
-		this.organizationId = organizationId;
-	}
+    public Long getOrganizationId() {
+        return organizationId;
+    }
 
-	/**
-	 *获取机构表Id，用于区分平台
-	 *@return
-	 */
-	public Long getOrganizationId(){
-		return organizationId;
-	}
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
 
-	/**
-	 *设置区域编码
-	 *@param: code
-	 */
-	public void setCode(String code){
-		this.code = code;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	/**
-	 *获取区域编码
-	 *@return
-	 */
-	public String getCode(){
-		return code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	/**
-	 *设置区域名称
-	 *@param: name
-	 */
-	public void setName(String name){
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 *获取区域名称
-	 *@return
-	 */
-	public String getName(){
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 *设置创建、修改时间
-	 *@param: createTime
-	 */
-	public void setCreateTime(java.util.Date createTime){
-		this.createTime = createTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	/**
-	 *获取创建、修改时间
-	 *@return
-	 */
-	public java.util.Date getCreateTime(){
-		return createTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	/**
-	 *设置是否逻辑删除
-	 *@param: logicRemove
-	 */
-	public void setLogicRemove(int logicRemove){
-		this.logicRemove = logicRemove;
-	}
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
 
-	/**
-	 *获取是否逻辑删除
-	 *@return
-	 */
-	public int getLogicRemove(){
-		return logicRemove;
-	}
-
+    public void setLogicRemove(Boolean logicRemove) {
+        this.logicRemove = logicRemove;
+    }
 }

@@ -1,153 +1,75 @@
 package cn.com.bgy.ifc.entity.vo.basic;
 
+import java.util.Date;
+
 public class RegionCourtVo {
-	/**
-	 *集成平台Id
-	 */
-	private Long id;
+    private Long id;
 
-	/**
-	 *机构表id，用于区分平台
-	 */
-	private Long organizationId;
+    private Long organizationId;
 
-	/**
-	 *区域表主键id
-	 */
-	private Long regionId;
+    private Long regionId;
 
-	/**
-	 *项目表主键id
-	 */
-	private Long projectId;
+    private Long projectId;
 
-	/**
-	 *项目名称
-	 */
-	private String name;
+    private String name;
 
-	/**
-	 *创建、修改时间
-	 */
-	private java.util.Date createTime;
+    private Date createTime;
 
-	/**
-	 *
-	 */
-	private int logicRemove;
+    private Boolean logicRemove;
 
-	public RegionCourtVo(){
-}
-	/**
-	 *设置集成平台Id
-	 *@param: id
-	 */
-	public void setId(Long id){
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 *获取集成平台Id
-	 *@return
-	 */
-	public Long getId(){
-		return id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 *设置机构表id，用于区分平台
-	 *@param: organizationId
-	 */
-	public void setOrganizationId(Long organizationId){
-		this.organizationId = organizationId;
-	}
+    public Long getOrganizationId() {
+        return organizationId;
+    }
 
-	/**
-	 *获取机构表id，用于区分平台
-	 *@return
-	 */
-	public Long getOrganizationId(){
-		return organizationId;
-	}
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
 
-	/**
-	 *设置区域表主键id
-	 *@param: regionId
-	 */
-	public void setRegionId(Long regionId){
-		this.regionId = regionId;
-	}
+    public Long getRegionId() {
+        return regionId;
+    }
 
-	/**
-	 *获取区域表主键id
-	 *@return
-	 */
-	public Long getRegionId(){
-		return regionId;
-	}
+    public void setRegionId(Long regionId) {
+        this.regionId = regionId;
+    }
 
-	/**
-	 *设置项目表主键id
-	 *@param: projectId
-	 */
-	public void setProjectId(Long projectId){
-		this.projectId = projectId;
-	}
+    public Long getProjectId() {
+        return projectId;
+    }
 
-	/**
-	 *获取项目表主键id
-	 *@return
-	 */
-	public Long getProjectId(){
-		return projectId;
-	}
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
 
-	/**
-	 *设置项目名称
-	 *@param: name
-	 */
-	public void setName(String name){
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 *获取项目名称
-	 *@return
-	 */
-	public String getName(){
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 *设置创建、修改时间
-	 *@param: createTime
-	 */
-	public void setCreateTime(java.util.Date createTime){
-		this.createTime = createTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	/**
-	 *获取创建、修改时间
-	 *@return
-	 */
-	public java.util.Date getCreateTime(){
-		return createTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	/**
-	 *设置
-	 *@param: logicRemove
-	 */
-	public void setLogicRemove(int logicRemove){
-		this.logicRemove = logicRemove;
-	}
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
 
-	/**
-	 *获取
-	 *@return
-	 */
-	public int getLogicRemove(){
-		return logicRemove;
-	}
-
+    public void setLogicRemove(Boolean logicRemove) {
+        this.logicRemove = logicRemove;
+    }
 }

@@ -157,11 +157,38 @@
       </if>
     </trim>
   </insert>
-  <delete id="deleteById" parameterType="string" >
+  <delete id="deleteById" parameterType="long" >
     delete  from account where id=#{id,jdbcType=BIGINT}
   </delete>
-  <select id="findById" parameterType="string" resultType="cn.com.bgy.ifc.entity.po.basic.Account">
-     select * from account where id=#{id,jdbcType=BIGINT}
+  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.basic.Account">
+     select  id, organization_id, department_id,
+              telephone, job_number, user_name,
+              password, password_salt, identity_number,
+              sex, regist_time, is_disable,
+              current_ip, current_time, last_ip,
+              last_time, user_type, remark
+      from account where id=#{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="findByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.Account" resultType="cn.com.bgy.ifc.entity.po.basic.Account">
+     select  id, organization_id, department_id,
+              telephone, job_number, user_name,
+              password, password_salt, identity_number,
+              sex, regist_time, is_disable,
+              current_ip, current_time, last_ip,
+              last_time, user_type, remark
+       from account
+    <trim prefix="where" suffix="" prefixOverrides="and">
+        <if test="telephone != null" >
+          and telephone= #{telephone,jdbcType=VARCHAR}
+        </if>
+        <if test="jobNumber != null">
+          and  job_number #{jobNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="userName != null">
+          and user_name #{userName,jdbcType=VARCHAR}
+        </if>
+    </trim>
   </select>
 
 </mapper>

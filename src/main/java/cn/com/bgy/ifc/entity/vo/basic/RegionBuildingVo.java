@@ -1,132 +1,95 @@
 package cn.com.bgy.ifc.entity.vo.basic;
 
+import java.util.Date;
+
 public class RegionBuildingVo {
-	/**
-	 *集成平台Id
-	 */
 	private Long id;
 
-	/**
-	 *机构表Id，用于区分平台
-	 */
 	private Long organizationId;
 
-	/**
-	 *区域表主键Id
-	 */
 	private Long regionId;
 
-	/**
-	 *项目表主键Id
-	 */
 	private Long projectId;
 
-	/**
-	 *苑区表主键Id
-	 */
 	private Long courtId;
 
-	/**
-	 *
-	 */
 	private Long streetId;
 
-	public RegionBuildingVo(){
-}
-	/**
-	 *设置集成平台Id
-	 *@param: id
-	 */
-	public void setId(Long id){
-		this.id = id;
-	}
+	private String name;
 
-	/**
-	 *获取集成平台Id
-	 *@return
-	 */
-	public Long getId(){
+	private Date createTime;
+
+	private Boolean logicRemove;
+
+	public Long getId() {
 		return id;
 	}
 
-	/**
-	 *设置机构表Id，用于区分平台
-	 *@param: organizationId
-	 */
-	public void setOrganizationId(Long organizationId){
-		this.organizationId = organizationId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	/**
-	 *获取机构表Id，用于区分平台
-	 *@return
-	 */
-	public Long getOrganizationId(){
+	public Long getOrganizationId() {
 		return organizationId;
 	}
 
-	/**
-	 *设置区域表主键Id
-	 *@param: regionId
-	 */
-	public void setRegionId(Long regionId){
-		this.regionId = regionId;
+	public void setOrganizationId(Long organizationId) {
+		this.organizationId = organizationId;
 	}
 
-	/**
-	 *获取区域表主键Id
-	 *@return
-	 */
-	public Long getRegionId(){
+	public Long getRegionId() {
 		return regionId;
 	}
 
-	/**
-	 *设置项目表主键Id
-	 *@param: projectId
-	 */
-	public void setProjectId(Long projectId){
-		this.projectId = projectId;
+	public void setRegionId(Long regionId) {
+		this.regionId = regionId;
 	}
 
-	/**
-	 *获取项目表主键Id
-	 *@return
-	 */
-	public Long getProjectId(){
+	public Long getProjectId() {
 		return projectId;
 	}
 
-	/**
-	 *设置苑区表主键Id
-	 *@param: courtId
-	 */
-	public void setCourtId(Long courtId){
-		this.courtId = courtId;
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
 
-	/**
-	 *获取苑区表主键Id
-	 *@return
-	 */
-	public Long getCourtId(){
+	public Long getCourtId() {
 		return courtId;
 	}
 
-	/**
-	 *设置
-	 *@param: streetId
-	 */
-	public void setStreetId(Long streetId){
-		this.streetId = streetId;
+	public void setCourtId(Long courtId) {
+		this.courtId = courtId;
 	}
 
-	/**
-	 *获取
-	 *@return
-	 */
-	public Long getStreetId(){
+	public Long getStreetId() {
 		return streetId;
 	}
 
+	public void setStreetId(Long streetId) {
+		this.streetId = streetId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Boolean getLogicRemove() {
+		return logicRemove;
+	}
+
+	public void setLogicRemove(Boolean logicRemove) {
+		this.logicRemove = logicRemove;
+	}
 }

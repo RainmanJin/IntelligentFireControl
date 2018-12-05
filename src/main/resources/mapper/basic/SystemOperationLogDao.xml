@@ -9,15 +9,10 @@
     <result column="ip" jdbcType="VARCHAR" property="ip" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.basic.SystemOperationLogWithBLOBs">
     <result column="operator_content" jdbcType="LONGVARCHAR" property="operatorContent" />
     <result column="operator_describe" jdbcType="LONGVARCHAR" property="operatorDescribe" />
   </resultMap>
-  <sql id="Blob_Column_List">
-    operator_content, operator_describe
-  </sql>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLogWithBLOBs">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
     insert into system_operation_log (id, user_id, user_name, 
       log_type, ip, create_time, 
       logic_remove, operator_content, operator_describe
@@ -27,7 +22,7 @@
       #{logicRemove,jdbcType=BIT}, #{operatorContent,jdbcType=LONGVARCHAR}, #{operatorDescribe,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLogWithBLOBs">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
     insert into system_operation_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
