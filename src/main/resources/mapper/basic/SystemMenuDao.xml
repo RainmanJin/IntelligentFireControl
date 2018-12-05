@@ -83,4 +83,54 @@
       </if>
     </trim>
   </insert>
+
+  <insert id="addSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+    insert into system_menu (id, name, image_url,
+      navigate_url, remark, sort_index,
+      parent_id, power_id, logic_remove
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR},
+      #{navigateUrl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{sortIndex,jdbcType=INTEGER},
+      #{parentId,jdbcType=BIGINT}, #{powerId,jdbcType=BIGINT}, #{logicRemove,jdbcType=BIT}
+      )
+  </insert>
+
+  <select id="queryAllSystemMenuInfo" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+    SELECT
+    s.id,s.image_url,s.logic_remove,s.`name`,
+    s.navigate_url,s.parent_id,s.power_id,s.remark,s.sort_index
+    from system_menu s
+
+  </select>
+
+  <select id="queryOneSystemMenuInfo" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" parameterType="java.lang.Long">
+    SELECT
+    s.id,s.image_url,s.logic_remove,s.`name`,
+    s.navigate_url,s.parent_id,s.power_id,s.remark,s.sort_index
+    from system_menu s where s.id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="queryKeyWordSystemMenuInfo" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" parameterType="java.lang.String">
+
+
+  </select>
+
+  <update id="updateSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+    update system_menu s
+    set s.image_url= #{imageUrl,jdbcType=VARCHAR},s.logic_remove=#{logicRemove,jdbcType=BIT},
+    s.`name`=#{name,jdbcType=VARCHAR},s.navigate_url= #{navigateUrl,jdbcType=VARCHAR},s.parent_id= #{parentId,jdbcType=BIGINT},
+    s.power_id= #{powerId,jdbcType=BIGINT},s.remark=#{remark,jdbcType=VARCHAR},s.sort_index=#{sortIndex,jdbcType=INTEGER}
+    where s.id =#{id,jdbcType=BIGINT}
+
+  </update>
+
+  <update id="deleteSystemMenuInfo" parameterType="java.lang.Long">
+    update system_menu s set s.logic_remove=0 where s.id =#{id,jdbcType=BIGINT}
+  </update>
+  <update id="deleteListSystemMenuInfo"  parameterType="java.lang.Long"  >
+    update system_menu s set s.logic_remove=0 where s.id in
+    <foreach collection="array" index="index" item="id" open="(" separator="," close=")">
+      #{id,jdbcType=BIGINT}
+    </foreach>
+  </update>
 </mapper>

@@ -2,8 +2,24 @@ package cn.com.bgy.ifc.dao.basic;
 
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 
-public interface SystemMenuDao {
-    int insert(SystemMenu record);
+import java.util.List;
 
-    int insertSelective(SystemMenu record);
+public interface SystemMenuDao {
+    public int insert(SystemMenu record);
+
+    public int insertSelective(SystemMenu record);
+
+    public int addSystemMenuInfo(SystemMenu systemMenu);
+
+    public List<SystemMenu> queryAllSystemMenuInfo();
+
+    public List<SystemMenu> queryKeyWordSystemMenuInfo(String keyWord);
+
+    public SystemMenu queryOneSystemMenuInfo(Long id);
+
+    public int updateSystemMenuInfo(SystemMenu systemMenu);
+
+    public int deleteSystemMenuInfo(Long id);
+
+    public int deleteListSystemMenuInfo(Long[] id);
 }
