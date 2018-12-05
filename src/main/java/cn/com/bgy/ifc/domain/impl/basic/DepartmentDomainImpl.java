@@ -6,6 +6,7 @@ import cn.com.bgy.ifc.entity.po.basic.Department;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,6 +27,12 @@ public class DepartmentDomainImpl implements DepartmentDomain {
 
     @Override
     public int insert(Department department) {
+        if(department.getParentId()==null){
+            department.setParentId(0L);
+        }
+        department.setState(1);
+        department.setCreateTime(new Date());
+        department.setLogicRemove(false);
         return departmentDao.insert(department);
     }
 
