@@ -8,7 +8,7 @@ import java.util.List;
 public interface AccountDomain {
     int save(Account account);
 
-    List<Account> searchByWhere(Account account);
+    //List<Account> searchByWhere(Account account);
 
     int deleteById(Long id);
 

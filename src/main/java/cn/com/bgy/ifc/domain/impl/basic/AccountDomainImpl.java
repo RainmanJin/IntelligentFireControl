@@ -21,10 +21,10 @@ public class AccountDomainImpl implements AccountDomain {
         return accountDao.insert(account);
     }
 
-    @Override
+    /*@Override
     public List<Account> searchByWhere(Account account) {
         return accountDao.searchByWhere(account);
-    }
+    }*/
 
     @Override
     public int deleteById(Long id) {
@@ -35,5 +35,6 @@ public class AccountDomainImpl implements AccountDomain {
     public Account findById(Long id) {
         return accountDao.findById(id);
     }
+
 
 }

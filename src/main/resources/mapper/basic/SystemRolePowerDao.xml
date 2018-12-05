@@ -37,40 +37,4 @@
       </if>
     </trim>
   </insert>
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemRolePower">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="role_id" jdbcType="BIGINT" property="roleId" />
-    <result column="power_id" jdbcType="BIGINT" property="powerId" />
-  </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower">
-    insert into system_role_power (id, role_id, power_id
-      )
-    values (#{id,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{powerId,jdbcType=BIGINT}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower">
-    insert into system_role_power
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="roleId != null">
-        role_id,
-      </if>
-      <if test="powerId != null">
-        power_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=BIGINT},
-      </if>
-      <if test="powerId != null">
-        #{powerId,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
 </mapper>
