@@ -31,9 +31,9 @@ public class AccountDomainImpl implements AccountDomain {
 
     @Override
     public PageInfo<Account> searchByPage(Page page, Account account) {
-        page=PageHelper.startPage(page.getPageNum(),page.getPageSize(),page.getOrderBy());
-        List<Account> accountList=this.searchByWhere(account);
-        PageInfo<Account> pageInfo=new PageInfo<>(accountList);
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        List<Account> accountList = this.searchByWhere(account);
+        PageInfo<Account> pageInfo = new PageInfo<>(accountList);
         return pageInfo;
     }
 
@@ -45,6 +45,11 @@ public class AccountDomainImpl implements AccountDomain {
     @Override
     public Account findById(Long id) {
         return accountDao.findById(id);
+    }
+
+    @Override
+    public int update(Account account) {
+        return accountDao.updateById(account);
     }
 
 

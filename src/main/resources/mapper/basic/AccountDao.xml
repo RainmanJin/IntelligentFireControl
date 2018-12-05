@@ -190,5 +190,25 @@
         </if>
     </trim>
   </select>
-
+<update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.basic.Account" >
+  update account set
+    organization_id =#{organizationId,jdbcType=BIGINT},
+    department_id = #{departmentId,jdbcType=BIGINT},
+    telephone = #{telephone,jdbcType=VARCHAR},
+    job_number = #{jobNumber,jdbcType=VARCHAR},
+    user_name = #{userName,jdbcType=VARCHAR},
+    password = #{password,jdbcType=VARCHAR},
+    password_salt = #{passwordSalt,jdbcType=VARCHAR},
+    identityn_umber = #{identityNumber,jdbcType=VARCHAR},
+    sex =  #{sex,jdbcType=INTEGER},
+    regist_time = #{registTime,jdbcType=TIMESTAMP},
+    is_disable = #{isDisable,jdbcType=INTEGER},
+    current_ip= #{currentIp,jdbcType=VARCHAR},
+    current_time= #{currentTime,jdbcType=TIMESTAMP},
+    last_ip= #{lastIp,jdbcType=VARCHAR},
+    last_time= #{lastTime,jdbcType=TIMESTAMP},
+    user_type= #{userType,jdbcType=INTEGER},
+    remark= #{remark,jdbcType=LONGVARCHAR}
+    where id=#{id,jdbcType=BIGINT}
+</update>
 </mapper>

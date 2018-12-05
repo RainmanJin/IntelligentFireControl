@@ -13,4 +13,6 @@ public interface AccountDao {
     int deleteById(Long id);
 
     Account findById(Long id);
+
+    int updateById(Account account);
 }

@@ -16,4 +16,6 @@ public interface SystemUserRoleDomain {
     int deleteById(Long id);
 
     SystemUserRole findById(Long id);
+
+    int updateById(SystemUserRole systemUserRole);
 }

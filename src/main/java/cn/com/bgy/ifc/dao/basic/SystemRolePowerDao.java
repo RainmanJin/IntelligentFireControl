@@ -15,4 +15,6 @@ public interface SystemRolePowerDao {
     List<SystemRolePower> searchByWhere(SystemRolePower record);
 
     int deleteById(Long id);
+
+    int updateById(SystemRolePower record);
 }

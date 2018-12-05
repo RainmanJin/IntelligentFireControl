@@ -16,4 +16,6 @@ public interface SystemRolePowerDomain {
     int deleteById(Long id);
 
     SystemRolePower findById(Long id);
+
+    int updateById(SystemRolePower systemRolePower);
 }

@@ -44,5 +44,10 @@ public class SystemUserRoleDomainImpl implements SystemUserRoleDomain {
         return systemUserRoleDao.findById(id);
     }
 
+    @Override
+    public int updateById(SystemUserRole systemUserRole) {
+        return systemUserRoleDao.updateById(systemUserRole);
+    }
+
 
 }

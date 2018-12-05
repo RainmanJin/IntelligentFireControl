@@ -17,4 +17,6 @@ public interface AccountDomain {
     int deleteById(Long id);
 
     Account findById(Long id);
+
+    int update(Account account);
 }

@@ -47,5 +47,10 @@ public class SystemRolePowerDomainImpl implements SystemRolePowerDomain {
         return systemRolePowerDao.findById(id);
     }
 
+    @Override
+    public int updateById(SystemRolePower systemRolePower) {
+        return systemRolePowerDao.updateById(systemRolePower);
+    }
+
 
 }

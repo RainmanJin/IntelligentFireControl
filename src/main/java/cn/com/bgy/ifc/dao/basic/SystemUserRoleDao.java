@@ -15,5 +15,7 @@ public interface SystemUserRoleDao {
 
     List<SystemUserRole> searchByWhere(SystemUserRole record);
 
+    int updateById(SystemUserRole record);
+
 
 }

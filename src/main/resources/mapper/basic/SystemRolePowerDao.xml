@@ -57,4 +57,11 @@
       </if>
     </trim>
   </select>
+  <update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower" >
+    update system_role_power set
+            role_id= #{roleId,jdbcType=BIGINT},
+            power_id=#{powerId,jdbcType=BIGINT}
+    where id=#{id,jdbcType=BIGINT}
+  </update>
+
 </mapper>

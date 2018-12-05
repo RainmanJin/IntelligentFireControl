@@ -61,4 +61,10 @@
           </if>
     </trim>
   </select>
+  <update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemUserRole">
+    update system_user_role set
+            role_id=#{roleId,jdbcType=BIGINT},
+            user_id= #{userId,jdbcType=BIGINT}
+    where id= #{id,jdbcType=BIGINT}
+  </update>
 </mapper>
