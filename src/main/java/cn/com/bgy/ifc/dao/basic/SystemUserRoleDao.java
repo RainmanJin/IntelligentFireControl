@@ -13,7 +13,7 @@ public interface SystemUserRoleDao {
 
     SystemUserRole findById(Long id);
 
-    List<SystemUserRole> findByWhere(SystemUserRole record);
+    List<SystemUserRole> searchByWhere(SystemUserRole record);
 
 
 }

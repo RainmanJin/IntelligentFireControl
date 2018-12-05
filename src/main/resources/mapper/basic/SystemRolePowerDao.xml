@@ -37,4 +37,24 @@
       </if>
     </trim>
   </insert>
+  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower">
+    select  id, role_id, power_id
+    from system_role_power where id=#{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower" resultType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower">
+    select  id, role_id, power_id
+    from system_role_power
+    <trim prefix=" where " suffix="" suffixOverrides="and">
+      <if test="id != null">
+        and id=#{id,jdbcType=BIGINT}
+      </if>
+      <if test="roleId != null">
+        and role_id= #{roleId,jdbcType=BIGINT}
+      </if>
+      <if test="powerId != null">
+        and power_id=#{powerId,jdbcType=BIGINT}
+      </if>
+    </trim>
+  </select>
 </mapper>

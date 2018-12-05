@@ -170,7 +170,7 @@
       from account where id=#{id,jdbcType=BIGINT}
   </select>
 
-  <select id="findByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.Account" resultType="cn.com.bgy.ifc.entity.po.basic.Account">
+  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.Account" resultType="cn.com.bgy.ifc.entity.po.basic.Account">
      select  id, organization_id, department_id,
               telephone, job_number, user_name,
               password, password_salt, identity_number,

@@ -1,133 +1,65 @@
 package cn.com.bgy.ifc.entity.po.basic;
 
+import java.util.Date;
+
 public class SystemOrganization {
+    private Long id;
 
-	/**
-	 *系统自增Id
-	 */
-	private Long id;
+    private String name;
 
-	/**
-	 *机构名称
-	 */
-	private String name;
+    private Integer state;
 
-	/**
-	 *状态，0表示禁用；1表示启用
-	 */
-	private int state;
+    private Long userId;
 
-	/**
-	 *机构管理员，用户表Id
-	 */
-	private Long userId;
+    private Date createTime;
 
-	/**
-	 *创建、修改时间
-	 */
-	private java.util.Date createTime;
+    private Boolean logicRemove;
 
-	/**
-	 *是否逻辑删除
-	 */
-	private int logicRemove;
+    public Long getId() {
+        return id;
+    }
 
-	public SystemOrganization(){
-}
-	/**
-	 *设置系统自增Id
-	 *@param: id
-	 */
-	public void setId(Long id){
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 *获取系统自增Id
-	 *@return
-	 */
-	public Long getId(){
-		return id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 *设置机构名称
-	 *@param: name
-	 */
-	public void setName(String name){
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 *获取机构名称
-	 *@return
-	 */
-	public String getName(){
-		return name;
-	}
+    public Integer getState() {
+        return state;
+    }
 
-	/**
-	 *设置状态，0表示禁用；1表示启用
-	 *@param: state
-	 */
-	public void setState(int state){
-		this.state = state;
-	}
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
-	/**
-	 *获取状态，0表示禁用；1表示启用
-	 *@return
-	 */
-	public int getState(){
-		return state;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	/**
-	 *设置机构管理员，用户表Id
-	 *@param: userId
-	 */
-	public void setUserId(Long userId){
-		this.userId = userId;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	/**
-	 *获取机构管理员，用户表Id
-	 *@return
-	 */
-	public Long getUserId(){
-		return userId;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	/**
-	 *设置创建、修改时间
-	 *@param: createTime
-	 */
-	public void setCreateTime(java.util.Date createTime){
-		this.createTime = createTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	/**
-	 *获取创建、修改时间
-	 *@return
-	 */
-	public java.util.Date getCreateTime(){
-		return createTime;
-	}
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
 
-	/**
-	 *设置是否逻辑删除
-	 *@param: logicRemove
-	 */
-	public void setLogicRemove(int logicRemove){
-		this.logicRemove = logicRemove;
-	}
-
-	/**
-	 *获取是否逻辑删除
-	 *@return
-	 */
-	public int getLogicRemove(){
-		return logicRemove;
-	}
-
+    public void setLogicRemove(Boolean logicRemove) {
+        this.logicRemove = logicRemove;
+    }
 }
