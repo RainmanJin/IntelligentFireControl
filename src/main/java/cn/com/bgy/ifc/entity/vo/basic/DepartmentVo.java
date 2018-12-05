@@ -1,5 +1,9 @@
 package cn.com.bgy.ifc.entity.vo.basic;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class DepartmentVo {
 
 	/**
@@ -15,6 +19,8 @@ public class DepartmentVo {
 	/**
 	 *部门名称
 	 */
+	@NotBlank(message="部门名称不能为空")
+	@Size(max=50,message="部门名称长度不正确")
 	private String name;
 
 	/**
@@ -25,6 +31,7 @@ public class DepartmentVo {
 	/**
 	 *机构表id，用于区分平台
 	 */
+	@NotNull(message="机构ID不能为空")
 	private Long organizationId;
 
 	/**
