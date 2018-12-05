@@ -1,6 +1,6 @@
-package cn.com.bgy.ifc.dao.basic;
+package cn.com.bgy.ifc.domain.interfaces.basic;
 import cn.com.bgy.ifc.entity.po.basic.SystemOrganization;
-public interface SystemOrganizationDao {
+public interface SystemOrganizationDomain {
     SystemOrganization findById(Long id);
 
     int insert(SystemOrganization systemOrganization);

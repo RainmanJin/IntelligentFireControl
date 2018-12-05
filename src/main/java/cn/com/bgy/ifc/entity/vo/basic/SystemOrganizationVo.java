@@ -62,4 +62,16 @@ public class SystemOrganizationVo {
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
     }
+
+    @Override
+    public String toString() {
+        return "SystemOrganizationVo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", state=" + state +
+                ", userId=" + userId +
+                ", createTime=" + createTime +
+                ", logicRemove=" + logicRemove +
+                '}';
+    }
 }
