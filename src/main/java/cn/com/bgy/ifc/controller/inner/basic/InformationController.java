@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.domain.interfaces.basic.InformationDomain;
 import cn.com.bgy.ifc.entity.po.basic.Information;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.basic.InformationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
