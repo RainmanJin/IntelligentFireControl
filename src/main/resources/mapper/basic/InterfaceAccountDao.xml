@@ -128,5 +128,42 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-
+<!--分页查询-->
+    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.InterfaceAccount" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from interfaceAccount
+        <trim prefix="where" suffix="" prefixOverrides="and">
+            <if test="orgId != null">
+            and   org_id = #{orgId,jdbcType=BIGINT},
+            </if>
+            <if test="typeId != null">
+            and type_id = #{typeId,jdbcType=BIGINT},
+            </if>
+            <if test="tile != null">
+            and tile = #{tile,jdbcType=VARCHAR},
+            </if>
+            <if test="signature != null">
+            and signature = #{signature,jdbcType=VARCHAR},
+            </if>
+            <if test="dateLine != null">
+            and date_line = #{dateLine,jdbcType=VARCHAR},
+            </if>
+            <if test="dId != null">
+            and d_id = #{dId,jdbcType=BIGINT},
+            </if>
+            <if test="uId != null">
+            and u_id = #{uId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+            and create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logicRemove != null">
+            and logic_remove = #{logicRemove,jdbcType=BIT},
+            </if>
+            <if test="content != null">
+            and content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </select>
 </mapper>

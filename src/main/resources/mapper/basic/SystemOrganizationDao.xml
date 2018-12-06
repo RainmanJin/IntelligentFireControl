@@ -87,5 +87,27 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-
+    <!--分页-->
+    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOrganization" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from systemOrganization
+        <trim prefix="where" suffix="" prefixOverrides="and">
+            <if test="name != null">
+            and name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+            and state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+            and user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+            and create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logicRemove != null">
+            and logic_remove = #{logicRemove,jdbcType=BIT},
+            </if>
+        </trim>
+    </select>
 </mapper>
