@@ -1,8 +1,10 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.domain.interfaces.basic.InterfaceaccountDomain;
-import cn.com.bgy.ifc.entity.po.basic.Interfaceaccount;
+import cn.com.bgy.ifc.domain.interfaces.basic.InterfaceAccountDomain;
+
+import cn.com.bgy.ifc.entity.vo.basic.InterfaceAccountVo;
+import cn.com.bgy.ifc.entity.po.basic.InterfaceAccount;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,20 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/basic/interfaceaccount")
-public class InterfaceaccountController {
+@RequestMapping("/basic/interfaceAccount")
+public class InterfaceAccountController {
     @Autowired
-    private InterfaceaccountDomain interfaceaccountDomain;
+    private InterfaceAccountDomain interfaceaccountDomain;
     @GetMapping("add")
     @ResponseBody
-    public ResponseVO<Object> add(@Validated InterfaceaccountVo interfaceaccountVo, BindingResult error){
+    public ResponseVO<Object> add(@Validated InterfaceAccountVo interfaceaccountVo, BindingResult error){
 
         try {
             //todo informationVo 做参数校检
             if(error.hasErrors()){
                 return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
             }
-            Interfaceaccount interfaceaccount= new Interfaceaccount();
+            InterfaceAccount interfaceaccount= new InterfaceAccount();
             CopyUtil.copyProperties(interfaceaccountVo,interfaceaccount);
             interfaceaccountDomain.insert(interfaceaccount);
             return ResponseVO.success();
@@ -37,13 +39,13 @@ public class InterfaceaccountController {
     }
     @GetMapping("update")
     @ResponseBody
-    public ResponseVO<Object> update(@Validated InterfaceaccountVo interfaceaccountVo, BindingResult error){
+    public ResponseVO<Object> update(@Validated InterfaceAccountVo interfaceaccountVo, BindingResult error){
         try {
             //todo interfaceaccountVo 做参数校检
             if(error.hasErrors()){
                 return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
             }
-            Interfaceaccount interfaceaccount= new Interfaceaccount();
+            InterfaceAccount interfaceaccount= new InterfaceAccount();
             CopyUtil.copyProperties(interfaceaccountVo,interfaceaccount);
             interfaceaccountDomain.update(interfaceaccount);
             return ResponseVO.success();
@@ -67,7 +69,7 @@ public class InterfaceaccountController {
         if(id==null){
             return ResponseVO.error().setMsg("id不能为空");
         }
-        Interfaceaccount interfaceaccount = interfaceaccountDomain.findById(id);
+        InterfaceAccount interfaceaccount = interfaceaccountDomain.findById(id);
         ResponseVO responseVO = new ResponseVO();
         responseVO.setData(interfaceaccount);
         responseVO.setCode(ResponseVO.SUCCESS);

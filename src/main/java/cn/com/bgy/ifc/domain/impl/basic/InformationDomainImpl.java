@@ -1,4 +1,5 @@
 package cn.com.bgy.ifc.domain.impl.basic;
+import cn.com.bgy.ifc.dao.basic.InformationDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.InformationDomain;
 import cn.com.bgy.ifc.entity.po.basic.Information;
 import org.springframework.stereotype.Service;

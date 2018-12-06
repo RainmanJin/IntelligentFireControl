@@ -3,7 +3,11 @@ package cn.com.bgy.ifc.dao.basic;
 import cn.com.bgy.ifc.entity.po.basic.Information;
 
 public interface InformationDao {
-    int insert(Information record);
+    Information findById(Long id);
 
-    int insertSelective(Information record);
+    int insert(Information information);
+
+    int deleteById(Long id);
+
+    int update(Information information);
 }
