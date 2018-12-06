@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.basic.InformationDao">
   <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.Information">
-    <result column="id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="type_id" jdbcType="BIGINT" property="typeId" />
     <result column="tile" jdbcType="VARCHAR" property="tile" />
@@ -13,23 +13,23 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.basic.Information">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
-  <sql id="Blob_Column_List">
-    content
+
+  <sql id="Base_Column_List">
+    id, org_id, type_id, tile, signature, date_line, d_id, u_id, create_time, logic_remove
   </sql>
+
+  <select id="findById" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    from information
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from information
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.Information">
-    insert into information (id, org_id, type_id, 
-      tile, signature, date_line, 
-      d_id, u_id, create_time, 
-      logic_remove, content)
-    values (#{id,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{typeId,jdbcType=BIGINT}, 
-      #{tile,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, #{dateLine,jdbcType=VARCHAR}, 
-      #{dId,jdbcType=BIGINT}, #{uId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{logicRemove,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.Information">
     insert into information
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -102,4 +102,42 @@
       </if>
     </trim>
   </insert>
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.Information">
+    update information
+    <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="tile != null">
+        tile = #{tile,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="dateLine != null">
+        date_line = #{dateLine,jdbcType=VARCHAR},
+      </if>
+      <if test="dId != null">
+        d_id = #{dId,jdbcType=BIGINT},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+        logic_remove = #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
 </mapper>
