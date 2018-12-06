@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.domain.interfaces.basic.SystemOrganizationDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.SystemOrganizationVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/basic/systemOrganization")
 public class SystemOrganizationController {
+    @Autowired
     private SystemOrganizationDomain systemOrganizationDomain;
     @GetMapping("add")
     @ResponseBody
