@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @Controller
 @RequestMapping("/basic/information")
 public class InformationController {
@@ -28,6 +30,8 @@ public class InformationController {
             }
             Information information= new Information();
             CopyUtil.copyProperties(informationVo,information);
+            information.setCreateTime(new Date());
+            information.setLogicRemove(false);
             informationDomain.insert(information);
             return ResponseVO.success();
         } catch (Exception e) {

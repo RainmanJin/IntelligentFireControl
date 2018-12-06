@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
+
 @Controller
 @RequestMapping("/basic/systemOrganization")
 public class SystemOrganizationController {
@@ -28,6 +30,8 @@ public class SystemOrganizationController {
             }
             SystemOrganization systemOrganization= new SystemOrganization();
             CopyUtil.copyProperties(systemOrganizationVo,systemOrganization);
+            systemOrganization.setCreateTime(new Date());
+            systemOrganization.setLogicRemove(false);
             systemOrganizationDomain.insert(systemOrganization);
             return ResponseVO.success();
         } catch (Exception e) {

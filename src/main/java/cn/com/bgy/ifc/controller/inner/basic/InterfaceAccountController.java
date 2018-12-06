@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
+
 @Controller
 @RequestMapping("/basic/interfaceAccount")
 public class InterfaceAccountController {
@@ -30,6 +32,7 @@ public class InterfaceAccountController {
             }
             InterfaceAccount interfaceaccount= new InterfaceAccount();
             CopyUtil.copyProperties(interfaceaccountVo,interfaceaccount);
+            interfaceaccount.setCreateTime(new Date());
             interfaceaccountDomain.insert(interfaceaccount);
             return ResponseVO.success();
         } catch (Exception e) {
