@@ -18,7 +18,7 @@
     id, org_id, type_id, tile, signature, date_line, d_id, u_id, create_time, logic_remove
   </sql>
 
-  <select id="findById" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from information
