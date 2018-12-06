@@ -1,14 +1,22 @@
 package cn.com.bgy.ifc.domain.interfaces.basic;
 
-import cn.com.bgy.ifc.entity.po.basic.Interfaceaccount;
+import cn.com.bgy.ifc.entity.po.basic.InterfaceAccount;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
-public interface InterfaceaccountDomain {
+public interface InterfaceAccountDomain {
+    InterfaceAccount findById(Long id);
 
-    Interfaceaccount findById(Long id);
-
-    int insert(Interfaceaccount interfaceaccount);
+    int insert(InterfaceAccount interfaceAccount);
 
     int deleteById(Long id);
 
-    int update(Interfaceaccount interfaceaccount);
+    int update(InterfaceAccount interfaceAccount);
+    /**
+     * 分页
+     * @param interfaceAccount
+     * @return
+     */
+
+    PageInfo<InterfaceAccount> searchByWhere(Page page, InterfaceAccount interfaceAccount);
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.basic.InterfaceAccountDao">
   <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.InterfaceAccount">
-    <result column="id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="apiu_id" jdbcType="VARCHAR" property="apiuId" />
     <result column="api_secret" jdbcType="VARCHAR" property="apiSecret" />
@@ -13,17 +13,22 @@
     <result column="state" jdbcType="BIGINT" property="state" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
+  <sql id="Base_Column_List">
+    id, org_id, apiu_id, api_secret, name, charge_person, phone, restricted_ip, state,
+    create_time
+  </sql>
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from interface_account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from interface_account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.InterfaceAccount">
-    insert into interface_account (id, org_id, apiu_id, 
-      api_secret, name, charge_person, 
-      phone, restricted_ip, state, 
-      create_time)
-    values (#{id,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{apiuId,jdbcType=VARCHAR}, 
-      #{apiSecret,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{chargePerson,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{restrictedIp,jdbcType=VARCHAR}, #{state,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.InterfaceAccount">
     insert into interface_account
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -90,4 +95,75 @@
       </if>
     </trim>
   </insert>
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.InterfaceAccount">
+    update interface_account
+    <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="apiuId != null">
+        apiu_id = #{apiuId,jdbcType=VARCHAR},
+      </if>
+      <if test="apiSecret != null">
+        api_secret = #{apiSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="chargePerson != null">
+        charge_person = #{chargePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="restrictedIp != null">
+        restricted_ip = #{restrictedIp,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+<!--分页查询-->
+    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.InterfaceAccount" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from interfaceAccount
+        <trim prefix="where" suffix="" prefixOverrides="and">
+            <if test="orgId != null">
+            and   org_id = #{orgId,jdbcType=BIGINT},
+            </if>
+            <if test="typeId != null">
+            and type_id = #{typeId,jdbcType=BIGINT},
+            </if>
+            <if test="tile != null">
+            and tile = #{tile,jdbcType=VARCHAR},
+            </if>
+            <if test="signature != null">
+            and signature = #{signature,jdbcType=VARCHAR},
+            </if>
+            <if test="dateLine != null">
+            and date_line = #{dateLine,jdbcType=VARCHAR},
+            </if>
+            <if test="dId != null">
+            and d_id = #{dId,jdbcType=BIGINT},
+            </if>
+            <if test="uId != null">
+            and u_id = #{uId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+            and create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logicRemove != null">
+            and logic_remove = #{logicRemove,jdbcType=BIT},
+            </if>
+            <if test="content != null">
+            and content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </select>
 </mapper>

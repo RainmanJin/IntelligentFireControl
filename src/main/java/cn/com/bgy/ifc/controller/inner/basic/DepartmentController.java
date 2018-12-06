@@ -1,9 +1,9 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.domain.interfaces.basic.DepartmentDomain;
 import cn.com.bgy.ifc.entity.po.basic.Department;
-import cn.com.bgy.ifc.entity.po.basic.SystemOperationLog;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.DepartmentVo;
 import com.github.pagehelper.Page;
@@ -27,86 +27,87 @@ public class DepartmentController {
 
     @GetMapping("queryList")
     @ResponseBody
-    public ResponseVO<PageInfo<Department>> queryUserList(Page<Department> page,DepartmentVo departmentVo) {
-        try {
+    public ResponseVO<PageInfo<Department>> queryList(Page<Department> page, DepartmentVo departmentVo) {
             Department department = new Department();
             CopyUtil.copyProperties(departmentVo, department);
-            PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page,department);
+            PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page, department);
             return ResponseVO.<PageInfo<Department>>success().setData(pageInfo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.<PageInfo<Department>>exception();
-        }
     }
 
     @GetMapping("queryById/{id}")
     @ResponseBody
     public ResponseVO<DepartmentVo> queryById(@PathVariable long id) {
-        try {
-            Department department = departmentDomain.findById(id);
-            DepartmentVo departmentVo = new DepartmentVo();
-            CopyUtil.copyProperties(department, departmentVo);
-            return ResponseVO.<DepartmentVo>success().setData(departmentVo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.<DepartmentVo>exception();
-        }
+        Department department = departmentDomain.findById(id);
+        DepartmentVo departmentVo = new DepartmentVo();
+        CopyUtil.copyProperties(department, departmentVo);
+        return ResponseVO.<DepartmentVo>success().setData(departmentVo);
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:部门信息添加
+     * @param: [departmentVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @PostMapping("add")
     @ResponseBody
     public ResponseVO<Object> add(@Validated DepartmentVo departmentVo, BindingResult error) {
-        try {
-            //参数校检
-            if (error.hasErrors()) {
-                return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
-            }
-            Department department = new Department();
-            CopyUtil.copyProperties(departmentVo, department);
-            int count = departmentDomain.insert(department);
-            if (count == 1) {
-                return ResponseVO.success().setMsg("添加成功！");
-            }
-            return ResponseVO.error().setMsg("修改失败！");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.exception();
+        //参数校检
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
+        Department department = new Department();
+        CopyUtil.copyProperties(departmentVo, department);
+        int count = departmentDomain.insert(department);
+        if (count == 1) {
+            return ResponseVO.success().setMsg("添加成功！");
+        }
+        return ResponseVO.error().setMsg("修改失败！");
     }
 
+    @PostMapping("test")
+   // @SystemLogSave(Type.,description = "部门信息添加")
+    @ResponseBody
+    public void test() {
+        System.out.println("xxxx");
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:部门信息修改
+     * @param: [departmentVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @PostMapping("edit")
     @ResponseBody
     public ResponseVO<Object> edit(@Validated DepartmentVo departmentVo, BindingResult error) {
-        try {
-            //参数校检
-            if (error.hasErrors()) {
-                return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
-            }
-            Department department = new Department();
-            CopyUtil.copyProperties(departmentVo, department);
-            int count = departmentDomain.update(department);
-            if (count == 1) {
-                return ResponseVO.success().setMsg("修改成功");
-            }
-            return ResponseVO.error().setMsg("修改失败！");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.exception();
+        //参数校检
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
+        Department department = new Department();
+        CopyUtil.copyProperties(departmentVo, department);
+        int count = departmentDomain.update(department);
+        if (count == 1) {
+            return ResponseVO.success().setMsg("修改成功");
+        }
+        return ResponseVO.error().setMsg("修改失败！");
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:部门信息删除
+     * @param: [id]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @DeleteMapping("delete/{id}")
     @ResponseBody
     public ResponseVO<Object> delete(@PathVariable long id) {
-        try {
-            int count = departmentDomain.deleteById(id);
-            if (count== 1) {
-                return ResponseVO.success().setMsg("删除成功");
-            }
-            return ResponseVO.error().setMsg("删除失败！");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.exception();
+        int count = departmentDomain.deleteById(id);
+        if (count == 1) {
+            return ResponseVO.success().setMsg("删除成功");
         }
+        return ResponseVO.error().setMsg("删除失败！");
     }
+
 }

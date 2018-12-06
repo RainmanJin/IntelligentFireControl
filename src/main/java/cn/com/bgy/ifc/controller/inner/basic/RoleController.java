@@ -29,7 +29,7 @@ public class RoleController {
 
     @GetMapping("queryList")
     @ResponseBody
-    public ResponseVO<PageInfo<SystemRole>> queryUserList(Page<SystemRole> page, SystemRoleVo systemRoleVo) {
+    public ResponseVO<PageInfo<SystemRole>> queryList(Page<SystemRole> page, SystemRoleVo systemRoleVo) {
         try {
             SystemRole systemRole = new SystemRole();
             CopyUtil.copyProperties(systemRoleVo, systemRole);
@@ -44,72 +44,52 @@ public class RoleController {
     @GetMapping("queryById/{id}")
     @ResponseBody
     public ResponseVO<SystemRoleVo> queryById(@PathVariable long id) {
-        try {
-            SystemRole systemRole = roleDomain.findById(id);
-            SystemRoleVo systemRoleVo = new SystemRoleVo();
-            CopyUtil.copyProperties(systemRole, systemRoleVo);
-            return ResponseVO.<SystemRoleVo>success().setData(systemRoleVo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.<SystemRoleVo>exception();
-        }
+        SystemRole systemRole = roleDomain.findById(id);
+        SystemRoleVo systemRoleVo = new SystemRoleVo();
+        CopyUtil.copyProperties(systemRole, systemRoleVo);
+        return ResponseVO.<SystemRoleVo>success().setData(systemRoleVo);
     }
 
     @PostMapping("add")
     @ResponseBody
     public ResponseVO<Object> add(@Validated SystemRoleVo systemRoleVo, BindingResult error) {
-        try {
-            //参数校检
-            if (error.hasErrors()) {
-                return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
-            }
-            SystemRole systemRole = new SystemRole();
-            CopyUtil.copyProperties(systemRoleVo, systemRole);
-            int count = roleDomain.insert(systemRole);
-            if (count == 1) {
-                return ResponseVO.success().setMsg("添加成功！");
-            }
-            return ResponseVO.error().setMsg("添加失败！");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.exception();
+        //参数校检
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
+        SystemRole systemRole = new SystemRole();
+        CopyUtil.copyProperties(systemRoleVo, systemRole);
+        int count = roleDomain.insert(systemRole);
+        if (count == 1) {
+            return ResponseVO.success().setMsg("添加成功！");
+        }
+        return ResponseVO.error().setMsg("添加失败！");
     }
 
     @PostMapping("edit")
     @ResponseBody
     public ResponseVO<Object> edit(@Validated SystemRoleVo systemRoleVo, BindingResult error) {
-        try {
-            //参数校检
-            if (error.hasErrors()) {
-                return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
-            }
-            SystemRole systemRole = new SystemRole();
-            CopyUtil.copyProperties(systemRoleVo, systemRole);
-            int count = roleDomain.update(systemRole);
-            if (count == 1) {
-                return ResponseVO.success().setMsg("修改成功");
-            }
-            return ResponseVO.error().setMsg("修改失败！");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.exception();
+        //参数校检
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
+        SystemRole systemRole = new SystemRole();
+        CopyUtil.copyProperties(systemRoleVo, systemRole);
+        int count = roleDomain.update(systemRole);
+        if (count == 1) {
+            return ResponseVO.success().setMsg("修改成功");
+        }
+        return ResponseVO.error().setMsg("修改失败！");
     }
 
 
     @DeleteMapping("delete/{id}")
     @ResponseBody
     public ResponseVO<Object> delete(@PathVariable long id) {
-        try {
-            int count = roleDomain.deleteById(id);
-            if (count == 1) {
-                return ResponseVO.success().setMsg("删除成功");
-            }
-            return ResponseVO.error().setMsg("删除失败");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.exception();
+        int count = roleDomain.deleteById(id);
+        if (count == 1) {
+            return ResponseVO.success().setMsg("删除成功");
         }
+        return ResponseVO.error().setMsg("删除失败");
     }
 }

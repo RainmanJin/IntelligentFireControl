@@ -5,11 +5,15 @@ import cn.com.bgy.ifc.domain.interfaces.basic.InformationDomain;
 import cn.com.bgy.ifc.entity.po.basic.Information;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.InformationVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @Controller
 @RequestMapping("/basic/information")
@@ -28,6 +32,8 @@ public class InformationController {
             }
             Information information= new Information();
             CopyUtil.copyProperties(informationVo,information);
+            information.setCreateTime(new Date());
+            information.setLogicRemove(false);
             informationDomain.insert(information);
             return ResponseVO.success();
         } catch (Exception e) {
@@ -75,5 +81,18 @@ public class InformationController {
         responseVO.setCode(ResponseVO.SUCCESS);
         responseVO.setMsg("success");
         return responseVO.setData(information);
+    }
+
+    /**
+     * 分页查询
+     * @param page
+     * @return
+     */
+    @GetMapping("searchPage")
+    @ResponseBody
+    public ResponseVO<Object> searchPage(Page<Information> page){
+        Information information= new Information();
+        PageInfo<Information> pageInfo=informationDomain.searchByPage(page,information);
+        return ResponseVO.success().setData(pageInfo);
     }
 }
