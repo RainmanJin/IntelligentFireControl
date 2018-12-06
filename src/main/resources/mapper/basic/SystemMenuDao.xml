@@ -100,7 +100,6 @@
     s.id,s.image_url,s.logic_remove,s.`name`,
     s.navigate_url,s.parent_id,s.power_id,s.remark,s.sort_index
     from system_menu s
-
   </select>
 
   <select id="queryOneSystemMenuInfo" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" parameterType="java.lang.Long">

@@ -1,9 +1,12 @@
-package cn.com.bgy.ifc.service.impl.inner.basic;
+package cn.com.bgy.ifc.domain.impl.basic;
 
 import cn.com.bgy.ifc.dao.basic.SystemMenuDao;
+import cn.com.bgy.ifc.domain.interfaces.basic.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.service.interfaces.inner.basic.SystemMenuService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +19,21 @@ import java.util.List;
  * @Description 系统菜单Service层
  **/
 @Service
-public class SystemMenuServiceImpl implements SystemMenuService {
+public class SystemMenuDomainImpl implements SystemMenuDomain {
     @Autowired
     @Resource
     SystemMenuDao systemMenuDao;
     /**
      * @Author huxin
-     * @Description 查询所有系统菜单一级菜单，及二级菜单
+     * @Description 分页查询所有菜单信息
      * @Date 2018/12/5 10:04
      * @Param []
      * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
      */
-    public List<SystemMenu> queryAllSystemMenuInfo(){
-        return systemMenuDao.queryAllSystemMenuInfo();
+    public PageInfo<SystemMenu> queryAllSystemMenuInfo( Page<SystemMenu> page, SystemMenu systemMenu){
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        List<SystemMenu> list= systemMenuDao.queryAllSystemMenuInfo(systemMenu);
+        return  new PageInfo<SystemMenu>(list);
     }
     /**
      * @Author huxin
