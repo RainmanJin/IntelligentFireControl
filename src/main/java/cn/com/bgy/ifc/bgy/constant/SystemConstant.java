@@ -25,4 +25,21 @@ public class SystemConstant {
             return value;
         }
     }
+
+    /*
+     * 系统日志类型
+     * */
+    public enum SystemLogType {
+        //操作日志
+        OPERATION_LOG(0);
+
+        private Integer value;
+
+        private SystemLogType(Integer value) {
+            this.value = value;
+        }
+        public Integer getValue(){
+            return value;
+        }
+    }
 }
