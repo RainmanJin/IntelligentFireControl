@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.domain.interfaces.basic;
 import cn.com.bgy.ifc.entity.po.basic.SystemOrganization;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
+
 public interface SystemOrganizationDomain {
     SystemOrganization findById(Long id);
 
@@ -8,4 +11,10 @@ public interface SystemOrganizationDomain {
     int deleteById(Long id);
 
     int update(SystemOrganization systemOrganization);
+    /**
+     * 分页
+     * @param interfaceAccount
+     * @return
+     */
+    PageInfo<SystemOrganization> searchByWhere(Page page, SystemOrganization interfaceAccount);
 }

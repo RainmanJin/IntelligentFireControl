@@ -33,13 +33,18 @@ public class InterfaceAccountDomainImpl implements InterfaceAccountDomain {
         return interfaceaccountDao.update(interfaceaccount);
     }
 
+    /**
+     * 分页
+     * @param page
+     * @param interfaceAccount
+     * @return
+     */
     @Override
-    public PageInfo<InterfaceAccount> searchByWhere(Page page, InterfaceAccount interfaceAccount) {
+    public PageInfo<InterfaceAccount> searchByWhere(Page page,InterfaceAccount interfaceAccount) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<InterfaceAccount> interfaceaccountList = interfaceaccountDao.searchByWhere(interfaceAccount);
         PageInfo<InterfaceAccount> pageInfo = new PageInfo<>(interfaceaccountList);
         return pageInfo;
     }
-
-
 }
+
