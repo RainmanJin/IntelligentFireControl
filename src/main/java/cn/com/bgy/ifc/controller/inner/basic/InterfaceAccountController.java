@@ -1,8 +1,8 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.domain.interfaces.basic.InterfaceAccountDomain;
 
+import cn.com.bgy.ifc.domain.interfaces.basic.InterfaceAccountDomain;
 import cn.com.bgy.ifc.entity.vo.basic.InterfaceAccountVo;
 import cn.com.bgy.ifc.entity.po.basic.InterfaceAccount;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
