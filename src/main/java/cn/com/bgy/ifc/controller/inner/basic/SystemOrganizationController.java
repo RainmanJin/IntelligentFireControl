@@ -4,6 +4,8 @@ import cn.com.bgy.ifc.domain.interfaces.basic.SystemOrganizationDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.SystemOrganizationVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -79,5 +81,18 @@ public class SystemOrganizationController {
         responseVO.setCode(ResponseVO.SUCCESS);
         responseVO.setMsg("success");
         return responseVO.setData(systemOrganization);
+    }
+
+    /**
+     * 分页查询
+     * @param page
+     * @return
+     */
+    @GetMapping("searchPage")
+    @ResponseBody
+    public ResponseVO<Object> searchPage(Page<SystemOrganization> page){
+        SystemOrganization systemOrganization= new SystemOrganization();
+        PageInfo<SystemOrganization> pageInfo=systemOrganizationDomain.searchByWhere(page,systemOrganization);
+        return ResponseVO.success().setData(pageInfo);
     }
 }
