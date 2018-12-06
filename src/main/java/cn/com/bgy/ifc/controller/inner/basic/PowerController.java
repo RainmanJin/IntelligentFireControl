@@ -30,11 +30,11 @@ public class PowerController {
 
     @GetMapping("queryList")
     @ResponseBody
-    public ResponseVO<PageInfo<SystemPower>> queryUserList(Page<SystemPower> page,SystemPowerVo systemPowerVo) {
+    public ResponseVO<PageInfo<SystemPower>> queryList(Page<SystemPower> page, SystemPowerVo systemPowerVo) {
         try {
             SystemPower systemPower = new SystemPower();
             CopyUtil.copyProperties(systemPowerVo, systemPower);
-            PageInfo<SystemPower> pageInfo = powerDomain.queryListByPage(page,systemPower);
+            PageInfo<SystemPower> pageInfo = powerDomain.queryListByPage(page, systemPower);
             return ResponseVO.<PageInfo<SystemPower>>success().setData(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,10 +56,15 @@ public class PowerController {
         }
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:系统权限添加
+     * @param: [systemPowerVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @PostMapping("add")
     @ResponseBody
     public ResponseVO<Object> add(@Validated SystemPowerVo systemPowerVo, BindingResult error) {
-        try {
             //参数校检
             if (error.hasErrors()) {
                 return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -71,16 +76,18 @@ public class PowerController {
                 return ResponseVO.success().setMsg("添加成功！");
             }
             return ResponseVO.error().setMsg("添加失败！");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.exception();
-        }
+
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:系统权限修改
+     * @param: [systemPowerVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @PostMapping("edit")
     @ResponseBody
     public ResponseVO<Object> edit(@Validated SystemPowerVo systemPowerVo, BindingResult error) {
-        try {
             //参数校检
             if (error.hasErrors()) {
                 return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -92,25 +99,23 @@ public class PowerController {
                 return ResponseVO.success().setMsg("修改成功");
             }
             return ResponseVO.error().setMsg("修改失败！");
-        } catch (Exception e) {
-            //e.printStackTrace();
-            return ResponseVO.exception();
-        }
     }
 
 
+    /**
+     * @author: ZhangCheng
+     * @description:系统权限删除
+     * @param: [id]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @DeleteMapping("delete/{id}")
     @ResponseBody
     public ResponseVO<Object> delete(@PathVariable long id) {
-        try {
-            int count = powerDomain.deleteById(id);
-            if (count == 1) {
-                return ResponseVO.success().setMsg("删除成功");
-            }
-            return ResponseVO.error().setMsg("删除失败");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.exception();
+        int count = powerDomain.deleteById(id);
+        if (count == 1) {
+            return ResponseVO.success().setMsg("删除成功");
         }
+        return ResponseVO.error().setMsg("删除失败");
+
     }
 }
