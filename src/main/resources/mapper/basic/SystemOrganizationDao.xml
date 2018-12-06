@@ -18,7 +18,7 @@
         from system_organization
         where id = #{id,jdbcType=BIGINT}
     </select>
-    <delete id="delete" parameterType="java.lang.Long">
+    <delete id="deleteById" parameterType="java.lang.Long">
     delete from system_organization
     where id = #{id,jdbcType=BIGINT}
     </delete>

@@ -24,7 +24,7 @@
     from information
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteById" parameterType="java.lang.Long">
+  <delete id=" " parameterType="java.lang.Long">
     delete from information
     where id = #{id,jdbcType=BIGINT}
   </delete>
