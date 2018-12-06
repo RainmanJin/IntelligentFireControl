@@ -11,7 +11,7 @@ public interface SystemMenuDao {
 
     public int addSystemMenuInfo(SystemMenu systemMenu);
 
-    public List<SystemMenu> queryAllSystemMenuInfo();
+    public List<SystemMenu> queryAllSystemMenuInfo(SystemMenu systemMenu);
 
     public List<SystemMenu> queryKeyWordSystemMenuInfo(String keyWord);
 

@@ -1,8 +1,10 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
+import cn.com.bgy.ifc.domain.interfaces.basic.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.domain.interfaces.basic.SystemMenuDomain;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,15 +27,16 @@ public class SystemMenuController {
 
     /**
      * @Author huxin
-     * @Description 查询所有系统一，二级菜单信息
+     * @Description 分页查询所有菜单信息
      * @Date 2018/12/5 10:04 
      * @Param []
      * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
      */
     @GetMapping(value = "/queryall")
     @ResponseBody
-    public List<SystemMenu> queryAllSystemMenuInfo(){
-        return systemMenuDomain.queryAllSystemMenuInfo();
+    public ResponseVO<PageInfo<SystemMenu>> queryAllSystemMenuInfo( Page<SystemMenu> page, SystemMenu systemMenu){
+        PageInfo<SystemMenu> pageInfo = systemMenuDomain.queryAllSystemMenuInfo(page,systemMenu);
+        return ResponseVO.<PageInfo<SystemMenu>>success().setData(pageInfo);
     }
     /**
      * @Author huxin
