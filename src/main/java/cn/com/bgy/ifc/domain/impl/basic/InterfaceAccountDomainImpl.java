@@ -1,20 +1,21 @@
 package cn.com.bgy.ifc.domain.impl.basic;
-import cn.com.bgy.ifc.domain.interfaces.basic.InterfaceaccountDomain;
-import cn.com.bgy.ifc.entity.po.basic.Interfaceaccount;
+import cn.com.bgy.ifc.dao.basic.InterfaceAccountDao;
+import cn.com.bgy.ifc.domain.interfaces.basic.InterfaceAccountDomain;
+import cn.com.bgy.ifc.entity.po.basic.InterfaceAccount;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 @Service
-public class InterfaceaccountDomainImpl implements InterfaceaccountDomain {
+public class InterfaceAccountDomainImpl implements InterfaceAccountDomain {
     @Resource
-    private InterfaceaccountDao interfaceaccountDao;
+    private InterfaceAccountDao interfaceaccountDao;
     @Override
-    public Interfaceaccount findById(Long id) {
+    public InterfaceAccount findById(Long id) {
         return interfaceaccountDao.findById(id);
     }
 
     @Override
-    public int insert(Interfaceaccount interfaceaccount) {
+    public int insert(InterfaceAccount interfaceaccount) {
         return interfaceaccountDao.insert(interfaceaccount);
     }
 
@@ -24,7 +25,7 @@ public class InterfaceaccountDomainImpl implements InterfaceaccountDomain {
     }
 
     @Override
-    public int update(Interfaceaccount interfaceaccount) {
+    public int update(InterfaceAccount interfaceaccount) {
         return interfaceaccountDao.update(interfaceaccount);
     }
 }
