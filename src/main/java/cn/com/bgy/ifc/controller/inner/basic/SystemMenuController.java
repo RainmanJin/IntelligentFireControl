@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.service.interfaces.inner.basic.SystemMenuService;
+import cn.com.bgy.ifc.domain.interfaces.basic.SystemMenuDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping(value = "/basic/system")
 public class SystemMenuController {
     @Autowired
-    SystemMenuService systemMenuService;
+    SystemMenuDomain systemMenuDomain;
 
     /**
      * @Author huxin
@@ -33,7 +33,7 @@ public class SystemMenuController {
     @GetMapping(value = "/queryall")
     @ResponseBody
     public List<SystemMenu> queryAllSystemMenuInfo(){
-        return systemMenuService.queryAllSystemMenuInfo();
+        return systemMenuDomain.queryAllSystemMenuInfo();
     }
     /**
      * @Author huxin
@@ -44,10 +44,10 @@ public class SystemMenuController {
      */
     @GetMapping(value = "/queryone")
     public SystemMenu queryOnelSystemMenuInfo(Long id){
-        return systemMenuService.queryOneSystemMenuInfo(1L);
+        return systemMenuDomain.queryOneSystemMenuInfo(1L);
     }
     public List<SystemMenu> queryKeyWordSystemMenuInfo(String keyWord){
-        return systemMenuService.queryKeyWordSystemMenuInfo(keyWord);
+        return systemMenuDomain.queryKeyWordSystemMenuInfo(keyWord);
     }
     /**
      * @Author huxin
@@ -59,7 +59,7 @@ public class SystemMenuController {
     @GetMapping(value = "/add")
     @ResponseBody
     public ResponseVO addSystemMenuInfo( SystemMenu systemMenu){
-        return systemMenuService.addSystemMenuInfo(systemMenu);
+        return systemMenuDomain.addSystemMenuInfo(systemMenu);
     }
     /**
      * @Author huxin
@@ -71,7 +71,7 @@ public class SystemMenuController {
     @GetMapping(value = "/update")
     @ResponseBody
     public ResponseVO updateSystemMenuInfo(SystemMenu systemMenu){
-        return systemMenuService.updateSystemMenuInfo(systemMenu);
+        return systemMenuDomain.updateSystemMenuInfo(systemMenu);
     }
     /**
      * @Author huxin
@@ -83,7 +83,7 @@ public class SystemMenuController {
     @GetMapping(value = "/deleteone")
     @ResponseBody
     public ResponseVO deleteSystemMenuInfo(Long id){
-        return systemMenuService.deleteSystemMenuInfo(1L);
+        return systemMenuDomain.deleteSystemMenuInfo(1L);
     }
    /**
     * @Author huxin
@@ -95,6 +95,6 @@ public class SystemMenuController {
     @GetMapping(value = "/deletelist")
     @ResponseBody
     public ResponseVO deleteListSystemMenuInfo( Long[] id){
-        return systemMenuService.deleteListSystemMenuInfo(id);
+        return systemMenuDomain.deleteListSystemMenuInfo(id);
     }
 }
