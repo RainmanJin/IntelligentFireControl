@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SystemLogSave {
     //日志类型
-    String type() default "";
+    int type() default 1;
 
     //日志描述
     String description() default "";
