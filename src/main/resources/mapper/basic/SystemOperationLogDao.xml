@@ -105,7 +105,7 @@
     </if>
   </select>
 
-  <insert id="addSystemLogInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLo">
+  <insert id="addSystemLogInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
     insert into system_operation_log (id, user_id, user_name,
       log_type, ip, create_time,
       logic_remove, operator_content, operator_describe
