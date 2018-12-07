@@ -83,4 +83,36 @@
       </if>
     </trim>
   </insert>
+
+  <select id="querySystemLogInfo"  resultMap="BaseResultMap">
+    select l.id,l.ip,l.create_time,l.logic_remove,l.log_type,l.operator_content,
+    l.operator_describe,l.user_id,l.user_name
+     from system_operation_log l WHERE 1=1
+  </select>
+  <select id="queryRequirementSytemLogInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+      select l.id,l.ip,l.create_time,l.logic_remove,l.log_type,l.operator_content,
+    l.operator_describe,l.user_id,l.user_name
+     from system_operation_log l
+     <if test="logType != null and startTiem != null and endTime != null">
+        where log_type= #{ip,jdbcType=VARCHAR} and l,ccreate_time
+        between #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR}
+     </if>
+    <if test="logType != null or startTiem == null and endTime == null">
+      where log_type= #{ip,jdbcType=VARCHAR}
+    </if>
+    <if test="logType == null or startTiem != null and endTime != null">
+      where l,ccreate_time between #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <insert id="addSystemLogInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLo">
+    insert into system_operation_log (id, user_id, user_name,
+      log_type, ip, create_time,
+      logic_remove, operator_content, operator_describe
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR},
+      #{logType,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{logicRemove,jdbcType=BIT}, #{operatorContent,jdbcType=LONGVARCHAR}, #{operatorDescribe,jdbcType=LONGVARCHAR}
+      )
+  </insert>
 </mapper>
