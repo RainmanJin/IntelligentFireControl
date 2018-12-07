@@ -18,10 +18,11 @@
         from system_organization
         where id = #{id,jdbcType=BIGINT}
     </select>
-    <delete id="deleteById" parameterType="java.lang.Long">
-    delete from system_organization
+    <!--逻辑删除-->
+    <update id="deleteById" parameterType="java.lang.Long">
+    update system_organization set logic_remove = true
     where id = #{id,jdbcType=BIGINT}
-    </delete>
+    </update>
 
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOrganization">
         insert into system_organization

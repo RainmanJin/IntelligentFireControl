@@ -24,10 +24,10 @@
     from information
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id=" " parameterType="java.lang.Long">
-    delete from information
+  <update id="deleteById" parameterType="java.lang.Long">
+    update information set logic_remove = true
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
 
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.Information">
     insert into information
