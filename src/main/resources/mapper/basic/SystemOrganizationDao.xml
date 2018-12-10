@@ -92,7 +92,7 @@
     <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOrganization" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from systemOrganization
+        from system_organization
         <trim prefix="where" suffix="" prefixOverrides="and">
             <if test="name != null">
             and name = #{name,jdbcType=VARCHAR},
