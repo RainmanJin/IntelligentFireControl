@@ -1,7 +1,9 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.domain.interfaces.basic.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.basic.Account;
+import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.AccountVo;
 import cn.com.bgy.ifc.service.interfaces.inner.basic.LoginService;
@@ -25,18 +27,20 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
+    @Autowired
+    SystemMenuDomain systemMenuDomain;
+
 
 
     @GetMapping("/index")
     public String userPage(){
 
-        return "/basic/index";
+        return "/index";
     }
-
-    public List<String> getMenuList(Long userId){
-
-
-     return null;
+    @GetMapping("/findMenuByUser")
+    public List<SystemMenu> findMenuByUser(Long userId){
+        List menuList=systemMenuDomain.findMenuByUser(userId);
+     return menuList;
     }
 
 }

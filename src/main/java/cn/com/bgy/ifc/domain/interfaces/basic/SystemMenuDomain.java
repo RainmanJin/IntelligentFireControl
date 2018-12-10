@@ -29,4 +29,11 @@ public interface SystemMenuDomain {
     public ResponseVO deleteSystemMenuInfo(Long id);
 
     public ResponseVO deleteListSystemMenuInfo(Long[] id);
+
+    /**
+     * 通过用户id查找访问权限菜单
+     * @param userId
+     * @return
+     */
+    public List<SystemMenu> findMenuByUser(Long userId);
 }

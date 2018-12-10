@@ -132,4 +132,37 @@
       #{id,jdbcType=BIGINT}
     </foreach>
   </update>
+
+  <select id="findMenuByUser" parameterType="string" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+        SELECT
+            id, name, image_url,
+              navigate_url, remark, sort_index,
+              parent_id, power_id, logic_remove
+        FROM
+            system_menu m
+        WHERE m.logic_remove=0 and
+            m.power_id IN (
+                SELECT
+                    id
+                FROM
+                    system_power p
+                WHERE p.logic_remove=0 and
+                    p.id IN (
+                        SELECT
+                            rp.power_id
+                        FROM
+                            system_role_power rp
+                        WHERE
+                            rp.id IN (
+                                SELECT
+                                    r.role_id
+                                FROM
+                                    system_user_role r
+                                WHERE
+                                    r.user_id = 1
+                            )
+                    )
+            )  and (m.parent_id is null or m.parent_id=''
+  </select>
+
 </mapper>

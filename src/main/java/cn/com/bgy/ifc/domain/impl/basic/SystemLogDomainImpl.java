@@ -1,6 +1,8 @@
 package cn.com.bgy.ifc.domain.impl.basic;
 
+import cn.com.bgy.ifc.dao.basic.SystemOperationLogDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.SystemLogDomain;
+import cn.com.bgy.ifc.entity.po.basic.SystemOperationLog;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -25,7 +27,7 @@ public class SystemLogDomainImpl implements SystemLogDomain {
      * @Description 日志查询以及分页
      * @Date 2018/12/6 14:40
      */
-    public PageInfo<SystemOperationLog> querySystemLogInfo( Page<SystemOperationLog> page) {
+    public PageInfo<SystemOperationLog> querySystemLogInfo(Page<SystemOperationLog> page) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<SystemOperationLog> list= systemOperationLogDao.querySystemLogInfo();
         return  new PageInfo<SystemOperationLog>(list);
