@@ -21,7 +21,7 @@ public class InformationController {
     @Autowired
     private InformationDomain informationDomain;
 
-    @GetMapping("add")
+    @PostMapping("add")
     @ResponseBody
     public ResponseVO<Object> add(@Validated InformationVo informationVo, BindingResult error){
 
@@ -42,7 +42,7 @@ public class InformationController {
         }
     }
 
-    @GetMapping("update")
+    @PostMapping("update")
     @ResponseBody
     public ResponseVO<Object> update(@Validated InformationVo informationVo, BindingResult error){
         try {
@@ -59,9 +59,9 @@ public class InformationController {
             return ResponseVO.exception();
         }
     }
-    @GetMapping("delete")
+    @DeleteMapping("delete/{id}")
     @ResponseBody
-    public ResponseVO<Object> delete( Long id){
+    public ResponseVO<Object> delete(@PathVariable Long id){
         if(id==null){
             return ResponseVO.error().setMsg("id不能为空");
         }

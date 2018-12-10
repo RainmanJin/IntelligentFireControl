@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -21,7 +19,7 @@ import java.util.Date;
 public class SystemOrganizationController {
     @Autowired
     private SystemOrganizationDomain systemOrganizationDomain;
-    @GetMapping("add")
+    @PostMapping("add")
     @ResponseBody
     public ResponseVO<Object> add(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error){
 
@@ -42,7 +40,7 @@ public class SystemOrganizationController {
         }
     }
 
-    @GetMapping("update")
+    @PostMapping("update")
     @ResponseBody
     public ResponseVO<Object> update(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error){
         try {
@@ -59,9 +57,9 @@ public class SystemOrganizationController {
             return ResponseVO.exception();
         }
     }
-    @GetMapping("delete")
+    @DeleteMapping("delete/{id}")
     @ResponseBody
-    public ResponseVO<Object> delete( Long id){
+    public ResponseVO<Object> delete(@PathVariable Long id){
         if(id==null){
             return ResponseVO.error().setMsg("id不能为空");
         }
