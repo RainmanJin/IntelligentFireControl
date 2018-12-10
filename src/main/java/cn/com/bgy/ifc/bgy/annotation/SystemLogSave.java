@@ -22,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SystemLogSave {
-    //日志类型
+    //日志类型（type类型参考SystemConstant.SystemLogType中枚举类型）
     int type() default 1;
 
     //日志描述
