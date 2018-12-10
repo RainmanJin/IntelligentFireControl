@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.basic.ExternalInterfaceMsgDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceMsg">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="platform_value" jdbcType="INTEGER" property="platformValue" />
+    <result column="msg_type_value" jdbcType="INTEGER" property="msgTypeValue" />
+    <result column="total_count" jdbcType="INTEGER" property="totalCount" />
+    <result column="add_count" jdbcType="INTEGER" property="addCount" />
+    <result column="delete_count" jdbcType="INTEGER" property="deleteCount" />
+    <result column="update_count" jdbcType="INTEGER" property="updateCount" />
+    <result column="success_count" jdbcType="INTEGER" property="successCount" />
+    <result column="error_count" jdbcType="INTEGER" property="errorCount" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="request_time" jdbcType="DATE" property="requestTime" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceMsg">
+    insert into external_interface_msg (id, platform_value, msg_type_value, 
+      total_count, add_count, delete_count, 
+      update_count, success_count, error_count, 
+      org_id, request_time, create_time, 
+      logic_remove)
+    values (#{id,jdbcType=BIGINT}, #{platformValue,jdbcType=INTEGER}, #{msgTypeValue,jdbcType=INTEGER}, 
+      #{totalCount,jdbcType=INTEGER}, #{addCount,jdbcType=INTEGER}, #{deleteCount,jdbcType=INTEGER}, 
+      #{updateCount,jdbcType=INTEGER}, #{successCount,jdbcType=INTEGER}, #{errorCount,jdbcType=INTEGER}, 
+      #{orgId,jdbcType=BIGINT}, #{requestTime,jdbcType=DATE}, #{createTime,jdbcType=DATE}, 
+      #{logicRemove,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceMsg">
+    insert into external_interface_msg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="platformValue != null">
+        platform_value,
+      </if>
+      <if test="msgTypeValue != null">
+        msg_type_value,
+      </if>
+      <if test="totalCount != null">
+        total_count,
+      </if>
+      <if test="addCount != null">
+        add_count,
+      </if>
+      <if test="deleteCount != null">
+        delete_count,
+      </if>
+      <if test="updateCount != null">
+        update_count,
+      </if>
+      <if test="successCount != null">
+        success_count,
+      </if>
+      <if test="errorCount != null">
+        error_count,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="requestTime != null">
+        request_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="platformValue != null">
+        #{platformValue,jdbcType=INTEGER},
+      </if>
+      <if test="msgTypeValue != null">
+        #{msgTypeValue,jdbcType=INTEGER},
+      </if>
+      <if test="totalCount != null">
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="addCount != null">
+        #{addCount,jdbcType=INTEGER},
+      </if>
+      <if test="deleteCount != null">
+        #{deleteCount,jdbcType=INTEGER},
+      </if>
+      <if test="updateCount != null">
+        #{updateCount,jdbcType=INTEGER},
+      </if>
+      <if test="successCount != null">
+        #{successCount,jdbcType=INTEGER},
+      </if>
+      <if test="errorCount != null">
+        #{errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="requestTime != null">
+        #{requestTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+</mapper>
