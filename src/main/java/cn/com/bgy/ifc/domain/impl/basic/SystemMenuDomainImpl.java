@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -129,5 +131,10 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
             return ResponseVO.success().setMsg("删除成功");
         }
         return ResponseVO.success().setMsg("删除失败");
+    }
+
+    @Override
+    public List<SystemMenu> findMenuByUser(Long userId) {
+        return systemMenuDao.findMenuByUser(userId);
     }
 }

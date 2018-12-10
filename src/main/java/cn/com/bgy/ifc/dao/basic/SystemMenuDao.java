@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.dao.basic;
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SystemMenuDao {
     public int insert(SystemMenu record);
@@ -22,4 +23,6 @@ public interface SystemMenuDao {
     public int deleteSystemMenuInfo(Long id);
 
     public int deleteListSystemMenuInfo(Long[] id);
+
+    List<SystemMenu> findMenuByUser(Long userId);
 }

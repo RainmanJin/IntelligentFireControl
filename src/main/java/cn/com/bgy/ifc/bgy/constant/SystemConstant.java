@@ -31,7 +31,17 @@ public class SystemConstant {
      * */
     public enum SystemLogType {
         //操作日志
-        OPERATION_LOG(0);
+        OPERATION_LOG(1),
+        //设备日志
+        DEVICE_LOG(2),
+        //消防监测日志
+        FIRE_MONITOR_LOG(3),
+        //告警日志
+        GIVE_ALARM_LOG(4),
+        //召修日志
+        CALL_REPAIR_LOG(5),
+        //维保日志
+        MAINTENANCE_LOG(6);
 
         private Integer value;
 
