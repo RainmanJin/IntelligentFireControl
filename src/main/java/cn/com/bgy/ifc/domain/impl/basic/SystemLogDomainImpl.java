@@ -27,7 +27,8 @@ public class SystemLogDomainImpl implements SystemLogDomain {
      * @Description 日志查询以及分页
      * @Date 2018/12/6 14:40
      */
-    public PageInfo<SystemOperationLog> querySystemLogInfo(Page<SystemOperationLog> page) {
+    @Override
+    public PageInfo<SystemOperationLog> querySystemLogInfo( Page<SystemOperationLog> page) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<SystemOperationLog> list= systemOperationLogDao.querySystemLogInfo();
         return  new PageInfo<SystemOperationLog>(list);
