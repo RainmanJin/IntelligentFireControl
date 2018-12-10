@@ -17,10 +17,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * @author: ZhangCheng
- * @description:Http请求封装
+ * @description:Http请求封装 使用HttpClient和httpCore
  * @date: 2018-12-06 16:51
  **/
 public class HttpHelper {
@@ -78,13 +81,21 @@ public class HttpHelper {
      * @return 返回JSON
      * @throws Exception
      */
-    public static JSONObject httpPost(String url, Object data) throws Exception {
+    public static JSONObject httpPost(String url, Object data, Map<String, Object> headerMap) throws Exception {
         HttpPost httpPost = new HttpPost(url);
         CloseableHttpResponse response = null;
         CloseableHttpClient httpClient = HttpClients.createDefault();
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(2000).setConnectTimeout(2000).build();
         httpPost.setConfig(requestConfig);
         httpPost.addHeader("Content-Type", "application/json");
+        if (null != headerMap && headerMap.size() > 0) {
+            // 遍历Map中的Key和Value，那么推荐使用的、效率最高的方式EntrySet
+            Iterator<Entry<String, Object>> iterator = headerMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Entry<String, Object> entry = iterator.next();
+                httpPost.addHeader(entry.getKey(), entry.getValue().toString());
+            }
+        }
         try {
             //JSON数据格式请求
             StringEntity requestEntity = new StringEntity(JSON.toJSONString(data), CHARSET);
