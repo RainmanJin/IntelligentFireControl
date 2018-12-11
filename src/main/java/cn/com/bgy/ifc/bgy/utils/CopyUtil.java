@@ -10,12 +10,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CopyUtil {
-    public static String[] getNullPropertyNames (Object source) {
+    public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
 
         Set<String> emptyNames = new HashSet<String>();
-        for(java.beans.PropertyDescriptor pd : pds) {
+        for (java.beans.PropertyDescriptor pd : pds) {
             Object srcValue = src.getPropertyValue(pd.getName());
             if (srcValue == null) emptyNames.add(pd.getName());
         }
@@ -27,13 +27,4 @@ public class CopyUtil {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
     }
 
-    public static void main(String[] args) {
-        UserVo userBo= new UserVo();
-        userBo.setEmail("213455");
-        User user=new User();
-        user.setDeptId(Long.valueOf(10));
-        CopyUtil.copyProperties(userBo,user);
-        System.out.println(user.toString());
-
-    }
 }

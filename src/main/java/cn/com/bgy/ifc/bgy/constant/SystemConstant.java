@@ -14,7 +14,11 @@ public class SystemConstant {
         //禁用
         PROHIBIT(0),
         //启用
-        ENABLE(1);
+        ENABLE(1),
+        //锁定
+        LOCKING(2),
+        //删除
+        DELETE(3);
 
         private Integer value;
 
@@ -41,7 +45,9 @@ public class SystemConstant {
         //召修日志
         CALL_REPAIR_LOG(5),
         //维保日志
-        MAINTENANCE_LOG(6);
+        MAINTENANCE_LOG(6),
+        //接口调用日志
+        INTERFACE_LOG(7);
 
         private Integer value;
 
@@ -52,4 +58,5 @@ public class SystemConstant {
             return value;
         }
     }
+
 }
