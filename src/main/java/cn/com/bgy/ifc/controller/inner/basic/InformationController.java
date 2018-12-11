@@ -1,7 +1,9 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.domain.interfaces.basic.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.basic.InformationDomain;
+import cn.com.bgy.ifc.entity.po.basic.Account;
 import cn.com.bgy.ifc.entity.po.basic.Information;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.InformationVo;
@@ -20,6 +22,9 @@ import java.util.Date;
 public class InformationController {
     @Autowired
     private InformationDomain informationDomain;
+
+    @Autowired
+    AccountDomain accountDomain;
 
     @PostMapping("add")
     @ResponseBody
@@ -95,4 +100,5 @@ public class InformationController {
         PageInfo<Information> pageInfo=informationDomain.searchByPage(page,information);
         return ResponseVO.success().setData(pageInfo);
     }
+
 }
