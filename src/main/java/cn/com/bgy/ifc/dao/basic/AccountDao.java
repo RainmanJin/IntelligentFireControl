@@ -36,4 +36,11 @@ public interface AccountDao {
      * @return
      */
     int updateById(Account account);
+
+    /**
+     *
+     * @param userName
+     * @return
+     */
+    Account findAccountByUserName(String userName);
 }
