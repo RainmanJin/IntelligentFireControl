@@ -26,6 +26,7 @@ public class ExternalConstant {
 
     /*
      * 平台内部功能接口
+     * 0获取账号信息，1区域信息，2项目信息，3品牌，4规格信息，5设备类型，6机房信息，7设备信息
      * */
     public enum MsgTypeValue{
         //集成平台获取用户数据（增量）

@@ -1,5 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.basic;
 
+import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
+import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.dao.basic.ExternalInterfaceConfigDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig;
@@ -20,6 +22,15 @@ public class ExternalInterfaceConfigDomainImpl implements ExternalInterfaceConfi
     private ExternalInterfaceConfigDao externalInterfaceConfigDao;
     @Override
     public List<ExternalInterfaceConfig> queryListByParam(ExternalInterfaceConfig record) {
+        return externalInterfaceConfigDao.queryListByParam(record);
+    }
+
+    @Override
+    public List<ExternalInterfaceConfig> queryIntegrationConfig() {
+        ExternalInterfaceConfig record=new ExternalInterfaceConfig();
+        record.setPlatformValue(ExternalConstant.PlatformValue.INTEGERATED_PLATFORM.getValue());
+        record.setState(SystemConstant.EnableState.ENABLE.getValue());
+        record.setLogicRemove(false);
         return externalInterfaceConfigDao.queryListByParam(record);
     }
 

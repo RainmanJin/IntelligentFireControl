@@ -5,6 +5,8 @@ import java.util.Date;
 public class ExternalInterfaceConfig {
     private Long id;
 
+    private Long orgId;
+
     private Integer platformValue;
 
     private String url;
@@ -21,7 +23,10 @@ public class ExternalInterfaceConfig {
 
     private Date createTime;
 
-    private Long logicRemove;
+    /**
+     * 是否逻辑删除
+     */
+    private Boolean logicRemove;
 
     public Long getId() {
         return id;
@@ -29,6 +34,14 @@ public class ExternalInterfaceConfig {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 
     public Integer getPlatformValue() {
@@ -95,11 +108,11 @@ public class ExternalInterfaceConfig {
         this.createTime = createTime;
     }
 
-    public Long getLogicRemove() {
+    public Boolean getLogicRemove() {
         return logicRemove;
     }
 
-    public void setLogicRemove(Long logicRemove) {
+    public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
     }
 }

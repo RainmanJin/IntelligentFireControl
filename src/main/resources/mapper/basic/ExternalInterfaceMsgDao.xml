@@ -20,7 +20,7 @@
     insert into external_interface_msg (id, platform_value, msg_type_value, 
       total_count, add_count, delete_count, 
       update_count, success_count, error_count, 
-      org_id, request_time, create_time, 
+      org_id, request_time, create_time,
       logic_remove)
     values (#{id,jdbcType=BIGINT}, #{platformValue,jdbcType=INTEGER}, #{msgTypeValue,jdbcType=INTEGER}, 
       #{totalCount,jdbcType=INTEGER}, #{addCount,jdbcType=INTEGER}, #{deleteCount,jdbcType=INTEGER}, 
