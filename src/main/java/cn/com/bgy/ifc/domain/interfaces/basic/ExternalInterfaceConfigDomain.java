@@ -1,12 +1,20 @@
-package cn.com.bgy.ifc.dao.basic;
+package cn.com.bgy.ifc.domain.interfaces.basic;
 
 import cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig;
 
 import java.util.List;
 
-public interface ExternalInterfaceConfigDao {
+/**
+ * @author: ZhangCheng
+ * @description:外部接口配置
+ * @date: 2018-12-10 18:10
+ **/
+public interface ExternalInterfaceConfigDomain {
 
     List<ExternalInterfaceConfig> queryListByParam(ExternalInterfaceConfig record);
+
+    //查询集成平台接口信息
+    List<ExternalInterfaceConfig> queryIntegrationConfig();
 
     ExternalInterfaceConfig findById(Long id);
 
