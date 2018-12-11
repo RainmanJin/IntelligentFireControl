@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.basic;
 import cn.com.bgy.ifc.bgy.utils.ImageGenerationUtil;
 import cn.com.bgy.ifc.domain.interfaces.basic.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.basic.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
