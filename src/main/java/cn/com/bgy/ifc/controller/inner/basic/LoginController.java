@@ -38,9 +38,11 @@ public class LoginController {
         return "/index";
     }
     @GetMapping("/findMenuByUser")
-    public List<SystemMenu> findMenuByUser(Long userId){
-        List menuList=systemMenuDomain.findMenuByUser(userId);
-     return menuList;
+    public ResponseVO findMenuByUser(Long userId){
+        List<SystemMenu> menuList=systemMenuDomain.findMenuByUser(userId);
+
+     return ResponseVO.success().setData(menuList);
     }
+
 
 }

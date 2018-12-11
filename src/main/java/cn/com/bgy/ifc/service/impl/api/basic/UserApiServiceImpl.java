@@ -1,3 +1,4 @@
+/*
 package cn.com.bgy.ifc.service.impl.api.basic;
 
 import cn.com.bgy.ifc.bgy.exception.GlobalHandlerExceptionResolver;
@@ -24,12 +25,14 @@ public class UserApiServiceImpl implements UserApiService {
 
     private static Logger logger = LoggerFactory.getLogger(UserApiServiceImpl.class);
 
-    /**
+    */
+/**
      * @author: ZhangCheng
      * @description:集成平台验证登录用户
      * @param: [telephone, password]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
-     */
+     *//*
+
     @Override
     public ResponseVO<Object> obtainBgyUserLogin(String telephone, String password) {
         try {
@@ -73,12 +76,14 @@ public class UserApiServiceImpl implements UserApiService {
         return ResponseVO.success().setData(null);
     }
 
-    /**
+    */
+/**
      * @author: ZhangCheng
      * @description:集成平台修改用户密码
      * @param: [telephone, password]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
-     */
+     *//*
+
     @Override
     public ResponseVO<Object> obtainBgyUpdatePass(String telephone, String password) {
         try {
@@ -209,3 +214,4 @@ public class UserApiServiceImpl implements UserApiService {
 
     }
 }
+*/

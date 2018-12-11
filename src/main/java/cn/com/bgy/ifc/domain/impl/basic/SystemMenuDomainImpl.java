@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author huxin
@@ -136,5 +134,81 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
     @Override
     public List<SystemMenu> findMenuByUser(Long userId) {
         return systemMenuDao.findMenuByUser(userId);
+    }
+
+    @Override
+    public Map<String,Object> findTree(Long userId){
+        Map<String,Object> data = new HashMap<String,Object>();
+        try {//查询所有菜单
+            List<SystemMenu> allMenu = systemMenuDao.findMenuByUser(userId);
+            //根节点
+            List<SystemMenu> rootMenu = new ArrayList<SystemMenu>();
+            for (SystemMenu nav : allMenu) {
+                if(nav.getParentId()==null||nav.getParentId().equals("")){//父节点是空的，为根节点。
+                    rootMenu.add(nav);
+                }
+            }
+            /* 根据Menu类的order排序 */
+            Collections.sort(rootMenu, order());
+            //为根菜单设置子菜单，getClild是递归调用的
+            for (SystemMenu nav : rootMenu) {
+                /* 获取根节点下的所有子节点 使用getChild方法*/
+                List<SystemMenu> childList = getChild(nav.getId(), allMenu);
+                nav.setChildren(childList);//给根节点设置子节点
+            }
+            /**
+             * 输出构建好的菜单数据。
+             *
+             */
+            data.put("success", "true");
+            data.put("list", rootMenu);
+            return data;
+        } catch (Exception e) {
+            data.put("success", "false");
+            data.put("list", new ArrayList<>());
+            return data;
+        }
+    }
+    /**
+     * 获取子节点
+     * @param id 父节点id
+     * @param allMenu 所有菜单列表
+     * @return 每个根节点下，所有子菜单列表
+     */
+    public List<SystemMenu> getChild(Long id,List<SystemMenu> allMenu){
+        //子菜单
+        List<SystemMenu> childList = new ArrayList<SystemMenu>();
+        for (SystemMenu nav : allMenu) {
+            // 遍历所有节点，将所有菜单的父id与传过来的根节点的id比较
+            //相等说明：为该根节点的子节点。
+            if(nav.getParentId().equals(id)){
+                childList.add(nav);
+            }
+        }
+        //递归
+        for (SystemMenu nav : childList) {
+            nav.setChildren(getChild(nav.getId(), allMenu));
+        }
+        Collections.sort(childList,order());//排序
+        //如果节点下没有子节点，返回一个空List（递归退出）
+        if(childList.size() == 0){
+            return new ArrayList<SystemMenu>();
+        }
+        return childList;
+    }
+    /*
+     * 排序,根据order排序
+     */
+    public Comparator<SystemMenu> order(){
+        Comparator<SystemMenu> comparator = new Comparator<SystemMenu>() {
+            @Override
+            public int compare(SystemMenu o1, SystemMenu o2) {
+                if(o1.getSortIndex() != o2.getSortIndex()){
+                    return o1.getSortIndex() - o2.getSortIndex();
+                }
+                return 0;
+            }
+        };
+        return comparator;
     }
 }
