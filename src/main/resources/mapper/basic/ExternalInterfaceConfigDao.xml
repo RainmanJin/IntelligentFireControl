@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.basic.ExternalInterfaceConfigDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="platform_value" jdbcType="INTEGER" property="platformValue" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="account" jdbcType="VARCHAR" property="account" />
-    <result column="sign_key" jdbcType="VARCHAR" property="signKey" />
-    <result column="sub_system_code" jdbcType="VARCHAR" property="subSystemCode" />
-    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="create_time" jdbcType="DATE" property="createTime" />
-    <result column="logic_remove" jdbcType="BIGINT" property="logicRemove" />
-  </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="platform_value" jdbcType="INTEGER" property="platformValue"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="sign_key" jdbcType="VARCHAR" property="signKey"/>
+        <result column="sub_system_code" jdbcType="VARCHAR" property="subSystemCode"/>
+        <result column="file_url" jdbcType="VARCHAR" property="fileUrl"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="create_time" jdbcType="DATE" property="createTime"/>
+        <result column="logic_remove" jdbcType="BIGINT" property="logicRemove"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig">
     insert into external_interface_config (id, platform_value, url, 
       account, sign_key, sub_system_code, 
       file_url, state, create_time, 
@@ -23,71 +23,142 @@
       #{fileUrl,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, 
       #{logicRemove,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig">
-    insert into external_interface_config
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig">
+        insert into external_interface_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="platformValue != null">
+                platform_value,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="account != null">
+                account,
+            </if>
+            <if test="signKey != null">
+                sign_key,
+            </if>
+            <if test="subSystemCode != null">
+                sub_system_code,
+            </if>
+            <if test="fileUrl != null">
+                file_url,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="logicRemove != null">
+                logic_remove,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="platformValue != null">
+                #{platformValue,jdbcType=INTEGER},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="signKey != null">
+                #{signKey,jdbcType=VARCHAR},
+            </if>
+            <if test="subSystemCode != null">
+                #{subSystemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="fileUrl != null">
+                #{fileUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=DATE},
+            </if>
+            <if test="logicRemove != null">
+                #{logicRemove,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig"
+            resultMap="BaseResultMap">
+        SELECT
         id,
-      </if>
-      <if test="platformValue != null">
         platform_value,
-      </if>
-      <if test="url != null">
         url,
-      </if>
-      <if test="account != null">
         account,
-      </if>
-      <if test="signKey != null">
         sign_key,
-      </if>
-      <if test="subSystemCode != null">
         sub_system_code,
-      </if>
-      <if test="fileUrl != null">
         file_url,
-      </if>
-      <if test="state != null">
         state,
-      </if>
-      <if test="createTime != null">
         create_time,
-      </if>
-      <if test="logicRemove != null">
-        logic_remove,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="platformValue != null">
-        #{platformValue,jdbcType=INTEGER},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="account != null">
-        #{account,jdbcType=VARCHAR},
-      </if>
-      <if test="signKey != null">
-        #{signKey,jdbcType=VARCHAR},
-      </if>
-      <if test="subSystemCode != null">
-        #{subSystemCode,jdbcType=VARCHAR},
-      </if>
-      <if test="fileUrl != null">
-        #{fileUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=DATE},
-      </if>
-      <if test="logicRemove != null">
-        #{logicRemove,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
+        logic_remove
+        FROM external_interface_config
+        WHERE 1=1
+        <if test="platformValue != null ">
+            AND platform_value=#{platformValue}
+        </if>
+        <if test="url != null ">
+            AND url=#{url}
+        </if>
+        <if test="account != null ">
+            AND account=#{account}
+        </if>
+        <if test="signKey != null ">
+            AND sign_key=#{signKey}
+        </if>
+        <if test="subSystemCode != null ">
+            AND sub_system_code=#{subSystemCode}
+        </if>
+        <if test="fileUrl != null ">
+            AND file_url=#{fileUrl}
+        </if>
+        <if test="state != null ">
+            AND state=#{state}
+        </if>
+        <if test="createTime != null ">
+            AND create_time=#{createTime}
+        </if>
+        <if test="logicRemove != null ">
+            AND logic_remove=#{logicRemove}
+        </if>
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+		SELECT
+		id,
+        platform_value, url,
+        account, sign_key, sub_system_code,
+        file_url, state, create_time,
+        logic_remove
+		FROM external_interface_config WHERE id = #{id}
+  </select>
+
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig">
+        UPDATE external_interface_config
+        <set>
+            <if test="platformValue != null">platform_value =#{platformValue},</if>
+            <if test="url != null">url =#{url},</if>
+            <if test="account != null">account =#{account},</if>
+            <if test="signKey != null">sign_key =#{signKey},</if>
+            <if test="subSystemCode != null">sub_system_code =#{subSystemCode},</if>
+            <if test="fileUrl != null">file_url =#{fileUrl},</if>
+            <if test="state != null">state =#{state},</if>
+            <if test="createTime != null">create_time =#{createTime},</if>
+            <if test="logicRemove != null">logic_remove =#{logicRemove}</if>
+        </set>
+        WHERE id
+        = #{id}
+    </update>
 </mapper>

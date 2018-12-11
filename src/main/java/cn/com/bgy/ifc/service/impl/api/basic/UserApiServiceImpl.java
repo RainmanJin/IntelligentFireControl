@@ -1,15 +1,11 @@
 package cn.com.bgy.ifc.service.impl.api.basic;
 
-import cn.com.bgy.ifc.bgy.exception.GlobalHandlerExceptionResolver;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
-import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.api.basic.UserApiService;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,21 +32,17 @@ public class UserApiServiceImpl implements UserApiService {
             String url = "http://47.107.20.19:9002/integration/api/third/user/login";
             String account = "fire-fighting";
             String signKey = "C1CF1733-1C64-4F6C-9138-6F968A1BBE9B";
-            SignatureUtil signatureUtil=new SignatureUtil();
+            SignatureUtil signatureUtil = new SignatureUtil();
             String timestampStr = signatureUtil.timestampStr();
             // 请求数据
             Map<String, Object> data = new HashMap<>();
             //加密明文密码
-            String cipherText = SignatureUtil.getBgyMd5(password);
+            String cipherText = signatureUtil.getBgyMd5(password);
             data.put("telephone", telephone);
             data.put("password", cipherText);
-            String jsonString = JSON.toJSONString(data);
-            String signature = signatureUtil.getBgySignature(timestampStr, signKey, jsonString);
-            //HTTP头部需要数据
-            Map<String, Object> headerMap = new HashMap<>();
-            headerMap.put("timestamp", timestampStr);
-            headerMap.put("signature", signature);
-            headerMap.put("account", account);
+            String signature = signatureUtil.getBgySignature(timestampStr, signKey, data);
+            //集成平台HTTP头部需要数据
+            Map<String, Object> headerMap = signatureUtil.getBgyHeader(timestampStr, signature, account);
             //调用HTTP请求
             JSONObject response = HttpHelper.httpPost(url, data, headerMap);
             if (response != null) {
@@ -64,13 +56,18 @@ public class UserApiServiceImpl implements UserApiService {
                 JSONObject jsonObject = response.getJSONObject("data");
                 if (jsonObject != null) {
                     Integer userId = jsonObject.getInteger("userId");
+                    ResponseVO.success().setMsg("验证成功");
                     return ResponseVO.success().setData(userId);
+                }else{
+                    return ResponseVO.exception();
                 }
+            }else{
+                return ResponseVO.exception();
             }
         } catch (Exception e) {
             logger.error("集成平台验证登录用户接口请求异常：" + e.getMessage());
+            return ResponseVO.exception();
         }
-        return ResponseVO.success().setData(null);
     }
 
     /**
@@ -85,20 +82,37 @@ public class UserApiServiceImpl implements UserApiService {
             String url = "http://47.107.20.19:9002/integration/api/third/user/updatePwd";
             String account = "fire-fighting";
             String signKey = "C1CF1733-1C64-4F6C-9138-6F968A1BBE9B";
-            SignatureUtil signatureUtil=new SignatureUtil();
+            SignatureUtil signatureUtil = new SignatureUtil();
             String timestampStr = signatureUtil.timestampStr();
             // 请求数据
             Map<String, Object> data = new HashMap<>();
             //加密明文密码
-            String cipherText = SignatureUtil.getBgyMd5(password);
+            String cipherText = signatureUtil.getBgyMd5(password);
             data.put("telephone", telephone);
             data.put("password", cipherText);
-            String jsonString = JSON.toJSONString(data);
-            String signature = signatureUtil.getBgySignature(timestampStr, signKey, jsonString);
+            String signature = signatureUtil.getBgySignature(timestampStr, signKey, data);
+            //集成平台HTTP头部需要数据
+            Map<String, Object> headerMap = signatureUtil.getBgyHeader(timestampStr, signature, account);
+            //调用HTTP请求
+            JSONObject response = HttpHelper.httpPut(url, data, headerMap);
+            if (response != null) {
+                //data作为key获取JSONObject
+                // statusCode
+                System.out.println("response:"+response.toString());
+                String statusCode = response.getString("statusCode");
+                if (!statusCode.equals("200")) {
+                    String info = response.getString("info");
+                    return ResponseVO.error().setMsg(info);
+                }else{
+                    return ResponseVO.success().setMsg("修改成功");
+                }
+            }else{
+                return ResponseVO.exception();
+            }
         } catch (Exception e) {
             logger.error("集成平台修改用户密码接口请求异常：" + e.getMessage());
+            return ResponseVO.exception();
         }
-        return null;
     }
 
     @Override
@@ -107,19 +121,15 @@ public class UserApiServiceImpl implements UserApiService {
             String url = "http://47.107.20.19:9002/integration/api/third/user/getUserList";
             String account = "fire-fighting";
             String signKey = "C1CF1733-1C64-4F6C-9138-6F968A1BBE9B";
-            SignatureUtil signatureUtil=new SignatureUtil();
+            SignatureUtil signatureUtil = new SignatureUtil();
             String timestampStr = signatureUtil.timestampStr();
             // 请求包结构体
             Map<String, Object> data = new HashMap<>();
-            data.put("pageNo", 1);
+            data.put("pageNo", 2);
             data.put("pageSize", 10);
-            String jsonString = JSON.toJSONString(data);
-            String signature = signatureUtil.getBgySignature(timestampStr, signKey, jsonString);
-            //HTTP头部需要数据
-            Map<String, Object> headerMap = new HashMap<>();
-            headerMap.put("timestamp", timestampStr);
-            headerMap.put("signature", signature);
-            headerMap.put("account", account);
+            String signature = signatureUtil.getBgySignature(timestampStr, signKey, data);
+            //集成平台HTTP头部需要数据
+            Map<String, Object> headerMap = signatureUtil.getBgyHeader(timestampStr, signature, account);
             //调用HTTP请求
             JSONObject response = HttpHelper.httpPost(url, data, headerMap);
             List<Map<String, Object>> mapList = new ArrayList<>();
@@ -148,19 +158,21 @@ public class UserApiServiceImpl implements UserApiService {
             String url = "http://47.107.20.19:9002/integration/api/third/user/getUserList";
             String account = "fire-fighting";
             String signKey = "C1CF1733-1C64-4F6C-9138-6F968A1BBE9B";
-            SignatureUtil signatureUtil=new SignatureUtil();
+            SignatureUtil signatureUtil = new SignatureUtil();
             String timestampStr = signatureUtil.timestampStr();
             // 请求包结构体
             Map<String, Object> data = new HashMap<>();
+            data.put("startTime", "");
             data.put("pageNo", 1);
             data.put("pageSize", 10);
-            String jsonString = JSON.toJSONString(data);
-            String signature = signatureUtil.getBgySignature(timestampStr, signKey, jsonString);
-            //HTTP头部需要数据
-            Map<String, Object> headerMap = new HashMap<>();
-            headerMap.put("timestamp", timestampStr);
-            headerMap.put("signature", signature);
-            headerMap.put("account", account);
+            String signature = signatureUtil.getBgySignature(timestampStr, signKey, data);
+            //集成平台HTTP头部需要数据
+            Map<String, Object> headerMap = signatureUtil.getBgyHeader(timestampStr, signature, account);
+            //调用HTTP请求
+            JSONObject response = HttpHelper.httpPost(url, data, headerMap);
+            if (response != null) {
+
+            }
         } catch (Exception e) {
             logger.error("请求接口异常：" + e.getMessage());
         }
@@ -169,19 +181,19 @@ public class UserApiServiceImpl implements UserApiService {
     @Override
     public void obtainBgyUserPermission() {
         try {
-            String url = "http://47.107.20.19:9002/integration/api/third/user/getUserPermission";
+            String url = "http://47.107.20.19:9002/integration/api/third/user/getUserPermissionIncrement";
             String account = "fire-fighting";
             String signKey = "C1CF1733-1C64-4F6C-9138-6F968A1BBE9B";
-            SignatureUtil signatureUtil=new SignatureUtil();
+            SignatureUtil signatureUtil = new SignatureUtil();
             String timestampStr = signatureUtil.timestampStr();
             // 请求包结构体
             Map<String, Object> data = new HashMap<>();
+            data.put("startTime", "");
             data.put("pageNo", 1);
             data.put("pageSize", 10);
-            String jsonString = JSON.toJSONString(data);
-            String signature = signatureUtil.getBgySignature(timestampStr, signKey, jsonString);
+            String signature = signatureUtil.getBgySignature(timestampStr, signKey, data);
             //集成平台HTTP头部需要数据
-            Map<String, Object> headerMap = signatureUtil.getBgyHeader(timestampStr,signature,account);
+            Map<String, Object> headerMap = signatureUtil.getBgyHeader(timestampStr, signature, account);
             //调用HTTP请求
             JSONObject response = HttpHelper.httpPost(url, data, headerMap);
             List<Map<String, Object>> mapList = new ArrayList<>();
@@ -206,6 +218,27 @@ public class UserApiServiceImpl implements UserApiService {
 
     @Override
     public void obtainBgyUserPermissionIncrement() {
+        try{
+        String url = "http://47.107.20.19:9002/integration/api/third/user/getUserPermission";
+        String account = "fire-fighting";
+        String signKey = "C1CF1733-1C64-4F6C-9138-6F968A1BBE9B";
+        SignatureUtil signatureUtil = new SignatureUtil();
+        String timestampStr = signatureUtil.timestampStr();
+        // 请求包结构体
+        Map<String, Object> data = new HashMap<>();
+        data.put("pageNo", 1);
+        data.put("pageSize", 10);
+        String signature = signatureUtil.getBgySignature(timestampStr, signKey, data);
+        //集成平台HTTP头部需要数据
+        Map<String, Object> headerMap = signatureUtil.getBgyHeader(timestampStr, signature, account);
+        //调用HTTP请求
+        JSONObject response = HttpHelper.httpPost(url, data, headerMap);
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        if (response != null) {
 
+        }
+        } catch (Exception e) {
+            logger.error("获取集成平台用户权限列表（增量）接口请求异常：" + e.getMessage());
+        }
     }
 }
