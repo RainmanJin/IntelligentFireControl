@@ -211,4 +211,8 @@
     remark= #{remark,jdbcType=LONGVARCHAR}
     where id=#{id,jdbcType=BIGINT}
 </update>
+  <!--根据用户名查询用户对象-->
+  <select id="findAccountByUserName" parameterType="String" resultMap="BaseResultMap">
+    select * from  account where user_name = #{userName,jdbcType=VARCHAR}
+  </select>
 </mapper>
