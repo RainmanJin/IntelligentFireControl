@@ -7,9 +7,11 @@ import cn.com.bgy.ifc.entity.po.basic.Account;
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.basic.LoginService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -55,21 +57,33 @@ public class LoginController {
         session.setAttribute("code",map.get("code"));
         ImageIO.write((RenderedImage) map.get("codePic"), "jpeg",out);
     }
-    @GetMapping("/login")
+    @PostMapping ("/login")
     @ResponseBody
-    public ResponseVO<Object> login(HttpServletRequest request) {
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
-        //根据用户名验证该用户是否存在
-        Account account = accountDomain.findAccountByUserName(userName, password);
-        if (account != null) {
-            account.setPassword("");
-            account.setPassword("");
-            ResponseVO responseVO = new ResponseVO();
-            responseVO.setMsg("success");
-            responseVO.setData(account);
-            return responseVO;
+    public ResponseVO<Object> login(HttpServletRequest request,String userName,String password,String identifyCode) {
+//        String userName = request.getParameter("userName");
+//        String password = request.getParameter("password");
+//        String identifyCode = request.getParameter("identifyCode");
+        //验证用户验证码是否一致
+        //获取session中的验证码
+         String code = request.getSession().getAttribute("code").toString().toLowerCase();
+        if("".equals(identifyCode)||identifyCode==null){
+            //验证吗不能为空
+            return ResponseVO.error().setMsg("验证吗不能为空");
+        }else if(identifyCode.toLowerCase().equals(code)){
+            //根据用户名验证该用户是否存在
+            Account account = accountDomain.findAccountByUserName(userName, password);
+            if (account != null) {
+                account.setPassword(null);
+                ResponseVO responseVO = new ResponseVO();
+                responseVO.setMsg("success");
+                responseVO.setData(account);
+                return responseVO;
+            }else {
+                return ResponseVO.error().setMsg("用户名或密码错误");
+            }
+        }else {
+            //验证码已失效
+            return  ResponseVO.error().setMsg("验证码已失效");
         }
-        return ResponseVO.error().setMsg("用户名或密码错误");
     }
 }
