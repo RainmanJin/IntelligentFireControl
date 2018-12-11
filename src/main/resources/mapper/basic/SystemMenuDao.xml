@@ -162,7 +162,7 @@
                                     r.user_id = 1
                             )
                     )
-            )  and (m.parent_id is null or m.parent_id=''
+            )
   </select>
 
 </mapper>
