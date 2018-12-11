@@ -50,4 +50,11 @@ public interface AccountDomain {
      * @return
      */
     int update(Account account);
+
+    /**
+     * 根据用户名称查询用户对象
+     * @param userName
+     * @return
+     */
+    Account findAccountByUserName(String userName,String password);
 }
