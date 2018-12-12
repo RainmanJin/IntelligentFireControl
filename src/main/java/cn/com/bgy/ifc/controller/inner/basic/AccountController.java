@@ -57,6 +57,11 @@ public class AccountController {
         return ResponseVO.success().setData(pageInfo);
     }
 
+    /**
+     * 根据用户id删除用户
+     * @param id
+     * @return
+     */
     @PostMapping("deleteById")
     @ResponseBody
     public ResponseVO<Object> deleteById(Long id){
@@ -69,5 +74,12 @@ public class AccountController {
         return ResponseVO.success().setMsg("数据删除成功！");
     }
 
+    @PostMapping("findUserPowerByPage")
+    @ResponseBody
+    public ResponseVO<Object> findUserPowerByPage(Page<Account> page,Account account){
+
+        PageInfo<Account> pageInfo= accountDomain.findUserPowerByPage(page, account);
+        return ResponseVO.success().setData(pageInfo);
+    }
 
 }

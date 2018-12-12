@@ -41,7 +41,14 @@ public class LoginController {
 
         return "/index";
     }
+
+    /**
+     * 根据用户id获取权限菜单
+     * @param userId
+     * @return
+     */
     @GetMapping("/findMenuByUser")
+    @ResponseBody
     public ResponseVO findMenuByUser(Long userId){
         List<SystemMenu> menuList=systemMenuDomain.findMenuByUser(userId);
 

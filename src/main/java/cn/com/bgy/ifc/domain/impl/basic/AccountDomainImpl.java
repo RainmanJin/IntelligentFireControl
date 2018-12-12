@@ -69,5 +69,13 @@ public class AccountDomainImpl implements AccountDomain {
         return null;
     }
 
+    @Override
+    public PageInfo<Account> findUserPowerByPage(Page<Account> page,Account account) {
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        List<Account> accountList = accountDao.findUserPowerByPage(account);
+        PageInfo<Account> pageInfo = new PageInfo<>(accountList);
+        return pageInfo;
+    }
+
 
 }

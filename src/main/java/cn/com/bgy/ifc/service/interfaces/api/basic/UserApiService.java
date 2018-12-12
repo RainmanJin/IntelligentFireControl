@@ -11,10 +11,10 @@ public interface UserApiService {
     ResponseVO<Object> obtainBgyUpdatePass(String telephone, String password);
 
     //获取集成平台用户信息
-    void obtainBgyUser();
+    void obtainBgyUser(int pageNo, int pageSize);
 
     //获取集成平台用户信息（增量）
-    void obtainBgyUserIncrement();
+    void obtainBgyUserIncrement(int pageNo, int pageSize);
 
     //获取集成平台用户权限
     void obtainBgyUserPermission();
