@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.domain.interfaces.basic;
 
+import cn.com.bgy.ifc.entity.po.basic.Account;
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import com.github.pagehelper.Page;
@@ -44,6 +45,5 @@ public interface SystemMenuDomain {
      * @return
      */
     public Map<String,Object> findTree(Long userId);
-
 
 }

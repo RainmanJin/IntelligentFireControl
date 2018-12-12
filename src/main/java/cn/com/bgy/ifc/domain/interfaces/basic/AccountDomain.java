@@ -57,4 +57,13 @@ public interface AccountDomain {
      * @return
      */
     Account findAccountByUserName(String userName,String password);
+
+    /**
+     * 根据用户名查询用户
+     * @param page
+     * @param account
+     * @return
+     */
+    public PageInfo<Account> findUserPowerByPage(Page<Account> page, Account account);
+
 }

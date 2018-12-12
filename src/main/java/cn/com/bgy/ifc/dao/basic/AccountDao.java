@@ -43,4 +43,11 @@ public interface AccountDao {
      * @return
      */
     Account findAccountByUserName(String userName);
+
+    /**
+     * 分页查询用户权限
+     * @param account
+     * @return
+     */
+    List<Account> findUserPowerByPage(Account account);
 }
