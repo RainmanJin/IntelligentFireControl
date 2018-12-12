@@ -12,13 +12,13 @@ public interface EquipmentApiService {
      * @Description 集成平台获取设备信息列表接口
      * @Date 2018/12/11 16:32
      */
-    void obtainEquipment();
+    void obtainEquipment(int areaId,int projectId,int machineRoomId,int typeId,int pageNo,int pageSize);
     /**
      * @Author huxin
      * @Description 集成平台获取设备信息列表接口（增量）
      * @Date 2018/12/11 16:33
      */
-    void obtainListEquipment();
+    void obtainListEquipment(String startTime,int pageNo, int pageSize);
 
     /**
      * @author: ZhangCheng
@@ -35,4 +35,16 @@ public interface EquipmentApiService {
      * @return: void
      */
     void obtainBgyEquipmentVersionIncrement(int pageNo, int pageSize);
+    /**
+     * @Author huxin
+     * @Description 获取集成平台设备类型
+     * @Date 2018/12/12 16:10
+     */
+    void obtainEquipmentType(int pageNo, int pageSize);
+    /**
+     * @Author huxin
+     * @Description 获取集成平台设备类型（增量）
+     * @Date 2018/12/12 16:12
+     */
+    void obtainListEquipmentType(String startTime,int pageNo, int pageSize);
 }
