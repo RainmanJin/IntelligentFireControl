@@ -7,9 +7,33 @@ package cn.com.bgy.ifc.bgy.constant;
  **/
 public class SystemConstant {
 
+    /**
+     * 用户类型(0一般用户,1机构管理员,2系统管理员,3技术管理员)
+     */
+    public enum UserType {
+        //一般用户
+        GENERAL_USER(0),
+        //机构管理员
+        ORG_ADMIN(1),
+        //系统管理员
+        SYSTEM_ADMIN(2),
+        //技术管理员
+        ECHNOLOGY_ADMIN(3);
+
+        private Integer value;
+
+        private UserType(Integer value) {
+            this.value = value;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+    }
+
     /*
-    * 启用状态
-    * */
+     * 启用状态
+     * */
     public enum EnableState {
         //禁用
         PROHIBIT(0),
@@ -25,7 +49,8 @@ public class SystemConstant {
         private EnableState(Integer value) {
             this.value = value;
         }
-        public Integer getValue(){
+
+        public Integer getValue() {
             return value;
         }
     }
@@ -54,7 +79,8 @@ public class SystemConstant {
         private SystemLogType(Integer value) {
             this.value = value;
         }
-        public Integer getValue(){
+
+        public Integer getValue() {
             return value;
         }
     }

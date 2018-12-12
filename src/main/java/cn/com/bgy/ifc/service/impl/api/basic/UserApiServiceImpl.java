@@ -131,7 +131,7 @@ public class UserApiServiceImpl implements UserApiService {
     }
 
     @Override
-    public void obtainBgyUser() {
+    public void obtainBgyUser(int pageNo, int pageSize) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
             if (list.size() != 0) {
@@ -142,8 +142,8 @@ public class UserApiServiceImpl implements UserApiService {
                 String timestampStr = SignatureUtil.timestampStr();
                 // 请求包结构体
                 Map<String, Object> data = new HashMap<>();
-                data.put("pageNo", 2);
-                data.put("pageSize", 10);
+                data.put("pageNo",pageNo);
+                data.put("pageSize", pageSize);
                 String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
                 //集成平台HTTP头部需要数据
                 Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
@@ -152,8 +152,11 @@ public class UserApiServiceImpl implements UserApiService {
                 List<BgyUserVo> oList = new ArrayList<>();
                 BgyUserVo bgyUserVo=new BgyUserVo();
                 ResponseUtil.getResultList(oList,bgyUserVo,response,"data","list");
-                System.out.println("oList:" + oList.size());
-                System.out.println("oList:" + oList);
+                if(oList.size()>0){
+                    for (BgyUserVo userVo : oList) {
+
+                    }
+                }
             } else {
                 logger.info("获取集成平台接口配置数据失败！");
             }
@@ -163,7 +166,7 @@ public class UserApiServiceImpl implements UserApiService {
     }
 
     @Override
-    public void obtainBgyUserIncrement() {
+    public void obtainBgyUserIncrement(int pageNo, int pageSize) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
             if (list.size() != 0) {
@@ -175,8 +178,8 @@ public class UserApiServiceImpl implements UserApiService {
                 // 请求包结构体
                 Map<String, Object> data = new HashMap<>();
                 data.put("startTime", "2018-10-01 01:00:00");
-                data.put("pageNo", 1);
-                data.put("pageSize", 10);
+                data.put("pageNo",pageNo);
+                data.put("pageSize", pageSize);
                 String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
                 //集成平台HTTP头部需要数据
                 Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
@@ -185,6 +188,9 @@ public class UserApiServiceImpl implements UserApiService {
                 List<BgyUserVo> oList = new ArrayList<>();
                 BgyUserVo bgyUserVo=new BgyUserVo();
                 ResponseUtil.getResultList(oList,bgyUserVo,response,"data","list");
+                /*if(){
+
+                }*/
             } else {
                 logger.info("获取集成平台接口配置数据失败！");
             }

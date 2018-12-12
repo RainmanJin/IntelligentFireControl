@@ -211,9 +211,28 @@
     remark= #{remark,jdbcType=LONGVARCHAR}
     where id=#{id,jdbcType=BIGINT}
 </update>
-  <!--根据用户名查询用户对象-->
+  <!--根据电话号码查询用户对象-->
   <select id="findAccountByUserName" parameterType="String" resultMap="BaseResultMap">
-    select * from  account where telephone = #{telephone,jdbcType=VARCHAR}
+    select
+      id,
+      organization_id,
+      department_id,
+      telephone,
+      job_number,
+      user_name,
+      password,
+      password_salt,
+      identity_number,
+      sex,
+      regist_time,
+      is_disable,
+      current_ip,
+      current_time,
+      last_ip,
+      last_time,
+      user_type,
+      remark
+    from  account where telephone = #{telephone,jdbcType=VARCHAR}
   </select>
 
   <select id="findUserPowerByPage" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.basic.Account">

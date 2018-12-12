@@ -31,11 +31,11 @@
 
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.Information">
     insert into information (id, org_id, type_id,
-      tile, signature, date_line,
+      title, signature, date_line,
       d_id, u_id, create_time,
       logic_remove, content)
     values (#{id,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{typeId,jdbcType=BIGINT},
-      #{tile,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, #{dateLine,jdbcType=VARCHAR},
+      #{title,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, #{dateLine,jdbcType=VARCHAR},
       #{dId,jdbcType=BIGINT}, #{uId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
       #{logicRemove,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR})
   </insert>
@@ -48,8 +48,8 @@
       <if test="typeId != null">
         type_id = #{typeId,jdbcType=BIGINT},
       </if>
-      <if test="tile != null">
-        tile = #{tile,jdbcType=VARCHAR},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="signature != null">
         signature = #{signature,jdbcType=VARCHAR},
