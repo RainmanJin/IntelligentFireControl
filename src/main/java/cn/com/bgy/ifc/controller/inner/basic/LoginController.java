@@ -7,14 +7,12 @@ import cn.com.bgy.ifc.entity.po.basic.Account;
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.basic.LoginService;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
@@ -60,20 +58,21 @@ public class LoginController {
     }
     @PostMapping ("/login")
     @ResponseBody
-    public ResponseVO<Object> login(HttpServletRequest request,String userName,String password,String identifyCode) {
-//        String userName = request.getParameter("userName");
-//        String password = request.getParameter("password");
-//        String identifyCode = request.getParameter("identifyCode");
+    public ResponseVO<Object> login(HttpServletRequest request,String telephone,String password,String identifyCode) {
+//       String telephone = request.getParameter("telephone");
+//       String password = request.getParameter("password");
+//       String identifyCode = request.getParameter("identifyCode");
         //验证用户验证码是否一致
         //获取session中的验证码
-         String code = request.getSession().getAttribute("code").toString().toLowerCase();
+         String code = request.getSession().getAttribute("code")==null?"": request.getSession().getAttribute("code").toString().toLowerCase();
         if("".equals(identifyCode)||identifyCode==null){
             //验证吗不能为空
             return ResponseVO.error().setMsg("验证吗不能为空");
         }else if(identifyCode.toLowerCase().equals(code)){
-            //根据用户名验证该用户是否存在
-            Account account = accountDomain.findAccountByUserName(userName, password);
+            //根据电话号码验证该用户是否存在
+            Account account = accountDomain.findAccountByUserName(telephone, password);
             if (account != null) {
+
                 account.setPassword(null);
                 ResponseVO responseVO = new ResponseVO();
                 responseVO.setMsg("success");
