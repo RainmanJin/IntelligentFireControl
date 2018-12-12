@@ -61,13 +61,15 @@ public class AccountDomainImpl implements AccountDomain {
     @Override
     public Account findAccountByUserName(String telephone,String password) {
         Account account = accountDao.findAccountByUserName(telephone);
-        String Md5password = SignatureUtil.getBgyMd5(password.toUpperCase());
+        if(account!=null){
+            String Md5password = SignatureUtil.getBgyMd5(password.toUpperCase());
 
-        /**
-         * 判断密码是否一致
-         */
-        if (Md5password.equals(account.getPassword())){
-            return account;
+            /**
+             * 判断密码是否一致
+             */
+            if (Md5password.equals(account.getPassword())){
+                return account;
+            }
         }
         return null;
     }
