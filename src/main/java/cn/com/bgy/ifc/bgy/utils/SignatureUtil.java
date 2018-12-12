@@ -23,7 +23,7 @@ public class SignatureUtil {
      * @param: []
      * @return: java.lang.String
      */
-    public String timestampStr() {
+    public static String timestampStr() {
         long timestamp = new Date().getTime();
         return String.valueOf(timestamp);
     }
@@ -37,7 +37,7 @@ public class SignatureUtil {
      * postData：请求DATA的JSON字符串
      * @return: java.lang.String 加密后的全大写密文
      */
-    public String getBgySignature(String timestampStr, String signKey, Map<String, Object> data) {
+    public static String getBgySignature(String timestampStr, String signKey, Map<String, Object> data) {
         String postData = JSON.toJSONString(data);
         String signatureStr = timestampStr + signKey + postData;
         char[] charArray = signatureStr.toCharArray();
@@ -54,7 +54,7 @@ public class SignatureUtil {
      * @param: [timestampStr, signature, account]
      * @return: java.util.Map<java.lang.String , java.lang.Object>
      */
-    public Map<String, Object> getBgyHeader(String timestampStr, String signature, String account) {
+    public static Map<String, Object> getBgyHeader(String timestampStr, String signature, String account) {
         Map<String, Object> headerMap = new HashMap<>();
         headerMap.put("timestamp", timestampStr);
         headerMap.put("signature", signature);
@@ -68,7 +68,7 @@ public class SignatureUtil {
      * @param: [plaintext]
      * @return: java.lang.String
      */
-    public String getBgyMd5(String plaintext) {
+    public static String getBgyMd5(String plaintext) {
         return new Md5Hash(plaintext).toString();
     }
 

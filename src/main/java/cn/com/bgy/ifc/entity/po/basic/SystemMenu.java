@@ -1,5 +1,7 @@
 package cn.com.bgy.ifc.entity.po.basic;
 
+import java.util.List;
+
 public class SystemMenu {
     private Long id;
 
@@ -17,7 +19,17 @@ public class SystemMenu {
 
     private Long powerId;
 
+    public List<SystemMenu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SystemMenu> children) {
+        this.children = children;
+    }
+
     private Boolean logicRemove;
+
+    private List<SystemMenu> children;
 
     public Long getId() {
         return id;

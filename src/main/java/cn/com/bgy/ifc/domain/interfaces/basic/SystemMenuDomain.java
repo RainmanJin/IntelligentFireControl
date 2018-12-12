@@ -6,6 +6,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -36,4 +37,13 @@ public interface SystemMenuDomain {
      * @return
      */
     public List<SystemMenu> findMenuByUser(Long userId);
+
+    /**
+     * 根据用户名查询菜单树
+     * @param userId
+     * @return
+     */
+    public Map<String,Object> findTree(Long userId);
+
+
 }

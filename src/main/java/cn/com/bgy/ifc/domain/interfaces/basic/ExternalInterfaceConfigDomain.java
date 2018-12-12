@@ -13,6 +13,9 @@ public interface ExternalInterfaceConfigDomain {
 
     List<ExternalInterfaceConfig> queryListByParam(ExternalInterfaceConfig record);
 
+    //查询集成平台接口信息
+    List<ExternalInterfaceConfig> queryIntegrationConfig();
+
     ExternalInterfaceConfig findById(Long id);
 
     int insert(ExternalInterfaceConfig record);

@@ -23,7 +23,7 @@ public class InformationVo {
     /**
      * 标题
      */
-    private String tile;
+    private String title;
 
     /**
      * 署名
@@ -115,18 +115,18 @@ public class InformationVo {
 
     /**
      * 标题
-     * @return tile 标题
+     * @return title 标题
      */
-    public String getTile() {
-        return tile;
+    public String getTitle() {
+        return title;
     }
 
     /**
      * 标题
-     * @param tile 标题
+     * @param title 标题
      */
-    public void setTile(String tile) {
-        this.tile = tile == null ? null : tile.trim();
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
