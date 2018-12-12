@@ -39,17 +39,16 @@ public class BgyProjectServiceImpl implements BgyProjectService {
                 String url = config.getUrl()+"/api/third/base/getProjectList";
                 String account = config.getAccount();
                 String signKey = config.getSignKey();
-                SignatureUtil signatureUtil = new SignatureUtil();
-                String timestampStr = signatureUtil.timestampStr();
+                String timestampStr = SignatureUtil.timestampStr();
                 // 请求包结构体
                 Map<String, Object> data = new HashMap<>();
                 //区域id,为空则返回所有项目
                 data.put("areaId", null);
                 data.put("pageNo", 2);
                 data.put("pageSize", 10);
-                String signature = signatureUtil.getBgySignature(timestampStr, signKey, data);
+                String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
                 //集成平台HTTP头部需要数据
-                Map<String, Object> headerMap = signatureUtil.getBgyHeader(timestampStr, signature, account);
+                Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
                 //调用HTTP请求
                 JSONObject response = HttpHelper.httpPost(url, data, headerMap);
                 List<Map<String, Object>> mapList = new ArrayList<>();
