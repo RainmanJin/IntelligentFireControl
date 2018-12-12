@@ -52,6 +52,23 @@ public class AccountDomainImpl implements AccountDomain {
         return accountDao.updateById(account);
     }
 
+    /**
+     * 登录
+     * @param userName
+     * @return
+     */
+    @Override
+    public Account findAccountByUserName(String userName,String password) {
+        Account account = accountDao.findAccountByUserName(userName);
+        /**
+         * 判断密码是否一致
+         */
+        if (password.equals(account.getPassword())){
+            return account;
+        }
+        return null;
+    }
+
     @Override
     public PageInfo<Account> findUserPowerByPage(Page<Account> page,Account account) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());

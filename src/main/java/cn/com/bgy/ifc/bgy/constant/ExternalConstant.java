@@ -8,6 +8,27 @@ package cn.com.bgy.ifc.bgy.constant;
 public class ExternalConstant {
 
     /*
+     * 集成平台操作类型
+     * */
+    public enum OperationType{
+        //新增
+        ADD(1),
+        //删除
+        DELETE(2),
+        //修改
+        UPDATE(3);
+
+        private Integer value;
+
+        private OperationType(Integer value) {
+            this.value = value;
+        }
+        public Integer getValue(){
+            return value;
+        }
+    }
+
+    /*
      * 平台接口枚举
      * */
     public enum PlatformValue{

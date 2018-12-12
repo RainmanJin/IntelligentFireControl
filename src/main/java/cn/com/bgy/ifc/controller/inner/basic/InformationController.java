@@ -1,7 +1,9 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.domain.interfaces.basic.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.basic.InformationDomain;
+import cn.com.bgy.ifc.entity.po.basic.Account;
 import cn.com.bgy.ifc.entity.po.basic.Information;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.InformationVo;
@@ -21,7 +23,10 @@ public class InformationController {
     @Autowired
     private InformationDomain informationDomain;
 
-    @GetMapping("add")
+    @Autowired
+    AccountDomain accountDomain;
+
+    @PostMapping("add")
     @ResponseBody
     public ResponseVO<Object> add(@Validated InformationVo informationVo, BindingResult error){
 
@@ -42,7 +47,7 @@ public class InformationController {
         }
     }
 
-    @GetMapping("update")
+    @PostMapping("update")
     @ResponseBody
     public ResponseVO<Object> update(@Validated InformationVo informationVo, BindingResult error){
         try {
@@ -59,9 +64,9 @@ public class InformationController {
             return ResponseVO.exception();
         }
     }
-    @GetMapping("delete")
+    @DeleteMapping("delete/{id}")
     @ResponseBody
-    public ResponseVO<Object> delete( Long id){
+    public ResponseVO<Object> delete(@PathVariable Long id){
         if(id==null){
             return ResponseVO.error().setMsg("id不能为空");
         }
@@ -95,4 +100,5 @@ public class InformationController {
         PageInfo<Information> pageInfo=informationDomain.searchByPage(page,information);
         return ResponseVO.success().setData(pageInfo);
     }
+
 }

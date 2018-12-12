@@ -52,9 +52,9 @@ public interface AccountDomain {
     int update(Account account);
 
     /**
-     * 查询所有用户权限
-     * @param page
+     * 根据用户名称查询用户对象
+     * @param userName
      * @return
      */
-    PageInfo<Account> findUserPowerByPage(Page<Account> page,Account account);
+    Account findAccountByUserName(String userName,String password);
 }

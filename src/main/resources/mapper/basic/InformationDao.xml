@@ -24,83 +24,20 @@
     from information
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id=" " parameterType="java.lang.Long">
-    delete from information
+  <update id="deleteById" parameterType="java.lang.Long">
+    update information set logic_remove = true
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
 
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.Information">
-    insert into information
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="orgId != null">
-        org_id,
-      </if>
-      <if test="typeId != null">
-        type_id,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="signature != null">
-        signature,
-      </if>
-      <if test="dateLine != null">
-        date_line,
-      </if>
-      <if test="dId != null">
-        d_id,
-      </if>
-      <if test="uId != null">
-        u_id,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="logicRemove != null">
-        logic_remove,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="orgId != null">
-        #{orgId,jdbcType=BIGINT},
-      </if>
-      <if test="typeId != null">
-        #{typeId,jdbcType=BIGINT},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="signature != null">
-        #{signature,jdbcType=VARCHAR},
-      </if>
-      <if test="dateLine != null">
-        #{dateLine,jdbcType=VARCHAR},
-      </if>
-      <if test="dId != null">
-        #{dId,jdbcType=BIGINT},
-      </if>
-      <if test="uId != null">
-        #{uId,jdbcType=BIGINT},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="logicRemove != null">
-        #{logicRemove,jdbcType=BIT},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.Information">
+    insert into information (id, org_id, type_id,
+      tile, signature, date_line,
+      d_id, u_id, create_time,
+      logic_remove, content)
+    values (#{id,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{typeId,jdbcType=BIGINT},
+      #{tile,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, #{dateLine,jdbcType=VARCHAR},
+      #{dId,jdbcType=BIGINT}, #{uId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
+      #{logicRemove,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.Information">
     update information
@@ -111,8 +48,8 @@
       <if test="typeId != null">
         type_id = #{typeId,jdbcType=BIGINT},
       </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
+      <if test="tile != null">
+        tile = #{tile,jdbcType=VARCHAR},
       </if>
       <if test="signature != null">
         signature = #{signature,jdbcType=VARCHAR},

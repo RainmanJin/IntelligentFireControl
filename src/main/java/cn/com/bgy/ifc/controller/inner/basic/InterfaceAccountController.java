@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -23,7 +21,7 @@ import java.util.Date;
 public class InterfaceAccountController {
     @Autowired
     private InterfaceAccountDomain interfaceaccountDomain;
-    @GetMapping("add")
+    @PostMapping("add")
     @ResponseBody
     public ResponseVO<Object> add(@Validated InterfaceAccountVo interfaceaccountVo, BindingResult error){
 
@@ -42,7 +40,7 @@ public class InterfaceAccountController {
             return ResponseVO.exception();
         }
     }
-    @GetMapping("update")
+    @PostMapping("update")
     @ResponseBody
     public ResponseVO<Object> update(@Validated InterfaceAccountVo interfaceaccountVo, BindingResult error){
         try {
@@ -59,9 +57,9 @@ public class InterfaceAccountController {
             return ResponseVO.exception();
         }
     }
-    @GetMapping("delete")
+    @DeleteMapping("delete/{id}")
     @ResponseBody
-    public ResponseVO<Object> delete( Long id){
+    public ResponseVO<Object> delete(@PathVariable Long id){
         if(id==null){
             return ResponseVO.error().setMsg("id不能为空");
         }
@@ -70,7 +68,7 @@ public class InterfaceAccountController {
     }
     @GetMapping("findById")
     @ResponseBody
-    public ResponseVO<Object> findById(Long id){
+    public ResponseVO<Object> findById( Long id){
         if(id==null){
             return ResponseVO.error().setMsg("id不能为空");
         }
