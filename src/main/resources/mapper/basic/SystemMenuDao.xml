@@ -97,15 +97,29 @@
 
   <select id="queryAllSystemMenuInfo" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
     SELECT
-    s.id,s.image_url,s.logic_remove,s.`name`,
-    s.navigate_url,s.parent_id,s.power_id,s.remark,s.sort_index
+      id as id,
+      name as name,
+      image_url as imageUrl,
+      navigate_url as navigateUrl,
+      remark as remark,
+      sort_index as sortIndex,
+      parent_id as parentId ,
+      power_id as powerId,
+      logic_remove as logicRemove
     from system_menu s
   </select>
 
   <select id="queryOneSystemMenuInfo" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" parameterType="java.lang.Long">
     SELECT
-    s.id,s.image_url,s.logic_remove,s.`name`,
-    s.navigate_url,s.parent_id,s.power_id,s.remark,s.sort_index
+      id as id,
+      name as name,
+      image_url as imageUrl,
+      navigate_url as navigateUrl,
+      remark as remark,
+      sort_index as sortIndex,
+      parent_id as parentId ,
+      power_id as powerId,
+      logic_remove as logicRemove
     from system_menu s where s.id = #{id,jdbcType=BIGINT}
   </select>
 
@@ -133,11 +147,17 @@
     </foreach>
   </update>
 
-  <select id="findMenuByUser" parameterType="string" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+  <select id="findMenuByUser" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
         SELECT
-            id, name, image_url,
-              navigate_url, remark, sort_index,
-              parent_id, power_id, logic_remove
+            id as id,
+            name as name,
+            image_url as imageUrl,
+            navigate_url as navigateUrl,
+            remark as remark,
+            sort_index as sortIndex,
+            parent_id as parentId ,
+            power_id as powerId,
+            logic_remove as logicRemove
         FROM
             system_menu m
         WHERE m.logic_remove=0 and
@@ -159,7 +179,7 @@
                                 FROM
                                     system_user_role r
                                 WHERE
-                                    r.user_id = 1
+                                    r.user_id = #{userId}
                             )
                     )
             )

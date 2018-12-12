@@ -50,4 +50,11 @@ public interface AccountDomain {
      * @return
      */
     int update(Account account);
+
+    /**
+     * 查询所有用户权限
+     * @param page
+     * @return
+     */
+    PageInfo<Account> findUserPowerByPage(Page<Account> page,Account account);
 }

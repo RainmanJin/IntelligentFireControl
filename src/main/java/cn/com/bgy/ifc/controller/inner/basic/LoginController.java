@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
@@ -34,7 +35,14 @@ public class LoginController {
 
         return "/index";
     }
+
+    /**
+     * 根据用户id获取权限菜单
+     * @param userId
+     * @return
+     */
     @GetMapping("/findMenuByUser")
+    @ResponseBody
     public ResponseVO findMenuByUser(Long userId){
         List<SystemMenu> menuList=systemMenuDomain.findMenuByUser(userId);
 

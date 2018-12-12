@@ -1,43 +1,94 @@
 package cn.com.bgy.ifc.entity.po.basic;
 
+import com.sun.imageio.plugins.common.I18NImpl;
+
 import java.util.Date;
 
 public class Account {
+    /**
+     * 用户id
+     */
     private Long id;
-
+    /**
+     * 机构id
+     */
     private Long organizationId;
-
+    /**
+     * 部门id
+     */
     private Long departmentId;
-
+    /**
+     * 电话号码
+     */
     private String telephone;
-
+    /**
+     * 工号
+     */
     private String jobNumber;
-
+    /**
+     * 用户姓名
+     */
     private String userName;
-
+    /**
+     * 密码
+     */
     private String password;
-
+    /**
+     * 密码盐
+     */
     private String passwordSalt;
-
+    /**
+     * 身份证号
+     */
     private String identityNumber;
-
+    /**
+     * 性别
+     */
     private Integer sex;
-
+    /**
+     * 注册日期
+     */
     private Date registTime;
-
+    /**
+     * 是否禁用0启用；1禁用
+     */
     private Integer isDisable;
-
+    /**
+     * 登陆ip
+     */
     private String currentIp;
-
+    /**
+     * 登陆时间
+     */
     private Date currentTime;
-
+    /**
+     * 最后一次登陆ip
+     */
     private String lastIp;
-
+    /**
+     * 最后一次登陆时间
+     */
     private Date lastTime;
-
+    /**
+     * 用户类型
+     */
     private Integer userType;
-
+    /**
+     * 备注
+     */
     private String remark;
+    /**
+     * 权限列表字符串
+     */
+    private String powerListStr;
+
+    public String getPowerListStr() {
+        return powerListStr;
+    }
+
+    public void setPowerListStr(String powerListStr) {
+        this.powerListStr = powerListStr;
+    }
 
     public Long getId() {
         return id;

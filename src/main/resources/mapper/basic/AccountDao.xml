@@ -211,4 +211,46 @@
     remark= #{remark,jdbcType=LONGVARCHAR}
     where id=#{id,jdbcType=BIGINT}
 </update>
+
+  <select id="findUserPowerByPage" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.basic.Account">
+    select  id,
+    organization_id,
+    department_id,
+    telephone,
+    job_number,
+    user_name,
+    password,
+    password_salt,
+    identity_number,
+    sex,
+    regist_time,
+    is_disable,
+    current_ip,
+    current_time,
+    last_ip,
+    last_time,
+    user_type,
+    remark
+    from account
+    <trim prefix="where" suffix="" prefixOverrides="and">
+      <if test="telephone != null" >
+        and telephone= #{telephone,jdbcType=VARCHAR}
+      </if>
+      <if test="jobNumber != null">
+        and  job_number #{jobNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null">
+        and user_name #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="powerId != null" >
+        /*and id= #{powerId,jdbcType=VARCHAR}*/
+      </if>
+      <if test="departmentId != null">
+        and  department_id #{departmentId,jdbcType=BIGINT}
+      </if>
+      <if test="sex != null">
+      and sex #{sex,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </select>
 </mapper>

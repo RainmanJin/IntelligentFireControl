@@ -36,4 +36,6 @@ public interface AccountDao {
      * @return
      */
     int updateById(Account account);
+
+    List<Account> findUserPowerByPage(Account account);
 }
