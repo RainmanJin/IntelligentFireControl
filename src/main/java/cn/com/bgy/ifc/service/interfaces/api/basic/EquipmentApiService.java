@@ -19,4 +19,20 @@ public interface EquipmentApiService {
      * @Date 2018/12/11 16:33
      */
     void obtainListEquipment();
+
+    /**
+     * @author: ZhangCheng
+     * @description:获取集成平台用户信息
+     * @param: [pageNo, pageSize]
+     * @return: void
+     */
+    void obtainBgyEquipmentVersion(int pageNo, int pageSize);
+
+    /**
+     * @author: ZhangCheng
+     * @description:获取集成平台用户信息
+     * @param: [pageNo, pageSize]
+     * @return: void
+     */
+    void obtainBgyEquipmentVersionIncrement(int pageNo, int pageSize);
 }

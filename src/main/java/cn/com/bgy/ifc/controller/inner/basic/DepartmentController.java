@@ -65,13 +65,6 @@ public class DepartmentController {
         return ResponseVO.error().setMsg("修改失败！");
     }
 
-    @PostMapping("test")
-   // @SystemLogSave(Type.,description = "部门信息添加")
-    @ResponseBody
-    public void test() {
-        System.out.println("xxxx");
-    }
-
     /**
      * @author: ZhangCheng
      * @description:部门信息修改
