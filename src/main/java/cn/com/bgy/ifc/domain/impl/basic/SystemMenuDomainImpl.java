@@ -164,6 +164,7 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
             data.put("list", rootMenu);
             return data;
         } catch (Exception e) {
+            e.printStackTrace();
             data.put("success", "false");
             data.put("list", new ArrayList<>());
             return data;
@@ -181,7 +182,7 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
         for (SystemMenu nav : allMenu) {
             // 遍历所有节点，将所有菜单的父id与传过来的根节点的id比较
             //相等说明：为该根节点的子节点。
-            if(nav.getParentId().equals(id)){
+            if(id .equals(nav.getParentId())){
                 childList.add(nav);
             }
         }
