@@ -9,55 +9,33 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.RegionInfo">
-    insert into region_info (id, organization_id, code, 
-      name, create_time, logic_remove
-      )
-    values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.RegionInfo">
-    insert into region_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
+  <sql id="Base_Column_List">
+    id, organization_id, code, name, create_time, logic_remove
+  </sql>
+  <!--获取区域信息列表-->
+  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.RegionInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from region_info
+    <where>
       <if test="id != null">
-        id,
+      AND id= #{id,jdbcType=BIGINT}
       </if>
       <if test="organizationId != null">
-        organization_id,
+      AND organization_id= #{organizationId,jdbcType=BIGINT}
       </if>
       <if test="code != null">
-        code,
+      AND code=#{code,jdbcType=VARCHAR}
       </if>
       <if test="name != null">
-        name,
+      AND #{name,jdbcType=VARCHAR}
       </if>
       <if test="createTime != null">
-        create_time,
+      AND create_time= #{createTime,jdbcType=TIMESTAMP}
       </if>
       <if test="logicRemove != null">
-        logic_remove,
+      AND  logic_remove=#{logicRemove,jdbcType=BIT}
       </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="organizationId != null">
-        #{organizationId,jdbcType=BIGINT},
-      </if>
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="logicRemove != null">
-        #{logicRemove,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
+    </where>
+  </select>
 </mapper>

@@ -76,34 +76,34 @@
         select
         <include refid="Base_Column_List" />
         from interface_account
-        <trim prefix="where" suffix="" prefixOverrides="and">
-            <if test="orgId != null">
-                org_id = #{orgId,jdbcType=BIGINT},
-            </if>
-            <if test="apiuId != null">
-                apiu_id = #{apiuId,jdbcType=VARCHAR},
-            </if>
-            <if test="apiSecret != null">
-                api_secret = #{apiSecret,jdbcType=VARCHAR},
-            </if>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="chargePerson != null">
-                charge_person = #{chargePerson,jdbcType=VARCHAR},
-            </if>
-            <if test="phone != null">
-                phone = #{phone,jdbcType=VARCHAR},
-            </if>
-            <if test="restrictedIp != null">
-                restricted_ip = #{restrictedIp,jdbcType=VARCHAR},
-            </if>
-            <if test="state != null">
-                state = #{state,jdbcType=BIGINT},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
+       <where>
+           <if test="orgId != null">
+               AND   org_id = #{orgId,jdbcType=BIGINT}
+           </if>
+           <if test="apiuId != null">
+               AND   apiu_id = #{apiuId,jdbcType=VARCHAR}
+           </if>
+           <if test="apiSecret != null">
+               AND    api_secret = #{apiSecret,jdbcType=VARCHAR}
+           </if>
+           <if test="name != null">
+               AND   name = #{name,jdbcType=VARCHAR}
+           </if>
+           <if test="chargePerson != null">
+               AND   charge_person = #{chargePerson,jdbcType=VARCHAR}
+           </if>
+           <if test="phone != null">
+               AND   phone = #{phone,jdbcType=VARCHAR}
+           </if>
+           <if test="restrictedIp != null">
+               AND   restricted_ip = #{restrictedIp,jdbcType=VARCHAR}
+           </if>
+           <if test="state != null">
+               AND   state = #{state,jdbcType=BIGINT}
+           </if>
+           <if test="createTime != null">
+               AND   create_time = #{createTime,jdbcType=TIMESTAMP}
+           </if>
+       </where>
     </select>
 </mapper>
