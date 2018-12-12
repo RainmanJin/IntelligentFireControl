@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.domain.impl.basic;
 
+import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
 import cn.com.bgy.ifc.dao.basic.AccountDao;
 import cn.com.bgy.ifc.dao.basic.UserDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.AccountDomain;
@@ -54,16 +55,18 @@ public class AccountDomainImpl implements AccountDomain {
 
     /**
      * 登录
-     * @param userName
+     * @param telephone
      * @return
      */
     @Override
-    public Account findAccountByUserName(String userName,String password) {
-        Account account = accountDao.findAccountByUserName(userName);
+    public Account findAccountByUserName(String telephone,String password) {
+        Account account = accountDao.findAccountByUserName(telephone);
+        String Md5password = SignatureUtil.getBgyMd5(password.toUpperCase());
+
         /**
          * 判断密码是否一致
          */
-        if (password.equals(account.getPassword())){
+        if (Md5password.equals(account.getPassword())){
             return account;
         }
         return null;
