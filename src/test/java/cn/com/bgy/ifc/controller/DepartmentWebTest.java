@@ -2,6 +2,8 @@ package cn.com.bgy.ifc.controller;
 
 import cn.com.bgy.ifc.domain.interfaces.basic.DepartmentDomain;
 import cn.com.bgy.ifc.entity.po.basic.Department;
+import cn.com.bgy.ifc.service.interfaces.api.basic.BgyBrandService;
+import cn.com.bgy.ifc.service.interfaces.api.basic.BgyRegionInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +17,13 @@ import java.util.Date;
 public class DepartmentWebTest {
 
     @Autowired
-    private DepartmentDomain departmentDomain;
+    private BgyRegionInfoService bgyBrandService;
+
+    ;
     @Test
     public void test(){
-       /* Department department=new Department();
-        department.setId(1L);
-        department.setName("測試部門XXS");
-        department.setParentId(0L);
-        department.setState(1);
-        department.setOrganizationId(1L);
-        department.setLogicRemove(false);
-        department.setCreateTime(new Date());
-        int count=departmentDomain.update(department);*/
-       // Department department=departmentDomain.findById(1L);
-        int count=departmentDomain.deleteById(1l);
-        System.out.println(count);
+        int pageNum = 1;
+        int pageSize = 5;
+        bgyBrandService.obtainBgyRegionInfoIncrement(pageNum,pageSize,"2017-01-01 00:00:00");
     }
 }

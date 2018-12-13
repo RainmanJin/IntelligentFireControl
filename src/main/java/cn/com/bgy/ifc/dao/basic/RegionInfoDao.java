@@ -2,8 +2,9 @@ package cn.com.bgy.ifc.dao.basic;
 
 import cn.com.bgy.ifc.entity.po.basic.RegionInfo;
 
-public interface RegionInfoDao {
-    int insert(RegionInfo record);
+import java.util.List;
 
-    int insertSelective(RegionInfo record);
+public interface RegionInfoDao {
+
+    List<RegionInfo> searchByWhere(RegionInfo regionInfo);
 }

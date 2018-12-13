@@ -39,10 +39,10 @@ public interface AccountDao {
 
     /**
      *
-     * @param userName
+     * @param telephone
      * @return
      */
-    Account findAccountByUserName(String userName);
+    Account findAccountByUserName(String telephone);
 
     /**
      * 分页查询用户权限
