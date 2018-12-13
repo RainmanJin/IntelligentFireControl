@@ -50,7 +50,7 @@ public class LoginController {
     @GetMapping("/findMenuByUser")
     @ResponseBody
     public ResponseVO findMenuByUser(Long userId){
-        List<SystemMenu> menuList=systemMenuDomain.findMenuByUser(userId);
+        Map<String, Object> menuList = systemMenuDomain.findTree(userId);
 
      return ResponseVO.success().setData(menuList);
     }
