@@ -63,6 +63,15 @@ public class LoginController {
         session.setAttribute("code",map.get("code"));
         ImageIO.write((RenderedImage) map.get("codePic"), "jpeg",out);
     }
+
+    /**
+     * 登录
+     * @param request
+     * @param telephone
+     * @param password
+     * @param identifyCode
+     * @return
+     */
     @PostMapping ("/login")
     @ResponseBody
     public ResponseVO<Object> login(HttpServletRequest request,String telephone,String password,String identifyCode) {

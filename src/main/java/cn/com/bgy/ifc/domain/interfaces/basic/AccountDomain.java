@@ -52,11 +52,11 @@ public interface AccountDomain {
     int update(Account account);
 
     /**
-     * 根据用户名称查询用户对象
-     * @param userName
+     * 根据电话称查询用户对象
+     * @param telephone
      * @return
      */
-    Account findAccountByUserName(String userName,String password);
+    Account findAccountByUserName(String telephone,String password);
 
     /**
      * 根据用户名查询用户
