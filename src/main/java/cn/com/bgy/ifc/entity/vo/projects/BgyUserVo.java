@@ -49,6 +49,10 @@ public class BgyUserVo extends BgyBaseVo{
 
     private Integer registFrom;
 
+    /**
+     * 组织机构Id
+     */
+    private Long orgId;
 
     /**
      * 注册时间yyyy-mm-dd hh:mm:ss
@@ -135,6 +139,14 @@ public class BgyUserVo extends BgyBaseVo{
         this.registTime = registTime;
     }
 
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
+
     @Override
     public String toString() {
         return "BgyUserVo{" +
@@ -147,6 +159,7 @@ public class BgyUserVo extends BgyBaseVo{
                 ", jobNum='" + jobNum + '\'' +
                 ", creditNo='" + creditNo + '\'' +
                 ", registFrom=" + registFrom +
+                ", orgId=" + orgId +
                 ", registTime='" + registTime + '\'' +
                 '}';
     }

@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.domain.impl.basic;
 import cn.com.bgy.ifc.dao.basic.SystemOperationLogDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.SystemLogDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemOperationLog;
+import cn.com.bgy.ifc.entity.vo.basic.SystemOperationLogVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -22,15 +23,17 @@ import java.util.Map;
 public class SystemLogDomainImpl implements SystemLogDomain {
     @Resource
     SystemOperationLogDao systemOperationLogDao;
+
     /**
-     * @Author huxin
-     * @Description 日志查询以及分页
-     * @Date 2018/12/6 14:40
+     * @author: ZhangCheng
+     * @description:分页查询系统日志
+     * @param: [page, param]
+     * @return: com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.basic.SystemOperationLog>
      */
     @Override
-    public PageInfo<SystemOperationLog> querySystemLogInfo( Page<SystemOperationLog> page) {
+    public PageInfo<SystemOperationLog> queryListByParam(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<SystemOperationLog> list= systemOperationLogDao.querySystemLogInfo();
+        List<SystemOperationLog> list= systemOperationLogDao.queryListByParam(systemOperationLogVo);
         return  new PageInfo<SystemOperationLog>(list);
 
     }

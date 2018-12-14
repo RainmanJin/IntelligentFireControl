@@ -1,10 +1,14 @@
 package cn.com.bgy.ifc.service.impl.api.basic;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
+import cn.com.bgy.ifc.domain.interfaces.basic.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.basic.ExternalInterfaceConfigDomain;
+import cn.com.bgy.ifc.domain.interfaces.basic.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig;
+import cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.projects.BgyUserVo;
 import cn.com.bgy.ifc.service.interfaces.api.basic.UserApiService;
@@ -26,7 +30,13 @@ public class UserApiServiceImpl implements UserApiService {
     private static Logger logger = LoggerFactory.getLogger(UserApiServiceImpl.class);
 
     @Autowired
+    private AccountDomain accountDomain;
+
+    @Autowired
     private ExternalInterfaceConfigDomain externalInterfaceConfigDomain;
+
+    @Autowired
+    private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
     /**
      * @author: ZhangCheng
@@ -130,8 +140,9 @@ public class UserApiServiceImpl implements UserApiService {
         }
     }
 
+    @SystemLogAfterSave(type=7,description = "获取集成平台用户列表")
     @Override
-    public void obtainBgyUser(int pageNo, int pageSize) {
+    public ResponseVO<Object> obtainBgyUser(int pageNo, int pageSize) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
             if (list.size() != 0) {
@@ -139,6 +150,7 @@ public class UserApiServiceImpl implements UserApiService {
                 String url = config.getUrl() + "/api/third/user/getUserList";
                 String account = config.getAccount();
                 String signKey = config.getSignKey();
+                long orgId=config.getOrgId();
                 String timestampStr = SignatureUtil.timestampStr();
                 // 请求包结构体
                 Map<String, Object> data = new HashMap<>();
@@ -152,21 +164,42 @@ public class UserApiServiceImpl implements UserApiService {
                 List<BgyUserVo> oList = new ArrayList<>();
                 BgyUserVo bgyUserVo=new BgyUserVo();
                 ResponseUtil.getResultList(oList,bgyUserVo,response,"data","list");
-                if(oList.size()>0){
+                int totalCount=oList.size();
+                int addCount=0;
+                if(totalCount>0){
                     for (BgyUserVo userVo : oList) {
+                        userVo.setOrgId(orgId);
+                        int count=accountDomain.saveBgyAccount(userVo);
+                        if(count==1){
 
+                        }else{
+
+                        }
                     }
                 }
+                if(addCount>0){
+
+                }else{
+
+                }
+                ExternalInterfaceMsg externalInterfaceMsg=new ExternalInterfaceMsg();
+                externalInterfaceMsg.setTotalCount(totalCount);
+                externalInterfaceMsg.setAddCount(addCount);
+                externalInterfaceMsgDomain.insertSelective(externalInterfaceMsg);
+                return ResponseVO.exception();
             } else {
                 logger.info("获取集成平台接口配置数据失败！");
+                return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
             }
         } catch (Exception e) {
             logger.error("获取集成平台用户列表接口请求异常：" + e.getMessage());
+            return ResponseVO.exception().setMsg("获取集成平台用户列表接口请求异常！");
         }
     }
 
+    @SystemLogAfterSave(type=7,description = "获取集成平台用户列表(增量)")
     @Override
-    public void obtainBgyUserIncrement(int pageNo, int pageSize) {
+    public ResponseVO<Object> obtainBgyUserIncrement(int pageNo, int pageSize) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
             if (list.size() != 0) {
@@ -174,6 +207,7 @@ public class UserApiServiceImpl implements UserApiService {
                 String url = config.getUrl() + "/api/third/user/getUserListIncrement";
                 String account = config.getAccount();
                 String signKey = config.getSignKey();
+                long orgId=config.getOrgId();
                 String timestampStr = SignatureUtil.timestampStr();
                 // 请求包结构体
                 Map<String, Object> data = new HashMap<>();
@@ -188,14 +222,25 @@ public class UserApiServiceImpl implements UserApiService {
                 List<BgyUserVo> oList = new ArrayList<>();
                 BgyUserVo bgyUserVo=new BgyUserVo();
                 ResponseUtil.getResultList(oList,bgyUserVo,response,"data","list");
-                /*if(){
+                if(oList.size()>0){
+                    for (BgyUserVo userVo : oList) {
+                        userVo.setOrgId(orgId);
+                        int count=accountDomain.saveBgyAccount(userVo);
+                        if(count==1){
 
-                }*/
+                        }else{
+
+                        }
+                    }
+                }
+                return ResponseVO.exception();
             } else {
                 logger.info("获取集成平台接口配置数据失败！");
+                return ResponseVO.exception();
             }
         } catch (Exception e) {
             logger.error("请求接口异常：" + e.getMessage());
+            return ResponseVO.exception();
         }
     }
 

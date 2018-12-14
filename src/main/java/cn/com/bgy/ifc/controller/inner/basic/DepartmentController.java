@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.domain.interfaces.basic.DepartmentDomain;
@@ -25,7 +26,7 @@ public class DepartmentController {
     @Autowired
     private DepartmentDomain departmentDomain;
 
-    @GetMapping("queryList")
+    @PostMapping("queryList")
     @ResponseBody
     public ResponseVO<PageInfo<Department>> queryList(Page<Department> page, DepartmentVo departmentVo) {
             Department department = new Department();
@@ -34,13 +35,21 @@ public class DepartmentController {
             return ResponseVO.<PageInfo<Department>>success().setData(pageInfo);
     }
 
-    @GetMapping("queryById/{id}")
+    @PostMapping("queryById/{id}")
     @ResponseBody
     public ResponseVO<DepartmentVo> queryById(@PathVariable long id) {
         Department department = departmentDomain.findById(id);
         DepartmentVo departmentVo = new DepartmentVo();
         CopyUtil.copyProperties(department, departmentVo);
         return ResponseVO.<DepartmentVo>success().setData(departmentVo);
+    }
+
+    @PostMapping("test")
+    @SystemLogAfterSave(type=1,description = "部门添加")
+    @ResponseBody
+    public ResponseVO<Object> test() {
+        System.out.println("====");
+        return ResponseVO.success().setMsg("添加成功！");
     }
 
     /**

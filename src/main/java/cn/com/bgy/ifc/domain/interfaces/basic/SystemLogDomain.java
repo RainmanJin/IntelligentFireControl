@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.domain.interfaces.basic;
 
 import cn.com.bgy.ifc.entity.po.basic.SystemOperationLog;
+import cn.com.bgy.ifc.entity.vo.basic.SystemOperationLogVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -14,7 +15,7 @@ import java.util.Map;
 
 public interface SystemLogDomain {
 
-    public PageInfo<SystemOperationLog> querySystemLogInfo( Page<SystemOperationLog> page);
+    public PageInfo<SystemOperationLog> queryListByParam(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo);
 
     public PageInfo<SystemOperationLog> queryRequirementSytemLogInfo( Page<SystemOperationLog> page, Map<String,String> map);
 

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.basic.SystemOperationLogDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="log_type" jdbcType="INTEGER" property="logType" />
-    <result column="ip" jdbcType="VARCHAR" property="ip" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
-    <result column="operator_content" jdbcType="LONGVARCHAR" property="operatorContent" />
-    <result column="operator_describe" jdbcType="LONGVARCHAR" property="operatorDescribe" />
-  </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="log_type" jdbcType="INTEGER" property="logType"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
+        <result column="operator_content" jdbcType="LONGVARCHAR" property="operatorContent"/>
+        <result column="operator_describe" jdbcType="LONGVARCHAR" property="operatorDescribe"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
     insert into system_operation_log (id, user_id, user_name, 
       log_type, ip, create_time, 
       logic_remove, operator_content, operator_describe
@@ -22,90 +22,103 @@
       #{logicRemove,jdbcType=BIT}, #{operatorContent,jdbcType=LONGVARCHAR}, #{operatorDescribe,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
-    insert into system_operation_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="userName != null">
-        user_name,
-      </if>
-      <if test="logType != null">
-        log_type,
-      </if>
-      <if test="ip != null">
-        ip,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="logicRemove != null">
-        logic_remove,
-      </if>
-      <if test="operatorContent != null">
-        operator_content,
-      </if>
-      <if test="operatorDescribe != null">
-        operator_describe,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="logType != null">
-        #{logType,jdbcType=INTEGER},
-      </if>
-      <if test="ip != null">
-        #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="logicRemove != null">
-        #{logicRemove,jdbcType=BIT},
-      </if>
-      <if test="operatorContent != null">
-        #{operatorContent,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="operatorDescribe != null">
-        #{operatorDescribe,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
+        insert into system_operation_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="logType != null">
+                log_type,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="logicRemove != null">
+                logic_remove,
+            </if>
+            <if test="operatorContent != null">
+                operator_content,
+            </if>
+            <if test="operatorDescribe != null">
+                operator_describe,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="logType != null">
+                #{logType,jdbcType=INTEGER},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logicRemove != null">
+                #{logicRemove,jdbcType=BIT},
+            </if>
+            <if test="operatorContent != null">
+                #{operatorContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="operatorDescribe != null">
+                #{operatorDescribe,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
 
-  <select id="querySystemLogInfo"  resultMap="BaseResultMap">
-    select l.id,l.ip,l.create_time,l.logic_remove,l.log_type,l.operator_content,
-    l.operator_describe,l.user_id,l.user_name
-     from system_operation_log l WHERE 1=1
-  </select>
-  <select id="queryRequirementSytemLogInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
-      select l.id,l.ip,l.create_time,l.logic_remove,l.log_type,l.operator_content,
-    l.operator_describe,l.user_id,l.user_name
-     from system_operation_log l
-     <if test="logType != null and startTiem != null and endTime != null">
-        where log_type= #{ip,jdbcType=VARCHAR} and l,ccreate_time
-        between #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR}
-     </if>
-    <if test="logType != null or startTiem == null and endTime == null">
-      where log_type= #{ip,jdbcType=VARCHAR}
-    </if>
-    <if test="logType == null or startTiem != null and endTime != null">
-      where l,ccreate_time between #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR}
-    </if>
-  </select>
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.basic.SystemOperationLogVo" resultMap="BaseResultMap">
+        SELECT
+        l.id,l.ip,l.create_time,l.logic_remove,l.log_type,l.operator_content,
+        l.operator_describe,l.user_id,l.user_name
+        FROM system_operation_log l
+        <where>
+            <if test="userName != null and userName != ''">
+                AND l.user_name LIKE '%${userName}%'
+            </if>
+            <if test="startTime != null and startTime != ''">
+                AND l.create_time >='${startTime}'
+            </if>
+            <if test="endTime != null and endTime != ''">
+                AND l.create_time &lt;= '${endTime}'
+            </if>
+        </where>
+    </select>
 
-  <insert id="addSystemLogInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
+    <select id="queryRequirementSytemLogInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select l.id,l.ip,l.create_time,l.logic_remove,l.log_type,l.operator_content,
+        l.operator_describe,l.user_id,l.user_name
+        from system_operation_log l
+        <if test="logType != null and startTiem != null and endTime != null">
+            where log_type= #{ip,jdbcType=VARCHAR} and l,ccreate_time
+            between #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR}
+        </if>
+        <if test="logType != null or startTiem == null and endTime == null">
+            where log_type= #{ip,jdbcType=VARCHAR}
+        </if>
+        <if test="logType == null or startTiem != null and endTime != null">
+            where l,ccreate_time between #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <insert id="addSystemLogInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
     insert into system_operation_log (id, user_id, user_name,
       log_type, ip, create_time,
       logic_remove, operator_content, operator_describe

@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.dao.basic;
 
 import cn.com.bgy.ifc.entity.po.basic.SystemOperationLog;
+import cn.com.bgy.ifc.entity.vo.basic.SystemOperationLogVo;
 
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,7 @@ public interface SystemOperationLogDao {
 
     int insertSelective(SystemOperationLog record);
 
-    List<SystemOperationLog> querySystemLogInfo();
+    List<SystemOperationLog> queryListByParam(SystemOperationLogVo systemOperationLogVo);
 
     List<SystemOperationLog> queryRequirementSytemLogInfo(Map<String,String> map);
 

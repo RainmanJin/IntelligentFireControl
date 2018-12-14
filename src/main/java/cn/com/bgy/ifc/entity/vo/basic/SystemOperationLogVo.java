@@ -15,7 +15,18 @@ public class SystemOperationLogVo {
 
     private Date createTime;
 
+    /**
+     * 开始日期时间
+     */
+    private String startTime;
+
+    /**
+     * 结束日期时间
+     */
+    private String endTime;
+
     private Boolean logicRemove;
+
     private String operatorContent;
 
     private String operatorDescribe;
@@ -90,5 +101,38 @@ public class SystemOperationLogVo {
 
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        return "SystemOperationLogVo{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", logType=" + logType +
+                ", ip='" + ip + '\'' +
+                ", createTime=" + createTime +
+                ", startTime='" + startTime + '\'' +
+                ", endTime=" + endTime +
+                ", logicRemove=" + logicRemove +
+                ", operatorContent='" + operatorContent + '\'' +
+                ", operatorDescribe='" + operatorDescribe + '\'' +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.entity.po.basic;
 
 import java.util.Date;
+
 /**
  * @Author huxin
  * @Description 操作日志实体

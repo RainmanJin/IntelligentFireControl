@@ -10,7 +10,7 @@ public class ExternalConstant {
     /*
      * 集成平台操作类型
      * */
-    public enum OperationType{
+    public enum OperationType {
         //新增
         ADD(1),
         //删除
@@ -23,7 +23,8 @@ public class ExternalConstant {
         private OperationType(Integer value) {
             this.value = value;
         }
-        public Integer getValue(){
+
+        public Integer getValue() {
             return value;
         }
     }
@@ -31,7 +32,7 @@ public class ExternalConstant {
     /*
      * 平台接口枚举
      * */
-    public enum PlatformValue{
+    public enum PlatformValue {
         //碧桂园集成平台接口
         INTEGERATED_PLATFORM(1);
 
@@ -40,7 +41,8 @@ public class ExternalConstant {
         private PlatformValue(Integer value) {
             this.value = value;
         }
-        public Integer getValue(){
+
+        public Integer getValue() {
             return value;
         }
     }
@@ -49,16 +51,21 @@ public class ExternalConstant {
      * 平台内部功能接口
      * 0获取账号信息，1区域信息，2项目信息，3品牌，4规格信息，5设备类型，6机房信息，7设备信息
      * */
-    public enum MsgTypeValue{
-        //集成平台获取用户数据（增量）
-        BGY_ACCOUNT_INCREMENT(1);
+    public enum MsgTypeValue {
+        //集成平台获取用户信息
+        BGY_ACCOUNT_OBTAIN(0),
+        //项目信息
+        BGY_PROJECT_OBTAIN(2),
+        //设备信息
+        GBY_EQUIPMENT_OBTAIN(7);
 
         private Integer value;
 
         private MsgTypeValue(Integer value) {
             this.value = value;
         }
-        public Integer getValue(){
+
+        public Integer getValue() {
             return value;
         }
     }
