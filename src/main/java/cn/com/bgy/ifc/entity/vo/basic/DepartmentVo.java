@@ -3,7 +3,9 @@ package cn.com.bgy.ifc.entity.vo.basic;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DepartmentVo {
 
@@ -18,6 +20,9 @@ public class DepartmentVo {
 	@Size(max=50,message="部门名称长度不正确")
 	private String name;
 
+	/**
+	 * 状态
+	 */
 	private Integer state;
 
 	/**
@@ -32,6 +37,11 @@ public class DepartmentVo {
 	 *是否逻辑删除
 	 */
 	private Boolean logicRemove;
+
+	/**
+	 * 子级部门
+	 */
+	private List<DepartmentVo> children = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -89,9 +99,17 @@ public class DepartmentVo {
 		this.logicRemove = logicRemove;
 	}
 
+	public List<DepartmentVo> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<DepartmentVo> children) {
+		this.children = children;
+	}
+
 	@Override
 	public String toString() {
-		return "Department{" +
+		return "DepartmentVo{" +
 				"id=" + id +
 				", parentId=" + parentId +
 				", name='" + name + '\'' +
@@ -99,6 +117,7 @@ public class DepartmentVo {
 				", organizationId=" + organizationId +
 				", createTime=" + createTime +
 				", logicRemove=" + logicRemove +
+				", children=" + children +
 				'}';
 	}
 }

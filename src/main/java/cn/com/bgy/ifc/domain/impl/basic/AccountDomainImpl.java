@@ -1,18 +1,20 @@
 package cn.com.bgy.ifc.domain.impl.basic;
 
-import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
+import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.dao.basic.AccountDao;
 import cn.com.bgy.ifc.dao.basic.UserDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.basic.UserDomain;
 import cn.com.bgy.ifc.entity.po.basic.Account;
 import cn.com.bgy.ifc.entity.po.basic.User;
+import cn.com.bgy.ifc.entity.vo.projects.BgyUserVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -55,21 +57,17 @@ public class AccountDomainImpl implements AccountDomain {
 
     /**
      * 登录
-     * @param telephone
+     * @param userName
      * @return
      */
     @Override
-    public Account findAccountByUserName(String telephone,String password) {
-        Account account = accountDao.findAccountByUserName(telephone);
-        if(account!=null){
-            String Md5password = SignatureUtil.getBgyMd5(password.toUpperCase());
-
-            /**
-             * 判断密码是否一致
-             */
-            if (Md5password.equals(account.getPassword())){
-                return account;
-            }
+    public Account findAccountByUserName(String userName,String password) {
+        Account account = accountDao.findAccountByUserName(userName);
+        /**
+         * 判断密码是否一致
+         */
+        if (password.equals(account.getPassword())){
+            return account;
         }
         return null;
     }
@@ -82,5 +80,23 @@ public class AccountDomainImpl implements AccountDomain {
         return pageInfo;
     }
 
+    @Override
+    public int saveBgyAccount(BgyUserVo bgyUserVo) {
+        Account account=new Account();
+        account.setId(bgyUserVo.getId());
+        account.setSex(bgyUserVo.getSex());
+        account.setOrganizationId(bgyUserVo.getOrgId());
+        account.setDepartmentId(0L);
+        account.setTelephone(bgyUserVo.getTelephone());
+        account.setUserName(bgyUserVo.getUserName());
+        account.setPassword(bgyUserVo.getPassword());
+        account.setUserType(SystemConstant.UserType.GENERAL_USER.getValue());
+        account.setJobNumber(bgyUserVo.getJobNum());
+        account.setIsDisable(bgyUserVo.getIsDisable());
+        account.setIdentityNumber(bgyUserVo.getCreditNo());
+        account.setRemark(bgyUserVo.getRemark());
+        account.setRegistTime(new Date());
+        return accountDao.insertSelective(account);
+    }
 
 }

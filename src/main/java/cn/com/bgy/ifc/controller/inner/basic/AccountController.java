@@ -33,7 +33,6 @@ public class AccountController {
     @PostMapping("add")
     @ResponseBody
     public   ResponseVO<Object>  add(Page<Account> page,@Validated AccountVo accountVo, BindingResult error){
-
         try {
             //todo userVO 做参数校检
             if(error.hasErrors()){

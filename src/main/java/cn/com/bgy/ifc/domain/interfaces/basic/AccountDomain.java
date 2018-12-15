@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.domain.interfaces.basic;
 
 import cn.com.bgy.ifc.entity.po.basic.Account;
 import cn.com.bgy.ifc.entity.po.basic.User;
+import cn.com.bgy.ifc.entity.vo.projects.BgyUserVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -65,5 +66,12 @@ public interface AccountDomain {
      * @return
      */
     public PageInfo<Account> findUserPowerByPage(Page<Account> page, Account account);
+
+    /**
+     * 保存集成平台用户
+     * @param bgyUserVo
+     * @return
+     */
+    int saveBgyAccount(BgyUserVo bgyUserVo);
 
 }
