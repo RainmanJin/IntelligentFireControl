@@ -1,6 +1,6 @@
 #以下是测试和正式环境通用配置
 server:
-  port: 8080
+  port: 8081
   tomcat:
     uri-encoding: UTF-8
   servlet:
@@ -12,6 +12,8 @@ spring:
       request-context-attribute: request
       suffix: .html
       template-loader-path: classpath:/cn.com.bgy.ifc/templates/
+  jmx:
+      enabled: false
 ---
 #正式环境配置
 spring:
@@ -44,4 +46,6 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
+
 

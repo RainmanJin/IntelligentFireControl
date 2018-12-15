@@ -1,9 +1,11 @@
 package cn.com.bgy.ifc.domain.impl.basic;
 
+import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.dao.basic.SystemMenuDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.basic.SystemMenuVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -23,6 +25,7 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
     @Autowired
     @Resource
     SystemMenuDao systemMenuDao;
+    //<editor-fold desc="Description">
     /**
      * @Author huxin
      * @Description 分页查询所有菜单信息
@@ -30,11 +33,57 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
      * @Param []
      * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
      */
-    public PageInfo<SystemMenu> queryAllSystemMenuInfo( Page<SystemMenu> page, SystemMenu systemMenu){
+    public PageInfo<SystemMenuVo> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord){
+
+        List<SystemMenu> allMenu= systemMenuDao.queryAllSystemMenuInfo(keyWord);
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<SystemMenu> list= systemMenuDao.queryAllSystemMenuInfo(systemMenu);
-        return  new PageInfo<SystemMenu>(list);
+        List<SystemMenu> pageMenu= systemMenuDao.queryAllSystemMenuInfo(keyWord);
+        List<SystemMenu> rootMenu=new ArrayList<>();
+        List<SystemMenu> twoMenu=new ArrayList<>();
+        List<SystemMenuVo> resultMenu=new ArrayList<>();
+        for (SystemMenu nav : allMenu) {
+            if(nav.getParentId()==null||nav.getParentId().equals("")){//父节点是空的，为根节点。
+                nav.setPowerName("["+nav.getPowerName()+"]");
+                rootMenu.add(nav);
+            }
+        }
+        for (SystemMenu nav : rootMenu) {
+            SystemMenuVo vo=new SystemMenuVo();
+            CopyUtil.copyProperties(nav,vo);
+            vo.setOneLabelName(nav.getName());
+            resultMenu.add(vo);
+            for (SystemMenu twonav : allMenu) {
+                if(twonav.getParentId()!=null &&twonav.getParentId().longValue()==nav.getId().longValue()){
+                        twonav.setPowerName(nav.getPowerName()+"["+twonav.getPowerName()+"]");
+                        vo=new SystemMenuVo();
+                        CopyUtil.copyProperties(twonav,vo);
+                        vo.setTwoLabelName(twonav.getName());
+                        resultMenu.add(vo);
+                        for (SystemMenu threenav : allMenu) {
+                            if(threenav.getParentId() !=null &&threenav.getParentId().longValue()==twonav.getId().longValue()){
+                                vo=new SystemMenuVo();
+                                CopyUtil.copyProperties(threenav,vo);
+                                vo.setTreeLabelName(threenav.getName());
+                                vo.setPowerName(twonav.getPowerName()+"["+threenav.getPowerName()+"]");
+                                resultMenu.add(vo);
+
+                        }
+                    }
+                }
+
+            }
+        }
+
+        page.setEndRow(page.getPageNum()*page.getPageSize()>page.getTotal()?
+                (int)page.getTotal():(int)(page.getPageNum())*page.getPageSize());
+
+        PageInfo<SystemMenuVo> pageInfo=new PageInfo<SystemMenuVo>(resultMenu.subList(page.getStartRow(),page.getEndRow()));
+        pageInfo.setTotal(page.getTotal());
+        pageInfo.setPageSize(page.getPageSize());
+        pageInfo.setPageNum(page.getPageNum());
+        return pageInfo ;
     }
+    //</editor-fold>
     /**
      * @Author huxin
      * @Description 根据ID查询系统菜单 单条信息
@@ -45,16 +94,6 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
     public SystemMenu queryOneSystemMenuInfo(Long id){
         return systemMenuDao.queryOneSystemMenuInfo(id);
     }
-    /**
-     * @Author huxin
-     * @Description 查询关键字搜索
-     * @Date 2018/12/5 18:12
-     * @Param [keyWord]
-     * @return java.util.List<cn.com.bgy.ifc.entity.po.basic.SystemMenu>
-     */
-    public List<SystemMenu> queryKeyWordSystemMenuInfo(String keyWord){
-        return systemMenuDao.queryKeyWordSystemMenuInfo(keyWord);
-    }
 
     /**
      * @Author huxin
@@ -64,14 +103,6 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
      * @return void
      */
     public ResponseVO addSystemMenuInfo(SystemMenu systemMenu){
-        systemMenu.setPowerId(1L);
-        systemMenu.setImageUrl("ceshi");
-        systemMenu.setName("系统");
-        systemMenu.setParentId(1L);
-        systemMenu.setRemark("11111");
-        systemMenu.setSortIndex(1);
-        systemMenu.setLogicRemove(false);
-        systemMenu.setNavigateUrl("shhss");
         int i =systemMenuDao.addSystemMenuInfo(systemMenu);
         if(i>0){
             return ResponseVO.success().setMsg("添加成功");
@@ -86,15 +117,6 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
      * @return void
      */
     public ResponseVO updateSystemMenuInfo(SystemMenu systemMenu){
-        systemMenu.setPowerId(1L);
-        systemMenu.setImageUrl("ceshi");
-        systemMenu.setName("系统日志");
-        systemMenu.setParentId(1L);
-        systemMenu.setRemark("11111");
-        systemMenu.setSortIndex(1);
-        systemMenu.setLogicRemove(false);
-        systemMenu.setNavigateUrl("bbbbbbbbbb");
-        systemMenu.setId(5L);
         int i =systemMenuDao.updateSystemMenuInfo(systemMenu);
         if(i>0){
             return ResponseVO.success().setMsg("修改成功");
@@ -131,11 +153,29 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
         return ResponseVO.success().setMsg("删除失败");
     }
 
+    /**
+     * 根据用户id查询所有权限菜单
+     * @param userId
+     * @return
+     */
     @Override
     public List<SystemMenu> findMenuByUser(Long userId) {
         return systemMenuDao.findMenuByUser(userId);
     }
-
+    /**
+     * 根据用户id查询所有权限菜单
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<SystemMenu> findMenuByUserAndParentId(Long parentId,Long userId) {
+        return systemMenuDao.findMenuByUserAndParentId(parentId,userId);
+    }
+    /**
+     * 根据用户id查询所有菜单树
+     * @param userId
+     * @return
+     */
     @Override
     public Map<String,Object> findTree(Long userId){
         Map<String,Object> data = new HashMap<String,Object>();
@@ -170,6 +210,8 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
             return data;
         }
     }
+
+
     /**
      * 获取子节点
      * @param id 父节点id
@@ -211,5 +253,46 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
             }
         };
         return comparator;
+    }
+
+    /**
+     * 根据父级菜单和用户id查询菜单
+     * @param parentId
+     * @param userId
+     * @return
+     */
+    @Override
+    public Map<String,Object> findTwoAndThreeUserMenuTree(Long parentId , Long userId){
+        Map<String,Object> data = new HashMap<String,Object>();
+        try {//查询所有菜单
+            List<SystemMenu> allMenu = systemMenuDao.findMenuByUserAndParentId(parentId,userId);
+            //根节点
+            List<SystemMenu> rootMenu = new ArrayList<SystemMenu>();
+            for (SystemMenu nav : allMenu) {
+                if(nav.getParentId() !=null && nav.getParentId().longValue()==parentId.longValue()){//父节点是空的，为根节点。
+                    rootMenu.add(nav);
+                }
+            }
+            /* 根据Menu类的order排序 */
+            Collections.sort(rootMenu, order());
+            //为根菜单设置子菜单，getClild是递归调用的
+            for (SystemMenu nav : rootMenu) {
+                /* 获取根节点下的所有子节点 使用getChild方法*/
+                List<SystemMenu> childList = getChild(nav.getId(), allMenu);
+                nav.setChildren(childList);//给根节点设置子节点
+            }
+            /**
+             * 输出构建好的菜单数据。
+             *
+             */
+            data.put("success", "true");
+            data.put("list", rootMenu);
+            return data;
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.put("success", "false");
+            data.put("list", new ArrayList<>());
+            return data;
+        }
     }
 }

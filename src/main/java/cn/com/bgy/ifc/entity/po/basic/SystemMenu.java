@@ -19,6 +19,16 @@ public class SystemMenu {
 
     private Long powerId;
 
+    public String getPowerName() {
+        return powerName;
+    }
+
+    public void setPowerName(String powerName) {
+        this.powerName = powerName;
+    }
+
+    private String powerName;
+
     public List<SystemMenu> getChildren() {
         return children;
     }

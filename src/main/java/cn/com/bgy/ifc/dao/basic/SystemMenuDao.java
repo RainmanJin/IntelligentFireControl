@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.dao.basic;
 
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -12,9 +13,7 @@ public interface SystemMenuDao {
 
     public int addSystemMenuInfo(SystemMenu systemMenu);
 
-    public List<SystemMenu> queryAllSystemMenuInfo(SystemMenu systemMenu);
-
-    public List<SystemMenu> queryKeyWordSystemMenuInfo(String keyWord);
+    public List<SystemMenu> queryAllSystemMenuInfo(@Param("keyWord") String keyWord);
 
     public SystemMenu queryOneSystemMenuInfo(Long id);
 
@@ -25,4 +24,6 @@ public interface SystemMenuDao {
     public int deleteListSystemMenuInfo(Long[] id);
 
     List<SystemMenu> findMenuByUser(Long userId);
+
+    List<SystemMenu> findMenuByUserAndParentId(@Param("parentId") Long parentId,@Param("userId") Long userId);
 }
