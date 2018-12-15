@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.basic;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.TreeUtil;
 import cn.com.bgy.ifc.domain.interfaces.basic.DepartmentDomain;
 import cn.com.bgy.ifc.entity.po.basic.Department;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -15,6 +16,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author: ZhangCheng
  * @description:部门管理
@@ -26,13 +30,30 @@ public class DepartmentController {
     @Autowired
     private DepartmentDomain departmentDomain;
 
-    @PostMapping("queryList")
+    @PostMapping("query")
     @ResponseBody
     public ResponseVO<PageInfo<Department>> queryList(Page<Department> page, DepartmentVo departmentVo) {
             Department department = new Department();
             CopyUtil.copyProperties(departmentVo, department);
             PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page, department);
             return ResponseVO.<PageInfo<Department>>success().setData(pageInfo);
+    }
+
+    @GetMapping("tree")
+    @ResponseBody
+    public ResponseVO<List<DepartmentVo>> queryTree() {
+        List<Department> list = departmentDomain.queryAllList();
+        System.out.println(list);
+        List<DepartmentVo> functionList = new ArrayList<DepartmentVo>();
+        for (Department department : list) {
+            DepartmentVo departmentVo = new DepartmentVo();
+            CopyUtil.copyProperties(department, departmentVo);
+            functionList.add(departmentVo);
+        }
+        System.out.println(functionList);
+        TreeUtil.getChildEntity(functionList,0L);
+        System.out.println(functionList);
+        return ResponseVO.<List<DepartmentVo>>success().setData(functionList);
     }
 
     @PostMapping("queryById/{id}")

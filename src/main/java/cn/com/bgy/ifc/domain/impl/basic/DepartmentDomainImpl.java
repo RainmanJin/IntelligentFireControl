@@ -35,6 +35,11 @@ public class DepartmentDomainImpl implements DepartmentDomain {
     }
 
     @Override
+    public List<Department> queryAllList() {
+        return departmentDao.queryAllList();
+    }
+
+    @Override
     public Department findById(Long id) {
         return departmentDao.findById(id);
     }

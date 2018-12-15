@@ -35,7 +35,6 @@ public class SystemLogDomainImpl implements SystemLogDomain {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<SystemOperationLog> list= systemOperationLogDao.queryListByParam(systemOperationLogVo);
         return  new PageInfo<SystemOperationLog>(list);
-
     }
     /**
      * @Author huxin

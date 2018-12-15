@@ -12,6 +12,8 @@ public interface DepartmentDomain {
 
     List<Department> queryListByParam(Department department);
 
+    List<Department> queryAllList();
+
     Department findById(Long id);
 
     int deleteById(Long id);
