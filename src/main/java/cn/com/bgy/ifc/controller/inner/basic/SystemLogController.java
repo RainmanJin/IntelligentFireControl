@@ -42,25 +42,19 @@ public class SystemLogController {
     @ResponseBody
     public ResponseVO<PageInfo<SystemOperationLog>> querySystemLogInfo(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo){
         PageInfo<SystemOperationLog> pageInfo = systemLogDomain.queryListByParam(page,systemOperationLogVo);
-        System.out.println("xxx"+systemOperationLogVo);
         return ResponseVO.<PageInfo<SystemOperationLog>>success().setData(pageInfo);
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:获取日志类型枚举
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @GetMapping("/getLogType")
     @ResponseBody
     public ResponseVO<Object> getLogType(){
         List<SelectVo> list=SystemConstant.SystemLogType.getSelectList();
         return ResponseVO.success().setData(list);
-    }
-    /**
-     * @Author huxin
-     * @Description 多条件查询日志及分页
-     * @Date 2018/12/7 10:16
-     */
-    @PostMapping("/queryRequirement")
-    @ResponseBody
-    public ResponseVO<PageInfo<SystemOperationLog>> queryRequirementSytemLogInfo( Page<SystemOperationLog> page, Map<String,String> map){
-        PageInfo<SystemOperationLog> pageInfo = systemLogDomain.queryRequirementSytemLogInfo(page,map);
-        return ResponseVO.<PageInfo<SystemOperationLog>>success().setData(pageInfo);
     }
 }

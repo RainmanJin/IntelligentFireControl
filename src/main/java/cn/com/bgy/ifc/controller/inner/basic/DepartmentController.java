@@ -30,30 +30,38 @@ public class DepartmentController {
     @Autowired
     private DepartmentDomain departmentDomain;
 
+    /**
+     * @author: ZhangCheng
+     * @description:查询部门信息列表
+     * @param: [page, departmentVo]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.basic.Department>>
+     */
     @PostMapping("query")
     @ResponseBody
     public ResponseVO<PageInfo<Department>> queryList(Page<Department> page, DepartmentVo departmentVo) {
-            Department department = new Department();
-            CopyUtil.copyProperties(departmentVo, department);
-            PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page, department);
+            PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page, departmentVo);
             return ResponseVO.<PageInfo<Department>>success().setData(pageInfo);
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:查询部门树
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.util.List<cn.com.bgy.ifc.entity.vo.basic.DepartmentVo>>
+     */
     @GetMapping("tree")
     @ResponseBody
     public ResponseVO<List<DepartmentVo>> queryTree() {
         List<Department> list = departmentDomain.queryAllList();
-        System.out.println(list);
+
         List<DepartmentVo> functionList = new ArrayList<DepartmentVo>();
         for (Department department : list) {
             DepartmentVo departmentVo = new DepartmentVo();
             CopyUtil.copyProperties(department, departmentVo);
             functionList.add(departmentVo);
         }
-        System.out.println(functionList);
-        TreeUtil.getChildEntity(functionList,0L);
-        System.out.println(functionList);
-        return ResponseVO.<List<DepartmentVo>>success().setData(functionList);
+        List<DepartmentVo> treeList =TreeUtil.switchTree(functionList,0L);
+        return ResponseVO.<List<DepartmentVo>>success().setData(treeList);
     }
 
     @PostMapping("queryById/{id}")
@@ -63,14 +71,6 @@ public class DepartmentController {
         DepartmentVo departmentVo = new DepartmentVo();
         CopyUtil.copyProperties(department, departmentVo);
         return ResponseVO.<DepartmentVo>success().setData(departmentVo);
-    }
-
-    @PostMapping("test")
-    @SystemLogAfterSave(type=1,description = "部门添加")
-    @ResponseBody
-    public ResponseVO<Object> test() {
-        System.out.println("====");
-        return ResponseVO.success().setMsg("添加成功！");
     }
 
     /**
@@ -115,6 +115,23 @@ public class DepartmentController {
             return ResponseVO.success().setMsg("修改成功");
         }
         return ResponseVO.error().setMsg("修改失败！");
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:部门启用禁用操作
+     * @param: [id, state]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("prohibit")
+    @ResponseBody
+    public ResponseVO<Object> prohibit(Department department) {
+        System.out.println("==="+department);
+        int count = departmentDomain.update(department);
+        if (count == 1) {
+            return ResponseVO.success().setMsg("操作成功");
+        }
+        return ResponseVO.error().setMsg("操作失败！");
     }
 
     /**

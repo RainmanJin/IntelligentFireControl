@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.dao.basic.DepartmentDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.DepartmentDomain;
 import cn.com.bgy.ifc.entity.po.basic.Department;
+import cn.com.bgy.ifc.entity.vo.basic.DepartmentVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -23,15 +24,15 @@ public class DepartmentDomainImpl implements DepartmentDomain {
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public PageInfo<Department> queryListByPage(Page<Department> page,Department department) {
+    public PageInfo<Department> queryListByPage(Page<Department> page, DepartmentVo departmentVo) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Department> list=departmentDao.queryListByParam(department);
+        List<Department> list=departmentDao.queryListByParam(departmentVo);
         return new PageInfo<Department>(list);
     }
 
     @Override
-    public List<Department> queryListByParam(Department department) {
-        return departmentDao.queryListByParam(department);
+    public List<Department> queryListByParam(DepartmentVo departmentVo) {
+        return departmentDao.queryListByParam(departmentVo);
     }
 
     @Override
@@ -67,9 +68,6 @@ public class DepartmentDomainImpl implements DepartmentDomain {
     public int update(Department department) {
         if(department == null || StringUtils.isEmpty(department.getId())){
             return 0;
-        }
-        if(department.getParentId()==null){
-            department.setParentId(0L);
         }
         department.setCreateTime(new Date());
         return departmentDao.update(department);

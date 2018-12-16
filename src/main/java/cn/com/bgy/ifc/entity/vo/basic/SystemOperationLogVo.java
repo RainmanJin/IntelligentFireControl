@@ -29,7 +29,15 @@ public class SystemOperationLogVo {
 
     private String operatorContent;
 
+    /**
+     * 操作描述
+     */
     private String operatorDescribe;
+
+    /**
+     * 关键字
+     */
+    private String keyword;
 
     public String getOperatorContent() {
         return operatorContent;
@@ -119,6 +127,14 @@ public class SystemOperationLogVo {
         this.endTime = endTime;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
     @Override
     public String toString() {
         return "SystemOperationLogVo{" +
@@ -129,10 +145,11 @@ public class SystemOperationLogVo {
                 ", ip='" + ip + '\'' +
                 ", createTime=" + createTime +
                 ", startTime='" + startTime + '\'' +
-                ", endTime=" + endTime +
+                ", endTime='" + endTime + '\'' +
                 ", logicRemove=" + logicRemove +
                 ", operatorContent='" + operatorContent + '\'' +
                 ", operatorDescribe='" + operatorDescribe + '\'' +
+                ", keyword='" + keyword + '\'' +
                 '}';
     }
 }
