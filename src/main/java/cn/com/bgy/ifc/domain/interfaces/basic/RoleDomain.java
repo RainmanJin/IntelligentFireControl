@@ -16,7 +16,12 @@ public interface RoleDomain {
 
     SystemRole findById(Long id);
 
-    int update(SystemRole record);
+    int updateRole(SystemRole record);
 
     int deleteById(Long id);
+
+    int deleteRole(String str);
+
+    List<SystemRole> queryRoleType();
+
 }

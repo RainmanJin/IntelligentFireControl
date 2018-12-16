@@ -3,21 +3,27 @@
 <mapper namespace="cn.com.bgy.ifc.dao.basic.SystemRoleDao">
     <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemRole">
         <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
         <result column="organization_id" jdbcType="BIGINT" property="organizationId"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
+
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
-    insert into system_role (name, organization_id,
-      logic_remove)
-    values (#{name,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT},
-      #{logicRemove,jdbcType=BIT})
+    insert into system_role (type,name, organization_id,
+      logic_remove,state)
+    values (#{type,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT},
+      #{logicRemove,jdbcType=BIT},#{state,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
         insert into system_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
+            </if>
+            <if test="type != null">
+                type,
             </if>
             <if test="name != null">
                 name,
@@ -28,10 +34,16 @@
             <if test="logicRemove != null">
                 logic_remove,
             </if>
+            <if test="state != null">
+                state,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 #{id,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
             </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
@@ -42,57 +54,115 @@
             <if test="logicRemove != null">
                 #{logicRemove,jdbcType=BIT},
             </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
         </trim>
     </insert>
 
-    <select id="queryAllList" resultMap="BaseResultMap">
+    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
 		SELECT
 		id,
+		type,
+		case type
+        when 1
+        then '平台级用户'
+        when 2
+        then '总部级用户'
+        when 3
+        then '区域级用户'
+        when 4
+        then '项目级用户'
+        else ''
+        end
+		as typeName,
 		name,
-		organization_id,
-		logic_remove
-		FROM system_role
+		organization_id organizationId,
+		state
+		FROM system_role where logic_remove=0
   </select>
 
     <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole" resultMap="BaseResultMap">
         SELECT
         id,
+        type,
+        case type
+        when 1
+        then '平台级用户'
+        when 2
+        then '总部级用户'
+        when 3
+        then '区域级用户'
+        when 4
+        then '项目级用户'
+        else ''
+        end
+        as typeName,
         name,
         organization_id,
-        logic_remove
+        logic_remove,
+        state
         FROM system_role
-        WHERE 1=1
+        WHERE 1=1 AND logic_remove=1
+        <if test="type != null ">
+            AND name=#{type}
+        </if>
         <if test="name != null ">
             AND name=#{name}
         </if>
         <if test="organizationId != null ">
             AND organization_id=#{organizationId}
         </if>
-        <if test="logicRemove != null ">
-            AND logic_remove=#{logicRemove}
+        <if test="state != null ">
+            AND state=#{state}
         </if>
     </select>
 
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
 		SELECT
 		id,
+		type,
 		name,
 		organization_id,
-		logic_remove
+		logic_remove,
+		state
 		FROM system_role WHERE id = #{id}
   </select>
-
-    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
+    <select id="queryRoleType" resultMap="BaseResultMap">
+        select type,
+         case type
+         when 1
+         then '平台级用户'
+         when 2
+         then '总部级用户'
+         when 3
+         then '区域级用户'
+         when 4
+         then '项目级用户'
+         else ''
+		 end
+         as typeName
+         from system_role
+         where type>0 GROUP BY type
+    </select>
+    <update id="updateRole" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
         UPDATE system_role
         <set>
+            <if test="type != null">type =#{type},</if>
             <if test="name != null">name =#{name},</if>
             <if test="organizationId != null">organization_id =#{organizationId},</if>
-            <if test="logicRemove != null">logic_remove =#{logicRemove}</if>
+            <if test="logicRemove != null">logic_remove =#{logicRemove},</if>
+            <if test="state != null">state =#{state}</if>
         </set>
         WHERE id
         = #{id}
     </update>
-
+    <update id="deleteRole" parameterType="java.util.List">
+        UPDATE system_role set logic_remove =1 where id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
     <delete id="deleteById" parameterType="Long">
        DELETE FROM system_role WHERE id = #{id}
   </delete>
