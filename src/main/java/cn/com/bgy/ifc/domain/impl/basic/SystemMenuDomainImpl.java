@@ -265,7 +265,7 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
     public Map<String,Object> findTwoAndThreeUserMenuTree(Long parentId , Long userId){
         Map<String,Object> data = new HashMap<String,Object>();
         try {//查询所有菜单
-            List<SystemMenu> allMenu = systemMenuDao.findMenuByUserAndParentId(parentId,userId);
+            List<SystemMenu> allMenu = systemMenuDao.findMenuByUser(userId);
             //根节点
             List<SystemMenu> rootMenu = new ArrayList<SystemMenu>();
             for (SystemMenu nav : allMenu) {
