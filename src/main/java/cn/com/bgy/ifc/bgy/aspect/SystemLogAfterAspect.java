@@ -33,6 +33,12 @@ public class SystemLogAfterAspect {
     @Autowired
     private SystemLogDomain systemLogDomain;
 
+    /**
+     * @author: ZhangCheng
+     * @description:使用注解方式记录系统日志
+     * @param: [joinPoint, result]
+     * @return: void
+     */
     @AfterReturning(returning="result", pointcut="@annotation(cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave)")
     public void save(JoinPoint joinPoint, ResponseVO<Object> result) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -42,15 +48,14 @@ public class SystemLogAfterAspect {
         SystemLogAfterSave systemLogAfterSave = method.getAnnotation(SystemLogAfterSave.class);
         SystemOperationLog systemOperationLog = new SystemOperationLog();
         //joinPoint.
-        System.out.println("===="+result.getCode());
-        System.out.println("===="+result.getMsg());
-        System.out.println("===="+result.getData());
         if (systemLogAfterSave != null) {
             //注解上的类型
             systemOperationLog.setLogType(systemLogAfterSave.type());
             //注解上的描述
             systemOperationLog.setOperatorDescribe(systemLogAfterSave.description());
         }
+        //获取操作完成后的信息
+        systemOperationLog.setOperatorContent(result.getMsg());
         systemOperationLog.setCreateTime(new Date());
         systemOperationLog.setLogicRemove(false);
         systemLogDomain.addSystemLogInfo(systemOperationLog);

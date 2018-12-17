@@ -1,5 +1,10 @@
 package cn.com.bgy.ifc.bgy.constant;
 
+import cn.com.bgy.ifc.entity.vo.basic.SelectVo;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author: ZhangCheng
  * @description:外部平台常量
@@ -49,24 +54,57 @@ public class ExternalConstant {
 
     /*
      * 平台内部功能接口
-     * 0获取账号信息，1区域信息，2项目信息，3品牌，4规格信息，5设备类型，6机房信息，7设备信息
+     * 0获取账号信息，1区域信息，2项目信息，3品牌信息，4规格信息，5设备类型，6机房信息，7设备信息
      * */
     public enum MsgTypeValue {
         //集成平台获取用户信息
-        BGY_ACCOUNT_OBTAIN(0),
+        BGY_ACCOUNT_OBTAIN(0,"账号信息"),
+        //区域信息
+        BGY_REGION_OBTAIN(1,"区域信息"),
         //项目信息
-        BGY_PROJECT_OBTAIN(2),
+        BGY_PROJECT_OBTAIN(2,"项目信息"),
+        //品牌信息
+        BGY_BRAND_OBTAIN(3,"品牌信息"),
+        //规格信息
+        BGY_STANDARD_OBTAIN(4,"规格信息"),
+        //设备类型
+        BGY_EQUIPMENT_TYPE_OBTAIN(5,"设备类型"),
+        //机房信息
+        BGY_MOTOR_ROOM_OBTAIN(6,"机房信息"),
         //设备信息
-        GBY_EQUIPMENT_OBTAIN(7);
+        GBY_EQUIPMENT_OBTAIN(7,"设备信息");
 
         private Integer value;
+        private String name;
 
-        private MsgTypeValue(Integer value) {
+        private MsgTypeValue(Integer value, String name) {
             this.value = value;
+            this.name = name;
         }
 
         public Integer getValue() {
             return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @author: ZhangCheng
+         * @description:枚举中的属性转换为下拉列表List
+         * @param: []
+         * @return: java.util.List<cn.com.bgy.ifc.entity.vo.basic.SelectVo>
+         */
+        public static List<SelectVo> getSelectList() {
+            List<SelectVo> list = new ArrayList<>();
+            for (MsgTypeValue msgTypeValue : MsgTypeValue.values()) {
+                SelectVo selectVo = new SelectVo();
+                selectVo.setValue(String.valueOf(msgTypeValue.getValue()));
+                selectVo.setName(msgTypeValue.getName());
+                list.add(selectVo);
+            }
+            return list;
         }
     }
     public enum SystemRoleType {

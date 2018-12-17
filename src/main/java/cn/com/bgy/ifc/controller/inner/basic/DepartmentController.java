@@ -80,6 +80,7 @@ public class DepartmentController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("add")
+    @SystemLogAfterSave(type = 1,description = "部门信息添加")
     @ResponseBody
     public ResponseVO<Object> add(@Validated DepartmentVo departmentVo, BindingResult error) {
         //参数校检
@@ -102,6 +103,7 @@ public class DepartmentController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("edit")
+    @SystemLogAfterSave(type = 1,description = "部门信息修改")
     @ResponseBody
     public ResponseVO<Object> edit(@Validated DepartmentVo departmentVo, BindingResult error) {
         //参数校检
@@ -126,7 +128,6 @@ public class DepartmentController {
     @PostMapping("prohibit")
     @ResponseBody
     public ResponseVO<Object> prohibit(Department department) {
-        System.out.println("==="+department);
         int count = departmentDomain.update(department);
         if (count == 1) {
             return ResponseVO.success().setMsg("操作成功");

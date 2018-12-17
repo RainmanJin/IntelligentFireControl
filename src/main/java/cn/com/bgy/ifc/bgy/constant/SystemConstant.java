@@ -43,22 +43,45 @@ public class SystemConstant {
      * */
     public enum EnableState {
         //禁用
-        PROHIBIT(0),
+        PROHIBIT(0,"禁用"),
         //启用
-        ENABLE(1),
+        ENABLE(1,"启用"),
         //锁定
-        LOCKING(2),
+        LOCKING(2,"锁定"),
         //删除
-        DELETE(3);
+        DELETE(3,"删除");
 
         private Integer value;
+        private String name;
 
-        private EnableState(Integer value) {
+        private EnableState(Integer value, String name) {
             this.value = value;
+            this.name = name;
         }
 
         public Integer getValue() {
             return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @author: ZhangCheng
+         * @description:枚举中的属性转换为下拉列表List
+         * @param: []
+         * @return: java.util.List<cn.com.bgy.ifc.entity.vo.basic.SelectVo>
+         */
+        public static List<SelectVo> getSelectList() {
+            List<SelectVo> list = new ArrayList<>();
+            for (EnableState enableState : EnableState.values()) {
+                SelectVo selectVo = new SelectVo();
+                selectVo.setValue(String.valueOf(enableState.getValue()));
+                selectVo.setName(enableState.getName());
+                list.add(selectVo);
+            }
+            return list;
         }
     }
 
