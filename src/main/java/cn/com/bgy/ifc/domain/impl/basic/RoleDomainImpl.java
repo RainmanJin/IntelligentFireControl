@@ -54,7 +54,7 @@ public class RoleDomainImpl implements RoleDomain {
     @Transactional
     @Override
     public int insert(SystemRole record) {
-        record.setLogicRemove(false);
+        record.setLogicRemove(true);
         record.setOrganizationId(1L);
         record.setState(0);
         return systemRoleDao.insert(record);
