@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.basic;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.domain.interfaces.basic.RoleDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemRole;
+import cn.com.bgy.ifc.entity.po.projects.QueryBena;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.SystemRoleVo;
 import com.github.pagehelper.Page;
@@ -29,9 +30,9 @@ public class RoleController {
 
     @PostMapping("queryList")
     @ResponseBody
-    public ResponseVO<PageInfo<SystemRole>> queryList(Page<SystemRole> page, SystemRole systemRole) {
+    public ResponseVO<PageInfo<SystemRole>> queryList(Page<SystemRole> page, QueryBena queryBena) {
         try {
-            PageInfo<SystemRole> pageInfo = roleDomain.queryListByPage(page, systemRole);
+            PageInfo<SystemRole> pageInfo = roleDomain.queryListByPage(page, queryBena);
             return ResponseVO.<PageInfo<SystemRole>>success().setData(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();

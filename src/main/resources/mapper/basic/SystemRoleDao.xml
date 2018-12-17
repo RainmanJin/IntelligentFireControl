@@ -60,7 +60,7 @@
         </trim>
     </insert>
 
-    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
+    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.po.basic.SystemRole" parameterType="cn.com.bgy.ifc.entity.po.projects.QueryBena">
 		SELECT
 		id,
 		type,
@@ -80,6 +80,13 @@
 		organization_id organizationId,
 		state
 		FROM system_role where logic_remove=0
+        <if test="type != null ">
+            AND type=#{type}
+        </if>
+        <if test="keyword != null">
+            and id like'%${keyword}%'
+            and name like'%${keyword}%'
+        </if>
   </select>
 
     <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole" resultMap="BaseResultMap">

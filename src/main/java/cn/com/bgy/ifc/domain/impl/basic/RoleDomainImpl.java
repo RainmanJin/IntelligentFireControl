@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.domain.impl.basic;
 import cn.com.bgy.ifc.dao.basic.SystemRoleDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.RoleDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemRole;
+import cn.com.bgy.ifc.entity.po.projects.QueryBena;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -28,12 +29,16 @@ public class RoleDomainImpl implements RoleDomain {
     public SystemRole findById(Long id) {
         return systemRoleDao.findById(id);
     }
-
+    /**
+     * @Author huxin
+     * @Description 查询系统角色（条件查询）
+     * @Date 2018/12/17 14:43
+     */
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public PageInfo<SystemRole> queryListByPage(Page<SystemRole> page, SystemRole record) {
+    public PageInfo<SystemRole> queryListByPage(Page<SystemRole> page, QueryBena queryBena) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<SystemRole> list = systemRoleDao.queryAllList();
+        List<SystemRole> list = systemRoleDao.queryAllList( queryBena);
         return new PageInfo<SystemRole>(list);
     }
 
@@ -41,7 +46,11 @@ public class RoleDomainImpl implements RoleDomain {
     public List<SystemRole> queryListByParam(SystemRole record) {
         return systemRoleDao.queryListByParam(record);
     }
-
+    /**
+     * @Author huxin
+     * @Description 添加系统角色
+     * @Date 2018/12/17 14:39
+     */
     @Transactional
     @Override
     public int insert(SystemRole record) {
@@ -50,19 +59,28 @@ public class RoleDomainImpl implements RoleDomain {
         record.setState(1);
         return systemRoleDao.insert(record);
     }
-
+    /**
+     * @Author huxin
+     * @Description 修改系统角色
+     * @Date 2018/12/17 14:40
+     */
     @Transactional
     @Override
     public int updateRole(SystemRole record) {
         return systemRoleDao.updateRole(record);
     }
-
+    
     @Transactional
     @Override
     public int deleteById(Long id) {
         return systemRoleDao.deleteById(id);
     }
-
+    /**
+     * @Author huxin
+     * @Description 删除系统角色（逻辑删除）
+     * @Date 2018/12/17 14:40
+     */
+    @Transactional
     @Override
     public int deleteRole( String str ) {
             List<Long> list = new ArrayList<>();
@@ -79,13 +97,13 @@ public class RoleDomainImpl implements RoleDomain {
     }
     /**
      * @Author huxin
-     * @Description 查询角色类型
-     * @Date 2018/12/15 17:42
+     * @Description 查询系统角色分类
+     * @Date 2018/12/17 14:46
      */
     @Override
-    public List<SystemRole> queryRoleType() {
-
+    public List<SystemRole> queryRoleType(){
         return systemRoleDao.queryRoleType();
     }
+   
 
 }
