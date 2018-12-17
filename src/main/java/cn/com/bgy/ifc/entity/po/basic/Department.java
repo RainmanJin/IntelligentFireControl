@@ -9,6 +9,8 @@ public class Department {
 
     private String name;
 
+    private String parentName;
+
     private Integer state;
 
     private Long organizationId;
@@ -73,12 +75,21 @@ public class Department {
         this.logicRemove = logicRemove;
     }
 
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
     @Override
     public String toString() {
         return "Department{" +
                 "id=" + id +
                 ", parentId=" + parentId +
                 ", name='" + name + '\'' +
+                ", parentName='" + parentName + '\'' +
                 ", state=" + state +
                 ", organizationId=" + organizationId +
                 ", createTime=" + createTime +

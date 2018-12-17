@@ -36,17 +36,7 @@ public class SystemLogDomainImpl implements SystemLogDomain {
         List<SystemOperationLog> list= systemOperationLogDao.queryListByParam(systemOperationLogVo);
         return  new PageInfo<SystemOperationLog>(list);
     }
-    /**
-     * @Author huxin
-     * @Description 多条件查询日志信息（类型，时间范围：开始日期/结束日期）及分页
-     * @Date 2018/12/6 14:51
-     */
-    @Override
-    public PageInfo<SystemOperationLog> queryRequirementSytemLogInfo( Page<SystemOperationLog> page, Map<String,String> map) {
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<SystemOperationLog> list= systemOperationLogDao.queryRequirementSytemLogInfo(map);
-        return  new PageInfo<SystemOperationLog>(list);
-    }
+
     /**
      * @Author huxin
      * @Description 日志增加

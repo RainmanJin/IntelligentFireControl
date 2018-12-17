@@ -11,11 +11,51 @@ public class SystemMenuVo {
 
     private String remark;
 
+    private String oneLabelName;
+
+    private String twoLabelName;
+
+    private String treeLabelName;
+
     private Integer sortIndex;
 
     private Long parentId;
 
     private Long powerId;
+
+    private String powerName;
+
+    public String getOneLabelName() {
+        return oneLabelName;
+    }
+
+    public void setOneLabelName(String oneLabelName) {
+        this.oneLabelName = oneLabelName;
+    }
+
+    public String getTwoLabelName() {
+        return twoLabelName;
+    }
+
+    public void setTwoLabelName(String twoLabelName) {
+        this.twoLabelName = twoLabelName;
+    }
+
+    public String getTreeLabelName() {
+        return treeLabelName;
+    }
+
+    public void setTreeLabelName(String treeLabelName) {
+        this.treeLabelName = treeLabelName;
+    }
+
+    public String getPowerName() {
+        return powerName;
+    }
+
+    public void setPowerName(String powerName) {
+        this.powerName = powerName;
+    }
 
     private Boolean logicRemove;
 

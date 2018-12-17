@@ -31,6 +31,16 @@ public class DepartmentVo {
 	@NotNull(message="机构ID不能为空")
 	private Long organizationId;
 
+	/**
+	 * 上级部门
+	 */
+	private String parentName;
+
+	/**
+	 * 关键字
+	 */
+	private String keyword;
+
 	private Date createTime;
 
 	/**
@@ -107,6 +117,22 @@ public class DepartmentVo {
 		this.children = children;
 	}
 
+	public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	@Override
 	public String toString() {
 		return "DepartmentVo{" +
@@ -115,6 +141,8 @@ public class DepartmentVo {
 				", name='" + name + '\'' +
 				", state=" + state +
 				", organizationId=" + organizationId +
+				", parentName='" + parentName + '\'' +
+				", keyword='" + keyword + '\'' +
 				", createTime=" + createTime +
 				", logicRemove=" + logicRemove +
 				", children=" + children +

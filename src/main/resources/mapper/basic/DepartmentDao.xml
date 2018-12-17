@@ -5,6 +5,7 @@
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="parent_name" jdbcType="VARCHAR" property="parentName"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
         <result column="organization_id" jdbcType="BIGINT" property="organizationId"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -68,7 +69,7 @@
         </trim>
     </insert>
 
-    <select id="queryAllList"  resultMap="BaseResultMap">
+    <select id="queryAllList" resultMap="BaseResultMap">
 		SELECT
 		id,
 		parent_id,
@@ -80,32 +81,35 @@
 		FROM department
     </select>
 
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.basic.Department"  resultMap="BaseResultMap">
-		SELECT
-		id,
-		parent_id,
-		name,
-		state,
-		organization_id,
-		create_time,
-		logic_remove
-		FROM department
-        WHERE 1=1
-        <if test="parentId != null ">
-            AND parent_id=#{parentId}
-        </if>
-        <if test="name != null ">
-            AND name=#{name}
-        </if>
-        <if test="state != null ">
-            AND state=#{state}
-        </if>
-        <if test="organizationId != null ">
-            AND organization_id=#{organizationId}
-        </if>
-        <if test="logicRemove != null ">
-            AND logic_remove=#{logicRemove}
-        </if>
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.basic.DepartmentVo" resultMap="BaseResultMap">
+        SELECT
+        a.id,
+        a.parent_id,
+        a.name,
+        b.name AS parent_name,
+        a.state,
+        a.organization_id,
+        a.create_time,
+        a.logic_remove
+        FROM department a LEFT JOIN department b ON a.parent_id=b.id
+        <where>
+            <if test="parentId != null ">
+                AND a.parent_id=#{parentId}
+            </if>
+            <if test="name != null ">
+                AND a.name=#{name}
+            </if>
+            <if test="state != null ">
+                AND a.state=#{state}
+            </if>
+            <if test="organizationId != null ">
+                AND a.organization_id=#{organizationId}
+            </if>
+            <if test="keyword!='' and keyword!=null">
+                AND (a.name LIKE concat('%',#{keyword},'%') OR b.name LIKE concat('%',#{keyword},'%'))
+            </if>
+            AND a.logic_remove = 0
+        </where>
     </select>
 
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">

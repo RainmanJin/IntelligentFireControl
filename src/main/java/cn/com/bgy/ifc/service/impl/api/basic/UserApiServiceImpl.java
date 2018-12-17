@@ -169,12 +169,12 @@ public class UserApiServiceImpl implements UserApiService {
                 if(totalCount>0){
                     for (BgyUserVo userVo : oList) {
                         userVo.setOrgId(orgId);
-                        int count=accountDomain.saveBgyAccount(userVo);
+                        /*int count=accountDomain.saveBgyAccount(userVo);
                         if(count==1){
 
                         }else{
 
-                        }
+                        }*/
                     }
                 }
                 if(addCount>0){
@@ -225,12 +225,12 @@ public class UserApiServiceImpl implements UserApiService {
                 if(oList.size()>0){
                     for (BgyUserVo userVo : oList) {
                         userVo.setOrgId(orgId);
-                        int count=accountDomain.saveBgyAccount(userVo);
+                        /*int count=accountDomain.saveBgyAccount(userVo);
                         if(count==1){
 
                         }else{
 
-                        }
+                        }*/
                     }
                 }
                 return ResponseVO.exception();

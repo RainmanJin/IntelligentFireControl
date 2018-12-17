@@ -17,8 +17,6 @@ public interface SystemLogDomain {
 
     public PageInfo<SystemOperationLog> queryListByParam(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo);
 
-    public PageInfo<SystemOperationLog> queryRequirementSytemLogInfo( Page<SystemOperationLog> page, Map<String,String> map);
-
     public void addSystemLogInfo(SystemOperationLog systemOperationLog);
 
 }

@@ -2,7 +2,6 @@ package cn.com.bgy.ifc.domain.impl.basic;
 
 import cn.com.bgy.ifc.dao.basic.SystemRoleDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.RoleDomain;
-import cn.com.bgy.ifc.entity.po.basic.SystemPower;
 import cn.com.bgy.ifc.entity.po.basic.SystemRole;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +33,7 @@ public class RoleDomainImpl implements RoleDomain {
     @Override
     public PageInfo<SystemRole> queryListByPage(Page<SystemRole> page, SystemRole record) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<SystemRole> list = systemRoleDao.queryListByParam(record);
+        List<SystemRole> list = systemRoleDao.queryAllList();
         return new PageInfo<SystemRole>(list);
     }
 
@@ -46,13 +46,15 @@ public class RoleDomainImpl implements RoleDomain {
     @Override
     public int insert(SystemRole record) {
         record.setLogicRemove(false);
+        record.setOrganizationId(1L);
+        record.setState(1);
         return systemRoleDao.insert(record);
     }
 
     @Transactional
     @Override
-    public int update(SystemRole record) {
-        return systemRoleDao.update(record);
+    public int updateRole(SystemRole record) {
+        return systemRoleDao.updateRole(record);
     }
 
     @Transactional
@@ -60,4 +62,30 @@ public class RoleDomainImpl implements RoleDomain {
     public int deleteById(Long id) {
         return systemRoleDao.deleteById(id);
     }
+
+    @Override
+    public int deleteRole( String str ) {
+            List<Long> list = new ArrayList<>();
+            String arr[] = str.split(",");
+            if(arr.length>0){
+                for (int i = 0; i <arr.length ; i++) {
+                    System.out.println("*****"+arr[i]);
+                    list.add(Long.valueOf(arr[i]));
+                }
+                return systemRoleDao.deleteRole(list);
+            }else{
+                return 0;
+            }
+    }
+    /**
+     * @Author huxin
+     * @Description 查询角色类型
+     * @Date 2018/12/15 17:42
+     */
+    @Override
+    public List<SystemRole> queryRoleType() {
+
+        return systemRoleDao.queryRoleType();
+    }
+
 }

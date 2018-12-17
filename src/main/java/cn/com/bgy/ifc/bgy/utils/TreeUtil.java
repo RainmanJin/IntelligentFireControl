@@ -15,21 +15,22 @@ public class TreeUtil {
 
     /**
      * @author: ZhangCheng
-     * @description:
+     * @description:转换treeList
      * @param: [list, parentId]
      * @return: java.util.List<cn.com.bgy.ifc.entity.vo.basic.DepartmentVo>
      */
-    public static List<DepartmentVo> getChildEntity(List<DepartmentVo> list, Long parentId) {
-        List<DepartmentVo> functionList = new ArrayList<DepartmentVo>();
-        for (Iterator<DepartmentVo> iterator = list.iterator(); iterator.hasNext(); ) {
-            DepartmentVo t = iterator.next();
-            // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点
-            if (t.getParentId() == parentId) {
-                recursionFn(list, t);
-                functionList.add(t);
+    public static List<DepartmentVo> switchTree(List<DepartmentVo> list, Long parentId){
+        List<DepartmentVo> treeList = new ArrayList<DepartmentVo>();
+        int size=list.size();
+        for(int i=0;i<size;i++){
+            DepartmentVo vo=list.get(i);
+            // 根据传入的某个父节点ID,遍历该父节点的所有子节点
+            if(vo.getParentId()==parentId){
+                recursionFn(list, vo);
+                treeList.add(vo);
             }
         }
-        return functionList;
+        return treeList;
     }
 
     /**

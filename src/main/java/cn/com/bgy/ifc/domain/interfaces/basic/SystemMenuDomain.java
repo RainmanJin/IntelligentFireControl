@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.domain.interfaces.basic;
 import cn.com.bgy.ifc.entity.po.basic.Account;
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.basic.SystemMenuVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -17,12 +18,9 @@ import java.util.Map;
 
 public interface SystemMenuDomain {
 
-    public PageInfo<SystemMenu> queryAllSystemMenuInfo( Page<SystemMenu> page, SystemMenu systemMenu);
+    public PageInfo<SystemMenuVo> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord);
 
     public SystemMenu queryOneSystemMenuInfo(Long id);
-
-    public List<SystemMenu> queryKeyWordSystemMenuInfo(String keyWord);
-
 
     public ResponseVO addSystemMenuInfo( SystemMenu systemMenu);
 
@@ -45,5 +43,20 @@ public interface SystemMenuDomain {
      * @return
      */
     public Map<String,Object> findTree(Long userId);
+
+    /**
+     * 通过用户id查找访问权限菜单
+     * @param userId,parentId
+     * @return
+     */
+    public List<SystemMenu> findMenuByUserAndParentId(Long parentId , Long userId);
+
+    /**
+     * 根据父级id查询用户子菜单
+     * @param parentId
+     * @param userId
+     * @return
+     */
+    public Map<String,Object> findTwoAndThreeUserMenuTree(Long parentId , Long userId);
 
 }

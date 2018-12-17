@@ -1,17 +1,18 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.domain.interfaces.basic.SystemMenuDomain;
+import cn.com.bgy.ifc.entity.po.basic.Account;
 import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.basic.SystemMenuVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  * @Description  系统主页面菜单
  **/
 @Controller
-@RequestMapping(value = "/basic/system")
+@RequestMapping(value = "/sys/menu")
 public class SystemMenuController {
     @Autowired
     SystemMenuDomain systemMenuDomain;
@@ -32,11 +33,16 @@ public class SystemMenuController {
      * @Param []
      * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
      */
-    @GetMapping(value = "/queryall")
+    @GetMapping(value = "/queryAllSystemMenuInfo")
     @ResponseBody
-    public ResponseVO<PageInfo<SystemMenu>> queryAllSystemMenuInfo( Page<SystemMenu> page, SystemMenu systemMenu){
-        PageInfo<SystemMenu> pageInfo = systemMenuDomain.queryAllSystemMenuInfo(page,systemMenu);
-        return ResponseVO.<PageInfo<SystemMenu>>success().setData(pageInfo);
+    public ResponseVO<Object> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord){
+        try {
+            PageInfo<SystemMenuVo> pageInfo = systemMenuDomain.queryAllSystemMenuInfo(page,keyWord);
+            return ResponseVO.success().setData(pageInfo);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ResponseVO.error();
     }
     /**
      * @Author huxin
@@ -45,13 +51,12 @@ public class SystemMenuController {
      * @Param [id]
      * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
      */
-    @GetMapping(value = "/queryone")
+    @GetMapping(value = "/queryOnelSystemMenuInfo")
+    @ResponseBody
     public SystemMenu queryOnelSystemMenuInfo(Long id){
         return systemMenuDomain.queryOneSystemMenuInfo(1L);
     }
-    public List<SystemMenu> queryKeyWordSystemMenuInfo(String keyWord){
-        return systemMenuDomain.queryKeyWordSystemMenuInfo(keyWord);
-    }
+
     /**
      * @Author huxin
      * @Description 增加系统二级菜单
@@ -59,10 +64,12 @@ public class SystemMenuController {
      * @Param [systemMenu]
      * @return void
      */
-    @GetMapping(value = "/add")
+    @PostMapping(value = "/add")
     @ResponseBody
     public ResponseVO addSystemMenuInfo( SystemMenu systemMenu){
+
         return systemMenuDomain.addSystemMenuInfo(systemMenu);
+
     }
     /**
      * @Author huxin
@@ -71,7 +78,7 @@ public class SystemMenuController {
      * @Param [systemMenu]
      * @return void
      */
-    @GetMapping(value = "/update")
+    @PostMapping(value = "/update")
     @ResponseBody
     public ResponseVO updateSystemMenuInfo(SystemMenu systemMenu){
         return systemMenuDomain.updateSystemMenuInfo(systemMenu);
@@ -83,10 +90,10 @@ public class SystemMenuController {
      * @Param [id]
      * @return void
      */
-    @GetMapping(value = "/deleteone")
+    @PostMapping(value = "/deteleOne")
     @ResponseBody
     public ResponseVO deleteSystemMenuInfo(Long id){
-        return systemMenuDomain.deleteSystemMenuInfo(1L);
+        return systemMenuDomain.deleteSystemMenuInfo(id);
     }
    /**
     * @Author huxin
@@ -95,9 +102,62 @@ public class SystemMenuController {
     * @Param [list]
     * @return cn.com.bgy.ifc.entity.vo.ResponseVO
     */
-    @GetMapping(value = "/deletelist")
+    @GetMapping(value = "/deleteList")
     @ResponseBody
     public ResponseVO deleteListSystemMenuInfo( Long[] id){
         return systemMenuDomain.deleteListSystemMenuInfo(id);
+    }
+
+    /**
+     * @Author huxin
+     * @Description 根据用户id和父级菜单id获取子级菜单
+     * @Date 2018/12/5 18:34
+     * @Param [list]
+     * @return cn.com.bgy.ifc.entity.vo.ResponseVO
+     */
+    @GetMapping(value = "/findMenuByUserAndParentId")
+    @ResponseBody
+    public ResponseVO<Object> findMenuByUserAndParentId( Long parentId,Long userId){
+        try {
+
+
+        return ResponseVO.success().setData(systemMenuDomain.findMenuByUserAndParentId(parentId,userId));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    /**
+     * @Author chenlie
+     * @Description根据上级菜单获取二三级菜单
+     * @Date 2018/12/5 18:34
+     * @Param [list]
+     * @return cn.com.bgy.ifc.entity.vo.ResponseVO
+     */
+    @GetMapping(value = "/findTwoAndThreeUserMenuTree")
+    @ResponseBody
+    public ResponseVO<Object> findTwoAndThreeUserMenuTree( Long parentId,Long userId){
+        return ResponseVO.success().setData(systemMenuDomain.findTwoAndThreeUserMenuTree(parentId,userId));
+    }
+
+    /**
+     * @Author huxin
+     * @Description 树级结构获取所有菜单信息
+     * @Date 2018/12/5 10:04
+     * @Param []
+     * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
+     */
+    @GetMapping(value = "/findTree")
+    @ResponseBody
+    public ResponseVO<Object> findTree(Account account){
+        try {
+            account=new Account();
+            account.setId(1L);
+            Map<String,Object> map = systemMenuDomain.findTree(account.getId());
+            return ResponseVO.success().setData(map);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ResponseVO.error();
     }
 }
