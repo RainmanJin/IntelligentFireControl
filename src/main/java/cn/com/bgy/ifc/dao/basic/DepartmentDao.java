@@ -22,4 +22,5 @@ public interface DepartmentDao {
     int update(Department record);
 
     int deleteBatchById(List<Long> ids);
+
 }

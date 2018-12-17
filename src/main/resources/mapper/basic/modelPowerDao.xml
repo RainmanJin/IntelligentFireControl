@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.basic.ModelPowerDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.ModelPower">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="powerName" jdbcType="VARCHAR" property="powerName" />
+        <result column="displayName" jdbcType="VARCHAR" property="displayName" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="modelName" jdbcType="VARCHAR" property="modelName" />
+    </resultMap>
+    <select id="queryPageList" resultMap="BaseResultMap" parameterType="cn.com.bgy.ifc.entity.po.basic.ModelPower">
+    SELECT
+    sp.id AS id,
+    sm.name AS modelName,
+    sp.name AS powerName,
+    sp.display_name AS displayName,
+    sp.remark AS remark
+    FROM
+    system_menu sm
+    LEFT JOIN system_power sp ON sm.power_id = sp.id
+    WHERE sm.logic_remove = false
+    <if test="keyWords != null ">
+        AND  (sp.name like CONCAT('%',#{keyWords},'%') OR sm.name like  CONCAT('%',#{keyWords},'%'))
+    </if>
+    ORDER BY sm.id DESC
+</select>
+
+    <resultMap id="queryModelNameMap" type="java.lang.String">
+        <result column="modelName" property="modelName" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <!--查询模块名称-->
+    <select id="getModelName" resultType="java.lang.String">
+        SELECT model_name AS modelName FROM system_model
+    </select>
+
+    <insert id="insertSystemPower" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemPower" useGeneratedKeys="true" keyProperty="id" >
+    insert into system_power (id, name, display_name,
+      remark, logic_remove)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR},
+      #{remark,jdbcType=VARCHAR}, #{logicRemove,jdbcType=BIT})
+  </insert>
+    <insert id="insertSystemMenu" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+    insert into system_menu (id, name, image_url,
+      navigate_url, remark, sort_index,
+      parent_id, power_id, logic_remove
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR},
+      #{navigateUrl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{sortIndex,jdbcType=INTEGER},
+      #{parentId,jdbcType=BIGINT}, #{powerId,jdbcType=BIGINT}, #{logicRemove,jdbcType=BIT}
+      )
+  </insert>
+
+
+    <resultMap id="BaseResultMapSystemModel" type="cn.com.bgy.ifc.entity.po.basic.SystemModel">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="model_name" jdbcType="VARCHAR" property="modelName" />
+        <result column="icon_name" jdbcType="VARCHAR" property="iconName" />
+        <result column="url_value" jdbcType="VARCHAR" property="urlValue" />
+    </resultMap>
+    <!--查询模块对象根据名称-->
+    <select id="querySystemModelbyName" resultMap="BaseResultMapSystemModel" parameterType="String">
+        select
+          id, model_name, icon_name, url_value
+        FROM
+          system_model
+        WHERE
+          model_name = #{modelName,jdbcType=VARCHAR}
+    </select>
+
+    <!--逻辑删除权限-->
+    <update id="deletePower" parameterType="Long[]">
+        update system_power set logic_remove = true where id in
+        <foreach collection="array" item="item" index="no" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="deletePowerOne" parameterType="Long">
+         update system_power set logic_remove = true where id = #{id}
+    </update>
+    <!--&lt;!&ndash;逻辑删除menu&ndash;&gt;-->
+    <update id="deleteMenu" parameterType="Long[]">
+        update system_menu set logic_remove = true where power_id in
+        <foreach collection="array" item="item" index="no" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="deleteMenuOne" parameterType="Long">
+        update system_menu set logic_remove =true where power_id = #{powerId}
+    </update>
+</mapper>

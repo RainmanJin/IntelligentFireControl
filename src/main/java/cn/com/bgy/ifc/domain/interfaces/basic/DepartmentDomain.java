@@ -23,4 +23,5 @@ public interface DepartmentDomain {
     int update(Department department);
 
     int deleteBatchById(List<Long> ids);
+
 }

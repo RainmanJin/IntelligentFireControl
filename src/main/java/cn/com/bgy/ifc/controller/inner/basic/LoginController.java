@@ -93,6 +93,7 @@ public class LoginController {
                 ResponseVO responseVO = new ResponseVO();
                 responseVO.setMsg("success");
                 responseVO.setData(account);
+                request.getSession().setAttribute("user",account);
                 return responseVO;
             }else {
                 return ResponseVO.error().setMsg("用户名或密码错误");

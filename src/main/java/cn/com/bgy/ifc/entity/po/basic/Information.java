@@ -1,10 +1,12 @@
 package cn.com.bgy.ifc.entity.po.basic;
 
+import com.github.pagehelper.Page;
+
 import java.util.Date;
 /**
  * 系统公告
  */
-public class Information {
+public class Information extends PageUtil {
     /**
      * 系统公告表id
      */

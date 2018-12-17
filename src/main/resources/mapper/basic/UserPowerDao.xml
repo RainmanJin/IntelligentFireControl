@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.basic.UserPowerDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.UserPower">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="userName" jdbcType="VARCHAR" property="userName" />
+        <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+        <result column="jobNumber" jdbcType="VARCHAR" property="jobNumber" />
+        <result column="dpartmentName" jdbcType="VARCHAR" property="dpartmentName" />
+        <result column="sex" jdbcType="BIGINT" property="sex" />
+        <result column="powerName" jdbcType="VARCHAR" property="powerName" />
+    </resultMap>
+    <select id="queryPageList" resultMap="BaseResultMap" parameterType="cn.com.bgy.ifc.entity.po.basic.UserPower">
+        SELECT
+        a.id,
+        a.userName,
+        a.telephone,
+        a.jobNumber,
+        a.dpartmentName,
+        a.dpartmentId,
+        a.sex,
+        GROUP_CONCAT(a.powerName) AS powerName
+        FROM
+        (
+        SELECT
+        account.id,
+        account.user_name AS userName,
+        account.telephone AS telephone,
+        account.job_number AS jobNumber,
+        department.NAME AS dpartmentName,
+        department.id AS dpartmentId,
+        account.sex AS sex,
+        system_power.name AS powerName
+        FROM
+        account
+        LEFT JOIN department ON account.department_id = department.id
+        leFt Join system_user_role ON account.id = system_user_role.user_id
+        LEFT JOIN system_role_power ON system_role_power.role_id = system_user_role.role_id
+        LEFT JOIN system_power ON system_power.id = system_role_power.power_id AND system_power.logic_remove = FALSE
+        <if test="powerName != null and '' != powerName">
+            <if test=" '未设置权限' == powerName">
+                WHERE (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) = 0
+            </if>
+            <if test=" '已设置权限' == powerName">
+                WHERE (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) > 0
+            </if>
+        </if>
+        GROUP BY
+        account.id,system_power.name
+        ) a
+        <where>
+            1=1
+            <if test="keyWords != null and '' != keyWords ">
+              AND  a.userName like CONCAT('%',#{keyWords},'%',)
+            </if>
+            <if test="dpartmentId != null ">
+                AND  a.dpartmentId = #{dpartmentId}
+            </if>
+            <if test="sex != null ">
+                AND  a.sex = #{sex}
+            </if>
+        </where>
+        GROUP BY
+        a.id
+
+
+
+    </select>
+    <!--查询部门名称-->
+    <select id="findDepartmentName"  resultType="java.lang.String">
+		SELECT name from department
+    </select>
+
+</mapper>

@@ -90,13 +90,16 @@ public class InformationController {
 
     /**
      * 分页查询
-     * @param page
+     * @param information
      * @return
      */
     @GetMapping("searchPage")
     @ResponseBody
-    public ResponseVO<Object> searchPage(Page<Information> page){
-        Information information= new Information();
+    public ResponseVO<Object> searchPage(Information information){
+        Page page = new Page();
+        page.setPageSize(information.getPageSize());
+        page.setPageNum(information.getPageNum());
+
         PageInfo<Information> pageInfo=informationDomain.searchByPage(page,information);
         return ResponseVO.success().setData(pageInfo);
     }

@@ -17,6 +17,8 @@ import java.util.List;
 
 @Service
 public class DepartmentDomainImpl implements DepartmentDomain {
+
+
     @Resource
     private DepartmentDao departmentDao;
 
