@@ -62,7 +62,7 @@ public class RoleController {
         CopyUtil.copyProperties(systemRoleVo, systemRole);
         int count = roleDomain.insert(systemRole);
         if (count == 1) {
-            return ResponseVO.success().setMsg("添加成功！").setCode("200");
+            return ResponseVO.success().setMsg("添加成功！");
         }
         return ResponseVO.error().setMsg("添加失败！");
     }
@@ -103,7 +103,7 @@ public class RoleController {
     public ResponseVO<Object> updateRole(SystemRole systemRole, BindingResult error) {
         int count = roleDomain.updateRole(systemRole);
         if (count == 1) {
-            return ResponseVO.success().setMsg("修改成功").setCode("200");
+            return ResponseVO.success().setMsg("修改成功");
         }
         return ResponseVO.error().setMsg("修改失败！");
     }
@@ -115,12 +115,11 @@ public class RoleController {
     @PostMapping("/deleteRole")
     @ResponseBody
     public ResponseVO<Object> deleteRole(String arr) {
-        System.out.println("****"+arr);
+
         int count = roleDomain.deleteRole(arr);
 
-        System.out.println("****"+count);
         if (count > 0) {
-            return ResponseVO.success().setMsg("修改成功").setCode("200");
+            return ResponseVO.success().setMsg("修改成功");
         }
         return ResponseVO.error().setMsg("修改失败！");
     }

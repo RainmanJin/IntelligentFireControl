@@ -3,9 +3,7 @@ package cn.com.bgy.ifc.bgy.constant;
 import cn.com.bgy.ifc.entity.vo.basic.SelectVo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -136,6 +134,44 @@ public class SystemConstant {
             }
             return list;
         }
+    }
+    /**
+     * @Author huxin
+     * @Description 系统角色类型
+     * @Date 2018/12/17 18:18
+     */
+    public enum SyetemRoleType{
+        //普通用户
+        USER_ROLR(0,"普通用户"),
+        //集团管理员
+        GROUP_ADMIN_ROLE(1,"集团管理员"),
+        //集团用户
+        GROUP_UERR_ROLE(2,"集团用户"),
+        //区域管理员
+        REGION_ADMIN_ROLE(3,"区域管理员"),
+        //区域用户
+        REGION_USER_ROLE(4,"区域管理员"),
+        //项目管理员
+        POJECT_ADMIN_ROLE(5,"项目管理员"),
+        //项目用户
+        POJECT_ADMIN_USER(6,"项目用户");
+        private Integer value;
+        private String name;
+
+        private SyetemRoleType( Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+
     }
 
 }

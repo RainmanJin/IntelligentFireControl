@@ -56,7 +56,7 @@ public class RoleDomainImpl implements RoleDomain {
     public int insert(SystemRole record) {
         record.setLogicRemove(false);
         record.setOrganizationId(1L);
-        record.setState(1);
+        record.setState(0);
         return systemRoleDao.insert(record);
     }
     /**

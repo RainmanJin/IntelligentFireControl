@@ -75,11 +75,11 @@
         then '项目级用户'
         else ''
         end
-		as typeName,
+		as typename,
 		name,
 		organization_id organizationId,
 		state
-		FROM system_role where logic_remove=0
+		FROM system_role where logic_remove=true
         <if test="type != null ">
             AND type=#{type}
         </if>
@@ -104,13 +104,13 @@
         then '项目级用户'
         else ''
         end
-        as typeName,
+        as typename,
         name,
         organization_id,
         logic_remove,
         state
         FROM system_role
-        WHERE 1=1 AND logic_remove=1
+        WHERE 1=1 AND logic_remove=true
         <if test="type != null ">
             AND name=#{type}
         </if>
@@ -148,7 +148,7 @@
          then '项目级用户'
          else ''
 		 end
-         as typeName
+         as typename
          from system_role
          where type>0 GROUP BY type
     </select>
@@ -165,7 +165,7 @@
         = #{id}
     </update>
     <update id="deleteRole" parameterType="java.util.List">
-        UPDATE system_role set logic_remove =1 where id IN
+        UPDATE system_role set logic_remove =false where id IN
         <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
