@@ -1,6 +1,5 @@
 package cn.com.bgy.ifc.domain.impl.basic.region;
 
-import cn.com.bgy.ifc.bgy.pager.PageBase;
 import cn.com.bgy.ifc.dao.basic.region.RegionInfoDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.region.RegionInfoDomain;
 import cn.com.bgy.ifc.entity.po.basic.region.RegionInfo;
@@ -22,7 +21,7 @@ import java.util.List;
  * @Date 2018/12/18 15:19
  */
 @Service
-public class RegionInfoDomainImpl extends PageBase implements RegionInfoDomain {
+public class RegionInfoDomainImpl  implements RegionInfoDomain {
     @Resource
     private RegionInfoDao regionInfoDao;
 

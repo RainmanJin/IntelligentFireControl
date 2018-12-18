@@ -1,6 +1,5 @@
 package cn.com.bgy.ifc.domain.impl.basic;
 
-import cn.com.bgy.ifc.bgy.pager.PageBase;
 import cn.com.bgy.ifc.dao.basic.SystemRoleDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.RoleDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemRole;
@@ -21,7 +20,7 @@ import java.util.List;
  * @date: 2018-12-05 11:00
  **/
 @Service
-public class RoleDomainImpl extends PageBase implements RoleDomain {
+public class RoleDomainImpl  implements RoleDomain {
 
     @Resource
     private SystemRoleDao systemRoleDao;
