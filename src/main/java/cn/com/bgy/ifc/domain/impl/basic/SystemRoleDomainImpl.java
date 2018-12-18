@@ -20,7 +20,7 @@ import java.util.List;
  * @date: 2018-12-05 11:00
  **/
 @Service
-public class RoleDomainImpl  implements RoleDomain {
+public class SystemRoleDomainImpl  implements SystemRoleDomain {
 
     @Resource
     private SystemRoleDao systemRoleDao;
