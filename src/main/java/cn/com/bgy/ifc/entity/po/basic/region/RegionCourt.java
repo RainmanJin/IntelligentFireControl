@@ -1,8 +1,8 @@
-package cn.com.bgy.ifc.entity.vo.basic;
+package cn.com.bgy.ifc.entity.po.basic.region;
 
 import java.util.Date;
 
-public class RegionStreetVo {
+public class RegionCourt {
     private Long id;
 
     private Long organizationId;
@@ -10,8 +10,6 @@ public class RegionStreetVo {
     private Long regionId;
 
     private Long projectId;
-
-    private Long courtId;
 
     private String name;
 
@@ -49,14 +47,6 @@ public class RegionStreetVo {
 
     public void setProjectId(Long projectId) {
         this.projectId = projectId;
-    }
-
-    public Long getCourtId() {
-        return courtId;
-    }
-
-    public void setCourtId(Long courtId) {
-        this.courtId = courtId;
     }
 
     public String getName() {

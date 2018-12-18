@@ -6,6 +6,7 @@ import cn.com.bgy.ifc.domain.interfaces.basic.RoleDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemRole;
 import cn.com.bgy.ifc.entity.vo.basic.SystemRoleVo;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +38,9 @@ public class RoleDomainImpl extends PageBase implements RoleDomain {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public PageInfo<SystemRole> queryListByPage( Page<SystemRole> page, SystemRoleVo systemRoleVo) {
-        return super.queryListByPage( page,systemRoleDao.queryAllList( systemRoleVo));
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        List<SystemRole> list= systemRoleDao.queryAllList(systemRoleVo);
+        return  new PageInfo<SystemRole>(list);
     }
 
     @Override

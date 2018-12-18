@@ -16,7 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
+/**
+ * @Author huxin
+ * @Description 获取区域信息
+ * @Date 2018/12/18 15:40
+ */
 @Service
 public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
     @Autowired
