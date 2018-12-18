@@ -60,22 +60,10 @@
         </trim>
     </insert>
 
-    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.po.basic.SystemRole" parameterType="cn.com.bgy.ifc.entity.po.projects.QueryBena">
+    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.po.basic.SystemRole" parameterType="cn.com.bgy.ifc.entity.vo.basic.SystemRoleVo">
 		SELECT
 		id,
 		type,
-		case type
-        when 1
-        then '平台级用户'
-        when 2
-        then '总部级用户'
-        when 3
-        then '区域级用户'
-        when 4
-        then '项目级用户'
-        else ''
-        end
-		as typename,
 		name,
 		organization_id organizationId,
 		state
@@ -93,18 +81,6 @@
         SELECT
         id,
         type,
-        case type
-        when 1
-        then '平台级用户'
-        when 2
-        then '总部级用户'
-        when 3
-        then '区域级用户'
-        when 4
-        then '项目级用户'
-        else ''
-        end
-        as typename,
         name,
         organization_id,
         logic_remove,
@@ -135,23 +111,6 @@
 		state
 		FROM system_role WHERE id = #{id}
   </select>
-    <select id="queryRoleType" resultMap="BaseResultMap">
-        select type,
-         case type
-         when 1
-         then '平台级用户'
-         when 2
-         then '总部级用户'
-         when 3
-         then '区域级用户'
-         when 4
-         then '项目级用户'
-         else ''
-		 end
-         as typename
-         from system_role
-         where type>0 GROUP BY type
-    </select>
     <update id="updateRole" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
         UPDATE system_role
         <set>

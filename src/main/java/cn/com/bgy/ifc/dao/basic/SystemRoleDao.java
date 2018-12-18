@@ -1,14 +1,14 @@
 package cn.com.bgy.ifc.dao.basic;
 
 import cn.com.bgy.ifc.entity.po.basic.SystemRole;
-import cn.com.bgy.ifc.entity.po.projects.QueryBena;
+import cn.com.bgy.ifc.entity.vo.basic.SystemRoleVo;
 
 import java.util.List;
 
 public interface SystemRoleDao {
 
 
-    List<SystemRole> queryAllList(QueryBena queryBena);
+    List<SystemRole> queryAllList(SystemRoleVo systemRoleVo);
 
     List<SystemRole> queryListByParam(SystemRole record);
 
@@ -24,7 +24,6 @@ public interface SystemRoleDao {
 
     int deleteRole(List<Long> list);
 
-    List<SystemRole> queryRoleType();
 
-    List<SystemRole> queryConditionSystemRole( QueryBena queryBena );
+
 }

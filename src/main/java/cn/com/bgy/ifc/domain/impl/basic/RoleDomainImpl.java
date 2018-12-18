@@ -3,7 +3,7 @@ package cn.com.bgy.ifc.domain.impl.basic;
 import cn.com.bgy.ifc.dao.basic.SystemRoleDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.RoleDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemRole;
-import cn.com.bgy.ifc.entity.po.projects.QueryBena;
+import cn.com.bgy.ifc.entity.vo.basic.SystemRoleVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -36,9 +36,9 @@ public class RoleDomainImpl implements RoleDomain {
      */
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public PageInfo<SystemRole> queryListByPage(Page<SystemRole> page, QueryBena queryBena) {
+    public PageInfo<SystemRole> queryListByPage( Page<SystemRole> page, SystemRoleVo systemRoleVo) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<SystemRole> list = systemRoleDao.queryAllList( queryBena);
+        List<SystemRole> list = systemRoleDao.queryAllList( systemRoleVo);
         return new PageInfo<SystemRole>(list);
     }
 
@@ -87,7 +87,6 @@ public class RoleDomainImpl implements RoleDomain {
             String arr[] = str.split(",");
             if(arr.length>0){
                 for (int i = 0; i <arr.length ; i++) {
-                    System.out.println("*****"+arr[i]);
                     list.add(Long.valueOf(arr[i]));
                 }
                 return systemRoleDao.deleteRole(list);
@@ -95,15 +94,7 @@ public class RoleDomainImpl implements RoleDomain {
                 return 0;
             }
     }
-    /**
-     * @Author huxin
-     * @Description 查询系统角色分类
-     * @Date 2018/12/17 14:46
-     */
-    @Override
-    public List<SystemRole> queryRoleType(){
-        return systemRoleDao.queryRoleType();
-    }
+
    
 
 }

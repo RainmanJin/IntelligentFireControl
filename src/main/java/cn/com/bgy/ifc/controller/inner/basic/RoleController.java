@@ -1,10 +1,11 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
+import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.domain.interfaces.basic.RoleDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemRole;
-import cn.com.bgy.ifc.entity.po.projects.QueryBena;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.basic.SelectVo;
 import cn.com.bgy.ifc.entity.vo.basic.SystemRoleVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -30,9 +31,9 @@ public class RoleController {
 
     @PostMapping("queryList")
     @ResponseBody
-    public ResponseVO<PageInfo<SystemRole>> queryList(Page<SystemRole> page, QueryBena queryBena) {
+    public ResponseVO<PageInfo<SystemRole>> queryList(Page<SystemRole> page, SystemRoleVo systemRoleVo,String token) {
         try {
-            PageInfo<SystemRole> pageInfo = roleDomain.queryListByPage(page, queryBena);
+            PageInfo<SystemRole> pageInfo = roleDomain.queryListByPage(page, systemRoleVo);
             return ResponseVO.<PageInfo<SystemRole>>success().setData(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +43,7 @@ public class RoleController {
 
     @GetMapping("queryById/{id}")
     @ResponseBody
-    public ResponseVO<SystemRoleVo> queryById(@PathVariable long id) {
+    public ResponseVO<SystemRoleVo> queryById(@PathVariable long id,String token) {
         SystemRole systemRole = roleDomain.findById(id);
         SystemRoleVo systemRoleVo = new SystemRoleVo();
         CopyUtil.copyProperties(systemRole, systemRoleVo);
@@ -51,7 +52,7 @@ public class RoleController {
 
     @PostMapping("add")
     @ResponseBody
-    public ResponseVO<Object> add(@Validated SystemRoleVo systemRoleVo, BindingResult error) {
+    public ResponseVO<Object> add(@Validated SystemRoleVo systemRoleVo, BindingResult error,String token) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -69,7 +70,7 @@ public class RoleController {
 
     @PostMapping("edit")
     @ResponseBody
-    public ResponseVO<Object> edit(@Validated SystemRoleVo systemRoleVo, BindingResult error) {
+    public ResponseVO<Object> edit(@Validated SystemRoleVo systemRoleVo, BindingResult error,String token) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -100,7 +101,7 @@ public class RoleController {
      */
     @PostMapping("updateRole")
     @ResponseBody
-    public ResponseVO<Object> updateRole(SystemRole systemRole, BindingResult error) {
+    public ResponseVO<Object> updateRole(SystemRole systemRole, BindingResult error,String token) {
         int count = roleDomain.updateRole(systemRole);
         if (count == 1) {
             return ResponseVO.success().setMsg("修改成功");
@@ -114,7 +115,7 @@ public class RoleController {
      */
     @PostMapping("/deleteRole")
     @ResponseBody
-    public ResponseVO<Object> deleteRole(String arr) {
+    public ResponseVO<Object> deleteRole(String arr,String token) {
 
         int count = roleDomain.deleteRole(arr);
 
@@ -130,7 +131,8 @@ public class RoleController {
      */
     @GetMapping("/queryRoleType")
     @ResponseBody
-    public List<SystemRole> queryRoleType(){
-        return  roleDomain.queryRoleType();
+    public ResponseVO<Object> queryRoleType(String token){
+        List<SelectVo> list=SystemConstant.SyetemRoleType.getSelectList();
+        return  ResponseVO.success().setData(list);
     }
 }

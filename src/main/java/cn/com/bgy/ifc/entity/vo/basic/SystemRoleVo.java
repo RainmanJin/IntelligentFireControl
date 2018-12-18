@@ -32,6 +32,13 @@ public class SystemRoleVo {
 	 *是否逻辑删除
 	 */
 	private Boolean logicRemove;
+	
+	/**
+	 * @Author huxin
+	 * @Description 查询关键字
+	 * @Date 2018/12/18 10:55
+	 */
+	private String keyword;
 
 
 	public Long getId() {
@@ -80,5 +87,18 @@ public class SystemRoleVo {
 
 	public void setLogicRemove( Boolean logicRemove ) {
 		this.logicRemove = logicRemove;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword( String keyword ) {
+		this.keyword = keyword;
+	}
+
+	@Override
+	public String toString() {
+		return "SystemRoleVo{" + "id=" + id + ", type=" + type + ", name='" + name + '\'' + ", state=" + state + ", organizationId=" + organizationId + ", logicRemove=" + logicRemove + ", keyword='" + keyword + '\'' + '}';
 	}
 }
