@@ -19,16 +19,12 @@
     <result column="last_ip" jdbcType="VARCHAR" property="lastIp" />
     <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
     <result column="user_type" jdbcType="INTEGER" property="userType" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.basic.Account">
     <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
   </resultMap>
-  <sql id="Blob_Column_List">
-    remark
-  </sql>
+
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.Account">
-    insert into account (id, organization_id, department_id, 
-      telephone, job_number, user_name, 
+    insert into account (id, organization_id, department_id,
+      telephone, job_number, user_name,
       password, password_salt, identity_number, 
       sex, regist_time, is_disable, 
       current_ip, current_time, last_ip, 

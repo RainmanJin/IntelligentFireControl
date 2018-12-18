@@ -107,4 +107,19 @@
     <delete id="deleteById" parameterType="Long">
        DELETE FROM system_power WHERE id = #{id}
   </delete>
+
+
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemPower" resultMap="BaseResultMap">
+   SELECT
+            id,
+            name,
+            display_name,
+            remark,
+            logic_remove
+            FROM system_power where id in (
+           SELECT rp.power_id from system_role_power rp where rp.role_id in (
+               select ur.role_id from system_user_role ur where ur.user_id =#{userId}
+               )and logic_remove=0
+            )and logic_remove=0
+    </select>
 </mapper>
