@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.basic;
 
 import cn.com.bgy.ifc.dao.basic.SystemPowerDao;
-import cn.com.bgy.ifc.domain.interfaces.basic.PowerDomain;
+import cn.com.bgy.ifc.domain.interfaces.basic.SystemPowerDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemPower;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -18,7 +18,7 @@ import java.util.List;
  * @date: 2018-12-05 11:20
  **/
 @Service
-public class PowerDomainImpl implements PowerDomain {
+public class SystemPowerDomainImpl implements SystemPowerDomain {
 
     @Resource
     private SystemPowerDao systemPowerDao;
@@ -58,5 +58,10 @@ public class PowerDomainImpl implements PowerDomain {
     @Override
     public int deleteById(Long id) {
         return systemPowerDao.deleteById(id);
+    }
+
+    @Override
+    public List<SystemPower> queryListByUserId(Long userId) {
+        return systemPowerDao.queryListByUserId(userId);
     }
 }

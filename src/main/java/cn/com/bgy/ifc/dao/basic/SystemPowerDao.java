@@ -20,4 +20,6 @@ public interface SystemPowerDao {
     int update(SystemPower record);
 
     int deleteById(Long id);
+
+    List<SystemPower> queryListByUserId(Long userId);
 }

@@ -62,19 +62,9 @@ public class AccountDomainImpl implements AccountDomain {
      * @return
      */
     @Override
-    public Account findAccountByUserName(String telephone,String password) {
+    public Account findAccountByUserName(String telephone) {
         Account account = accountDao.findAccountByUserName(telephone);
-        if(account!=null){
-            String Md5password = SignatureUtil.getBgyMd5(password.toUpperCase());
-
-            /**
-             * 判断密码是否一致
-             */
-            if (Md5password.equals(account.getPassword().toUpperCase())){
-                return account;
-            }
-        }
-        return null;
+        return account;
     }
 
     @Override

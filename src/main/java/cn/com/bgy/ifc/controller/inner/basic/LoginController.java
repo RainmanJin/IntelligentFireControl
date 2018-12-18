@@ -1,11 +1,19 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.bgy.utils.ImageGenerationUtil;
+import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
 import cn.com.bgy.ifc.domain.interfaces.basic.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.basic.SystemMenuDomain;
+import cn.com.bgy.ifc.domain.interfaces.basic.SystemRolePowerDomain;
+import cn.com.bgy.ifc.domain.interfaces.basic.SystemUserRoleDomain;
 import cn.com.bgy.ifc.entity.po.basic.Account;
+import cn.com.bgy.ifc.entity.po.basic.SystemRole;
+import cn.com.bgy.ifc.entity.po.basic.SystemRolePower;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.basic.LoginService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +41,11 @@ public class LoginController {
 
     @Autowired
     AccountDomain accountDomain;
+
+    @Autowired
+    SystemUserRoleDomain systemUserRoleDomain;
+    @Autowired
+    SystemRolePowerDomain systemRolePowerDomain;
 
 
     @GetMapping("/index")
@@ -66,42 +79,47 @@ public class LoginController {
     /**
      * 登录
      * @param request
-     * @param telephone
+     * @param userName
      * @param password
      * @param identifyCode
      * @return
      */
     @PostMapping ("/login")
     @ResponseBody
-    public ResponseVO<Object> login(HttpServletRequest request,String telephone,String password,String identifyCode) {
-//       String telephone = request.getParameter("telephone");
-//       String password = request.getParameter("password");
-//       String identifyCode = request.getParameter("identifyCode");
+    public ResponseVO<Object> login(HttpServletRequest request,String userName,String password,String identifyCode) {
         //验证用户验证码是否一致
         //获取session中的验证码
-         String code = request.getSession().getAttribute("code")==null?"": request.getSession().getAttribute("code").toString().toLowerCase();
-        if("".equals(identifyCode)||identifyCode==null){
+        String code = request.getSession().getAttribute("code") == null ? "" : request.getSession().getAttribute("code").toString().toLowerCase();
+       /* if (identifyCode == null || "".equals(identifyCode)) {
             //验证吗不能为空
             return ResponseVO.error().setMsg("验证吗不能为空");
-        }else if(identifyCode.toLowerCase().equals(code)){
-            //根据电话号码验证该用户是否存在
-            Account account = accountDomain.findAccountByUserName(telephone, password);
-            if (account != null) {
-
-                account.setPassword(null);
+        } else if (identifyCode.toLowerCase().equals(code)) {*/
+            UsernamePasswordToken token = new UsernamePasswordToken(userName, password.toUpperCase());
+            try {
+                Subject subject = SecurityUtils.getSubject();
+                subject.login(token);
+                Account account = (Account) subject.getPreviousPrincipals();
                 ResponseVO responseVO = new ResponseVO();
+                request.getSession().setAttribute("user", account);
                 responseVO.setMsg("success");
                 responseVO.setData(account);
-                request.getSession().setAttribute("user",account);
                 return responseVO;
-            }else {
+
+            } catch (Exception e) {
                 return ResponseVO.error().setMsg("用户名或密码错误");
             }
-        }else {
+       /* } else {
             //验证码已失效
-            return  ResponseVO.error().setMsg("验证码已失效");
-        }
+            return ResponseVO.error().setMsg("验证码已失效");
+        }*/
     }
-
+    @RequestMapping("/logout")
+    public String logout() {
+        Subject subject = SecurityUtils.getSubject();//取出当前验证主体
+        if (subject != null) {
+            subject.logout();//不为空，执行一次logout的操作，将session全部清空
+        }
+        return "login";
+    }
 
 }

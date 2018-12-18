@@ -7,7 +7,7 @@ import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
-public interface RoleDomain {
+public interface SystemRoleDomain {
 
     PageInfo<SystemRole> queryListByPage(Page<SystemRole> page,SystemRoleVo systemRoleVo);
 
@@ -23,5 +23,7 @@ public interface RoleDomain {
 
     int deleteRole(String str);
 
+
+    List<SystemRole> queryListByUserId(Long userId);
 
 }

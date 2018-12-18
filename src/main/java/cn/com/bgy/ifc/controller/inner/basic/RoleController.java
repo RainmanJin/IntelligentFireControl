@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.domain.interfaces.basic.RoleDomain;
+import cn.com.bgy.ifc.domain.interfaces.basic.SystemRoleDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.SelectVo;
@@ -27,7 +27,7 @@ import java.util.List;
 public class RoleController {
 
     @Autowired
-    private RoleDomain roleDomain;
+    private SystemRoleDomain roleDomain;
 
     @PostMapping("queryList")
     @ResponseBody

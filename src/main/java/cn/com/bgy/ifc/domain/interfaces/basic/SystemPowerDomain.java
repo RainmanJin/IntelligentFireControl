@@ -6,7 +6,7 @@ import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
-public interface PowerDomain {
+public interface SystemPowerDomain {
 
     PageInfo<SystemPower> queryListByPage(Page<SystemPower> page, SystemPower record);
 
@@ -19,4 +19,7 @@ public interface PowerDomain {
     int update(SystemPower record);
 
     int deleteById(Long id);
+
+    List<SystemPower> queryListByUserId(Long userId);
+
 }

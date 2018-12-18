@@ -57,7 +57,7 @@ public interface AccountDomain {
      * @param telephone
      * @return
      */
-    Account findAccountByUserName(String telephone,String password);
+    Account findAccountByUserName(String telephone);
 
     /**
      * 根据用户名查询用户

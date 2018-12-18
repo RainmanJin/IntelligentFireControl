@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.domain.impl.basic;
 
 import cn.com.bgy.ifc.bgy.pager.PageBase;
 import cn.com.bgy.ifc.dao.basic.SystemRoleDao;
-import cn.com.bgy.ifc.domain.interfaces.basic.RoleDomain;
+import cn.com.bgy.ifc.domain.interfaces.basic.SystemRoleDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemRole;
 import cn.com.bgy.ifc.entity.vo.basic.SystemRoleVo;
 import com.github.pagehelper.Page;
@@ -20,7 +20,7 @@ import java.util.List;
  * @date: 2018-12-05 11:00
  **/
 @Service
-public class RoleDomainImpl extends PageBase implements RoleDomain {
+public class SystemRoleDomainImpl extends PageBase implements SystemRoleDomain {
 
     @Resource
     private SystemRoleDao systemRoleDao;
@@ -93,6 +93,10 @@ public class RoleDomainImpl extends PageBase implements RoleDomain {
             }
     }
 
-   
+    @Override
+    public List<SystemRole> queryListByUserId(Long userId) {
+        return systemRoleDao.queryListByUserId(userId);
+    }
+
 
 }

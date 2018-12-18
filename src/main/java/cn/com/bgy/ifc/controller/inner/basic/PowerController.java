@@ -1,13 +1,10 @@
 package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.domain.interfaces.basic.PowerDomain;
-import cn.com.bgy.ifc.entity.po.basic.Department;
+import cn.com.bgy.ifc.domain.interfaces.basic.SystemPowerDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemPower;
-import cn.com.bgy.ifc.entity.po.basic.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.SystemPowerVo;
-import cn.com.bgy.ifc.entity.vo.basic.SystemRoleVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class PowerController {
 
     @Autowired
-    private PowerDomain powerDomain;
+    private SystemPowerDomain powerDomain;
 
     @GetMapping("queryList")
     @ResponseBody

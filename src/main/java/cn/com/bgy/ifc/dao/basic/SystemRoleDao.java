@@ -24,6 +24,8 @@ public interface SystemRoleDao {
 
     int deleteRole(List<Long> list);
 
+     List<SystemRole> queryListByUserId(Long userId);
+
 
 
 }

@@ -1,8 +1,7 @@
 package cn.com.bgy.ifc.entity.po.basic;
 
-import com.sun.imageio.plugins.common.I18NImpl;
-
 import java.util.Date;
+import java.util.List;
 
 public class Account {
     /**
@@ -77,6 +76,26 @@ public class Account {
      * 备注
      */
     private String remark;
+
+    private List<SystemRole> roleList;
+
+    public List<SystemRole> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<SystemRole> roleList) {
+        this.roleList = roleList;
+    }
+
+    public List<SystemPower> getPowerList() {
+        return powerList;
+    }
+
+    public void setPowerList(List<SystemPower> powerList) {
+        this.powerList = powerList;
+    }
+
+    private List<SystemPower> powerList;
     /**
      * 权限列表字符串
      */
