@@ -10,6 +10,7 @@ import cn.com.bgy.ifc.domain.interfaces.basic.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.basic.HttpVo;
 import cn.com.bgy.ifc.entity.vo.projects.BgyUserVo;
 import cn.com.bgy.ifc.service.interfaces.api.basic.UserApiService;
 import com.alibaba.fastjson.JSONObject;
@@ -106,21 +107,23 @@ public class UserApiServiceImpl implements UserApiService {
                 return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
             }
             ExternalInterfaceConfig config = list.get(0);
-            String url = config.getUrl() + "/api/third/user/updatePwd";
-            String account = config.getAccount();
-            String signKey = config.getSignKey();
-            String timestampStr = SignatureUtil.timestampStr();
+            String reqUrl="/api/third/user/updatePwd";
+          //  String url = config.getUrl() + "";
+          //  String account = config.getAccount();
+           // String signKey = config.getSignKey();
+           // String timestampStr = SignatureUtil.timestampStr();
             // 请求数据
             Map<String, Object> data = new HashMap<>();
             //加密明文密码
             String cipherText = SignatureUtil.getBgyMd5(password);
             data.put("telephone", telephone);
             data.put("password", cipherText);
-            String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
+            HttpVo httpVo=SignatureUtil.getHttpVo(config,reqUrl,data);
+           // String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
             //集成平台HTTP头部需要数据
-            Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
+           // Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
             //调用HTTP请求
-            JSONObject response = HttpHelper.httpPut(url, data, headerMap);
+            JSONObject response = HttpHelper.httpPut(httpVo.getUrl(), data, httpVo.getHeaderMap());
             if (response != null) {
                 //data作为key获取JSONObject
                 // statusCode
@@ -147,11 +150,12 @@ public class UserApiServiceImpl implements UserApiService {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
             if (list.size() != 0) {
                 ExternalInterfaceConfig config = list.get(0);
-                String url = config.getUrl() + "/api/third/user/getUserList";
-                String account = config.getAccount();
-                String signKey = config.getSignKey();
+                String reqUrl="/api/third/user/getUserList";
+               String url = config.getUrl() + "/api/third/user/getUserList";
+               String account = config.getAccount();
+               String signKey = config.getSignKey();
                 long orgId=config.getOrgId();
-                String timestampStr = SignatureUtil.timestampStr();
+               String timestampStr = SignatureUtil.timestampStr();
                 // 请求包结构体
                 Map<String, Object> data = new HashMap<>();
                 data.put("pageNo",pageNo);
@@ -160,21 +164,25 @@ public class UserApiServiceImpl implements UserApiService {
                 //集成平台HTTP头部需要数据
                 Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
                 //调用HTTP请求
-                JSONObject response = HttpHelper.httpPost(url, data, headerMap);
+                HttpVo httpVo=SignatureUtil.getHttpVo(config,reqUrl,data);
+                System.out.println("==="+httpVo.getHeaderMap());
+                System.out.println("==="+httpVo.getUrl());
+                JSONObject response = HttpHelper.httpPut(url, data,headerMap);
                 List<BgyUserVo> oList = new ArrayList<>();
                 BgyUserVo bgyUserVo=new BgyUserVo();
                 ResponseUtil.getResultList(oList,bgyUserVo,response,"data","list");
-                int totalCount=oList.size();
+                System.out.println("xxx"+oList);
+                /*int totalCount=oList.size();
                 int addCount=0;
                 if(totalCount>0){
                     for (BgyUserVo userVo : oList) {
                         userVo.setOrgId(orgId);
-                        /*int count=accountDomain.saveBgyAccount(userVo);
+                        int count=accountDomain.saveBgyAccount(userVo);
                         if(count==1){
 
                         }else{
 
-                        }*/
+                        }
                     }
                 }
                 if(addCount>0){
@@ -185,8 +193,8 @@ public class UserApiServiceImpl implements UserApiService {
                 ExternalInterfaceMsg externalInterfaceMsg=new ExternalInterfaceMsg();
                 externalInterfaceMsg.setTotalCount(totalCount);
                 externalInterfaceMsg.setAddCount(addCount);
-                externalInterfaceMsgDomain.insertSelective(externalInterfaceMsg);
-                return ResponseVO.exception();
+                externalInterfaceMsgDomain.insertSelective(externalInterfaceMsg);*/
+                return ResponseVO.success().setMsg("获取集成平台用户成功");
             } else {
                 logger.info("获取集成平台接口配置数据失败！");
                 return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");

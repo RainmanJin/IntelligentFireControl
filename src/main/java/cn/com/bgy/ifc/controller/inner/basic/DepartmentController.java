@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.controller.inner.basic;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogSave;
+import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.TreeUtil;
 import cn.com.bgy.ifc.domain.interfaces.basic.DepartmentDomain;
@@ -51,9 +52,8 @@ public class DepartmentController {
      */
     @GetMapping("tree")
     @ResponseBody
-    public ResponseVO<List<DepartmentVo>> queryTree() {
+    public ResponseVO<List<DepartmentVo>> queryTree(String token) {
         List<Department> list = departmentDomain.queryAllList();
-
         List<DepartmentVo> functionList = new ArrayList<DepartmentVo>();
         for (Department department : list) {
             DepartmentVo departmentVo = new DepartmentVo();
@@ -62,6 +62,21 @@ public class DepartmentController {
         }
         List<DepartmentVo> treeList =TreeUtil.switchTree(functionList,0L);
         return ResponseVO.<List<DepartmentVo>>success().setData(treeList);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:上级部门查询
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.util.List<cn.com.bgy.ifc.entity.po.basic.Department>>
+     */
+    @GetMapping("queryList")
+    @ResponseBody
+    public ResponseVO<List<Department>> queryList() {
+        DepartmentVo departmentVo = new DepartmentVo();
+        departmentVo.setState(SystemConstant.EnableState.ENABLE.getValue());
+        List<Department> list = departmentDomain.queryListByParam(departmentVo);
+        return ResponseVO.<List<Department>>success().setData(list);
     }
 
     @PostMapping("queryById/{id}")

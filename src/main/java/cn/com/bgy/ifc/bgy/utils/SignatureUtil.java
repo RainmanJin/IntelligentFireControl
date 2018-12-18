@@ -1,6 +1,8 @@
 package cn.com.bgy.ifc.bgy.utils;
 
 
+import cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig;
+import cn.com.bgy.ifc.entity.vo.basic.HttpVo;
 import com.alibaba.fastjson.JSON;
 import org.apache.shiro.crypto.hash.Md5Hash;
 
@@ -16,6 +18,26 @@ import java.util.Map;
  * @date: 2018-12-07 15:09
  **/
 public class SignatureUtil {
+
+    /**
+     * @author: ZhangCheng
+     * @description:请求参数参数封装
+     * @param: [config, reqUrl, data]
+     * @return: cn.com.bgy.ifc.entity.vo.basic.HttpVo
+     */
+    public static HttpVo getHttpVo(ExternalInterfaceConfig config,String reqUrl,Map<String, Object> data){
+        HttpVo httpVo=new HttpVo();
+        String url = config.getUrl() + reqUrl;
+        String account = config.getAccount();
+        String signKey = config.getSignKey();
+        String timestampStr = SignatureUtil.timestampStr();
+        String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
+        //集成平台HTTP头部需要数据
+        Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
+        httpVo.setUrl(url);
+        httpVo.setHeaderMap(headerMap);
+        return httpVo;
+    }
 
     /**
      * @author: ZhangCheng

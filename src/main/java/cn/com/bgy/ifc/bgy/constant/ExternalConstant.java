@@ -107,29 +107,5 @@ public class ExternalConstant {
             return list;
         }
     }
-    public enum SystemRoleType {
-        //平台级用户
-        PLATFROM(1,"平台级用户"),
-        //总部级用户
-        HEADQUARTERS(2,"总部级用户"),
-        //区域级用户
-        AREA(3,"区域级用户"),
-        //项目级用户
-        PROJECT(4,"项目级用户");
 
-        private Integer name;
-        private String value;
-
-        private SystemRoleType(Integer name,String value) {
-            this.name = name;
-            this.value=value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-        public Integer getName() {
-            return name;
-        }
-    }
 }

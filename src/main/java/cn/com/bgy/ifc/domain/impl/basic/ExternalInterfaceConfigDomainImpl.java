@@ -5,6 +5,9 @@ import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.dao.basic.ExternalInterfaceConfigDao;
 import cn.com.bgy.ifc.domain.interfaces.basic.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig;
+import cn.com.bgy.ifc.entity.vo.basic.ExternalInterfaceConfigVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,7 +15,7 @@ import java.util.List;
 
 /**
  * @author: ZhangCheng
- * @description:外部接口配置
+ * @description:外部接入接口配置
  * @date: 2018-12-10 18:16
  **/
 @Service
@@ -20,6 +23,12 @@ public class ExternalInterfaceConfigDomainImpl implements ExternalInterfaceConfi
 
     @Resource
     private ExternalInterfaceConfigDao externalInterfaceConfigDao;
+
+    @Override
+    public PageInfo<ExternalInterfaceConfigVo> queryListByPage(Page<ExternalInterfaceConfigVo> page, ExternalInterfaceConfigVo ExternalInterfaceConfigVo) {
+        return null;
+    }
+
     @Override
     public List<ExternalInterfaceConfig> queryListByParam(ExternalInterfaceConfig record) {
         return externalInterfaceConfigDao.queryListByParam(record);

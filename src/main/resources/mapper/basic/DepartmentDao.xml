@@ -78,7 +78,7 @@
 		organization_id,
 		create_time,
 		logic_remove
-		FROM department
+		FROM department WHERE logic_remove = 0
     </select>
 
     <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.basic.DepartmentVo" resultMap="BaseResultMap">

@@ -1,8 +1,13 @@
-package cn.com.bgy.ifc.entity.po.basic;
+package cn.com.bgy.ifc.entity.vo.basic;
 
 import java.util.Date;
 
-public class ExternalInterfaceConfig {
+/**
+ * @author: ZhangCheng
+ * @description:外部接入接口配置实体VO
+ * @date: 2018-12-17 22:06
+ **/
+public class ExternalInterfaceConfigVo {
 
     private Long id;
 
@@ -143,4 +148,5 @@ public class ExternalInterfaceConfig {
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
     }
+
 }

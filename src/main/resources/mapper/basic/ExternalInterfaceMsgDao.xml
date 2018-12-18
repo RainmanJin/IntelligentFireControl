@@ -164,9 +164,7 @@
             <if test="createTime != null ">
                 AND create_time=#{createTime}
             </if>
-            <if test="logicRemove != null ">
-                AND logic_remove=#{logicRemove}
-            </if>
+            AND logic_remove=0 ORDER BY create_time DESC
         </where>
     </select>
 </mapper>

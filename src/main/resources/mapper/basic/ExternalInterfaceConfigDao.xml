@@ -97,7 +97,7 @@
         </trim>
     </insert>
 
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig"
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.basic.ExternalInterfaceConfigVo"
             resultMap="BaseResultMap">
         SELECT
         id,
@@ -112,37 +112,36 @@
         create_time,
         logic_remove
         FROM external_interface_config
-        WHERE 1=1
-        <if test="orgId != null ">
-            AND org_id=#{orgId}
-        </if>
-        <if test="platformValue != null ">
-            AND platform_value=#{platformValue}
-        </if>
-        <if test="url != null ">
-            AND url=#{url}
-        </if>
-        <if test="account != null ">
-            AND account=#{account}
-        </if>
-        <if test="signKey != null ">
-            AND sign_key=#{signKey}
-        </if>
-        <if test="subSystemCode != null ">
-            AND sub_system_code=#{subSystemCode}
-        </if>
-        <if test="fileUrl != null ">
-            AND file_url=#{fileUrl}
-        </if>
-        <if test="state != null ">
-            AND state=#{state}
-        </if>
-        <if test="createTime != null ">
-            AND create_time=#{createTime}
-        </if>
-        <if test="logicRemove != null ">
-            AND logic_remove=#{logicRemove}
-        </if>
+        <where>
+            <if test="orgId != null ">
+                AND org_id=#{orgId}
+            </if>
+            <if test="platformValue != null ">
+                AND platform_value=#{platformValue}
+            </if>
+            <if test="url != null ">
+                AND url=#{url}
+            </if>
+            <if test="account != null ">
+                AND account=#{account}
+            </if>
+            <if test="signKey != null ">
+                AND sign_key=#{signKey}
+            </if>
+            <if test="subSystemCode != null ">
+                AND sub_system_code=#{subSystemCode}
+            </if>
+            <if test="fileUrl != null ">
+                AND file_url=#{fileUrl}
+            </if>
+            <if test="state != null ">
+                AND state=#{state}
+            </if>
+            <if test="createTime != null ">
+                AND create_time=#{createTime}
+            </if>
+            AND logic_remove=0
+        </where>
     </select>
 
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
