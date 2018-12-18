@@ -1,8 +1,15 @@
-package cn.com.bgy.ifc.entity.vo.basic;
+/*
+*
+* RegionInfoController.java
+* Copyright(C) 2017-2020 fendo公司
+* @date 2018-12-11
+*/
+package cn.com.bgy.ifc.entity.po.basic.region;
+import cn.com.bgy.ifc.entity.po.basic.PageUtil;
 
+import java.io.Serializable;
 import java.util.Date;
-
-public class RegionInfoVo {
+public class RegionInfo extends PageUtil implements Serializable {
     /**
      * 集成平台Id
      */
