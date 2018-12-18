@@ -1,16 +1,11 @@
 package cn.com.bgy.ifc.controller;
 
-import cn.com.bgy.ifc.domain.interfaces.basic.DepartmentDomain;
-import cn.com.bgy.ifc.entity.po.basic.Department;
-import cn.com.bgy.ifc.service.interfaces.api.basic.BgyBrandService;
 import cn.com.bgy.ifc.service.interfaces.api.basic.BgyRegionInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.Date;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

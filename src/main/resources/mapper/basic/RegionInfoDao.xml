@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.basic.region.RegionInfoDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.region.RegionInfo">
+<mapper namespace="cn.com.bgy.ifc.dao.system.project.RegionInfoDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.project.RegionInfo">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
     <result column="code" jdbcType="VARCHAR" property="code" />
@@ -13,7 +13,7 @@
     id, organization_id, code, name, create_time, logic_remove
   </sql>
   <!--获取区域信息列表-->
-  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.region.RegionInfo" resultMap="BaseResultMap">
+  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionInfo" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from region_info
@@ -38,7 +38,7 @@
       </if>
     </where>
   </select>
-  <select id="queryListRegionInfo" parameterType="cn.com.bgy.ifc.entity.vo.basic.region.RegionInfoVo" resultMap="BaseResultMap">
+  <select id="queryListRegionInfo" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo" resultMap="BaseResultMap">
       select id, organization_id, code, name, create_time
       from region_info
       where logic_remove = true
@@ -46,7 +46,7 @@
       AND (code LIKE concat('%',#{keyword},'%') OR name LIKE concat('%',#{keyword},'%'))
     </if>
   </select>
-  <update id="updateRegionInfo" parameterType="cn.com.bgy.ifc.entity.vo.basic.region.RegionInfoVo">
+  <update id="updateRegionInfo" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo">
     UPDATE region_info
     <set>
       <if test="code != null">code =#{code},</if>

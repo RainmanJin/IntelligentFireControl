@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.entity.po.basic.BrandMapper">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.Brand">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.quipment.Brand">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="status" jdbcType="BIGINT" property="status" />
@@ -12,7 +12,7 @@
     id, name, status, description
   </sql>
   <!--品牌获取分页-->
-  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.Brand" resultMap="BaseResultMap">
+  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.equipment.quipment.Brand" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from brand

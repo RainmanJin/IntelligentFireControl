@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.basic.InterfaceAccountDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.InterfaceAccount">
+<mapper namespace="cn.com.bgy.ifc.dao.system.user.InterfaceAccountDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.user.InterfaceAccount">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="apiu_id" jdbcType="VARCHAR" property="apiuId" />
@@ -28,7 +28,7 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
 
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.InterfaceAccount">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.user.InterfaceAccount">
     insert into interface_account (id, org_id, apiu_id,
       api_secret, name, charge_person,
       phone, restricted_ip, state,
@@ -38,7 +38,7 @@
       #{phone,jdbcType=VARCHAR}, #{restrictedIp,jdbcType=VARCHAR}, #{state,jdbcType=BIGINT},
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.InterfaceAccount">
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.user.InterfaceAccount">
     update interface_account
     <set>
       <if test="orgId != null">
@@ -72,7 +72,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 <!--分页查询-->
-    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.InterfaceAccount" resultMap="BaseResultMap">
+    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.user.InterfaceAccount" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from interface_account

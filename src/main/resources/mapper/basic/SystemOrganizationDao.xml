@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.basic.SystemOrganizationDao">
-    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemOrganization">
+<mapper namespace="cn.com.bgy.ifc.dao.system.basic.SystemOrganizationDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="state" jdbcType="INTEGER" property="state" />
@@ -24,7 +24,7 @@
     where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOrganization">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
         insert into system_organization
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -67,7 +67,7 @@
             </if>
         </trim>
     </insert>
-    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOrganization">
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
         update system_organization
         <set>
             <if test="name != null">
@@ -89,7 +89,7 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
     <!--分页-->
-    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOrganization" resultMap="BaseResultMap">
+    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from system_organization

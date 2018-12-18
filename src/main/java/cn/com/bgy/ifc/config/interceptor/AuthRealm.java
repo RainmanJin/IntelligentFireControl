@@ -1,8 +1,11 @@
 package cn.com.bgy.ifc.config.interceptor;
 
-import cn.com.bgy.ifc.domain.interfaces.basic.*;
-import cn.com.bgy.ifc.entity.po.basic.*;
-import cn.com.bgy.ifc.entity.po.basic.Account;
+import cn.com.bgy.ifc.domain.interfaces.system.user.AccountDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.basic.SystemPowerDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.basic.SystemRoleDomain;
+import cn.com.bgy.ifc.entity.po.system.basic.SystemPower;
+import cn.com.bgy.ifc.entity.po.system.basic.SystemRole;
+import cn.com.bgy.ifc.entity.po.system.user.Account;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -11,8 +14,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
