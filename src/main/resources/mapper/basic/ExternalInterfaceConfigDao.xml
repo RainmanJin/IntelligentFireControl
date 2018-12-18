@@ -3,6 +3,7 @@
 <mapper namespace="cn.com.bgy.ifc.dao.basic.ExternalInterfaceConfigDao">
     <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig">
         <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="org_id" jdbcType="BIGINT" property="orgId"/>
         <result column="platform_value" jdbcType="INTEGER" property="platformValue"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="account" jdbcType="VARCHAR" property="account"/>

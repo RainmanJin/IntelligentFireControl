@@ -44,6 +44,8 @@ public class ExternalInterfaceMsgDomainImpl implements ExternalInterfaceMsgDomai
 
     @Override
     public int insertSelective(ExternalInterfaceMsg record) {
+        record.setCreateTime(new Date());
+        record.setLogicRemove(false);
         return externalInterfaceMsgDao.insertSelective(record);
     }
 }

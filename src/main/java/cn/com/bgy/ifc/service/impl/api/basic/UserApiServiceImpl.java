@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.service.impl.api.basic;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
@@ -20,10 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserApiServiceImpl implements UserApiService {
@@ -53,21 +51,16 @@ public class UserApiServiceImpl implements UserApiService {
                 return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
             }
             ExternalInterfaceConfig config = list.get(0);
-            String url = config.getUrl() + "/api/third/user/login";
-            String account = config.getAccount();
-            String signKey = config.getSignKey();
-            String timestampStr = SignatureUtil.timestampStr();
+            String reqUrl = "/api/third/user/login";
             // 请求数据
             Map<String, Object> data = new HashMap<>();
             //加密明文密码
             String cipherText = SignatureUtil.getBgyMd5(password);
             data.put("telephone", telephone);
             data.put("password", cipherText);
-            String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
-            //集成平台HTTP头部需要数据
-            Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
+            HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
             //调用HTTP请求
-            JSONObject response = HttpHelper.httpPost(url, data, headerMap);
+            JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
             if (response != null) {
                 //data作为key获取JSONObject
                 // statusCode
@@ -85,10 +78,10 @@ public class UserApiServiceImpl implements UserApiService {
                     return ResponseVO.exception();
                 }
             } else {
-                return ResponseVO.exception();
+                return ResponseVO.error().setMsg("集成平台验证登录用户请求失败!");
             }
         } catch (Exception e) {
-            logger.error("集成平台验证登录用户接口请求异常：" + e.getMessage());
+            logger.error("集成平台验证登录用户接口请求异常：" + e);
             return ResponseVO.exception();
         }
     }
@@ -107,21 +100,14 @@ public class UserApiServiceImpl implements UserApiService {
                 return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
             }
             ExternalInterfaceConfig config = list.get(0);
-            String reqUrl="/api/third/user/updatePwd";
-          //  String url = config.getUrl() + "";
-          //  String account = config.getAccount();
-           // String signKey = config.getSignKey();
-           // String timestampStr = SignatureUtil.timestampStr();
+            String reqUrl = "/api/third/user/updatePwd";
             // 请求数据
             Map<String, Object> data = new HashMap<>();
             //加密明文密码
             String cipherText = SignatureUtil.getBgyMd5(password);
             data.put("telephone", telephone);
             data.put("password", cipherText);
-            HttpVo httpVo=SignatureUtil.getHttpVo(config,reqUrl,data);
-           // String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
-            //集成平台HTTP头部需要数据
-           // Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
+            HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
             //调用HTTP请求
             JSONObject response = HttpHelper.httpPut(httpVo.getUrl(), data, httpVo.getHeaderMap());
             if (response != null) {
@@ -135,121 +121,114 @@ public class UserApiServiceImpl implements UserApiService {
                     return ResponseVO.success().setMsg("修改成功");
                 }
             } else {
-                return ResponseVO.exception();
+                return ResponseVO.error().setMsg("集成平台修改用户请求失败!");
             }
         } catch (Exception e) {
-            logger.error("集成平台修改用户密码接口请求异常：" + e.getMessage());
+            logger.error("集成平台修改用户密码接口请求异常：" + e);
             return ResponseVO.exception();
         }
     }
 
-    @SystemLogAfterSave(type=7,description = "获取集成平台用户列表")
+    @SystemLogAfterSave(type = 7, description = "获取集成平台用户列表")
     @Override
-    public ResponseVO<Object> obtainBgyUser(int pageNo, int pageSize) {
+    public ResponseVO<Object> baseObtainBgyUser(int pageNo, int pageSize) {
         try {
-            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
-            if (list.size() != 0) {
-                ExternalInterfaceConfig config = list.get(0);
-                String reqUrl="/api/third/user/getUserList";
-               String url = config.getUrl() + "/api/third/user/getUserList";
-               String account = config.getAccount();
-               String signKey = config.getSignKey();
-                long orgId=config.getOrgId();
-               String timestampStr = SignatureUtil.timestampStr();
-                // 请求包结构体
-                Map<String, Object> data = new HashMap<>();
-                data.put("pageNo",pageNo);
-                data.put("pageSize", pageSize);
-                String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
-                //集成平台HTTP头部需要数据
-                Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
-                //调用HTTP请求
-                HttpVo httpVo=SignatureUtil.getHttpVo(config,reqUrl,data);
-                System.out.println("==="+httpVo.getHeaderMap());
-                System.out.println("==="+httpVo.getUrl());
-                JSONObject response = HttpHelper.httpPut(url, data,headerMap);
-                List<BgyUserVo> oList = new ArrayList<>();
-                BgyUserVo bgyUserVo=new BgyUserVo();
-                ResponseUtil.getResultList(oList,bgyUserVo,response,"data","list");
-                System.out.println("xxx"+oList);
-                /*int totalCount=oList.size();
-                int addCount=0;
-                if(totalCount>0){
-                    for (BgyUserVo userVo : oList) {
-                        userVo.setOrgId(orgId);
-                        int count=accountDomain.saveBgyAccount(userVo);
-                        if(count==1){
-
-                        }else{
-
-                        }
-                    }
-                }
-                if(addCount>0){
-
-                }else{
-
-                }
-                ExternalInterfaceMsg externalInterfaceMsg=new ExternalInterfaceMsg();
-                externalInterfaceMsg.setTotalCount(totalCount);
-                externalInterfaceMsg.setAddCount(addCount);
-                externalInterfaceMsgDomain.insertSelective(externalInterfaceMsg);*/
-                return ResponseVO.success().setMsg("获取集成平台用户成功");
+        List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
+        if (list.size() != 0) {
+            ExternalInterfaceConfig config = list.get(0);
+            Long orgId = config.getOrgId();
+            List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.BGY_ACCOUNT_OBTAIN.getValue(), orgId);
+            if (msgList.size() > 0) {
+                ExternalInterfaceMsg interfaceMsg = msgList.get(0);
+                Date createTime = interfaceMsg.getCreateTime();
+                return obtainBgyUserIncrement(pageNo,pageSize,config,createTime);
             } else {
-                logger.info("获取集成平台接口配置数据失败！");
-                return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
+                return obtainBgyUser(pageNo,pageSize,config);
             }
+        } else {
+            logger.info("获取集成平台接口配置数据失败！");
+            return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
+        }
         } catch (Exception e) {
-            logger.error("获取集成平台用户列表接口请求异常：" + e.getMessage());
-            return ResponseVO.exception().setMsg("获取集成平台用户列表接口请求异常！");
+            logger.error("获取集成平台用户列表接口请求异常：" + e);
+            return ResponseVO.error().setMsg("获取集成平台用户列表接口请求异常！");
         }
     }
 
-    @SystemLogAfterSave(type=7,description = "获取集成平台用户列表(增量)")
+
     @Override
-    public ResponseVO<Object> obtainBgyUserIncrement(int pageNo, int pageSize) {
-        try {
-            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
-            if (list.size() != 0) {
-                ExternalInterfaceConfig config = list.get(0);
-                String url = config.getUrl() + "/api/third/user/getUserListIncrement";
-                String account = config.getAccount();
-                String signKey = config.getSignKey();
-                long orgId=config.getOrgId();
-                String timestampStr = SignatureUtil.timestampStr();
-                // 请求包结构体
-                Map<String, Object> data = new HashMap<>();
-                data.put("startTime", "2018-10-01 01:00:00");
-                data.put("pageNo",pageNo);
-                data.put("pageSize", pageSize);
-                String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
-                //集成平台HTTP头部需要数据
-                Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
-                //调用HTTP请求
-                JSONObject response = HttpHelper.httpPost(url, data, headerMap);
-                List<BgyUserVo> oList = new ArrayList<>();
-                BgyUserVo bgyUserVo=new BgyUserVo();
-                ResponseUtil.getResultList(oList,bgyUserVo,response,"data","list");
-                if(oList.size()>0){
-                    for (BgyUserVo userVo : oList) {
-                        userVo.setOrgId(orgId);
+    public ResponseVO<Object> obtainBgyUser(int pageNo, int pageSize, ExternalInterfaceConfig config) throws Exception {
+        String reqUrl = "/api/third/user/getUserList";
+        Long orgId = config.getOrgId();
+        // 请求包结构体
+        Map<String, Object> data = new HashMap<>();
+        data.put("pageNo", pageNo);
+        data.put("pageSize", pageSize);
+        //调用HTTP请求
+        HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
+        JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        List<BgyUserVo> oList = new ArrayList<>();
+        BgyUserVo bgyUserVo = new BgyUserVo();
+        ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
+        int totalCount = oList.size();
+        int successCount=0;
+        int errorCount=0;
+        if (totalCount > 0) {
+            for (BgyUserVo userVo : oList) {
+                userVo.setOrgId(orgId);
+                int count = accountDomain.saveBgyAccount(userVo);
+                if (count == 1) {
+                    successCount++;
+                } else {
+                    errorCount++;
+                }
+            }
+        }
+        ExternalInterfaceMsg externalInterfaceMsg = new ExternalInterfaceMsg();
+        externalInterfaceMsg.setPlatformValue(ExternalConstant.PlatformValue.INTEGERATED_PLATFORM.getValue());
+        externalInterfaceMsg.setOrgId(orgId);
+        externalInterfaceMsg.setMsgTypeValue(ExternalConstant.MsgTypeValue.BGY_ACCOUNT_OBTAIN.getValue());
+        externalInterfaceMsg.setTotalCount(totalCount);
+        externalInterfaceMsg.setAddCount(totalCount);
+        externalInterfaceMsg.setSuccessCount(successCount);
+        externalInterfaceMsg.setErrorCount(errorCount);
+        externalInterfaceMsg.setRequestTime(new Date());
+        externalInterfaceMsgDomain.insertSelective(externalInterfaceMsg);
+        return ResponseVO.success().setMsg("获取集成平台用户总条数："+totalCount+"，新增条数："+totalCount+",成功条数："+successCount+"，失败条数"+errorCount+"");
+    }
+
+    @Override
+    public ResponseVO<Object> obtainBgyUserIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config,Date createTime) throws Exception {
+        String url = config.getUrl() + "/api/third/user/getUserListIncrement";
+        String account = config.getAccount();
+        String signKey = config.getSignKey();
+        long orgId = config.getOrgId();
+        String timestampStr = SignatureUtil.timestampStr();
+        // 请求包结构体
+        Map<String, Object> data = new HashMap<>();
+        data.put("startTime", "2018-10-01 01:00:00");
+        data.put("pageNo", pageNo);
+        data.put("pageSize", pageSize);
+        String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
+        //集成平台HTTP头部需要数据
+        Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
+        //调用HTTP请求
+        JSONObject response = HttpHelper.httpPost(url, data, headerMap);
+        List<BgyUserVo> oList = new ArrayList<>();
+        BgyUserVo bgyUserVo = new BgyUserVo();
+        ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
+        if (oList.size() > 0) {
+            for (BgyUserVo userVo : oList) {
+                userVo.setOrgId(orgId);
                         /*int count=accountDomain.saveBgyAccount(userVo);
                         if(count==1){
 
                         }else{
 
                         }*/
-                    }
-                }
-                return ResponseVO.exception();
-            } else {
-                logger.info("获取集成平台接口配置数据失败！");
-                return ResponseVO.exception();
             }
-        } catch (Exception e) {
-            logger.error("请求接口异常：" + e.getMessage());
-            return ResponseVO.exception();
         }
+        return ResponseVO.exception();
     }
 
     @Override
@@ -285,7 +264,7 @@ public class UserApiServiceImpl implements UserApiService {
                 System.out.println("mapList:" + mapList);
             }
         } catch (Exception e) {
-            logger.error("获取集成平台用户权限列表接口请求异常：" + e.getMessage());
+            logger.error("获取集成平台用户权限列表接口请求异常：" + e);
         }
     }
 

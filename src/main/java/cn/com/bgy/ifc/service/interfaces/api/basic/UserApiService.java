@@ -1,6 +1,9 @@
 package cn.com.bgy.ifc.service.interfaces.api.basic;
 
+import cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+
+import java.util.Date;
 
 public interface UserApiService {
 
@@ -11,10 +14,13 @@ public interface UserApiService {
     ResponseVO<Object> obtainBgyUpdatePass(String telephone, String password);
 
     //获取集成平台用户信息
-    ResponseVO<Object> obtainBgyUser(int pageNo, int pageSize);
+    ResponseVO<Object> baseObtainBgyUser(int pageNo, int pageSize);
+
+    //获取集成平台用户信息（全量）
+    ResponseVO<Object> obtainBgyUser(int pageNo, int pageSize,ExternalInterfaceConfig config)throws Exception;
 
     //获取集成平台用户信息（增量）
-    ResponseVO<Object> obtainBgyUserIncrement(int pageNo, int pageSize);
+    ResponseVO<Object> obtainBgyUserIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime)throws Exception;
 
     //获取集成平台用户权限
     void obtainBgyUserPermission();

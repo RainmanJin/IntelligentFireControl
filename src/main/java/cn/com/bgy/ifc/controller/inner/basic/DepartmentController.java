@@ -39,7 +39,7 @@ public class DepartmentController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo<Department>> queryList(Page<Department> page, DepartmentVo departmentVo) {
+    public ResponseVO<PageInfo<Department>> queryList(Page<Department> page, DepartmentVo departmentVo,String token) {
             PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page, departmentVo);
             return ResponseVO.<PageInfo<Department>>success().setData(pageInfo);
     }
