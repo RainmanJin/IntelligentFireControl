@@ -120,9 +120,9 @@ public class RoleController {
         int count = roleDomain.deleteRole(arr);
 
         if (count > 0) {
-            return ResponseVO.success().setMsg("修改成功");
+            return ResponseVO.success().setMsg("删除成功");
         }
-        return ResponseVO.error().setMsg("修改失败！");
+        return ResponseVO.error().setMsg("删除失败！");
     }
     /**
      * @Author huxin

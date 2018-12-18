@@ -1,15 +1,17 @@
-package cn.com.bgy.ifc.entity.vo.basic;
+package cn.com.bgy.ifc.entity.po.basic.region;
 
 import java.util.Date;
 
-public class RegionProjectVo {
+public class RegionStreet {
     private Long id;
 
     private Long organizationId;
 
     private Long regionId;
 
-    private String code;
+    private Long projectId;
+
+    private Long courtId;
 
     private String name;
 
@@ -41,12 +43,20 @@ public class RegionProjectVo {
         this.regionId = regionId;
     }
 
-    public String getCode() {
-        return code;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
+
+    public Long getCourtId() {
+        return courtId;
+    }
+
+    public void setCourtId(Long courtId) {
+        this.courtId = courtId;
     }
 
     public String getName() {

@@ -14,6 +14,7 @@ import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.HttpVo;
 import cn.com.bgy.ifc.entity.vo.projects.BgyUserVo;
 import cn.com.bgy.ifc.service.interfaces.api.basic.UserApiService;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import org.slf4j.Logger;
@@ -133,22 +134,22 @@ public class UserApiServiceImpl implements UserApiService {
     @Override
     public ResponseVO<Object> baseObtainBgyUser(int pageNo, int pageSize) {
         try {
-        List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
-        if (list.size() != 0) {
-            ExternalInterfaceConfig config = list.get(0);
-            Long orgId = config.getOrgId();
-            List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.BGY_ACCOUNT_OBTAIN.getValue(), orgId);
-            if (msgList.size() > 0) {
-                ExternalInterfaceMsg interfaceMsg = msgList.get(0);
-                Date createTime = interfaceMsg.getCreateTime();
-                return obtainBgyUserIncrement(pageNo,pageSize,config,createTime);
+            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
+            if (list.size() != 0) {
+                ExternalInterfaceConfig config = list.get(0);
+                Long orgId = config.getOrgId();
+                List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.BGY_ACCOUNT_OBTAIN.getValue(), orgId);
+                if (msgList.size() > 0) {
+                    ExternalInterfaceMsg interfaceMsg = msgList.get(0);
+                    Date createTime = interfaceMsg.getCreateTime();
+                    return obtainBgyUserIncrement(pageNo, pageSize, config, createTime);
+                } else {
+                    return obtainBgyUser(pageNo, pageSize, config);
+                }
             } else {
-                return obtainBgyUser(pageNo,pageSize,config);
+                logger.info("获取集成平台接口配置数据失败！");
+                return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
             }
-        } else {
-            logger.info("获取集成平台接口配置数据失败！");
-            return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
-        }
         } catch (Exception e) {
             logger.error("获取集成平台用户列表接口请求异常：" + e);
             return ResponseVO.error().setMsg("获取集成平台用户列表接口请求异常！");
@@ -167,53 +168,47 @@ public class UserApiServiceImpl implements UserApiService {
         //调用HTTP请求
         HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        // 总页数
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
+        System.out.println(pageCount+"");
         List<BgyUserVo> oList = new ArrayList<>();
         BgyUserVo bgyUserVo = new BgyUserVo();
         ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
-        int totalCount = oList.size();
-        int successCount=0;
-        int errorCount=0;
-        if (totalCount > 0) {
-            for (BgyUserVo userVo : oList) {
-                userVo.setOrgId(orgId);
-                int count = accountDomain.saveBgyAccount(userVo);
-                if (count == 1) {
-                    successCount++;
-                } else {
-                    errorCount++;
-                }
+        if (pageCount != 0) {
+            int startPage=pageNo+1;
+            int newPage=pageNo+1;
+            for (int i = startPage; i <= pageCount; i++) {
+                Map<String, Object> newData = new HashMap<>();
+                newData.put("pageNo", newPage);
+                newData.put("pageSize", pageSize);
+                HttpVo httpVo2 = SignatureUtil.getHttpVo(config, reqUrl, newData);
+                JSONObject newResponse = HttpHelper.httpPost(httpVo2.getUrl(), newData, httpVo2.getHeaderMap());
+                ResponseUtil.getResultList(oList, bgyUserVo, newResponse, "data", "list");
+                newPage++;
             }
         }
-        ExternalInterfaceMsg externalInterfaceMsg = new ExternalInterfaceMsg();
-        externalInterfaceMsg.setPlatformValue(ExternalConstant.PlatformValue.INTEGERATED_PLATFORM.getValue());
-        externalInterfaceMsg.setOrgId(orgId);
-        externalInterfaceMsg.setMsgTypeValue(ExternalConstant.MsgTypeValue.BGY_ACCOUNT_OBTAIN.getValue());
-        externalInterfaceMsg.setTotalCount(totalCount);
-        externalInterfaceMsg.setAddCount(totalCount);
-        externalInterfaceMsg.setSuccessCount(successCount);
-        externalInterfaceMsg.setErrorCount(errorCount);
-        externalInterfaceMsg.setRequestTime(new Date());
-        externalInterfaceMsgDomain.insertSelective(externalInterfaceMsg);
-        return ResponseVO.success().setMsg("获取集成平台用户总条数："+totalCount+"，新增条数："+totalCount+",成功条数："+successCount+"，失败条数"+errorCount+"");
+        int totalCount = oList.size();
+        if (totalCount > 0) {
+            return accountDomain.saveBgyAccountList(oList,orgId);
+           // return ResponseVO.success().setMsg("暂无集成平台用户数据同步xxxx！");
+        } else {
+            return ResponseVO.success().setMsg("暂无集成平台用户数据同步！");
+        }
     }
 
     @Override
-    public ResponseVO<Object> obtainBgyUserIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config,Date createTime) throws Exception {
-        String url = config.getUrl() + "/api/third/user/getUserListIncrement";
-        String account = config.getAccount();
-        String signKey = config.getSignKey();
+    public ResponseVO<Object> obtainBgyUserIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
+        String reqUrl = "/api/third/user/getUserListIncrement";
         long orgId = config.getOrgId();
-        String timestampStr = SignatureUtil.timestampStr();
         // 请求包结构体
         Map<String, Object> data = new HashMap<>();
         data.put("startTime", "2018-10-01 01:00:00");
         data.put("pageNo", pageNo);
         data.put("pageSize", pageSize);
-        String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
         //集成平台HTTP头部需要数据
-        Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
+        HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
         //调用HTTP请求
-        JSONObject response = HttpHelper.httpPost(url, data, headerMap);
+        JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
         List<BgyUserVo> oList = new ArrayList<>();
         BgyUserVo bgyUserVo = new BgyUserVo();
         ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");

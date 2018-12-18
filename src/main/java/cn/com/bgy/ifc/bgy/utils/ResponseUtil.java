@@ -16,6 +16,29 @@ import java.util.Map;
 public class ResponseUtil {
 
     /**
+     *  获取数据页数
+     * @param response
+     * @param pageSize
+     * @return
+     */
+    public static int getPageCount(JSONObject response,int pageSize){
+        Integer recordCount=null;
+        if (response != null) {
+            JSONObject jsonObject = response.getJSONObject("data");
+            if (jsonObject != null) {
+                recordCount= jsonObject.getInteger("totalSize");
+            }
+        }
+        int pageCount=0;
+        System.out.println(recordCount+"=====");
+        // 总页数
+        if(recordCount!=null){
+            pageCount = recordCount % pageSize > 0 ? recordCount / pageSize + 1 : recordCount / pageSize;
+        }
+        return pageCount;
+    }
+
+    /**
      * @author: ZhangCheng
      * @description:响应数据封装结果集
      * @param: [dataList, dataObj, response, dataKey, listKey]

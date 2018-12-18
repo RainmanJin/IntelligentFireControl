@@ -72,8 +72,7 @@
             AND type=#{type}
         </if>
         <if test="keyword != null">
-            and id like'%${keyword}%'
-            and name like'%${keyword}%'
+            and name like concat('%',#{keyword},'%')
         </if>
   </select>
 

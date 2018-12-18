@@ -1,13 +1,8 @@
-/*
-*
-* RegionInfo.java
-* Copyright(C) 2017-2020 fendo公司
-* @date 2018-12-11
-*/
-package cn.com.bgy.ifc.entity.po.basic;
-import java.io.Serializable;
+package cn.com.bgy.ifc.entity.vo.basic.region;
+
 import java.util.Date;
-public class RegionInfo extends PageUtil implements Serializable {
+
+public class RegionInfoVo {
     /**
      * 集成平台Id
      */
@@ -37,7 +32,13 @@ public class RegionInfo extends PageUtil implements Serializable {
      * 是否逻辑删除
      */
     private Boolean logicRemove;
-
+    
+    /**
+     * @Author huxin
+     * @Description 查询关键字
+     * @Date 2018/12/18 16:31
+     */
+    private String keyword;
     /**
      * region_info
      */

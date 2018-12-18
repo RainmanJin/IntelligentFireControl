@@ -1,20 +1,55 @@
-package cn.com.bgy.ifc.entity.po.basic;
+package cn.com.bgy.ifc.entity.po.basic.region;
 
 import java.util.Date;
 
 public class RegionProject {
+    /**
+     * @Author huxin
+     * @Description ID
+     * @Date 2018/12/18 17:53
+     */
     private Long id;
-
+    /**
+     * @Author huxin
+     * @Description 平台ID
+     * @Date 2018/12/18 17:53
+     */
     private Long organizationId;
-
+    /**
+     * @Author huxin
+     * @Description 区域ID
+     * @Date 2018/12/18 17:54
+     */
     private Long regionId;
-
+    /**
+     * @Author huxin
+     * @Description 编码
+     * @Date 2018/12/18 17:54
+     */
     private String code;
-
+    /**
+     * @Author huxin
+     * @Description 项目名
+     * @Date 2018/12/18 17:54
+     */
     private String name;
-
+    /**
+     * @Author huxin
+     * @Description 经纬度
+     * @Date 2018/12/18 17:57
+     */
+    private String locationStr;
+    /**
+     * @Author huxin
+     * @Description 创建、修改时间
+     * @Date 2018/12/18 17:54
+     */
     private Date createTime;
-
+    /**
+     * @Author huxin
+     * @Description 是否删除 false 删除 true 未删除
+     * @Date 2018/12/18 17:55
+     */
     private Boolean logicRemove;
 
     public Long getId() {
@@ -71,5 +106,13 @@ public class RegionProject {
 
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
+    }
+
+    public String getLocationStr() {
+        return locationStr;
+    }
+
+    public void setLocationStr( String locationStr ) {
+        this.locationStr = locationStr;
     }
 }
