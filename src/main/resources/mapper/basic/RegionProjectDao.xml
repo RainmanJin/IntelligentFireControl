@@ -89,20 +89,24 @@
     </trim>
   </insert>
 
-  <select id="queryListRegionProject" parameterType="cn.com.bgy.ifc.entity.vo.projects.RegionProjectVo" resultMap="BaseResultMap">
-    select  id, organization_id, region_id,
-    code, name,longitude,latitude,ascription, create_time
-    from region_project
+  <select id="queryListRegionProject" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo" resultType="cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo">
+    SELECT
+    p.id as id,p.name as name,p.organization_id as organizationId,
+    p.region_id as regionId,p.code as code,i.`name` as regionName,
+    p.longitude as longitude,p.latitude as latitude,
+    p.ascription as ascription,p.create_time as createTime
+    from region_project p
+    LEFT JOIN region_info i on p.region_id = i.id
     <where>
     <if test="regionId != null and regionId!= '' ">
-      AND region_id= #{regionId,jdbcType=BIGINT}
+      AND p.region_id= #{regionId,jdbcType=BIGINT}
     </if>
     <if test="keyword!='' and keyword!=null">
-      AND (code LIKE concat('%',#{keyword},'%')
-      OR name LIKE concat('%',#{keyword},'%')
-      OR ascription like concat('%',#{keyword},'%'))
+      AND (p.code LIKE concat('%',#{keyword},'%')
+      OR p.name LIKE concat('%',#{keyword},'%')
+      OR p.ascription like concat('%',#{keyword},'%'))
     </if>
-      AND logic_remove = 0
+      AND p.logic_remove = 0
     </where>
   </select>
   <update id="updateRegionProject" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionProject">

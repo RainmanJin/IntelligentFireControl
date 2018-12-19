@@ -1,10 +1,10 @@
 package cn.com.bgy.ifc.controller.inner.system.project;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
-import cn.com.bgy.ifc.entity.po.system.project.RegionCourt;
+import cn.com.bgy.ifc.entity.po.system.project.RegionStreet;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionCourtVo;
-import cn.com.bgy.ifc.service.interfaces.inner.projects.RegionCourtService;
+import cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo;
+import cn.com.bgy.ifc.service.interfaces.inner.projects.RegionStreetService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
@@ -20,11 +20,11 @@ import javax.annotation.Resource;
  * @Description 苑区信息
  **/
 @Controller
-@RequestMapping("/basic/regionCourt")
-public class RegionCourtController {
+@RequestMapping("/basic/regionStreet")
+public class RegionStreetController {
 
     @Resource
-    private RegionCourtService regionCourtService;
+    private RegionStreetService regionStreetService;
 
     /**
      * @Author huxin
@@ -33,9 +33,9 @@ public class RegionCourtController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo<RegionCourtVo>> queryListRegionCourt( Page<RegionCourtVo> page, RegionCourtVo regionCourtVo, String token){
-            PageInfo<RegionCourtVo> pageInfo = regionCourtService.queryListRegionCourt(page, regionCourtVo);
-            return ResponseVO.<PageInfo<RegionCourtVo>>success().setData(pageInfo);
+    public ResponseVO<PageInfo<RegionStreetVo>> queryListRegionStreet( Page<RegionStreetVo> page, RegionStreetVo regionStreetVo, String token){
+        PageInfo<RegionStreetVo> pageInfo = regionStreetService.queryListRegionStreet(page,regionStreetVo);
+        return ResponseVO.<PageInfo<RegionStreetVo>>success().setData(pageInfo);
     }
     /**
      * @Author huxin
@@ -43,11 +43,11 @@ public class RegionCourtController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "苑区信息修改")
+    @SystemLogAfterSave(type = 1,description = "街道信息修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionCourt( RegionCourt regionCourt, String token){
+    public ResponseVO<Object> updateRegionStreet( RegionStreet regionStreet, String token){
 
-        int count =  regionCourtService.updateRegionCourt(regionCourt);
+        int count = regionStreetService.updateRegionStreet(regionStreet);
         if (count == 1) {
             return ResponseVO.success().setMsg("修改成功");
         }
@@ -59,10 +59,10 @@ public class RegionCourtController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "苑区信息删除")
+    @SystemLogAfterSave(type = 1,description = "街道信息删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionCourt( String arr, String token){
-        int count = regionCourtService.deleteRegionCourt(arr);
+    public ResponseVO<Object> deleteRegionStreet( String arr, String token){
+        int count = regionStreetService.deleteRegionStreet(arr);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }
@@ -74,11 +74,11 @@ public class RegionCourtController {
      * @Date 2018/12/19 17:00
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "苑区信息添加")
+    @SystemLogAfterSave(type = 1,description = "街道信息添加")
     @ResponseBody
-    public ResponseVO<Object> addRegionCourt(RegionCourt regionCourt){
+    public ResponseVO<Object> addRegionStreet(RegionStreet regionStreet){
 
-       int count =  regionCourtService.insert(regionCourt);
+       int count =  regionStreetService.insert(regionStreet);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功");
         }

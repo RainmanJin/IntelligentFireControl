@@ -28,10 +28,6 @@ public class RegionInfoVo {
      */
     private Date createTime;
 
-    /**
-     * 是否逻辑删除
-     */
-    private Boolean logicRemove;
     
     /**
      * @Author huxin
@@ -124,19 +120,4 @@ public class RegionInfoVo {
         this.createTime = createTime;
     }
 
-    /**
-     * 是否逻辑删除
-     * @return logic_remove 是否逻辑删除
-     */
-    public Boolean getLogicRemove() {
-        return logicRemove;
-    }
-
-    /**
-     * 是否逻辑删除
-     * @param logicRemove 是否逻辑删除
-     */
-    public void setLogicRemove(Boolean logicRemove) {
-        this.logicRemove = logicRemove;
-    }
 }

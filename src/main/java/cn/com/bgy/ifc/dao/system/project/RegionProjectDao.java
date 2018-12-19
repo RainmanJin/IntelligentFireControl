@@ -10,7 +10,7 @@ public interface RegionProjectDao {
 
     int insertSelective(RegionProject record);
 
-    List<RegionProject> queryListRegionProject( RegionProjectVo record);
+    List<RegionProjectVo> queryListRegionProject( RegionProjectVo record);
 
     int updateRegionProject(RegionProject record);
 

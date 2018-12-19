@@ -43,7 +43,9 @@ public class RegionInfoDomainImpl  implements RegionInfoDomain {
      */
     @Override
     public int insert( RegionInfo record ) {
-        return 0;
+        record.setCreateTime(new Date());
+        record.setLogicRemove(false);
+        return regionInfoDao.insert(record);
     }
     /**
      * @Author huxin
