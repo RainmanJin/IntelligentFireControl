@@ -17,6 +17,26 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
+<!--  <resultMap id="PageResultMap" type="cn.com.bgy.ifc.entity.po.repair.MaintenanceContractPage">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+    <result column="r_id" jdbcType="BIGINT" property="rId" />
+    <result column="r_name" jdbcType="VARCHAR" property="rName" />
+    <result column="p_id" jdbcType="BIGINT" property="pId" />
+    <result column="p_name" jdbcType="VARCHAR" property="pName" />
+    <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="master_contact" jdbcType="VARCHAR" property="masterContact" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>-->
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
     <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
   </resultMap>
@@ -134,4 +154,24 @@
       </if>
     </trim>
   </insert>
+
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract" resultMap="BaseResultMap">
+    select id,org_id,r_id,p_id,contract_name,contract_no,company_id,master_contact,contact_phone,start_date,end_date,state,remark,create_time,logic_remove
+    from maintenance_contract
+    <trim prefix=" where " suffix="" suffixOverrides="and">
+      <if test="id != null">
+        and id=#{id,jdbcType=BIGINT}
+      </if>
+      <if test="rId != null">
+        and r_id= #{rId,jdbcType=BIGINT}
+      </if>
+      <if test="pId != null">
+        and p_id=#{pId,jdbcType=BIGINT}
+      </if>
+      <if test="companyId != null">
+        and company_id=#{companyId,jdbcType=BIGINT}
+      </if>
+
+    </trim>
+  </select>
 </mapper>
