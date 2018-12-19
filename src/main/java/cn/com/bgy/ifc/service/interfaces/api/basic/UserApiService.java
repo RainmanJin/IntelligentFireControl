@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.service.interfaces.api.basic;
 
-import cn.com.bgy.ifc.entity.po.basic.ExternalInterfaceConfig;
+import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 
 import java.util.Date;

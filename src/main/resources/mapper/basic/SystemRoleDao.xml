@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.basic.SystemRoleDao">
-    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemRole">
+<mapper namespace="cn.com.bgy.ifc.dao.system.basic.SystemRoleDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.basic.SystemRole">
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="type" jdbcType="VARCHAR" property="type"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
@@ -10,13 +10,13 @@
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
 
     </resultMap>
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRole">
     insert into system_role (type,name, organization_id,
       logic_remove,state)
     values (#{type,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT},
       #{logicRemove,jdbcType=BIT},#{state,jdbcType=INTEGER})
   </insert>
-    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRole">
         insert into system_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -60,7 +60,7 @@
         </trim>
     </insert>
 
-    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.po.basic.SystemRole" parameterType="cn.com.bgy.ifc.entity.vo.basic.SystemRoleVo">
+    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.po.system.basic.SystemRole" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.SystemRoleVo">
 		SELECT
 		id,
 		type,
@@ -76,7 +76,7 @@
         </if>
   </select>
 
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole" resultMap="BaseResultMap">
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRole" resultMap="BaseResultMap">
         SELECT
         id,
         type,
@@ -110,7 +110,7 @@
 		state
 		FROM system_role WHERE id = #{id}
   </select>
-    <update id="updateRole" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRole">
+    <update id="updateRole" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRole">
         UPDATE system_role
         <set>
             <if test="type != null">type =#{type},</if>
@@ -131,4 +131,17 @@
     <delete id="deleteById" parameterType="Long">
        DELETE FROM system_role WHERE id = #{id}
   </delete>
+    <select id="queryListByUserId" parameterType="Long" resultMap="BaseResultMap">
+		SELECT
+		id,
+		type,
+		name,
+		organization_id,
+		logic_remove,
+		state
+		FROM system_role WHERE id in (
+            select ur.role_id from system_user_role ur where ur.user_id =#{userId}
+         ) and logic_remove=0
+  </select>
+
 </mapper>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.basic.AccountDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.Account">
+<mapper namespace="cn.com.bgy.ifc.dao.system.user.AccountDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.user.Account">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
     <result column="department_id" jdbcType="BIGINT" property="departmentId" />
@@ -19,16 +19,12 @@
     <result column="last_ip" jdbcType="VARCHAR" property="lastIp" />
     <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
     <result column="user_type" jdbcType="INTEGER" property="userType" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.basic.Account">
     <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
   </resultMap>
-  <sql id="Blob_Column_List">
-    remark
-  </sql>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.Account">
-    insert into account (id, organization_id, department_id, 
-      telephone, job_number, user_name, 
+
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.user.Account">
+    insert into account (id, organization_id, department_id,
+      telephone, job_number, user_name,
       password, password_salt, identity_number, 
       sex, regist_time, is_disable, 
       current_ip, current_time, last_ip, 
@@ -42,7 +38,7 @@
       #{lastTime,jdbcType=TIMESTAMP}, #{userType,jdbcType=INTEGER}, #{remark,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.Account">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.user.Account">
     insert into account
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -160,7 +156,7 @@
   <delete id="deleteById" parameterType="long" >
     delete  from account where id=#{id,jdbcType=BIGINT}
   </delete>
-  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.basic.Account">
+  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.system.user.Account">
      select  id, organization_id, department_id,
               telephone, job_number, user_name,
               password, password_salt, identity_number,
@@ -170,7 +166,7 @@
       from account where id=#{id,jdbcType=BIGINT}
   </select>
 
-  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.Account" resultType="cn.com.bgy.ifc.entity.po.basic.Account">
+  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.user.Account" resultType="cn.com.bgy.ifc.entity.po.system.user.Account">
      select  id, organization_id, department_id,
               telephone, job_number, user_name,
               password, password_salt, identity_number,
@@ -190,7 +186,7 @@
         </if>
     </trim>
   </select>
-<update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.basic.Account" >
+<update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.system.user.Account" >
   update account set
     organization_id =#{organizationId,jdbcType=BIGINT},
     department_id = #{departmentId,jdbcType=BIGINT},
@@ -235,7 +231,7 @@
     from  account where telephone = #{telephone,jdbcType=VARCHAR}
   </select>
 
-  <select id="findUserPowerByPage" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.basic.Account">
+  <select id="findUserPowerByPage" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.system.user.Account">
     select  id,
     organization_id,
     department_id,

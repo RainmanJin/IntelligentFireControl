@@ -1,7 +1,5 @@
 package cn.com.bgy.ifc.bgy.utils;
 
-import cn.com.bgy.ifc.entity.po.basic.User;
-import cn.com.bgy.ifc.entity.vo.basic.UserVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;

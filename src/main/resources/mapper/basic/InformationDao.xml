@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.basic.InformationDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.Information">
+<mapper namespace="cn.com.bgy.ifc.dao.system.basic.InformationDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.basic.Information">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="type_id" jdbcType="BIGINT" property="typeId" />
@@ -29,7 +29,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.Information">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.basic.Information">
     insert into information (id, org_id, type_id,
       title, signature, date_line,
       d_id, u_id, create_time,
@@ -39,7 +39,7 @@
       #{dId,jdbcType=BIGINT}, #{uId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
       #{logicRemove,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.Information">
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.basic.Information">
     update information
     <set>
       <if test="orgId != null">
@@ -76,7 +76,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <!--分页-->
-  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.Information" resultMap="BaseResultMap">
+  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.basic.Information" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from information

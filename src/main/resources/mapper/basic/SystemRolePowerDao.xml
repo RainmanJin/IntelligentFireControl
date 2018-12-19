@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.basic.SystemRolePowerDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemRolePower">
+<mapper namespace="cn.com.bgy.ifc.dao.system.basic.SystemRolePowerDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.basic.SystemRolePower">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="role_id" jdbcType="BIGINT" property="roleId" />
     <result column="power_id" jdbcType="BIGINT" property="powerId" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRolePower">
     insert into system_role_power (id, role_id, power_id
       )
     values (#{id,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{powerId,jdbcType=BIGINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRolePower">
     insert into system_role_power
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -37,12 +37,12 @@
       </if>
     </trim>
   </insert>
-  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower">
+  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.system.basic.SystemRolePower">
     select  id, role_id, power_id
     from system_role_power where id=#{id,jdbcType=BIGINT}
   </select>
 
-  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower" resultType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower">
+  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRolePower" resultType="cn.com.bgy.ifc.entity.po.system.basic.SystemRolePower">
     select  id, role_id, power_id
     from system_role_power
     <trim prefix=" where " suffix="" suffixOverrides="and">
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </select>
-  <update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemRolePower" >
+  <update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRolePower" >
     update system_role_power set
             role_id= #{roleId,jdbcType=BIGINT},
             power_id=#{powerId,jdbcType=BIGINT}

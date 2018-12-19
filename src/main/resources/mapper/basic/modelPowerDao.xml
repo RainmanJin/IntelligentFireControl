@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.basic.ModelPowerDao">
-    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.ModelPower">
+<mapper namespace="cn.com.bgy.ifc.dao.system.project.ModelPowerDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.basic.ModelPower">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="powerName" jdbcType="VARCHAR" property="powerName" />
         <result column="displayName" jdbcType="VARCHAR" property="displayName" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
         <result column="modelName" jdbcType="VARCHAR" property="modelName" />
     </resultMap>
-    <select id="queryPageList" resultMap="BaseResultMap" parameterType="cn.com.bgy.ifc.entity.po.basic.ModelPower">
+    <select id="queryPageList" resultMap="BaseResultMap" parameterType="cn.com.bgy.ifc.entity.po.system.basic.ModelPower">
     SELECT
     sp.id AS id,
     sm.name AS modelName,
@@ -33,7 +33,7 @@
         SELECT model_name AS modelName FROM system_model
     </select>
 
-    <insert id="insertSystemPower" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemPower" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insertSystemPower" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemPower" useGeneratedKeys="true" keyProperty="id" >
     insert into system_power (id, name, display_name,
       remark, logic_remove)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR},
@@ -51,7 +51,7 @@
   </insert>
 
 
-    <resultMap id="BaseResultMapSystemModel" type="cn.com.bgy.ifc.entity.po.basic.SystemModel">
+    <resultMap id="BaseResultMapSystemModel" type="cn.com.bgy.ifc.entity.po.system.basic.SystemModel">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="model_name" jdbcType="VARCHAR" property="modelName" />
         <result column="icon_name" jdbcType="VARCHAR" property="iconName" />

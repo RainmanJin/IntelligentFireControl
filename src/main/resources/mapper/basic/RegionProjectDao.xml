@@ -102,26 +102,22 @@
       OR name LIKE concat('%',#{keyword},'%')
       OR ascription like concat('%',#{keyword},'%'))
     </if>
-      AND logic_remove =0
-    </where>
   </select>
-  <update id="updateRegionProject" parameterType="cn.com.bgy.ifc.entity.po.basic.region.RegionProject">
+  <update id="updateRegionInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.region.RegionProject">
     UPDATE region_project
     <set>
       <if test="regionId != null">region_id =#{regionId},</if>
       <if test="code != null">code =#{code},</if>
       <if test="name != null">name =#{name},</if>
-      <if test="longitude != null">longitude=#{longitude,jdbcType=VARCHAR},</if>
-      <if test="latitude != null">latitude= #{latitude,jdbcType=VARCHAR},</if>
-      <if test="ascription != null">ascription=#{ascription,jdbcType=VARCHAR},</if>
+      <if test="locationStr != null">location_str =#{locationStr},</if>
       <if test="createTime != null">create_Time =#{createTime}</if>
     </set>
     WHERE id
     = #{id}
 
   </update>
-  <update id="deleteRegionProject" parameterType="java.util.List">
-    UPDATE region_project set logic_remove =1 where id IN
+  <update id="deleteRegionInfo" parameterType="java.util.List">
+    UPDATE region_project set logic_remove =false where id IN
     <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
       #{id}
     </foreach>
