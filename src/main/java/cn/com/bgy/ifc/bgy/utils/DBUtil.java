@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.bgy.utils;
 
+import cn.com.bgy.ifc.config.api.JDBCConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,24 +25,28 @@ public class DBUtil {
 
     private static Logger logger = LoggerFactory.getLogger(DBUtil.class);
 
-    public static void main(String[] args) {
-        System.out.println(driver);
+    /**
+     * 添加实体list数据
+     *
+     * @param tableName
+     *            插入的数据库的表名
+     * @param list
+     *            插入的实体list数据
+     * @return 影响的行数
+     * @throws Exception
+     */
+    @SuppressWarnings("rawtypes")
+    public static int insertByList(String tableName, List list)  throws Exception{
+        int size=list.size();
+        List<Map<String, Object>> datas=new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Map<String, Object> valueMap = EntityUtil.entityToMap(list.get(i));
+            datas.add(valueMap);
+        }
+        return insertAll(tableName, datas);
     }
 
-    private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("application");
 
-
-   // @Value("${spring.datasource.driver-class-name}")
-    private static String driver=resourceBundle.getString("${spring.datasource.driver-class-name}");
-
-    //@Value("${spring.datasource.jdbc-url}")
-    private static String url=resourceBundle.getString("${spring.datasource.jdbc-url}");
-
-    //@Value("${spring.datasource.username}")
-    private static String username=resourceBundle.getString("${spring.datasource.username}");
-
-    //@Value("${spring.datasource.password}")
-    private static String password=resourceBundle.getString("${spring.datasource.password}");
 
     /**
      * 执行数据库插入操作
@@ -51,16 +56,16 @@ public class DBUtil {
      * @return 影响的行数
      * @throws SQLException SQL异常
      */
-    public static int insertAll(String tableName, List<Map<String, Object>> data) throws SQLException {
+    public static int insertAll(String tableName, List<Map<String, Object>> data) throws Exception {
         // 影响的行数
         int affectRowCount = -1;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             // 加载驱动
-            Class.forName(driver);
+            Class.forName(JDBCConfig.getDriver());
             //从数据库连接池中获取数据库连接
-            connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(JDBCConfig.getUrl(), JDBCConfig.getUsername(), JDBCConfig.getPassword());
 
             Map<String, Object> valueMap = data.get(0);
             // 获取数据库插入的Map的键值对的值
