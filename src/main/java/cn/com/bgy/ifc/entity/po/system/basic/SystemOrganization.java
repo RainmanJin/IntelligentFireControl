@@ -34,6 +34,18 @@ public class SystemOrganization {
      * 是否逻辑删除
      */
     private Boolean logicRemove;
+    /**
+     *关键字
+     */
+    private String keyWords;
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
+    }
 
     /**
      * system_organization

@@ -19,7 +19,7 @@ public interface ExternalInterfaceConfigDomain {
      * @param page
      * @return
      */
-    PageInfo<ExternalInterfaceConfigVo> queryListByPage(Page<ExternalInterfaceConfigVo> page, ExternalInterfaceConfigVo ExternalInterfaceConfigVo);
+    PageInfo<ExternalInterfaceConfig> queryListByPage(Page<ExternalInterfaceConfig> page, ExternalInterfaceConfig ExternalInterfaceConfig);
 
     /**
      *
@@ -36,9 +36,27 @@ public interface ExternalInterfaceConfigDomain {
 
     ExternalInterfaceConfig findById(Long id);
 
+    /**
+     * 添加外部接口配置
+     * @param record
+     * @return
+     */
+
     int insert(ExternalInterfaceConfig record);
 
     int insertSelective(ExternalInterfaceConfig record);
 
     int update(ExternalInterfaceConfig record);
+    /**
+     * 逻辑删除外部接口配置（批量）
+     * @param longs
+     */
+    void  deleteExternalInterfaceConfig(Long[] longs);
+
+    /**
+     * 通过id删除
+     * @param id
+     * @return
+     */
+    int deleteById(Long id);
 }

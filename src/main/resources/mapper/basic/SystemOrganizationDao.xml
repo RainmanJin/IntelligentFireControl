@@ -94,6 +94,7 @@
         <include refid="Base_Column_List" />
         from system_organization
         <where>
+            logic_remove = FALSE
             <if test="name != null">
             and name = #{name,jdbcType=VARCHAR}
             </if>
@@ -109,6 +110,17 @@
             <if test="logicRemove != null">
             and logic_remove = #{logicRemove,jdbcType=BIT}
             </if>
+            <if test="keyWords != null and '' != keyWords ">
+                AND  name like CONCAT('%',#{keyWords},'%' )
+            </if>
         </where>
     </select>
+    <!--批量删除机构-->
+    <update id="deleteInterSystemOrganization" parameterType="Long[]">
+        update system_organization set logic_remove = true where id in
+        <foreach collection="array" item="item" index="no" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
 </mapper>

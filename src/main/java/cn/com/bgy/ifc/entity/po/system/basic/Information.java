@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 系统公告
  */
-public class Information implements Serializable {
+public class Information  implements Serializable {
     /**
      * 系统公告表id
      */
@@ -62,6 +62,18 @@ public class Information implements Serializable {
      * 内容
      */
     private String content;
+    /**
+     *关键字
+     */
+    private String keyWords;
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
+    }
 
     /**
      * information

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import java.util.LinkedHashMap;
 
-@Configuration
+//@Configuration
 public class ShiroConfiguration {
 
     //@Qualifier代表spring里面的

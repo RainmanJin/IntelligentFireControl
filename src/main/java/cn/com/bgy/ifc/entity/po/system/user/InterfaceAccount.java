@@ -54,6 +54,30 @@ public class InterfaceAccount {
      * 创建、修改时间
      */
     private Date createTime;
+    /**
+     *关键字
+     */
+    private String keyWords;
+    /**
+     * 是否逻辑删除
+     */
+    private Boolean logicRemove;
+
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
+
+    public void setLogicRemove(Boolean logicRemove) {
+        this.logicRemove = logicRemove;
+    }
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
+    }
 
     /**
      * interface_account
