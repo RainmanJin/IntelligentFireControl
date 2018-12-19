@@ -10,6 +10,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
+
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceContractFile">
     insert into maintenance_contract_file (id, contract_id, file_url, 
       file_system_name, file_name, create_time, 
@@ -19,72 +20,6 @@
       #{logicRemove,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceContractFile">
-    insert into maintenance_contract_file
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="contractId != null">
-        contract_id,
-      </if>
-      <if test="fileUrl != null">
-        file_url,
-      </if>
-      <if test="fileSystemName != null">
-        file_system_name,
-      </if>
-      <if test="fileName != null">
-        file_name,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="logicRemove != null">
-        logic_remove,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="contractId != null">
-        #{contractId,jdbcType=BIGINT},
-      </if>
-      <if test="fileUrl != null">
-        #{fileUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="fileSystemName != null">
-        #{fileSystemName,jdbcType=VARCHAR},
-      </if>
-      <if test="fileName != null">
-        #{fileName,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="logicRemove != null">
-        #{logicRemove,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.MaintenanceContractFile">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="contract_id" jdbcType="BIGINT" property="contractId" />
-    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
-    <result column="file_system_name" jdbcType="VARCHAR" property="fileSystemName" />
-    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
-  </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.MaintenanceContractFile">
-    insert into maintenance_contract_file (id, contract_id, file_url, 
-      file_system_name, file_name, create_time, 
-      logic_remove)
-    values (#{id,jdbcType=BIGINT}, #{contractId,jdbcType=BIGINT}, #{fileUrl,jdbcType=VARCHAR}, 
-      #{fileSystemName,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{logicRemove,jdbcType=BIT})
-  </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.MaintenanceContractFile">
     insert into maintenance_contract_file
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
