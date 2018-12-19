@@ -67,18 +67,20 @@ public interface AccountDomain {
      */
     public PageInfo<Account> findUserPowerByPage(Page<Account> page, Account account);
 
-    /**
-     * 保存集成平台用户
-     * @param bgyUserVo
-     * @return
-     */
-    int saveBgyAccount(BgyUserVo bgyUserVo);
 
     /**
-     *
+     * 集成平台全量增加用户信息
      * @param list
      * @return
      */
     ResponseVO<Object> saveBgyAccountList(List<BgyUserVo> list, Long orgId);
+
+    /**
+     * 集成平台增量增加用户信息
+     * @param list
+     * @param orgId
+     * @return
+     */
+    ResponseVO<Object> alterBgyAccountList(List<BgyUserVo> list, Long orgId);
 
 }

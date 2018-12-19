@@ -21,7 +21,7 @@ public class SignatureUtil {
 
     /**
      * @author: ZhangCheng
-     * @description:请求参数参数封装
+     * @description:请求参数封装
      * @param: [config, reqUrl, data]
      * @return: cn.com.bgy.ifc.entity.vo.basic.HttpVo
      */

@@ -58,21 +58,25 @@ public class ExternalConstant {
      * */
     public enum MsgTypeValue {
         //集成平台获取用户信息
-        BGY_ACCOUNT_OBTAIN(0,"账号信息"),
+        BGY_ACCOUNT_OBTAIN(0, "账号信息"),
         //区域信息
-        BGY_REGION_OBTAIN(1,"区域信息"),
+        BGY_REGION_OBTAIN(1, "区域信息"),
         //项目信息
-        BGY_PROJECT_OBTAIN(2,"项目信息"),
+        BGY_PROJECT_OBTAIN(2, "项目信息"),
         //品牌信息
-        BGY_BRAND_OBTAIN(3,"品牌信息"),
+        BGY_BRAND_OBTAIN(3, "品牌信息"),
         //规格信息
-        BGY_STANDARD_OBTAIN(4,"规格信息"),
+        BGY_STANDARD_OBTAIN(4, "规格信息"),
         //设备类型
-        BGY_EQUIPMENT_TYPE_OBTAIN(5,"设备类型"),
+        BGY_EQUIPMENT_TYPE_OBTAIN(5, "设备类型"),
         //机房信息
-        BGY_MOTOR_ROOM_OBTAIN(6,"机房信息"),
+        BGY_MOTOR_ROOM_OBTAIN(6, "机房信息"),
         //设备信息
-        GBY_EQUIPMENT_OBTAIN(7,"设备信息");
+        GBY_EQUIPMENT_OBTAIN(7, "设备信息"),
+        //集成平台获取用户权限
+        BGY_PERMISSION_OBTAIN(8, "权限信息"),
+        //集成平台获取机构
+        BGY_ORG_OBTAIN(9, "机构信息");
 
         private Integer value;
         private String name;

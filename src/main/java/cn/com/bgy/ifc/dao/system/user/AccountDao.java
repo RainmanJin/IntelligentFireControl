@@ -38,6 +38,13 @@ public interface AccountDao {
     int updateById(Account account);
 
     /**
+     * 更新用户
+     * @param account
+     * @return
+     */
+    int updateSelective(Account account);
+
+    /**
      *
      * @param telephone
      * @return

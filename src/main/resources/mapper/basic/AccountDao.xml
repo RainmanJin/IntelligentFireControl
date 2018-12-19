@@ -207,6 +207,64 @@
     remark= #{remark,jdbcType=LONGVARCHAR}
     where id=#{id,jdbcType=BIGINT}
 </update>
+
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.user.Account">
+    update account
+    <set>
+      <if test="organizationId != null">
+        organization_id =#{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=BIGINT},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="jobNumber != null">
+        job_number = #{jobNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordSalt != null">
+        password_salt = #{passwordSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="identityNumber != null">
+        identityn_umber = #{identityNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex =  #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="registTime != null">
+        regist_time = #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDisable != null">
+        is_disable = #{isDisable,jdbcType=INTEGER},
+      </if>
+      <if test="currentIp != null">
+        current_ip= #{currentIp,jdbcType=VARCHAR},
+      </if>
+      <if test="currentTime != null">
+        current_time= #{currentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastIp != null">
+        last_ip= #{lastIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null">
+        last_time= #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null">
+        user_type= #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark= #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
   <!--根据电话号码查询用户对象-->
   <select id="findAccountByUserName" parameterType="String" resultMap="BaseResultMap">
     select
