@@ -30,7 +30,6 @@ public class ResponseUtil {
             }
         }
         int pageCount=0;
-        System.out.println(recordCount+"=====");
         // 总页数
         if(recordCount!=null){
             pageCount = recordCount % pageSize > 0 ? recordCount / pageSize + 1 : recordCount / pageSize;

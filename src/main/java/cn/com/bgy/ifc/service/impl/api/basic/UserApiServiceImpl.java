@@ -173,6 +173,7 @@ public class UserApiServiceImpl implements UserApiService {
         List<BgyUserVo> oList = new ArrayList<>();
         BgyUserVo bgyUserVo = new BgyUserVo();
         ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
+        pageCount=3;
         if (pageCount != 0) {
             int startPage=pageNo+1;
             int newPage=pageNo+1;
