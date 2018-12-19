@@ -35,10 +35,22 @@ public class RegionProject {
     private String name;
     /**
      * @Author huxin
-     * @Description 经纬度
+     * @Description 经度
      * @Date 2018/12/18 17:57
      */
-    private String locationStr;
+    private String longitude;
+    /**
+     * @Author huxin
+     * @Description 纬度
+     * @Date 2018/12/18 20:04
+     */
+    private String latitude;
+    /**
+     * @Author huxin
+     * @Description 归属地
+     * @Date 2018/12/18 20:05
+     */
+    private String ascription;
     /**
      * @Author huxin
      * @Description 创建、修改时间
@@ -108,11 +120,27 @@ public class RegionProject {
         this.logicRemove = logicRemove;
     }
 
-    public String getLocationStr() {
-        return locationStr;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setLocationStr( String locationStr ) {
-        this.locationStr = locationStr;
+    public void setLongitude( String longitude ) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude( String latitude ) {
+        this.latitude = latitude;
+    }
+
+    public String getAscription() {
+        return ascription;
+    }
+
+    public void setAscription( String ascription ) {
+        this.ascription = ascription;
     }
 }
