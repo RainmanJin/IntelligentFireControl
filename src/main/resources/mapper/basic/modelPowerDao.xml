@@ -19,7 +19,7 @@
     system_menu sm
     LEFT JOIN system_power sp ON sm.power_id = sp.id
     WHERE sm.logic_remove = false
-    <if test="keyWords != null ">
+    <if test="keyWords != null and '' != keyWords">
         AND  (sp.name like CONCAT('%',#{keyWords},'%') OR sm.name like  CONCAT('%',#{keyWords},'%'))
     </if>
     ORDER BY sm.id DESC

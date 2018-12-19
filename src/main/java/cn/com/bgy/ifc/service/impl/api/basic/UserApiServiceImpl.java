@@ -5,17 +5,18 @@ import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
-import cn.com.bgy.ifc.domain.interfaces.system.user.AccountDomain;
+import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.user.AccountDomain;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.HttpVo;
+import cn.com.bgy.ifc.entity.vo.projects.BgyUserPermissionVo;
 import cn.com.bgy.ifc.entity.vo.projects.BgyUserVo;
 import cn.com.bgy.ifc.service.interfaces.api.basic.UserApiService;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,7 +130,7 @@ public class UserApiServiceImpl implements UserApiService {
         }
     }
 
-    @SystemLogAfterSave(type = 7, description = "获取集成平台用户列表")
+    @SystemLogAfterSave(type = 7, description = "同步集成平台用户数据")
     @Override
     public ResponseVO<Object> baseObtainBgyUser(int pageNo, int pageSize) {
         try {
@@ -155,7 +156,12 @@ public class UserApiServiceImpl implements UserApiService {
         }
     }
 
-
+    /**
+     * @author: ZhangCheng
+     * @description:用户信息全量
+     * @param: [pageNo, pageSize, config]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @Override
     public ResponseVO<Object> obtainBgyUser(int pageNo, int pageSize, ExternalInterfaceConfig config) throws Exception {
         String reqUrl = "/api/third/user/getUserList";
@@ -169,123 +175,129 @@ public class UserApiServiceImpl implements UserApiService {
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
         // 总页数
         int pageCount = ResponseUtil.getPageCount(response, pageSize);
-        System.out.println(pageCount+"");
         List<BgyUserVo> oList = new ArrayList<>();
         BgyUserVo bgyUserVo = new BgyUserVo();
         ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
-        pageCount=3;
         if (pageCount != 0) {
-            int startPage=pageNo+1;
-            int newPage=pageNo+1;
-            for (int i = startPage; i <= pageCount; i++) {
-                Map<String, Object> newData = new HashMap<>();
-                newData.put("pageNo", newPage);
-                newData.put("pageSize", pageSize);
-                HttpVo httpVo2 = SignatureUtil.getHttpVo(config, reqUrl, newData);
-                JSONObject newResponse = HttpHelper.httpPost(httpVo2.getUrl(), newData, httpVo2.getHeaderMap());
-                ResponseUtil.getResultList(oList, bgyUserVo, newResponse, "data", "list");
-                newPage++;
-            }
+            ResponseUtil.getResultByPage(pageNo,pageSize,pageCount,config,reqUrl,oList,bgyUserVo,"data", "list");
         }
         int totalCount = oList.size();
         if (totalCount > 0) {
-            return accountDomain.saveBgyAccountList(oList,orgId);
-           // return ResponseVO.success().setMsg("暂无集成平台用户数据同步xxxx！");
+            return accountDomain.saveBgyAccountList(oList, orgId);
         } else {
             return ResponseVO.success().setMsg("暂无集成平台用户数据同步！");
         }
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:用户信息增量
+     * @param: [pageNo, pageSize, config, createTime]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @Override
     public ResponseVO<Object> obtainBgyUserIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
         String reqUrl = "/api/third/user/getUserListIncrement";
         long orgId = config.getOrgId();
+        String dateTime= TimeUtil.parseDateToStr(createTime);
         // 请求包结构体
         Map<String, Object> data = new HashMap<>();
-        data.put("startTime", "2018-10-01 01:00:00");
+        data.put("startTime", dateTime);
         data.put("pageNo", pageNo);
         data.put("pageSize", pageSize);
         //集成平台HTTP头部需要数据
         HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
         //调用HTTP请求
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        // 总页数
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
         List<BgyUserVo> oList = new ArrayList<>();
         BgyUserVo bgyUserVo = new BgyUserVo();
         ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
-        if (oList.size() > 0) {
-            for (BgyUserVo userVo : oList) {
-                userVo.setOrgId(orgId);
-                        /*int count=accountDomain.saveBgyAccount(userVo);
-                        if(count==1){
-
-                        }else{
-
-                        }*/
-            }
+        if (pageCount != 0) {
+            ResponseUtil.getIncResultByPage(pageNo,pageSize,dateTime,pageCount,config,reqUrl,oList,bgyUserVo,"data", "list");
         }
-        return ResponseVO.exception();
+        int totalCount = oList.size();
+        if (totalCount > 0) {
+            return accountDomain.alterBgyAccountList(oList, orgId);
+        } else {
+            return ResponseVO.success().setMsg("暂无集成平台用户增量数据同步！");
+        }
     }
 
+    @SystemLogAfterSave(type = 7, description = "同步集成平台用户权限数据")
     @Override
-    public void obtainBgyUserPermission() {
-        try {
-            String url = "http://47.107.20.19:9002/integration/api/third/user/getUserPermissionIncrement";
-            String account = "fire-fighting";
-            String signKey = "C1CF1733-1C64-4F6C-9138-6F968A1BBE9B";
-            String timestampStr = SignatureUtil.timestampStr();
-            // 请求包结构体
-            Map<String, Object> data = new HashMap<>();
-            data.put("startTime", "");
-            data.put("pageNo", 1);
-            data.put("pageSize", 10);
-            String signature = SignatureUtil.getBgySignature(timestampStr, signKey, data);
-            //集成平台HTTP头部需要数据
-            Map<String, Object> headerMap = SignatureUtil.getBgyHeader(timestampStr, signature, account);
-            //调用HTTP请求
-            JSONObject response = HttpHelper.httpPost(url, data, headerMap);
-            List<Map<String, Object>> mapList = new ArrayList<>();
-            if (response != null) {
-                //data作为key获取JSONObject
-                JSONObject jsonObject = response.getJSONObject("data");
-                if (jsonObject != null) {
-                    List<Object> dataList = jsonObject.getJSONArray("list");
-                    for (Object object : dataList) {
-                        String jsonStr = JSONObject.toJSONString(object);
-                        Map<String, Object> params = JSONObject.parseObject(jsonStr, new TypeReference<Map<String, Object>>() {
-                        });
-                        mapList.add(params);
-                    }
+    public ResponseVO<Object> baseObtainBgyUserPermission(int pageNo, int pageSize) {
+        try{
+            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
+            if (list.size() != 0) {
+                ExternalInterfaceConfig config = list.get(0);
+                Long orgId = config.getOrgId();
+                List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.BGY_PERMISSION_OBTAIN.getValue(), orgId);
+                if (msgList.size() > 0) {
+                    ExternalInterfaceMsg interfaceMsg = msgList.get(0);
+                    Date createTime = interfaceMsg.getCreateTime();
+                    return obtainBgyUserPermissionIncrement(pageNo, pageSize, config, createTime);
+                } else {
+                    return obtainBgyUserPermission(pageNo, pageSize, config);
                 }
-                System.out.println("mapList:" + mapList);
+            } else {
+                logger.info("获取集成平台接口配置数据失败！");
+                return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
             }
         } catch (Exception e) {
-            logger.error("获取集成平台用户权限列表接口请求异常：" + e);
+            logger.error("获取集成平台用户列表增量接口请求异常：" + e);
+            return ResponseVO.error().setMsg("获取集成平台用户列表接口请求异常！");
         }
     }
 
     @Override
-    public void obtainBgyUserPermissionIncrement() {
-        try {
-            String url = "http://47.107.20.19:9002/integration/api/third/user/getUserPermission";
-            String account = "fire-fighting";
-            String signKey = "C1CF1733-1C64-4F6C-9138-6F968A1BBE9B";
-            SignatureUtil signatureUtil = new SignatureUtil();
-            String timestampStr = signatureUtil.timestampStr();
-            // 请求包结构体
-            Map<String, Object> data = new HashMap<>();
-            data.put("pageNo", 1);
-            data.put("pageSize", 10);
-            String signature = signatureUtil.getBgySignature(timestampStr, signKey, data);
-            //集成平台HTTP头部需要数据
-            Map<String, Object> headerMap = signatureUtil.getBgyHeader(timestampStr, signature, account);
-            //调用HTTP请求
-            JSONObject response = HttpHelper.httpPost(url, data, headerMap);
-            List<Map<String, Object>> mapList = new ArrayList<>();
-            if (response != null) {
-
-            }
-        } catch (Exception e) {
-            logger.error("获取集成平台用户权限列表（增量）接口请求异常：" + e.getMessage());
+    public ResponseVO<Object> obtainBgyUserPermission(int pageNo, int pageSize, ExternalInterfaceConfig config) throws Exception {
+        String reqUrl = "/api/third/user/getUserPermission";
+        long orgId = config.getOrgId();
+        // 请求包结构体
+        Map<String, Object> data = new HashMap<>();
+        data.put("pageNo", pageNo);
+        data.put("pageSize", pageSize);
+        //集成平台HTTP头部需要数据
+        HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
+        //调用HTTP请求
+        JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        // 总页数
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
+        List<BgyUserPermissionVo> oList = new ArrayList<>();
+        BgyUserPermissionVo bgyUserVo = new BgyUserPermissionVo();
+        ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
+        if (pageCount != 0) {
+            ResponseUtil.getResultByPage(pageNo,pageSize,pageCount,config,reqUrl,oList,bgyUserVo,"data", "list");
         }
+        System.out.println("===="+oList);
+        return null;
     }
+
+    @Override
+    public ResponseVO<Object> obtainBgyUserPermissionIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
+        String reqUrl = "/api/third/user/getUserPermissionIncrement";
+        long orgId = config.getOrgId();
+        String dateTime= TimeUtil.parseDateToStr(createTime);
+        Map<String, Object> data = new HashMap<>();
+        data.put("startTime", dateTime);
+        data.put("pageNo", pageNo);
+        data.put("pageSize", pageSize);
+        //集成平台HTTP头部需要数据
+        HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
+        //调用HTTP请求
+        JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        // 总页数
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
+        List<BgyUserPermissionVo> oList = new ArrayList<>();
+        BgyUserPermissionVo bgyUserVo = new BgyUserPermissionVo();
+        ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
+        if (pageCount != 0) {
+            ResponseUtil.getIncResultByPage(pageNo,pageSize,dateTime,pageCount,config,reqUrl,oList,bgyUserVo,"data", "list");
+        }
+        return null;
+    }
+
+
 }

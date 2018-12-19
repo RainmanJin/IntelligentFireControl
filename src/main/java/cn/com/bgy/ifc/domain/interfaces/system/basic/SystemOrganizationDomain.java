@@ -9,6 +9,11 @@ public interface SystemOrganizationDomain {
     int insert(SystemOrganization systemOrganization);
 
     int deleteById(Long id);
+    /**
+     * 逻辑删除机构（批量）
+     * @param longs
+     */
+    void  deleteInterSystemOrganization(Long[] longs);
 
     int update(SystemOrganization systemOrganization);
     /**

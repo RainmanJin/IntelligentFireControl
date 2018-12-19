@@ -11,7 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * @author: YanXiaoLu
+ * @description:系统权限列表展示
+ * @date: 2018-12-05 09:30
+ **/
 @Controller
 @RequestMapping("/basic/modelPower")
 public class ModelPowerController {
@@ -54,6 +58,11 @@ public class ModelPowerController {
         return ResponseVO.error().setMsg("保存失败");
     }
 
+    /**
+     * 批量删除
+     * @param longs
+     * @return
+     */
     @PostMapping("deleteModelPower")
     @ResponseBody
     public ResponseVO<Object> deleteModelPower(String longs) {

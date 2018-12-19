@@ -23,8 +23,11 @@ public interface UserApiService {
     ResponseVO<Object> obtainBgyUserIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime)throws Exception;
 
     //获取集成平台用户权限
-    void obtainBgyUserPermission();
+    ResponseVO<Object> baseObtainBgyUserPermission(int pageNo, int pageSize);
+
+    //获取集成平台用户权限（全量）
+    ResponseVO<Object> obtainBgyUserPermission(int pageNo, int pageSize,ExternalInterfaceConfig config)throws Exception;
 
     //获取集成平台用户权限（增量）
-    void obtainBgyUserPermissionIncrement();
+    ResponseVO<Object> obtainBgyUserPermissionIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime)throws Exception;
 }

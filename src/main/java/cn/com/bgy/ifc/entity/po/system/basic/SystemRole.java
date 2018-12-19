@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.entity.po.system.basic;
 
+/**
+ * 系统角色
+ */
 public class SystemRole {
 
     private Long id;

@@ -31,6 +31,11 @@ public class SystemOrganizationDomainImpl implements SystemOrganizationDomain {
     }
 
     @Override
+    public void deleteInterSystemOrganization(Long[] longs) {
+        systemOrganizationDao.deleteInterSystemOrganization(longs);
+    }
+
+    @Override
     public int update(SystemOrganization systemOrganization) {
         return systemOrganizationDao.update(systemOrganization);
     }
