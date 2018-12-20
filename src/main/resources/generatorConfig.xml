@@ -17,14 +17,14 @@
                         userId="root"
                         password="root" />
 
-        <javaModelGenerator targetPackage="cn.com.bgy.ifc.entity.po.basic" targetProject="src/main/java" />
+        <javaModelGenerator targetPackage="cn.com.bgy.ifc.entity.po.repair" targetProject="src/main/java" />
 
         <sqlMapGenerator targetPackage="mapper/basic" targetProject="src/main/resources" />
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.bgy.ifc.dao.basic" targetProject="src/main/java" />
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.bgy.ifc.dao.repair" targetProject="src/main/java" />
 
 
-       <table tableName="department"  domainObjectName="Department" mapperName="DepartmentDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+       <table tableName="system_organization"  domainObjectName="SystemOrganization" mapperName="SystemOrganizationDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"/>
 <!--
         <table tableName="tj_dept"  domainObjectName="DeptBo" mapperName="DeptDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"

@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.dao.system.user;
 
 import cn.com.bgy.ifc.entity.po.system.user.Account;
+import cn.com.bgy.ifc.entity.vo.system.user.AccountVo;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface AccountDao {
      * @param account
      * @return
      */
-    List<Account> searchByWhere(Account account);
+    List<AccountVo> searchByWhere(AccountVo account);
 
     /**
      * 根据Id删除用户

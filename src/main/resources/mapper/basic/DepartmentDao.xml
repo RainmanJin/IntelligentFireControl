@@ -80,18 +80,17 @@
 		logic_remove
 		FROM department WHERE logic_remove = 0
     </select>
-
+<!--分页查询部门管理-->
     <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.basic.DepartmentVo" resultMap="BaseResultMap">
         SELECT
-        a.id,
-        a.parent_id,
-        a.name,
-        b.name AS parent_name,
-        a.state,
-        a.organization_id,
-        a.create_time,
-        a.logic_remove
-        FROM department a LEFT JOIN department b ON a.parent_id=b.id
+        t2.NAME,
+        t1.name,
+        t1.state,
+        t1.create_time
+        FROM
+        department t1
+        LEFT JOIN department t2 ON t2.id = t1.parent_id
+        LEFT JOIN system_organization t3 ON t1.organization_id = t3.id
         <where>
             <if test="parentId != null ">
                 AND a.parent_id=#{parentId}
@@ -104,6 +103,9 @@
             </if>
             <if test="organizationId != null ">
                 AND a.organization_id=#{organizationId}
+            </if>
+            <if test="user_id != null ">
+                AND t3.user_id=#{user_id}
             </if>
             <if test="keyword!='' and keyword!=null">
                 AND (a.name LIKE concat('%',#{keyword},'%') OR b.name LIKE concat('%',#{keyword},'%'))

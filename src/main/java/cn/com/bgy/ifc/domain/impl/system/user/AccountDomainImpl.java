@@ -6,10 +6,10 @@ import cn.com.bgy.ifc.bgy.utils.DBUtil;
 import cn.com.bgy.ifc.dao.system.user.AccountDao;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.user.AccountDomain;
-import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.po.system.user.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.projects.BgyUserVo;
+import cn.com.bgy.ifc.entity.vo.system.user.AccountVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -36,15 +36,15 @@ public class AccountDomainImpl implements AccountDomain {
     }
 
     @Override
-    public List<Account> searchByWhere(Account account) {
+    public List<AccountVo> searchByWhere(AccountVo account) {
         return accountDao.searchByWhere(account);
     }
 
     @Override
-    public PageInfo<Account> searchByPage(Page page, Account account) {
+    public PageInfo<AccountVo> searchByPage(Page page, AccountVo account) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Account> accountList = this.searchByWhere(account);
-        PageInfo<Account> pageInfo = new PageInfo<>(accountList);
+        List<AccountVo> accountList = this.searchByWhere(account);
+        PageInfo<AccountVo> pageInfo = new PageInfo<>(accountList);
         return pageInfo;
     }
 
@@ -173,18 +173,8 @@ public class AccountDomainImpl implements AccountDomain {
         if (addCount + updateCount + deleteCount != totalCount) {
             throw new RuntimeException("批量同步用户增量数据失败!");
         } else {
-            ExternalInterfaceMsg externalInterfaceMsg = new ExternalInterfaceMsg();
-            externalInterfaceMsg.setPlatformValue(ExternalConstant.PlatformValue.INTEGERATED_PLATFORM.getValue());
-            externalInterfaceMsg.setOrgId(orgId);
-            externalInterfaceMsg.setMsgTypeValue(ExternalConstant.MsgTypeValue.BGY_ACCOUNT_OBTAIN.getValue());
-            externalInterfaceMsg.setTotalCount(totalCount);
-            externalInterfaceMsg.setAddCount(addCount);
-            externalInterfaceMsg.setUpdateCount(updateCount);
-            externalInterfaceMsg.setDeleteCount(deleteCount);
-            externalInterfaceMsg.setSuccessCount(totalCount);
-            externalInterfaceMsg.setErrorCount(0);
-            externalInterfaceMsg.setRequestTime(createTime);
-            externalInterfaceMsgDomain.insertSelective(externalInterfaceMsg);
+            int msgType = ExternalConstant.MsgTypeValue.BGY_ACCOUNT_OBTAIN.getValue();
+            externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
             return ResponseVO.success().setMsg("同步集成平台用户总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
 

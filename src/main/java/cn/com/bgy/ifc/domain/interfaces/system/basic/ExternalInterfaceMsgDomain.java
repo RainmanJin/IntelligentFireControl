@@ -48,4 +48,16 @@ public interface ExternalInterfaceMsgDomain {
      * @return
      */
     int successInterfaceMsg(Long orgId,Integer msgType,Integer totalCount);
+
+    /**
+     * 碧桂园集成平台增量新增成功接口日志
+     * @param orgId
+     * @param msgType
+     * @param totalCount
+     * @param addCount
+     * @param updateCount
+     * @param deleteCount
+     * @return
+     */
+    int alterInterfaceMsg(Long orgId,Integer msgType,Integer totalCount,Integer addCount,Integer updateCount,Integer deleteCount);
 }

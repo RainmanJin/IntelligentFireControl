@@ -39,6 +39,16 @@ public class AccountVo {
 
 	private String remark;
 
+	private String keyWords;
+
+	public String getKeyWords() {
+		return keyWords;
+	}
+
+	public void setKeyWords(String keyWords) {
+		this.keyWords = keyWords;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -20,8 +20,11 @@ public interface SystemRoleDomain {
     int updateRole(SystemRole record);
 
     int deleteById(Long id);
-
-    int deleteRole(String str);
+    /**
+     * 逻辑删除系统角色（批量）
+     * @param longs
+     */
+    void  deleteRole(Long[] longs);
 
 
     List<SystemRole> queryListByUserId(Long userId);

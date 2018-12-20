@@ -19,7 +19,7 @@ import java.util.Map;
  * @description:全局异常处理 用于处理在请求映射和请求处理过程中抛出的异常的类
  * @date: 2018-12-05 16:26
  **/
-@Component
+//@Component
 public class GlobalHandlerExceptionResolver implements HandlerExceptionResolver {
 
     private static Logger logger = LoggerFactory.getLogger(GlobalHandlerExceptionResolver.class);

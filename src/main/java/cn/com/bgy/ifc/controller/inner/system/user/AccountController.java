@@ -47,9 +47,9 @@ public class AccountController {
     @GetMapping("searchPage")
     @ResponseBody
     public ResponseVO<Object> searchPage(Page<Account> page,@Validated AccountVo accountVo, BindingResult error){
-        Account account= new Account();
-        CopyUtil.copyProperties(accountVo,account);
-        PageInfo<Account> pageInfo=accountDomain.searchByPage(page,account);
+//        Account account= new Account();
+//        CopyUtil.copyProperties(accountVo,account);
+        PageInfo<AccountVo> pageInfo=accountDomain.searchByPage(page,accountVo);
         return ResponseVO.success().setData(pageInfo);
     }
 

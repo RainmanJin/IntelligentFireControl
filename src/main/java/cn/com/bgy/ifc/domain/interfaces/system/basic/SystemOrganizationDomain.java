@@ -33,12 +33,12 @@ public interface SystemOrganizationDomain {
      * @param list
      * @return
      */
-    ResponseVO<Object> saveBgyAccountList(List<BgyOrgVo> list);
+    ResponseVO<Object> saveBgyOrgList(List<BgyOrgVo> list,Long orgId );
 
     /**
      * 集成平台增量增加机构信息
      * @param list
      * @return
      */
-    ResponseVO<Object> alterBgyAccountList(List<BgyOrgVo> list);
+    ResponseVO<Object> alterBgyOrgList(List<BgyOrgVo> list,Long orgId);
 }

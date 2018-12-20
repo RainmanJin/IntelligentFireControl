@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.service.impl.api.basic;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
@@ -7,6 +8,7 @@ import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
 import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.basic.SystemOrganizationDomain;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -29,7 +31,7 @@ import java.util.*;
 @Service
 public class BgyOrgServiceImpl implements BgyOrgService {
 
-    private static Logger logger = LoggerFactory.getLogger(UserApiServiceImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(BgyOrgServiceImpl.class);
 
     @Autowired
     private ExternalInterfaceConfigDomain externalInterfaceConfigDomain;
@@ -37,6 +39,10 @@ public class BgyOrgServiceImpl implements BgyOrgService {
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
+    @Autowired
+    private SystemOrganizationDomain systemOrganizationDomain;
+
+    @SystemLogAfterSave(type = 7, description = "同步集成平台机构数据")
     @Override
     public ResponseVO<Object> baseObtainBgyOrg(int pageNo, int pageSize) {
         try {
@@ -66,6 +72,7 @@ public class BgyOrgServiceImpl implements BgyOrgService {
     @Override
     public ResponseVO<Object> obtainBgyOrg(int pageNo, int pageSize, ExternalInterfaceConfig config) throws Exception {
         String reqUrl = "/api/third/base/getOrgList";
+        long orgId = config.getOrgId();
         // 请求包结构体
         Map<String, Object> data = new HashMap<>();
         data.put("pageNo", pageNo);
@@ -79,14 +86,21 @@ public class BgyOrgServiceImpl implements BgyOrgService {
         List<BgyOrgVo> oList = new ArrayList<>();
         BgyOrgVo bgyUserVo = new BgyOrgVo();
         ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
-        System.out.println("====" + oList);
-
-        return null;
+        if (pageCount != 0) {
+            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
+        }
+        int totalCount = oList.size();
+        if (totalCount > 0) {
+            return systemOrganizationDomain.saveBgyOrgList(oList, orgId);
+        } else {
+            return ResponseVO.success().setMsg("暂无集成平台机构数据同步！");
+        }
     }
 
     @Override
     public ResponseVO<Object> obtainBgyOrgIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
         String reqUrl = "/api/third/base/getOrgIncrement";
+        long orgId = config.getOrgId();
         //格式化时间字符串
         String dateTime = TimeUtil.parseDateToStr(createTime);
         // 请求包结构体
@@ -106,6 +120,11 @@ public class BgyOrgServiceImpl implements BgyOrgService {
         if (pageCount != 0) {
             ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
         }
-        return null;
+        int totalCount = oList.size();
+        if (totalCount > 0) {
+            return systemOrganizationDomain.alterBgyOrgList(oList, orgId);
+        } else {
+            return ResponseVO.success().setMsg("暂无集成平台机构增量数据同步！");
+        }
     }
 }

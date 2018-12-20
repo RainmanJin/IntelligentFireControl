@@ -45,6 +45,7 @@ public class ExternalInterfaceConfig {
     private String fileUrl;
 
     /**
+     * 接口开关,0关闭,1开启
      * 启用 未用 状态
      */
     private Integer state;

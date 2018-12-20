@@ -35,7 +35,7 @@ public class ExternalInterfaceConfigDomainImpl implements ExternalInterfaceConfi
     }
 
     /**
-     * 通过id删除外部接口配置
+     * 通过id删除
      * @param id
      * @return
      */
@@ -47,13 +47,13 @@ public class ExternalInterfaceConfigDomainImpl implements ExternalInterfaceConfi
     /**
      * 分页查询外部接口配置
      * @param page
-     * @param ExternalInterfaceConfig
+     * @param externalInterfaceConfig
      * @return
      */
     @Override
-    public PageInfo<ExternalInterfaceConfig> queryListByPage(Page<ExternalInterfaceConfig> page, ExternalInterfaceConfig ExternalInterfaceConfig) {
+    public PageInfo<ExternalInterfaceConfig> queryListByPage(Page<ExternalInterfaceConfig> page, ExternalInterfaceConfig externalInterfaceConfig) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<ExternalInterfaceConfig> externalInterfaceConfigList = externalInterfaceConfigDao.queryListByParam(ExternalInterfaceConfig);
+        List<ExternalInterfaceConfig> externalInterfaceConfigList = externalInterfaceConfigDao.queryListByParam(externalInterfaceConfig);
         PageInfo<ExternalInterfaceConfig> pageInfo = new PageInfo<>(externalInterfaceConfigList);
         return pageInfo;
     }

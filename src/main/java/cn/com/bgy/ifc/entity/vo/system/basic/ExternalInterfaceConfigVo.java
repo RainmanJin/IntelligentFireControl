@@ -47,6 +47,7 @@ public class ExternalInterfaceConfigVo {
     private String fileUrl;
 
     /**
+     * 接口开关,0关闭,1开启
      * 启用 未用
      */
     private Integer state;
@@ -60,6 +61,18 @@ public class ExternalInterfaceConfigVo {
      * 是否逻辑删除
      */
     private Boolean logicRemove;
+    /**
+     * 接受当前登录用id
+     */
+    private Long userId;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public Long getId() {
         return id;
