@@ -13,7 +13,7 @@ import com.github.pagehelper.PageInfo;
 
 public interface RegionProjectDomain {
 
-    PageInfo<RegionProject> queryListRegionProjec( Page<RegionProject> page, RegionProjectVo record);
+    PageInfo<RegionProjectVo> queryListRegionProjec( Page<RegionProjectVo> page, RegionProjectVo record);
 
     int insert(RegionProject record);
 

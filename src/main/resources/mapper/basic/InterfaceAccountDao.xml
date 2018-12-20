@@ -12,10 +12,11 @@
     <result column="restricted_ip" jdbcType="VARCHAR" property="restrictedIp" />
     <result column="state" jdbcType="BIGINT" property="state" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+      <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
   <sql id="Base_Column_List">
     id, org_id, apiu_id, api_secret, name, charge_person, phone, restricted_ip, state,
-    create_time
+    create_time,logic_remove
   </sql>
   <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
@@ -23,19 +24,24 @@
     from interface_account
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteById" parameterType="java.lang.Long">
-    delete from interface_account
+  <!--<delete id="deleteById" parameterType="java.lang.Long">-->
+    <!--delete from interface_account-->
+    <!--where id = #{id,jdbcType=BIGINT}-->
+  <!--</delete>-->
+    <!--逻辑删除通过id-->
+    <update id="deleteById" parameterType="java.lang.Long">
+    update interface_account set logic_remove = true
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
 
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.user.InterfaceAccount">
     insert into interface_account (id, org_id, apiu_id,
       api_secret, name, charge_person,
-      phone, restricted_ip, state,
+      phone,logic_remove, restricted_ip, state,
       create_time)
     values (#{id,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{apiuId,jdbcType=VARCHAR},
       #{apiSecret,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{chargePerson,jdbcType=VARCHAR},
-      #{phone,jdbcType=VARCHAR}, #{restrictedIp,jdbcType=VARCHAR}, #{state,jdbcType=BIGINT},
+      #{phone,jdbcType=VARCHAR}, #{logicRemove,jdbcType=BIT}, #{restrictedIp,jdbcType=VARCHAR}, #{state,jdbcType=BIGINT},
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.user.InterfaceAccount">
@@ -68,6 +74,9 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+        <if test="logicRemove != null">
+            logic_remove = #{logicRemove,jdbcType=BIT},
+        </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -77,6 +86,7 @@
         <include refid="Base_Column_List" />
         from interface_account
        <where>
+           logic_remove = FALSE
            <if test="orgId != null">
                AND   org_id = #{orgId,jdbcType=BIGINT}
            </if>
@@ -104,6 +114,17 @@
            <if test="createTime != null">
                AND   create_time = #{createTime,jdbcType=TIMESTAMP}
            </if>
+           <if test="keyWords != null and '' != keyWords ">
+               AND (name like CONCAT('%',#{keyWords},'%' ) OR restricted_ip like CONCAT('%',#{keyWords},'%' ))
+           </if>
        </where>
     </select>
+    <update id="deleteInterfaceAccount" parameterType="Long[]">
+        update interface_account set logic_remove = true where id in
+        <foreach collection="array" item="item" index="no" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
 </mapper>

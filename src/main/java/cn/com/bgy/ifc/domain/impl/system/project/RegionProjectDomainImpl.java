@@ -32,10 +32,10 @@ public class RegionProjectDomainImpl  implements RegionProjectDomain {
      * @Date 2018/12/18 17:31
      */
     @Override
-    public PageInfo<RegionProject> queryListRegionProjec( Page<RegionProject> page, RegionProjectVo record ) {
+    public PageInfo<RegionProjectVo> queryListRegionProjec( Page<RegionProjectVo> page, RegionProjectVo record ) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<RegionProject> list= regionProjectDao.queryListRegionProject(record);
-        return  new PageInfo<RegionProject>(list);
+        List<RegionProjectVo> list= regionProjectDao.queryListRegionProject(record);
+        return  new PageInfo<RegionProjectVo>(list);
     }
     /**
      * @Author huxin
@@ -44,7 +44,9 @@ public class RegionProjectDomainImpl  implements RegionProjectDomain {
      */
     @Override
     public int insert( RegionProject record ) {
-        return 0;
+        record.setCreateTime(new Date());
+        record.setLogicRemove(false);
+        return regionProjectDao.insert(record);
     }
     /**
      * @Author huxin

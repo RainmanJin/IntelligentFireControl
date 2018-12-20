@@ -59,12 +59,6 @@ public class RegionProjectVo {
     private Date createTime;
     /**
      * @Author huxin
-     * @Description 是否删除 false 删除 true 未删除
-     * @Date 2018/12/18 17:55
-     */
-    private Boolean logicRemove;
-    /**
-     * @Author huxin
      * @Description 关键字
      * @Date 2018/12/18 20:23
      */
@@ -115,14 +109,6 @@ public class RegionProjectVo {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Boolean getLogicRemove() {
-        return logicRemove;
-    }
-
-    public void setLogicRemove(Boolean logicRemove) {
-        this.logicRemove = logicRemove;
     }
 
     public String getLongitude() {

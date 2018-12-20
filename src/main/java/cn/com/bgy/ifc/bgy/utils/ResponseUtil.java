@@ -1,10 +1,14 @@
 package cn.com.bgy.ifc.bgy.utils;
 
+import cn.com.bgy.ifc.bgy.helper.HttpHelper;
+import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig;
+import cn.com.bgy.ifc.entity.vo.basic.HttpVo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +18,8 @@ import java.util.Map;
  * @date: 2018-12-12 09:24
  **/
 public class ResponseUtil {
+
+
 
     /**
      *  获取数据页数
@@ -85,5 +91,48 @@ public class ResponseUtil {
             }
         }
         return mapList;
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:根据总页数递增封装数据List
+     * @param: [pageNo, pageSize, pageCount, config, reqUrl, oList, bgyUserVo, dataKey, listKey]
+     * @return: java.util.List
+     */
+    public static List getResultByPage(int pageNo, int pageSize, int pageCount, ExternalInterfaceConfig config, String reqUrl, List oList, Object bgyUserVo, String dataKey, String listKey)throws Exception {
+        int startPage = pageNo + 1;
+        int newPage = pageNo + 1;
+        for (int i = startPage; i <= pageCount; i++) {
+            Map<String, Object> newData = new HashMap<>();
+            newData.put("pageNo", newPage);
+            newData.put("pageSize", pageSize);
+            HttpVo httpVo2 = SignatureUtil.getHttpVo(config, reqUrl, newData);
+            JSONObject newResponse = HttpHelper.httpPost(httpVo2.getUrl(), newData, httpVo2.getHeaderMap());
+            getResultList(oList, bgyUserVo, newResponse, dataKey, listKey);
+            newPage++;
+        }
+        return oList;
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:增量接口调用
+     * @param: [pageNo, pageSize, startTime, pageCount, config, reqUrl, oList, bgyUserVo, dataKey, listKey]
+     * @return: java.util.List
+     */
+    public static List getIncResultByPage(int pageNo, int pageSize,String startTime, int pageCount, ExternalInterfaceConfig config, String reqUrl, List oList, Object bgyUserVo, String dataKey, String listKey)throws Exception {
+        int startPage = pageNo + 1;
+        int newPage = pageNo + 1;
+        for (int i = startPage; i <= pageCount; i++) {
+            Map<String, Object> newData = new HashMap<>();
+            newData.put("startTime", startTime);
+            newData.put("pageNo", newPage);
+            newData.put("pageSize", pageSize);
+            HttpVo httpVo2 = SignatureUtil.getHttpVo(config, reqUrl, newData);
+            JSONObject newResponse = HttpHelper.httpPost(httpVo2.getUrl(), newData, httpVo2.getHeaderMap());
+            getResultList(oList, bgyUserVo, newResponse, dataKey, listKey);
+            newPage++;
+        }
+        return oList;
     }
 }

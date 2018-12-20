@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.system.project;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.domain.interfaces.system.project.RegionInfoDomain;
 import cn.com.bgy.ifc.entity.po.system.project.RegionInfo;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -30,13 +31,9 @@ public class RegionInfoController {
     @PostMapping("query")
     @ResponseBody
     public ResponseVO<PageInfo<RegionInfo>> queryListRegionInfo( Page<RegionInfo> page, RegionInfoVo regionInfoVo, String token){
-        try {
+
             PageInfo<RegionInfo> pageInfo = regionInfoDomain.queryListRegionInfo(page, regionInfoVo);
             return ResponseVO.<PageInfo<RegionInfo>>success().setData(pageInfo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.<PageInfo<RegionInfo>>exception();
-        }
     }
     /**
      * @Author huxin
@@ -44,6 +41,7 @@ public class RegionInfoController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("update")
+    @SystemLogAfterSave(type = 1,description = "区域信息修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionInfo( RegionInfoVo regionInfoVo, String token){
 
@@ -59,6 +57,7 @@ public class RegionInfoController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
+    @SystemLogAfterSave(type = 1,description = "区域信息删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionInfo( String arr, String token){
         int count = regionInfoDomain.deleteRegionInfo(arr);
@@ -67,6 +66,19 @@ public class RegionInfoController {
         }
         return ResponseVO.error().setMsg("删除失败！");
     }
-
-    
+    /**
+     * @Author huxin
+     * @Description 区域信息添加
+     * @Date 2018/12/19 11:44
+     */
+    @PostMapping("add")
+    @SystemLogAfterSave(type = 1,description = "区域信息添加")
+    @ResponseBody
+    public ResponseVO<Object> insertRegionInfo(RegionInfo regionInfo,String token){
+        int count = regionInfoDomain.insert(regionInfo);
+        if (count > 0) {
+            return ResponseVO.success().setMsg("添加成功");
+        }
+        return ResponseVO.error().setMsg("添加失败！");
+    }
 }

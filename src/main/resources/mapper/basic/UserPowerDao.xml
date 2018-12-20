@@ -13,6 +13,27 @@
     <select id="queryPageList" resultMap="BaseResultMap" parameterType="cn.com.bgy.ifc.entity.po.system.user.SystemUserPower">
         SELECT
         a.id,
+        a.user_name,
+        a.telephone,
+        a.job_number,
+        department.id,
+        department.NAME,
+        a.sex,
+        a.user_type
+        FROM
+        account a
+        LEFT JOIN department ON a.department_id = department.id
+        <if test="powerName != null and '' != powerName">
+            <if test=" '未设置权限' == powerName">
+                WHERE (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) = 0
+            </if>
+            <if test=" '已设置权限' == powerName">
+                WHERE (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) > 0
+            </if>
+        </if>
+
+        SELECT
+        a.id,
         a.userName,
         a.telephone,
         a.jobNumber,

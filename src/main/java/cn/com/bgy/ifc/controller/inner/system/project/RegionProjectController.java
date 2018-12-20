@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.system.project;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.domain.interfaces.system.project.RegionProjectDomain;
 import cn.com.bgy.ifc.entity.po.system.project.RegionProject;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -23,6 +24,8 @@ public class RegionProjectController {
 
     @Autowired
     private RegionProjectDomain regionProjectDomain;
+
+
     /**
      * @Author huxin
      * @Description 查询
@@ -30,14 +33,9 @@ public class RegionProjectController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo<RegionProject>> queryListRegionProject( Page<RegionProject> page, RegionProjectVo regionInfoVo, String token){
-        try {
-            PageInfo<RegionProject> pageInfo = regionProjectDomain.queryListRegionProjec(page, regionInfoVo);
-            return ResponseVO.<PageInfo<RegionProject>>success().setData(pageInfo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.<PageInfo<RegionProject>>exception();
-        }
+    public ResponseVO<PageInfo<RegionProjectVo>> queryListRegionProject( Page<RegionProjectVo> page, RegionProjectVo regionInfoVo, String token){
+            PageInfo<RegionProjectVo> pageInfo = regionProjectDomain.queryListRegionProjec(page, regionInfoVo);
+            return ResponseVO.<PageInfo<RegionProjectVo>>success().setData(pageInfo);
     }
     /**
      * @Author huxin
@@ -45,6 +43,7 @@ public class RegionProjectController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("update")
+    @SystemLogAfterSave(type = 1,description = "项目信息修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionProject( RegionProject regionProject, String token){
 
@@ -60,6 +59,7 @@ public class RegionProjectController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
+    @SystemLogAfterSave(type = 1,description = "项目信息删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionProject( String arr, String token){
         int count = regionProjectDomain.deleteRegionProjec(arr);
@@ -67,5 +67,20 @@ public class RegionProjectController {
             return ResponseVO.success().setMsg("删除成功");
         }
         return ResponseVO.error().setMsg("删除失败！");
+    }
+    /**
+     * @Author huxin
+     * @Description 区域信息添加
+     * @Date 2018/12/19 11:44
+            */
+    @PostMapping("add")
+    @SystemLogAfterSave(type = 1,description = "项目信息添加")
+    @ResponseBody
+    public ResponseVO<Object> insertRegionInfo( RegionProject regionProject, String token){
+        int count = regionProjectDomain.insert(regionProject);
+        if (count > 0) {
+            return ResponseVO.success().setMsg("添加成功");
+        }
+        return ResponseVO.error().setMsg("添加失败！");
     }
 }

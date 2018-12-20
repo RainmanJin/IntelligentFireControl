@@ -7,6 +7,7 @@ import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceConfigDoma
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.system.basic.ExternalInterfaceConfigVo;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,37 @@ public class ExternalInterfaceConfigDomainImpl implements ExternalInterfaceConfi
     @Resource
     private ExternalInterfaceConfigDao externalInterfaceConfigDao;
 
+    /**
+     * 批量删除外部接口配置
+     * @param longs
+     */
     @Override
-    public PageInfo<ExternalInterfaceConfigVo> queryListByPage(Page<ExternalInterfaceConfigVo> page, ExternalInterfaceConfigVo ExternalInterfaceConfigVo) {
-        return null;
+    public void deleteExternalInterfaceConfig(Long[] longs) {
+        externalInterfaceConfigDao.deleteExternalInterfaceConfig(longs);
+    }
+
+    /**
+     * 通过id删除外部接口配置
+     * @param id
+     * @return
+     */
+    @Override
+    public int deleteById(Long id) {
+        return externalInterfaceConfigDao.deleteById(id);
+    }
+
+    /**
+     * 分页查询外部接口配置
+     * @param page
+     * @param ExternalInterfaceConfig
+     * @return
+     */
+    @Override
+    public PageInfo<ExternalInterfaceConfig> queryListByPage(Page<ExternalInterfaceConfig> page, ExternalInterfaceConfig ExternalInterfaceConfig) {
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        List<ExternalInterfaceConfig> externalInterfaceConfigList = externalInterfaceConfigDao.queryListByParam(ExternalInterfaceConfig);
+        PageInfo<ExternalInterfaceConfig> pageInfo = new PageInfo<>(externalInterfaceConfigList);
+        return pageInfo;
     }
 
     @Override

@@ -2,6 +2,9 @@ package cn.com.bgy.ifc.entity.po.system.basic;
 
 import java.util.Date;
 
+/**
+ * 接入接口配置
+ */
 public class ExternalInterfaceConfig {
 
     private Long id;
@@ -42,7 +45,7 @@ public class ExternalInterfaceConfig {
     private String fileUrl;
 
     /**
-     * 启用 未用
+     * 启用 未用 状态
      */
     private Integer state;
 
