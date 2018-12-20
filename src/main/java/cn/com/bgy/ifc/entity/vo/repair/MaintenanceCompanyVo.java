@@ -1,14 +1,21 @@
-package cn.com.bgy.ifc.entity.po.repair;
+package cn.com.bgy.ifc.entity.vo.repair;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class MaintenanceCompany {
+public class MaintenanceCompanyVo {
     private Long id;
 
+    @NotNull(message="所属区域不能为空")
     private Long organizationId;
 
+    private String organizationName;
+
+    @NotBlank(message="维保公司名称能为空")
     private String companyName;
 
+    @NotBlank(message="维保公司电话能为空")
     private String telephone;
 
     private String remark;
@@ -31,6 +38,14 @@ public class MaintenanceCompany {
 
     public void setOrganizationId(Long organizationId) {
         this.organizationId = organizationId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getTelephone() {
@@ -61,15 +76,15 @@ public class MaintenanceCompany {
         return logicRemove;
     }
 
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
+    }
+
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
     }
 }

@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.dao.repair;
+package cn.com.bgy.ifc.dao.system.repair;
 
 import cn.com.bgy.ifc.entity.po.repair.MaintenanceContractFile;
 
