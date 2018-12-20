@@ -16,8 +16,7 @@ import java.util.Map;
 
 /**
  * @author: ZhangCheng
- * @description:全局异常处理
- *  用于处理在请求映射和请求处理过程中抛出的异常的类
+ * @description:全局异常处理 用于处理在请求映射和请求处理过程中抛出的异常的类
  * @date: 2018-12-05 16:26
  **/
 //@Component
@@ -36,7 +35,7 @@ public class GlobalHandlerExceptionResolver implements HandlerExceptionResolver 
         //如果请求是ajax 返回json格式
         if (WebsiteUtil.isAjax(request)) {
             ModelAndView modelAndView = new ModelAndView();
-            logger.info("Ajax请求异常,错误内容:" + ex.getMessage());
+            logger.info("Ajax请求异常,错误内容:" + ex);
             // 使用FastJson提供的FastJsonJsonView视图返回，不需要捕获异常
             FastJsonJsonView jsonView = new FastJsonJsonView();
             Map<String, Object> result = new HashMap<>();
@@ -47,7 +46,7 @@ public class GlobalHandlerExceptionResolver implements HandlerExceptionResolver 
             return modelAndView;
         } else {
             // 如果不是ajax，JSP格式返回
-            logger.info("非Ajax请求异常,错误内容:" + ex.getMessage());
+            logger.info("非Ajax请求异常,错误内容:" + ex);
             Map<String, Object> result = new HashMap<>();
             result.put("code", ResponseVO.EXCEPTION);
             result.put("msg", "系统异常，请稍后重试或联系管理员！");

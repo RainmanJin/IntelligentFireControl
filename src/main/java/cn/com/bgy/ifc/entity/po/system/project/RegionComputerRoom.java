@@ -19,7 +19,12 @@ public class RegionComputerRoom {
 
     private String name;
 
-    private Long code;
+    private String code;
+
+    /**
+     * 地址信息描述(苑区/街道/楼栋)，各部分可能为空
+     */
+    private String description;
 
     private Date createTime;
 
@@ -89,12 +94,20 @@ public class RegionComputerRoom {
         this.name = name;
     }
 
-    public Long getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Long code) {
+    public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreateTime() {

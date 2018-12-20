@@ -1,19 +1,25 @@
 package cn.com.bgy.ifc.service.impl.api.basic;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
+import cn.com.bgy.ifc.bgy.helper.HttpHelper;
+import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
+import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
+import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.basic.HttpVo;
+import cn.com.bgy.ifc.entity.vo.projects.BgyOrgVo;
 import cn.com.bgy.ifc.service.interfaces.api.basic.BgyOrgService;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author: ZhangCheng
@@ -33,7 +39,7 @@ public class BgyOrgServiceImpl implements BgyOrgService {
 
     @Override
     public ResponseVO<Object> baseObtainBgyOrg(int pageNo, int pageSize) {
-        try{
+        try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
             if (list.size() != 0) {
                 ExternalInterfaceConfig config = list.get(0);
@@ -59,11 +65,47 @@ public class BgyOrgServiceImpl implements BgyOrgService {
 
     @Override
     public ResponseVO<Object> obtainBgyOrg(int pageNo, int pageSize, ExternalInterfaceConfig config) throws Exception {
+        String reqUrl = "/api/third/base/getOrgList";
+        // 请求包结构体
+        Map<String, Object> data = new HashMap<>();
+        data.put("pageNo", pageNo);
+        data.put("pageSize", pageSize);
+        //集成平台HTTP头部需要数据
+        HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
+        //调用HTTP请求
+        JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        // 总页数
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
+        List<BgyOrgVo> oList = new ArrayList<>();
+        BgyOrgVo bgyUserVo = new BgyOrgVo();
+        ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
+        System.out.println("====" + oList);
+
         return null;
     }
 
     @Override
     public ResponseVO<Object> obtainBgyOrgIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
+        String reqUrl = "/api/third/base/getOrgIncrement";
+        //格式化时间字符串
+        String dateTime = TimeUtil.parseDateToStr(createTime);
+        // 请求包结构体
+        Map<String, Object> data = new HashMap<>();
+        data.put("startTime", dateTime);
+        data.put("pageNo", pageNo);
+        data.put("pageSize", pageSize);
+        //集成平台HTTP头部需要数据
+        HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
+        //调用HTTP请求
+        JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        // 总页数
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
+        List<BgyOrgVo> oList = new ArrayList<>();
+        BgyOrgVo bgyUserVo = new BgyOrgVo();
+        ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
+        if (pageCount != 0) {
+            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
+        }
         return null;
     }
 }
