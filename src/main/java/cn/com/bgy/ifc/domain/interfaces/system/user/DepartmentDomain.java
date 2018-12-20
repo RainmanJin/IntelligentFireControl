@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface DepartmentDomain {
 
-    PageInfo<Department> queryListByPage(Page<Department> page, DepartmentVo departmentVo);
+    PageInfo<DepartmentVo> queryListByPage(Page<DepartmentVo> page, DepartmentVo departmentVo);
 
     List<Department> queryListByParam(DepartmentVo departmentVo);
 
