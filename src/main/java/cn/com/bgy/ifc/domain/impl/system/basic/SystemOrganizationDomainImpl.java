@@ -1,7 +1,6 @@
 package cn.com.bgy.ifc.domain.impl.system.basic;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
 import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.dao.system.basic.SystemOrganizationDao;
@@ -10,7 +9,6 @@ import cn.com.bgy.ifc.domain.interfaces.system.basic.SystemOrganizationDomain;
 import cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.projects.BgyOrgVo;
-import cn.com.bgy.ifc.service.impl.api.basic.BgyOrgServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -18,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -74,6 +73,12 @@ public class SystemOrganizationDomainImpl implements SystemOrganizationDomain {
         return pageInfo;
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:同步机构全量
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @Override
     public ResponseVO<Object> saveBgyOrgList(List<BgyOrgVo> list, Long orgId) {
         try {
@@ -89,7 +94,7 @@ public class SystemOrganizationDomainImpl implements SystemOrganizationDomain {
                 sysOrg.setLegalPerson(bgyOrgVo.getLegalPerson());
                 sysOrg.setNature(bgyOrgVo.getNature());
                 sysOrg.setFixedTelephone(bgyOrgVo.getFixedTelephone());
-                if(bgyOrgVo.getRegisterTime()!=null){
+                if (bgyOrgVo.getRegisterTime() != null) {
                     sysOrg.setRegisterTime(TimeUtil.parseStrToDate(bgyOrgVo.getRegisterTime()));
                 }
                 sysOrg.setTelephone(bgyOrgVo.getTelephone());
@@ -110,17 +115,23 @@ public class SystemOrganizationDomainImpl implements SystemOrganizationDomain {
                 return ResponseVO.success().setMsg("同步集成平台机构总条数：" + totalCount + "，新增条数：" + totalCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
             }
         } catch (Exception e) {
-            logger.error("同步集成平台机构doMain异常:"+e);
+            logger.error("同步集成平台机构doMain异常:" + e);
             return ResponseVO.error().setMsg("同步集成平台机构异常");
         }
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:同步机构增量
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @Transactional(rollbackFor = {RuntimeException.class})
     @Override
     public ResponseVO<Object> alterBgyOrgList(List<BgyOrgVo> list, Long orgId) {
         int addType = ExternalConstant.OperationType.ADD.getValue();
         int updateType = ExternalConstant.OperationType.UPDATE.getValue();
         int deleteType = ExternalConstant.OperationType.DELETE.getValue();
-        int isDelete = SystemConstant.EnableState.DELETE.getValue();
         int totalCount = list.size();
         int addCount = 0;
         int updateCount = 0;
@@ -136,7 +147,9 @@ public class SystemOrganizationDomainImpl implements SystemOrganizationDomain {
             sysOrg.setLegalPerson(bgyOrgVo.getLegalPerson());
             sysOrg.setNature(bgyOrgVo.getNature());
             sysOrg.setFixedTelephone(bgyOrgVo.getFixedTelephone());
-            sysOrg.setRegisterTime(TimeUtil.parseStrToDate(bgyOrgVo.getRegisterTime()));
+            if (bgyOrgVo.getRegisterTime() != null) {
+                sysOrg.setRegisterTime(TimeUtil.parseStrToDate(bgyOrgVo.getRegisterTime()));
+            }
             sysOrg.setTelephone(bgyOrgVo.getTelephone());
             sysOrg.setEmail(bgyOrgVo.getEmail());
             sysOrg.setHomePage(bgyOrgVo.getHomePage());

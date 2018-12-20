@@ -5,7 +5,7 @@ package cn.com.bgy.ifc.bgy.constant;
  * @description:
  * @date: 2018-12-18 10:24
  **/
-public class UserConstant {
+public interface UserConstant {
 
-    public static final Long USER_ID=1L;
+     Long USER_ID=1L;
 }
