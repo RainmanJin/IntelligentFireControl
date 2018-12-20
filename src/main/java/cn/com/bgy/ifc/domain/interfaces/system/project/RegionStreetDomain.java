@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.entity.po.system.project.RegionStreet;
 import cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -20,4 +21,7 @@ public interface RegionStreetDomain {
     int updateRegionStreet( RegionStreet record );
 
     int deleteRegionStreet( List<Long> list );
+
+    List<Map<String,Object>> queryRegionStreetNameBySuperId( Long id);
+
 }

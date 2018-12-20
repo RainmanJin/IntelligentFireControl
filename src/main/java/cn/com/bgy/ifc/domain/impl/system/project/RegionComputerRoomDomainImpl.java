@@ -2,15 +2,20 @@ package cn.com.bgy.ifc.domain.impl.system.project;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
-import cn.com.bgy.ifc.dao.system.project.RegionComputerRoomDao;
+import cn.com.bgy.ifc.bgy.utils.StringUtil;
+import cn.com.bgy.ifc.dao.system.project.*;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.project.RegionComputerRoomDomain;
-import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.po.system.project.RegionComputerRoom;
+import cn.com.bgy.ifc.entity.po.system.project.RegionCourt;
+import cn.com.bgy.ifc.entity.po.system.project.RegionProject;
+import cn.com.bgy.ifc.entity.po.system.project.RegionStreet;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.projects.BgyMachineRoomVo;
+import cn.com.bgy.ifc.entity.vo.system.project.RegionComputerRoomVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -28,11 +33,26 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
     @Resource
     private RegionComputerRoomDao regionComputerRoomDao;
 
+    @Resource
+    private RegionProjectDao regionProjectDao;
+
+    @Resource
+    private RegionCourtDao regionCourtDao;
+
+    @Resource
+    private RegionStreetDao regionStreetDao;
+
+    @Resource
+    private RegionBuildingDao regionBuildingDao;
+
+
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
-
+    @Transactional
     @Override
     public int insert(RegionComputerRoom record) {
+        record.setCreateTime(new Date());
+        record.setLogicRemove(false);
         return regionComputerRoomDao.insert(record);
     }
 
@@ -82,5 +102,74 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
     @Override
     public ResponseVO<Object> alterBgyComputerRoomList(List<BgyMachineRoomVo> list, Long orgId) {
         return null;
+    }
+    /**
+     * @Author huxin
+     * @Description 查询
+     * @Date 2018/12/20 14:36
+     */
+    @Override
+    public List<RegionComputerRoomVo> queryListRegionComputerRoom( RegionComputerRoomVo record ) {
+        return regionComputerRoomDao.queryListRegionComputerRoom(record);
+    }
+    /**
+     * @Author huxin
+     * @Description 修改
+     * @Date 2018/12/20 14:36
+     */
+    @Transactional
+    @Override
+    public int updateRegionComputerRoom( RegionComputerRoom record ) {
+
+        if(record.getId()>0){
+            RegionComputerRoom computerRoom = regionComputerRoomDao.queryRegionComputerRoomById(record.getId());
+            //修改街道信息
+            if(computerRoom.getStreetId() != record.getStreetId()){
+                RegionStreet street= new RegionStreet();
+                street.setId(record.getStreetId());
+                street.setCourtId(record.getCourtId());
+                street.setProjectId(record.getProjectId());
+                street.setRegionId(record.getRegionId());
+                regionStreetDao.updateRegionStreet(street);
+            }
+            //修改苑区信息
+            if(computerRoom.getCourtId() != record.getCourtId()){
+                RegionCourt court = new RegionCourt();
+                court.setId(record.getCourtId());
+                court.setProjectId(record.getProjectId());
+                court.setRegionId(record.getRegionId());
+                regionCourtDao.updateRegionCourt(court);
+            }
+            //修改项目信息
+            if(computerRoom.getProjectId()!= record.getProjectId()){
+                RegionProject project = new RegionProject();
+                project.setId(record.getProjectId());
+                project.setRegionId(record.getRegionId());
+                regionProjectDao.updateRegionProject(project);
+            }
+            //查询苑区名
+            String courtName = regionCourtDao.queryRegionCourtNameById(record.getCourtId());
+            //查询街道名
+            String streetName = regionStreetDao.queryRegionStreetNameById(record.getStreetId());
+            //查询楼栋名
+            String buildingName= regionBuildingDao.queryRegionBuildingtNameById(record.getBuildingId());
+
+            if(StringUtil.isNotEmpty(courtName) || StringUtil.isNotEmpty(streetName) || StringUtil.isNotEmpty(buildingName)){
+                record.setName(courtName+courtName+streetName);
+                record.setCreateTime(new Date());
+                return regionComputerRoomDao.updateRegionComputerRoom(record);
+            }
+        }
+        return 0;
+    }
+    /**
+     * @Author huxin
+     * @Description 删除
+     * @Date 2018/12/20 14:37
+     */
+    @Transactional
+    @Override
+    public int deleteRegionComputerRoom( List<Long> list ) {
+        return regionComputerRoomDao.deleteRegionComputerRoom(list);
     }
 }

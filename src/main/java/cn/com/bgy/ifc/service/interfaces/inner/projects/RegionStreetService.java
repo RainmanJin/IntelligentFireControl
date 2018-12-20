@@ -5,10 +5,13 @@ import cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author huxin
  * @Date 2018/12/19 10:39
- * @Description 区域苑区信息
+ * @Description 街道信息
  **/
 
 public interface RegionStreetService {
@@ -20,4 +23,6 @@ public interface RegionStreetService {
     int updateRegionStreet( RegionStreet record );
 
     int deleteRegionStreet( String str );
+
+    List<Map<String,Object>> queryRegionStreetNameBySuperId( Long id);
 }

@@ -3,7 +3,7 @@ package cn.com.bgy.ifc.domain.interfaces.system.project;
 import cn.com.bgy.ifc.entity.po.system.project.RegionComputerRoom;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.projects.BgyMachineRoomVo;
-import cn.com.bgy.ifc.entity.vo.projects.BgyUserVo;
+import cn.com.bgy.ifc.entity.vo.system.project.RegionComputerRoomVo;
 
 import java.util.List;
 
@@ -34,4 +34,11 @@ public interface RegionComputerRoomDomain {
      * @return
      */
     ResponseVO<Object> alterBgyComputerRoomList(List<BgyMachineRoomVo> list, Long orgId);
+
+    List<RegionComputerRoomVo> queryListRegionComputerRoom( RegionComputerRoomVo record );
+
+
+    int updateRegionComputerRoom( RegionComputerRoom record );
+
+    int deleteRegionComputerRoom( List<Long> list );
 }

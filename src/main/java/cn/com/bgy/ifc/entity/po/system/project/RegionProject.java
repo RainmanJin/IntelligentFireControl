@@ -1,8 +1,9 @@
 package cn.com.bgy.ifc.entity.po.system.project;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RegionProject {
+public class RegionProject implements Serializable {
     /**
      * @Author huxin
      * @Description ID

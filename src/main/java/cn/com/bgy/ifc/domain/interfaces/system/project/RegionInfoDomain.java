@@ -5,6 +5,9 @@ import cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+import java.util.Map;
+
 public interface RegionInfoDomain {
 
     PageInfo<RegionInfo> queryListRegionInfo( Page<RegionInfo> page, RegionInfoVo systemRoleVo);
@@ -14,4 +17,6 @@ public interface RegionInfoDomain {
     int updateRegionInfo(RegionInfoVo record);
 
     int deleteRegionInfo(String str);
+
+    List<Map<String, Object>> queryRegionInfoName();
 }

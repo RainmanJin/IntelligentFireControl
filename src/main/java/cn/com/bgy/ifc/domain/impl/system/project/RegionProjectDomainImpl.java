@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -76,5 +77,14 @@ public class RegionProjectDomainImpl  implements RegionProjectDomain {
             return regionProjectDao.deleteRegionProject(list);
         }
         return 0;
+    }
+    /**
+     * @Author huxin
+     * @Description 根据父级id查询所有项目名
+     * @Date 2018/12/20 18:26
+     */
+    @Override
+    public List<Map<String, Object>> queryRegionProjectNameBySuperId( Long id ) {
+        return regionProjectDao.queryRegionProjectNameBySuperId(id);
     }
 }

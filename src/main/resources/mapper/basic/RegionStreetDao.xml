@@ -102,7 +102,7 @@
         AND s.project_id= #{ projectId,jdbcType=BIGINT}
       </if>
       <if test="courtId != null and courtId != '' ">
-        AND s.court_id= #{ projectId,jdbcType=BIGINT}
+        AND s.court_id= #{ courtId,jdbcType=BIGINT}
       </if>
       AND s.logic_remove = 0
     </where>
@@ -110,14 +110,13 @@
   <update id="updateRegionStreet" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionStreet">
     UPDATE region_street
     <set>
-      <if test="regionId != null and project_id != null AND courtId != null">
-        region_id =#{regionId},project_id =#{projectId},court_id= #{ projectId,jdbcType=BIGINT},
+      <if test="regionId != null and projectId != null and courtId != null">
+        region_id =#{regionId},project_id =#{projectId},court_id= #{courtId},
       </if>
       <if test="name != null">name =#{name},</if>
       <if test="createTime != null">create_Time =#{createTime}</if>
     </set>
     WHERE id = #{id}
-
   </update>
   <update id="deleteRegionStreet" parameterType="java.util.List">
     UPDATE region_street set logic_remove =1 where id IN
@@ -125,4 +124,8 @@
       #{id}
     </foreach>
   </update>
+
+  <select id="queryRegionStreetNameBySuperId" parameterType="java.lang.Long" resultType="java.util.Map">
+    SELECT name,id FROM region_street  WHERE logic_remove = 0 AND  court_id = #{courtId,jdbcType=BIGINT}
+  </select>
 </mapper>

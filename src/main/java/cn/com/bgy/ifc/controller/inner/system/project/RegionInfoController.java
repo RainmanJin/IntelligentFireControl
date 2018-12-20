@@ -12,6 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author huxin
  * @Description 区域信息controller
@@ -20,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/basic/regionInfo")
 public class RegionInfoController {
+
+
     @Autowired
     private RegionInfoDomain regionInfoDomain;
 
@@ -80,5 +86,17 @@ public class RegionInfoController {
             return ResponseVO.success().setMsg("添加成功");
         }
         return ResponseVO.error().setMsg("添加失败！");
+    }
+
+    /**
+     * @Author huxin
+     * @Description 查询所有区域名
+     * @Date 2018/12/20 18:24
+     */
+    @PostMapping("queryAllName")
+    @ResponseBody
+    public ResponseVO<Object> queryRegionInfoName(){
+        List<Map<String,Object>> list  = regionInfoDomain.queryRegionInfoName();
+        return ResponseVO.<Object>success().setData(list);
     }
 }

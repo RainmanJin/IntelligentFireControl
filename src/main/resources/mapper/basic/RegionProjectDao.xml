@@ -89,7 +89,7 @@
     </trim>
   </insert>
 
-  <select id="queryListRegionProject" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo" resultType="cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo">
+  <select id="queryListRegionProject" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionProjectVo" resultType="cn.com.bgy.ifc.entity.vo.system.project.RegionProjectVo">
     SELECT
     p.id as id,p.name as name,p.organization_id as organizationId,
     p.region_id as regionId,p.code as code,i.`name` as regionName,
@@ -129,4 +129,8 @@
       #{id}
     </foreach>
   </update>
+
+  <select id="queryRegionProjectNameBySuperId" parameterType="java.lang.Long" resultType="java.util.Map">
+    SELECT name,id FROM region_project  WHERE logic_remove = 0 AND  region_id = #{regionId,jdbcType=BIGINT}
+  </select>
 </mapper>

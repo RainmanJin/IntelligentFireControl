@@ -73,4 +73,8 @@
       #{id}
     </foreach>
   </update>
+
+  <select id="queryRegionProjectName" resultType="java.util.Map">
+    SELECT name,id FROM region_info  WHERE logic_remove = 0
+  </select>
 </mapper>

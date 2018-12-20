@@ -104,5 +104,7 @@
       #{id}
     </foreach>
   </update>
-
+  <select id="queryRegionCourtNameBySuperId" parameterType="java.lang.Long" resultType="java.util.Map">
+    SELECT name,id FROM region_court  WHERE logic_remove = 0 AND  project_id = #{projectId,jdbcType=BIGINT}
+  </select>
 </mapper>

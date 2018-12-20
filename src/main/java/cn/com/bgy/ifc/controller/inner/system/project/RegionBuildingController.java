@@ -1,10 +1,10 @@
 package cn.com.bgy.ifc.controller.inner.system.project;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
-import cn.com.bgy.ifc.entity.po.system.project.RegionStreet;
+import cn.com.bgy.ifc.entity.po.system.project.RegionBuilding;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo;
-import cn.com.bgy.ifc.service.interfaces.inner.projects.RegionStreetService;
+import cn.com.bgy.ifc.entity.vo.system.project.RegionBuildingVo;
+import cn.com.bgy.ifc.service.interfaces.inner.projects.RegionBuildingService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
@@ -19,14 +19,14 @@ import java.util.Map;
 /**
  * @Author huxin
  * @Date 2018/12/19 9:17
- * @Description 苑区信息
+ * @Description 楼栋信息
  **/
 @Controller
-@RequestMapping("/basic/regionStreet")
-public class RegionStreetController {
+@RequestMapping("/basic/regionBuilding")
+public class RegionBuildingController {
 
     @Resource
-    private RegionStreetService regionStreetService;
+    private RegionBuildingService regionBuildingService;
 
     /**
      * @Author huxin
@@ -35,9 +35,9 @@ public class RegionStreetController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo<RegionStreetVo>> queryListRegionStreet( Page<RegionStreetVo> page, RegionStreetVo regionStreetVo, String token){
-        PageInfo<RegionStreetVo> pageInfo = regionStreetService.queryListRegionStreet(page,regionStreetVo);
-        return ResponseVO.<PageInfo<RegionStreetVo>>success().setData(pageInfo);
+    public ResponseVO<PageInfo<RegionBuildingVo>> queryListRegionBuilding( Page<RegionBuildingVo> page, RegionBuildingVo regionBuildingVo, String token){
+        PageInfo<RegionBuildingVo> pageInfo = regionBuildingService.queryListRegionBuilding(page,regionBuildingVo);
+        return ResponseVO.<PageInfo<RegionBuildingVo>>success().setData(pageInfo);
     }
     /**
      * @Author huxin
@@ -45,11 +45,11 @@ public class RegionStreetController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "街道信息修改")
+    @SystemLogAfterSave(type = 1,description = "楼栋单元信息修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionStreet( RegionStreet regionStreet, String token){
+    public ResponseVO<Object> updateRegionBuilding( RegionBuilding regionBuilding, String token){
 
-        int count = regionStreetService.updateRegionStreet(regionStreet);
+        int count = regionBuildingService.updateRegionBuilding(regionBuilding);
         if (count == 1) {
             return ResponseVO.success().setMsg("修改成功");
         }
@@ -63,8 +63,8 @@ public class RegionStreetController {
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "街道信息删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionStreet( String arr, String token){
-        int count = regionStreetService.deleteRegionStreet(arr);
+    public ResponseVO<Object> deleteRegionBuilding( String arr, String token){
+        int count = regionBuildingService.deleteRegionBuilding(arr);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }
@@ -78,9 +78,9 @@ public class RegionStreetController {
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "街道信息添加")
     @ResponseBody
-    public ResponseVO<Object> addRegionStreet(RegionStreet regionStreet){
+    public ResponseVO<Object> addRegionBuilding(RegionBuilding regionBuilding){
 
-       int count =  regionStreetService.insert(regionStreet);
+       int count =  regionBuildingService.insert(regionBuilding);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功");
         }
@@ -90,13 +90,13 @@ public class RegionStreetController {
 
     /**
      * @Author huxin
-     * @Description 根据父id查询所有街道信息
+     * @Description 根据父id查询所有楼栋信息
      * @Date 2018/12/20 18:24
      */
     @PostMapping("queryAllName")
     @ResponseBody
-    public ResponseVO<Object> queryRegionStreettNameBySuperId(Long id){
-        List<Map<String,Object>> list  = regionStreetService.queryRegionStreetNameBySuperId(id);
+    public ResponseVO<Object> queryRegionBuildingNameBySuperId(Long id){
+        List<Map<String,Object>> list  = regionBuildingService.queryRegionBuildingNameBySuperId(id);
         return ResponseVO.<Object>success().setData(list);
     }
 }

@@ -5,6 +5,9 @@ import cn.com.bgy.ifc.entity.vo.system.project.RegionProjectVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author huxin
  * @Date 2018/12/18 17:17
@@ -20,4 +23,7 @@ public interface RegionProjectDomain {
     int updateRegionProjec(RegionProject record);
 
     int deleteRegionProjec(String str);
+
+    List<Map<String,Object>> queryRegionProjectNameBySuperId( Long id);
+
 }

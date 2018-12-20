@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -57,5 +58,14 @@ public class RegionCourtDomainImpl implements RegionCourtDomain {
     @Override
     public int deleteRegionCourt( List<Long> list ) {
         return regionCourtDao.deleteRegionCourt(list);
+    }
+    /**
+     * @Author huxin
+     * @Description 根据父级id查询所有苑区名
+     * @Date 2018/12/20 18:26
+     */
+    @Override
+    public List<Map<String, Object>> queryRegionCourtNameBySuperId( Long id ) {
+        return regionCourtDao.queryRegionCourtNameBySuperId(id);
     }
 }

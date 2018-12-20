@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.entity.po.system.project.RegionStreet;
 import cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RegionStreetDao {
     int insert(RegionStreet record);
@@ -16,4 +17,13 @@ public interface RegionStreetDao {
     int updateRegionStreet(RegionStreet record);
 
     int deleteRegionStreet( List<Long> list );
+
+    //根据Id查询街道名
+    String queryRegionStreetNameById(Long id);
+
+    //根据父级ID查询所有街道名
+    List<Map<String,Object>> queryRegionStreetNameBySuperId(Long id);
+
+    //根据父级id删除所有街道
+    int deleteRegionStreetBySuperId(List<Long> list);
 }
