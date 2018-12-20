@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.domain.interfaces.system.user;
 import cn.com.bgy.ifc.entity.po.system.user.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.projects.BgyUserVo;
+import cn.com.bgy.ifc.entity.vo.system.user.AccountVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -21,7 +22,7 @@ public interface AccountDomain {
      * @param account
      * @return
      */
-    List<Account> searchByWhere(Account account);
+    List<AccountVo> searchByWhere(AccountVo account);
 
     /**
      * 分页查询用户
@@ -29,7 +30,7 @@ public interface AccountDomain {
      * @param account
      * @return
      */
-    PageInfo<Account> searchByPage(Page page, Account account);
+    PageInfo<AccountVo> searchByPage(Page page, AccountVo account);
 
     /**
      * 根据id删除用户

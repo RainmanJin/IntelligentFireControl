@@ -32,7 +32,7 @@ public class DepartmentController {
 
     /**
      * @author: ZhangCheng
-     * @description:查询部门信息列表
+     * @description:查询部门信息列表(分页)
      * @param: [page, departmentVo]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.basic.Department>>
      */

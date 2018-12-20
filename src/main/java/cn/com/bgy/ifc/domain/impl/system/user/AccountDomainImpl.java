@@ -10,6 +10,7 @@ import cn.com.bgy.ifc.entity.po.system.user.Account;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.projects.BgyUserVo;
+import cn.com.bgy.ifc.entity.vo.system.user.AccountVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -36,15 +37,15 @@ public class AccountDomainImpl implements AccountDomain {
     }
 
     @Override
-    public List<Account> searchByWhere(Account account) {
+    public List<AccountVo> searchByWhere(AccountVo account) {
         return accountDao.searchByWhere(account);
     }
 
     @Override
-    public PageInfo<Account> searchByPage(Page page, Account account) {
+    public PageInfo<AccountVo> searchByPage(Page page, AccountVo account) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Account> accountList = this.searchByWhere(account);
-        PageInfo<Account> pageInfo = new PageInfo<>(accountList);
+        List<AccountVo> accountList = this.searchByWhere(account);
+        PageInfo<AccountVo> pageInfo = new PageInfo<>(accountList);
         return pageInfo;
     }
 

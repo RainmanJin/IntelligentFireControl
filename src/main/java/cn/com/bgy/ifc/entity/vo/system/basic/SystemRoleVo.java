@@ -32,13 +32,31 @@ public class SystemRoleVo {
 	 *是否逻辑删除
 	 */
 	private Boolean logicRemove;
-	
+
 	/**
-	 * @Author huxin
-	 * @Description 查询关键字
-	 * @Date 2018/12/18 10:55
+	 * 接受前端关键字
 	 */
-	private String keyword;
+	private String keyWords;
+	/**
+	 * 接受当前登录用id
+	 */
+	private Long userId;
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getKeyWords() {
+		return keyWords;
+	}
+
+	public void setKeyWords(String keyWords) {
+		this.keyWords = keyWords;
+	}
 
 
 	public Long getId() {
@@ -89,16 +107,10 @@ public class SystemRoleVo {
 		this.logicRemove = logicRemove;
 	}
 
-	public String getKeyword() {
-		return keyword;
-	}
 
-	public void setKeyword( String keyword ) {
-		this.keyword = keyword;
-	}
 
 	@Override
 	public String toString() {
-		return "SystemRoleVo{" + "id=" + id + ", type=" + type + ", name='" + name + '\'' + ", state=" + state + ", organizationId=" + organizationId + ", logicRemove=" + logicRemove + ", keyword='" + keyword + '\'' + '}';
+		return "SystemRoleVo{" + "id=" + id + ", type=" + type + ", name='" + name + '\'' + ", state=" + state + ", organizationId=" + organizationId + ", logicRemove=" + logicRemove + ", keyWords='" + keyWords + '\'' + '}';
 	}
 }

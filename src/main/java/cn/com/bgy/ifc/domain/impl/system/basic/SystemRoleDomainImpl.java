@@ -76,23 +76,13 @@ public class SystemRoleDomainImpl  implements SystemRoleDomain {
         return systemRoleDao.deleteById(id);
     }
     /**
-     * @Author huxin
-     * @Description 删除系统角色（逻辑删除）
+     * @Author yanXiaoLu
+     * @Description 批量删除系统角色
      * @Date 2018/12/17 14:40
      */
-    @Transactional
     @Override
-    public int deleteRole( String str ) {
-            List<Long> list = new ArrayList<>();
-            String arr[] = str.split(",");
-            if(arr.length>0){
-                for (int i = 0; i <arr.length ; i++) {
-                    list.add(Long.valueOf(arr[i]));
-                }
-                return systemRoleDao.deleteRole(list);
-            }else{
-                return 0;
-            }
+    public void deleteRole(Long[] longs) {
+        systemRoleDao.deleteRole(longs);
     }
 
     @Override

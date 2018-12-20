@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.system.basic;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.SystemRoleDomain;
@@ -7,6 +8,7 @@ import cn.com.bgy.ifc.entity.po.system.basic.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.basic.SystemRoleVo;
+import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,16 @@ public class SystemRoleController {
     @Autowired
     private SystemRoleDomain roleDomain;
 
+    /**
+     * 分页查询
+     * @param page
+     * @param systemRoleVo
+     * @param
+     * @return
+     */
     @PostMapping("queryList")
     @ResponseBody
-    public ResponseVO<PageInfo<SystemRole>> queryList(Page<SystemRole> page, SystemRoleVo systemRoleVo,String token) {
+    public ResponseVO<PageInfo<SystemRole>> queryList(Page<SystemRole> page, SystemRoleVo systemRoleVo) {
         try {
             PageInfo<SystemRole> pageInfo = roleDomain.queryListByPage(page, systemRoleVo);
             return ResponseVO.<PageInfo<SystemRole>>success().setData(pageInfo);
@@ -108,22 +117,7 @@ public class SystemRoleController {
         }
         return ResponseVO.error().setMsg("修改失败！");
     }
-    /**
-     * @Author huxin
-     * @Description 删除操作（含批量）  逻辑删除
-     * @Date 2018/12/15 15:47
-     */
-    @PostMapping("/deleteRole")
-    @ResponseBody
-    public ResponseVO<Object> deleteRole(String arr,String token) {
 
-        int count = roleDomain.deleteRole(arr);
-
-        if (count > 0) {
-            return ResponseVO.success().setMsg("删除成功");
-        }
-        return ResponseVO.error().setMsg("删除失败！");
-    }
     /**
      * @Author huxin
      * @Description 获取角色类型
@@ -134,5 +128,28 @@ public class SystemRoleController {
     public ResponseVO<Object> queryRoleType(String token){
         List<SelectVo> list=SystemConstant.SyetemRoleType.getSelectList();
         return  ResponseVO.success().setData(list);
+    }
+    /**
+     * 批量删除系统角色(通过id删除系统角色)
+     * @param longs
+     * @return
+     */
+    @PostMapping("deleteSystemRole")
+    @SystemLogAfterSave(type = 1,description = "批量删除机构信息")
+    @ResponseBody
+    public ResponseVO<Object> deleteSystemRole(String longs) {
+        if (longs==null){
+            return ResponseVO.error().setMsg("参数异常");
+        }
+        List<Long> list = JSONArray.parseArray(longs,Long.class);
+        Long[] deleteLongs = new Long[list.size()];
+        list.toArray(deleteLongs);
+        if (list.size()==1){
+            roleDomain.deleteById(deleteLongs[0]);
+            return ResponseVO.success().setMsg("删除成功");
+        }else {
+            roleDomain.deleteRole(deleteLongs);
+            return ResponseVO.success().setMsg("删除成功");
+        }
     }
 }

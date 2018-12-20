@@ -30,9 +30,9 @@ public class ModelPowerController {
      */
     @PostMapping("queryPageList")
     @ResponseBody
-    public ResponseVO<Object> queryPageList(Page page,ModelPower modelPowern) {
+    public ResponseVO<PageInfo<ModelPower>> queryPageList(Page<ModelPower> page,ModelPower modelPowern) {
         PageInfo<ModelPower> pageInfo = modelPowerDomain.queryPageList(page, modelPowern);
-        return ResponseVO.success().setData(pageInfo);
+        return ResponseVO.<PageInfo<ModelPower>>success().setData(pageInfo);
     }
     /**
      * 获取模块名称
@@ -72,12 +72,8 @@ public class ModelPowerController {
         List<Long> list = JSONArray.parseArray(longs,Long.class);
         Long[] deleteLongs = new Long[list.size()];
         list.toArray(deleteLongs);
-        if (list.size()==1){
-            modelPowerDomain.deleteModelPowerOne(deleteLongs[0]);
-            return ResponseVO.success().setMsg("删除成功").setData(null);
-        }else {
-            modelPowerDomain.deleteModelPower(deleteLongs);
-            return ResponseVO.success().setMsg("删除成功").setData(null);
-        }
+        modelPowerDomain.deleteModelPower(deleteLongs);
+        return ResponseVO.success().setMsg("删除成功");
+
     }
 }

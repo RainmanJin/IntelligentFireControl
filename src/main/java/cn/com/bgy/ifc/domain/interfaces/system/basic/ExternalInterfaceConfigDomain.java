@@ -19,7 +19,7 @@ public interface ExternalInterfaceConfigDomain {
      * @param page
      * @return
      */
-    PageInfo<ExternalInterfaceConfig> queryListByPage(Page<ExternalInterfaceConfig> page, ExternalInterfaceConfig ExternalInterfaceConfig);
+    PageInfo<ExternalInterfaceConfig> queryListByPage(Page<ExternalInterfaceConfig> page, ExternalInterfaceConfig externalInterfaceConfig);
 
     /**
      *
