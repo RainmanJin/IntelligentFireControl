@@ -5,9 +5,15 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CopyUtil {
+
+    public static List convertList(List list){
+        return list;
+    }
+
     public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();

@@ -39,4 +39,13 @@ public interface ExternalInterfaceMsgDomain {
      * @return
      */
     int insertSelective(ExternalInterfaceMsg record);
+
+    /**
+     * 碧桂园集成平台全量新增成功接口日志
+     * @param orgId
+     * @param msgType
+     * @param totalCount
+     * @return
+     */
+    int successInterfaceMsg(Long orgId,Integer msgType,Integer totalCount);
 }

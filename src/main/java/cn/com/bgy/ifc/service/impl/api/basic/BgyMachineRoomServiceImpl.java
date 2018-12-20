@@ -63,7 +63,7 @@ public class BgyMachineRoomServiceImpl implements BgyMachineRoomService {
 
     @Override
     public ResponseVO<Object> obtainBgyMachineRoom(int pageNo, int pageSize, ExternalInterfaceConfig config) throws Exception {
-        String reqUrl = "/api/third/equipment/getMachineRoomIncrement";
+        String reqUrl = "/api/third/equipment/getMachineRoomList";
         Long orgId = config.getOrgId();
         // 请求包结构体
         Map<String, Object> data = new HashMap<>();
@@ -72,14 +72,16 @@ public class BgyMachineRoomServiceImpl implements BgyMachineRoomService {
         //调用HTTP请求
         HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        System.out.println("xxx"+response);
         // 总页数
         int pageCount = ResponseUtil.getPageCount(response, pageSize);
         List<BgyMachineRoomVo> oList = new ArrayList<>();
-        BgyMachineRoomVo bgyUserVo = new BgyMachineRoomVo();
-        ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
-        if (pageCount != 0) {
+        BgyMachineRoomVo roomVo = new BgyMachineRoomVo();
+        ResponseUtil.getResultList(oList, roomVo, response, "data", "equipmentMachineRoomVoList");
+        System.out.println(oList);
+        /*if (pageCount != 0) {
             ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
-        }
+        }*/
         int totalCount = oList.size();
         /*if (totalCount > 0) {
             return accountDomain.saveBgyAccountList(oList, orgId);
@@ -91,6 +93,12 @@ public class BgyMachineRoomServiceImpl implements BgyMachineRoomService {
 
     @Override
     public ResponseVO<Object> obtainBgyMachineRoomIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
+        String reqUrl = "/api/third/equipment/getMachineRoomIncrement";
+        Long orgId = config.getOrgId();
+        // 请求包结构体
+        Map<String, Object> data = new HashMap<>();
+        data.put("pageNo", pageNo);
+        data.put("pageSize", pageSize);
         return null;
     }
 }

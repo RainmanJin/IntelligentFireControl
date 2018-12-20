@@ -14,23 +14,23 @@ public class BgyMachineRoomVo extends BgyBaseVo {
     /**
      *区域id
      */
-    private Integer areaId;
+    private Long areaId;
     /**
      *项目id
      */
-    private Integer projectId;
+    private Long projectId;
     /**
      *苑区id
      */
-    private Integer districtId;
+    private Long districtId;
     /**
      *街道id
      */
-    private Integer streetId;
+    private Long streetId;
     /**
      *楼栋id
      */
-    private Integer buildingId;
+    private Long buildingId;
 
     /**
      *编码
@@ -50,43 +50,43 @@ public class BgyMachineRoomVo extends BgyBaseVo {
         this.name = name;
     }
 
-    public Integer getAreaId() {
+    public Long getAreaId() {
         return areaId;
     }
 
-    public void setAreaId(Integer areaId) {
+    public void setAreaId(Long areaId) {
         this.areaId = areaId;
     }
 
-    public Integer getProjectId() {
+    public Long getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(Integer projectId) {
+    public void setProjectId(Long projectId) {
         this.projectId = projectId;
     }
 
-    public Integer getDistrictId() {
+    public Long getDistrictId() {
         return districtId;
     }
 
-    public void setDistrictId(Integer districtId) {
+    public void setDistrictId(Long districtId) {
         this.districtId = districtId;
     }
 
-    public Integer getStreetId() {
+    public Long getStreetId() {
         return streetId;
     }
 
-    public void setStreetId(Integer streetId) {
+    public void setStreetId(Long streetId) {
         this.streetId = streetId;
     }
 
-    public Integer getBuildingId() {
+    public Long getBuildingId() {
         return buildingId;
     }
 
-    public void setBuildingId(Integer buildingId) {
+    public void setBuildingId(Long buildingId) {
         this.buildingId = buildingId;
     }
 
