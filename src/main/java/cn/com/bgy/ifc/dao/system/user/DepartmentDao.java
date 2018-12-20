@@ -12,8 +12,4 @@ public interface DepartmentDao extends BaseDao<Department> {
 
     List<Department> queryListByParam(DepartmentVo record);
 
-    int deleteById(Long id);
-
-    int deleteBatchById(List<Long> ids);
-
 }

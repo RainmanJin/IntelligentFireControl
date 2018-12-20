@@ -54,11 +54,6 @@ public class DepartmentDomainImpl implements DepartmentDomain {
         return departmentDao.findById(id);
     }
 
-    @Transactional
-    @Override
-    public int deleteById(Long id) {
-        return departmentDao.deleteById(id);
-    }
 
     @Transactional
     @Override
@@ -82,9 +77,4 @@ public class DepartmentDomainImpl implements DepartmentDomain {
         return departmentDao.update(department);
     }
 
-    @Transactional
-    @Override
-    public int deleteBatchById(List<Long> ids) {
-        return departmentDao.deleteBatchById(ids);
-    }
 }

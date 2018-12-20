@@ -17,12 +17,8 @@ public interface DepartmentDomain {
 
     Department findById(Long id);
 
-    int deleteById(Long id);
-
     int insert(Department department);
 
     int update(Department department);
-
-    int deleteBatchById(List<Long> ids);
 
 }

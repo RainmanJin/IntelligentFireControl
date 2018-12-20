@@ -12,6 +12,7 @@ public interface BaseDao<T> {
 
     /**
      * 参数查询
+     *
      * @param t
      * @return
      */
@@ -19,13 +20,15 @@ public interface BaseDao<T> {
 
     /**
      * 根据Map参数查询
+     *
      * @param map
      * @return
      */
-    List<T> queryList(Map<String, Object> map);
+    List<T> queryListByMap(Map<String, Object> map);
 
     /**
      * 根据ID查询
+     *
      * @param id
      * @return
      */
@@ -33,6 +36,7 @@ public interface BaseDao<T> {
 
     /**
      * 添加
+     *
      * @param t
      * @return
      */
@@ -40,6 +44,7 @@ public interface BaseDao<T> {
 
     /**
      * 添加
+     *
      * @param t
      * @return
      */
@@ -47,6 +52,7 @@ public interface BaseDao<T> {
 
     /**
      * 修改
+     *
      * @param t
      * @return
      */
@@ -54,6 +60,7 @@ public interface BaseDao<T> {
 
     /**
      * 修改
+     *
      * @param t
      * @return
      */
@@ -61,6 +68,7 @@ public interface BaseDao<T> {
 
     /**
      * 批量删除
+     *
      * @param ids
      * @return
      */

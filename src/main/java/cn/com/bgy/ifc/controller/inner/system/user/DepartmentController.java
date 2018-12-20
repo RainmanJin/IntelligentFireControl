@@ -158,10 +158,10 @@ public class DepartmentController {
     @DeleteMapping("delete/{id}")
     @ResponseBody
     public ResponseVO<Object> delete(@PathVariable long id) {
-        int count = departmentDomain.deleteById(id);
+        /*int count = departmentDomain.deleteById(id);
         if (count == 1) {
             return ResponseVO.success().setMsg("删除成功");
-        }
+        }*/
         return ResponseVO.error().setMsg("删除失败！");
     }
 
