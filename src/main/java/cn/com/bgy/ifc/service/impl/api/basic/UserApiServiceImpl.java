@@ -179,7 +179,7 @@ public class UserApiServiceImpl implements UserApiService {
         BgyUserVo bgyUserVo = new BgyUserVo();
         ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
         if (pageCount != 0) {
-            ResponseUtil.getResultByPage(pageNo,pageSize,pageCount,config,reqUrl,oList,bgyUserVo,"data", "list");
+            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
         }
         int totalCount = oList.size();
         if (totalCount > 0) {
@@ -199,7 +199,7 @@ public class UserApiServiceImpl implements UserApiService {
     public ResponseVO<Object> obtainBgyUserIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
         String reqUrl = "/api/third/user/getUserListIncrement";
         long orgId = config.getOrgId();
-        String dateTime= TimeUtil.parseDateToStr(createTime);
+        String dateTime = TimeUtil.parseDateToStr(createTime);
         // 请求包结构体
         Map<String, Object> data = new HashMap<>();
         data.put("startTime", dateTime);
@@ -215,7 +215,7 @@ public class UserApiServiceImpl implements UserApiService {
         BgyUserVo bgyUserVo = new BgyUserVo();
         ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
         if (pageCount != 0) {
-            ResponseUtil.getIncResultByPage(pageNo,pageSize,dateTime,pageCount,config,reqUrl,oList,bgyUserVo,"data", "list");
+            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
         }
         int totalCount = oList.size();
         if (totalCount > 0) {
@@ -228,7 +228,7 @@ public class UserApiServiceImpl implements UserApiService {
     @SystemLogAfterSave(type = 7, description = "同步集成平台用户权限数据")
     @Override
     public ResponseVO<Object> baseObtainBgyUserPermission(int pageNo, int pageSize) {
-        try{
+        try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
             if (list.size() != 0) {
                 ExternalInterfaceConfig config = list.get(0);
@@ -269,9 +269,9 @@ public class UserApiServiceImpl implements UserApiService {
         BgyUserPermissionVo bgyUserVo = new BgyUserPermissionVo();
         ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
         if (pageCount != 0) {
-            ResponseUtil.getResultByPage(pageNo,pageSize,pageCount,config,reqUrl,oList,bgyUserVo,"data", "list");
+            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
         }
-        System.out.println("===="+oList);
+        System.out.println("====" + oList);
         return null;
     }
 
@@ -279,7 +279,7 @@ public class UserApiServiceImpl implements UserApiService {
     public ResponseVO<Object> obtainBgyUserPermissionIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
         String reqUrl = "/api/third/user/getUserPermissionIncrement";
         long orgId = config.getOrgId();
-        String dateTime= TimeUtil.parseDateToStr(createTime);
+        String dateTime = TimeUtil.parseDateToStr(createTime);
         Map<String, Object> data = new HashMap<>();
         data.put("startTime", dateTime);
         data.put("pageNo", pageNo);
@@ -294,7 +294,7 @@ public class UserApiServiceImpl implements UserApiService {
         BgyUserPermissionVo bgyUserVo = new BgyUserPermissionVo();
         ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
         if (pageCount != 0) {
-            ResponseUtil.getIncResultByPage(pageNo,pageSize,dateTime,pageCount,config,reqUrl,oList,bgyUserVo,"data", "list");
+            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
         }
         return null;
     }

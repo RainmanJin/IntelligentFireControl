@@ -62,14 +62,15 @@
 		FROM system_power
   </select>
 
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemPower" resultMap="BaseResultMap">
-		SELECT
-		id,
-		name,
-		display_name,
-		remark,
-		logic_remove
-		FROM system_power
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemPower"
+            resultMap="BaseResultMap">
+        SELECT
+        id,
+        name,
+        display_name,
+        remark,
+        logic_remove
+        FROM system_power
         WHERE 1=1
         <if test="name != null ">
             AND name=#{name}
@@ -80,7 +81,7 @@
         <if test="logicRemove != null ">
             AND logic_remove=#{logicRemove}
         </if>
-  </select>
+    </select>
 
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
 		SELECT
@@ -109,7 +110,8 @@
   </delete>
 
 
-    <select id="queryListByUserId" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemPower" resultMap="BaseResultMap">
+    <select id="queryListByUserId" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemPower"
+            resultMap="BaseResultMap">
    SELECT
             id,
             name,

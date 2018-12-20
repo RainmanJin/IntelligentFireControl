@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.system.user;
 
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
+import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.dao.system.user.DepartmentDao;
 import cn.com.bgy.ifc.domain.interfaces.system.user.DepartmentDomain;
 import cn.com.bgy.ifc.entity.po.basic.Department;
@@ -26,10 +27,16 @@ public class DepartmentDomainImpl implements DepartmentDomain {
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public PageInfo<Department> queryListByPage(Page<Department> page, DepartmentVo departmentVo) {
+    public PageInfo<DepartmentVo> queryListByPage(Page<DepartmentVo> page, DepartmentVo departmentVo) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<Department> list=departmentDao.queryListByParam(departmentVo);
-        return new PageInfo<Department>(list);
+        /*List<DepartmentVo> voList =null;
+        try {
+            voList =CopyUtil.convertList(list, new DepartmentVo());
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
+        return new PageInfo<DepartmentVo>(CopyUtil.convertList(list, new DepartmentVo()));
     }
 
     @Override
@@ -47,11 +54,6 @@ public class DepartmentDomainImpl implements DepartmentDomain {
         return departmentDao.findById(id);
     }
 
-    @Transactional
-    @Override
-    public int deleteById(Long id) {
-        return departmentDao.deleteById(id);
-    }
 
     @Transactional
     @Override
@@ -75,9 +77,4 @@ public class DepartmentDomainImpl implements DepartmentDomain {
         return departmentDao.update(department);
     }
 
-    @Transactional
-    @Override
-    public int deleteBatchById(List<Long> ids) {
-        return departmentDao.deleteBatchById(ids);
-    }
 }

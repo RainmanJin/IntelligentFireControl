@@ -1,7 +1,12 @@
 package cn.com.bgy.ifc.domain.interfaces.system.basic;
 import cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization;
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.projects.BgyOrgVo;
+import cn.com.bgy.ifc.entity.vo.projects.BgyUserVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 public interface SystemOrganizationDomain {
     SystemOrganization findById(Long id);
@@ -22,4 +27,18 @@ public interface SystemOrganizationDomain {
      * @return
      */
     PageInfo<SystemOrganization> searchByWhere(Page page, SystemOrganization interfaceAccount);
+
+    /**
+     * 集成平台全量增加机构信息
+     * @param list
+     * @return
+     */
+    ResponseVO<Object> saveBgyAccountList(List<BgyOrgVo> list);
+
+    /**
+     * 集成平台增量增加机构信息
+     * @param list
+     * @return
+     */
+    ResponseVO<Object> alterBgyAccountList(List<BgyOrgVo> list);
 }

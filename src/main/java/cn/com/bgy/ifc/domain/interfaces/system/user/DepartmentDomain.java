@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface DepartmentDomain {
 
-    PageInfo<Department> queryListByPage(Page<Department> page, DepartmentVo departmentVo);
+    PageInfo<DepartmentVo> queryListByPage(Page<DepartmentVo> page, DepartmentVo departmentVo);
 
     List<Department> queryListByParam(DepartmentVo departmentVo);
 
@@ -17,12 +17,8 @@ public interface DepartmentDomain {
 
     Department findById(Long id);
 
-    int deleteById(Long id);
-
     int insert(Department department);
 
     int update(Department department);
-
-    int deleteBatchById(List<Long> ids);
 
 }

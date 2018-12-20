@@ -38,9 +38,9 @@ public class DepartmentController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo<Department>> queryList(Page<Department> page, DepartmentVo departmentVo,String token) {
-            PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page, departmentVo);
-            return ResponseVO.<PageInfo<Department>>success().setData(pageInfo);
+    public ResponseVO<PageInfo<DepartmentVo>> queryList(Page<DepartmentVo> page, DepartmentVo departmentVo) {
+            PageInfo<DepartmentVo> pageInfo = departmentDomain.queryListByPage(page, departmentVo);
+            return ResponseVO.<PageInfo<DepartmentVo>>success().setData(pageInfo);
     }
 
     /**
@@ -158,10 +158,10 @@ public class DepartmentController {
     @DeleteMapping("delete/{id}")
     @ResponseBody
     public ResponseVO<Object> delete(@PathVariable long id) {
-        int count = departmentDomain.deleteById(id);
+        /*int count = departmentDomain.deleteById(id);
         if (count == 1) {
             return ResponseVO.success().setMsg("删除成功");
-        }
+        }*/
         return ResponseVO.error().setMsg("删除失败！");
     }
 

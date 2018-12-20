@@ -48,4 +48,21 @@ public class ExternalInterfaceMsgDomainImpl implements ExternalInterfaceMsgDomai
         record.setLogicRemove(false);
         return externalInterfaceMsgDao.insertSelective(record);
     }
+
+    @Override
+    public int successInterfaceMsg(Long orgId, Integer msgType, Integer totalCount) {
+        ExternalInterfaceMsg record = new ExternalInterfaceMsg();
+        Date createTime=new Date();
+        record.setPlatformValue(ExternalConstant.PlatformValue.INTEGERATED_PLATFORM.getValue());
+        record.setOrgId(orgId);
+        record.setMsgTypeValue(msgType);
+        record.setTotalCount(totalCount);
+        record.setAddCount(totalCount);
+        record.setSuccessCount(totalCount);
+        record.setErrorCount(0);
+        record.setRequestTime(createTime);
+        record.setCreateTime(createTime);
+        record.setLogicRemove(false);
+        return externalInterfaceMsgDao.insertSelective(record);
+    }
 }
