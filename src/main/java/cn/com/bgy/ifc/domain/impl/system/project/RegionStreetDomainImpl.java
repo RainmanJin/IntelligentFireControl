@@ -64,8 +64,11 @@ public class RegionStreetDomainImpl implements RegionStreetDomain {
     @Override
     public int deleteRegionStreet( List<Long> list ) {
         if(list.size()>0){
-            regionBuildingDao.deleteRegionProjecBySuperId(list);
-            return regionStreetDao.deleteRegionStreet(list);
+            int count = regionBuildingDao.deleteRegionProjecBySuperId(list);
+            if(count>0){
+                return regionStreetDao.deleteRegionStreet(list);
+            }
+           return 0;
         }
         return 0;
     }

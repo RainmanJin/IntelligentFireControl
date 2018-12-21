@@ -1,7 +1,6 @@
 package cn.com.bgy.ifc.domain.impl.system.project;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
 import cn.com.bgy.ifc.dao.system.project.RegionInfoDao;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
@@ -96,10 +95,14 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
         return 0;
 
     }
-
+    /**
+     * @Author huxin
+     * @Description 查询所有区域
+     * @Date 2018/12/21 9:22
+     */
     @Override
     public List<Map<String, Object>> queryRegionInfoName() {
-        return null;
+        return regionInfoDao.queryRegionInfoName();
     }
 
     /**

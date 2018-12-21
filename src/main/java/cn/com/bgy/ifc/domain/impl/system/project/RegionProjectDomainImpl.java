@@ -12,7 +12,6 @@ import cn.com.bgy.ifc.entity.vo.system.project.RegionProjectVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sun.deploy.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,10 +93,14 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
         }
         return 0;
     }
-
+    /**
+     * @Author huxin
+     * @Description 根据父级id查询所有项目名
+     * @Date 2018/12/20 18:26
+     */
     @Override
     public List<Map<String, Object>> queryRegionProjectNameBySuperId(Long id) {
-        return null;
+         return regionProjectDao.queryRegionProjectNameBySuperId(id);
     }
 
     /**
@@ -159,4 +162,6 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
         Date createTime = new Date();
         return null;
     }
+
+
 }

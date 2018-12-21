@@ -5,6 +5,7 @@ import cn.com.bgy.ifc.entity.po.system.project.RegionInfo;
 import cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RegionInfoDao extends BaseDao<RegionInfo> {
 
@@ -13,4 +14,6 @@ public interface RegionInfoDao extends BaseDao<RegionInfo> {
     int updateRegionInfo(RegionInfoVo record);
 
     int deleteRegionInfo(List<Long> list);
+
+    List<Map<String, Object>> queryRegionInfoName();
 }
