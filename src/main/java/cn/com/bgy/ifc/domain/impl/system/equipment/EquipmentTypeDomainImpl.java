@@ -8,7 +8,7 @@ import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.equipment.EquipmentTypeDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.projects.BgyEquipmentTypeVo;
+import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentTypeVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

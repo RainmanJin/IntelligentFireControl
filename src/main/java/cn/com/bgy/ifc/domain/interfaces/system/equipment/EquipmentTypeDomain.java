@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.interfaces.system.equipment;
 
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.projects.BgyEquipmentTypeVo;
+import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentTypeVo;
 
 import java.util.List;
 

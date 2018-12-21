@@ -5,7 +5,7 @@ import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
 import cn.com.bgy.ifc.domain.impl.system.basic.ExternalInterfaceConfigDomainImpl;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig;
-import cn.com.bgy.ifc.entity.vo.projects.BgyEquipmentVersionVo;
+import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVersionVo;
 import cn.com.bgy.ifc.entity.vo.projects.EquipmentVo;
 import cn.com.bgy.ifc.service.interfaces.api.basic.EquipmentApiService;
 import com.alibaba.fastjson.JSONObject;

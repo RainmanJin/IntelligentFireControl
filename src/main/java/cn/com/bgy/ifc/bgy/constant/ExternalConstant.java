@@ -41,6 +41,38 @@ public class ExternalConstant {
         }
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:碧桂园集成平台使用状态
+     * @param:
+     * @return: 
+     */
+    public enum StatusType {
+        //正常
+        ADD(0,"正常"),
+        //禁用
+        PROHIBIT(1,"禁用"),
+        //删除
+        DELETE(2,"删除");
+
+        private Integer value;
+
+        private String name;
+
+        private StatusType(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
     /*
      * 平台接口枚举
      * */
@@ -78,7 +110,7 @@ public class ExternalConstant {
         //项目信息
         BGY_PROJECT_OBTAIN(2, "项目信息"),
         //品牌信息
-        BGY_BRAND_OBTAIN(3, "品牌信息"),
+        BGY_EQUIPMENT_BRAND_OBTAIN(3, "品牌信息"),
         //规格信息
         BGY_STANDARD_OBTAIN(4, "规格信息"),
         //设备类型

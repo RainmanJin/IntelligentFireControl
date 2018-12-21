@@ -1,11 +1,13 @@
-package cn.com.bgy.ifc.entity.vo.projects;
+package cn.com.bgy.ifc.entity.vo.equipment;
+
+import cn.com.bgy.ifc.entity.vo.projects.BgyBaseVo;
 
 /**
  * @author: ZhangCheng
- * @description:碧桂园集成平台类型VO
+ * @description:碧桂园集成平台设备类型VO
  * @date: 2018-12-21 11:57
  **/
-public class BgyEquipmentTypeVo extends BgyBaseVo  {
+public class BgyEquipmentTypeVo extends BgyBaseVo {
     /**
      * 设备类型名
      */
@@ -43,12 +45,4 @@ public class BgyEquipmentTypeVo extends BgyBaseVo  {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "BgyEquipmentType{" +
-                "name='" + name + '\'' +
-                ", parentId=" + parentId +
-                ", status=" + status +
-                '}';
-    }
 }

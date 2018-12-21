@@ -74,4 +74,14 @@ public class ExternalTask {
     public void obtainBgyEquipmentType(){
         bgyEquipmentService.baseObtainBgyEquipmentType(1, 100);
     }
+
+    /**
+     * @author: ZhangCheng
+     * @description:同步集成平台设备品牌
+     * @param: []
+     * @return: void
+     */
+    public void obtainBgyEquipmentBrand(){
+        bgyEquipmentService.baseObtainBgyEquipmentBrand(1,500);
+    }
 }
