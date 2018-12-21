@@ -1,15 +1,26 @@
 package cn.com.bgy.ifc.config.interceptor;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.mgt.SessionsSecurityManager;
+import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.LogoutFilter;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Configuration
 public class ShiroConfiguration {
@@ -17,31 +28,34 @@ public class ShiroConfiguration {
     //@Qualifier代表spring里面的
 
     @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager manager) {
-        ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
-        bean.setSecurityManager(manager);
+    public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager securityManager) {
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        bean.setLoginUrl("/sys/login");//提供登录到url
-        bean.setSuccessUrl("/sys/index");//提供登陆成功的url
-        bean.setUnauthorizedUrl("/sys/unauthorized");
 
-        /*
-         * 可以看DefaultFilter,这是一个枚举类，定义了很多的拦截器authc,anon等分别有对应的拦截器
-         * */
-        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/sys/index", "authc");//代表着前面的url路径，用后面指定的拦截器进行拦截
+        Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
+        LogoutFilter logoutFilter = new LogoutFilter();
+        logoutFilter.setRedirectUrl("/sys/login");
+        filters.put("logout", logoutFilter);
+        shiroFilterFactoryBean.setFilters(filters);
+
+
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
+//注意过滤器配置顺序 不能颠倒
+        //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了，登出后跳转配置的loginUrl
+        filterChainDefinitionMap.put("/logout", "logout");
+        // 配置不会被拦截的链接 顺序判断
+        filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/sys/login", "anon");
-        filterChainDefinitionMap.put("/sys/loginUser", "anon");
         filterChainDefinitionMap.put("/sys/getImage", "anon");
-        filterChainDefinitionMap.put("/sys/admin", "roles[admin]");//admin的url，要用角色是admin的才可以登录,对应的拦截器是RolesAuthorizationFilter
-        filterChainDefinitionMap.put("/edit", "perms[edit]");//拥有edit权限的用户才有资格去访问
-        filterChainDefinitionMap.put("/druid/**", "anon");//所有的druid请求，不需要拦截，anon对应的拦截器不会进行拦截
-        filterChainDefinitionMap.put("/**", "user");//所有的路径都拦截，被UserFilter拦截，这里会判断用户有没有登陆
-        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);//设置一个拦截器链
-
-        return bean;
+        filterChainDefinitionMap.put("/api/users/**", "anon");
+        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/**", "authc");
+        //配置shiro默认登录界面地址，前后端分离中登录界面跳转应由前端路由控制，后台仅返回json数据
+        shiroFilterFactoryBean.setLoginUrl("/api/unauth");
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        return shiroFilterFactoryBean;
     }
-
 
     /*
      * 注入一个securityManager
@@ -52,11 +66,55 @@ public class ShiroConfiguration {
         SecurityManager securityManager = factory.getInstance();
         SecurityUtils.setSecurityManager(securityManager);
      * */
-    @Bean("securityManager")
+    /*@Bean("securityManager")
     public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm) {
         //这个DefaultWebSecurityManager构造函数,会对Subject，realm等进行基本的参数注入
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(authRealm);//往SecurityManager中注入Realm，代替原本的默认配置
+        return manager;
+    }*/
+    /**
+     * cookie对象;
+     * rememberMeCookie()方法是设置Cookie的生成模版，比如cookie的name，cookie的有效时间等等。
+     * @return
+     */
+    @Bean
+    public SimpleCookie rememberMeCookie(){
+        //System.out.println("ShiroConfiguration.rememberMeCookie()");
+        //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
+        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        //<!-- 记住我cookie生效时间30天 ,单位秒;-->
+        simpleCookie.setMaxAge(259200);
+        return simpleCookie;
+    }
+    @Bean
+    public CookieRememberMeManager rememberMeManager(){
+        //System.out.println("ShiroConfiguration.rememberMeManager()");
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
+        cookieRememberMeManager.setCipherKey(Base64.decode("2AvVhdsgUs0FSA3SDFAdag=="));
+        return cookieRememberMeManager;
+    }
+
+    @Bean
+    public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm) {
+        DefaultWebSecurityManager sm = new DefaultWebSecurityManager();
+        sm.setRealm(authRealm);
+        sm.setCacheManager(new MemoryConstrainedCacheManager());
+        //注入记住我管理器
+        sm.setRememberMeManager(rememberMeManager());
+        //注入自定义sessionManager
+        sm.setSessionManager(sessionManager());
+        return sm;
+    }
+    @Bean("sessionManager")
+    public SessionManager sessionManager(){
+        MySessionManager manager = new MySessionManager();
+        /*使用了shiro自带缓存，
+		如果设置 redis为缓存需要重写CacheManager（其中需要重写Cache）
+		manager.setCacheManager(this.RedisCacheManager());*/
+        //manager.setSessionDAO(new EnterpriseCacheSessionDAO());
         return manager;
     }
 

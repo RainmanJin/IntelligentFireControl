@@ -7,6 +7,8 @@ import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.user.AccountVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -47,6 +49,9 @@ public class AccountController {
     @GetMapping("searchPage")
     @ResponseBody
     public ResponseVO<Object> searchPage(Page<Account> page,@Validated AccountVo accountVo, BindingResult error){
+        Subject subject = SecurityUtils.getSubject();
+        //subject.login(token);
+        Account user = (Account) subject.getPreviousPrincipals();
         Account account= new Account();
         CopyUtil.copyProperties(accountVo,account);
         PageInfo<Account> pageInfo=accountDomain.searchByPage(page,account);
