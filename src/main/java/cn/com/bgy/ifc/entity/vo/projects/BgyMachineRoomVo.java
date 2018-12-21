@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.entity.vo.projects;
 
 /**
  * @author: ZhangCheng
- * @description:集成平台机房
+ * @description:碧桂园集成平台机房VO
  * @date: 2018-12-19 19:27
  **/
 public class BgyMachineRoomVo extends BgyBaseVo {

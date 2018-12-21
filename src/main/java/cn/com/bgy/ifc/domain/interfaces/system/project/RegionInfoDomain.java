@@ -23,19 +23,26 @@ public interface RegionInfoDomain {
     List<Map<String, Object>> queryRegionInfoName();
 
     /**
-     * 集成平台全量增加区域信息
-     * @param list
-     * @param orgId
-     * @return
+     * @author: ZhangCheng
+     * @description:通过机构ID获取区域信息
+     * @param: [orgId]
+     * @return: java.util.List<cn.com.bgy.ifc.entity.po.system.project.RegionInfo>
+     */
+    List<RegionInfo> findByOrgId(Long orgId);
+
+    /**
+     * @author: ZhangCheng
+     * @description:集成平台全量增加区域信息
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     ResponseVO<Object> saveBgyRegionInfo(List<BgyRegionInfoVo> list, Long orgId);
 
     /**
-     * 集成平台增量增加区域信息
-     *
-     * @param list
-     * @param orgId
-     * @return
+     * @author: ZhangCheng
+     * @description:集成平台增量增加区域信息
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     ResponseVO<Object> alterBgyRegionInfo(List<BgyRegionInfoVo> list, Long orgId);
 }

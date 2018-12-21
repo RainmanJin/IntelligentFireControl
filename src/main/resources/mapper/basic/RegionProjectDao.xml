@@ -109,7 +109,7 @@
       AND p.logic_remove = 0
     </where>
   </select>
-  <update id="updateRegionProject" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionProject">
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionProject">
     UPDATE region_project
     <set>
       <if test="regionId != null">region_id =#{regionId},</if>
@@ -121,7 +121,6 @@
       <if test="createTime != null">create_Time =#{createTime}</if>
     </set>
     WHERE id = #{id}
-
   </update>
   <update id="deleteRegionProject" parameterType="java.util.List">
     UPDATE region_project set logic_remove =false where id IN

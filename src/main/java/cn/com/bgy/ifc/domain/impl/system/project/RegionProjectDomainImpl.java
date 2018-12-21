@@ -85,7 +85,7 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
     @Override
     public int updateRegionProjec(RegionProject record) {
         record.setCreateTime(new Date());
-        return regionProjectDao.updateRegionProject(record);
+        return regionProjectDao.updateSelective(record);
     }
 
     /**
@@ -145,7 +145,6 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
                     project.setLongitude(locationStr.substring(0,locationStr.indexOf(",")));
                     project.setLatitude(locationStr.substring(locationStr.indexOf(",")+1,locationStr.length()));
                 }
-               // project.setAscription(bgyProjectVo.get);
                 project.setCreateTime(createTime);
                 project.setLogicRemove(false);
                 infoList.add(project);
@@ -179,7 +178,51 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
         int updateCount = 0;
         int deleteCount = 0;
         Date createTime = new Date();
-        return null;
+        for (BgyProjectVo bgyProjectVo : list) {
+            RegionProject project = new RegionProject();
+            project.setId(bgyProjectVo.getId());
+            project.setOrganizationId(orgId);
+            project.setRegionId(bgyProjectVo.getAreaId());
+            project.setCode(bgyProjectVo.getCode());
+            project.setName(bgyProjectVo.getName());
+            String locationStr=bgyProjectVo.getLocationStr();
+            if(locationStr.contains(",")){
+                project.setLongitude(locationStr.substring(0,locationStr.indexOf(",")));
+                project.setLatitude(locationStr.substring(locationStr.indexOf(",")+1,locationStr.length()));
+            }
+            project.setCreateTime(createTime);
+            project.setLogicRemove(false);
+            int operType = bgyProjectVo.getOperType();
+            //新增
+            if (operType == addType) {
+                int count = regionProjectDao.insertSelective(project);
+                if (count == 1) {
+                    addCount++;
+                }
+            }
+            //修改
+            if (operType == updateType) {
+                int count = regionProjectDao.updateSelective(project);
+                if (count == 1) {
+                    updateCount++;
+                }
+            }
+            //删除
+            if (operType == deleteType) {
+                project.setLogicRemove(true);
+                int count = regionProjectDao.updateSelective(project);
+                if (count == 1) {
+                    deleteCount++;
+                }
+            }
+        }
+        if (addCount + updateCount + deleteCount != totalCount) {
+            throw new RuntimeException("批量同步项目增量数据失败!");
+        } else {
+            int msgType = ExternalConstant.MsgTypeValue.BGY_PROJECT_OBTAIN.getValue();
+            externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
+            return ResponseVO.success().setMsg("同步集成平台项目增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
+        }
     }
 
 

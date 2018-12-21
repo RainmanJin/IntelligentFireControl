@@ -1,9 +1,11 @@
 package cn.com.bgy.ifc.service.interfaces.api.basic;
 
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig;
+import cn.com.bgy.ifc.entity.po.system.project.RegionInfo;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: ZhangCheng
@@ -18,7 +20,7 @@ public interface BgyProjectService {
      * @param: [pageNo, pageSize, areaId]
      * @return: void
      */
-    ResponseVO<Object> baseObtainBgyProject(int pageNo, int pageSize, Integer areaId);
+    ResponseVO<Object> baseObtainBgyProject(int pageNo, int pageSize);
 
     /**
      * @author: ZhangCheng
@@ -26,7 +28,7 @@ public interface BgyProjectService {
      * @param: [pageNo, pageSize, areaId]
      * @return: void
      */
-    ResponseVO<Object> obtainBgyProject(int pageNo, int pageSize, ExternalInterfaceConfig config, Integer areaId) throws Exception;
+    ResponseVO<Object> obtainBgyProject(int pageNo, int pageSize, ExternalInterfaceConfig config, List<RegionInfo> infoList) throws Exception;
 
     /**
      * @author: ZhangCheng
@@ -34,6 +36,6 @@ public interface BgyProjectService {
      * @param: [pageNo, pageSize, areaId]
      * @return: void
      */
-    ResponseVO<Object> obtainBgyProjectIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime, Integer areaId) throws Exception;
+    ResponseVO<Object> obtainBgyProjectIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime, List<RegionInfo> infoList) throws Exception;
 
 }

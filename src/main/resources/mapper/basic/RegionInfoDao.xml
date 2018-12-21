@@ -101,6 +101,13 @@
             AND logic_remove = 0
         </where>
     </select>
+
+    <select id="findByOrgId" parameterType="Long" resultMap="BaseResultMap">
+		SELECT
+		id, organization_id, code, name
+		FROM region_info WHERE organization_id = #{orgId} AND logic_remove=0
+  </select>
+
     <update id="updateRegionInfo" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo">
         UPDATE region_info
         <set>

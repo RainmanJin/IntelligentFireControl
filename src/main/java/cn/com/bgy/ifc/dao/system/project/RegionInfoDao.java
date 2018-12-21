@@ -5,7 +5,6 @@ import cn.com.bgy.ifc.entity.po.system.project.RegionInfo;
 import cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo;
 
 import java.util.List;
-import java.util.Map;
 
 public interface RegionInfoDao extends BaseDao<RegionInfo> {
 
@@ -15,5 +14,11 @@ public interface RegionInfoDao extends BaseDao<RegionInfo> {
 
     int deleteRegionInfo(List<Long> list);
 
-    List<Map<String, Object>> queryRegionInfoName();
+    /**
+     * @author: ZhangCheng
+     * @description:通过机构ID获取区域信息
+     * @param: [orgId]
+     * @return: java.util.List<cn.com.bgy.ifc.entity.po.system.project.RegionInfo>
+     */
+    List<RegionInfo> findByOrgId(Long orgId);
 }

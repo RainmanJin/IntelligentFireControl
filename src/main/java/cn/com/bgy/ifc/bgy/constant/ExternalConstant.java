@@ -17,20 +17,27 @@ public class ExternalConstant {
      * */
     public enum OperationType {
         //新增
-        ADD(1),
+        ADD(1,"新增"),
         //删除
-        DELETE(2),
+        DELETE(2,"删除"),
         //修改
-        UPDATE(3);
+        UPDATE(3,"修改");
 
         private Integer value;
 
-        private OperationType(Integer value) {
+        private String name;
+
+        private OperationType(Integer value, String name) {
             this.value = value;
+            this.name = name;
         }
 
         public Integer getValue() {
             return value;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 
@@ -39,16 +46,23 @@ public class ExternalConstant {
      * */
     public enum PlatformValue {
         //碧桂园集成平台接口
-        INTEGERATED_PLATFORM(1);
+        INTEGERATED_PLATFORM(1,"碧桂园集成平台接口");
 
         private Integer value;
 
-        private PlatformValue(Integer value) {
+        private String name;
+
+        private PlatformValue(Integer value, String name) {
             this.value = value;
+            this.name = name;
         }
 
         public Integer getValue() {
             return value;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 

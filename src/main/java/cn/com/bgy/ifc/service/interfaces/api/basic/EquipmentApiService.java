@@ -35,16 +35,4 @@ public interface EquipmentApiService {
      * @return: void
      */
     void obtainBgyEquipmentVersionIncrement(int pageNo, int pageSize);
-    /**
-     * @Author huxin
-     * @Description 获取集成平台设备类型
-     * @Date 2018/12/12 16:10
-     */
-    void obtainEquipmentType(int pageNo, int pageSize);
-    /**
-     * @Author huxin
-     * @Description 获取集成平台设备类型（增量）
-     * @Date 2018/12/12 16:12
-     */
-    void obtainListEquipmentType(String startTime,int pageNo, int pageSize);
 }

@@ -37,6 +37,7 @@ public class EntityUtil {
         for (int i = 0; i < fieldLen; i++) {
             // 获取属性的名字
             String name = field[i].getName();
+            if(name.equals("serialVersionUID")) continue;
             // 将属性的首字符大写，方便构造get，set方法
             String oName = name.substring(0, 1).toUpperCase() + name.substring(1);
             Method method = object.getClass().getMethod("get" + oName);

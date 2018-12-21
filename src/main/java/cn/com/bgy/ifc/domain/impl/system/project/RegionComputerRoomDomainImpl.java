@@ -120,7 +120,6 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
     @Transactional
     @Override
     public int updateRegionComputerRoom( RegionComputerRoom record ) {
-
         if(record.getId()>0){
             //查询苑区信息
             RegionComputerRoom computerRoom = regionComputerRoomDao.queryRegionComputerRoomById(record.getId());
@@ -146,7 +145,7 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                 RegionProject project = new RegionProject();
                 project.setId(record.getProjectId());
                 project.setRegionId(record.getRegionId());
-                regionProjectDao.updateRegionProject(project);
+                regionProjectDao.updateSelective(project);
             }
             //查询苑区名
             String courtName = regionCourtDao.queryRegionCourtNameById(record.getCourtId());

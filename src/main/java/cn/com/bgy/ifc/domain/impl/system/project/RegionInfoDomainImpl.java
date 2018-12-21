@@ -130,6 +130,17 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
 
     /**
      * @author: ZhangCheng
+     * @description:通过机构ID获取区域信息
+     * @param: [orgId]
+     * @return: java.util.List<cn.com.bgy.ifc.entity.po.system.project.RegionInfo>
+     */
+    @Override
+    public List<RegionInfo> findByOrgId(Long orgId) {
+        return regionInfoDao.findByOrgId(orgId);
+    }
+
+    /**
+     * @author: ZhangCheng
      * @description:同步区域全量
      * @param: [list, orgId]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
@@ -142,7 +153,7 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
             for (BgyRegionInfoVo bgyRegionInfoVo : list) {
                 RegionInfo info = new RegionInfo();
                 info.setId(bgyRegionInfoVo.getId());
-                info.setOrganizationId(bgyRegionInfoVo.getOrganizationId());
+                info.setOrganizationId(orgId);
                 info.setCode(bgyRegionInfoVo.getCode());
                 info.setName(bgyRegionInfoVo.getName());
                 info.setCreateTime(createTime);
@@ -182,7 +193,7 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
         for (BgyRegionInfoVo bgyRegionInfoVo : list) {
             RegionInfo info = new RegionInfo();
             info.setId(bgyRegionInfoVo.getId());
-            info.setOrganizationId(bgyRegionInfoVo.getOrganizationId());
+            info.setOrganizationId(orgId);
             info.setCode(bgyRegionInfoVo.getCode());
             info.setName(bgyRegionInfoVo.getName());
             info.setCreateTime(createTime);
@@ -204,7 +215,7 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
             }
             //删除
             if (operType == deleteType) {
-                bgyRegionInfoVo.setLogicRemove(true);
+                info.setLogicRemove(true);
                 int count = regionInfoDao.updateSelective(info);
                 if (count == 1) {
                     deleteCount++;
@@ -216,7 +227,7 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
         } else {
             int msgType = ExternalConstant.MsgTypeValue.BGY_REGION_OBTAIN.getValue();
             externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
-            return ResponseVO.success().setMsg("同步集成平台区域总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
+            return ResponseVO.success().setMsg("同步集成平台区域增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
     }
 }
