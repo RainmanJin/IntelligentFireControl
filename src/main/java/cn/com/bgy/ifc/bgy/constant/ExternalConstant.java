@@ -122,7 +122,9 @@ public class ExternalConstant {
         //集成平台获取用户权限
         BGY_PERMISSION_OBTAIN(8, "权限信息"),
         //集成平台获取机构
-        BGY_ORG_OBTAIN(9, "机构信息");
+        BGY_ORG_OBTAIN(9, "机构信息"),
+        //设备型号
+        BGY_EQUIPMENT_VERSION_OBTAIN(10, "设备型号"),;
 
         private Integer value;
         private String name;

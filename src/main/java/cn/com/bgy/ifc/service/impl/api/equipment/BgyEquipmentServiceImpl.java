@@ -219,4 +219,19 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
             return ResponseVO.success().setMsg("暂无集成平台设备品牌增量数据同步！");
         }
     }
+
+    @Override
+    public ResponseVO<Object> baseObtainBgyEquipmentVersion(int pageNo, int pageSize) {
+        return null;
+    }
+
+    @Override
+    public ResponseVO<Object> obtainBgyEquipmentVersion(int pageNo, int pageSize, ExternalInterfaceConfig config) throws Exception {
+        return null;
+    }
+
+    @Override
+    public ResponseVO<Object> obtainBgyEquipmentVersionIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
+        return null;
+    }
 }

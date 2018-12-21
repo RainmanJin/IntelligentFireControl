@@ -16,7 +16,7 @@ public class EquipmentVersion {
     //型号描述
     private String description;
     //是否删除  0存在   1删除
-    private Byte logicRemove;
+    private Boolean logicRemove;
 
     public Long getId() {
         return id;
@@ -58,11 +58,11 @@ public class EquipmentVersion {
         this.description = description;
     }
 
-    public Byte getLogicRemove() {
+    public Boolean getLogicRemove() {
         return logicRemove;
     }
 
-    public void setLogicRemove(Byte logicRemove) {
+    public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
     }
 }
