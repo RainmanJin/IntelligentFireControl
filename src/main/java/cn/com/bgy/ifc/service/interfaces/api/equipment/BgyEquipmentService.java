@@ -14,7 +14,7 @@ public interface BgyEquipmentService {
 
     /**
      * @author: ZhangCheng
-     * @description:碧桂园集成平台机构信息同步
+     * @description:碧桂园集成平台设备类型信息同步
      * @param: [pageNo, pageSize]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
@@ -34,5 +34,29 @@ public interface BgyEquipmentService {
      * @param: [pageNo, pageSize, config, createTime]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    ResponseVO<Object> obtainBgyEquipmentType(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime)throws Exception;
+    ResponseVO<Object> obtainBgyEquipmentTypeIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime)throws Exception;
+
+    /**
+     * @author: ZhangCheng
+     * @description:碧桂园集成平台设备品牌信息同步
+     * @param: [pageNo, pageSize]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    ResponseVO<Object> baseObtainBgyEquipmentBrand(int pageNo, int pageSize);
+
+    /**
+     * @author: ZhangCheng
+     * @description:获取集成平台设备品牌信息（全量）
+     * @param: [pageNo, pageSize, config]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    ResponseVO<Object> obtainBgyEquipmentBrand(int pageNo, int pageSize, ExternalInterfaceConfig config)throws Exception;
+
+    /**
+     * @author: ZhangCheng
+     * @description:获取集成平台设备品牌信息（增量）
+     * @param: [pageNo, pageSize, config, createTime]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    ResponseVO<Object> obtainBgyEquipmentBrandIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime)throws Exception;
 }

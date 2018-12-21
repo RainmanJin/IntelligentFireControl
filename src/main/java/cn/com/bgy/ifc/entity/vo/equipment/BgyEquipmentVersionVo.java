@@ -1,8 +1,10 @@
-package cn.com.bgy.ifc.entity.vo.projects;
+package cn.com.bgy.ifc.entity.vo.equipment;
+
+import cn.com.bgy.ifc.entity.vo.projects.BgyBaseVo;
 
 /**
  * @author: ZhangCheng
- * @description:
+ * @description:碧桂园集成平台设备型号VO
  * @date: 2018-12-12 15:20
  **/
 public class BgyEquipmentVersionVo extends BgyBaseVo {
@@ -59,13 +61,4 @@ public class BgyEquipmentVersionVo extends BgyBaseVo {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "BgyEquipmentVersionVo{" +
-                "brandId=" + brandId +
-                ", name='" + name + '\'' +
-                ", status=" + status +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }
