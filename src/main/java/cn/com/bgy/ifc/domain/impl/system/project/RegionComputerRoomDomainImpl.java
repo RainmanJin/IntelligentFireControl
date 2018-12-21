@@ -122,6 +122,7 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
     public int updateRegionComputerRoom( RegionComputerRoom record ) {
 
         if(record.getId()>0){
+            //查询苑区信息
             RegionComputerRoom computerRoom = regionComputerRoomDao.queryRegionComputerRoomById(record.getId());
             //修改街道信息
             if(computerRoom.getStreetId() != record.getStreetId()){

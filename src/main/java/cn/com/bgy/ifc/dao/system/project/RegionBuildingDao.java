@@ -25,6 +25,6 @@ public interface RegionBuildingDao {
     List<Map<String,Object>> queryRegionBuildingtNameBySuperId( Long id);
 
     //根据父级id删除所有楼栋单元
-    int deleteRegionProjecBySuperId(List<Long> list);
+    int deleteRegionBuildingBySuperId(List<Long> list);
 
 }

@@ -2,7 +2,8 @@ package cn.com.bgy.ifc.domain.impl.system.project;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
-import cn.com.bgy.ifc.dao.system.project.RegionInfoDao;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.dao.system.project.*;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.project.RegionInfoDomain;
 import cn.com.bgy.ifc.entity.po.system.project.RegionInfo;
@@ -40,6 +41,21 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
+
+    @Resource
+    private RegionProjectDao regionProjectDao;
+
+    @Resource
+    private RegionCourtDao regionCourtDao;
+
+    @Resource
+    private RegionStreetDao regionStreetDao;
+
+    @Resource
+    private RegionBuildingDao regionBuildingDao;
+
+    @Resource
+    private RegionComputerRoomDao regionComputerRoomDao;
     /**
      * @Author huxin
      * @Description 查询
@@ -84,12 +100,19 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
     @Transactional
     @Override
     public int deleteRegionInfo(String str) {
-        List<Long> list = new ArrayList<>();
-        String arr[] = str.split(",");
-        if (arr.length > 0) {
-            for (int i = 0; i < arr.length; i++) {
-                list.add(Long.valueOf(arr[i]));
-            }
+        List<Long> list = ListUtil.getListId(str);
+        if(list.size()>0){
+            //删除机房信息
+            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
+            //删除区域信息
+            regionBuildingDao.deleteRegionBuildingBySuperId(list);
+            //删除街道
+            regionStreetDao.deleteRegionStreetBySuperId(list);
+            //删除苑区信息
+            regionCourtDao.deleteRegionCourtBySuperId(list);
+            //删除项目信息
+            regionProjectDao.deleteRegionProjecBySuperId(list);
+            //删除区域信息
             return regionInfoDao.deleteRegionInfo(list);
         }
         return 0;

@@ -2,7 +2,8 @@ package cn.com.bgy.ifc.domain.impl.system.project;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
-import cn.com.bgy.ifc.dao.system.project.RegionProjectDao;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.dao.system.project.*;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.project.RegionProjectDomain;
 import cn.com.bgy.ifc.entity.po.system.project.RegionProject;
@@ -38,6 +39,18 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
 
     @Resource
     private RegionProjectDao regionProjectDao;
+
+    @Resource
+    private RegionCourtDao regionCourtDao;
+
+    @Resource
+    private RegionStreetDao regionStreetDao;
+
+    @Resource
+    private RegionBuildingDao regionBuildingDao;
+
+    @Resource
+    private RegionComputerRoomDao regionComputerRoomDao;
 
     /**
      * @Author huxin
@@ -83,12 +96,18 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
     @Transactional
     @Override
     public int deleteRegionProjec(String str) {
-        List<Long> list = new ArrayList<>();
-        String arr[] = str.split(",");
-        if (arr.length > 0) {
-            for (int i = 0; i < arr.length; i++) {
-                list.add(Long.valueOf(arr[i]));
-            }
+        List<Long> list = ListUtil.getListId(str);
+
+        if(list.size()>0){
+            //删除机房
+            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
+            //删除楼栋
+            regionBuildingDao.deleteRegionBuildingBySuperId(list);
+            //删除街道
+            regionStreetDao.deleteRegionStreetBySuperId(list);
+            //删除苑区
+            regionCourtDao.deleteRegionCourtBySuperId(list);
+            //删除项目
             return regionProjectDao.deleteRegionProject(list);
         }
         return 0;

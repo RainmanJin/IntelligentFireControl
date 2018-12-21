@@ -1,6 +1,9 @@
 package cn.com.bgy.ifc.domain.impl.system.project;
 
+import cn.com.bgy.ifc.dao.system.project.RegionBuildingDao;
+import cn.com.bgy.ifc.dao.system.project.RegionComputerRoomDao;
 import cn.com.bgy.ifc.dao.system.project.RegionCourtDao;
+import cn.com.bgy.ifc.dao.system.project.RegionStreetDao;
 import cn.com.bgy.ifc.domain.interfaces.system.project.RegionCourtDomain;
 import cn.com.bgy.ifc.entity.po.system.project.RegionCourt;
 import cn.com.bgy.ifc.entity.vo.system.project.RegionCourtVo;
@@ -20,6 +23,16 @@ import java.util.Map;
 public class RegionCourtDomainImpl implements RegionCourtDomain {
     @Resource
     private RegionCourtDao regionCourtDao;
+
+    @Resource
+    private RegionStreetDao regionStreetDao;
+
+    @Resource
+    private RegionBuildingDao regionBuildingDao;
+
+    @Resource
+    private RegionComputerRoomDao regionComputerRoomDao;
+
     /**
      * @Author huxin
      * @Description 查
@@ -57,7 +70,18 @@ public class RegionCourtDomainImpl implements RegionCourtDomain {
      */
     @Override
     public int deleteRegionCourt( List<Long> list ) {
-        return regionCourtDao.deleteRegionCourt(list);
+
+        if(list.size()>0){
+            //删除机房
+            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
+            //删除楼栋
+            regionBuildingDao.deleteRegionBuildingBySuperId(list);
+            //删除街道
+            regionStreetDao.deleteRegionStreetBySuperId(list);
+            //删除苑区
+            return regionCourtDao.deleteRegionCourt(list);
+        }
+        return 0;
     }
     /**
      * @Author huxin
