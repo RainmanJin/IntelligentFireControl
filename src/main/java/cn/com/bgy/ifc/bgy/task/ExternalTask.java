@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.bgy.task;
 
+import cn.com.bgy.ifc.service.interfaces.api.basic.UserApiService;
 import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyEquipmentService;
 import cn.com.bgy.ifc.service.interfaces.api.basic.BgyOrgService;
 import cn.com.bgy.ifc.service.interfaces.api.basic.BgyProjectService;
@@ -32,6 +33,9 @@ public class ExternalTask {
     @Autowired
     private BgyEquipmentService bgyEquipmentService;
 
+    @Autowired
+    private UserApiService userApiService;
+
     /**
      * @author: ZhangCheng
      * @description:1.同步集成平台机构
@@ -41,6 +45,16 @@ public class ExternalTask {
     public void obtainBgyOrg(){
         bgyOrgService.baseObtainBgyOrg(1,50);
         System.out.println("同步集成平台机构");
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:2.同步集成平台用户
+     * @param: []
+     * @return: void
+     */
+    public void obtainUser(){
+        userApiService.baseObtainBgyUser(1,1000);
     }
 
     /**

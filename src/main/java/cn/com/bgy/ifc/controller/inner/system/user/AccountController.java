@@ -54,7 +54,7 @@ public class AccountController {
         Account user = (Account) subject.getPreviousPrincipals();
         Account account= new Account();
         CopyUtil.copyProperties(accountVo,account);
-        PageInfo<Account> pageInfo=accountDomain.searchByPage(page,account);
+        //PageInfo<Account> pageInfo=accountDomain.searchByPage(page,account);
 //        Account account= new Account();
 //        CopyUtil.copyProperties(accountVo,account);
         PageInfo<AccountVo> pageInfo=accountDomain.searchByPage(page,accountVo);

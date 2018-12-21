@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.dao.system.project;
+package cn.com.bgy.ifc.dao.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.quipment.EquipmentInfo;
 
