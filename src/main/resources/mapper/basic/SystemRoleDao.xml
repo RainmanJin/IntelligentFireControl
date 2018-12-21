@@ -169,5 +169,5 @@
 	        s1.logic_remove = FALSE
 	    AND s2.user_id = #{userId}
   </select>
--->
+ -->
 </mapper>
