@@ -157,7 +157,7 @@
          ) and logic_remove=0
   </select>
 <!--根据用户登录id查询系统角色 下拉框展示-->
-    <select id="queryListByUserId" parameterType="Long" resultType="cn.com.bgy.ifc.entity.vo.system.basic.SystemRoleVo">
+   <!-- <select id="queryListByUserId" parameterType="Long" resultType="cn.com.bgy.ifc.entity.vo.system.basic.SystemRoleVo">
 		SELECT
             s1.id,
             s1.NAME
@@ -169,5 +169,5 @@
 	        s1.logic_remove = FALSE
 	    AND s2.user_id = #{userId}
   </select>
-
+ -->
 </mapper>
