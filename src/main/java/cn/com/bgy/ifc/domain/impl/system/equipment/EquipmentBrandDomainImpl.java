@@ -6,6 +6,7 @@ import cn.com.bgy.ifc.dao.equipment.EquipmentBrandDao;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.equipment.EquipmentBrandDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentBrandVo;
 import org.slf4j.Logger;
@@ -24,6 +25,42 @@ import java.util.List;
  **/
 @Service
 public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
+    /**
+     * @Author huxin
+     * @Description 查
+     * @Date 2018/12/21 18:37
+     */
+    @Override
+    public void queryListEquipmentBrand() {
+
+    }
+    /**
+     * @Author huxin
+     * @Description 增
+     * @Date 2018/12/21 18:37
+     */
+    @Override
+    public int addEquipmentBrand( EquipmentBrand equipmentBrand ) {
+        return 0;
+    }
+    /**
+     * @Author huxin
+     * @Description 删除
+     * @Date 2018/12/21 18:37
+     */
+    @Override
+    public int updateEquipmentBrand( EquipmentBrand equipmentBrand ) {
+        return 0;
+    }
+    /**
+     * @Author huxin
+     * @Description 添加
+     * @Date 2018/12/21 18:38
+     */
+    @Override
+    public int deleteEquipmentBrand( String str ) {
+        return 0;
+    }
 
     private static Logger logger = LoggerFactory.getLogger(EquipmentBrandDomainImpl.class);
 

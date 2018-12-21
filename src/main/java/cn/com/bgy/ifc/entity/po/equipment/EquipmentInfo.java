@@ -4,11 +4,15 @@
 * Copyright(C) 2017-2020 fendo公司
 * @date 2018-12-13
 */
-package cn.com.bgy.ifc.entity.po.equipment.quipment;
+package cn.com.bgy.ifc.entity.po.equipment;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * @Author huxin
+ * @Description 设备信息
+ * @Date 2018/12/21 10:44
+ */
 public class EquipmentInfo implements Serializable {
     /**
      * 系统自增ID
@@ -80,6 +84,8 @@ public class EquipmentInfo implements Serializable {
      */
     private String description;
 
+    //逻辑删除
+    private Boolean logicRemove;
     /**
      * equipment_info
      */
@@ -307,5 +313,13 @@ public class EquipmentInfo implements Serializable {
      */
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
+
+    public void setLogicRemove( Boolean logicRemove ) {
+        this.logicRemove = logicRemove;
     }
 }

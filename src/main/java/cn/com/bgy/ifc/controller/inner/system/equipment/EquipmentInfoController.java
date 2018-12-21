@@ -1,0 +1,81 @@
+package cn.com.bgy.ifc.controller.inner.system.equipment;
+
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * @Author huxin
+ * @Date 2018/12/21 11:04
+ * @Description 设备信息
+ **/
+@Controller
+@RequestMapping("/basic/EquipmentInfo")
+public class EquipmentInfoController {
+
+    @Autowired
+    private EquipmentInfoService equipmentInfoService;
+
+    /**
+     * @Author huxin
+     * @Description 查询
+     * @Date 2018/12/21 11:08
+     */
+    @PostMapping("query")
+    @ResponseBody
+    public void queryListEquipmentInfo(String token){
+
+    }
+    /**
+     * @Author huxin
+     * @Description 增加
+     * @Date 2018/12/21 11:09
+     */
+    @PostMapping("add")
+    @SystemLogAfterSave(type = 1,description = "设备信息添加")
+    @ResponseBody
+    public ResponseVO<Object> addEquipmentInfo( EquipmentInfo equipmentInfo ,String token){
+        int count = equipmentInfoService.addEquipmentInfo(equipmentInfo);
+        if (count > 0) {
+            return ResponseVO.success().setMsg("添加成功");
+        }
+        return ResponseVO.error().setMsg("添加失败！");
+    }
+    /**
+     * @Author huxin
+     * @Description 修改
+     * @Date 2018/12/21 11:10
+     */
+    @PostMapping("update")
+    @SystemLogAfterSave(type = 1,description = "设备信息修改")
+    @ResponseBody
+    public ResponseVO<Object> updateEquipmentInfo(EquipmentInfo equipmentInfo,String token){
+        int count = equipmentInfoService.updateEquipmentInfo(equipmentInfo);
+        if (count == 1) {
+            return ResponseVO.success().setMsg("修改成功");
+        }
+        return ResponseVO.error().setMsg("修改失败！");
+    }
+    /**
+     * @Author huxin
+     * @Description 删除
+     * @Date 2018/12/21 11:10
+     */
+    @PostMapping("delete")
+    @SystemLogAfterSave(type = 1,description = "设备信息删除")
+    @ResponseBody
+    public ResponseVO<Object> deleteEquipmentInfo(String arr,String token){
+
+        int count = equipmentInfoService.deleteEquipmentInfo(arr);
+        if (count > 0) {
+            return ResponseVO.success().setMsg("删除成功");
+        }
+        return ResponseVO.error().setMsg("删除失败！");
+    }
+}
