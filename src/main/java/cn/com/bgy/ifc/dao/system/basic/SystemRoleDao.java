@@ -27,8 +27,15 @@ public interface SystemRoleDao {
      * @param longs
      */
     void  deleteRole(Long[] longs);
-
+    /**
+     * YanXiaoLu
+     * 根据当前用户查询父级部门名称（前端下拉展示）
+     * @param userId
+     * @return
+     */
      List<SystemRole> queryListByUserId(Long userId);
+
+
 
 
 

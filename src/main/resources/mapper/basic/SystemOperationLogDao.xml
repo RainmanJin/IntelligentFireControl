@@ -83,7 +83,7 @@
             </if>
         </trim>
     </insert>
-
+<!--分页条件查询系统日志-->
     <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.SystemOperationLogVo" resultMap="BaseResultMap">
         SELECT
         l.id,l.ip,l.create_time,l.logic_remove,l.log_type,l.operator_content,

@@ -41,4 +41,11 @@ public interface SystemOrganizationDomain {
      * @return
      */
     ResponseVO<Object> alterBgyOrgList(List<BgyOrgVo> list,Long orgId);
+
+    /**
+     * 根据当前登录用获取机构
+     * @param userId
+     * @return
+     */
+    SystemOrganization querySystemOrganizationByUserId(Long userId);
 }

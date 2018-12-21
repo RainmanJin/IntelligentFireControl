@@ -4,8 +4,10 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.TreeUtil;
+import cn.com.bgy.ifc.domain.interfaces.system.basic.SystemOrganizationDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.user.DepartmentDomain;
 import cn.com.bgy.ifc.entity.po.basic.Department;
+import cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.DepartmentVo;
 import com.github.pagehelper.Page;
@@ -17,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,8 +30,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/basic/department")
 public class DepartmentController {
+
     @Autowired
     private DepartmentDomain departmentDomain;
+
+    @Autowired
+    private SystemOrganizationDomain systemOrganizationDomain;
 
     /**
      * @author: ZhangCheng
@@ -88,10 +95,11 @@ public class DepartmentController {
     }
 
     /**
-     * @author: ZhangCheng
-     * @description:部门信息添加
-     * @param: [departmentVo, error]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * YanXiaoLu
+     * 根据当前登录用户添加部门
+     * @param departmentVo
+     * @param error
+     * @return
      */
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "部门信息添加")
@@ -101,14 +109,45 @@ public class DepartmentController {
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
+        if(departmentVo.getUserId()==null){
+            return ResponseVO.error().setMsg("userId参数异常");
+        }
+        //根据当前登录用户的id获取机构
+        SystemOrganization systemOrganization=systemOrganizationDomain.querySystemOrganizationByUserId(departmentVo.getUserId());
+        if (systemOrganization==null){
+            return ResponseVO.error().setMsg("当前登录用户没有所属机构");
+        }
         Department department = new Department();
         CopyUtil.copyProperties(departmentVo, department);
+        if(departmentVo.getParentId()==null){
+            department.setParentId(0L);
+        }
+        department.setOrganizationId(systemOrganization.getId());
+        department.setCreateTime(new Date());
+        department.setState(1);
+        department.setLogicRemove(false);
         int count = departmentDomain.insert(department);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功！");
         }
         return ResponseVO.error().setMsg("修改失败！");
     }
+    /**
+     * @author: YanXiaoLu
+     * @description:根据登录用户查询部门（下拉框展示）
+     * @param:
+     * @return:
+     */
+    @GetMapping("findParentNameByUserId")
+    @ResponseBody
+    public ResponseVO<List<Department>> findParentNameByUserId(Long userId) {
+        DepartmentVo departmentVo = new DepartmentVo();
+        departmentVo.setState(SystemConstant.EnableState.ENABLE.getValue());
+        List<Department> list = departmentDomain.findParentNameByUserId(userId);
+        return ResponseVO.<List<Department>>success().setData(list);
+    }
+
+
 
     /**
      * @author: ZhangCheng

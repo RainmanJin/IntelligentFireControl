@@ -242,7 +242,7 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <!--分页-->
+    <!--分页条件查询机构管理-->
     <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization"
             resultMap="BaseResultMap">
         select
@@ -277,4 +277,32 @@
             #{item}
         </foreach>
     </update>
+    <!--根据当前登录用户获取机构对象-->
+    <select id="querySystemOrganizationByUserId" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+            id,
+            CODE,
+            NAME,
+            description,
+            legal_person,
+            nature,
+            scale,
+            telephone,
+            fixed_telephone,
+            email,
+            fax_num,
+            register_address,
+            home_page,
+            state,
+            user_id,
+            register_time,
+            create_time,
+            logic_remove
+        FROM
+            system_organization
+        WHERE
+            logic_remove = FALSE
+	    AND
+	        user_id = #{userId,jdbcType=BIGINT}
+    </select>
 </mapper>

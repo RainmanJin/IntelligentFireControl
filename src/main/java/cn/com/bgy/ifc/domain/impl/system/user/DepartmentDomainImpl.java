@@ -77,4 +77,17 @@ public class DepartmentDomainImpl implements DepartmentDomain {
         return departmentDao.update(department);
     }
 
+    @Override
+    public List<Department> findParentNameByUserId(Long userId) {
+        return departmentDao.findParentNameByUserId(userId);
+    }
+
+    /**
+     * YanXiaoLu
+     * 根据登录用户查询父级部门名称
+     * @param userId
+     * @return
+     */
+
+
 }

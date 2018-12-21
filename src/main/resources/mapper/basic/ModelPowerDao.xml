@@ -8,6 +8,7 @@
         <result column="remark" jdbcType="VARCHAR" property="remark" />
         <result column="modelName" jdbcType="VARCHAR" property="modelName" />
     </resultMap>
+    <!--分页查询系统权限-->
     <select id="queryPageList" resultMap="BaseResultMap" parameterType="cn.com.bgy.ifc.entity.po.system.basic.ModelPower">
     SELECT
     sp.id AS id,

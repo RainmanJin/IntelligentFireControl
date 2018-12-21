@@ -70,7 +70,6 @@ public class AccountDomainImpl implements AccountDomain {
      * @return
      */
     @Override
-
     public Account findAccountByUserName(String telephone) {
         Account account = accountDao.findAccountByUserName(telephone);
         return account;

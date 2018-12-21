@@ -85,6 +85,11 @@ public class SystemRoleDomainImpl  implements SystemRoleDomain {
         systemRoleDao.deleteRole(longs);
     }
 
+    /**
+     * 根据登录用户查询系统角色（下拉展示）
+     * @param userId
+     * @return
+     */
     @Override
     public List<SystemRole> queryListByUserId(Long userId) {
         return systemRoleDao.queryListByUserId(userId);

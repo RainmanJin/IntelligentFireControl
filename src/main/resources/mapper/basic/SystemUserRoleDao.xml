@@ -68,24 +68,24 @@
     LEFT JOIN system_user_role t3 ON t3.user_id = t1.id
     LEFT JOIN system_role t2 ON t3.role_id = t2.id
     WHERE
-    t5.user_id = 1
+    t5.user_id = #{userId,jdbcType=BIGINT}
     GROUP BY
     t1.id,
     t2.id
     ) a
     GROUP BY
     a.id
-    <trim prefix=" where " suffix="" prefixOverrides="and">
-          <if test="id != null">
-            and id= #{id,jdbcType=BIGINT}
+   <where>
+          <if test="keyWords != null and '' != keyWords ">
+             AND  a.user_name like CONCAT('%',#{keyWords},'%',)
           </if>
-          <if test="roleId != null">
-            and role_id=#{roleId,jdbcType=BIGINT}
+          <if test="dpartmentId != null ">
+             AND  t1.dpartmentId = #{dpartmentId}
           </if>
-          <if test="userId != null">
-            and  user_id= #{userId,jdbcType=BIGINT}
+          <if test="sex != null ">
+             AND  a.sex = #{sex}
           </if>
-    </trim>
+    </where>
   </select>
   <update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.system.user.SystemUserRole">
     update system_user_role set

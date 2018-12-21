@@ -144,7 +144,7 @@
             AND logic_remove=0
         </where>
     </select>
-<!--分页查询外部接口配置-->
+<!--分页查询外部接口配置条件查询-->
     <select id="queryListByPage" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.ExternalInterfaceConfigVo"
             resultMap="BaseResultMap">
         SELECT
@@ -195,7 +195,7 @@
             AND logic_remove=0
         </where>
     </select>
-    <!--查询外部接口平台种类下拉-->
+
 
 <!--通过id查询外部接口配置-->
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">

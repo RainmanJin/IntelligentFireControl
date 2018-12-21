@@ -12,4 +12,12 @@ public interface DepartmentDao extends BaseDao<Department> {
 
     List<Department> queryListByParam(DepartmentVo record);
 
+    /**
+     * YanXiaoLu
+     * 根据当前用户查询父级部门名称（前端下拉展示）
+     * @param userId
+     * @return
+     */
+    List<Department> findParentNameByUserId(Long userId);
+
 }

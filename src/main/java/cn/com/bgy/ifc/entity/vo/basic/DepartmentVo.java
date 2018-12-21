@@ -28,7 +28,6 @@ public class DepartmentVo {
 	/**
 	 *机构表Id，用于区分平台
 	 */
-	@NotNull(message="机构ID不能为空")
 	private Long organizationId;
 
 	/**
@@ -48,9 +47,7 @@ public class DepartmentVo {
 	 */
 	private Boolean logicRemove;
 
-	/**
-	 * 子级部门
-	 */
+
 	/**
 	 * 接受当前登录用id
 	 */

@@ -177,4 +177,9 @@ public class SystemOrganizationDomainImpl implements SystemOrganizationDomain {
             return ResponseVO.success().setMsg("同步集成平台机构总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
     }
+
+    @Override
+    public SystemOrganization querySystemOrganizationByUserId(Long userId) {
+        return systemOrganizationDao.querySystemOrganizationByUserId(userId);
+    }
 }

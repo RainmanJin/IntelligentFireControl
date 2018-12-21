@@ -3,7 +3,9 @@ package cn.com.bgy.ifc.controller.inner.system.basic;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.domain.interfaces.system.basic.SystemOrganizationDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.SystemRoleDomain;
+import cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization;
 import cn.com.bgy.ifc.entity.po.system.basic.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.SelectVo;
@@ -30,7 +32,8 @@ public class SystemRoleController {
 
     @Autowired
     private SystemRoleDomain roleDomain;
-
+    @Autowired
+    private SystemOrganizationDomain systemOrganizationDomain;
     /**
      * 分页查询
      * @param page
@@ -59,17 +62,34 @@ public class SystemRoleController {
         return ResponseVO.<SystemRoleVo>success().setData(systemRoleVo);
     }
 
+    /**
+     * YanXiaoLu
+     * 根据当前登录用户添加系统角色
+     * @param systemRoleVo
+     * @param error
+     * @return
+     */
     @PostMapping("add")
+    @SystemLogAfterSave(type = 1,description = "系统角色添加")
     @ResponseBody
-    public ResponseVO<Object> add(@Validated SystemRoleVo systemRoleVo, BindingResult error,String token) {
+    public ResponseVO<Object> add(@Validated SystemRoleVo systemRoleVo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
+        if(systemRoleVo.getUserId()==null){
+            return ResponseVO.error().setMsg("userId参数异常");
+        }
+        //根据当前登录用户的id获取机构
+        SystemOrganization systemOrganization=systemOrganizationDomain.querySystemOrganizationByUserId(systemRoleVo.getUserId());
+        if (systemOrganization==null){
+            return ResponseVO.error().setMsg("当前登录用户没有所属机构");
+        }
         SystemRole systemRole = new SystemRole();
-        System.out.println("*****"+systemRoleVo.getName());
-        System.out.println("*****"+systemRoleVo.getType());
         CopyUtil.copyProperties(systemRoleVo, systemRole);
+        systemRole.setOrganizationId(systemOrganization.getId());
+        systemRole.setState(1);
+        systemRole.setLogicRemove(false);
         int count = roleDomain.insert(systemRole);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功！");
@@ -151,5 +171,19 @@ public class SystemRoleController {
             roleDomain.deleteRole(deleteLongs);
             return ResponseVO.success().setMsg("删除成功");
         }
+    }
+    /**
+     * @author: YanXiaoLu
+     * @description:根据登录用户查询角色类型（下拉框展示）
+     * @param:
+     * @return:
+     */
+    @GetMapping("findParentNameByUserId")
+    @ResponseBody
+    public ResponseVO<List<SystemRole>> findParentNameByUserId(Long userId) {
+        SystemRoleVo systemRoleVo = new SystemRoleVo();
+        systemRoleVo.setState(SystemConstant.EnableState.ENABLE.getValue());
+        List<SystemRole> list = roleDomain.queryListByUserId(userId);
+        return ResponseVO.<List<SystemRole>>success().setData(list);
     }
 }

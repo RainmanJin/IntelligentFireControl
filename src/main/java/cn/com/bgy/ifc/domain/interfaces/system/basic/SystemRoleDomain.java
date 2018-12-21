@@ -26,7 +26,11 @@ public interface SystemRoleDomain {
      */
     void  deleteRole(Long[] longs);
 
-
+    /**
+     * 根据用户id查询系统角色（下拉展示）
+     * @param userId
+     * @return
+     */
     List<SystemRole> queryListByUserId(Long userId);
 
 }

@@ -19,4 +19,11 @@ public interface SystemOrganizationDao extends BaseDao<SystemOrganization> {
      * @return
      */
     List<SystemOrganization> searchByWhere(SystemOrganization interfaceAccount);
+
+    /**
+     * 根据当前登录用获取机构
+     * @param userId
+     * @return
+     */
+    SystemOrganization querySystemOrganizationByUserId(Long userId);
 }
