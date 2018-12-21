@@ -97,7 +97,7 @@
             </if>
         </trim>
     </insert>
-
+<!--查询所有外部接口配置-->
     <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.ExternalInterfaceConfigVo"
             resultMap="BaseResultMap">
         SELECT
@@ -144,7 +144,60 @@
             AND logic_remove=0
         </where>
     </select>
+<!--分页查询外部接口配置-->
+    <select id="queryListByPage" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.ExternalInterfaceConfigVo"
+            resultMap="BaseResultMap">
+        SELECT
+        t1.id,
+        t1.org_id,
+        t1.platform_value,
+        t1.url,
+        t1.account,
+        t1.sign_key,
+        t1.sub_system_code,
+        t1.file_url,
+        t1.state,
+        FROM
+        external_interface_config t1
+        LEFT JOIN system_organization t2 ON t1.org_id = t2.id
+        LEFT JOIN account t3 ON t2.user_id = t3.id
+        <where>
+            <if test="orgId != null ">
+                AND org_id=#{orgId}
+            </if>
+            <if test="platformValue != null ">
+                AND platform_value=#{platformValue}
+            </if>
+            <if test="url != null ">
+                AND url=#{url}
+            </if>
+            <if test="account != null ">
+                AND account=#{account}
+            </if>
+            <if test="signKey != null ">
+                AND sign_key=#{signKey}
+            </if>
+            <if test="subSystemCode != null ">
+                AND sub_system_code=#{subSystemCode}
+            </if>
+            <if test="fileUrl != null ">
+                AND file_url=#{fileUrl}
+            </if>
+            <if test="state != null ">
+                AND state=#{state}
+            </if>
+            <if test="createTime != null ">
+                AND create_time=#{createTime}
+            </if>
+            <if test="userId != null">
+                AND t2.user_id = #{userId}
+            </if>
+            AND logic_remove=0
+        </where>
+    </select>
+    <!--查询外部接口平台种类下拉-->
 
+<!--通过id查询外部接口配置-->
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
 		SELECT
 		id,org_id,
@@ -154,7 +207,7 @@
         logic_remove
 		FROM external_interface_config WHERE id = #{id}
   </select>
-
+<!--通过id修改外部接口配置-->
     <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig">
         UPDATE external_interface_config
         <set>
@@ -171,5 +224,18 @@
         </set>
         WHERE id
         = #{id}
+    </update>
+<!--通过Id删除外部接口配置-->
+    <update id="deleteById" parameterType="java.lang.Long">
+    update external_interface_config set logic_remove = true
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <!--批量删除外部接口配置-->
+    <update id="deleteExternalInterfaceConfig" parameterType="Long[]">
+        update external_interface_config set logic_remove = true where id in
+        <foreach collection="array" item="item" index="no" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
     </update>
 </mapper>

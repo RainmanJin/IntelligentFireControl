@@ -15,7 +15,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, org_id, type_id, title, signature, date_line, d_id, u_id, create_time, logic_remove
+    id, org_id, type_id, title, signature, date_line, d_id, u_id, create_time
   </sql>
 
   <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -80,7 +80,8 @@
     select
     <include refid="Base_Column_List" />
     from information
-    <trim prefix="where" suffix="" prefixOverrides="and">
+    <where>
+      logic_remove = false
       <if test="orgId != null">
         and org_id = #{orgId,jdbcType=BIGINT},
       </if>
@@ -105,13 +106,21 @@
       <if test="createTime != null">
         and create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="logicRemove != null">
-        and logic_remove = #{logicRemove,jdbcType=BIT},
-      </if>
       <if test="content != null">
         and content = #{content,jdbcType=LONGVARCHAR},
       </if>
-    </trim>
+      <if test="keyWords != null and '' != keyWords ">
+        AND  title like CONCAT('%',#{keyWords},'%' )
+      </if>
+    </where>
   </select>
+  <!--批量删除通知公告-->
+  <update id="deleteInformation" parameterType="Long[]">
+    update information set logic_remove = true where id in
+    <foreach collection="array" item="item" index="no" open="("
+             separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
 
 </mapper>

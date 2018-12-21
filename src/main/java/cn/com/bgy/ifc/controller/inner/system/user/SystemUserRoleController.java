@@ -46,6 +46,14 @@ public class SystemUserRoleController {
             return ResponseVO.exception();
         }
     }
+
+    /**
+     * 用户角色分页查询
+     * @param page
+     * @param systemUserRoleVo
+     * @param error
+     * @return
+     */
     @GetMapping("searchPage")
     @ResponseBody
     public ResponseVO<Object> searchPage(Page<Account> page,@Validated SystemUserRoleVo systemUserRoleVo, BindingResult error){

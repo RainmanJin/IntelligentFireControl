@@ -28,6 +28,15 @@ public class InterfaceAccountDomainImpl implements InterfaceAccountDomain {
         return interfaceaccountDao.deleteById(id);
     }
 
+    /**
+     * 批量删除用户接口
+     * @param longs
+     */
+    @Override
+    public void deleteInterfaceAccount(Long[] longs) {
+        interfaceaccountDao.deleteInterfaceAccount(longs);
+    }
+
     @Override
     public int update(InterfaceAccount interfaceaccount) {
         return interfaceaccountDao.update(interfaceaccount);

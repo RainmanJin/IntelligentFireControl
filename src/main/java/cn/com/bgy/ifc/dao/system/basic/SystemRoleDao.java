@@ -22,7 +22,11 @@ public interface SystemRoleDao {
 
     int deleteById(Long id);
 
-    int deleteRole(List<Long> list);
+    /**
+     * 逻辑删除系统角色（批量）
+     * @param longs
+     */
+    void  deleteRole(Long[] longs);
 
      List<SystemRole> queryListByUserId(Long userId);
 

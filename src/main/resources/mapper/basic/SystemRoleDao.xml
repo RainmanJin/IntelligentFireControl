@@ -10,7 +10,7 @@
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
 
     </resultMap>
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRole">
+<insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRole">
     insert into system_role (type,name, organization_id,
       logic_remove,state)
     values (#{type,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT},
@@ -59,46 +59,56 @@
             </if>
         </trim>
     </insert>
-
-    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.po.system.basic.SystemRole" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.SystemRoleVo">
-		SELECT
-		id,
-		type,
-		name,
-		organization_id organizationId,
-		state
-		FROM system_role where logic_remove=true
-        <if test="type != null ">
-            AND type=#{type}
+    <!--分页条件查询系统角色-->
+    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.vo.system.basic.SystemRoleVo" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.SystemRoleVo">
+        SELECT
+        t1.id,
+        t1.type,
+        t1.name,
+        t1.organization_id,
+        t1.logic_remove,
+        t1.state
+        FROM
+        system_role t1
+        LEFT JOIN system_organization t2 ON t1.organization_id = t2.id
+        LEFT JOIN account t3 ON t2.user_id = t3.id
+        WHERE
+            t1.logic_remove=true
+        <if test="userId != null">
+            AND t2.user_id = #{userId}
         </if>
-        <if test="keyword != null">
-            and name like concat('%',#{keyword},'%')
+        <if test="type != null ">
+            AND t1.type=#{type}
+        </if>
+        <if test="keyWords != null">
+            AND t1.name like concat('%',#{keyWords},'%')
         </if>
   </select>
 
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRole" resultMap="BaseResultMap">
-        SELECT
-        id,
-        type,
-        name,
-        organization_id,
-        logic_remove,
-        state
-        FROM system_role
-        WHERE 1=1 AND logic_remove=true
-        <if test="type != null ">
-            AND name=#{type}
-        </if>
-        <if test="name != null ">
-            AND name=#{name}
-        </if>
-        <if test="organizationId != null ">
-            AND organization_id=#{organizationId}
-        </if>
-        <if test="state != null ">
-            AND state=#{state}
-        </if>
-    </select>
+    <!--<select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemRoleVo" resultMap="BaseResultMap">-->
+        <!--SELECT-->
+        <!--t1.id,-->
+        <!--t1.type,-->
+        <!--t1.name,-->
+        <!--t1.organization_id,-->
+        <!--t1.logic_remove,-->
+        <!--t1.state-->
+        <!--FROM-->
+        <!--system_role t1-->
+        <!--LEFT JOIN system_organization t2 ON t1.organization_id = t2.id-->
+        <!--LEFT JOIN account t3 ON t2.user_id = t3.id-->
+        <!--WHERE-->
+        <!--where logic_remove=true-->
+        <!--<if test="userId != null">-->
+            <!--AND t2.user_id = #{userId}-->
+        <!--</if>-->
+        <!--<if test="type != null ">-->
+            <!--AND t1.type=#{type}-->
+        <!--</if>-->
+        <!--<if test="keyWords != null">-->
+            <!--AND t1.name like concat('%',#{keyWords},'%')-->
+        <!--</if>-->
+    <!--</select>-->
 
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
 		SELECT
@@ -122,14 +132,17 @@
         WHERE id
         = #{id}
     </update>
+    <!--逻辑批量删除系统角色-->
     <update id="deleteRole" parameterType="java.util.List">
         UPDATE system_role set logic_remove =false where id IN
         <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </update>
+    <!--通过系统角色id删除-->
     <delete id="deleteById" parameterType="Long">
-       DELETE FROM system_role WHERE id = #{id}
+       update system_role set logic_remove = true
+    where id = #{id,jdbcType=BIGINT}
   </delete>
     <select id="queryListByUserId" parameterType="Long" resultMap="BaseResultMap">
 		SELECT

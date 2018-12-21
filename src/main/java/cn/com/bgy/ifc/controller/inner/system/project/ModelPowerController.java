@@ -11,7 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * @author: YanXiaoLu
+ * @description:系统权限列表展示
+ * @date: 2018-12-05 09:30
+ **/
 @Controller
 @RequestMapping("/basic/modelPower")
 public class ModelPowerController {
@@ -26,9 +30,9 @@ public class ModelPowerController {
      */
     @PostMapping("queryPageList")
     @ResponseBody
-    public ResponseVO<Object> queryPageList(Page page,ModelPower modelPowern) {
+    public ResponseVO<PageInfo<ModelPower>> queryPageList(Page<ModelPower> page,ModelPower modelPowern) {
         PageInfo<ModelPower> pageInfo = modelPowerDomain.queryPageList(page, modelPowern);
-        return ResponseVO.success().setData(pageInfo);
+        return ResponseVO.<PageInfo<ModelPower>>success().setData(pageInfo);
     }
     /**
      * 获取模块名称
@@ -54,6 +58,11 @@ public class ModelPowerController {
         return ResponseVO.error().setMsg("保存失败");
     }
 
+    /**
+     * 批量删除
+     * @param longs
+     * @return
+     */
     @PostMapping("deleteModelPower")
     @ResponseBody
     public ResponseVO<Object> deleteModelPower(String longs) {
@@ -63,12 +72,8 @@ public class ModelPowerController {
         List<Long> list = JSONArray.parseArray(longs,Long.class);
         Long[] deleteLongs = new Long[list.size()];
         list.toArray(deleteLongs);
-        if (list.size()==1){
-            modelPowerDomain.deleteModelPowerOne(deleteLongs[0]);
-            return ResponseVO.success().setMsg("删除成功").setData(null);
-        }else {
-            modelPowerDomain.deleteModelPower(deleteLongs);
-            return ResponseVO.success().setMsg("删除成功").setData(null);
-        }
+        modelPowerDomain.deleteModelPower(deleteLongs);
+        return ResponseVO.success().setMsg("删除成功");
+
     }
 }

@@ -1,75 +1,73 @@
 package cn.com.bgy.ifc.entity.vo.system.project;
 
-import java.util.Date;
+import cn.com.bgy.ifc.entity.po.system.project.RegionCourt;
+/**
+ * @Author huxin
+ * @Description 苑区信息扩展字段
+ * @Date 2018/12/19 15:48
+ */
+public class RegionCourtVo extends RegionCourt {
 
-public class RegionCourtVo {
-    private Long id;
 
-    private Long organizationId;
 
-    private Long regionId;
 
-    private Long projectId;
-
+    /**
+     * @Author huxin
+     * @Description 区域名
+     * @Date 2018/12/19 15:39
+     */
+    private String regionName;
+    /**
+     * @Author huxin
+     * @Description 项目名
+     * @Date 2018/12/19 15:39
+     */
+    private String projectName;
+    /**
+     * @Author huxin
+     * @Description 苑区名
+     * @Date 2018/12/19 11:31
+     */
     private String name;
 
-    private Date createTime;
+    /**
+     * @Author huxin
+     * @Description 查询关键字
+     * @Date 2018/12/19 11:33
+     */
+    private String keyword;
 
-    private Boolean logicRemove;
-
-    public Long getId() {
-        return id;
+    public String getRegionName() {
+        return regionName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRegionName( String regionName ) {
+        this.regionName = regionName;
     }
 
-    public Long getOrganizationId() {
-        return organizationId;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
+    public void setProjectName( String projectName ) {
+        this.projectName = projectName;
     }
 
-    public Long getRegionId() {
-        return regionId;
-    }
-
-    public void setRegionId(Long regionId) {
-        this.regionId = regionId;
-    }
-
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
-
+    @Override
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    @Override
+    public void setName( String name ) {
         this.name = name;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Boolean getLogicRemove() {
-        return logicRemove;
-    }
-
-    public void setLogicRemove(Boolean logicRemove) {
-        this.logicRemove = logicRemove;
+    public void setKeyword( String keyword ) {
+        this.keyword = keyword;
     }
 }

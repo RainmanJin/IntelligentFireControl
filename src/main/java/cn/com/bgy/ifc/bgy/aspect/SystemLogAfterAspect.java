@@ -54,7 +54,9 @@ public class SystemLogAfterAspect {
             systemOperationLog.setOperatorDescribe(systemLogAfterSave.description());
         }
         //获取操作完成后的信息
-        systemOperationLog.setOperatorContent(result.getMsg());
+        if(null!=result.getMsg()) {
+            systemOperationLog.setOperatorContent(result.getMsg());
+        }
         systemOperationLog.setCreateTime(new Date());
         systemOperationLog.setLogicRemove(false);
         systemLogDomain.addSystemLogInfo(systemOperationLog);

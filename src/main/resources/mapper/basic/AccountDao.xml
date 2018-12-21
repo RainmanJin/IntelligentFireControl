@@ -165,26 +165,46 @@
               last_time, user_type, remark
       from account where id=#{id,jdbcType=BIGINT}
   </select>
-
-  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.user.Account" resultType="cn.com.bgy.ifc.entity.po.system.user.Account">
-     select  id, organization_id, department_id,
-              telephone, job_number, user_name,
-              password, password_salt, identity_number,
-              sex, regist_time, is_disable,
-              current_ip, current_time, last_ip,
-              last_time, user_type, remark
-       from account
-    <trim prefix="where" suffix="" prefixOverrides="and">
+<!--分页查询用户管理列表-->
+  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.vo.system.user.AccountVo" resultType="cn.com.bgy.ifc.entity.vo.system.user.AccountVo">
+    SELECT
+    t1.user_name,
+    t1.telephone,
+    t1.job_number,
+    t3.name AS departmentName,
+    t1.sex,
+    t1.identity_number,
+    t1.is_disable,
+    t1.current_time
+    FROM
+    account t1
+    LEFT JOIN system_organization t2 ON t1.organization_id = t2.id
+    left join department t3 ON t1.department_id = t3.id
+    WHERE
+    t2.user_id = 1 AND t1.department_id = 1 AND t1.sex = 1
+    <where>
         <if test="telephone != null" >
-          and telephone= #{telephone,jdbcType=VARCHAR}
+          and t1.telephone= #{telephone,jdbcType=VARCHAR}
         </if>
         <if test="jobNumber != null">
-          and  job_number #{jobNumber,jdbcType=VARCHAR}
+          and  t1.job_number #{jobNumber,jdbcType=VARCHAR}
         </if>
         <if test="userName != null">
-          and user_name #{userName,jdbcType=VARCHAR}
+          and t1.user_name #{userName,jdbcType=VARCHAR}
         </if>
-    </trim>
+        <if test="id != null ">
+          and t2.user_id=#{id}
+        </if>
+      <if test="departmentId != null ">
+        and t1.department_id=#{departmentId}
+      </if>
+      <if test="sex != null ">
+        and t1.sex=#{sex}
+      </if>
+      <if test="keyWords != null and '' != keyWords">
+        AND  (t1.user_name like CONCAT('%',#{keyWords},'%') OR t1.sex like  CONCAT('%',#{keyWords},'%'))
+      </if>
+    </where>
   </select>
 <update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.system.user.Account" >
   update account set
@@ -207,6 +227,64 @@
     remark= #{remark,jdbcType=LONGVARCHAR}
     where id=#{id,jdbcType=BIGINT}
 </update>
+
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.user.Account">
+    update account
+    <set>
+      <if test="organizationId != null">
+        organization_id =#{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=BIGINT},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="jobNumber != null">
+        job_number = #{jobNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordSalt != null">
+        password_salt = #{passwordSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="identityNumber != null">
+        identityn_umber = #{identityNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex =  #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="registTime != null">
+        regist_time = #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDisable != null">
+        is_disable = #{isDisable,jdbcType=INTEGER},
+      </if>
+      <if test="currentIp != null">
+        current_ip= #{currentIp,jdbcType=VARCHAR},
+      </if>
+      <if test="currentTime != null">
+        current_time= #{currentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastIp != null">
+        last_ip= #{lastIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null">
+        last_time= #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null">
+        user_type= #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark= #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
   <!--根据电话号码查询用户对象-->
   <select id="findAccountByUserName" parameterType="String" resultMap="BaseResultMap">
     select

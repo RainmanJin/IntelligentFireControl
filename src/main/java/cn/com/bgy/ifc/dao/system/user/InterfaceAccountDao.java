@@ -10,6 +10,11 @@ public interface InterfaceAccountDao {
     int insert(InterfaceAccount interfaceaccount);
 
     int deleteById(Long id);
+    /**
+     * 逻辑删除用户接口（批量）
+     * @param longs
+     */
+    void  deleteInterfaceAccount(Long[] longs);
 
     int update(InterfaceAccount interfaceAccount);
 

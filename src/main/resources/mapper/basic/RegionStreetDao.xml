@@ -74,4 +74,66 @@
       </if>
     </trim>
   </insert>
+  <select id="queryListRegionStreet" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo" resultType="cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo">
+    SELECT
+    s.id as id,s.`name` as name,s.organization_id as organizationId,
+    s.region_id as regionId,(SELECT i.name from region_info i where i.id = s.region_id
+    <if test="keyword!='' and keyword!=null">
+      AND (i.name LIKE concat('%',#{keyword},'%'))
+    </if>
+    ) as regionName,
+    s.project_id as projectId,(SELECT p.name from region_project p where p.id = s.project_id
+    <if test="keyword!='' and keyword!=null">
+      AND (p.name LIKE concat('%',#{keyword},'%'))
+    </if>
+    ) as projectName,
+    s.court_id as courtId,(SELECT c.name from region_court c where c.id = s.court_id
+    <if test="keyword!='' and keyword!=null">
+      AND (c.name like concat('%',#{keyword},'%'))
+    </if>
+    ) as courtName,
+    s.create_time as createTime
+    FROM region_street s
+    <where>
+      <if test="regionId != null and regionId!= '' ">
+        AND s.region_id= #{regionId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null and projectId != '' ">
+        AND s.project_id= #{ projectId,jdbcType=BIGINT}
+      </if>
+      <if test="courtId != null and courtId != '' ">
+        AND s.court_id= #{ courtId,jdbcType=BIGINT}
+      </if>
+      AND s.logic_remove = 0
+    </where>
+  </select>
+  <update id="updateRegionStreet" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionStreet">
+    UPDATE region_street
+    <set>
+      <if test="regionId != null and projectId != null and courtId != null">
+        region_id =#{regionId},project_id =#{projectId},court_id= #{courtId},
+      </if>
+      <if test="name != null">name =#{name},</if>
+      <if test="createTime != null">create_Time =#{createTime}</if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  <update id="deleteRegionStreet" parameterType="java.util.List">
+    UPDATE region_street set logic_remove =1 where id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+  <select id="queryRegionStreetNameById" parameterType="java.lang.Long" resultType="java.lang.String">
+      SELECT name FROM region_street  WHERE logic_remove = 0 AND id= #{Id}
+  </select>
+  <select id="queryRegionStreetNameBySuperId" parameterType="java.lang.Long" resultType="java.util.Map">
+    SELECT name,id FROM region_street  WHERE logic_remove = 0 AND  court_id = #{courtId,jdbcType=BIGINT}
+  </select>
+  <update id="deleteRegionStreetBySuperId" parameterType="java.util.List">
+    UPDATE region_street set logic_remove =1 where court_id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
 </mapper>

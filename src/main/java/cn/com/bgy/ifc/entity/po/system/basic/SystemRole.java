@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.entity.po.system.basic;
 
+/**
+ * 系统角色
+ */
 public class SystemRole {
 
     private Long id;
@@ -35,6 +38,21 @@ public class SystemRole {
      * @Date 2018/12/17 18:19
      */
     private Boolean logicRemove;
+
+    /**
+     * 接受当前登录用id
+     */
+    private Long userId;
+
+
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public Long getId() {
         return id;

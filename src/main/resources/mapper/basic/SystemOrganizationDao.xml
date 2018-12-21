@@ -2,42 +2,89 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.system.basic.SystemOrganizationDao">
     <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="state" jdbcType="INTEGER" property="state" />
-        <result column="user_id" jdbcType="BIGINT" property="userId" />
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-        <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="legal_person" jdbcType="VARCHAR" property="legalPerson"/>
+        <result column="nature" jdbcType="VARCHAR" property="nature"/>
+        <result column="scale" jdbcType="VARCHAR" property="scale"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="fixed_telephone" jdbcType="VARCHAR" property="fixedTelephone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="fax_num" jdbcType="VARCHAR" property="faxNum"/>
+        <result column="register_address" jdbcType="VARCHAR" property="registerAddress"/>
+        <result column="home_page" jdbcType="VARCHAR" property="homePage"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="register_time" jdbcType="TIMESTAMP" property="registerTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
     </resultMap>
-    <sql id="Base_Column_List">
-    id, name, state, user_id, create_time, logic_remove
-    </sql>
-    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from system_organization
-        where id = #{id,jdbcType=BIGINT}
-    </select>
-    <!--逻辑删除-->
-    <update id="deleteById" parameterType="java.lang.Long">
-    update system_organization set logic_remove = true
-    where id = #{id,jdbcType=BIGINT}
-    </update>
-
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
+    insert into system_organization (id, code, name, 
+      description, legal_person, nature, 
+      scale, telephone, fixed_telephone, 
+      email, fax_num, register_address, 
+      home_page, state, user_id, register_time,
+      create_time, logic_remove)
+    values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, #{nature,jdbcType=VARCHAR}, 
+      #{scale,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{fixedTelephone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{faxNum,jdbcType=VARCHAR}, #{registerAddress,jdbcType=VARCHAR}, 
+      #{homePage,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, 
+      #{registerTime,jdbcType=TIMESTAMP},#{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
         insert into system_organization
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
             </if>
+            <if test="code != null">
+                code,
+            </if>
             <if test="name != null">
                 name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="legalPerson != null">
+                legal_person,
+            </if>
+            <if test="nature != null">
+                nature,
+            </if>
+            <if test="scale != null">
+                scale,
+            </if>
+            <if test="telephone != null">
+                telephone,
+            </if>
+            <if test="fixedTelephone != null">
+                fixed_telephone,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="faxNum != null">
+                fax_num,
+            </if>
+            <if test="registerAddress != null">
+                register_address,
+            </if>
+            <if test="homePage != null">
+                home_page,
             </if>
             <if test="state != null">
                 state,
             </if>
             <if test="userId != null">
                 user_id,
+            </if>
+            <if test="registerTime != null">
+                register_time,
             </if>
             <if test="createTime != null">
                 create_time,
@@ -50,14 +97,50 @@
             <if test="id != null">
                 #{id,jdbcType=BIGINT},
             </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="legalPerson != null">
+                #{legalPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="nature != null">
+                #{nature,jdbcType=VARCHAR},
+            </if>
+            <if test="scale != null">
+                #{scale,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="fixedTelephone != null">
+                #{fixedTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="faxNum != null">
+                #{faxNum,jdbcType=VARCHAR},
+            </if>
+            <if test="registerAddress != null">
+                #{registerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="homePage != null">
+                #{homePage,jdbcType=VARCHAR},
             </if>
             <if test="state != null">
                 #{state,jdbcType=INTEGER},
             </if>
             <if test="userId != null">
                 #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="registerTime != null">
+                #{registerTime,jdbcType=TIMESTAMP},
             </if>
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
@@ -67,6 +150,77 @@
             </if>
         </trim>
     </insert>
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
+        update system_organization
+        <set>
+            <if test="code != null">
+                code= #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name= #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description= #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="legalPerson != null">
+                legal_person=#{legalPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="nature != null">
+                nature = #{nature,jdbcType=VARCHAR},
+            </if>
+            <if test="scale != null">
+                scale =#{scale,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                telephone=#{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="fixedTelephone != null">
+                fixed_telephone= #{fixedTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email= #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="faxNum != null">
+                faxNum=faxNum#{faxNum,jdbcType=VARCHAR},
+            </if>
+            <if test="registerAddress != null">
+                register_address= #{registerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="homePage != null">
+                home_page=#{homePage,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                state= #{state,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id=#{userId,jdbcType=BIGINT},
+            </if>
+            <if test="registerTime != null">
+                register_time=#{registerTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time=#{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logicRemove != null">
+                logic_remove=#{logicRemove,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <sql id="Base_Column_List">
+    id, name, state, user_id, create_time, logic_remove
+    </sql>
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from system_organization
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <!--逻辑删除-->
+    <update id="deleteById" parameterType="java.lang.Long">
+    update system_organization set logic_remove = true
+    where id = #{id,jdbcType=BIGINT}
+    </update>
     <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
         update system_organization
         <set>
@@ -89,26 +243,38 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
     <!--分页-->
-    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization" resultMap="BaseResultMap">
+    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization"
+            resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from system_organization
         <where>
+            logic_remove = FALSE
             <if test="name != null">
-            and name = #{name,jdbcType=VARCHAR}
+                and name = #{name,jdbcType=VARCHAR}
             </if>
             <if test="state != null">
-            and state = #{state,jdbcType=INTEGER}
+                and state = #{state,jdbcType=INTEGER}
             </if>
             <if test="userId != null">
-            and user_id = #{userId,jdbcType=BIGINT}
+                and user_id = #{userId,jdbcType=BIGINT}
             </if>
             <if test="createTime != null">
-            and create_time = #{createTime,jdbcType=TIMESTAMP}
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
             </if>
             <if test="logicRemove != null">
-            and logic_remove = #{logicRemove,jdbcType=BIT}
+                and logic_remove = #{logicRemove,jdbcType=BIT}
+            </if>
+            <if test="keyWords != null and '' != keyWords ">
+                AND name like CONCAT('%',#{keyWords},'%' )
             </if>
         </where>
     </select>
+    <!--批量删除机构-->
+    <update id="deleteInterSystemOrganization" parameterType="Long[]">
+        update system_organization set logic_remove = true where id in
+        <foreach close=")" collection="array" index="no" item="item" open="(" separator=",">
+            #{item}
+        </foreach>
+    </update>
 </mapper>

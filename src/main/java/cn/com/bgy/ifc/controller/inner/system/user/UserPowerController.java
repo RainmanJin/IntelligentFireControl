@@ -32,9 +32,9 @@ public class UserPowerController {
      */
     @PostMapping ("/queryPageList")
     @ResponseBody
-    public ResponseVO<Object> queryPageList(Page<Object> page,SystemUserPower systemUserPower) {
+    public ResponseVO<PageInfo<SystemUserPower>> queryPageList(Page<Object> page,SystemUserPower systemUserPower) {
         PageInfo<SystemUserPower> pageInfo = userPowerDomain.queryPageList(page, systemUserPower);
-        return ResponseVO.success().setData(pageInfo);
+        return ResponseVO.<PageInfo<SystemUserPower>>success().setData(pageInfo);
     }
     /**
      *查询部门名称

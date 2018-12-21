@@ -1,20 +1,50 @@
 package cn.com.bgy.ifc.entity.po.system.project;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RegionCourt {
+public class RegionCourt implements Serializable {
+    /**
+     * @Author huxin
+     * @Description id
+     * @Date 2018/12/19 11:30
+     */
     private Long id;
-
+    /**
+     * @Author huxin
+     * @Description 平台ID
+     * @Date 2018/12/19 11:31
+     */
     private Long organizationId;
-
+    /**
+     * @Author huxin
+     * @Description 区域id
+     * @Date 2018/12/19 11:31
+     */
     private Long regionId;
-
+    /**
+     * @Author huxin
+     * @Description 项目id
+     * @Date 2018/12/19 11:31
+     */
     private Long projectId;
-
+    /**
+     * @Author huxin
+     * @Description 苑区名
+     * @Date 2018/12/19 11:31
+     */
     private String name;
-
+    /**
+     * @Author huxin
+     * @Description 创建、修改时间
+     * @Date 2018/12/19 11:32
+     */
     private Date createTime;
-
+    /**
+     * @Author huxin
+     * @Description 逻辑删除：0存在 1 删除
+     * @Date 2018/12/19 11:38
+     */
     private Boolean logicRemove;
 
     public Long getId() {

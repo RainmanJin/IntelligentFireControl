@@ -1,85 +1,53 @@
 package cn.com.bgy.ifc.entity.vo.system.project;
 
-import java.util.Date;
+import cn.com.bgy.ifc.entity.po.system.project.RegionStreet;
 
-public class RegionStreetVo {
-    private Long id;
+/**
+ * @Author huxin
+ * @Date 2018/12/19 17:38
+ * @Description 街道信息扩展字段
+ **/
 
-    private Long organizationId;
+public class RegionStreetVo extends RegionStreet {
 
-    private Long regionId;
+    //区域名字
+    private String regionName;
+    //项目名
+    private String projectName;
+    //苑区名
+    private String courtName;
+    //关键字
+    private String keyword;
 
-    private Long projectId;
-
-    private Long courtId;
-
-    private String name;
-
-    private Date createTime;
-
-    private Boolean logicRemove;
-
-    public Long getId() {
-        return id;
+    public String getRegionName() {
+        return regionName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRegionName( String regionName ) {
+        this.regionName = regionName;
     }
 
-    public Long getOrganizationId() {
-        return organizationId;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
+    public void setProjectName( String projectName ) {
+        this.projectName = projectName;
     }
 
-    public Long getRegionId() {
-        return regionId;
+    public String getCourtName() {
+        return courtName;
     }
 
-    public void setRegionId(Long regionId) {
-        this.regionId = regionId;
+    public void setCourtName( String courtName ) {
+        this.courtName = courtName;
     }
 
-    public Long getProjectId() {
-        return projectId;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
-
-    public Long getCourtId() {
-        return courtId;
-    }
-
-    public void setCourtId(Long courtId) {
-        this.courtId = courtId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Boolean getLogicRemove() {
-        return logicRemove;
-    }
-
-    public void setLogicRemove(Boolean logicRemove) {
-        this.logicRemove = logicRemove;
+    public void setKeyword( String keyword ) {
+        this.keyword = keyword;
     }
 }
