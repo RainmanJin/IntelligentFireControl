@@ -14,10 +14,11 @@ public class DepartmentWebTest {
     @Autowired
     private BgyRegionInfoService bgyBrandService;
 
+    ;
     @Test
     public void test(){
-        int pageNum = 1;
-        int pageSize = 5;
-        //bgyBrandService.obtainBgyRegionInfoIncrement(pageNum,pageSize,"2017-01-01 00:00:00");
+//        int pageNum = 1;
+//        int pageSize = 5;
+//        bgyBrandService.obtainBgyRegionInfoIncrement(pageNum,pageSize,"2017-01-01 00:00:00");
     }
 }

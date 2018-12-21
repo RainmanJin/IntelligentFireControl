@@ -35,10 +35,6 @@ public class RegionInfoVo {
      * @Date 2018/12/18 16:31
      */
     private String keyword;
-    /**
-     * region_info
-     */
-    private static final long serialVersionUID = 1L;
 
     /**
      * 集成平台Id

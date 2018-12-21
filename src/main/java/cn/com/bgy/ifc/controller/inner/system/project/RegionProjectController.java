@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author huxin
  * @Date 2018/12/18 17:14
@@ -82,5 +85,17 @@ public class RegionProjectController {
             return ResponseVO.success().setMsg("添加成功");
         }
         return ResponseVO.error().setMsg("添加失败！");
+    }
+
+    /**
+     * @Author huxin
+     * @Description 根据父id查询所有项目名
+     * @Date 2018/12/20 18:24
+     */
+    @PostMapping("queryAllName")
+    @ResponseBody
+    public ResponseVO<Object> queryRegionProjectName(Long id){
+        List<Map<String,Object>> list  = regionProjectDomain.queryRegionProjectNameBySuperId(id);
+        return ResponseVO.<Object>success().setData(list);
     }
 }

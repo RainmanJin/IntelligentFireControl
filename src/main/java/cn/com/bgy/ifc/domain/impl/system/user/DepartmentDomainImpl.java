@@ -30,12 +30,6 @@ public class DepartmentDomainImpl implements DepartmentDomain {
     public PageInfo<DepartmentVo> queryListByPage(Page<DepartmentVo> page, DepartmentVo departmentVo) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<Department> list=departmentDao.queryListByParam(departmentVo);
-        /*List<DepartmentVo> voList =null;
-        try {
-            voList =CopyUtil.convertList(list, new DepartmentVo());
-        }catch (Exception e){
-            e.printStackTrace();
-        }*/
         return new PageInfo<DepartmentVo>(CopyUtil.convertList(list, new DepartmentVo()));
     }
 

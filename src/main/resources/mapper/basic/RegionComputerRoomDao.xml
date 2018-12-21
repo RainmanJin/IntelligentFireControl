@@ -143,4 +143,65 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
+    <select id="queryListRegionComputerRoom" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionComputerRoomVo" resultType="cn.com.bgy.ifc.entity.vo.system.project.RegionComputerRoomVo">
+        SELECT
+        cr.id as id,cr.organization_id as organizationId,cr.`name` as name,
+        cr.code as code,cr.description as description,cr.create_time as createTime,
+        cr.region_id as regionId,i.`name` as regionName,
+        cr.project_id as projectId,p.`name` as projectName
+        FROM region_computer_room cr
+        LEFT JOIN region_info i on cr.region_id = i.id
+        LEFT JOIN region_project p ON cr.project_id = p.id
+        <where>
+            <if test="regionId != null and regionId!= '' ">
+                AND cr.region_id= #{regionId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null and projectId != '' ">
+                AND cr.project_id= #{ projectId,jdbcType=BIGINT}
+            </if>
+            <if test="courtId != null and courtId != '' ">
+                AND cr.court_id= #{ courtId,jdbcType=BIGINT}
+            </if>
+            <if test="keyword!='' and keyword!=null">
+                AND (i.name LIKE concat('%',#{keyword},'%')
+                OR p.name LIKE concat('%',#{keyword},'%'))
+            </if>
+            AND cr.logic_remove = 0
+        </where>
+    </select>
+    <update id="updateRegionComputerRoom" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionComputerRoom">
+        UPDATE region_computer_room
+        <set>
+            <if test="regionId != null and projectId != null and courtId != null and streetId != null">
+                region_id =#{regionId},project_id =#{projectId},court_id= #{ projectId},street_id= #{ streetId},
+            </if>
+            <if test="buildingId != null">
+                building_id= #{buildingId},
+            </if>
+            <if test="name != null">name =#{name},</if>
+            <if test="code != null">code =#{code},</if>
+            <if test="createTime != null">create_Time =#{createTime}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <update id="deleteRegionComputerRoom" parameterType="java.util.List">
+        UPDATE region_computer_room SET logic_remove =1 WHERE id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="queryRegionComputerRoomById" resultType="cn.com.bgy.ifc.entity.po.system.project.RegionComputerRoom" parameterType="java.lang.Long">
+          SELECT
+          id,organization_id,region_id,project_id,court_id,street_id,building_id,name,code
+          FROM region_computer_room
+          WHERE id =#{id} AND logic_remove = 0
+    </select>
+
+    <update id="deleteRegionProjecBySuperId" parameterType="java.util.List">
+        UPDATE region_computer_room set logic_remove =1 where building_id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
 </mapper>

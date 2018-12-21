@@ -8,11 +8,11 @@ import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
 import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.project.RegionInfoDomain;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.HttpVo;
-import cn.com.bgy.ifc.entity.vo.projects.BgyOrgVo;
 import cn.com.bgy.ifc.entity.vo.projects.BgyRegionInfoVo;
 import cn.com.bgy.ifc.service.interfaces.api.basic.BgyRegionInfoService;
 import com.alibaba.fastjson.JSONObject;
@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
 /**
  * @author: ZhangCheng
  * @description:碧桂园集成平台区域同步
@@ -38,6 +39,9 @@ public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
+    @Autowired
+    private RegionInfoDomain regionInfoDomain;
+
     @SystemLogAfterSave(type = 7, description = "同步集成平台区域数据")
     @Override
     public ResponseVO<Object> baseObtainBgyRegionInfo(int pageNo, int pageSize, Integer orgId) {
@@ -47,13 +51,13 @@ public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
                 ExternalInterfaceConfig config = list.get(0);
                 Long myOrgId = config.getOrgId();
                 //机构日志
-                List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.BGY_ORG_OBTAIN.getValue(), myOrgId);
+                List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.BGY_REGION_OBTAIN.getValue(), myOrgId);
                 if (msgList.size() > 0) {
                     ExternalInterfaceMsg interfaceMsg = msgList.get(0);
                     Date createTime = interfaceMsg.getCreateTime();
-                    return obtainBgyRegionInfoIncrement(pageNo, pageSize, config, createTime,orgId);
+                    return obtainBgyRegionInfoIncrement(pageNo, pageSize, config, createTime, orgId);
                 } else {
-                    return obtainBgyRegionInfo(pageNo, pageSize, config,orgId);
+                    return obtainBgyRegionInfo(pageNo, pageSize, config, orgId);
                 }
             } else {
                 logger.info("获取集成平台接口配置数据失败！");
@@ -71,7 +75,7 @@ public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
         long myOrgId = config.getOrgId();
         // 请求包结构体
         Map<String, Object> data = new HashMap<>();
-        //区域id,为空则返回所有项目
+        //机构id,默认为1
         data.put("orgId", orgId);
         data.put("pageNo", pageNo);
         data.put("pageSize", pageSize);
@@ -89,10 +93,9 @@ public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
         }
         int totalCount = oList.size();
         if (totalCount > 0) {
-            //return systemOrganizationDomain.saveBgyOrgList(oList, orgId);
-            return null;
+            return regionInfoDomain.saveBgyRegionInfo(oList, myOrgId);
         } else {
-            return ResponseVO.success().setMsg("暂无集成平台机构数据同步！");
+            return ResponseVO.success().setMsg("暂无集成平台区域数据同步！");
         }
     }
 
@@ -104,6 +107,8 @@ public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
         String dateTime = TimeUtil.parseDateToStr(createTime);
         // 请求包结构体
         Map<String, Object> data = new HashMap<>();
+        //机构id,默认为1
+        data.put("orgId", orgId);
         data.put("startTime", dateTime);
         data.put("pageNo", pageNo);
         data.put("pageSize", pageSize);
@@ -113,18 +118,17 @@ public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
         // 总页数
         int pageCount = ResponseUtil.getPageCount(response, pageSize);
-        List<BgyOrgVo> oList = new ArrayList<>();
-        BgyOrgVo bgyUserVo = new BgyOrgVo();
-        ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
+        List<BgyRegionInfoVo> oList = new ArrayList<>();
+        BgyRegionInfoVo bgyRegionInfoVo = new BgyRegionInfoVo();
+        ResponseUtil.getResultList(oList, bgyRegionInfoVo, response, "data", "list");
         if (pageCount != 0) {
-            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
+            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyRegionInfoVo, "data", "list");
         }
         int totalCount = oList.size();
         if (totalCount > 0) {
-            //return systemOrganizationDomain.alterBgyOrgList(oList, orgId);
-            return null;
+            return regionInfoDomain.alterBgyRegionInfo(oList, myOrgId);
         } else {
-            return ResponseVO.success().setMsg("暂无集成平台机构增量数据同步！");
+            return ResponseVO.success().setMsg("暂无集成平台区域增量数据同步！");
         }
     }
 }

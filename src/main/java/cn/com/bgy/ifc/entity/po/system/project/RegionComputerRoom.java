@@ -1,33 +1,35 @@
 package cn.com.bgy.ifc.entity.po.system.project;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RegionComputerRoom {
+public class RegionComputerRoom implements Serializable {
+    //机房id
     private Long id;
-
+    //平台id
     private Long organizationId;
-
+    //区域id
     private Long regionId;
-
+    //项目id
     private Long projectId;
-
+    //苑区id
     private Long courtId;
-
+    //街道id
     private Long streetId;
-
+    //楼栋id
     private Long buildingId;
-
+    //机房名称
     private String name;
-
+    //机房编码
     private String code;
 
     /**
      * 地址信息描述(苑区/街道/楼栋)，各部分可能为空
      */
     private String description;
-
+    //创建、修改时间
     private Date createTime;
-
+    //逻辑删除 0 存在 1 删除
     private Boolean logicRemove;
 
     public Long getId() {

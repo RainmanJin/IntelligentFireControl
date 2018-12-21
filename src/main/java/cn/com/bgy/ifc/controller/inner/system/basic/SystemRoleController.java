@@ -146,7 +146,7 @@ public class SystemRoleController {
     @GetMapping("/queryRoleType")
     @ResponseBody
     public ResponseVO<Object> queryRoleType(String token){
-        List<SelectVo> list=SystemConstant.SyetemRoleType.getSelectList();
+        List<SelectVo> list=SystemConstant.SystemRoleType.getSelectList();
         return  ResponseVO.success().setData(list);
     }
     /**

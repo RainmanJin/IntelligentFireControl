@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -83,6 +85,17 @@ public class RegionCourtController {
             return ResponseVO.success().setMsg("添加成功");
         }
         return ResponseVO.error().setMsg("添加失败！");
-
     }
+    /**
+     * @Author huxin
+     * @Description 根据父id查询所有街道信息
+     * @Date 2018/12/20 18:24
+     */
+    @PostMapping("queryAllName")
+    @ResponseBody
+    public ResponseVO<Object> queryRegionCourtNameBySuperId(Long id){
+        List<Map<String,Object>> list  = regionCourtService.queryRegionCourtNameBySuperId(id);
+        return ResponseVO.<Object>success().setData(list);
+    }
+
 }

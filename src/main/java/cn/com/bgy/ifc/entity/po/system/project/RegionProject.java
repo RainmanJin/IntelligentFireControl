@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.entity.po.system.project;
 
 import java.util.Date;
 
-public class RegionProject {
+public class RegionProject{
     /**
      * @Author huxin
      * @Description ID

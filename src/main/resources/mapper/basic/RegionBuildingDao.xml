@@ -83,4 +83,72 @@
       </if>
     </trim>
   </insert>
+
+  <select id="queryListRegionBuilding" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionBuildingVo" resultType="cn.com.bgy.ifc.entity.vo.system.project.RegionBuildingVo">
+    SELECT
+    b.id as id,b.organization_id as organizationId,b.name as name,
+    b.region_id as regionId,i.`name` as regionName,
+    b.project_id as projectId,p.`name` as projectName,
+    b.court_id as courtId,c.`name` as courtName,
+    b.street_id as streetId,s.`name` as streetName,
+    b.create_time as createTime
+    from region_building b
+    LEFT JOIN region_info i on b.region_id = i.id
+    LEFT JOIN region_project p on b.project_id = p.id
+    LEFT JOIN region_court c on b.court_id = c.id
+    LEFT JOIN region_street s on b.street_id = s.id
+    <where>
+      <if test="regionId != null and regionId!= '' ">
+        AND b.region_id= #{regionId,jdbcType=BIGINT}
+      </if>
+      <if test="projectId != null and projectId != '' ">
+        AND b.project_id= #{ projectId,jdbcType=BIGINT}
+      </if>
+      <if test="courtId != null and courtId != '' ">
+        AND b.court_id= #{ courtId,jdbcType=BIGINT}
+      </if>
+      <if test="streetId != null and streetId != '' ">
+        AND b.street_id= #{ streetId,jdbcType=BIGINT}
+      </if>
+      <if test="keyword!='' and keyword!=null">
+        AND (i.name LIKE concat('%',#{keyword},'%')
+        OR p.name LIKE concat('%',#{keyword},'%')
+        OR c.name like concat('%',#{keyword},'%')
+        OR s.name LIKE concat('%',#{keyword},'%')
+        OR b.name like concat('%',#{keyword},'%'))
+      </if>
+      AND b.logic_remove = 0
+    </where>
+  </select>
+  <update id="updateRegionBuilding" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionBuilding">
+    UPDATE region_building
+    <set>
+      <if test="regionId != null and projectId != null and courtId != null and streetId != null">
+        region_id =#{regionId},project_id =#{projectId},court_id= #{ projectId},street_id= #{ streetId},
+      </if>
+      <if test="name != null">name =#{name},</if>
+      <if test="createTime != null">create_Time =#{createTime}</if>
+    </set>
+    WHERE id = #{id}
+
+  </update>
+  <update id="deleteRegionBuilding" parameterType="java.util.List">
+    UPDATE region_building set logic_remove =1 where id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+  <select id="queryRegionBuildingtNameById" parameterType="java.lang.Long" resultType="java.lang.String">
+      SELECT name FROM region_building  WHERE logic_remove = 0 AND id= #{id}
+  </select>
+  <select id="queryRegionBuildingtNameBySuperId" parameterType="java.lang.Long" resultType="java.util.Map">
+    SELECT name,id FROM region_building  WHERE logic_remove = 0 AND street_id= #{ streetId}
+  </select>
+
+  <update id="deleteRegionBuildingBySuperId" parameterType="java.util.List">
+    UPDATE region_building set logic_remove =1 where street_id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
 </mapper>
