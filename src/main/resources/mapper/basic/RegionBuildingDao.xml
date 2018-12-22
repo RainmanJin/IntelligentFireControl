@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.project.RegionBuildingDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.project.RegionBuilding">
+<mapper namespace="cn.com.bgy.ifc.dao.project.RegionBuildingDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.project.RegionBuilding">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
     <result column="region_id" jdbcType="BIGINT" property="regionId" />
@@ -12,7 +12,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionBuilding">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.project.RegionBuilding">
     insert into region_building (id, organization_id, region_id, 
       project_id, court_id, street_id, 
       name, create_time, logic_remove
@@ -22,7 +22,7 @@
       #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionBuilding">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.project.RegionBuilding">
     insert into region_building
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -120,7 +120,7 @@
       AND b.logic_remove = 0
     </where>
   </select>
-  <update id="updateRegionBuilding" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionBuilding">
+  <update id="updateRegionBuilding" parameterType="cn.com.bgy.ifc.entity.po.project.RegionBuilding">
     UPDATE region_building
     <set>
       <if test="regionId != null and projectId != null and courtId != null and streetId != null">

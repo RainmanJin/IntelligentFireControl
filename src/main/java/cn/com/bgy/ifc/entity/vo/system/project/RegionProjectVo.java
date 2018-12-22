@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.entity.vo.system.project;
 
-import cn.com.bgy.ifc.entity.po.system.project.RegionProject;
+import cn.com.bgy.ifc.entity.po.project.RegionProject;
 
 public class RegionProjectVo extends RegionProject {
 

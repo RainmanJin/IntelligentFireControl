@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.bgy.aspect;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogSave;
-import cn.com.bgy.ifc.domain.interfaces.system.basic.SystemLogDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.SystemLogDomain;
 import cn.com.bgy.ifc.entity.po.basic.SystemOperationLog;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;

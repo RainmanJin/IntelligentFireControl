@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.entity.vo.system.project;
 
-import cn.com.bgy.ifc.entity.po.system.project.RegionBuilding;
+import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
 /**
  * @Author huxin
  * @Description 楼栋单元扩展字段

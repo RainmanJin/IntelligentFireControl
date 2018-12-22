@@ -1,10 +1,10 @@
 package cn.com.bgy.ifc.bgy.task;
 
-import cn.com.bgy.ifc.service.interfaces.api.basic.UserApiService;
+import cn.com.bgy.ifc.service.interfaces.api.system.UserApiService;
 import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyEquipmentService;
-import cn.com.bgy.ifc.service.interfaces.api.basic.BgyOrgService;
-import cn.com.bgy.ifc.service.interfaces.api.basic.BgyProjectService;
-import cn.com.bgy.ifc.service.interfaces.api.basic.BgyRegionInfoService;
+import cn.com.bgy.ifc.service.interfaces.api.project.BgyOrgService;
+import cn.com.bgy.ifc.service.interfaces.api.project.BgyProjectService;
+import cn.com.bgy.ifc.service.interfaces.api.project.BgyRegionInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

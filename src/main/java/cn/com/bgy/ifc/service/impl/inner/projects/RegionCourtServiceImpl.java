@@ -1,9 +1,9 @@
 package cn.com.bgy.ifc.service.impl.inner.projects;
 
-import cn.com.bgy.ifc.domain.interfaces.system.project.RegionCourtDomain;
-import cn.com.bgy.ifc.entity.po.system.project.RegionCourt;
+import cn.com.bgy.ifc.domain.interfaces.project.RegionCourtDomain;
+import cn.com.bgy.ifc.entity.po.project.RegionCourt;
 import cn.com.bgy.ifc.entity.vo.system.project.RegionCourtVo;
-import cn.com.bgy.ifc.service.interfaces.inner.projects.RegionCourtService;
+import cn.com.bgy.ifc.service.interfaces.inner.project.RegionCourtService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

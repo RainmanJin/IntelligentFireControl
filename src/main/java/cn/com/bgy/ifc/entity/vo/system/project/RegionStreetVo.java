@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.entity.vo.system.project;
 
-import cn.com.bgy.ifc.entity.po.system.project.RegionStreet;
+import cn.com.bgy.ifc.entity.po.project.RegionStreet;
 
 /**
  * @Author huxin

@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.entity.vo.system.project;
 
-import cn.com.bgy.ifc.entity.po.system.project.RegionCourt;
+import cn.com.bgy.ifc.entity.po.project.RegionCourt;
 /**
  * @Author huxin
  * @Description 苑区信息扩展字段

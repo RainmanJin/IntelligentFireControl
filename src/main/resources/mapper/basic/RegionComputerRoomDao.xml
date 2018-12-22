@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.project.RegionComputerRoomDao">
-    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.project.RegionComputerRoom">
+<mapper namespace="cn.com.bgy.ifc.dao.project.RegionComputerRoomDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.project.RegionComputerRoom">
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="organization_id" jdbcType="BIGINT" property="organizationId"/>
         <result column="region_id" jdbcType="BIGINT" property="regionId"/>
@@ -15,7 +15,7 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
     </resultMap>
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionComputerRoom">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.project.RegionComputerRoom">
     insert into region_computer_room (id, organization_id, region_id, 
       project_id, court_id, street_id, 
       building_id, name, code, 
@@ -25,7 +25,7 @@
       #{buildingId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT})
   </insert>
-    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionComputerRoom">
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.project.RegionComputerRoom">
         insert into region_computer_room
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -104,7 +104,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionComputerRoom">
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.project.RegionComputerRoom">
         update region_computer_room
         <set>
             <if test="organizationId != null">
@@ -169,7 +169,7 @@
             AND cr.logic_remove = 0
         </where>
     </select>
-    <update id="updateRegionComputerRoom" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionComputerRoom">
+    <update id="updateRegionComputerRoom" parameterType="cn.com.bgy.ifc.entity.po.project.RegionComputerRoom">
         UPDATE region_computer_room
         <set>
             <if test="regionId != null and projectId != null and courtId != null and streetId != null">
@@ -191,7 +191,7 @@
         </foreach>
     </update>
 
-    <select id="queryRegionComputerRoomById" resultType="cn.com.bgy.ifc.entity.po.system.project.RegionComputerRoom" parameterType="java.lang.Long">
+    <select id="queryRegionComputerRoomById" resultType="cn.com.bgy.ifc.entity.po.project.RegionComputerRoom" parameterType="java.lang.Long">
           SELECT
           id,organization_id,region_id,project_id,court_id,street_id,building_id,name,code
           FROM region_computer_room

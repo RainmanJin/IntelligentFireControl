@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.repair.MaintenanceCompanyDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -10,7 +10,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">
     insert into maintenance_company (id, organization_id, name, 
       telephone, remark, create_time, 
       logic_remove)
@@ -18,7 +18,7 @@
       #{telephone,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{logicRemove,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">
     insert into maintenance_company
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

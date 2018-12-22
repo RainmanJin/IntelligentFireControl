@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.repair.MaintenanceContractDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="r_id" jdbcType="BIGINT" property="rId" />
@@ -17,13 +17,13 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract">
     <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
   </resultMap>
   <sql id="Blob_Column_List">
     remark
   </sql>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract">
     insert into maintenance_contract (id, org_id, r_id, 
       p_id, contract_name, contract_no, 
       company_id, master_contact, contact_phone, 
@@ -37,7 +37,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, #{remark,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract">
     insert into maintenance_contract
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

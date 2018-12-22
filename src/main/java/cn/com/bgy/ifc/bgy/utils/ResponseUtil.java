@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.bgy.utils;
 
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
-import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig;
+import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.basic.HttpVo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

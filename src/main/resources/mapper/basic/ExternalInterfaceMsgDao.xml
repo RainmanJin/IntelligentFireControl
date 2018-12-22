@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.basic.ExternalInterfaceMsgDao">
-    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg">
+<mapper namespace="cn.com.bgy.ifc.dao.system.ExternalInterfaceMsgDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg">
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="platform_value" jdbcType="INTEGER" property="platformValue"/>
         <result column="msg_type_value" jdbcType="INTEGER" property="msgTypeValue"/>
@@ -16,7 +16,7 @@
         <result column="create_time" jdbcType="DATE" property="createTime"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
     </resultMap>
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg">
     insert into external_interface_msg (id, platform_value, msg_type_value, 
       total_count, add_count, delete_count, 
       update_count, success_count, error_count, 
@@ -28,7 +28,7 @@
       #{orgId,jdbcType=BIGINT}, #{requestTime,jdbcType=DATE}, #{createTime,jdbcType=DATE}, 
       #{logicRemove,jdbcType=BIT})
   </insert>
-    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg">
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg">
         insert into external_interface_msg
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -113,7 +113,7 @@
             </if>
         </trim>
     </insert>
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg"
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg"
             resultMap="BaseResultMap">
         SELECT
         id,

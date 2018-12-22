@@ -1,9 +1,9 @@
 package cn.com.bgy.ifc.service.impl.inner.projects;
 
-import cn.com.bgy.ifc.domain.interfaces.system.project.RegionBuildingDomain;
-import cn.com.bgy.ifc.entity.po.system.project.RegionBuilding;
+import cn.com.bgy.ifc.domain.interfaces.project.RegionBuildingDomain;
+import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
 import cn.com.bgy.ifc.entity.vo.system.project.RegionBuildingVo;
-import cn.com.bgy.ifc.service.interfaces.inner.projects.RegionBuildingService;
+import cn.com.bgy.ifc.service.interfaces.inner.project.RegionBuildingService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
