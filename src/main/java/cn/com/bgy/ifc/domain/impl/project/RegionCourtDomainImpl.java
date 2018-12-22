@@ -6,7 +6,7 @@ import cn.com.bgy.ifc.dao.project.RegionCourtDao;
 import cn.com.bgy.ifc.dao.project.RegionStreetDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionCourtDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionCourt;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionCourtVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionCourtVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

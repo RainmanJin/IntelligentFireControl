@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.interfaces.system;
 
-import cn.com.bgy.ifc.entity.po.basic.Department;
-import cn.com.bgy.ifc.entity.vo.basic.DepartmentVo;
+import cn.com.bgy.ifc.entity.po.system.Department;
+import cn.com.bgy.ifc.entity.vo.system.DepartmentVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 

@@ -5,7 +5,7 @@ import cn.com.bgy.ifc.dao.project.RegionComputerRoomDao;
 import cn.com.bgy.ifc.dao.project.RegionStreetDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionStreetDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionStreet;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionStreetVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.dao.project;
 
 import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.project.RegionInfo;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionInfoVo;
 
 import java.util.List;
 import java.util.Map;

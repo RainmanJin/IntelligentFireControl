@@ -1,8 +1,8 @@
 package cn.com.bgy.ifc.dao.system;
 
 import cn.com.bgy.ifc.dao.base.BaseDao;
-import cn.com.bgy.ifc.entity.po.basic.Department;
-import cn.com.bgy.ifc.entity.vo.basic.DepartmentVo;
+import cn.com.bgy.ifc.entity.po.system.Department;
+import cn.com.bgy.ifc.entity.vo.system.DepartmentVo;
 
 import java.util.List;
 

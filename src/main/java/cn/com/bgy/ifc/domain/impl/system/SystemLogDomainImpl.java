@@ -2,8 +2,8 @@ package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.dao.system.SystemOperationLogDao;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemLogDomain;
-import cn.com.bgy.ifc.entity.po.basic.SystemOperationLog;
-import cn.com.bgy.ifc.entity.vo.system.basic.SystemOperationLogVo;
+import cn.com.bgy.ifc.entity.po.system.SystemOperationLog;
+import cn.com.bgy.ifc.entity.vo.system.SystemOperationLogVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

@@ -74,7 +74,7 @@
       </if>
     </trim>
   </insert>
-  <select id="queryListRegionStreet" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo" resultType="cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo">
+  <select id="queryListRegionStreet" parameterType="cn.com.bgy.ifc.entity.vo.project.RegionStreetVo" resultType="cn.com.bgy.ifc.entity.vo.project.RegionStreetVo">
     SELECT
     s.id as id,s.`name` as name,s.organization_id as organizationId,
     s.region_id as regionId,(SELECT i.name from region_info i where i.id = s.region_id

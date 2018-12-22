@@ -5,7 +5,7 @@ import cn.com.bgy.ifc.domain.interfaces.system.SystemRolePowerDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.SystemRolePower;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.basic.SystemRolePowerVo;
+import cn.com.bgy.ifc.entity.vo.system.SystemRolePowerVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

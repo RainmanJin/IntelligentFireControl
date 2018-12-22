@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.dao.system;
 
 import cn.com.bgy.ifc.entity.po.system.Account;
-import cn.com.bgy.ifc.entity.vo.system.user.AccountVo;
+import cn.com.bgy.ifc.entity.vo.system.AccountVo;
 
 import java.util.List;
 

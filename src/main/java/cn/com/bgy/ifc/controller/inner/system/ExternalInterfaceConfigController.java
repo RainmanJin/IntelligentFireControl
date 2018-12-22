@@ -7,7 +7,7 @@ import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.basic.ExternalInterfaceConfigVo;
+import cn.com.bgy.ifc.entity.vo.system.ExternalInterfaceConfigVo;
 import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;

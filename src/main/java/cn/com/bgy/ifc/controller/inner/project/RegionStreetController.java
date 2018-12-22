@@ -3,7 +3,7 @@ package cn.com.bgy.ifc.controller.inner.project;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.entity.po.project.RegionStreet;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionStreetVo;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionStreetService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;

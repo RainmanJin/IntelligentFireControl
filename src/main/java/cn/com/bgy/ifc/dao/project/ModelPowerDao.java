@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.dao.project;
 
 import cn.com.bgy.ifc.entity.po.system.ModelPower;
-import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
+import cn.com.bgy.ifc.entity.po.system.SystemMenu;
 import cn.com.bgy.ifc.entity.po.system.SystemModel;
 import cn.com.bgy.ifc.entity.po.system.SystemPower;
 

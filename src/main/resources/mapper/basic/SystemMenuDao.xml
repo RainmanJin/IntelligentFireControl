@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.system.SystemMenuDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.SystemMenu">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
@@ -12,7 +12,7 @@
     <result column="power_id" jdbcType="BIGINT" property="powerId" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
     insert into system_menu (id, name, image_url, 
       navigate_url, remark, sort_index, 
       parent_id, power_id, logic_remove
@@ -22,7 +22,7 @@
       #{parentId,jdbcType=BIGINT}, #{powerId,jdbcType=BIGINT}, #{logicRemove,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
     insert into system_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -84,7 +84,7 @@
     </trim>
   </insert>
 
-  <insert id="addSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+  <insert id="addSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu" >
     insert into system_menu (id, name, image_url,
       navigate_url, remark, sort_index,
       parent_id, power_id, logic_remove
@@ -95,7 +95,7 @@
       )
   </insert>
 
-  <select id="queryAllSystemMenuInfo" parameterType="java.lang.String" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+  <select id="queryAllSystemMenuInfo" parameterType="java.lang.String" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
      SELECT
             m.id as id,
             m.name as name,
@@ -144,7 +144,7 @@
             )
   </select>
 
-  <select id="queryOneSystemMenuInfo" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" parameterType="java.lang.Long">
+  <select id="queryOneSystemMenuInfo" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" parameterType="java.lang.Long">
     SELECT
       id as id,
       name as name,
@@ -158,7 +158,7 @@
     from system_menu s where s.id = #{id,jdbcType=BIGINT}
   </select>
 
-  <update id="updateSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+  <update id="updateSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
     update system_menu s
     set s.image_url= #{imageUrl,jdbcType=VARCHAR},s.logic_remove=#{logicRemove,jdbcType=BIT},
     s.`name`=#{name,jdbcType=VARCHAR},s.navigate_url= #{navigateUrl,jdbcType=VARCHAR},s.parent_id= #{parentId,jdbcType=BIGINT},
@@ -177,7 +177,7 @@
     </foreach>
   </update>
 
-  <select id="findMenuByUser" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+  <select id="findMenuByUser" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" >
        SELECT
             id as id,
             name as name,
@@ -219,7 +219,7 @@
 
 
 
-    <select id="findMenuByUserAndParentId" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+    <select id="findMenuByUserAndParentId" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" >
        SELECT
             id as id,
             name as name,

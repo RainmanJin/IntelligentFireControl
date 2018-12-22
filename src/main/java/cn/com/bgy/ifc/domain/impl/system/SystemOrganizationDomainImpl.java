@@ -8,7 +8,7 @@ import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.projects.BgyOrgVo;
+import cn.com.bgy.ifc.entity.vo.project.BgyOrgVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

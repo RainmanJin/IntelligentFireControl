@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.dao.system;
 
-import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
+import cn.com.bgy.ifc.entity.po.system.SystemMenu;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

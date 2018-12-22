@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.dao.project;
 
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionComputerRoomVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@ import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemPowerDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemPower;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.basic.SystemPowerVo;
+import cn.com.bgy.ifc.entity.vo.system.SystemPowerVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

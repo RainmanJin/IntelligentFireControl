@@ -2,9 +2,9 @@ package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.domain.interfaces.system.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
-import cn.com.bgy.ifc.entity.po.basic.SystemMenu;
+import cn.com.bgy.ifc.entity.po.system.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.basic.SystemMenuVo;
+import cn.com.bgy.ifc.entity.vo.system.SystemMenuVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

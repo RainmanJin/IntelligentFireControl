@@ -3,7 +3,7 @@ package cn.com.bgy.ifc.domain.impl.project;
 import cn.com.bgy.ifc.dao.project.RegionBuildingDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionBuildingDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionBuildingVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionBuildingVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

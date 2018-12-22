@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.bgy.utils;
 
 
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
-import cn.com.bgy.ifc.entity.vo.basic.HttpVo;
+import cn.com.bgy.ifc.entity.vo.common.HttpVo;
 import com.alibaba.fastjson.JSON;
 import org.apache.shiro.crypto.hash.Md5Hash;
 
@@ -25,7 +25,7 @@ public class SignatureUtil {
      * @param: [config, reqUrl, data]
      * @return: cn.com.bgy.ifc.entity.vo.basic.HttpVo
      */
-    public static HttpVo getHttpVo(ExternalInterfaceConfig config,String reqUrl,Map<String, Object> data){
+    public static HttpVo getHttpVo(ExternalInterfaceConfig config, String reqUrl, Map<String, Object> data){
         HttpVo httpVo=new HttpVo();
         String url = config.getUrl() + reqUrl;
         String account = config.getAccount();

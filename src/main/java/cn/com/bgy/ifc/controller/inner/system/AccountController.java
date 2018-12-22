@@ -4,7 +4,7 @@ import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.user.AccountVo;
+import cn.com.bgy.ifc.entity.vo.system.AccountVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;

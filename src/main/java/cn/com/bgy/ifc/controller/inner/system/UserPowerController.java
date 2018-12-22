@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.domain.interfaces.system.DepartmentDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.UserPowerDomain;
-import cn.com.bgy.ifc.entity.po.basic.Department;
+import cn.com.bgy.ifc.entity.po.system.Department;
 import cn.com.bgy.ifc.entity.po.system.SystemUserPower;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import com.github.pagehelper.Page;

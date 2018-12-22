@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.bgy.constant;
 
-import cn.com.bgy.ifc.entity.vo.basic.SelectVo;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -98,7 +98,7 @@
         </trim>
     </insert>
 <!--查询所有外部接口配置-->
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.ExternalInterfaceConfigVo"
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.system.ExternalInterfaceConfigVo"
             resultMap="BaseResultMap">
         SELECT
         id,
@@ -145,7 +145,7 @@
         </where>
     </select>
 <!--分页查询外部接口配置条件查询-->
-    <select id="queryListByPage" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.ExternalInterfaceConfigVo"
+    <select id="queryListByPage" parameterType="cn.com.bgy.ifc.entity.vo.system.ExternalInterfaceConfigVo"
             resultMap="BaseResultMap">
         SELECT
         t1.id,

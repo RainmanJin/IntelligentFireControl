@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.interfaces.system;
 
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
-import cn.com.bgy.ifc.entity.vo.system.basic.SystemRoleVo;
+import cn.com.bgy.ifc.entity.vo.system.SystemRoleVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 

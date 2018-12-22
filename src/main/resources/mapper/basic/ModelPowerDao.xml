@@ -40,7 +40,7 @@
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR},
       #{remark,jdbcType=VARCHAR}, #{logicRemove,jdbcType=BIT})
   </insert>
-    <insert id="insertSystemMenu" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+    <insert id="insertSystemMenu" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu" >
     insert into system_menu (id, name, image_url,
       navigate_url, remark, sort_index,
       parent_id, power_id, logic_remove

@@ -6,7 +6,7 @@ import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.InformationDomain;
 import cn.com.bgy.ifc.entity.po.system.Information;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.user.InformationVo;
+import cn.com.bgy.ifc.entity.vo.system.InformationVo;
 import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;

@@ -2,8 +2,8 @@ package cn.com.bgy.ifc.domain.impl.project;
 
 import cn.com.bgy.ifc.dao.project.ModelPowerDao;
 import cn.com.bgy.ifc.domain.interfaces.system.ModelPowerDomain;
-import cn.com.bgy.ifc.entity.po.basic.*;
 import cn.com.bgy.ifc.entity.po.system.ModelPower;
+import cn.com.bgy.ifc.entity.po.system.SystemMenu;
 import cn.com.bgy.ifc.entity.po.system.SystemModel;
 import cn.com.bgy.ifc.entity.po.system.SystemPower;
 import com.github.pagehelper.Page;

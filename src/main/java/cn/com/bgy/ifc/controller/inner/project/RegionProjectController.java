@@ -4,7 +4,7 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionProjectDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionProjectVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionProjectVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

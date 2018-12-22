@@ -14,7 +14,7 @@ import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentVersionDomain;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.basic.HttpVo;
+import cn.com.bgy.ifc.entity.vo.common.HttpVo;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentBrandVo;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentTypeVo;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVersionVo;

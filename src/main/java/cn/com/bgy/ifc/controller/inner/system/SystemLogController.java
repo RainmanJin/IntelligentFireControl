@@ -2,10 +2,10 @@ package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemLogDomain;
-import cn.com.bgy.ifc.entity.po.basic.SystemOperationLog;
+import cn.com.bgy.ifc.entity.po.system.SystemOperationLog;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.basic.SelectVo;
-import cn.com.bgy.ifc.entity.vo.system.basic.SystemOperationLogVo;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
+import cn.com.bgy.ifc.entity.vo.system.SystemOperationLogVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

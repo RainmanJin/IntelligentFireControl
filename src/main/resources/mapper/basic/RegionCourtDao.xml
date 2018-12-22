@@ -67,7 +67,7 @@
       </if>
     </trim>
   </insert>
-  <select id="queryListRegionCourt" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionCourtVo" resultType="cn.com.bgy.ifc.entity.vo.system.project.RegionCourtVo">
+  <select id="queryListRegionCourt" parameterType="cn.com.bgy.ifc.entity.vo.project.RegionCourtVo" resultType="cn.com.bgy.ifc.entity.vo.project.RegionCourtVo">
     SELECT
     c.region_id as regionId,c.project_id as projectId,c.id as id,c.organization_id as organizationId,
     c.name as regionName ,p.name as projectName,i.name as name,c.create_time as createTime

@@ -4,7 +4,7 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 
 import cn.com.bgy.ifc.domain.interfaces.system.InterfaceAccountDomain;
-import cn.com.bgy.ifc.entity.vo.system.user.InterfaceAccountVo;
+import cn.com.bgy.ifc.entity.vo.system.InterfaceAccountVo;
 import cn.com.bgy.ifc.entity.po.system.InterfaceAccount;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import com.alibaba.fastjson.JSONArray;

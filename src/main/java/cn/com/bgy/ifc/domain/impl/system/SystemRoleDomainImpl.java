@@ -3,7 +3,7 @@ package cn.com.bgy.ifc.domain.impl.system;
 import cn.com.bgy.ifc.dao.system.SystemRoleDao;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemRoleDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
-import cn.com.bgy.ifc.entity.vo.system.basic.SystemRoleVo;
+import cn.com.bgy.ifc.entity.vo.system.SystemRoleVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

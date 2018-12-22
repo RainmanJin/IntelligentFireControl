@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.service.impl.inner.projects;
 
 import cn.com.bgy.ifc.domain.interfaces.project.RegionStreetDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionStreet;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionStreetVo;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionStreetService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;

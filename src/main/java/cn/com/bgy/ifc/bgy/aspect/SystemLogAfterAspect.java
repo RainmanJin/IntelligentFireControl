@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.bgy.aspect;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemLogDomain;
-import cn.com.bgy.ifc.entity.po.basic.SystemOperationLog;
+import cn.com.bgy.ifc.entity.po.system.SystemOperationLog;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;

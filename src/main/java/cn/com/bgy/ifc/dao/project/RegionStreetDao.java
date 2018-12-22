@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.dao.project;
 
 import cn.com.bgy.ifc.entity.po.project.RegionStreet;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionStreetVo;
 
 import java.util.List;
 import java.util.Map;

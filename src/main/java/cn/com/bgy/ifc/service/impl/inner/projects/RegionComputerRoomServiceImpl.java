@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.service.impl.inner.projects;
 
 import cn.com.bgy.ifc.domain.interfaces.project.RegionComputerRoomDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionComputerRoomVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionComputerRoomService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;

@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.interfaces.project;
 
 import cn.com.bgy.ifc.entity.po.project.RegionCourt;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionCourtVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionCourtVo;
 
 import java.util.List;
 import java.util.Map;

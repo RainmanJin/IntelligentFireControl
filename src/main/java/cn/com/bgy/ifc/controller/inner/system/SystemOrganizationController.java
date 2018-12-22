@@ -4,7 +4,7 @@ import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.basic.SystemOrganizationVo;
+import cn.com.bgy.ifc.entity.vo.system.SystemOrganizationVo;
 import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;

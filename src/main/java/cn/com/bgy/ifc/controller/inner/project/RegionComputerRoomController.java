@@ -3,7 +3,7 @@ package cn.com.bgy.ifc.controller.inner.project;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionComputerRoomVo;
+import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionComputerRoomService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
