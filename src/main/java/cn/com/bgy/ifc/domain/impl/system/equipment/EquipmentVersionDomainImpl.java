@@ -5,10 +5,8 @@ import cn.com.bgy.ifc.bgy.utils.DBUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentVersionDao;
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.equipment.EquipmentVersionDomain;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentVersion;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentBrandVo;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVersionVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,28 +35,29 @@ public class EquipmentVersionDomainImpl implements EquipmentVersionDomain {
 
     @Override
     public ResponseVO<Object> saveBgyEquipmentVersion(List<BgyEquipmentVersionVo> list, Long orgId) {
-        try{
-            List<EquipmentVersion> versionList=new ArrayList<>();
-            for(BgyEquipmentVersionVo versionVo:list){
-                EquipmentVersion version=new EquipmentVersion();
+        try {
+            List<EquipmentVersion> versionList = new ArrayList<>();
+            for (BgyEquipmentVersionVo versionVo : list) {
+                EquipmentVersion version = new EquipmentVersion();
                 version.setId(versionVo.getId());
                 version.setName(versionVo.getName());
                 version.setBrandId(versionVo.getBrandId());
+                version.setStatus(versionVo.getStatus());
                 version.setDescription(versionVo.getDescription());
                 version.setLogicRemove(false);
                 versionList.add(version);
             }
-        int totalCount = DBUtil.insertByList("equipment_version", versionList);
-        if (totalCount != versionList.size()) {
+            int totalCount = DBUtil.insertByList("equipment_version", versionList);
+            if (totalCount != versionList.size()) {
+                return ResponseVO.error().setMsg("同步集成平台设备型号异常");
+            } else {
+                externalInterfaceMsgDomain.successInterfaceMsg(orgId, ExternalConstant.MsgTypeValue.BGY_EQUIPMENT_VERSION_OBTAIN.getValue(), totalCount);
+                return ResponseVO.success().setMsg("同步集成平台设备型号总条数：" + totalCount + "，新增条数：" + totalCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
+            }
+        } catch (Exception e) {
+            logger.error("同步集成平台设备型号doMain异常:" + e);
             return ResponseVO.error().setMsg("同步集成平台设备型号异常");
-        } else {
-            externalInterfaceMsgDomain.successInterfaceMsg(orgId, ExternalConstant.MsgTypeValue.BGY_EQUIPMENT_VERSION_OBTAIN.getValue(), totalCount);
-            return ResponseVO.success().setMsg("同步集成平台设备型号总条数：" + totalCount + "，新增条数：" + totalCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
-    } catch (Exception e) {
-        logger.error("同步集成平台设备型号doMain异常:" + e);
-        return ResponseVO.error().setMsg("同步集成平台设备型号异常");
-    }
     }
 
     @Override
@@ -70,12 +69,13 @@ public class EquipmentVersionDomainImpl implements EquipmentVersionDomain {
         int addCount = 0;
         int updateCount = 0;
         int deleteCount = 0;
-        for(BgyEquipmentVersionVo versionVo:list){
-            EquipmentVersion version=new EquipmentVersion();
+        for (BgyEquipmentVersionVo versionVo : list) {
+            EquipmentVersion version = new EquipmentVersion();
             version.setId(versionVo.getId());
             version.setName(versionVo.getName());
             version.setBrandId(versionVo.getBrandId());
             version.setDescription(versionVo.getDescription());
+            version.setStatus(versionVo.getStatus());
             version.setLogicRemove(false);
             int operType = versionVo.getOperType();
             //新增

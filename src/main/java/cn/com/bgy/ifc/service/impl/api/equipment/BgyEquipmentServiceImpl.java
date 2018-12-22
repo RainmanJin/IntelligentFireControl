@@ -10,12 +10,14 @@ import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceConfigDoma
 import cn.com.bgy.ifc.domain.interfaces.system.basic.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.equipment.EquipmentBrandDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.equipment.EquipmentTypeDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.equipment.EquipmentVersionDomain;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.basic.HttpVo;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentBrandVo;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentTypeVo;
+import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVersionVo;
 import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyEquipmentService;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -46,6 +48,9 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
 
     @Autowired
     private EquipmentBrandDomain equipmentBrandDomain;
+
+    @Autowired
+    private EquipmentVersionDomain equipmentVersionDomain;
 
     @SystemLogAfterSave(type = 7, description = "同步集成平台设备类型数据")
     @Override
@@ -220,18 +225,89 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
         }
     }
 
+    @SystemLogAfterSave(type = 7, description = "同步集成平台设备型号数据")
     @Override
     public ResponseVO<Object> baseObtainBgyEquipmentVersion(int pageNo, int pageSize) {
-        return null;
+        try {
+            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
+            if (list.size() != 0) {
+                ExternalInterfaceConfig config = list.get(0);
+                Long orgId = config.getOrgId();
+                //机构日志,设备类型
+                List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.BGY_EQUIPMENT_VERSION_OBTAIN.getValue(), orgId);
+                if (msgList.size() > 0) {
+                    ExternalInterfaceMsg interfaceMsg = msgList.get(0);
+                    Date createTime = interfaceMsg.getCreateTime();
+                    return obtainBgyEquipmentVersionIncrement(pageNo, pageSize, config, createTime);
+                } else {
+                    return obtainBgyEquipmentVersion(pageNo, pageSize, config);
+                }
+            } else {
+                logger.info("获取集成平台接口配置数据失败！");
+                return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
+            }
+        } catch (Exception e) {
+            logger.error("获取集成平台设备型号列表接口请求异常：" + e);
+            return ResponseVO.error().setMsg("获取集成平台设备型号列表接口请求异常！");
+        }
     }
 
     @Override
     public ResponseVO<Object> obtainBgyEquipmentVersion(int pageNo, int pageSize, ExternalInterfaceConfig config) throws Exception {
-        return null;
+        String reqUrl = "/api/third/equipment/getEquipmentVersion";
+        long orgId = config.getOrgId();
+        // 请求包结构体
+        Map<String, Object> data = new HashMap<>();
+        data.put("pageNo", pageNo);
+        data.put("pageSize", pageSize);
+        //集成平台HTTP头部需要数据
+        HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
+        //调用HTTP请求
+        JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        // 总页数
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
+        List<BgyEquipmentVersionVo> oList = new ArrayList<>();
+        BgyEquipmentVersionVo bgyEquipmentVersionVo = new BgyEquipmentVersionVo();
+        ResponseUtil.getResultList(oList, bgyEquipmentVersionVo, response, "data", "equipmentVersionList");
+        if (pageCount != 0) {
+            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyEquipmentVersionVo, "data", "equipmentVersionList");
+        }
+        int totalCount = oList.size();
+        if (totalCount > 0) {
+            return equipmentVersionDomain.saveBgyEquipmentVersion(oList, orgId);
+        } else {
+            return ResponseVO.success().setMsg("暂无集成平台设备型号数据同步！");
+        }
     }
 
     @Override
     public ResponseVO<Object> obtainBgyEquipmentVersionIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
-        return null;
+        String reqUrl = "/api/third/equipment/getEquipmentBrandIncrement";
+        long orgId = config.getOrgId();
+        //格式化时间字符串
+        String dateTime = TimeUtil.parseDateToStr(createTime);
+        // 请求包结构体
+        Map<String, Object> data = new HashMap<>();
+        data.put("startTime", dateTime);
+        data.put("pageNo", pageNo);
+        data.put("pageSize", pageSize);
+        //集成平台HTTP头部需要数据
+        HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
+        //调用HTTP请求
+        JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        // 总页数
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
+        List<BgyEquipmentVersionVo> oList = new ArrayList<>();
+        BgyEquipmentVersionVo bgyEquipmentVersionVo = new BgyEquipmentVersionVo();
+        ResponseUtil.getResultList(oList, bgyEquipmentVersionVo, response, "data", "list");
+        if (pageCount != 0) {
+            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyEquipmentVersionVo, "data", "list");
+        }
+        int totalCount = oList.size();
+        if (totalCount > 0) {
+            return equipmentVersionDomain.alterBgyEquipmentVersion(oList, orgId);
+        } else {
+            return ResponseVO.success().setMsg("暂无集成平台设备型号增量数据同步！");
+        }
     }
 }
