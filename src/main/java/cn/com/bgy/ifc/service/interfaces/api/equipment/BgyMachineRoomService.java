@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.service.interfaces.api.project;
+package cn.com.bgy.ifc.service.interfaces.api.equipment;
 
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;

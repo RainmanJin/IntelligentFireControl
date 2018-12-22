@@ -1,18 +1,21 @@
-package cn.com.bgy.ifc.service.impl.api.project;
+package cn.com.bgy.ifc.service.impl.api.equipment;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
+import cn.com.bgy.ifc.bgy.utils.TimeUtil;
+import cn.com.bgy.ifc.domain.interfaces.equipment.RegionComputerRoomDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.HttpVo;
-import cn.com.bgy.ifc.entity.vo.project.BgyMachineRoomVo;
+import cn.com.bgy.ifc.entity.vo.equipment.BgyMachineRoomVo;
 import cn.com.bgy.ifc.service.impl.api.system.UserApiServiceImpl;
-import cn.com.bgy.ifc.service.interfaces.api.project.BgyMachineRoomService;
+import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyMachineRoomService;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +26,7 @@ import java.util.*;
 
 /**
  * @author: ZhangCheng
- * @description:
+ * @description:碧桂园集成平台机房信息同步
  * @date: 2018-12-19 19:26
  **/
 @Service
@@ -37,6 +40,10 @@ public class BgyMachineRoomServiceImpl implements BgyMachineRoomService {
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
+    @Autowired
+    private RegionComputerRoomDomain regionComputerRoomDomain;
+
+    @SystemLogAfterSave(type = 7, description = "同步集成平台机房数据")
     @Override
     public ResponseVO<Object> baseObtainBgyMachineRoom(int pageNo, int pageSize) {
         try {
@@ -73,33 +80,50 @@ public class BgyMachineRoomServiceImpl implements BgyMachineRoomService {
         //调用HTTP请求
         HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
-        System.out.println("xxx"+response);
         // 总页数
         int pageCount = ResponseUtil.getPageCount(response, pageSize);
         List<BgyMachineRoomVo> oList = new ArrayList<>();
         BgyMachineRoomVo roomVo = new BgyMachineRoomVo();
         ResponseUtil.getResultList(oList, roomVo, response, "data", "equipmentMachineRoomVoList");
-        System.out.println(oList);
-        /*if (pageCount != 0) {
-            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
-        }*/
+        if (pageCount != 0) {
+            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, roomVo, "data", "equipmentMachineRoomVoList");
+        }
         int totalCount = oList.size();
-        /*if (totalCount > 0) {
-            return accountDomain.saveBgyAccountList(oList, orgId);
+        if (totalCount > 0) {
+            return regionComputerRoomDomain.saveBgyComputerRoomList(oList, orgId);
         } else {
-            return ResponseVO.success().setMsg("暂无集成平台用户数据同步！");
-        }*/
-        return null;
+            return ResponseVO.success().setMsg("暂无集成平台机房数据同步！");
+        }
     }
 
     @Override
     public ResponseVO<Object> obtainBgyMachineRoomIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
         String reqUrl = "/api/third/equipment/getMachineRoomIncrement";
         Long orgId = config.getOrgId();
+        //格式化时间字符串
+        String dateTime = TimeUtil.parseDateToStr(createTime);
         // 请求包结构体
         Map<String, Object> data = new HashMap<>();
+        data.put("startTime", dateTime);
         data.put("pageNo", pageNo);
         data.put("pageSize", pageSize);
-        return null;
+        //集成平台HTTP头部需要数据
+        HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
+        //调用HTTP请求
+        JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        // 总页数
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
+        List<BgyMachineRoomVo> oList = new ArrayList<>();
+        BgyMachineRoomVo roomVo = new BgyMachineRoomVo();
+        ResponseUtil.getResultList(oList, roomVo, response, "data", "list");
+        if (pageCount != 0) {
+            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, roomVo, "data", "list");
+        }
+        int totalCount = oList.size();
+        if (totalCount > 0) {
+            return regionComputerRoomDomain.alterBgyComputerRoomList(oList, orgId);
+        } else {
+            return ResponseVO.success().setMsg("暂无集成平台机房增量数据同步！");
+        }
     }
 }

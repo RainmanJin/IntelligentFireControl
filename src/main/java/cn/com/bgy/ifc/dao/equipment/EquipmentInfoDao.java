@@ -1,9 +1,8 @@
 package cn.com.bgy.ifc.dao.equipment;
 
+import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 
-public interface EquipmentInfoDao {
-    int insert(EquipmentInfo record);
+public interface EquipmentInfoDao extends BaseDao<EquipmentInfo> {
 
-    int insertSelective(EquipmentInfo record);
 }

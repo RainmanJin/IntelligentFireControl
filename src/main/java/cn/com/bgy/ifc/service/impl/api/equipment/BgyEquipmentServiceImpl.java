@@ -29,7 +29,7 @@ import java.util.*;
 
 /**
  * @author: ZhangCheng
- * @description:
+ * @description:碧桂园集成平台设备信息同步
  * @date: 2018-12-21 11:07
  **/
 @Service
@@ -51,6 +51,43 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
 
     @Autowired
     private EquipmentVersionDomain equipmentVersionDomain;
+
+    @SystemLogAfterSave(type = 7, description = "同步集成平台设备信息数据")
+    @Override
+    public ResponseVO<Object> baseObtainBgyEquipmentInfo(int pageNo, int pageSize) {
+        try {
+            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
+            if (list.size() != 0) {
+                ExternalInterfaceConfig config = list.get(0);
+                Long orgId = config.getOrgId();
+                //机构日志,设备信息
+                List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.GBY_EQUIPMENT_OBTAIN.getValue(), orgId);
+                if (msgList.size() > 0) {
+                    ExternalInterfaceMsg interfaceMsg = msgList.get(0);
+                    Date createTime = interfaceMsg.getCreateTime();
+                    return obtainBgyEquipmentInfoIncrement(pageNo, pageSize, config, createTime);
+                } else {
+                    return obtainBgyEquipmentInfo(pageNo, pageSize, config);
+                }
+            } else {
+                logger.info("获取集成平台接口配置数据失败！");
+                return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
+            }
+        } catch (Exception e) {
+            logger.error("获取集成平台设备类型列表接口请求异常：" + e);
+            return ResponseVO.error().setMsg("获取集成平台设备类型列表接口请求异常！");
+        }
+    }
+
+    @Override
+    public ResponseVO<Object> obtainBgyEquipmentInfo(int pageNo, int pageSize, ExternalInterfaceConfig config) throws Exception {
+        return null;
+    }
+
+    @Override
+    public ResponseVO<Object> obtainBgyEquipmentInfoIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
+        return null;
+    }
 
     @SystemLogAfterSave(type = 7, description = "同步集成平台设备类型数据")
     @Override

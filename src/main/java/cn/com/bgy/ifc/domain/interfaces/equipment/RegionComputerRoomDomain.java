@@ -1,8 +1,8 @@
-package cn.com.bgy.ifc.domain.interfaces.project;
+package cn.com.bgy.ifc.domain.interfaces.equipment;
 
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.project.BgyMachineRoomVo;
+import cn.com.bgy.ifc.entity.vo.equipment.BgyMachineRoomVo;
 import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
 
 import java.util.List;

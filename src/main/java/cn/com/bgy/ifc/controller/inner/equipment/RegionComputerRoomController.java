@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.controller.inner.project;
+package cn.com.bgy.ifc.controller.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
@@ -46,7 +46,6 @@ public class RegionComputerRoomController {
     @SystemLogAfterSave(type = 1,description = "机房信息修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionComputerRoom( RegionComputerRoom regionComputerRoom, String token){
-
         int count = regionComputerRoomService.updateRegionComputerRoom(regionComputerRoom);
         if (count == 1) {
             return ResponseVO.success().setMsg("修改成功");

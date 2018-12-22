@@ -78,6 +78,16 @@ public class ExternalTask {
         bgyProjectService.baseObtainBgyProject(1,500);
         System.out.println("同步集成平台项目");
     }
+
+    /**
+     * @author: ZhangCheng
+     * @description:同步集成平台设备信息
+     * @param: []
+     * @return: void
+     */
+    public void obtainBgyEquipmentInfo(){
+        bgyEquipmentService.baseObtainBgyEquipmentInfo(1,500);
+    }
     
     /**
      * @author: ZhangCheng
