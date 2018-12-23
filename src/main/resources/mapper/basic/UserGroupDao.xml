@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.system.UserGroupDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.UserGroup">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="group_id" jdbcType="BIGINT" property="groupId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.UserGroup">
+    insert into user_group (id, group_id, user_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.UserGroup">
+    insert into user_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="queryListMapByParam" parameterType="cn.com.bgy.ifc.entity.po.system.UserGroup" resultType="java.util.Map" >
+          select a.organization_id, a.department_id,
+                  a.telephone, a.job_number, a.user_name,
+                  a.password, a.password_salt, a.identity_number,
+                  a.sex, a.regist_time, a.is_disable,
+                  a.current_ip, a.current_time, a.last_ip,
+                  a.last_time, a.user_type, a.remark,
+                  g.name,g.type
+            from user_group ug LEFT JOIN account a on ug.user_id=a.id LEFT JOIN
+                          groups g on g.id=ug.group_id
+                  <trim prefix=" where " prefixOverrides=" and ">
+                    <if test="id != null">
+                      ug.id=#{id,jdbcType=BIGINT}
+                    </if>
+                    <if test="groupId != null">
+                      ug.groupId= #{groupId,jdbcType=BIGINT}
+                    </if>
+                    <if test="userId != null">
+                      ug.userId= #{userId,jdbcType=BIGINT}
+                    </if>
+                  </trim>
+
+  </select>
+
+
+
+</mapper>

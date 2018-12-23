@@ -98,6 +98,9 @@
             <if test="keyword != null and keyword !='' ">
                 AND (code LIKE concat('%',#{keyword},'%') OR name LIKE concat('%',#{keyword},'%'))
             </if>
+            <if test="organizationId !=null and organizationId !='' ">
+              and  organization_id =#{organizationId}
+            </if>
             AND logic_remove = 0
         </where>
     </select>

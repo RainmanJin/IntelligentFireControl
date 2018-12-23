@@ -1,16 +1,9 @@
-package cn.com.bgy.ifc.dao.base;
-
-import com.github.pagehelper.PageInfo;
+package cn.com.bgy.ifc.domain.interfaces.base;
 
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author: ZhangCheng
- * @description:公用Dao层
- * @date: 2018-12-19 16:23
- **/
-public interface BaseDao<T> {
+public interface BaseDomain<T>{
 
     /**
      * 参数查询
@@ -75,6 +68,5 @@ public interface BaseDao<T> {
      * @return
      */
     int deleteBatch(List<Object> ids);
-
 
 }

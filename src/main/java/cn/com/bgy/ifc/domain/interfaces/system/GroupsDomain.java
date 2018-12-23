@@ -1,24 +1,20 @@
-package cn.com.bgy.ifc.dao.base;
+package cn.com.bgy.ifc.domain.interfaces.system;
 
-import com.github.pagehelper.PageInfo;
+import cn.com.bgy.ifc.dao.base.BaseDao;
+import cn.com.bgy.ifc.domain.interfaces.base.BaseDomain;
+import cn.com.bgy.ifc.entity.po.system.Groups;
 
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author: ZhangCheng
- * @description:公用Dao层
- * @date: 2018-12-19 16:23
- **/
-public interface BaseDao<T> {
-
+public interface GroupsDomain extends BaseDomain<Groups> {
     /**
      * 参数查询
      *
      * @param t
      * @return
      */
-    List<T> queryListByParam(T t);
+    List<Groups> queryListByParam(Groups t);
 
     /**
      * 根据Map参数查询
@@ -26,7 +22,7 @@ public interface BaseDao<T> {
      * @param map
      * @return
      */
-    List<T> queryListByMap(Map<String, Object> map);
+    List<Groups> queryListByMap(Map<String, Object> map);
 
     /**
      * 根据ID查询
@@ -34,7 +30,7 @@ public interface BaseDao<T> {
      * @param id
      * @return
      */
-    T findById(Object id);
+    Groups findById(Object id);
 
     /**
      * 添加
@@ -42,7 +38,7 @@ public interface BaseDao<T> {
      * @param t
      * @return
      */
-    int insert(T t);
+    int insert(Groups t);
 
     /**
      * 添加
@@ -50,7 +46,7 @@ public interface BaseDao<T> {
      * @param t
      * @return
      */
-    int insertSelective(T t);
+    int insertSelective(Groups t);
 
     /**
      * 修改
@@ -58,7 +54,7 @@ public interface BaseDao<T> {
      * @param t
      * @return
      */
-    int update(T t);
+    public int update(Groups t);
 
     /**
      * 修改
@@ -66,7 +62,7 @@ public interface BaseDao<T> {
      * @param t
      * @return
      */
-    int updateSelective(T t);
+    public int updateSelective(Groups t);
 
     /**
      * 批量删除
@@ -74,7 +70,6 @@ public interface BaseDao<T> {
      * @param ids
      * @return
      */
-    int deleteBatch(List<Object> ids);
-
+    public int deleteBatch( List<Object> ids);
 
 }

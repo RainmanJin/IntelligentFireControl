@@ -50,4 +50,5 @@ public class SystemPower {
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
     }
+
 }
