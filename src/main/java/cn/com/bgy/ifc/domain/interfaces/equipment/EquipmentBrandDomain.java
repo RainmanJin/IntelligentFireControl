@@ -6,6 +6,8 @@ import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentTypeVo;
 
 import java.util.List;
 
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
+
 /**
  * @author: ZhangCheng
  * @description:设备品牌
@@ -28,4 +30,12 @@ public interface EquipmentBrandDomain {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     ResponseVO<Object> alterBgyEquipmentBrand(List<BgyEquipmentBrandVo> list, Long orgId);
+
+    void queryListEquipmentBrand();
+
+    int addEquipmentBrand( EquipmentBrand equipmentBrand );
+
+    int updateEquipmentBrand(EquipmentBrand equipmentBrand);
+
+    int deleteEquipmentBrand(String str);
 }

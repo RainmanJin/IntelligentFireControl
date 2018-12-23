@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.interfaces.equipment;
 
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentBrandVo;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVo;
 
 import java.util.List;
@@ -28,4 +28,12 @@ public interface EquipmentInfoDomain {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     ResponseVO<Object> alterBgyEquipmentInfo(List<BgyEquipmentVo> list, Long orgId);
+
+    void queryListEquipmentInfo();
+
+    int addEquipmentInfo( EquipmentInfo equipmentInfo );
+
+    int updateEquipmentInfo(EquipmentInfo equipmentInfo);
+
+    int deleteEquipmentInfo(String str);
 }

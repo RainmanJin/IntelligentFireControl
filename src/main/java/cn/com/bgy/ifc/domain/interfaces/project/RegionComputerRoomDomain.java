@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.domain.interfaces.equipment;
+package cn.com.bgy.ifc.domain.interfaces.project;
 
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;

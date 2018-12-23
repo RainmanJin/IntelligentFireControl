@@ -4,7 +4,7 @@ import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
 import cn.com.bgy.ifc.bgy.utils.StringUtil;
 import cn.com.bgy.ifc.dao.project.*;
-import cn.com.bgy.ifc.domain.interfaces.equipment.RegionComputerRoomDomain;
+import cn.com.bgy.ifc.domain.interfaces.project.RegionComputerRoomDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
 import cn.com.bgy.ifc.entity.po.project.RegionCourt;

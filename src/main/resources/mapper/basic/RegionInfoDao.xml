@@ -116,7 +116,7 @@
         <set>
             <if test="code != null">code =#{code},</if>
             <if test="name != null">name =#{name},</if>
-            <if test="createTime != null">createTime =#{createTime}</if>
+            <if test="createTime != null">create_time =#{createTime}</if>
         </set>
         WHERE id
         = #{id}
@@ -139,4 +139,8 @@
             #{id}
         </foreach>
     </update>
+
+    <select id="queryRegionInfoName" resultType="java.util.Map">
+     SELECT name,id FROM region_info  WHERE logic_remove = 0
+    </select>
 </mapper>
