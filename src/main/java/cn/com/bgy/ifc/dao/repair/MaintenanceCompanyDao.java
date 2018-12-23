@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.dao.repair;
 
-import cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany;
 
 public interface MaintenanceCompanyDao {
     int insert(MaintenanceCompany record);

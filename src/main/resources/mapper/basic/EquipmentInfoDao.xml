@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="input_code" jdbcType="BIGINT" property="inputCode" />
-    <result column="version_id" jdbcType="BIGINT" property="versionId" />
-    <result column="brand_id" jdbcType="BIGINT" property="brandId" />
-    <result column="type_id" jdbcType="BIGINT" property="typeId" />
-    <result column="keep_years" jdbcType="INTEGER" property="keepYears" />
-    <result column="in_work_time" jdbcType="TIMESTAMP" property="inWorkTime" />
-    <result column="is_important" jdbcType="INTEGER" property="isImportant" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="localtion_code" jdbcType="VARCHAR" property="localtionCode" />
-    <result column="simple_code" jdbcType="VARCHAR" property="simpleCode" />
-    <result column="api_code" jdbcType="VARCHAR" property="apiCode" />
-    <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
-    <result column="description" jdbcType="LONGVARCHAR" property="description" />
-  </resultMap>
-  <sql id="Blob_Column_List">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="input_code" jdbcType="VARCHAR" property="inputCode"/>
+        <result column="machine_room_id" jdbcType="BIGINT" property="machineRoomId"/>
+        <result column="version_id" jdbcType="BIGINT" property="versionId"/>
+        <result column="brand_id" jdbcType="BIGINT" property="brandId"/>
+        <result column="type_id" jdbcType="BIGINT" property="typeId"/>
+        <result column="keep_years" jdbcType="INTEGER" property="keepYears"/>
+        <result column="in_work_time" jdbcType="TIMESTAMP" property="inWorkTime"/>
+        <result column="is_important" jdbcType="INTEGER" property="isImportant"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="localtion_code" jdbcType="VARCHAR" property="localtionCode"/>
+        <result column="simple_code" jdbcType="VARCHAR" property="simpleCode"/>
+        <result column="api_code" jdbcType="VARCHAR" property="apiCode"/>
+        <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
+        <result column="description" jdbcType="LONGVARCHAR" property="description"/>
+    </resultMap>
+    <sql id="Blob_Column_List">
     description
   </sql>
-
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.quipment.EquipmentInfo">
     insert into equipment_info (id, name, input_code, 
       version_id, brand_id, type_id, 
       keep_years, in_work_time, is_important, 
@@ -36,157 +34,213 @@
       #{status,jdbcType=INTEGER}, #{localtionCode,jdbcType=VARCHAR}, #{simpleCode,jdbcType=VARCHAR}, 
       #{apiCode,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}, #{logicRemove,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
-    insert into equipment_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="inputCode != null">
-        input_code,
-      </if>
-      <if test="versionId != null">
-        version_id,
-      </if>
-      <if test="brandId != null">
-        brand_id,
-      </if>
-      <if test="typeId != null">
-        type_id,
-      </if>
-      <if test="keepYears != null">
-        keep_years,
-      </if>
-      <if test="inWorkTime != null">
-        in_work_time,
-      </if>
-      <if test="isImportant != null">
-        is_important,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="localtionCode != null">
-        localtion_code,
-      </if>
-      <if test="simpleCode != null">
-        simple_code,
-      </if>
-      <if test="apiCode != null">
-        api_code,
-      </if>
-      <if test="description != null">
-        description,
-      </if>
-      <if test="logicRemove != null">
-        logic_remove,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="inputCode != null">
-        #{inputCode,jdbcType=BIGINT},
-      </if>
-      <if test="versionId != null">
-        #{versionId,jdbcType=BIGINT},
-      </if>
-      <if test="brandId != null">
-        #{brandId,jdbcType=BIGINT},
-      </if>
-      <if test="typeId != null">
-        #{typeId,jdbcType=BIGINT},
-      </if>
-      <if test="keepYears != null">
-        #{keepYears,jdbcType=INTEGER},
-      </if>
-      <if test="inWorkTime != null">
-        #{inWorkTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="isImportant != null">
-        #{isImportant,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="localtionCode != null">
-        #{localtionCode,jdbcType=VARCHAR},
-      </if>
-      <if test="simpleCode != null">
-        #{simpleCode,jdbcType=VARCHAR},
-      </if>
-      <if test="apiCode != null">
-        #{apiCode,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null">
-        #{description,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="logicRemove != null">
-        #{logicRemove,jdbcType=BIT}
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
+        insert into equipment_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="inputCode != null">
+                input_code,
+            </if>
+            <if test="machineRoomId != null">
+                machine_room_id,
+            </if>
+            <if test="versionId != null">
+                version_id,
+            </if>
+            <if test="brandId != null">
+                brand_id,
+            </if>
+            <if test="typeId != null">
+                type_id,
+            </if>
+            <if test="keepYears != null">
+                keep_years,
+            </if>
+            <if test="inWorkTime != null">
+                in_work_time,
+            </if>
+            <if test="isImportant != null">
+                is_important,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="localtionCode != null">
+                localtion_code,
+            </if>
+            <if test="simpleCode != null">
+                simple_code,
+            </if>
+            <if test="apiCode != null">
+                api_code,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="logicRemove != null">
+                logic_remove,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="inputCode != null">
+                #{inputCode,jdbcType=VARCHAR},
+            </if>
+            <if test="machineRoomId != null">
+                #{machineRoomId,jdbcType=BIGINT},
+            </if>
+            <if test="versionId != null">
+                #{versionId,jdbcType=BIGINT},
+            </if>
+            <if test="brandId != null">
+                #{brandId,jdbcType=BIGINT},
+            </if>
+            <if test="typeId != null">
+                #{typeId,jdbcType=BIGINT},
+            </if>
+            <if test="keepYears != null">
+                #{keepYears,jdbcType=INTEGER},
+            </if>
+            <if test="inWorkTime != null">
+                #{inWorkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isImportant != null">
+                #{isImportant,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="localtionCode != null">
+                #{localtionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="simpleCode != null">
+                #{simpleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="apiCode != null">
+                #{apiCode,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logicRemove != null">
+                #{logicRemove,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
+        UPDATE equipment_info
+        <set>
+            <if test="name != null">
+                name=#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="inputCode != null">
+                input_code=#{inputCode,jdbcType=VARCHAR},
+            </if>
+            <if test="machineRoomId != null">
+                machine_room_id=#{machineRoomId,jdbcType=BIGINT},
+            </if>
+            <if test="versionId != null">
+                version_id= #{versionId,jdbcType=BIGINT},
+            </if>
+            <if test="brandId != null">
+                brand_id=#{brandId,jdbcType=BIGINT},
+            </if>
+            <if test="typeId != null">
+                type_id= #{typeId,jdbcType=BIGINT},
+            </if>
+            <if test="keepYears != null">
+                keep_years=#{keepYears,jdbcType=INTEGER},
+            </if>
+            <if test="inWorkTime != null">
+                in_work_time=#{inWorkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isImportant != null">
+                is_important=#{isImportant,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status=#{status,jdbcType=INTEGER},
+            </if>
+            <if test="localtionCode != null">
+                localtion_code=#{localtionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="simpleCode != null">
+                simple_code= #{simpleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="apiCode != null">
+                api_code= #{apiCode,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description= #{description,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logicRemove != null">logic_remove =#{logicRemove},</if>
+        </set>
+        WHERE id
+        = #{id}
+    </update>
+    <update id="updateEquipmentInfo" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
+        UPDATE equipment_info
+        <set>
+            <if test="name != null">
+                name =#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="inputCode != null">
+                input_code=#{inputCode,jdbcType=BIGINT},
+            </if>
+            <if test="versionId != null">
+                version_id=#{versionId,jdbcType=BIGINT},
+            </if>
+            <if test="brandId != null">
+                brand_id= #{brandId,jdbcType=BIGINT},
+            </if>
+            <if test="typeId != null">
+                type_id=#{typeId,jdbcType=BIGINT},
+            </if>
+            <if test="keepYears != null">
+                keep_years=#{keepYears,jdbcType=INTEGER},
+            </if>
+            <if test="inWorkTime != null">
+                in_work_time=#{inWorkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isImportant != null">
+                is_important=#{isImportant,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status=#{status,jdbcType=INTEGER},
+            </if>
+            <if test="localtionCode != null">
+                localtion_code=#{localtionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="simpleCode != null">
+                simple_code=#{simpleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="apiCode != null">
+                api_code= #{apiCode,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description=#{description,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logicRemove != null">
+                logic_remove=#{logicRemove,jdbcType=BIT}
+            </if>
+        </set>
+        WHERE id
+        = #{id}
+    </update>
+    <update id="deleteEquipmentInfo" parameterType="java.util.List">
+        UPDATE  equipment_info set logic_remove =1  where id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
 
-  <update id="updateEquipmentInfo" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
-    UPDATE equipment_info
-    <set>
-      <if test="name != null">
-        name =#{name,jdbcType=VARCHAR},
-      </if>
-      <if test="inputCode != null">
-        input_code=#{inputCode,jdbcType=BIGINT},
-      </if>
-      <if test="versionId != null">
-        version_id=#{versionId,jdbcType=BIGINT},
-      </if>
-      <if test="brandId != null">
-        brand_id= #{brandId,jdbcType=BIGINT},
-      </if>
-      <if test="typeId != null">
-        type_id=#{typeId,jdbcType=BIGINT},
-      </if>
-      <if test="keepYears != null">
-        keep_years=#{keepYears,jdbcType=INTEGER},
-      </if>
-      <if test="inWorkTime != null">
-        in_work_time=#{inWorkTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="isImportant != null">
-        is_important=#{isImportant,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        status=#{status,jdbcType=INTEGER},
-      </if>
-      <if test="localtionCode != null">
-        localtion_code=#{localtionCode,jdbcType=VARCHAR},
-      </if>
-      <if test="simpleCode != null">
-        simple_code=#{simpleCode,jdbcType=VARCHAR},
-      </if>
-      <if test="apiCode != null">
-        api_code= #{apiCode,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null">
-        description=#{description,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="logicRemove != null">
-        logic_remove=#{logicRemove,jdbcType=BIT}
-      </if>
-    </set>
-    WHERE id
-    = #{id}
-  </update>
-  <update id="deleteEquipmentInfo" parameterType="java.util.List">
-    UPDATE  equipment_info set logic_remove =1  where id IN
-    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
-      #{id}
-    </foreach>
-  </update>
 </mapper>

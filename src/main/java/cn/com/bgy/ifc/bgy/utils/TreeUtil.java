@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.bgy.utils;
 
-import cn.com.bgy.ifc.entity.vo.basic.DepartmentVo;
+import cn.com.bgy.ifc.entity.vo.system.DepartmentVo;
 
 import java.util.ArrayList;
 import java.util.Iterator;

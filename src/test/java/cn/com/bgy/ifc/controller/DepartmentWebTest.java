@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.controller;
 
-import cn.com.bgy.ifc.service.interfaces.api.basic.BgyRegionInfoService;
+import cn.com.bgy.ifc.service.interfaces.api.project.BgyRegionInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

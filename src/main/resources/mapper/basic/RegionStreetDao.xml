@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.project.RegionStreetDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.project.RegionStreet">
+<mapper namespace="cn.com.bgy.ifc.dao.project.RegionStreetDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.project.RegionStreet">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
     <result column="region_id" jdbcType="BIGINT" property="regionId" />
@@ -11,7 +11,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionStreet">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.project.RegionStreet">
     insert into region_street (id, organization_id, region_id, 
       project_id, court_id, name, 
       create_time, logic_remove)
@@ -19,7 +19,7 @@
       #{projectId,jdbcType=BIGINT}, #{courtId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionStreet">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.project.RegionStreet">
     insert into region_street
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -74,7 +74,7 @@
       </if>
     </trim>
   </insert>
-  <select id="queryListRegionStreet" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo" resultType="cn.com.bgy.ifc.entity.vo.system.project.RegionStreetVo">
+  <select id="queryListRegionStreet" parameterType="cn.com.bgy.ifc.entity.vo.project.RegionStreetVo" resultType="cn.com.bgy.ifc.entity.vo.project.RegionStreetVo">
     SELECT
     s.id as id,s.`name` as name,s.organization_id as organizationId,
     s.region_id as regionId,(SELECT i.name from region_info i where i.id = s.region_id
@@ -107,7 +107,7 @@
       AND s.logic_remove = 0
     </where>
   </select>
-  <update id="updateRegionStreet" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionStreet">
+  <update id="updateRegionStreet" parameterType="cn.com.bgy.ifc.entity.po.project.RegionStreet">
     UPDATE region_street
     <set>
       <if test="regionId != null and projectId != null and courtId != null">

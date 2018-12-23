@@ -1,11 +1,11 @@
 package cn.com.bgy.ifc.config.interceptor;
 
-import cn.com.bgy.ifc.domain.interfaces.system.user.AccountDomain;
-import cn.com.bgy.ifc.domain.interfaces.system.basic.SystemPowerDomain;
-import cn.com.bgy.ifc.domain.interfaces.system.basic.SystemRoleDomain;
-import cn.com.bgy.ifc.entity.po.system.basic.SystemPower;
-import cn.com.bgy.ifc.entity.po.system.basic.SystemRole;
-import cn.com.bgy.ifc.entity.po.system.user.Account;
+import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.SystemPowerDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.SystemRoleDomain;
+import cn.com.bgy.ifc.entity.po.system.SystemPower;
+import cn.com.bgy.ifc.entity.po.system.SystemRole;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;

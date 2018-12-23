@@ -1,9 +1,9 @@
 package cn.com.bgy.ifc.service.impl.inner.projects;
 
-import cn.com.bgy.ifc.domain.interfaces.system.project.RegionComputerRoomDomain;
-import cn.com.bgy.ifc.entity.po.system.project.RegionComputerRoom;
-import cn.com.bgy.ifc.entity.vo.system.project.RegionComputerRoomVo;
-import cn.com.bgy.ifc.service.interfaces.inner.projects.RegionComputerRoomService;
+import cn.com.bgy.ifc.domain.interfaces.equipment.RegionComputerRoomDomain;
+import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
+import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
+import cn.com.bgy.ifc.service.interfaces.inner.project.RegionComputerRoomService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.project.ModelPowerDao">
-    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.basic.ModelPower">
+<mapper namespace="cn.com.bgy.ifc.dao.project.ModelPowerDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.ModelPower">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="powerName" jdbcType="VARCHAR" property="powerName" />
         <result column="displayName" jdbcType="VARCHAR" property="displayName" />
@@ -9,7 +9,7 @@
         <result column="modelName" jdbcType="VARCHAR" property="modelName" />
     </resultMap>
     <!--分页查询系统权限-->
-    <select id="queryPageList" resultMap="BaseResultMap" parameterType="cn.com.bgy.ifc.entity.po.system.basic.ModelPower">
+    <select id="queryPageList" resultMap="BaseResultMap" parameterType="cn.com.bgy.ifc.entity.po.system.ModelPower">
     SELECT
     sp.id AS id,
     sm.name AS modelName,
@@ -34,13 +34,13 @@
         SELECT model_name AS modelName FROM system_model
     </select>
 
-    <insert id="insertSystemPower" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemPower" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insertSystemPower" parameterType="cn.com.bgy.ifc.entity.po.system.SystemPower" useGeneratedKeys="true" keyProperty="id" >
     insert into system_power (id, name, display_name,
       remark, logic_remove)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR},
       #{remark,jdbcType=VARCHAR}, #{logicRemove,jdbcType=BIT})
   </insert>
-    <insert id="insertSystemMenu" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+    <insert id="insertSystemMenu" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu" >
     insert into system_menu (id, name, image_url,
       navigate_url, remark, sort_index,
       parent_id, power_id, logic_remove
@@ -52,7 +52,7 @@
   </insert>
 
 
-    <resultMap id="BaseResultMapSystemModel" type="cn.com.bgy.ifc.entity.po.system.basic.SystemModel">
+    <resultMap id="BaseResultMapSystemModel" type="cn.com.bgy.ifc.entity.po.system.SystemModel">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="model_name" jdbcType="VARCHAR" property="modelName" />
         <result column="icon_name" jdbcType="VARCHAR" property="iconName" />
