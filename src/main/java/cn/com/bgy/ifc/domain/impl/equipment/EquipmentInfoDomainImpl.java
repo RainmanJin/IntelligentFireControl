@@ -2,17 +2,20 @@ package cn.com.bgy.ifc.domain.impl.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentBrandVo;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +24,13 @@ import java.util.List;
  * @description:设备信息
  * @date: 2018-12-22 16:41
  **/
+@Service
 public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
 
     private static Logger logger = LoggerFactory.getLogger(EquipmentInfoDomainImpl.class);
+
+    @Resource
+    private EquipmentInfoDao equipmentInfoDao;
 
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
@@ -62,5 +69,46 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
     @Override
     public ResponseVO<Object> alterBgyEquipmentInfo(List<BgyEquipmentVo> list, Long orgId) {
         return null;
+    }
+
+    /**
+     * @Author huxin
+     * @Description 查
+     * @Date 2018/12/21 11:36
+     */
+    @Override
+    public void queryListEquipmentInfo() {
+
+    }
+    /**
+     * @Author huxin
+     * @Description 增
+     * @Date 2018/12/21 11:36
+     */
+    @Override
+    @Transactional
+    public int addEquipmentInfo( EquipmentInfo equipmentInfo ) {
+        return equipmentInfoDao.insert(equipmentInfo);
+    }
+    /**
+     * @Author huxin
+     * @Description 修改
+     * @Date 2018/12/21 11:36
+     */
+    @Override
+    @Transactional
+    public int updateEquipmentInfo( EquipmentInfo equipmentInfo ) {
+        return equipmentInfoDao.updateEquipmentInfo(equipmentInfo);
+    }
+    /**
+     * @Author huxin
+     * @Description 删除
+     * @Date 2018/12/21 11:36
+     */
+    @Override
+    @Transactional
+    public int deleteEquipmentInfo( String str ) {
+        List<Long> list = ListUtil.getListId(str);
+        return equipmentInfoDao.deleteEquipmentInfo(list);
     }
 }

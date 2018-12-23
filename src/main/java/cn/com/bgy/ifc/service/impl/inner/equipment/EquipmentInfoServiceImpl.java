@@ -1,10 +1,12 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
-import cn.com.bgy.ifc.domain.interfaces.system.equipment.EquipmentInfoDomain;
+
+import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 /**
  * @Author huxin
@@ -14,8 +16,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class EquipmentInfoServiceImpl implements EquipmentInfoService {
 
+
     @Autowired
-    EquipmentInfoDomain equipmentInfoDomain;
+    private EquipmentInfoDomain equipmentInfoDomain;
     /**
      * @Author huxin
      * @Description 差
@@ -25,6 +28,8 @@ public class EquipmentInfoServiceImpl implements EquipmentInfoService {
     public void queryListEquipmentInfo() {
         
     }
+
+
     /**
      * @Author huxin
      * @Description 增

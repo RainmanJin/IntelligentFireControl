@@ -2,9 +2,10 @@ package cn.com.bgy.ifc.domain.impl.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentVersionDao;
-import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentVersionDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentVersion;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVersionVo;
@@ -33,6 +34,29 @@ public class EquipmentVersionDomainImpl implements EquipmentVersionDomain {
 
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
+
+    @Override
+    public void queryListEquipmentVersion() {
+
+    }
+
+    @Override
+    public int addEquipmentVersion( EquipmentVersion record ) {
+        return equipmentVersionDao.insert(record);
+    }
+
+    @Override
+    public int updateEquipmentVersion( EquipmentVersion record ) {
+        return equipmentVersionDao.updateEquipmentVersion(record);
+    }
+
+    @Override
+    public int deleteEquipmentVersion( String str ) {
+        List<Long> list = ListUtil.getListId(str);
+        return equipmentVersionDao.deleteEquipmentVersion(list);
+    }
+
+
 
     @Override
     public ResponseVO<Object> saveBgyEquipmentVersion(List<BgyEquipmentVersionVo> list, Long orgId) {

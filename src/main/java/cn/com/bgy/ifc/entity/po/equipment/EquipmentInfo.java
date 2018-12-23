@@ -1,10 +1,4 @@
-/*
-*
-* EquipmentInfo.java
-* Copyright(C) 2017-2020 fendo公司
-* @date 2018-12-13
-*/
-package cn.com.bgy.ifc.entity.po.equipment.quipment;
+package cn.com.bgy.ifc.entity.po.equipment;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -90,7 +84,7 @@ public class EquipmentInfo implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId( Long id ) {
         this.id = id;
     }
 
@@ -98,7 +92,7 @@ public class EquipmentInfo implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName( String name ) {
         this.name = name;
     }
 
@@ -106,7 +100,7 @@ public class EquipmentInfo implements Serializable {
         return inputCode;
     }
 
-    public void setInputCode(String inputCode) {
+    public void setInputCode( String inputCode ) {
         this.inputCode = inputCode;
     }
 
@@ -114,7 +108,7 @@ public class EquipmentInfo implements Serializable {
         return machineRoomId;
     }
 
-    public void setMachineRoomId(Long machineRoomId) {
+    public void setMachineRoomId( Long machineRoomId ) {
         this.machineRoomId = machineRoomId;
     }
 
@@ -122,7 +116,7 @@ public class EquipmentInfo implements Serializable {
         return versionId;
     }
 
-    public void setVersionId(Long versionId) {
+    public void setVersionId( Long versionId ) {
         this.versionId = versionId;
     }
 
@@ -130,7 +124,7 @@ public class EquipmentInfo implements Serializable {
         return brandId;
     }
 
-    public void setBrandId(Long brandId) {
+    public void setBrandId( Long brandId ) {
         this.brandId = brandId;
     }
 
@@ -138,7 +132,7 @@ public class EquipmentInfo implements Serializable {
         return typeId;
     }
 
-    public void setTypeId(Long typeId) {
+    public void setTypeId( Long typeId ) {
         this.typeId = typeId;
     }
 
@@ -146,7 +140,7 @@ public class EquipmentInfo implements Serializable {
         return keepYears;
     }
 
-    public void setKeepYears(Integer keepYears) {
+    public void setKeepYears( Integer keepYears ) {
         this.keepYears = keepYears;
     }
 
@@ -154,7 +148,7 @@ public class EquipmentInfo implements Serializable {
         return inWorkTime;
     }
 
-    public void setInWorkTime(Date inWorkTime) {
+    public void setInWorkTime( Date inWorkTime ) {
         this.inWorkTime = inWorkTime;
     }
 
@@ -162,7 +156,7 @@ public class EquipmentInfo implements Serializable {
         return important;
     }
 
-    public void setImportant(Integer important) {
+    public void setImportant( Integer important ) {
         this.important = important;
     }
 
@@ -170,7 +164,7 @@ public class EquipmentInfo implements Serializable {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus( Integer status ) {
         this.status = status;
     }
 
@@ -178,7 +172,7 @@ public class EquipmentInfo implements Serializable {
         return localtionCode;
     }
 
-    public void setLocaltionCode(String localtionCode) {
+    public void setLocaltionCode( String localtionCode ) {
         this.localtionCode = localtionCode;
     }
 
@@ -186,7 +180,7 @@ public class EquipmentInfo implements Serializable {
         return simpleCode;
     }
 
-    public void setSimpleCode(String simpleCode) {
+    public void setSimpleCode( String simpleCode ) {
         this.simpleCode = simpleCode;
     }
 
@@ -194,7 +188,7 @@ public class EquipmentInfo implements Serializable {
         return apiCode;
     }
 
-    public void setApiCode(String apiCode) {
+    public void setApiCode( String apiCode ) {
         this.apiCode = apiCode;
     }
 
@@ -202,7 +196,7 @@ public class EquipmentInfo implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription( String description ) {
         this.description = description;
     }
 
@@ -210,7 +204,7 @@ public class EquipmentInfo implements Serializable {
         return logicRemove;
     }
 
-    public void setLogicRemove(Boolean logicRemove) {
+    public void setLogicRemove( Boolean logicRemove ) {
         this.logicRemove = logicRemove;
     }
 }

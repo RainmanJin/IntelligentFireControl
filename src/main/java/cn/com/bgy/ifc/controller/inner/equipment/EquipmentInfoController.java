@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.controller.inner.system.equipment;
+package cn.com.bgy.ifc.controller.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;

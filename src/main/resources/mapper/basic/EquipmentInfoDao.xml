@@ -22,7 +22,7 @@
     <sql id="Blob_Column_List">
     description
   </sql>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.quipment.EquipmentInfo">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
     insert into equipment_info (id, name, input_code, 
       version_id, brand_id, type_id, 
       keep_years, in_work_time, is_important, 

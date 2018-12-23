@@ -10,7 +10,7 @@ public interface EquipmentInfoDao extends BaseDao<EquipmentInfo> {
 
     void queryListEquipmentInfo();
 
-    int updateEquipmentInfo(EquipmentInfo equipmentInfo);
+    int updateEquipmentInfo( EquipmentInfo equipmentInfo);
 
     int deleteEquipmentInfo(List<Long> list);
 

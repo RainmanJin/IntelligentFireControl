@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
-import cn.com.bgy.ifc.domain.interfaces.system.equipment.EquipmentBrandDomain;
+import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentBrandDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentBrandService;
 import org.springframework.beans.factory.annotation.Autowired;

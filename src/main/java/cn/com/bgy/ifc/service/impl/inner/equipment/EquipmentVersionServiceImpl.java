@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
-import cn.com.bgy.ifc.domain.interfaces.system.equipment.EquipmentVersionDomain;
+import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentVersionDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentVersion;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentVersionService;
 import org.springframework.beans.factory.annotation.Autowired;
