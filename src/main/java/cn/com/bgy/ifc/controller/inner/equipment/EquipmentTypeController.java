@@ -1,9 +1,11 @@
 package cn.com.bgy.ifc.controller.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentVersion;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentVersionService;
+import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentTypeService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class EquipmentTypeController {
 
     @Autowired
-    private EquipmentVersionService equipmentVersionService;
+    private EquipmentTypeService equipmentTypeService;
 
     /**
      * @Author huxin
@@ -30,7 +32,10 @@ public class EquipmentTypeController {
      */
     @PostMapping("query")
     @ResponseBody
-    public void queryListEquipmentType(String token){
+    public ResponseVO<PageInfo<Object>> queryListEquipmentType( Page<Object> page, String token){
+        PageInfo<Object> pageInfo = equipmentTypeService.queryListEquipmentType(page);
+        return   ResponseVO.<PageInfo<Object>>success().setData(pageInfo);
+
     }
     /**
      * @Author huxin
@@ -40,8 +45,8 @@ public class EquipmentTypeController {
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "型号信息添加")
     @ResponseBody
-    public ResponseVO<Object> addEEquipmentType( EquipmentVersion record,String token){
-        int count = equipmentVersionService.addEquipmentVersion(record);
+    public ResponseVO<Object> addEEquipmentType( EquipmentType record,String token){
+        int count = equipmentTypeService.addEquipmentType(record);
         if (count > 0) {
             return ResponseVO.success().setMsg("添加成功");
         }
@@ -55,8 +60,8 @@ public class EquipmentTypeController {
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "型号信息修改")
     @ResponseBody
-    public ResponseVO<Object> uopdateEquipmentType(EquipmentVersion record,String token){
-        int count = equipmentVersionService.updateEquipmentVersion(record);
+    public ResponseVO<Object> uopdateEquipmentType(EquipmentType record,String token){
+        int count = equipmentTypeService.updateEquipmentType(record);
         if (count == 1) {
             return ResponseVO.success().setMsg("修改成功");
         }
@@ -71,7 +76,7 @@ public class EquipmentTypeController {
     @SystemLogAfterSave(type = 1,description = "型号信息删除")
     @ResponseBody
     public ResponseVO<Object>  deleteEquipmentType( String arr,String token ){
-        int count = equipmentVersionService.deleteEquipmentVersion(arr);
+        int count = equipmentTypeService.deleteEquipmentType(arr);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }

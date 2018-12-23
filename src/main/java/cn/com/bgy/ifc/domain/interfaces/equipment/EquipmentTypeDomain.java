@@ -1,7 +1,10 @@
 package cn.com.bgy.ifc.domain.interfaces.equipment;
 
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentTypeVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -27,4 +30,12 @@ public interface EquipmentTypeDomain {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     ResponseVO<Object> alterBgyEquipmentType(List<BgyEquipmentTypeVo> list, Long orgId);
+
+    PageInfo<Object> queryListEquipmentType( Page<Object> page );
+
+    int addEquipmentType( EquipmentType equipmentType );
+
+    int updateEquipmentType( EquipmentType equipmentType );
+
+    int deleteEquipmentType( String str );
 }

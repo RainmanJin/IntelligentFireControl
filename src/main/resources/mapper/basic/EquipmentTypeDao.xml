@@ -6,12 +6,13 @@
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="parent_id" jdbcType="BIGINT" property="parentId" />
         <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentType">
     insert into equipment_type (id, name, parent_id, 
-      status)
+      status,logic_remove)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
-      #{status,jdbcType=INTEGER})
+      #{status,jdbcType=INTEGER},#{logicRemove,jdbcType=BIT})
   </insert>
     <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentType">
         insert into equipment_type
@@ -28,6 +29,9 @@
             <if test="status != null">
                 status,
             </if>
+            <if test="logicRemove != null">
+                logic_remove,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -41,6 +45,9 @@
             </if>
             <if test="status != null">
                 #{status,jdbcType=INTEGER},
+            </if>
+            <if test="logicRemove != null">
+                #{logicRemove,jdbcType=BIT}
             </if>
         </trim>
     </insert>
@@ -60,5 +67,19 @@
         </set>
         WHERE id
         = #{id}
+    </update>
+
+    <select id="queryListEquipmentType" resultType="java.util.Map">
+        SELECT
+        t.id as id,t.`name` as name,t.parent_id,e.`name` as parentName,t.`status` as `status`
+      FROM (SELECT id,`name`,parent_id,`status`,logic_remove FROM equipment_type) as t
+      LEFT JOIN equipment_type e ON t.parent_id = e.id
+      WHERE t.logic_remove = 0
+    </select>
+    <update id="deleteEquipmentType" parameterType="java.util.List">
+        UPDATE  equipment_info set logic_remove =1  where id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </update>
 </mapper>

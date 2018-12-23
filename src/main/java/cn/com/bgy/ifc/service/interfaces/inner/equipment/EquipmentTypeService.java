@@ -1,6 +1,8 @@
 package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 /**
  * @Author huxin
@@ -10,7 +12,7 @@ import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 
 public interface EquipmentTypeService {
 
-    void queryListEquipmentType();
+    PageInfo<Object> queryListEquipmentType(Page<Object> page);
 
     int addEquipmentType( EquipmentType equipmentType );
 

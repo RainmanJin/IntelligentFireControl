@@ -3,12 +3,16 @@ package cn.com.bgy.ifc.domain.impl.equipment;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentTypeDao;
-import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentTypeDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentTypeVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -120,5 +125,45 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
             externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
             return ResponseVO.success().setMsg("同步集成平台设备类型增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
+    }
+    /**
+     * @Author huxin
+     * @Description 查询
+     * @Date 2018/12/23 16:04
+     */
+    @Override
+    public PageInfo<Object> queryListEquipmentType( Page<Object> page ) {
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        List<Map<String,Object>> list = equipmentTypeDao.queryListEquipmentType();
+        return new PageInfo(list);
+    }
+
+    /**
+     * @Author huxin
+     * @Description 增
+     * @Date 2018/12/23 16:03
+     */
+    @Override
+    public int addEquipmentType( EquipmentType equipmentType ) {
+        return equipmentTypeDao.addEquipmentType(equipmentType);
+    }
+    /*
+     * @Author huxin
+     * @Description 改
+     * @Date 2018/12/23 16:04
+     */
+    @Override
+    public int updateEquipmentType( EquipmentType equipmentType ) {
+        return equipmentTypeDao.updateSelective(equipmentType);
+    }
+    /**
+     * @Author huxin
+     * @Description 删除
+     * @Date 2018/12/23 16:04
+     */
+    @Override
+    public int deleteEquipmentType( String str ) {
+        List<Long> list  = ListUtil.getListId(str);
+        return equipmentTypeDao.deleteEquipmentType(list);
     }
 }
