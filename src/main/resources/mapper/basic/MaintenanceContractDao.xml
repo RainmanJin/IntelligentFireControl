@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.repair.MaintenanceContractDao">
-  <!--查询po映射-->
+<mapper namespace="cn.com.bgy.ifc.dao.repair.MaintenanceContractDao">
   <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="org_id" jdbcType="BIGINT" property="orgId" />
@@ -18,34 +17,12 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <!--查询VO映射-->
-  <resultMap id="VoResultMap" type="cn.com.bgy.ifc.entity.vo.repair.MaintenanceContractVo">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="org_id" jdbcType="BIGINT" property="orgId" />
-    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
-    <result column="r_id" jdbcType="BIGINT" property="rId" />
-    <result column="r_name" jdbcType="VARCHAR" property="rName" />
-    <result column="p_id" jdbcType="BIGINT" property="pId" />
-    <result column="p_name" jdbcType="VARCHAR" property="pName" />
-    <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
-    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
-    <result column="company_id" jdbcType="BIGINT" property="companyId" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="master_contact" jdbcType="VARCHAR" property="masterContact" />
-    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
-    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
-    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
-  </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
     <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
   </resultMap>
   <sql id="Blob_Column_List">
     remark
   </sql>
-  <!--添加合同-->
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
     insert into maintenance_contract (id, org_id, r_id, 
       p_id, contract_name, contract_no, 
@@ -60,7 +37,6 @@
       #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, #{remark,jdbcType=LONGVARCHAR}
       )
   </insert>
-
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
     insert into maintenance_contract
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -158,98 +134,4 @@
       </if>
     </trim>
   </insert>
-  <!--查询表头-->
-  <sql id="selectMaintenanceContract">
-    select id,org_id,r_id,p_id,contract_name,contract_no,company_id,master_contact,
-    contact_phone,start_date,end_date,state,remark,create_time,logic_remove
-    from maintenance_contract
-
-  </sql>
-  <!--分页查询-->
-  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenanceContractVo" resultMap="VoResultMap">
-    <include refid="selectMaintenanceContract"/>
-    <trim prefix=" where " suffix="" suffixOverrides="and">
-      <if test="id != null">
-        and id=#{id,jdbcType=BIGINT}
-      </if>
-      <if test="rId != null">
-        and r_id= #{rId,jdbcType=BIGINT}
-      </if>
-      <if test="pId != null">
-        and p_id=#{pId,jdbcType=BIGINT}
-      </if>
-      <if test="companyId != null">
-        and company_id=#{companyId,jdbcType=BIGINT}
-      </if>
-      <if test="contractName != null">
-        <!--暂定关键字查询为合同名称的模糊查询-->
-        and contract_name like LIKE CONCAT(CONCAT('%', #{contractName}), '%');
-      </if>
-
-    </trim>
-  </select>
-  <!--通过id修改合同-->
-  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
-    UPDATE maintenance_contract
-    <set>
-      <if test="orgId != null">
-        org_id=#{orgId},
-      </if>
-      <if test="rId != null">
-        r_id=#{rId},
-      </if>
-      <if test="pId != null">
-        p_id=#{pId},
-      </if>
-      <if test="contractName != null">
-        contract_name=#{contractName},
-      </if>
-      <if test="contractNo != null">
-        contract_no=#{contractNo},
-      </if>
-      <if test="companyId != null">
-        company_id=#{companyId},
-      </if>
-      <if test="masterContact != null">
-        master_contact=#{masterContact},
-      </if>
-      <if test="contactPhone != null">
-        contact_phone=#{contactPhone},
-      </if>
-      <if test="startDate != null">
-        start_date=#{startDate},
-      </if>
-      <if test="endDate != null">
-        end_date=#{endDate},
-      </if>
-      <if test="state != null">
-        state=#{state},
-      </if>
-      <if test="createTime != null">
-        create_time=#{createTtime},
-      </if>
-      <if test="logicRemove != null">
-        logic_remove=#{logicRemove},
-      </if>
-      <if test="remark != null">
-        remark =#{remark}
-      </if>
-
-    </set>
-    WHERE id = #{id}
-
-  </update>
-  <!--通过id查询合同-->
-  <select id="findById" parameterType="java.lang.Long" resultMap="VoResultMap">
-    <include refid="selectMaintenanceContract"/>
-    WHERE id = #{id}
-  </select>
-
-  <!--逻辑批量删除维保合同-->
-  <update id="deleteRole" parameterType="java.util.List">
-    UPDATE maintenance_contract set logic_remove =false where id IN
-    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
-      #{id}
-    </foreach>
-  </update>
 </mapper>

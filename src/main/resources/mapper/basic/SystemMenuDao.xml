@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.basic.SystemMenuDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+<mapper namespace="cn.com.bgy.ifc.dao.system.SystemMenuDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.SystemMenu">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
@@ -11,18 +11,19 @@
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="power_id" jdbcType="BIGINT" property="powerId" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+     <result column="type" jdbcType="INTEGER" property="type" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
     insert into system_menu (id, name, image_url, 
       navigate_url, remark, sort_index, 
-      parent_id, power_id, logic_remove
+      parent_id, power_id, logic_remove,type
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
       #{navigateUrl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{sortIndex,jdbcType=INTEGER}, 
       #{parentId,jdbcType=BIGINT}, #{powerId,jdbcType=BIGINT}, #{logicRemove,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
     insert into system_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -52,6 +53,9 @@
       <if test="logicRemove != null">
         logic_remove,
       </if>
+        <if test="type != null">
+            type,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -81,21 +85,24 @@
       <if test="logicRemove != null">
         #{logicRemove,jdbcType=BIT},
       </if>
+        <if test="type != null">
+            #{type,jdbcType=INTEGER},
+        </if>
     </trim>
   </insert>
 
-  <insert id="addSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+  <insert id="addSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu" >
     insert into system_menu (id, name, image_url,
       navigate_url, remark, sort_index,
-      parent_id, power_id, logic_remove
+      parent_id, power_id, logic_remove,type
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR},
       #{navigateUrl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{sortIndex,jdbcType=INTEGER},
-      #{parentId,jdbcType=BIGINT}, #{powerId,jdbcType=BIGINT}, #{logicRemove,jdbcType=BIT}
+      #{parentId,jdbcType=BIGINT}, #{powerId,jdbcType=BIGINT}, #{logicRemove,jdbcType=BIT},#{type,jdbcType=INTEGER}
       )
   </insert>
 
-  <select id="queryAllSystemMenuInfo" parameterType="java.lang.String" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+  <select id="queryAllSystemMenuInfo" parameterType="java.lang.String" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
      SELECT
             m.id as id,
             m.name as name,
@@ -106,7 +113,8 @@
             m.parent_id as parentId ,
             m.power_id as powerId,
             p.`name` as powerName,
-            m.logic_remove as logicRemove
+            m.logic_remove as logicRemove,
+            m.type as type
         FROM
             system_menu m  LEFT JOIN system_power p on m.power_id=p.id
         WHERE m.logic_remove=0
@@ -144,7 +152,7 @@
             )
   </select>
 
-  <select id="queryOneSystemMenuInfo" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" parameterType="java.lang.Long">
+  <select id="queryOneSystemMenuInfo" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" parameterType="java.lang.Long">
     SELECT
       id as id,
       name as name,
@@ -154,15 +162,17 @@
       sort_index as sortIndex,
       parent_id as parentId ,
       power_id as powerId,
-      logic_remove as logicRemove
+      logic_remove as logicRemove,
+      type as type
     from system_menu s where s.id = #{id,jdbcType=BIGINT}
   </select>
 
-  <update id="updateSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemMenu">
+  <update id="updateSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
     update system_menu s
     set s.image_url= #{imageUrl,jdbcType=VARCHAR},s.logic_remove=#{logicRemove,jdbcType=BIT},
     s.`name`=#{name,jdbcType=VARCHAR},s.navigate_url= #{navigateUrl,jdbcType=VARCHAR},s.parent_id= #{parentId,jdbcType=BIGINT},
-    s.power_id= #{powerId,jdbcType=BIGINT},s.remark=#{remark,jdbcType=VARCHAR},s.sort_index=#{sortIndex,jdbcType=INTEGER}
+    s.power_id= #{powerId,jdbcType=BIGINT},s.remark=#{remark,jdbcType=VARCHAR},s.sort_index=#{sortIndex,jdbcType=INTEGER},
+    s.type=#{type,jdbcType=INTEGER}
     where s.id =#{id,jdbcType=BIGINT}
 
   </update>
@@ -177,7 +187,7 @@
     </foreach>
   </update>
 
-  <select id="findMenuByUser" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+  <select id="findMenuByUser" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" >
        SELECT
             id as id,
             name as name,
@@ -187,7 +197,8 @@
             sort_index as sortIndex,
             parent_id as parentId ,
             power_id as powerId,
-            logic_remove as logicRemove
+            logic_remove as logicRemove,
+            type as type
         FROM
             system_menu m
         WHERE m.logic_remove=0 and
@@ -219,7 +230,7 @@
 
 
 
-    <select id="findMenuByUserAndParentId" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.basic.SystemMenu" >
+    <select id="findMenuByUserAndParentId" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" >
        SELECT
             id as id,
             name as name,
@@ -233,14 +244,14 @@
         FROM
             system_menu m
         WHERE m.logic_remove=0
-        <choose>
+       <!-- <choose>
             <when test="parentId == null">
                 and   m.parent_id is null
             </when>
             <otherwise>
              and   m.parent_id=#{parentId}
             </otherwise>
-        </choose>
+        </choose>-->
          and
             m.power_id IN (
                 SELECT

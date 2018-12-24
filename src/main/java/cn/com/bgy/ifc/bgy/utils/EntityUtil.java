@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.bgy.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -19,13 +22,13 @@ public class EntityUtil {
     private static Pattern humpPattern = Pattern.compile("[A-Z]");
 
     /**
-     * object转map
-     * @param object
-     * @return
-     * @throws Exception
+     * @author: ZhangCheng
+     * @description:object转map
+     * @param: [object]
+     * @return: java.util.Map<java.lang.String,java.lang.Object>
      */
     public static Map<String, Object> entityToMap(Object object)throws Exception  {
-        Map<String, Object> valueMap = new HashMap<String, Object>();
+        Map<String, Object> valueMap = new HashMap<>();
         // 获取实体类的所有属性，返回Field数组
         Field[] field = EntityUtil.getAllFieldsList(object.getClass());
         // 获取length 提取相同操作
@@ -34,6 +37,7 @@ public class EntityUtil {
         for (int i = 0; i < fieldLen; i++) {
             // 获取属性的名字
             String name = field[i].getName();
+            if(name.equals("serialVersionUID")) continue;
             // 将属性的首字符大写，方便构造get，set方法
             String oName = name.substring(0, 1).toUpperCase() + name.substring(1);
             Method method = object.getClass().getMethod("get" + oName);

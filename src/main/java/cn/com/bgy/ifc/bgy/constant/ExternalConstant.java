@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.bgy.constant;
 
-import cn.com.bgy.ifc.entity.vo.basic.SelectVo;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,20 +17,59 @@ public class ExternalConstant {
      * */
     public enum OperationType {
         //新增
-        ADD(1),
+        ADD(1,"新增"),
         //删除
-        DELETE(2),
+        DELETE(2,"删除"),
         //修改
-        UPDATE(3);
+        UPDATE(3,"修改");
 
         private Integer value;
 
-        private OperationType(Integer value) {
+        private String name;
+
+        private OperationType(Integer value, String name) {
             this.value = value;
+            this.name = name;
         }
 
         public Integer getValue() {
             return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:碧桂园集成平台使用状态
+     * @param:
+     * @return: 
+     */
+    public enum StatusType {
+        //正常
+        ADD(0,"正常"),
+        //禁用
+        PROHIBIT(1,"禁用"),
+        //删除
+        DELETE(2,"删除");
+
+        private Integer value;
+
+        private String name;
+
+        private StatusType(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 
@@ -39,16 +78,23 @@ public class ExternalConstant {
      * */
     public enum PlatformValue {
         //碧桂园集成平台接口
-        INTEGERATED_PLATFORM(1);
+        INTEGERATED_PLATFORM(1,"碧桂园集成平台接口");
 
         private Integer value;
 
-        private PlatformValue(Integer value) {
+        private String name;
+
+        private PlatformValue(Integer value, String name) {
             this.value = value;
+            this.name = name;
         }
 
         public Integer getValue() {
             return value;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 
@@ -64,7 +110,7 @@ public class ExternalConstant {
         //项目信息
         BGY_PROJECT_OBTAIN(2, "项目信息"),
         //品牌信息
-        BGY_BRAND_OBTAIN(3, "品牌信息"),
+        BGY_EQUIPMENT_BRAND_OBTAIN(3, "品牌信息"),
         //规格信息
         BGY_STANDARD_OBTAIN(4, "规格信息"),
         //设备类型
@@ -76,7 +122,9 @@ public class ExternalConstant {
         //集成平台获取用户权限
         BGY_PERMISSION_OBTAIN(8, "权限信息"),
         //集成平台获取机构
-        BGY_ORG_OBTAIN(9, "机构信息");
+        BGY_ORG_OBTAIN(9, "机构信息"),
+        //设备型号
+        BGY_EQUIPMENT_VERSION_OBTAIN(10, "设备型号"),;
 
         private Integer value;
         private String name;

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.repair.MaintenanceCompanyDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.vo.repair.MaintenanceCompanyVo">
+<mapper namespace="cn.com.bgy.ifc.dao.repair.MaintenanceCompanyDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
-    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
-    <result column="name" jdbcType="VARCHAR" property="companyName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -15,7 +14,7 @@
     insert into maintenance_company (id, organization_id, name, 
       telephone, remark, create_time, 
       logic_remove)
-    values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR},
+    values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{logicRemove,jdbcType=BIT})
   </insert>
@@ -28,7 +27,7 @@
       <if test="organizationId != null">
         organization_id,
       </if>
-      <if test="companyName != null">
+      <if test="name != null">
         name,
       </if>
       <if test="telephone != null">
@@ -51,7 +50,7 @@
       <if test="organizationId != null">
         #{organizationId,jdbcType=BIGINT},
       </if>
-      <if test="companyName != null">
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="telephone != null">
@@ -68,32 +67,4 @@
       </if>
     </trim>
   </insert>
-  <!--查询维保公司SQL公共部分-->
-  <sql id="selectSql">
-
-      select mc.id as id,mc.organization_id as organization_id,
-              ri.name as organization_name,
-              mc.name as name,mc.telephone as telephone,
-              mc.remark,mc.create_time,mc.logic_remove
-      from maintenance_company as mc
-      left join region_info as ri on ri.id = mc.organization_id
-  </sql>
-  <!--分頁查詢-->
-  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenanceCompanyVo" resultMap="BaseResultMap">
-  <include refid="selectSql"/>
-  <trim prefix=" where " suffix="" suffixOverrides="and">
-    <if test="id != null">
-      and id=#{id,jdbcType=BIGINT}
-    </if>
-    <if test="organizationId != null">
-      and mc.organization_id= #{organizationId,jdbcType=BIGINT}
-    </if>
-
-    <if test="companyName != null">
-      <!--暂定关键字查询为合维保公司名称的模糊查询-->
-      and mc.name like LIKE CONCAT(CONCAT('%', #{name}), '%');
-    </if>
-
-  </trim>
-</select>
 </mapper>

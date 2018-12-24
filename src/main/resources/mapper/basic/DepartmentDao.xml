@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.user.DepartmentDao">
-    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.Department">
+<mapper namespace="cn.com.bgy.ifc.dao.system.DepartmentDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.Department">
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
@@ -11,7 +11,7 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
     </resultMap>
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.Department">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.Department">
     insert into department (parent_id, name,
       state, organization_id, create_time, 
       logic_remove)
@@ -19,7 +19,7 @@
       #{state,jdbcType=INTEGER}, #{organizationId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{logicRemove,jdbcType=BIT})
   </insert>
-    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.Department">
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.Department">
         insert into department
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -80,8 +80,8 @@
 		logic_remove
 		FROM department WHERE logic_remove = 0
     </select>
-<!--分页查询部门管理-->
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.basic.DepartmentVo" resultMap="BaseResultMap">
+<!--分页条件查询部门管理-->
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.system.DepartmentVo" resultMap="BaseResultMap">
         SELECT
         t2.NAME,
         t1.name,
@@ -104,8 +104,8 @@
             <if test="organizationId != null ">
                 AND a.organization_id=#{organizationId}
             </if>
-            <if test="user_id != null ">
-                AND t3.user_id=#{user_id}
+            <if test="userId != null ">
+                AND t3.user_id=#{userId}
             </if>
             <if test="keyword!='' and keyword!=null">
                 AND (a.name LIKE concat('%',#{keyword},'%') OR b.name LIKE concat('%',#{keyword},'%'))
@@ -125,8 +125,21 @@
 		logic_remove
 		FROM department WHERE id = #{id}
   </select>
-
-    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.basic.Department">
+<!--根据登录用户查询父级部门名称,下拉框展示-->
+    <select id="findParentNameByUserId" parameterType="Long" resultType="cn.com.bgy.ifc.entity.vo.system.DepartmentVo">
+        SELECT
+	        d.id,
+            d.name
+        FROM
+	        department d
+        LEFT JOIN system_organization s ON d.organization_id = s.id
+        LEFT JOIN account a ON s.user_id = a.id
+        WHERE
+	     d.logic_remove = FALSE
+	     AND s.user_id = #{userId}
+  </select>
+    <!--修改-->
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.Department">
         UPDATE department
         <set>
             <if test="parentId != null">parent_id =#{parentId},</if>

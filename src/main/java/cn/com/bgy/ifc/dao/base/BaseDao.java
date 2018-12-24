@@ -1,5 +1,7 @@
 package cn.com.bgy.ifc.dao.base;
 
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +34,7 @@ public interface BaseDao<T> {
      * @param id
      * @return
      */
-    T findById(Object id);
+    T findById(Long id);
 
     /**
      * 添加
@@ -72,7 +74,7 @@ public interface BaseDao<T> {
      * @param ids
      * @return
      */
-    int deleteBatch(List<Object> ids);
+    int deleteBatch(List<Long> ids);
 
 
 }

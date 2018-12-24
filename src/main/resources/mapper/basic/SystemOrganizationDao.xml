@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.basic.SystemOrganizationDao">
-    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
+<mapper namespace="cn.com.bgy.ifc.dao.system.SystemOrganizationDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.SystemOrganization">
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="code" jdbcType="VARCHAR" property="code"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
@@ -21,7 +21,7 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
     </resultMap>
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOrganization">
     insert into system_organization (id, code, name, 
       description, legal_person, nature, 
       scale, telephone, fixed_telephone, 
@@ -35,7 +35,7 @@
       #{homePage,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, 
       #{registerTime,jdbcType=TIMESTAMP},#{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT})
   </insert>
-    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOrganization">
         insert into system_organization
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -150,7 +150,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOrganization">
         update system_organization
         <set>
             <if test="code != null">
@@ -221,7 +221,7 @@
     update system_organization set logic_remove = true
     where id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization">
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOrganization">
         update system_organization
         <set>
             <if test="name != null">
@@ -242,8 +242,8 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <!--分页-->
-    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.basic.SystemOrganization"
+    <!--分页条件查询机构管理-->
+    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOrganization"
             resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -277,4 +277,32 @@
             #{item}
         </foreach>
     </update>
+    <!--根据当前登录用户获取机构对象-->
+    <select id="querySystemOrganizationByUserId" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+            id,
+            CODE,
+            NAME,
+            description,
+            legal_person,
+            nature,
+            scale,
+            telephone,
+            fixed_telephone,
+            email,
+            fax_num,
+            register_address,
+            home_page,
+            state,
+            user_id,
+            register_time,
+            create_time,
+            logic_remove
+        FROM
+            system_organization
+        WHERE
+            logic_remove = FALSE
+	    AND
+	        user_id = #{userId,jdbcType=BIGINT}
+    </select>
 </mapper>

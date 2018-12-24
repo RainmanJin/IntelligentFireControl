@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.basic.SystemOperationLogDao">
-    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
+<mapper namespace="cn.com.bgy.ifc.dao.system.SystemOperationLogDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.SystemOperationLog">
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="user_id" jdbcType="BIGINT" property="userId"/>
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
@@ -12,7 +12,7 @@
         <result column="operator_content" jdbcType="LONGVARCHAR" property="operatorContent"/>
         <result column="operator_describe" jdbcType="LONGVARCHAR" property="operatorDescribe"/>
     </resultMap>
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOperationLog">
     insert into system_operation_log (id, user_id, user_name, 
       log_type, ip, create_time, 
       logic_remove, operator_content, operator_describe
@@ -22,7 +22,7 @@
       #{logicRemove,jdbcType=BIT}, #{operatorContent,jdbcType=LONGVARCHAR}, #{operatorDescribe,jdbcType=LONGVARCHAR}
       )
   </insert>
-    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOperationLog">
         insert into system_operation_log
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -83,8 +83,8 @@
             </if>
         </trim>
     </insert>
-
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.SystemOperationLogVo" resultMap="BaseResultMap">
+<!--分页条件查询系统日志-->
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.system.SystemOperationLogVo" resultMap="BaseResultMap">
         SELECT
         l.id,l.ip,l.create_time,l.logic_remove,l.log_type,l.operator_content,
         l.operator_describe,l.user_id,l.user_name
@@ -123,7 +123,7 @@
         </if>
     </select>
 
-    <insert id="addSystemLogInfo" parameterType="cn.com.bgy.ifc.entity.po.basic.SystemOperationLog">
+    <insert id="addSystemLogInfo" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOperationLog">
     insert into system_operation_log (id, user_id, user_name,
       log_type, ip, create_time,
       logic_remove, operator_content, operator_describe

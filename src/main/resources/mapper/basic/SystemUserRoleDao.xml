@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.user.SystemUserRoleDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.user.SystemUserRole">
+<mapper namespace="cn.com.bgy.ifc.dao.system.SystemUserRoleDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.SystemUserRole">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="role_id" jdbcType="BIGINT" property="roleId" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.user.SystemUserRole">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemUserRole">
     insert into system_user_role (id, role_id, user_id
       )
     values (#{id,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.user.SystemUserRole">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemUserRole">
     insert into system_user_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -41,12 +41,12 @@
   <delete id="deleteById" parameterType="long" >
     delete  from system_user_role where id=#{id,jdbcType=BIGINT}
   </delete>
-  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.system.user.SystemUserRole">
+  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.system.SystemUserRole">
      select  id, role_id, user_id
       from system_user_role where id=#{id,jdbcType=BIGINT}
   </select>
 <!--分页查询用户角色-->
-  <select id="findByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.user.SystemUserRole" resultType="cn.com.bgy.ifc.entity.po.system.user.SystemUserRole">
+  <select id="findByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.SystemUserRole" resultType="cn.com.bgy.ifc.entity.po.system.SystemUserRole">
     SELECT
     a.id,
     a.deptName,
@@ -68,26 +68,26 @@
     LEFT JOIN system_user_role t3 ON t3.user_id = t1.id
     LEFT JOIN system_role t2 ON t3.role_id = t2.id
     WHERE
-    t5.user_id = 1
+    t5.user_id = #{userId,jdbcType=BIGINT}
     GROUP BY
     t1.id,
     t2.id
     ) a
     GROUP BY
     a.id
-    <trim prefix=" where " suffix="" prefixOverrides="and">
-          <if test="id != null">
-            and id= #{id,jdbcType=BIGINT}
+   <where>
+          <if test="keyWords != null and '' != keyWords ">
+             AND  a.user_name like CONCAT('%',#{keyWords},'%',)
           </if>
-          <if test="roleId != null">
-            and role_id=#{roleId,jdbcType=BIGINT}
+          <if test="dpartmentId != null ">
+             AND  t1.dpartmentId = #{dpartmentId}
           </if>
-          <if test="userId != null">
-            and  user_id= #{userId,jdbcType=BIGINT}
+          <if test="sex != null ">
+             AND  a.sex = #{sex}
           </if>
-    </trim>
+    </where>
   </select>
-  <update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.system.user.SystemUserRole">
+  <update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.system.SystemUserRole">
     update system_user_role set
             role_id=#{roleId,jdbcType=BIGINT},
             user_id= #{userId,jdbcType=BIGINT}

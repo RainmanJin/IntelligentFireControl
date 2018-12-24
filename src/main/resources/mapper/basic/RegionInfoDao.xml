@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.project.RegionInfoDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.project.RegionInfo">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
-  </resultMap>
-  <sql id="Base_Column_List">
+<mapper namespace="cn.com.bgy.ifc.dao.project.RegionInfoDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.project.RegionInfo">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="organization_id" jdbcType="BIGINT" property="organizationId"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, organization_id, code, name, create_time, logic_remove
   </sql>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionInfo">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.project.RegionInfo">
     insert into region_info (id, organization_id, code,
       name, create_time,
       logic_remove)
@@ -20,57 +20,127 @@
       #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{logicRemove,jdbcType=BIT})
   </insert>
-  <!--获取区域信息列表-->
-  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.project.RegionInfo" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from region_info
-    <where>
-      <if test="id != null">
-      AND id= #{id,jdbcType=BIGINT}
-      </if>
-      <if test="organizationId != null">
-      AND organization_id= #{organizationId,jdbcType=BIGINT}
-      </if>
-      <if test="code != null">
-      AND code=#{code,jdbcType=VARCHAR}
-      </if>
-      <if test="name != null">
-      AND #{name,jdbcType=VARCHAR}
-      </if>
-      <if test="createTime != null">
-      AND create_time= #{createTime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="logicRemove != null">
-      AND  logic_remove=#{logicRemove,jdbcType=BIT}
-      </if>
-    </where>
-  </select>
-  <select id="queryListRegionInfo" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo" resultMap="BaseResultMap">
-      select id, organization_id, code, name, create_time
-      from region_info
-    <where>
-    <if test="keyword != null and keyword !='' ">
-      AND (code LIKE concat('%',#{keyword},'%') OR name LIKE concat('%',#{keyword},'%'))
-    </if>
-      AND logic_remove = 0
-    </where>
-  </select>
-  <update id="updateRegionInfo" parameterType="cn.com.bgy.ifc.entity.vo.system.project.RegionInfoVo">
-    UPDATE region_info
-    <set>
-      <if test="code != null">code =#{code},</if>
-      <if test="name != null">name =#{name},</if>
-      <if test="createTime != null">createTime =#{createTime}</if>
-    </set>
-    WHERE id
-    = #{id}
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.project.RegionInfo">
+        insert into region_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="organizationId != null">
+                organization_id,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="logicRemove != null">
+                logic_remove,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="organizationId != null">
+                #{organizationId,jdbcType=BIGINT},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logicRemove != null">
+                #{logicRemove,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <!--获取区域信息列表-->
+    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.project.RegionInfo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from region_info
+        <where>
+            <if test="id != null">
+                AND id= #{id,jdbcType=BIGINT}
+            </if>
+            <if test="organizationId != null">
+                AND organization_id= #{organizationId,jdbcType=BIGINT}
+            </if>
+            <if test="code != null">
+                AND code=#{code,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null">
+                AND #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null">
+                AND create_time= #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="logicRemove != null">
+                AND logic_remove=#{logicRemove,jdbcType=BIT}
+            </if>
+        </where>
+    </select>
+    <select id="queryListRegionInfo" parameterType="cn.com.bgy.ifc.entity.vo.project.RegionInfoVo"
+            resultMap="BaseResultMap">
+        select id, organization_id, code, name, create_time
+        from region_info
+        <where>
+            <if test="keyword != null and keyword !='' ">
+                AND (code LIKE concat('%',#{keyword},'%') OR name LIKE concat('%',#{keyword},'%'))
+            </if>
+            <if test="organizationId !=null and organizationId !='' ">
+              and  organization_id =#{organizationId}
+            </if>
+            AND logic_remove = 0
+        </where>
+    </select>
 
-  </update>
-  <update id="deleteRegionInfo" parameterType="java.util.List">
-    UPDATE region_info set logic_remove =1 where id IN
-    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
-      #{id}
-    </foreach>
-  </update>
+    <select id="findByOrgId" parameterType="Long" resultMap="BaseResultMap">
+		SELECT
+		id, organization_id, code, name
+		FROM region_info WHERE organization_id = #{orgId} AND logic_remove=0
+  </select>
+
+    <update id="updateRegionInfo" parameterType="cn.com.bgy.ifc.entity.vo.project.RegionInfoVo">
+        UPDATE region_info
+        <set>
+            <if test="code != null">code =#{code},</if>
+            <if test="name != null">name =#{name},</if>
+            <if test="createTime != null">create_time =#{createTime}</if>
+        </set>
+        WHERE id
+        = #{id}
+    </update>
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.project.RegionInfo">
+        UPDATE region_info
+        <set>
+            <if test="organizationId != null">organization_id =#{organizationId},</if>
+            <if test="code != null">code =#{code},</if>
+            <if test="name != null">name =#{name},</if>
+            <if test="createTime != null">create_time =#{createTime},</if>
+            <if test="logicRemove != null">logic_remove =#{logicRemove}</if>
+        </set>
+        WHERE id
+        = #{id}
+    </update>
+    <update id="deleteRegionInfo" parameterType="java.util.List">
+        UPDATE region_info set logic_remove =1 where id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="queryRegionInfoName" resultType="java.util.Map">
+     SELECT name,id FROM region_info  WHERE logic_remove = 0
+    </select>
 </mapper>

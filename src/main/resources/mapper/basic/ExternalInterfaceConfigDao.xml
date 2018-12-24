@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.system.basic.ExternalInterfaceConfigDao">
-    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig">
+<mapper namespace="cn.com.bgy.ifc.dao.system.ExternalInterfaceConfigDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig">
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="org_id" jdbcType="BIGINT" property="orgId"/>
         <result column="platform_value" jdbcType="INTEGER" property="platformValue"/>
@@ -14,7 +14,7 @@
         <result column="create_time" jdbcType="DATE" property="createTime"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
     </resultMap>
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig">
     insert into external_interface_config (org_id,platform_value, url,
       account, sign_key, sub_system_code, 
       file_url, state, create_time, 
@@ -24,7 +24,7 @@
       #{fileUrl,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, 
       #{logicRemove,jdbcType=BIT})
   </insert>
-    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig">
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig">
         insert into external_interface_config
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -98,7 +98,7 @@
         </trim>
     </insert>
 <!--查询所有外部接口配置-->
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.ExternalInterfaceConfigVo"
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.system.ExternalInterfaceConfigVo"
             resultMap="BaseResultMap">
         SELECT
         id,
@@ -144,8 +144,8 @@
             AND logic_remove=0
         </where>
     </select>
-<!--分页查询外部接口配置-->
-    <select id="queryListByPage" parameterType="cn.com.bgy.ifc.entity.vo.system.basic.ExternalInterfaceConfigVo"
+<!--分页查询外部接口配置条件查询-->
+    <select id="queryListByPage" parameterType="cn.com.bgy.ifc.entity.vo.system.ExternalInterfaceConfigVo"
             resultMap="BaseResultMap">
         SELECT
         t1.id,
@@ -195,7 +195,7 @@
             AND logic_remove=0
         </where>
     </select>
-    <!--查询外部接口平台种类下拉-->
+
 
 <!--通过id查询外部接口配置-->
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
@@ -208,7 +208,7 @@
 		FROM external_interface_config WHERE id = #{id}
   </select>
 <!--通过id修改外部接口配置-->
-    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.basic.ExternalInterfaceConfig">
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig">
         UPDATE external_interface_config
         <set>
             <if test="orgId != null">org_id =#{orgId},</if>
