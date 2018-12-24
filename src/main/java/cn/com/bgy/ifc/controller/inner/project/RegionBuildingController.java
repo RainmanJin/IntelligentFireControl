@@ -35,9 +35,9 @@ public class RegionBuildingController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo<RegionBuildingVo>> queryListRegionBuilding( Page<RegionBuildingVo> page, RegionBuildingVo regionBuildingVo, String token){
-        PageInfo<RegionBuildingVo> pageInfo = regionBuildingService.queryListRegionBuilding(page,regionBuildingVo);
-        return ResponseVO.<PageInfo<RegionBuildingVo>>success().setData(pageInfo);
+    public ResponseVO<PageInfo> queryListRegionBuilding( Page<Object> page, RegionBuildingVo regionBuildingVo, String token){
+        PageInfo pageInfo = regionBuildingService.queryListRegionBuilding(page,regionBuildingVo);
+        return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**
      * @Author huxin

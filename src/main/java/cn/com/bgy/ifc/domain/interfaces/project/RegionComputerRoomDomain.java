@@ -6,6 +6,7 @@ import cn.com.bgy.ifc.entity.vo.equipment.BgyMachineRoomVo;
 import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -35,7 +36,7 @@ public interface RegionComputerRoomDomain {
      */
     ResponseVO<Object> alterBgyComputerRoomList(List<BgyMachineRoomVo> list, Long orgId);
 
-    List<RegionComputerRoomVo> queryListRegionComputerRoom( RegionComputerRoomVo record );
+    List<Map<String,Object>> queryListRegionComputerRoom( RegionComputerRoomVo record );
 
 
     int updateRegionComputerRoom( RegionComputerRoom record );

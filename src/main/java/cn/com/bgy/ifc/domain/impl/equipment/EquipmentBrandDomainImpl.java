@@ -2,13 +2,16 @@ package cn.com.bgy.ifc.domain.impl.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentBrandDao;
-import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentBrandDomain;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
+import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentBrandVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +30,23 @@ import java.util.List;
 @Service
 public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
 
+    @Resource
+    private EquipmentBrandDao equipmentBrandDao;
+
+    @Autowired
+    private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
+
+    private static Logger logger = LoggerFactory.getLogger(EquipmentBrandDomainImpl.class);
     /**
      * @Author huxin
      * @Description 查
      * @Date 2018/12/21 18:37
      */
     @Override
-    public void queryListEquipmentBrand() {
-
+    public PageInfo queryListEquipmentBrand( Page page,String keyword ) {
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        List<Map<String,Object>> list  = equipmentBrandDao.queryListEquipmentBrand(keyword);
+        return new PageInfo(list);
     }
     /**
      * @Author huxin
@@ -43,7 +55,7 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
      */
     @Override
     public int addEquipmentBrand( EquipmentBrand equipmentBrand ) {
-        return 0;
+        return equipmentBrandDao.insert(equipmentBrand);
     }
     /**
      * @Author huxin
@@ -52,25 +64,32 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
      */
     @Override
     public int updateEquipmentBrand( EquipmentBrand equipmentBrand ) {
+        return equipmentBrandDao.updateEquipmentBrand(equipmentBrand);
+    }
+    /**
+     * @Author huxin
+     * @Description 删除
+     * @Date 2018/12/21 18:38
+     */
+    @Override
+
+    public int deleteEquipmentBrand( String str ) {
+        List<Long> list = ListUtil.getListId(str);
+        if(list.size()>0){
+            return equipmentBrandDao.deleteEquipmentBrand(list);
+        }
         return 0;
     }
     /**
      * @Author huxin
-     * @Description 添加
-     * @Date 2018/12/21 18:38
+     * @Description 查询所有品牌
+     * @Date 2018/12/24 10:49
      */
     @Override
-    public int deleteEquipmentBrand( String str ) {
-        return 0;
+    public List<Map<String, Object>> queryAllEquipmentBrand() {
+        return equipmentBrandDao.queryAllEquipmentBrand();
     }
 
-    private static Logger logger = LoggerFactory.getLogger(EquipmentBrandDomainImpl.class);
-
-    @Resource
-    private EquipmentBrandDao equipmentBrandDao;
-
-    @Autowired
-    private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
     @Override
     public ResponseVO<Object> saveBgyEquipmentBrand(List<BgyEquipmentBrandVo> list, Long orgId) {
@@ -146,4 +165,5 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
             return ResponseVO.success().setMsg("同步集成平台设备品牌增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
     }
+
 }

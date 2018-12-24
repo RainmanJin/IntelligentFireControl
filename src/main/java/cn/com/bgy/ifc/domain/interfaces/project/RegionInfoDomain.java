@@ -12,7 +12,7 @@ import java.util.Map;
 
 public interface RegionInfoDomain {
 
-    PageInfo<RegionInfo> queryListRegionInfo(Page<RegionInfo> page, RegionInfoVo systemRoleVo);
+    PageInfo queryListRegionInfo(Page page, RegionInfoVo systemRoleVo);
 
     int insert(RegionInfo record);
 

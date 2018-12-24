@@ -3,6 +3,8 @@ package cn.com.bgy.ifc.domain.interfaces.equipment;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentVersion;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVersionVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ import java.util.List;
 
 public interface EquipmentVersionDomain {
 
-    void queryListEquipmentVersion();
+    PageInfo queryListEquipmentVersion( Page page, Integer brandID, String keyword);
 
     int addEquipmentVersion( EquipmentVersion record );
 

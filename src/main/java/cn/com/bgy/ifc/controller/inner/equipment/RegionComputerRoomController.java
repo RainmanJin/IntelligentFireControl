@@ -33,9 +33,9 @@ public class RegionComputerRoomController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo<RegionComputerRoomVo>> queryListComputerRoom( Page<RegionComputerRoomVo> page, RegionComputerRoomVo regionComputerRoomVo, String token){
-        PageInfo<RegionComputerRoomVo> pageInfo = regionComputerRoomService.queryListRegionComputerRoom(page,regionComputerRoomVo);
-        return ResponseVO.<PageInfo<RegionComputerRoomVo>>success().setData(pageInfo);
+    public ResponseVO<PageInfo> queryListComputerRoom( Page<Object> page, RegionComputerRoomVo regionComputerRoomVo, String token){
+        PageInfo pageInfo = regionComputerRoomService.queryListRegionComputerRoom(page,regionComputerRoomVo);
+        return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**
      * @Author huxin

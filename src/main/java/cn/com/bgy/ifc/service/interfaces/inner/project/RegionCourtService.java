@@ -16,7 +16,7 @@ import java.util.Map;
 
 public interface RegionCourtService {
 
-    PageInfo<RegionCourtVo> queryListRegionCourt( Page<RegionCourtVo> page, RegionCourtVo regionCourtVo);
+    PageInfo queryListRegionCourt( Page page, RegionCourtVo regionCourtVo);
 
     int insert(RegionCourt record);
 

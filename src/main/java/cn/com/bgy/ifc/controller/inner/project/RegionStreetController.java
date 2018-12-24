@@ -35,9 +35,9 @@ public class RegionStreetController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo<RegionStreetVo>> queryListRegionStreet( Page<RegionStreetVo> page, RegionStreetVo regionStreetVo, String token){
-        PageInfo<RegionStreetVo> pageInfo = regionStreetService.queryListRegionStreet(page,regionStreetVo);
-        return ResponseVO.<PageInfo<RegionStreetVo>>success().setData(pageInfo);
+    public ResponseVO<PageInfo> queryListRegionStreet( Page<Object> page, RegionStreetVo regionStreetVo, String token){
+        PageInfo pageInfo = regionStreetService.queryListRegionStreet(page,regionStreetVo);
+        return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**
      * @Author huxin

@@ -14,7 +14,7 @@ import java.util.Map;
 
 public interface RegionCourtDomain {
 
-    List<RegionCourtVo> queryListRegionCourt( RegionCourtVo regionCourtVo);
+    List<Map<String,Object>> queryListRegionCourt( RegionCourtVo regionCourtVo);
 
     int insert(RegionCourt record);
 

@@ -11,7 +11,7 @@ public interface RegionBuildingDao {
 
     int insertSelective(RegionBuilding record);
 
-    List<RegionBuildingVo> queryListRegionBuilding( RegionBuildingVo record);
+    List<Map<String,Object>> queryListRegionBuilding( RegionBuildingVo record);
 
 
     int updateRegionBuilding(RegionBuilding record);

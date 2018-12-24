@@ -69,17 +69,30 @@
         = #{id}
     </update>
 
-    <select id="queryListEquipmentType" resultType="java.util.Map">
+    <select id="queryListEquipmentType" resultType="java.util.Map" parameterType="java.lang.String">
         SELECT
         t.id as id,t.`name` as name,t.parent_id,e.`name` as parentName,t.`status` as `status`
       FROM (SELECT id,`name`,parent_id,`status`,logic_remove FROM equipment_type) as t
       LEFT JOIN equipment_type e ON t.parent_id = e.id
-      WHERE t.logic_remove = 0
+
+        <where>
+            <if test="keyword != null and keyword !='' ">
+                AND (t.`name` LIKE concat('%',#{keyword},'%') OR e.`name` LIKE concat('%',#{keyword},'%'))
+            </if>
+            AND t.logic_remove = 0
+        </where>
+
     </select>
     <update id="deleteEquipmentType" parameterType="java.util.List">
-        UPDATE  equipment_info set logic_remove =1  where id IN
+        UPDATE   equipment_type set logic_remove =1  where id IN
         <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </update>
+
+    <select id="queryEquipmentTypeBySuperId" parameterType="java.lang.Long" resultType="java.util.Map">
+        SELECT id,name,parent_id as parentId
+        FROM equipment_type
+        WHERE parent_id =#{id,jdbcType=BIGINT} AND `status`=1 AND logic_remove = 0
+    </select>
 </mapper>

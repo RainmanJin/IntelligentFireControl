@@ -58,10 +58,10 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
      * @Date 2018/12/18 17:31
      */
     @Override
-    public PageInfo<RegionProjectVo> queryListRegionProjec(Page<RegionProjectVo> page, RegionProjectVo record) {
+    public PageInfo queryListRegionProjec(Page page, RegionProjectVo record) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<RegionProjectVo> list = regionProjectDao.queryListRegionProject(record);
-        return new PageInfo<RegionProjectVo>(list);
+        List<Map<String,Object>> list = regionProjectDao.queryListRegionProject(record);
+        return new PageInfo(list);
     }
 
     /**
@@ -81,7 +81,6 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
      * @Description 修改
      * @Date 2018/12/18 17:31
      */
-    @Transactional
     @Override
     public int updateRegionProjec(RegionProject record) {
         record.setCreateTime(new Date());

@@ -1,64 +1,138 @@
 package cn.com.bgy.ifc.entity.vo.project;
 
-import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
+import java.util.Date;
 
 /**
  * @Author huxin
  * @Description 机房信息
  * @Date 2018/12/20 15:46
  */
-public class RegionComputerRoomVo extends RegionComputerRoom {
-    //区域名
-    private String regionName;
-    //项目名
-    private String projectName;
-    //苑区名
-    private String courtName;
-    //街道名
-    private String streetName;
-    //楼栋名
-    private String buildingName;
+public class RegionComputerRoomVo {
+
+    //机房id
+    private Long id;
+    //平台id
+    private Long organizationId;
+    //区域id
+    private Long regionId;
+    //项目id
+    private Long projectId;
+    //苑区id
+    private Long courtId;
+    //街道id
+    private Long streetId;
+    //楼栋id
+    private Long buildingId;
+    //机房名称
+    private String name;
+    //机房编码
+    private String code;
+
+    /**
+     * 地址信息描述(苑区/街道/楼栋)，各部分可能为空
+     */
+    private String description;
+    //创建、修改时间
+    private Date createTime;
+    //逻辑删除 0 存在 1 删除
+    private Boolean logicRemove;
     //关键字
     private String keyword;
 
-    public String getRegionName() {
-        return regionName;
+    public Long getId() {
+        return id;
     }
 
-    public void setRegionName( String regionName ) {
-        this.regionName = regionName;
+    public void setId( Long id ) {
+        this.id = id;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public Long getOrganizationId() {
+        return organizationId;
     }
 
-    public void setProjectName( String projectName ) {
-        this.projectName = projectName;
+    public void setOrganizationId( Long organizationId ) {
+        this.organizationId = organizationId;
     }
 
-    public String getCourtName() {
-        return courtName;
+    public Long getRegionId() {
+        return regionId;
     }
 
-    public void setCourtName( String courtName ) {
-        this.courtName = courtName;
+    public void setRegionId( Long regionId ) {
+        this.regionId = regionId;
     }
 
-    public String getStreetName() {
-        return streetName;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setStreetName( String streetName ) {
-        this.streetName = streetName;
+    public void setProjectId( Long projectId ) {
+        this.projectId = projectId;
     }
 
-    public String getBuildingName() {
-        return buildingName;
+    public Long getCourtId() {
+        return courtId;
     }
 
-    public void setBuildingName( String buildingName ) {
-        this.buildingName = buildingName;
+    public void setCourtId( Long courtId ) {
+        this.courtId = courtId;
+    }
+
+    public Long getStreetId() {
+        return streetId;
+    }
+
+    public void setStreetId( Long streetId ) {
+        this.streetId = streetId;
+    }
+
+    public Long getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId( Long buildingId ) {
+        this.buildingId = buildingId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName( String name ) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode( String code ) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription( String description ) {
+        this.description = description;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime( Date createTime ) {
+        this.createTime = createTime;
+    }
+
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
+
+    public void setLogicRemove( Boolean logicRemove ) {
+        this.logicRemove = logicRemove;
     }
 
     public String getKeyword() {

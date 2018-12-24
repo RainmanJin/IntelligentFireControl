@@ -1,6 +1,8 @@
 package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentVersion;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 /**
  * @Author huxin
@@ -11,7 +13,7 @@ import cn.com.bgy.ifc.entity.po.equipment.EquipmentVersion;
 public interface EquipmentVersionService  {
 
 
-    void queryListEquipmentVersion();
+    PageInfo queryListEquipmentVersion( Page page, Integer brandID, String keyword);
 
     int addEquipmentVersion(EquipmentVersion record);
 

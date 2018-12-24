@@ -9,6 +9,9 @@ import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentVersion;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVersionVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -35,22 +40,45 @@ public class EquipmentVersionDomainImpl implements EquipmentVersionDomain {
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
+    /**
+     * @Author huxin
+     * @Description 查询
+     * @Date 2018/12/24 10:01
+     */
     @Override
-    public void queryListEquipmentVersion() {
-
+    public PageInfo queryListEquipmentVersion( Page page, Integer brandID, String keyword ) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("brandID",brandID);
+        map.put("keyword",keyword);
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        List<Map<String,Object>> list = equipmentVersionDao.queryListEquipmentVersion(map);
+        return new PageInfo(list);
     }
-
+    /*
+     * @Author huxin
+     * @Description 添加
+     * @Date 2018/12/24 10:02
+     */
     @Override
     public int addEquipmentVersion( EquipmentVersion record ) {
         return equipmentVersionDao.insert(record);
     }
-
+    /**
+     * @Author huxin
+     * @Description 修改
+     * @Date 2018/12/24 10:02
+     */
     @Override
     public int updateEquipmentVersion( EquipmentVersion record ) {
-        return equipmentVersionDao.updateEquipmentVersion(record);
+        return equipmentVersionDao.updateSelective(record);
     }
-
+    /**
+     * @Author huxin
+     * @Description 删除
+     * @Date 2018/12/24 10:02
+     */
     @Override
+    @Transactional
     public int deleteEquipmentVersion( String str ) {
         List<Long> list = ListUtil.getListId(str);
         return equipmentVersionDao.deleteEquipmentVersion(list);

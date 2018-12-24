@@ -16,7 +16,7 @@ import java.util.Map;
 
 public interface RegionStreetService {
 
-    PageInfo<RegionStreetVo> queryListRegionStreet( Page<RegionStreetVo> page, RegionStreetVo record );
+    PageInfo queryListRegionStreet( Page page, RegionStreetVo record );
 
     int insert( RegionStreet record );
 

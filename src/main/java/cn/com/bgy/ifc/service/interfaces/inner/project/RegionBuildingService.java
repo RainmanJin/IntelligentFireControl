@@ -16,7 +16,7 @@ import java.util.Map;
 
 public interface RegionBuildingService {
 
-    PageInfo<RegionBuildingVo> queryListRegionBuilding( Page<RegionBuildingVo> page, RegionBuildingVo record );
+    PageInfo queryListRegionBuilding( Page page, RegionBuildingVo record );
 
     int insert( RegionBuilding record );
 

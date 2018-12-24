@@ -13,7 +13,7 @@ import com.github.pagehelper.PageInfo;
 
 public interface RegionComputerRoomService {
 
-    PageInfo<RegionComputerRoomVo> queryListRegionComputerRoom( Page<RegionComputerRoomVo> page, RegionComputerRoomVo record );
+    PageInfo queryListRegionComputerRoom( Page page, RegionComputerRoomVo record );
 
     int insert( RegionComputerRoom record );
 

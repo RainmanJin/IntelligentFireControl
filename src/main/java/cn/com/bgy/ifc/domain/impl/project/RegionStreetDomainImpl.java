@@ -36,7 +36,7 @@ public class RegionStreetDomainImpl implements RegionStreetDomain {
      * @Date 2018/12/19 15:18
      */
     @Override
-    public List<RegionStreetVo> queryListRegionStreet( RegionStreetVo record ) {
+    public List<Map<String,Object>> queryListRegionStreet( RegionStreetVo record ) {
         return regionStreetDao.queryListRegionStreet(record);
     }
 

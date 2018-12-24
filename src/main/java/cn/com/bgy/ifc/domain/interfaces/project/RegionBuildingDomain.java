@@ -14,7 +14,7 @@ import java.util.Map;
 
 public interface RegionBuildingDomain {
 
-    List<RegionBuildingVo> queryListRegionBuilding( RegionBuildingVo record );
+    List<Map<String,Object>> queryListRegionBuilding( RegionBuildingVo record );
 
     int insert( RegionBuilding record );
 

@@ -91,7 +91,7 @@
         </where>
     </select>
     <select id="queryListRegionInfo" parameterType="cn.com.bgy.ifc.entity.vo.project.RegionInfoVo"
-            resultMap="BaseResultMap">
+            resultType="java.util.Map">
         select id, organization_id, code, name, create_time
         from region_info
         <where>

@@ -30,10 +30,10 @@ public class RegionCourtServiceImpl implements RegionCourtService {
      * @Date 2018/12/19 10:43
      */
     @Override
-    public PageInfo<RegionCourtVo> queryListRegionCourt( Page<RegionCourtVo> page, RegionCourtVo record ) {
+    public PageInfo queryListRegionCourt( Page page, RegionCourtVo record ) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<RegionCourtVo> list=  regionCourtDomain.queryListRegionCourt(record);
-        return  new PageInfo<RegionCourtVo>(list);
+        List<Map<String,Object>> list=  regionCourtDomain.queryListRegionCourt(record);
+        return  new PageInfo(list);
     }
     /**
      * @Author huxin

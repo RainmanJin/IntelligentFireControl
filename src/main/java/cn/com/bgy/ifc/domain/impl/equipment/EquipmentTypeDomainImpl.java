@@ -132,9 +132,9 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
      * @Date 2018/12/23 16:04
      */
     @Override
-    public PageInfo<Object> queryListEquipmentType( Page<Object> page ) {
+    public PageInfo queryListEquipmentType( Page page ,String keyword) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Map<String,Object>> list = equipmentTypeDao.queryListEquipmentType();
+        List<Map<String,Object>> list = equipmentTypeDao.queryListEquipmentType(keyword);
         return new PageInfo(list);
     }
 
@@ -153,6 +153,7 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
      * @Date 2018/12/23 16:04
      */
     @Override
+
     public int updateEquipmentType( EquipmentType equipmentType ) {
         return equipmentTypeDao.updateSelective(equipmentType);
     }
@@ -165,5 +166,17 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
     public int deleteEquipmentType( String str ) {
         List<Long> list  = ListUtil.getListId(str);
         return equipmentTypeDao.deleteEquipmentType(list);
+    }
+    /**
+     * @Author huxin
+     * @Description 根据父级id查询所有子节点
+     * @Date 2018/12/24 16:38
+     */
+    @Override
+    public List<Map<String, Object>> queryEquipmentTypeBySuperId( Long id ) {
+        if(id==null|| id==77L){
+            id=77L;
+        }
+        return equipmentTypeDao.queryEquipmentTypeBySuperId(id);
     }
 }

@@ -1,10 +1,14 @@
 package cn.com.bgy.ifc.domain.interfaces.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfoView;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -29,11 +33,13 @@ public interface EquipmentInfoDomain {
      */
     ResponseVO<Object> alterBgyEquipmentInfo(List<BgyEquipmentVo> list, Long orgId);
 
-    void queryListEquipmentInfo();
+    PageInfo queryListEquipmentInfo( Page<Object> page, EquipmentInfoView equipmentInfoView);
 
     int addEquipmentInfo( EquipmentInfo equipmentInfo );
 
     int updateEquipmentInfo(EquipmentInfo equipmentInfo);
 
     int deleteEquipmentInfo(String str);
+
+    Map<String,Object> queryEquipmentInfoById( Long id );
 }

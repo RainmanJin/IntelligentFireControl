@@ -18,7 +18,7 @@ import java.util.Map;
 
 public interface RegionProjectDomain {
 
-    PageInfo<RegionProjectVo> queryListRegionProjec(Page<RegionProjectVo> page, RegionProjectVo record);
+    PageInfo queryListRegionProjec(Page page, RegionProjectVo record);
 
     int insert(RegionProject record);
 

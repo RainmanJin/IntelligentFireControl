@@ -35,9 +35,9 @@ public class RegionCourtController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo<RegionCourtVo>> queryListRegionCourt( Page<RegionCourtVo> page, RegionCourtVo regionCourtVo, String token){
-            PageInfo<RegionCourtVo> pageInfo = regionCourtService.queryListRegionCourt(page, regionCourtVo);
-            return ResponseVO.<PageInfo<RegionCourtVo>>success().setData(pageInfo);
+    public ResponseVO<PageInfo> queryListRegionCourt( Page<Object> page, RegionCourtVo regionCourtVo, String token){
+            PageInfo pageInfo = regionCourtService.queryListRegionCourt(page, regionCourtVo);
+            return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**
      * @Author huxin

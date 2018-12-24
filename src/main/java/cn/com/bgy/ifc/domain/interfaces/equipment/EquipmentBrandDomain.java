@@ -1,12 +1,13 @@
 package cn.com.bgy.ifc.domain.interfaces.equipment;
 
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentBrandVo;
-import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentTypeVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
-
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
+import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -31,11 +32,13 @@ public interface EquipmentBrandDomain {
      */
     ResponseVO<Object> alterBgyEquipmentBrand(List<BgyEquipmentBrandVo> list, Long orgId);
 
-    void queryListEquipmentBrand();
+    PageInfo queryListEquipmentBrand( Page page,String keyword);
 
     int addEquipmentBrand( EquipmentBrand equipmentBrand );
 
     int updateEquipmentBrand(EquipmentBrand equipmentBrand);
 
     int deleteEquipmentBrand(String str);
+
+    List<Map<String,Object>> queryAllEquipmentBrand();
 }

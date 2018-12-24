@@ -243,4 +243,61 @@
         </foreach>
     </update>
 
+    <select id="queryListEquipmentInfo"  resultType="java.util.Map" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfoView">
+        SELECT
+            id,
+            regionId,regionName,
+            projectId,projectName,
+            courtId,courtName,
+            streetId,streetName,
+            buildingId,buildingName,
+            `name`,inputCode,
+            typeId,typeName,
+            brandId,brandName,
+            versionId,versionName,
+            `status`
+        FROM equipment_info_v
+        <where>
+            <if test="regionId != null and regionId !='' ">
+                AND regionId = #{regionId,jdbcType=BIGINT}
+            </if>
+            <if test="projectId != null and projectId !='' ">
+                AND projectId = #{projectId,jdbcType=BIGINT}
+            </if>
+            <if test="courtId != null and courtId !='' ">
+                AND courtId = #{courtId,jdbcType=BIGINT}
+            </if>
+
+            <if test="typeId != null and typeId !='' ">
+                AND typeId = #{typeId,jdbcType=BIGINT}
+            </if>
+            <if test="brandId != null and brandId !='' ">
+                AND brandId = #{brandId,jdbcType=BIGINT}
+            </if>
+            <if test="versionId != null and versionId !='' ">
+                AND versionId = #{versionId,jdbcType=BIGINT}
+            </if>
+            <if test="keyword != null and keyword !='' ">
+                AND (streetName LIKE concat('%',#{keyword},'%') OR buildingName LIKE concat('%',#{keyword},'%'))
+            </if>
+        </where>
+    </select>
+    <select id="queryEquipmentInfoById" resultType="java.util.Map" parameterType="java.lang.Long">
+        SELECT v.id as id,
+        v.regionId as regionId,v.regionName as regionName,
+        v.projectId as projectId,v.projectName asprojectName,
+        i.machine_room_id as machineRoomId,
+        (SELECT rr.`name` FROM region_computer_room rr WHERE rr.id = i.machine_room_id) as machineRoomName,
+        v.typeId as typeId,v.typeName as typeName,
+        v.brandId as brandId,v.brandName as brandName,
+        v.versionId as versionId,v.versionName as versionId,
+        v.`name` as name,v.inputCode as inputCode,
+        i.keep_years as keepYears,i.in_work_time as workTime,
+        i.is_important as isImportant,localtion_code as localtionCode,
+        i.simple_code as simpleCode,i.api_code as apiCode,
+        v.`status` as status
+        FROM equipment_info_v  v
+        LEFT JOIN equipment_info i ON v.id = i.id
+        where i.id = #{id,jdbcType=BIGINT}
+    </select>
 </mapper>

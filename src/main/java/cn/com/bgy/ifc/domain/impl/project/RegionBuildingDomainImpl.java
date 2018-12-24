@@ -29,7 +29,7 @@ public class RegionBuildingDomainImpl implements RegionBuildingDomain {
      * @Date 2018/12/20 9:23
      */
     @Override
-    public List<RegionBuildingVo> queryListRegionBuilding( RegionBuildingVo record ) {
+    public List<Map<String,Object>> queryListRegionBuilding( RegionBuildingVo record ) {
         return regionBuildingDao.queryListRegionBuilding(record);
     }
     /**

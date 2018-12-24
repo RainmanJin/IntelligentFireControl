@@ -7,6 +7,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -31,11 +32,13 @@ public interface EquipmentTypeDomain {
      */
     ResponseVO<Object> alterBgyEquipmentType(List<BgyEquipmentTypeVo> list, Long orgId);
 
-    PageInfo<Object> queryListEquipmentType( Page<Object> page );
+    PageInfo queryListEquipmentType( Page page ,String keyword);
 
     int addEquipmentType( EquipmentType equipmentType );
 
     int updateEquipmentType( EquipmentType equipmentType );
 
     int deleteEquipmentType( String str );
+
+    List<Map<String,Object>> queryEquipmentTypeBySuperId( Long id );
 }

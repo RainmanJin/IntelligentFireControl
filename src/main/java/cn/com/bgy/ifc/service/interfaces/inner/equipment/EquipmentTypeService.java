@@ -4,6 +4,9 @@ import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author huxin
  * @Date 2018/12/21 11:13
@@ -12,7 +15,7 @@ import com.github.pagehelper.PageInfo;
 
 public interface EquipmentTypeService {
 
-    PageInfo<Object> queryListEquipmentType(Page<Object> page);
+    PageInfo<Object> queryListEquipmentType(Page page,String keyword);
 
     int addEquipmentType( EquipmentType equipmentType );
 
@@ -21,4 +24,5 @@ public interface EquipmentTypeService {
     int deleteEquipmentType( String str );
 
 
+    List<Map<String,Object>> queryEquipmentTypeBySuperId( Long id );
 }

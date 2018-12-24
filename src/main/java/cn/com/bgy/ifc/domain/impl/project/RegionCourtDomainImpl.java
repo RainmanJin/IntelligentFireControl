@@ -39,7 +39,7 @@ public class RegionCourtDomainImpl implements RegionCourtDomain {
      * @Date 2018/12/19 15:18
      */
     @Override
-    public List<RegionCourtVo> queryListRegionCourt( RegionCourtVo regionCourtVo ) {
+    public List<Map<String,Object>> queryListRegionCourt( RegionCourtVo regionCourtVo ) {
         return regionCourtDao.queryListRegionCourt(regionCourtVo);
     }
     /**

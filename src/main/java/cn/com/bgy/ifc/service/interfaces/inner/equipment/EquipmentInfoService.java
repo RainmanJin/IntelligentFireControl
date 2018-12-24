@@ -1,6 +1,11 @@
 package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfoView;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
+
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -10,7 +15,7 @@ import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 
 public interface EquipmentInfoService {
 
-    void queryListEquipmentInfo();
+    PageInfo queryListEquipmentInfo( Page<Object> page, EquipmentInfoView equipmentInfoView );
 
     int addEquipmentInfo( EquipmentInfo equipmentInfo );
 
@@ -18,5 +23,5 @@ public interface EquipmentInfoService {
 
     int deleteEquipmentInfo(String str);
 
-
+    Map<String,Object> queryEquipmentInfoById( Long id );
 }

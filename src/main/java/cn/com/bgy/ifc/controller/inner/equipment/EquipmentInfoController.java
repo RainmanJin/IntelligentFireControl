@@ -2,13 +2,18 @@ package cn.com.bgy.ifc.controller.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfoView;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentInfoService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -29,10 +34,11 @@ public class EquipmentInfoController {
      */
     @PostMapping("query")
     @ResponseBody
-    public void queryListEquipmentInfo(String token){
-
+    public ResponseVO<PageInfo> queryListEquipmentInfo( Page<Object> page, EquipmentInfoView equipmentInfoView, String token){
+        PageInfo pageInfo = equipmentInfoService.queryListEquipmentInfo(page,equipmentInfoView);
+        return  ResponseVO.<PageInfo>success().setData(pageInfo);
     }
-    /**
+    /**e
      * @Author huxin
      * @Description 增加
      * @Date 2018/12/21 11:09
@@ -77,5 +83,15 @@ public class EquipmentInfoController {
             return ResponseVO.success().setMsg("删除成功");
         }
         return ResponseVO.error().setMsg("删除失败！");
+    }
+
+    /**
+     * @Author huxin
+     * @Description 根据一个设备id查询设备数据
+     * @Date 2018/12/24 15:52
+     */
+    public ResponseVO<Object> queryEquipmentInfoById(Long id,String token){
+        Map<String,Object> map = equipmentInfoService.queryEquipmentInfoById(id);
+        return ResponseVO.success().setData(map);
     }
 }

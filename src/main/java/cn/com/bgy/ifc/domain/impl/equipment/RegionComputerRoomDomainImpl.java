@@ -157,7 +157,7 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
             if (totalCount != roomList.size()) {
                 return ResponseVO.error().setMsg("同步集成平台机房异常");
             } else {
-                externalInterfaceMsgDomain.successInterfaceMsg(orgId, ExternalConstant.MsgTypeValue.BGY_MOTOR_ROOM_OBTAIN.getValue(), totalCount);
+                externalInterfaceMsgDomain.successInterfaceMsg(orgId,ExternalConstant.MsgTypeValue.BGY_MOTOR_ROOM_OBTAIN.getValue(),totalCount);
                 return ResponseVO.success().setMsg("同步集成平台机房总条数：" + totalCount + "，新增条数：" + totalCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
             }
         } catch (Exception e) {
@@ -222,30 +222,29 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
             return ResponseVO.success().setMsg("同步集成平台设备机房增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
     }
-
     /**
      * @Author huxin
      * @Description 查询
      * @Date 2018/12/20 14:36
      */
     @Override
-    public List<RegionComputerRoomVo> queryListRegionComputerRoom(RegionComputerRoomVo record) {
+    public List<RegionComputerRoomVo> queryListRegionComputerRoom( RegionComputerRoomVo record ) {
         return regionComputerRoomDao.queryListRegionComputerRoom(record);
     }
-
     /**
      * @Author huxin
      * @Description 修改
      * @Date 2018/12/20 14:36
      */
     @Override
-    public int updateRegionComputerRoom(RegionComputerRoom record) {
-        if (record.getId() > 0) {
+    @Transactional
+    public int updateRegionComputerRoom( RegionComputerRoom record ) {
+        if(record.getId()>0){
             //查询苑区信息
             RegionComputerRoom computerRoom = regionComputerRoomDao.queryRegionComputerRoomById(record.getId());
             //修改街道信息
-            if (computerRoom.getStreetId() != record.getStreetId()) {
-                RegionStreet street = new RegionStreet();
+            if(computerRoom.getStreetId() != record.getStreetId()){
+                RegionStreet street= new RegionStreet();
                 street.setId(record.getStreetId());
                 street.setCourtId(record.getCourtId());
                 street.setProjectId(record.getProjectId());
@@ -253,7 +252,7 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                 regionStreetDao.updateRegionStreet(street);
             }
             //修改苑区信息
-            if (computerRoom.getCourtId() != record.getCourtId()) {
+            if(computerRoom.getCourtId() != record.getCourtId()){
                 RegionCourt court = new RegionCourt();
                 court.setId(record.getCourtId());
                 court.setProjectId(record.getProjectId());
@@ -261,7 +260,7 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                 regionCourtDao.updateRegionCourt(court);
             }
             //修改项目信息
-            if (computerRoom.getProjectId() != record.getProjectId()) {
+            if(computerRoom.getProjectId()!= record.getProjectId()){
                 RegionProject project = new RegionProject();
                 project.setId(record.getProjectId());
                 project.setRegionId(record.getRegionId());
@@ -272,24 +271,23 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
             //查询街道名
             String streetName = regionStreetDao.queryRegionStreetNameById(record.getStreetId());
             //查询楼栋名
-            String buildingName = regionBuildingDao.queryRegionBuildingtNameById(record.getBuildingId());
+            String buildingName= regionBuildingDao.queryRegionBuildingtNameById(record.getBuildingId());
 
-            if (StringUtil.isNotEmpty(courtName) || StringUtil.isNotEmpty(streetName) || StringUtil.isNotEmpty(buildingName)) {
-                record.setName(courtName + courtName + streetName);
+            if(StringUtil.isNotEmpty(courtName) || StringUtil.isNotEmpty(streetName) || StringUtil.isNotEmpty(buildingName)){
+                record.setName(courtName+courtName+streetName);
                 record.setCreateTime(new Date());
                 return regionComputerRoomDao.updateRegionComputerRoom(record);
             }
         }
         return 0;
     }
-
     /**
      * @Author huxin
      * @Description 删除
      * @Date 2018/12/20 14:37
      */
     @Override
-    public int deleteRegionComputerRoom(List<Long> list) {
+    public int deleteRegionComputerRoom( List<Long> list ) {
         return regionComputerRoomDao.deleteRegionComputerRoom(list);
     }
 }

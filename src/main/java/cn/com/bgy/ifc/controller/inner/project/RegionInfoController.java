@@ -36,10 +36,9 @@ public class RegionInfoController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo<RegionInfo>> queryListRegionInfo( Page<RegionInfo> page, RegionInfoVo regionInfoVo, String token){
-
-            PageInfo<RegionInfo> pageInfo = regionInfoDomain.queryListRegionInfo(page, regionInfoVo);
-            return ResponseVO.<PageInfo<RegionInfo>>success().setData(pageInfo);
+    public ResponseVO<PageInfo> queryListRegionInfo( Page<Object> page, RegionInfoVo regionInfoVo, String token){
+            PageInfo pageInfo = regionInfoDomain.queryListRegionInfo(page, regionInfoVo);
+            return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**
      * @Author huxin

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -31,10 +32,10 @@ public class RegionComputerRoomServiceImpl implements RegionComputerRoomService 
      * @Date 2018/12/20 14:42
      */
     @Override
-    public PageInfo<RegionComputerRoomVo> queryListRegionComputerRoom( Page<RegionComputerRoomVo> page, RegionComputerRoomVo record ) {
+    public PageInfo queryListRegionComputerRoom( Page page, RegionComputerRoomVo record ) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<RegionComputerRoomVo> list=  regionComputerRoomDomain.queryListRegionComputerRoom(record);
-        return  new PageInfo<RegionComputerRoomVo>(list);
+        List<Map<String,Object>> list=  regionComputerRoomDomain.queryListRegionComputerRoom(record);
+        return  new PageInfo(list);
     }
     /**
      * @Author huxin

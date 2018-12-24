@@ -62,10 +62,10 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
      * @Date 2018/12/18 16:26
      */
     @Override
-    public PageInfo<RegionInfo> queryListRegionInfo(Page<RegionInfo> page, RegionInfoVo systemRoleVo) {
+    public PageInfo queryListRegionInfo(Page page, RegionInfoVo systemRoleVo) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<RegionInfo> list = regionInfoDao.queryListRegionInfo(systemRoleVo);
-        return new PageInfo<RegionInfo>(list);
+        List<Map<String,Object>> list = regionInfoDao.queryListRegionInfo(systemRoleVo);
+        return new PageInfo(list);
     }
 
     /**
@@ -85,7 +85,6 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
      * @Description 修改
      * @Date 2018/12/18 16:26
      */
-    @Transactional
     @Override
     public int updateRegionInfo(RegionInfoVo record) {
         record.setCreateTime(new Date());

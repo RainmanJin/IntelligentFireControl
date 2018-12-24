@@ -14,7 +14,7 @@ import java.util.Map;
 
 public interface RegionStreetDomain {
 
-    List<RegionStreetVo> queryListRegionStreet( RegionStreetVo record );
+    List<Map<String,Object>> queryListRegionStreet( RegionStreetVo record );
 
     int insert( RegionStreet record );
 

@@ -84,7 +84,7 @@
     </trim>
   </insert>
 
-  <select id="queryListRegionBuilding" parameterType="cn.com.bgy.ifc.entity.vo.project.RegionBuildingVo" resultType="cn.com.bgy.ifc.entity.vo.project.RegionBuildingVo">
+  <select id="queryListRegionBuilding" parameterType="cn.com.bgy.ifc.entity.vo.project.RegionBuildingVo" resultType="java.util.Map">
     SELECT
     b.id as id,b.organization_id as organizationId,b.name as name,
     b.region_id as regionId,i.`name` as regionName,

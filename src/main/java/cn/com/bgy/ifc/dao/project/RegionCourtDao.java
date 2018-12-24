@@ -11,7 +11,7 @@ public interface RegionCourtDao {
 
     int insertSelective(RegionCourt record);
 
-    List<RegionCourtVo> queryListRegionCourt( RegionCourtVo regionCourtVo);
+    List<Map<String,Object>> queryListRegionCourt( RegionCourtVo regionCourtVo);
 
 
     int updateRegionCourt(RegionCourt record);

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author huxin
  * @Date 2018/12/21 16:22
@@ -32,9 +35,9 @@ public class EquipmentTypeController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo<Object>> queryListEquipmentType( Page<Object> page, String token){
-        PageInfo<Object> pageInfo = equipmentTypeService.queryListEquipmentType(page);
-        return   ResponseVO.<PageInfo<Object>>success().setData(pageInfo);
+    public ResponseVO<PageInfo> queryListEquipmentType( Page<Object> page, String keyword,String token){
+        PageInfo pageInfo = equipmentTypeService.queryListEquipmentType(page,keyword);
+        return   ResponseVO.<PageInfo>success().setData(pageInfo);
 
     }
     /**
@@ -43,7 +46,7 @@ public class EquipmentTypeController {
      * @Date 2018/12/21 18:13
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "型号信息添加")
+    @SystemLogAfterSave(type = 1,description = "类型信息添加")
     @ResponseBody
     public ResponseVO<Object> addEEquipmentType( EquipmentType record,String token){
         int count = equipmentTypeService.addEquipmentType(record);
@@ -58,7 +61,7 @@ public class EquipmentTypeController {
      * @Date 2018/12/21 18:13
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "型号信息修改")
+    @SystemLogAfterSave(type = 1,description = "类型信息修改")
     @ResponseBody
     public ResponseVO<Object> uopdateEquipmentType(EquipmentType record,String token){
         int count = equipmentTypeService.updateEquipmentType(record);
@@ -73,7 +76,7 @@ public class EquipmentTypeController {
      * @Date 2018/12/21 18:13
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "型号信息删除")
+    @SystemLogAfterSave(type = 1,description = "类型信息删除")
     @ResponseBody
     public ResponseVO<Object>  deleteEquipmentType( String arr,String token ){
         int count = equipmentTypeService.deleteEquipmentType(arr);
@@ -82,5 +85,19 @@ public class EquipmentTypeController {
         }
         return ResponseVO.error().setMsg("删除失败！");
     }
+    /**
+     * @Author huxin
+     * @Description 根据父级id查询下级所有节点
+     * @Date 2018/12/24 16:33
+     */
+    @PostMapping("queryBySuperId")
+    @ResponseBody
+    public ResponseVO<Object> queryEquipmentTypeBySuperId( Long id,String token){
+        List<Map<String,Object>> list = equipmentTypeService.queryEquipmentTypeBySuperId(id);
+        if(list.size()>0){
+            return ResponseVO.success().setData(list);
+        }
+        return ResponseVO.success().setMsg("没有下级节点");
 
+    }
 }

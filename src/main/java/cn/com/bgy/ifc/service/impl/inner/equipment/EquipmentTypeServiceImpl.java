@@ -8,6 +8,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author huxin
  * @Date 2018/12/21 16:22
@@ -24,9 +27,9 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
      * @Date 2018/12/23 17:16
      */
     @Override
-    public PageInfo<Object> queryListEquipmentType( Page<Object> page) {
+    public PageInfo queryListEquipmentType( Page page,String keyword) {
 
-        return equipmentTypeDomain.queryListEquipmentType(page);
+        return equipmentTypeDomain.queryListEquipmentType(page,keyword);
 
     }
     /**
@@ -56,4 +59,10 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     public int deleteEquipmentType( String str ) {
         return equipmentTypeDomain.deleteEquipmentType(str);
     }
+
+    @Override
+    public List<Map<String, Object>> queryEquipmentTypeBySuperId( Long id ) {
+        return equipmentTypeDomain.queryEquipmentTypeBySuperId(id);
+    }
+
 }

@@ -1,6 +1,11 @@
 package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -10,7 +15,7 @@ import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 
 public interface EquipmentBrandService {
 
-    void queryEquipmentBrand();
+    PageInfo queryListEquipmentBrand( Page page,String keyword );
 
     int addEquipmentBrand( EquipmentBrand equipmentBrand );
 
@@ -19,4 +24,5 @@ public interface EquipmentBrandService {
     int deleteEquipmentBrand( String str );
 
 
+    List<Map<String,Object>> queryAllEquipmentBrand();
 }

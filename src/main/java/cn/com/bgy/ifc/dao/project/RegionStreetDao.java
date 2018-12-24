@@ -11,7 +11,7 @@ public interface RegionStreetDao {
 
     int insertSelective(RegionStreet record);
 
-    List<RegionStreetVo> queryListRegionStreet( RegionStreetVo record);
+    List<Map<String,Object>> queryListRegionStreet( RegionStreetVo record);
 
 
     int updateRegionStreet(RegionStreet record);

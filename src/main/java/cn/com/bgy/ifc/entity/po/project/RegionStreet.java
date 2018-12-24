@@ -3,21 +3,22 @@ package cn.com.bgy.ifc.entity.po.project;
 import java.io.Serializable;
 import java.util.Date;
 
-public class RegionStreet{
+public class RegionStreet implements Serializable {
+    //街道ID
     private Long id;
-
+    //平台ID
     private Long organizationId;
-
+    //区域ID
     private Long regionId;
-
+    //项目ID
     private Long projectId;
-
+    //苑区ID
     private Long courtId;
-
+    //街道名
     private String name;
-
+    //创建修改时间
     private Date createTime;
-
+    //逻辑删除 0表示存在 1表示删除
     private Boolean logicRemove;
 
     public Long getId() {

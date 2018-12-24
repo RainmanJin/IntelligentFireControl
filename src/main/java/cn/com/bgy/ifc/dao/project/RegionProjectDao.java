@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface RegionProjectDao extends BaseDao<RegionProject> {
 
-    List<RegionProjectVo> queryListRegionProject( RegionProjectVo record);
+    List<Map<String,Object>> queryListRegionProject( RegionProjectVo record);
 
     int deleteRegionProject(List<Long> list);
 

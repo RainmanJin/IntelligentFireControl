@@ -31,10 +31,10 @@ public class RegionStreetServiceImpl implements RegionStreetService {
      * @Date 2018/12/19 10:43
      */
     @Override
-    public PageInfo<RegionStreetVo> queryListRegionStreet( Page<RegionStreetVo> page, RegionStreetVo record ) {
+    public PageInfo queryListRegionStreet( Page page, RegionStreetVo record ) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<RegionStreetVo> list=  regionStreetDomain.queryListRegionStreet(record);
-        return  new PageInfo<RegionStreetVo>(list);
+        List<Map<String,Object>> list=  regionStreetDomain.queryListRegionStreet(record);
+        return  new PageInfo(list);
     }
 
     /**

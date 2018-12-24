@@ -34,10 +34,10 @@ public class RegionBuildingServiceImpl implements RegionBuildingService {
      */
 
     @Override
-    public PageInfo<RegionBuildingVo> queryListRegionBuilding( Page<RegionBuildingVo> page, RegionBuildingVo record ) {
+    public PageInfo queryListRegionBuilding( Page page, RegionBuildingVo record ) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<RegionBuildingVo> list=  regionBuildingDomain.queryListRegionBuilding(record);
-        return  new PageInfo<RegionBuildingVo>(list);
+        List<Map<String,Object>> list=  regionBuildingDomain.queryListRegionBuilding(record);
+        return  new PageInfo(list);
     }
 
     /**

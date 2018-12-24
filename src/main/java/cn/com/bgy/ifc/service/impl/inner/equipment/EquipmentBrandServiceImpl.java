@@ -3,8 +3,13 @@ package cn.com.bgy.ifc.service.impl.inner.equipment;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentBrandDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentBrandService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -23,8 +28,8 @@ public class EquipmentBrandServiceImpl implements EquipmentBrandService {
      * @Date 2018/12/21 11:30
      */
     @Override
-    public void queryEquipmentBrand() {
-
+    public PageInfo queryListEquipmentBrand( Page page,String keyword) {
+        return equipmentBrandDomain.queryListEquipmentBrand(page,keyword);
     }
     /**
      * @Author huxin
@@ -52,5 +57,14 @@ public class EquipmentBrandServiceImpl implements EquipmentBrandService {
     @Override
     public int deleteEquipmentBrand( String str ) {
         return equipmentBrandDomain.deleteEquipmentBrand(str);
+    }
+    /**
+     * @Author huxin
+     * @Description 查询所有品牌
+     * @Date 2018/12/24 10:47
+     */
+    @Override
+    public List<Map<String, Object>> queryAllEquipmentBrand() {
+        return equipmentBrandDomain.queryAllEquipmentBrand();
     }
 }

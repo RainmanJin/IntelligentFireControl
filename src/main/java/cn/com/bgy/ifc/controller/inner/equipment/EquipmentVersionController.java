@@ -4,6 +4,8 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentVersion;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentVersionService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +32,9 @@ public class EquipmentVersionController {
      */
     @PostMapping("query")
     @ResponseBody
-    public void queryListEquipmentVersion(String token){
+    public ResponseVO queryListEquipmentVersion( Page<Object> page,Integer brandID,String keyword, String token){
+        PageInfo pageInfo = equipmentVersionService.queryListEquipmentVersion(page,brandID,keyword);
+        return ResponseVO.success().setData(pageInfo);
     }
     /**
      * @Author huxin

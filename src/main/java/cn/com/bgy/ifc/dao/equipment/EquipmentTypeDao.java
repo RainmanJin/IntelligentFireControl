@@ -8,11 +8,13 @@ import java.util.Map;
 
 public interface EquipmentTypeDao extends BaseDao<EquipmentType> {
 
-    List<Map<String,Object>> queryListEquipmentType();
+    List<Map<String,Object>> queryListEquipmentType(String keyword);
 
     int addEquipmentType( EquipmentType equipmentType );
 
     int updateEquipmentType( EquipmentType equipmentType );
 
     int deleteEquipmentType( List<Long> list );
+
+    List<Map<String,Object>> queryEquipmentTypeBySuperId( Long id );
 }
