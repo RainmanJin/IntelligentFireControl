@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -36,11 +37,21 @@ public class SystemPowerDomainImpl implements SystemPowerDomain {
         return systemPowerDao.queryListByParam(record);
     }
 
+    @Override
+    public List<SystemPower> queryListByMap(Map<String, Object> map) {
+        return systemPowerDao.queryListByMap(map);
+    }
+
     @Transactional
     @Override
     public int insert(SystemPower record) {
         record.setLogicRemove(false);
         return systemPowerDao.insert(record);
+    }
+
+    @Override
+    public int insertSelective(SystemPower systemPower) {
+        return systemPowerDao.insertSelective(systemPower);
     }
 
     @Override
@@ -54,7 +65,16 @@ public class SystemPowerDomainImpl implements SystemPowerDomain {
         return update(record);
     }
 
-    @Transactional
+    @Override
+    public int updateSelective(SystemPower systemPower) {
+        return systemPowerDao.updateSelective(systemPower);
+    }
+
+    @Override
+    public int deleteBatch(List<Long> ids) {
+        return systemPowerDao.deleteBatch(ids);
+    }
+
     @Override
     public int deleteById(Long id) {
         return systemPowerDao.deleteById(id);
@@ -62,6 +82,7 @@ public class SystemPowerDomainImpl implements SystemPowerDomain {
 
     @Override
     public List<SystemPower> queryListByUserId(Long userId) {
+
         return systemPowerDao.queryListByUserId(userId);
     }
 }

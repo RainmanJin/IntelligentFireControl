@@ -244,8 +244,11 @@
         FROM
             system_menu m
         WHERE m.logic_remove=0
-       <!-- <choose>
-            <when test="parentId == null">
+        <if test="type !=null">
+            and type = #{type}
+        </if>
+        <!--<choose>
+            <when test="type == null">
                 and   m.parent_id is null
             </when>
             <otherwise>

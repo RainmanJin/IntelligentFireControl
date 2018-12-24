@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -24,10 +25,6 @@ public class SystemRoleDomainImpl  implements SystemRoleDomain {
     @Resource
     private SystemRoleDao systemRoleDao;
 
-    @Override
-    public SystemRole findById(Long id) {
-        return systemRoleDao.findById(id);
-    }
     /**
      * @Author huxin
      * @Description 查询系统角色（条件查询）
@@ -45,6 +42,17 @@ public class SystemRoleDomainImpl  implements SystemRoleDomain {
     public List<SystemRole> queryListByParam(SystemRole record) {
         return systemRoleDao.queryListByParam(record);
     }
+
+    @Override
+    public List<SystemRole> queryListByMap(Map<String, Object> map) {
+        return systemRoleDao.queryListByMap(map);
+    }
+
+    @Override
+    public SystemRole findById(Long id) {
+        return systemRoleDao.findById(id);
+    }
+
     /**
      * @Author huxin
      * @Description 添加系统角色
@@ -58,31 +66,38 @@ public class SystemRoleDomainImpl  implements SystemRoleDomain {
         record.setState(0);
         return systemRoleDao.insert(record);
     }
+
+    @Override
+    public int insertSelective(SystemRole systemRole) {
+        return systemRoleDao.insertSelective(systemRole);
+    }
+
+    @Override
+    public int update(SystemRole systemRole) {
+        return systemRoleDao.update(systemRole);
+    }
+
+    @Override
+    public int updateSelective(SystemRole systemRole) {
+        return systemRoleDao.updateSelective(systemRole);
+    }
+
+    @Override
+    public int deleteBatch(List<Long> ids) {
+        return systemRoleDao.deleteBatch(ids);
+    }
+
     /**
      * @Author huxin
      * @Description 修改系统角色
      * @Date 2018/12/17 14:40
      */
-    @Transactional
     @Override
     public int updateRole(SystemRole record) {
         return systemRoleDao.updateRole(record);
     }
-    
-    @Transactional
-    @Override
-    public int deleteById(Long id) {
-        return systemRoleDao.deleteById(id);
-    }
-    /**
-     * @Author yanXiaoLu
-     * @Description 批量删除系统角色
-     * @Date 2018/12/17 14:40
-     */
-    @Override
-    public void deleteRole(Long[] longs) {
-        systemRoleDao.deleteRole(longs);
-    }
+
+
 
     /**
      * 根据登录用户查询系统角色（下拉展示）

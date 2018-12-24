@@ -37,15 +37,24 @@ public class UserRoleController {
         PageInfo<UserRole> pageInfo = userRoleDomain.queryPageList(page, userRole);
         return ResponseVO.success().setData(pageInfo);
     }
-
-    /**
-     * 查询部门名称
-     * @return
-     */
-    @GetMapping("getDpartmentName")
+    @PostMapping("/add")
     @ResponseBody
-    public ResponseVO<Object> getModelName() {
-        List<Department> list = departmentDomain.queryAllList();
-        return ResponseVO.success().setData(list);
+    public ResponseVO<Object> add( UserRole userRole) {
+        userRoleDomain.insert(userRole);
+        return ResponseVO.success();
+    }
+
+    @PostMapping("/edit")
+    @ResponseBody
+    public ResponseVO<Object> edit(UserRole userRole) {
+        userRoleDomain.update(userRole);
+        return ResponseVO.success();
+    }
+
+    @PostMapping("/delete")
+    @ResponseBody
+    public ResponseVO<Object> delete(List<Long> ids) {
+        userRoleDomain.deleteBatch(ids);
+        return ResponseVO.success();
     }
 }

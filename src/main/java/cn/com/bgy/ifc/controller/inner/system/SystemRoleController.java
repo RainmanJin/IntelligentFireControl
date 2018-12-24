@@ -53,9 +53,9 @@ public class SystemRoleController {
         }
     }
 
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<SystemRoleVo> queryById(@PathVariable long id,String token) {
+    public ResponseVO<SystemRoleVo> queryById(Long id,String token) {
         SystemRole systemRole = roleDomain.findById(id);
         SystemRoleVo systemRoleVo = new SystemRoleVo();
         CopyUtil.copyProperties(systemRole, systemRoleVo);
@@ -114,15 +114,6 @@ public class SystemRoleController {
     }
 
 
-    @DeleteMapping("delete/{id}")
-    @ResponseBody
-    public ResponseVO<Object> delete(@PathVariable long id) {
-        int count = roleDomain.deleteById(id);
-        if (count == 1) {
-            return ResponseVO.success().setMsg("删除成功");
-        }
-        return ResponseVO.error().setMsg("删除失败");
-    }
     /**
      * @Author huxin
      * @Description 系统角色修改
@@ -151,26 +142,18 @@ public class SystemRoleController {
     }
     /**
      * 批量删除系统角色(通过id删除系统角色)
-     * @param longs
+     * @param ids
      * @return
      */
     @PostMapping("deleteSystemRole")
-    @SystemLogAfterSave(type = 1,description = "批量删除机构信息")
+    @SystemLogAfterSave(type = 1,description = "批量删除角色信息")
     @ResponseBody
-    public ResponseVO<Object> deleteSystemRole(String longs) {
-        if (longs==null){
+    public ResponseVO<Object> deleteSystemRole(List<Long> ids) {
+        if (ids==null||ids.isEmpty()){
             return ResponseVO.error().setMsg("参数异常");
         }
-        List<Long> list = JSONArray.parseArray(longs,Long.class);
-        Long[] deleteLongs = new Long[list.size()];
-        list.toArray(deleteLongs);
-        if (list.size()==1){
-            roleDomain.deleteById(deleteLongs[0]);
-            return ResponseVO.success().setMsg("删除成功");
-        }else {
-            roleDomain.deleteRole(deleteLongs);
-            return ResponseVO.success().setMsg("删除成功");
-        }
+        roleDomain.deleteBatch(ids);
+        return ResponseVO.success().setMsg("删除成功");
     }
     /**
      * @author: YanXiaoLu

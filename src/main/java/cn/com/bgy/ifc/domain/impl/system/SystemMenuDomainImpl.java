@@ -59,7 +59,7 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
                         CopyUtil.copyProperties(twonav,vo);
                         vo.setTwoLabelName(twonav.getName());
                         resultMenu.add(vo);
-                        for (SystemMenu threenav : allMenu) {
+                        /*for (SystemMenu threenav : allMenu) {
                             if(threenav.getParentId() !=null &&threenav.getParentId().longValue()==twonav.getId().longValue()){
                                 vo=new SystemMenuVo();
                                 CopyUtil.copyProperties(threenav,vo);
@@ -68,7 +68,7 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
                                 resultMenu.add(vo);
 
                         }
-                    }
+                    }*/
                 }
 
             }

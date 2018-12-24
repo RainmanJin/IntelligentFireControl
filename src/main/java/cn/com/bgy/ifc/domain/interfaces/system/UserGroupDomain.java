@@ -68,13 +68,7 @@ public interface UserGroupDomain extends BaseDomain<UserGroup> {
      */
     public int updateSelective(UserGroup t);
 
-    /**
-     * 批量删除
-     *
-     * @param ids
-     * @return
-     */
-    int deleteBatch(List<Long> ids);
+   
 
     public PageInfo<Map<String,Object>> searchByPage(Page<Map<String,Object>> page, GroupsVo groupsVo);
 }

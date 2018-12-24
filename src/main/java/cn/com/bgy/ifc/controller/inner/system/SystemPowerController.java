@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author: ZhangCheng
  * @description:系统权限
@@ -105,11 +107,12 @@ public class SystemPowerController {
      * @param: [id]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("delete")
     @ResponseBody
-    public ResponseVO<Object> delete(@PathVariable long id) {
-        int count = powerDomain.deleteById(id);
-        if (count == 1) {
+    public ResponseVO<Object> delete(List<Long> id) {
+
+        int count = powerDomain.deleteBatch(id);
+        if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }
         return ResponseVO.error().setMsg("删除失败");

@@ -64,12 +64,6 @@ public interface GroupsDomain extends BaseDomain<Groups> {
      */
     public int updateSelective(Groups t);
 
-    /**
-     * 批量删除
-     *
-     * @param ids
-     * @return
-     */
-    public int deleteBatch( List<Long> ids);
+
 
 }

@@ -133,9 +133,9 @@
         = #{id}
     </update>
     <!--逻辑批量删除系统角色-->
-    <update id="deleteRole" parameterType="java.util.List">
-        UPDATE system_role set logic_remove =false where id IN
-        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+    <update id="deleteBatch" parameterType="java.util.List">
+        UPDATE system_role set logic_remove =1 where id IN
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </update>

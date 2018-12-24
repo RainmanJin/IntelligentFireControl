@@ -1,10 +1,11 @@
 package cn.com.bgy.ifc.dao.system;
 
+import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.system.UserRole;
 
 import java.util.List;
 
-public interface UserRoleDao {
+public interface UserRoleDao extends BaseDao<UserRole> {
     /**
      * 查询用户角色列表
      * @param userRole

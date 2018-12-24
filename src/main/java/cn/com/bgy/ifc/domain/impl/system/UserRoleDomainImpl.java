@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class UserRoleDomainImpl implements UserRoleDomain {
     @Resource
@@ -29,12 +31,43 @@ public class UserRoleDomainImpl implements UserRoleDomain {
         return pageInfo;
     }
 
-    /**
-     * 查询部门名称
-     * @return
-     */
     @Override
-    public List<String> getDpartmentName() {
-        return userRoleDao.getDpartmentName();
+    public List<UserRole> queryListByParam(UserRole userRole) {
+        return userRoleDao.queryPageList(userRole);
+    }
+
+    @Override
+    public List<UserRole> queryListByMap(Map<String, Object> map) {
+        return userRoleDao.queryListByMap(map);
+    }
+
+    @Override
+    public UserRole findById(Long id) {
+        return userRoleDao.findById(id);
+    }
+
+    @Override
+    public int insert(UserRole userRole) {
+        return userRoleDao.insert(userRole);
+    }
+
+    @Override
+    public int insertSelective(UserRole userRole) {
+        return userRoleDao.insertSelective(userRole);
+    }
+
+    @Override
+    public int update(UserRole userRole) {
+        return userRoleDao.update(userRole);
+    }
+
+    @Override
+    public int updateSelective(UserRole userRole) {
+        return userRoleDao.updateSelective(userRole);
+    }
+
+    @Override
+    public int deleteBatch(List<Long> ids) {
+        return userRoleDao.deleteBatch(ids);
     }
 }

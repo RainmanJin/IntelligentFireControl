@@ -203,7 +203,16 @@ public class DepartmentController {
         }*/
         return ResponseVO.error().setMsg("删除失败！");
     }
-
+    /**
+     * 查询所有部门
+     * @return
+     */
+    @GetMapping("getDpartmentName")
+    @ResponseBody
+    public ResponseVO<Object> getDpartmentName() {
+        List<Department> list = departmentDomain.queryAllList();
+        return ResponseVO.success().setData(list);
+    }
 
 
 }

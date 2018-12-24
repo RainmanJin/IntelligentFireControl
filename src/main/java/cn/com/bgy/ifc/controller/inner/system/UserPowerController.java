@@ -36,14 +36,5 @@ public class UserPowerController {
         PageInfo<SystemUserPower> pageInfo = userPowerDomain.queryPageList(page, systemUserPower);
         return ResponseVO.<PageInfo<SystemUserPower>>success().setData(pageInfo);
     }
-    /**
-     *查询部门名称
-     * @return
-     */
-    @GetMapping("getDpartmentName")
-    @ResponseBody
-    public ResponseVO<Object> getModelName() {
-        List<Department> list = departmentDomain.queryAllList();
-        return ResponseVO.success().setData(list);
-    }
+
 }

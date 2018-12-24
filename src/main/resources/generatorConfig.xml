@@ -21,10 +21,10 @@
 
         <sqlMapGenerator targetPackage="mapper/basic" targetProject="src/main/resources" />
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.bgy.ifc.dao.equipment" targetProject="src/main/java" />
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.bgy.ifc.dao.system" targetProject="src/main/java" />
 
 
-       <table tableName="equipment_brand"  domainObjectName="EquipmentBrand" mapperName="EquipmentBrandDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+       <table tableName="user_group"  domainObjectName="UserGroup" mapperName="UserGroupDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"/>
 <!--
         <table tableName="tj_dept"  domainObjectName="DeptBo" mapperName="DeptDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"

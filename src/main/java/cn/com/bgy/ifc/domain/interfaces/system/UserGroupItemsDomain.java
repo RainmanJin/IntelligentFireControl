@@ -64,12 +64,4 @@ public interface UserGroupItemsDomain extends BaseDomain<UserGroupItems> {
      * @return
      */
     public int updateSelective(UserGroupItems t);
-
-    /**
-     * 批量删除
-     *
-     * @param ids
-     * @return
-     */
-    public int deleteBatch( List<Long> ids);
 }
