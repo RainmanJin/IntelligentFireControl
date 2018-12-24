@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.entity.po.maintenance;
+package cn.com.bgy.ifc.entity.po.repair;
 
 import java.util.Date;
 

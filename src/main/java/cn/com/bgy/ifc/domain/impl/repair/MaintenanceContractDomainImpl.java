@@ -1,18 +1,15 @@
-package cn.com.bgy.ifc.domain.impl.system.repair;
-
+package cn.com.bgy.ifc.domain.impl.repair;
 
 
 import cn.com.bgy.ifc.dao.project.RegionInfoDao;
 import cn.com.bgy.ifc.dao.project.RegionProjectDao;
-import cn.com.bgy.ifc.dao.system.repair.MaintenanceContractDao;
-import cn.com.bgy.ifc.domain.interfaces.system.repair.MaintenanceContractDomain;
-
-import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
+import cn.com.bgy.ifc.dao.repair.MaintenanceContractDao;
+import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceContractDomain;
+import cn.com.bgy.ifc.entity.po.repair.MaintenanceContract;
 import cn.com.bgy.ifc.entity.po.project.RegionInfo;
 import cn.com.bgy.ifc.entity.vo.project.RegionInfoVo;
 import cn.com.bgy.ifc.entity.vo.project.RegionProjectVo;
 import cn.com.bgy.ifc.entity.vo.repair.MaintenanceContractVo;
-
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -20,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

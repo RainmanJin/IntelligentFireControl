@@ -1,6 +1,6 @@
-package cn.com.bgy.ifc.dao.system.repair;
+package cn.com.bgy.ifc.dao.repair;
 
-import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContractFile;
+import cn.com.bgy.ifc.entity.po.repair.MaintenanceContractFile;
 
 public interface MaintenanceContractFileDao {
     int insert(MaintenanceContractFile record);

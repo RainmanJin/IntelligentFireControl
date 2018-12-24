@@ -1,6 +1,6 @@
-package cn.com.bgy.ifc.domain.interfaces.system.repair;
+package cn.com.bgy.ifc.domain.interfaces.repair;
 
-import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany;
+import cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany;
 import cn.com.bgy.ifc.entity.vo.repair.MaintenanceCompanyVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
