@@ -34,7 +34,7 @@ public interface UserGroupDomain extends BaseDomain<UserGroup> {
      * @param id
      * @return
      */
-    UserGroup findById(Object id);
+    UserGroup findById(Long id);
 
     /**
      * 添加
@@ -74,7 +74,7 @@ public interface UserGroupDomain extends BaseDomain<UserGroup> {
      * @param ids
      * @return
      */
-    public int deleteBatch( List<Object> ids);
+    int deleteBatch(List<Long> ids);
 
     public PageInfo<Map<String,Object>> searchByPage(Page<Map<String,Object>> page, GroupsVo groupsVo);
 }

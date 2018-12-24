@@ -30,7 +30,7 @@ public class UserGroupDomainImpl implements UserGroupDomain {
     }
 
     @Override
-    public UserGroup findById(Object id) {
+    public UserGroup findById(Long id) {
         return userGroupDao.findById(id);
     }
 
@@ -56,7 +56,7 @@ public class UserGroupDomainImpl implements UserGroupDomain {
 
 
     @Override
-    public int deleteBatch(List<Object> ids) {
+    public int deleteBatch(List<Long> ids) {
         return userGroupDao.deleteBatch(ids);
     }
 

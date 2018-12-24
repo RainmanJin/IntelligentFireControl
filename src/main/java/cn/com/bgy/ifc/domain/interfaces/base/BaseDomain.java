@@ -27,7 +27,7 @@ public interface BaseDomain<T>{
      * @param id
      * @return
      */
-    T findById(Object id);
+    T findById(Long id);
 
     /**
      * 添加
@@ -67,6 +67,6 @@ public interface BaseDomain<T>{
      * @param ids
      * @return
      */
-    int deleteBatch(List<Object> ids);
+    int deleteBatch(List<Long> ids);
 
 }

@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.domain.impl.equipment;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
@@ -41,16 +42,25 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
         try {
             List<EquipmentInfo> infoList = new ArrayList<>();
             for (BgyEquipmentVo bgyEquipmentVo : list) {
-                EquipmentInfo info=new EquipmentInfo();
+                EquipmentInfo info = new EquipmentInfo();
                 info.setId(bgyEquipmentVo.getId());
                 info.setName(bgyEquipmentVo.getName());
-                info.setDescription(bgyEquipmentVo.getDescription());
-                info.setApiCode(bgyEquipmentVo.getApiCode());
                 info.setInputCode(bgyEquipmentVo.getInputCode());
                 info.setMachineRoomId(bgyEquipmentVo.getMachineRoomId());
-                info.setLocaltionCode(bgyEquipmentVo.getLocaltionCode());
+                info.setVersionId(bgyEquipmentVo.getVersionId());
                 info.setBrandId(bgyEquipmentVo.getBrandId());
-                //info.setInWorkTime(bgyEquipmentVo.getInWorkTime());
+                info.setTypeId(bgyEquipmentVo.getTypeId());
+                info.setKeepYears(bgyEquipmentVo.getKeepYears());
+                if (bgyEquipmentVo.getInWorkTime() != null) {
+                    info.setInWorkTime(TimeUtil.parseStrToDate(bgyEquipmentVo.getInWorkTime()));
+                }
+                info.setImportant(bgyEquipmentVo.getIsImportant());
+                info.setStatus(bgyEquipmentVo.getStatus());
+                info.setLocaltionCode(bgyEquipmentVo.getLocaltionCode());
+                info.setSimpleCode(bgyEquipmentVo.getSimpleCode());
+                info.setApiCode(bgyEquipmentVo.getApiCode());
+                info.setDescription(bgyEquipmentVo.getDescription());
+                info.setLogicRemove(false);
                 infoList.add(info);
             }
             int totalCount = DBUtil.insertByList("equipment_info", infoList);
@@ -68,7 +78,64 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
 
     @Override
     public ResponseVO<Object> alterBgyEquipmentInfo(List<BgyEquipmentVo> list, Long orgId) {
-        return null;
+        int addType = ExternalConstant.OperationType.ADD.getValue();
+        int updateType = ExternalConstant.OperationType.UPDATE.getValue();
+        int deleteType = ExternalConstant.OperationType.DELETE.getValue();
+        int totalCount = list.size();
+        int addCount = 0;
+        int updateCount = 0;
+        int deleteCount = 0;
+        for (BgyEquipmentVo bgyEquipmentVo : list) {
+            EquipmentInfo info = new EquipmentInfo();
+            info.setId(bgyEquipmentVo.getId());
+            info.setName(bgyEquipmentVo.getName());
+            info.setInputCode(bgyEquipmentVo.getInputCode());
+            info.setMachineRoomId(bgyEquipmentVo.getMachineRoomId());
+            info.setVersionId(bgyEquipmentVo.getVersionId());
+            info.setBrandId(bgyEquipmentVo.getBrandId());
+            info.setTypeId(bgyEquipmentVo.getTypeId());
+            info.setKeepYears(bgyEquipmentVo.getKeepYears());
+            if (bgyEquipmentVo.getInWorkTime() != null) {
+                info.setInWorkTime(TimeUtil.parseStrToDate(bgyEquipmentVo.getInWorkTime()));
+            }
+            info.setImportant(bgyEquipmentVo.getIsImportant());
+            info.setStatus(bgyEquipmentVo.getStatus());
+            info.setLocaltionCode(bgyEquipmentVo.getLocaltionCode());
+            info.setSimpleCode(bgyEquipmentVo.getSimpleCode());
+            info.setApiCode(bgyEquipmentVo.getApiCode());
+            info.setDescription(bgyEquipmentVo.getDescription());
+            info.setLogicRemove(false);
+            int operType = bgyEquipmentVo.getOperType();
+            //新增
+            if (operType == addType) {
+                int count = equipmentInfoDao.insertSelective(info);
+                if (count == 1) {
+                    addCount++;
+                }
+            }
+            //修改
+            if (operType == updateType) {
+                int count = equipmentInfoDao.updateSelective(info);
+                if (count == 1) {
+                    updateCount++;
+                }
+            }
+            //删除
+            if (operType == deleteType) {
+                info.setLogicRemove(true);
+                int count = equipmentInfoDao.updateSelective(info);
+                if (count == 1) {
+                    deleteCount++;
+                }
+            }
+        }
+        if (addCount + updateCount + deleteCount != totalCount) {
+            throw new RuntimeException("批量同步设备信息增量数据失败!");
+        } else {
+            int msgType = ExternalConstant.MsgTypeValue.GBY_EQUIPMENT_OBTAIN.getValue();
+            externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
+            return ResponseVO.success().setMsg("同步集成平台设备信息增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
+        }
     }
 
     /**
@@ -80,6 +147,7 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
     public void queryListEquipmentInfo() {
 
     }
+
     /**
      * @Author huxin
      * @Description 增
@@ -87,9 +155,10 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
      */
     @Override
     @Transactional
-    public int addEquipmentInfo( EquipmentInfo equipmentInfo ) {
+    public int addEquipmentInfo(EquipmentInfo equipmentInfo) {
         return equipmentInfoDao.insert(equipmentInfo);
     }
+
     /**
      * @Author huxin
      * @Description 修改
@@ -97,9 +166,10 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
      */
     @Override
     @Transactional
-    public int updateEquipmentInfo( EquipmentInfo equipmentInfo ) {
+    public int updateEquipmentInfo(EquipmentInfo equipmentInfo) {
         return equipmentInfoDao.updateEquipmentInfo(equipmentInfo);
     }
+
     /**
      * @Author huxin
      * @Description 删除
@@ -107,7 +177,7 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
      */
     @Override
     @Transactional
-    public int deleteEquipmentInfo( String str ) {
+    public int deleteEquipmentInfo(String str) {
         List<Long> list = ListUtil.getListId(str);
         return equipmentInfoDao.deleteEquipmentInfo(list);
     }

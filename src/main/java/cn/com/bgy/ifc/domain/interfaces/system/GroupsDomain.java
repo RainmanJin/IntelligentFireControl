@@ -30,7 +30,7 @@ public interface GroupsDomain extends BaseDomain<Groups> {
      * @param id
      * @return
      */
-    Groups findById(Object id);
+    Groups findById(Long id);
 
     /**
      * 添加
@@ -70,6 +70,6 @@ public interface GroupsDomain extends BaseDomain<Groups> {
      * @param ids
      * @return
      */
-    public int deleteBatch( List<Object> ids);
+    public int deleteBatch( List<Long> ids);
 
 }

@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * @author: ZhangCheng
- * @description:
+ * @description:设备类型
  * @date: 2018-12-21 11:51
  **/
 @Service

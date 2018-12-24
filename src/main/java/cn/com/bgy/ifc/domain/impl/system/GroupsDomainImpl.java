@@ -25,7 +25,7 @@ public class GroupsDomainImpl implements GroupsDomain {
     }
 
     @Override
-    public Groups findById(Object id) {
+    public Groups findById(Long id) {
         return groupsDao.findById(id);
     }
 
@@ -51,7 +51,7 @@ public class GroupsDomainImpl implements GroupsDomain {
 
 
     @Override
-    public int deleteBatch(List<Object> ids) {
+    public int deleteBatch(List<Long> ids) {
         return groupsDao.deleteBatch(ids);
     }
 

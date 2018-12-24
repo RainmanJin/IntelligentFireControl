@@ -31,7 +31,7 @@ public interface UserGroupItemsDomain extends BaseDomain<UserGroupItems> {
      * @param id
      * @return
      */
-    UserGroupItems findById(Object id);
+    UserGroupItems findById(Long id);
 
     /**
      * 添加
@@ -71,5 +71,5 @@ public interface UserGroupItemsDomain extends BaseDomain<UserGroupItems> {
      * @param ids
      * @return
      */
-    public int deleteBatch( List<Object> ids);
+    public int deleteBatch( List<Long> ids);
 }

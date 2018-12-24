@@ -85,7 +85,7 @@ public class UserGroupController {
             if(groups==null) {
                 ResponseVO.error().setMsg("请求数据不存在，请刷新重试！");
             }
-            List<Object> list=new ArrayList<>();
+            List<Long> list=new ArrayList<>();
             list.add(id);
           int res= groupsDomain.deleteBatch(list);
         return ResponseVO.success().setMsg("数据删除成功！");

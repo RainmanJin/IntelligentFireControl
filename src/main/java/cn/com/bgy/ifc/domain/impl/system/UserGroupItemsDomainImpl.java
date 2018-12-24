@@ -24,7 +24,7 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
     }
 
     @Override
-    public UserGroupItems findById(Object id) {
+    public UserGroupItems findById(Long id) {
         return userGroupItemsDao.findById(id);
     }
 
@@ -50,7 +50,7 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
 
 
     @Override
-    public int deleteBatch(List<Object> ids) {
+    public int deleteBatch(List<Long> ids) {
         return userGroupItemsDao.deleteBatch(ids);
     }
 }
