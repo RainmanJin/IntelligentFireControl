@@ -3,7 +3,7 @@ package cn.com.bgy.ifc.entity.po.project;
 import java.io.Serializable;
 import java.util.Date;
 
-public class RegionStreet implements Serializable {
+public class RegionStreet{
     private Long id;
 
     private Long organizationId;

@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Service
 public class UserPowerDomainImpl implements UserPowerDomain {
+
     @Resource
     private UserPowerDao userPowerDao;
 
@@ -35,4 +36,5 @@ public class UserPowerDomainImpl implements UserPowerDomain {
     public List<String> getDpartmentName() {
         return userPowerDao.getDpartmentName();
     }
+
 }

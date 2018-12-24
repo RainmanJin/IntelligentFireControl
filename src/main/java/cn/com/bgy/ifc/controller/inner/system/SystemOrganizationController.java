@@ -24,13 +24,31 @@ import java.util.List;
 @Controller
 @RequestMapping("/basic/systemOrganization")
 public class SystemOrganizationController {
+
+
     @Autowired
     private SystemOrganizationDomain systemOrganizationDomain;
+
+    /**
+     * @author: ZhangCheng
+     * @description:机构分页查询
+     * @param: [page, token]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.system.SystemOrganization>>
+     */
+    @GetMapping("searchPage")
+    @SystemLogAfterSave(type = 1,description = "分页查询机构")
+    @ResponseBody
+    public ResponseVO<PageInfo<SystemOrganization>> searchPage(Page<SystemOrganization> page,String token){
+        SystemOrganization systemOrganization= new SystemOrganization();
+        PageInfo<SystemOrganization> pageInfo=systemOrganizationDomain.searchByWhere(page,systemOrganization);
+        return ResponseVO.<PageInfo<SystemOrganization>>success().setData(pageInfo);
+    }
+
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "添加机构信息")
     @ResponseBody
-    public ResponseVO<Object> add(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error){
-            //todo systemOrganizationVo 做参数校检
+    public ResponseVO<Object> add(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error,String token){
+            //做参数校检
             if(error.hasErrors()){
                 return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
             }
@@ -42,17 +60,24 @@ public class SystemOrganizationController {
             return ResponseVO.success();
     }
 
+    /**
+     *
+     * @param systemOrganizationVo
+     * @param error
+     * @return
+     */
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "修改机构信息")
     @ResponseBody
-    public ResponseVO<Object> update(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error){
+    public ResponseVO<Object> update(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error,String token){
         try {
-            //todo informationVo 做参数校检
+            //做参数校检
             if(error.hasErrors()){
                 return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
             }
             SystemOrganization systemOrganization = new SystemOrganization();
             CopyUtil.copyProperties(systemOrganizationVo,systemOrganization);
+            systemOrganization.setCreateTime(new Date());
             systemOrganizationDomain.update(systemOrganization);
             return ResponseVO.success();
         } catch (Exception e) {
@@ -85,19 +110,7 @@ public class SystemOrganizationController {
         return responseVO.setData(systemOrganization);
     }
 
-    /**
-     * 分页查询
-     * @param page
-     * @return
-     */
-    @GetMapping("searchPage")
-    @SystemLogAfterSave(type = 1,description = "分页查询机构")
-    @ResponseBody
-    public ResponseVO<Object> searchPage(Page<SystemOrganization> page){
-        SystemOrganization systemOrganization= new SystemOrganization();
-        PageInfo<SystemOrganization> pageInfo=systemOrganizationDomain.searchByWhere(page,systemOrganization);
-        return ResponseVO.success().setData(pageInfo);
-    }
+
     /**
      * 批量删除
      * @param longs

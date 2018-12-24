@@ -124,7 +124,11 @@ public class ExternalConstant {
         //集成平台获取机构
         BGY_ORG_OBTAIN(9, "机构信息"),
         //设备型号
-        BGY_EQUIPMENT_VERSION_OBTAIN(10, "设备型号"),;
+        BGY_EQUIPMENT_VERSION_OBTAIN(10, "设备型号"),
+        //维保公司
+        BGY_REPAIR_COMPANY_OBTAIN(11, "维保公司"),
+        //维保合同
+        BGY_REPAIR_CONTRACT_OBTAIN(12, "维保合同");
 
         private Integer value;
         private String name;

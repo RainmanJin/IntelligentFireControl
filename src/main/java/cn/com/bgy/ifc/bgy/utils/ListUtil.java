@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.bgy.utils;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -23,6 +24,20 @@ public class ListUtil {
         for (String string : stringIds) {
             list.add(Long.valueOf(string));
         }
+        return list;
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:List数据去重
+     * @param: [list]
+     * @return: java.util.List
+     */
+    public static List removeDuplicate(List list) {
+        LinkedHashSet set = new LinkedHashSet<>(list.size());
+        set.addAll(list);
+        list.clear();
+        list.addAll(set);
         return list;
     }
 }

@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.domain.interfaces.system;
 
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.project.BgyUserVo;
+import cn.com.bgy.ifc.entity.vo.system.BgyUserVo;
 import cn.com.bgy.ifc.entity.vo.system.AccountVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;

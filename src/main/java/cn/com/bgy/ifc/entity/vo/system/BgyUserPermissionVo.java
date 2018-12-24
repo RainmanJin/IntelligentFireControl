@@ -1,7 +1,8 @@
-package cn.com.bgy.ifc.entity.vo.project;
+package cn.com.bgy.ifc.entity.vo.system;
+
+import cn.com.bgy.ifc.entity.vo.project.BgyBaseVo;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -18,7 +19,7 @@ public class BgyUserPermissionVo extends BgyBaseVo {
     /**
      * 用户权限
      */
-    private List<Map<String,Object>> permission;
+    private List<BgyPermissionVo> permission;
 
     public String getTelephone() {
         return telephone;
@@ -28,19 +29,11 @@ public class BgyUserPermissionVo extends BgyBaseVo {
         this.telephone = telephone;
     }
 
-    public List<Map<String, Object>> getPermission() {
+    public List<BgyPermissionVo> getPermission() {
         return permission;
     }
 
-    public void setPermission(List<Map<String, Object>> permission) {
+    public void setPermission(List<BgyPermissionVo> permission) {
         this.permission = permission;
-    }
-
-    @Override
-    public String toString() {
-        return "BgyUserPermissionVo{" +
-                "telephone='" + telephone + '\'' +
-                ", permission=" + permission +
-                '}';
     }
 }

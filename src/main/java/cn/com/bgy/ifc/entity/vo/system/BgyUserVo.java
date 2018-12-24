@@ -1,11 +1,13 @@
-package cn.com.bgy.ifc.entity.vo.project;
+package cn.com.bgy.ifc.entity.vo.system;
+
+import cn.com.bgy.ifc.entity.vo.project.BgyBaseVo;
 
 /**
  * @author: ZhangCheng
  * @description:碧桂园集成平台用户
  * @date: 2018-12-11 17:57
  **/
-public class BgyUserVo extends BgyBaseVo{
+public class BgyUserVo extends BgyBaseVo {
 
     /**
      * 手机号码

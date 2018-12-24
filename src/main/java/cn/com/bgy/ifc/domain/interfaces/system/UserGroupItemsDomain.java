@@ -64,4 +64,28 @@ public interface UserGroupItemsDomain extends BaseDomain<UserGroupItems> {
      * @return
      */
     public int updateSelective(UserGroupItems t);
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
+    public int deleteBatch( List<Long> ids);
+
+
+    /**
+     * 集成平台全量增加用户权限
+     * @param list
+     * @return
+     */
+    ResponseVO<Object> saveBgyPermissionList(List<BgyUserPermissionVo> list, Long orgId);
+
+    /**
+     * 集成平台增量增加用户权限
+     * @param list
+     * @param orgId
+     * @return
+     */
+    ResponseVO<Object> alterBgyPermissionList(List<BgyUserPermissionVo> list, Long orgId);
 }

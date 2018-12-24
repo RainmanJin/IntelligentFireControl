@@ -70,4 +70,5 @@ public class UserRoleDomainImpl implements UserRoleDomain {
     public int deleteBatch(List<Long> ids) {
         return userRoleDao.deleteBatch(ids);
     }
+
 }

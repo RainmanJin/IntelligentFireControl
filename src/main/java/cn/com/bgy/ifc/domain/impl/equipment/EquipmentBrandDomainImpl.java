@@ -26,6 +26,7 @@ import java.util.List;
  **/
 @Service
 public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
+
     /**
      * @Author huxin
      * @Description 查

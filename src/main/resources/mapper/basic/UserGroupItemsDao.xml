@@ -1,54 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.system.UserGroupItemsDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.UserGroupItems">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="region_id" jdbcType="BIGINT" property="regionId" />
-    <result column="project_id" jdbcType="BIGINT" property="projectId" />
-    <result column="group_id" jdbcType="BIGINT" property="groupId" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-  </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.UserGroupItems">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.UserGroupItems">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="region_id" jdbcType="BIGINT" property="regionId"/>
+        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
+        <result column="group_id" jdbcType="BIGINT" property="groupId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.UserGroupItems">
     insert into user_group_items (id, region_id, project_id, 
       group_id, user_id)
     values (#{id,jdbcType=BIGINT}, #{regionId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
       #{groupId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.UserGroupItems">
-    insert into user_group_items
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="regionId != null">
-        region_id,
-      </if>
-      <if test="projectId != null">
-        project_id,
-      </if>
-      <if test="groupId != null">
-        group_id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="regionId != null">
-        #{regionId,jdbcType=BIGINT},
-      </if>
-      <if test="projectId != null">
-        #{projectId,jdbcType=BIGINT},
-      </if>
-      <if test="groupId != null">
-        #{groupId,jdbcType=BIGINT},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.UserGroupItems">
+        insert into user_group_items
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="regionId != null">
+                region_id,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="groupId != null">
+                group_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="regionId != null">
+                #{regionId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="groupId != null">
+                #{groupId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.UserGroupItems">
+        UPDATE user_group_items
+        <set>
+            <if test="regionId != null">
+                region_id= #{regionId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                project_id=#{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="groupId != null">
+                group_id=#{groupId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                user_id= #{userId,jdbcType=BIGINT},
+            </if>
+        </set>
+        WHERE id
+        = #{id}
+    </update>
+    <select id="findByUserId" parameterType="Long" resultMap="BaseResultMap">
+		SELECT
+		id, region_id, project_id,
+      group_id, user_id
+		FROM user_group_items WHERE user_id = #{userId} AND group_id IS NULL
+  </select>
 </mapper>

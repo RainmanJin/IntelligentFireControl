@@ -18,4 +18,5 @@ public interface UserPowerDomain {
      * @return
      */
     List<String> getDpartmentName();
+
 }

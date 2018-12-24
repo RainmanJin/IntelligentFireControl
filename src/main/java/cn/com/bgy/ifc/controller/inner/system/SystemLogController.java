@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- * @Author huxin
- * @Date 2018/12/7 10:13
- * @Description  系统日志查询
- **/
+ * @author: ZhangCheng
+ * @description:系统日志查询
+ */
 @Controller
 @RequestMapping(value = "/basic/systemLog")
 public class SystemLogController {
@@ -31,13 +30,13 @@ public class SystemLogController {
 
     /**
      * @author: ZhangCheng
-     * @description:分页查询系统日志
-     * @param: [page, param]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.basic.SystemOperationLog>>
+     * @description:系统日志分页查询
+     * @param: [page, systemOperationLogVo, token]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.system.SystemOperationLog>>
      */
     @PostMapping("/query")
     @ResponseBody
-    public ResponseVO<PageInfo<SystemOperationLog>> querySystemLogInfo(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo){
+    public ResponseVO<PageInfo<SystemOperationLog>> querySystemLogInfo(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo,String token){
         PageInfo<SystemOperationLog> pageInfo = systemLogDomain.queryListByParam(page,systemOperationLogVo);
         return ResponseVO.<PageInfo<SystemOperationLog>>success().setData(pageInfo);
     }
@@ -45,12 +44,12 @@ public class SystemLogController {
     /**
      * @author: ZhangCheng
      * @description:获取日志类型枚举
-     * @param: []
+     * @param: [token]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @GetMapping("/getLogType")
     @ResponseBody
-    public ResponseVO<Object> getLogType(){
+    public ResponseVO<Object> getLogType(String token){
         List<SelectVo> list=SystemConstant.SystemLogType.getSelectList();
         return ResponseVO.success().setData(list);
     }
