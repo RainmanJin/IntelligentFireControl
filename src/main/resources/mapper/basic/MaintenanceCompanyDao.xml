@@ -138,13 +138,6 @@
       #{id}
     </foreach>
   </update>
-    <!--逻辑批量删除维保公司-->
-    <update id="delete" parameterType="java.util.List">
-        UPDATE maintenance_company set logic_remove =false where id IN
-        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </update>
     <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany">
         UPDATE maintenance_company
         <set>

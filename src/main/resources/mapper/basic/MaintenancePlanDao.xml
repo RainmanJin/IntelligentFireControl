@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.repair.MaintenancePlanDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.vo.repair.MaintenancePlanVo">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.repair.MaintenancePlan">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
     <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
@@ -127,7 +127,7 @@
 		left join region_info ri on ri.id = mp.region_id 
   </sql>
   <!--分頁查詢-->
-  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenancePlanVo" resultMap="BaseResultMap">
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenancePlan" resultMap="BaseResultMap">
     <include refid="Mysql"/>
     <trim prefix=" where " suffix="" suffixOverrides="and">
       mp.logic_remove=0
@@ -164,7 +164,7 @@
   </select>
 
   <!--修改维保项目-->
-  <update id="update" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenancePlanVo">
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenancePlan">
     UPDATE maintenance_plan
     <set>
       <if test="planName != null">
