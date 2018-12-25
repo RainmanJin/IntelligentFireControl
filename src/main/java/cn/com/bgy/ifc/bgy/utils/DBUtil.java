@@ -1,6 +1,8 @@
 package cn.com.bgy.ifc.bgy.utils;
 
 import cn.com.bgy.ifc.config.api.JDBCConfig;
+import cn.com.bgy.ifc.entity.po.project.RegionCourt;
+import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +13,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * @author: ZhangCheng
@@ -24,6 +29,35 @@ import java.util.*;
 public class DBUtil {
 
     private static Logger logger = LoggerFactory.getLogger(DBUtil.class);
+
+    public static void main(String[] args) {
+        List<RegionCourt> courtList = new ArrayList<>();
+        List<RegionCourt> newList = new ArrayList<>();
+        RegionCourt a=new RegionCourt();
+        RegionCourt b=new RegionCourt();
+        a.setId(1L);
+        a.setName("xxx");
+        b.setId(1L);
+        b.setName("ccc");
+        courtList.add(a);
+        courtList.add(b);
+        courtList.parallelStream().filter(distinctByKey(RegionCourt::getId))
+                .forEach(System.out::println);
+        for (RegionCourt user : courtList) {
+            boolean bool = newList.stream().anyMatch(u -> u.getId().equals(user.getId()));
+            if (!bool) {
+                newList.add(user);
+            }
+        }
+
+        //courtList.sort(Comparator.comparing(RegionCourt::getId));
+        System.out.println(courtList);
+    }
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
+    }
 
     /**
      * 添加实体list数据
@@ -46,6 +80,28 @@ public class DBUtil {
         return insertAll(tableName, datas);
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:分批次插入数据
+     * @param: [tableName, list]
+     * @return: int
+     */
+    public static int insertListByPage(String tableName,List list,int addSize) throws Exception{
+        int listSize=list.size();
+        int sumCount = 0;
+        int cycleTimes = listSize % addSize > 0 ? (listSize / addSize) + 1 : listSize / addSize;
+        for (int i = 0; i < cycleTimes; i++) {
+            int size = (i + 1) * addSize > listSize ? listSize : (i + 1) * addSize;
+            List newList = list.subList((i * addSize), size);
+            int totalCount = insertByList(tableName, newList);
+            if (totalCount != newList.size()) {
+                break;
+            }
+            sumCount = sumCount + totalCount;
+        }
+        return sumCount;
+    }
+
 
 
     /**
@@ -62,10 +118,8 @@ public class DBUtil {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            // 加载驱动
-            Class.forName(JDBCConfig.getDriver());
-            //从数据库连接池中获取数据库连接
-            connection = DriverManager.getConnection(JDBCConfig.getUrl(), JDBCConfig.getUsername(), JDBCConfig.getPassword());
+            //获取数据库连接
+            connection = DBConnection.getConnection();
 
             Map<String, Object> valueMap = data.get(0);
             // 获取数据库插入的Map的键值对的值

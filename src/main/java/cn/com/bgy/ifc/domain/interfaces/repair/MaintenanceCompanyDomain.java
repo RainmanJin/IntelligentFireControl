@@ -1,6 +1,9 @@
 package cn.com.bgy.ifc.domain.interfaces.repair;
 
 import cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany;
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVersionVo;
+import cn.com.bgy.ifc.entity.vo.repair.BgyRepairCompanyVo;
 import cn.com.bgy.ifc.entity.vo.repair.MaintenanceCompanyVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -54,4 +57,20 @@ public interface MaintenanceCompanyDomain {
      * @return
      */
     int deleteMaintenanceCompanys(String str);
+
+    /**
+     * @author: ZhangCheng
+     * @description:集成平台全量增加设备型号信息（全量）
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    ResponseVO<Object> saveBgyRepairCompany(List<BgyRepairCompanyVo> list, Long orgId);
+
+    /**
+     * @author: ZhangCheng
+     * @description:集成平台增量增加设备型号信息（增量）
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    ResponseVO<Object> alterBgyRepairCompany(List<BgyRepairCompanyVo> list, Long orgId);
 }

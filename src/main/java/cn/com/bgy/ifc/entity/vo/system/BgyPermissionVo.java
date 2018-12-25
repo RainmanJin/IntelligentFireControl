@@ -10,18 +10,18 @@ public class BgyPermissionVo {
     /**
      * 权限id
      */
-    private Integer bdId;
+    private Long bdId;
 
     /**
      * 权限类型(1-公司,2-区域,3-项目)
      */
     private Integer type;
 
-    public Integer getBdId() {
+    public Long getBdId() {
         return bdId;
     }
 
-    public void setBdId(Integer bdId) {
+    public void setBdId(Long bdId) {
         this.bdId = bdId;
     }
 
@@ -31,5 +31,13 @@ public class BgyPermissionVo {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "BgyPermissionVo{" +
+                "bdId=" + bdId +
+                ", type=" + type +
+                '}';
     }
 }

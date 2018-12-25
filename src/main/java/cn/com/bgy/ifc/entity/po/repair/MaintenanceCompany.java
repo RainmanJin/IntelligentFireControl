@@ -7,6 +7,8 @@ public class MaintenanceCompany {
 
     private Long organizationId;
 
+    private Long regionId;
+
     private String companyName;
 
     private String telephone;
@@ -71,5 +73,13 @@ public class MaintenanceCompany {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public Long getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Long regionId) {
+        this.regionId = regionId;
     }
 }

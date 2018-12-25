@@ -6,6 +6,7 @@ import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
 import cn.com.bgy.ifc.bgy.utils.TimeUtil;
+import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
@@ -33,6 +34,9 @@ public class BgyRepairCompanyServiceImpl implements BgyRepairCompanyService {
     private static Logger logger = LoggerFactory.getLogger(BgyRepairCompanyServiceImpl.class);
 
     @Autowired
+    private MaintenanceCompanyDomain maintenanceCompanyDomain;
+
+    @Autowired
     private ExternalInterfaceConfigDomain externalInterfaceConfigDomain;
 
     @Autowired
@@ -46,7 +50,7 @@ public class BgyRepairCompanyServiceImpl implements BgyRepairCompanyService {
             if (list.size() != 0) {
                 ExternalInterfaceConfig config = list.get(0);
                 Long orgId = config.getOrgId();
-                List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.BGY_REPAIR_CONTRACT_OBTAIN.getValue(), orgId);
+                List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.BGY_REPAIR_COMPANY_OBTAIN.getValue(), orgId);
                 if (msgList.size() > 0) {
                     ExternalInterfaceMsg interfaceMsg = msgList.get(0);
                     Date createTime = interfaceMsg.getCreateTime();
@@ -86,12 +90,10 @@ public class BgyRepairCompanyServiceImpl implements BgyRepairCompanyService {
         }
         int totalCount = oList.size();
         if (totalCount > 0) {
-            // return equipmentInfoDomain.saveBgyEquipmentInfo(oList, orgId);
-            return null;
+            return maintenanceCompanyDomain.saveBgyRepairCompany(oList, orgId);
         } else {
             return ResponseVO.success().setMsg("暂无集成平台设备信息数据同步！");
         }
-
     }
 
     @Override
@@ -119,8 +121,7 @@ public class BgyRepairCompanyServiceImpl implements BgyRepairCompanyService {
         }
         int totalCount = oList.size();
         if (totalCount > 0) {
-            // return regionComputerRoomDomain.alterBgyComputerRoomList(oList, orgId);
-            return null;
+            return maintenanceCompanyDomain.alterBgyRepairCompany(oList, orgId);
         } else {
             return ResponseVO.success().setMsg("暂无集成平台维保公司增量数据同步！");
         }

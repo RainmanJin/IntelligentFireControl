@@ -42,9 +42,9 @@ public class EntityUtil {
             String oName = name.substring(0, 1).toUpperCase() + name.substring(1);
             Method method = object.getClass().getMethod("get" + oName);
             Object value = method.invoke(object);
-            if (value != null) {
-                valueMap.put(humpToLine(name), value);
-            }
+           // if (value != null) {
+            valueMap.put(humpToLine(name), value);
+            //}
         }
         return valueMap;
     }

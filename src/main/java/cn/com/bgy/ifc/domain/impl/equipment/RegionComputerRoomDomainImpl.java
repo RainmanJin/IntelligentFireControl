@@ -3,23 +3,25 @@ package cn.com.bgy.ifc.domain.impl.equipment;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.StringUtil;
 import cn.com.bgy.ifc.dao.project.*;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionComputerRoomDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.project.*;
+import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyMachineRoomVo;
 import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
+import cn.com.bgy.ifc.service.impl.api.equipment.BgyEquipmentServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author: ZhangCheng
@@ -28,6 +30,9 @@ import java.util.Map;
  **/
 @Service
 public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
+
+    private static Logger logger = LoggerFactory.getLogger(RegionComputerRoomDomainImpl.class);
+
 
     @Resource
     private RegionComputerRoomDao regionComputerRoomDao;
@@ -68,6 +73,12 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
     @Override
     public ResponseVO<Object> saveBgyComputerRoomList(List<BgyMachineRoomVo> list, Long orgId) {
         try {
+            int courtValue=ExternalConstant.MsgTypeValue.BGY_COURT_OBTAIN.getValue();
+            int streetValue=ExternalConstant.MsgTypeValue.BGY_STREET_OBTAIN.getValue();
+            int buildingValue=ExternalConstant.MsgTypeValue.BGY_BUILDING_OBTAIN.getValue();
+            List<ExternalInterfaceMsg> courtMsg = externalInterfaceMsgDomain.queryBgyInterfaceMsg(courtValue, orgId);
+            List<ExternalInterfaceMsg> streetMsg = externalInterfaceMsgDomain.queryBgyInterfaceMsg(streetValue, orgId);
+            List<ExternalInterfaceMsg> buildingMsg = externalInterfaceMsgDomain.queryBgyInterfaceMsg(buildingValue, orgId);
             List<RegionComputerRoom> roomList = new ArrayList<>();
             //街道
             List<RegionStreet> streetList = new ArrayList<>();
@@ -84,9 +95,16 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                 Long projectId=bgyMachineRoomVo.getProjectId();
                 //苑区id
                  Long districtId=bgyMachineRoomVo.getDistrictId();
-                 if(districtId>0){
+                //街道id
+                Long streetId=bgyMachineRoomVo.getStreetId();
+                //楼栋id
+                Long buildingId=bgyMachineRoomVo.getBuildingId();
+                String description=bgyMachineRoomVo.getDescription();
+                 if(districtId>0&&courtMsg.size()==0){
                      RegionCourt court=new RegionCourt();
+                     String name=ResponseUtil.getDescriptionName(description,districtId,streetId,buildingId,1);
                      court.setOrganizationId(orgId);
+                     court.setName(name);
                      court.setRegionId(areaId);
                      court.setProjectId(projectId);
                      court.setId(districtId);
@@ -94,11 +112,12 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                      court.setLogicRemove(false);
                      courtList.add(court);
                  }
-                //街道id
-                 Long streetId=bgyMachineRoomVo.getStreetId();
-                if(streetId>0){
+
+                if(streetId>0&&streetMsg.size()==0){
                     RegionStreet street=new RegionStreet();
+                    String name=ResponseUtil.getDescriptionName(description,districtId,streetId,buildingId,2);
                     street.setOrganizationId(orgId);
+                    street.setName(name);
                     street.setRegionId(areaId);
                     street.setProjectId(projectId);
                     street.setId(streetId);
@@ -106,11 +125,12 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                     street.setLogicRemove(false);
                     streetList.add(street);
                 }
-                //楼栋id
-                 Long buildingId=bgyMachineRoomVo.getBuildingId();
-                if(buildingId>0){
+
+                if(buildingId>0&&buildingMsg.size()==0){
                     RegionBuilding building=new RegionBuilding();
+                    String name=ResponseUtil.getDescriptionName(description,districtId,streetId,buildingId,3);
                     building.setOrganizationId(orgId);
+                    building.setName(name);
                     building.setRegionId(areaId);
                     building.setProjectId(projectId);
                     building.setId(buildingId);
@@ -133,25 +153,49 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                 roomList.add(room);
             }
             if(courtList.size()>0){
-                ListUtil.removeDuplicate(courtList);
-                int totalCount = DBUtil.insertByList("region_court", courtList);
-                if (totalCount != courtList.size()) {
+                List<RegionCourt> courtList2 = new ArrayList<>();
+                for (RegionCourt user : courtList) {
+                    boolean bool = courtList2.stream().anyMatch(u -> u.getId().equals(user.getId()));
+                    if (!bool) {
+                        courtList2.add(user);
+                    }
+                }
+                int totalCount = DBUtil.insertByList("region_court", courtList2);
+                if (totalCount != courtList2.size()) {
                     return ResponseVO.error().setMsg("同步集成平台苑区异常");
+                }else{
+                    externalInterfaceMsgDomain.successInterfaceMsg(orgId,courtValue,totalCount);
                 }
             }
             if(streetList.size()>0){
                 //去重
-                ListUtil.removeDuplicate(streetList);
-                int totalCount = DBUtil.insertByList("region_street", streetList);
-                if (totalCount != streetList.size()) {
+                List<RegionStreet> streetList2 = new ArrayList<>();
+                for (RegionStreet obj : streetList) {
+                    boolean bool = streetList2.stream().anyMatch(u -> u.getId().equals(obj.getId()));
+                    if (!bool) {
+                        streetList2.add(obj);
+                    }
+                }
+                int totalCount = DBUtil.insertByList("region_street", streetList2);
+                if (totalCount != streetList2.size()) {
                     return ResponseVO.error().setMsg("同步集成平台街道异常");
+                }else{
+                    externalInterfaceMsgDomain.successInterfaceMsg(orgId,streetValue,totalCount);
                 }
             }
             if(buildingList.size()>0){
-                ListUtil.removeDuplicate(buildingList);
-                int totalCount = DBUtil.insertByList("region_building", buildingList);
-                if (totalCount != buildingList.size()) {
+                List<RegionBuilding> buildingList2 = new ArrayList<>();
+                for (RegionBuilding user : buildingList) {
+                    boolean bool = buildingList2.stream().anyMatch(u -> u.getId().equals(user.getId()));
+                    if (!bool) {
+                        buildingList2.add(user);
+                    }
+                }
+                int totalCount = DBUtil.insertByList("region_building", buildingList2);
+                if (totalCount != buildingList2.size()) {
                     return ResponseVO.error().setMsg("同步集成平台楼栋单元异常");
+                }else{
+                    externalInterfaceMsgDomain.successInterfaceMsg(orgId,buildingValue,totalCount);
                 }
             }
             int totalCount = DBUtil.insertByList("region_computer_room", roomList);
@@ -162,6 +206,8 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                 return ResponseVO.success().setMsg("同步集成平台机房总条数：" + totalCount + "，新增条数：" + totalCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("机房同步异常"+e);
             return ResponseVO.error().setMsg("同步集成平台机房异常");
         }
     }

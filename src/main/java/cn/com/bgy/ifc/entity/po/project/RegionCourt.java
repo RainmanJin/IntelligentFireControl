@@ -102,4 +102,17 @@ public class RegionCourt{
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
     }
+
+    @Override
+    public String toString() {
+        return "RegionCourt{" +
+                "id=" + id +
+                ", organizationId=" + organizationId +
+                ", regionId=" + regionId +
+                ", projectId=" + projectId +
+                ", name='" + name + '\'' +
+                ", createTime=" + createTime +
+                ", logicRemove=" + logicRemove +
+                '}';
+    }
 }

@@ -9,6 +9,7 @@ import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.UserGroupItemsDomain;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -37,6 +38,9 @@ public class UserApiServiceImpl implements UserApiService {
 
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
+
+    @Autowired
+    private UserGroupItemsDomain userGroupItemsDomain;
 
     /**
      * @author: ZhangCheng
@@ -263,17 +267,20 @@ public class UserApiServiceImpl implements UserApiService {
         HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
         //调用HTTP请求
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
-        System.out.println("====" + response);
         // 总页数
-        /*int pageCount = ResponseUtil.getPageCount(response, pageSize);
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
         List<BgyUserPermissionVo> oList = new ArrayList<>();
         BgyUserPermissionVo bgyUserVo = new BgyUserPermissionVo();
         ResponseUtil.getResultList(oList, bgyUserVo, response, "data", "list");
         if (pageCount != 0) {
             ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
         }
-        System.out.println("====" + oList);*/
-        return null;
+        int totalCount = oList.size();
+        if (totalCount > 0) {
+            return userGroupItemsDomain.saveBgyPermissionList(oList, orgId);
+        } else {
+            return ResponseVO.success().setMsg("暂无集成平台用户权限同步！");
+        }
     }
 
     @Override
@@ -297,7 +304,12 @@ public class UserApiServiceImpl implements UserApiService {
         if (pageCount != 0) {
             ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyUserVo, "data", "list");
         }
-        return null;
+        int totalCount = oList.size();
+        if (totalCount > 0) {
+            return userGroupItemsDomain.alterBgyPermissionList(oList, orgId);
+        } else {
+            return ResponseVO.success().setMsg("暂无集成平台用户权限增量数据同步！");
+        }
     }
 
 

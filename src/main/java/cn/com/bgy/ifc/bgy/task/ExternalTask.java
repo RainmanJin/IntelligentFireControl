@@ -56,6 +56,16 @@ public class ExternalTask {
     public void obtainUser(){
         userApiService.baseObtainBgyUser(1,1000);
     }
+    
+    /**
+     * @author: ZhangCheng
+     * @description:同步集成平台用户权限
+     * @param: []
+     * @return: void
+     */
+    public void obtainUserPermission(){
+        userApiService.baseObtainBgyUserPermission(1,500);
+    }
 
     /**
      * @author: ZhangCheng

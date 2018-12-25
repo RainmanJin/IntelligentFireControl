@@ -128,7 +128,13 @@ public class ExternalConstant {
         //维保公司
         BGY_REPAIR_COMPANY_OBTAIN(11, "维保公司"),
         //维保合同
-        BGY_REPAIR_CONTRACT_OBTAIN(12, "维保合同");
+        BGY_REPAIR_CONTRACT_OBTAIN(12, "维保合同"),
+        //苑区
+        BGY_COURT_OBTAIN(13, "苑区"),
+        //街道street
+        BGY_STREET_OBTAIN(14, "街道"),
+        //楼栋单元building
+        BGY_BUILDING_OBTAIN(15, "楼栋单元");
 
         private Integer value;
         private String name;

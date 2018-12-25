@@ -13,6 +13,7 @@ import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.HttpVo;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyMachineRoomVo;
+import cn.com.bgy.ifc.entity.vo.repair.BgyRepairCompanyVo;
 import cn.com.bgy.ifc.service.interfaces.api.repair.BgyRepairContractService;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ import java.util.*;
  **/
 @Service
 public class BgyRepairContractServiceImpl implements BgyRepairContractService {
-    private static Logger logger = LoggerFactory.getLogger(BgyRepairCompanyServiceImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(BgyRepairContractServiceImpl.class);
 
     @Autowired
     private ExternalInterfaceConfigDomain externalInterfaceConfigDomain;
@@ -45,7 +46,7 @@ public class BgyRepairContractServiceImpl implements BgyRepairContractService {
             if (list.size() != 0) {
                 ExternalInterfaceConfig config = list.get(0);
                 Long orgId = config.getOrgId();
-                List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.BGY_REPAIR_COMPANY_OBTAIN.getValue(), orgId);
+                List<ExternalInterfaceMsg> msgList = externalInterfaceMsgDomain.queryBgyInterfaceMsg(ExternalConstant.MsgTypeValue.BGY_REPAIR_CONTRACT_OBTAIN.getValue(), orgId);
                 if (msgList.size() > 0) {
                     ExternalInterfaceMsg interfaceMsg = msgList.get(0);
                     Date createTime = interfaceMsg.getCreateTime();
@@ -65,7 +66,31 @@ public class BgyRepairContractServiceImpl implements BgyRepairContractService {
 
     @Override
     public ResponseVO<Object> obtainBgyRepairContract(int pageNo, int pageSize, ExternalInterfaceConfig config) throws Exception {
-        return null;
+        String reqUrl = "/api/third/contract/getContratList";
+        Long orgId = config.getOrgId();
+        // 请求包结构体
+        Map<String, Object> data = new HashMap<>();
+        data.put("pageNo", pageNo);
+        data.put("pageSize", pageSize);
+        //集成平台HTTP头部需要数据
+        HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
+        //调用HTTP请求
+        JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
+        // 总页数
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
+        List<BgyRepairCompanyVo> oList = new ArrayList<>();
+        BgyRepairCompanyVo bgyRepairCompanyVo = new BgyRepairCompanyVo();
+        ResponseUtil.getResultList(oList, bgyRepairCompanyVo, response, "data", "list");
+        if (pageCount != 0) {
+            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyRepairCompanyVo, "data", "list");
+        }
+        int totalCount = oList.size();
+        if (totalCount > 0) {
+            //return maintenanceCompanyDomain.alterBgyRepairCompany(oList, orgId);
+            return null;
+        } else {
+            return ResponseVO.success().setMsg("暂无集成平台维保公司增量数据同步！");
+        }
     }
 
     @Override

@@ -36,4 +36,12 @@ public class BgyUserPermissionVo extends BgyBaseVo {
     public void setPermission(List<BgyPermissionVo> permission) {
         this.permission = permission;
     }
+
+    @Override
+    public String toString() {
+        return "BgyUserPermissionVo{" +
+                "telephone='" + telephone + '\'' +
+                ", permission=" + permission +
+                '}';
+    }
 }

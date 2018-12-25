@@ -50,4 +50,15 @@ public class UserGroupItems {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "UserGroupItems{" +
+                "id=" + id +
+                ", regionId=" + regionId +
+                ", projectId=" + projectId +
+                ", groupId=" + groupId +
+                ", userId=" + userId +
+                '}';
+    }
 }
