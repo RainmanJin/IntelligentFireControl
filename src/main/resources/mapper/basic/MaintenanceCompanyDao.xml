@@ -123,7 +123,7 @@
       </if>
 
     </set>
-    WHERE id = #{id}
+    WHERE id = #{id}       
 
   </update>
   <!--通过id查询维保公司-->
