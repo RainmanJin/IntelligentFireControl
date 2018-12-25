@@ -110,7 +110,8 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
     @Override
     public List<RegionInfo> getRegionList() {
         RegionInfoVo regionInfoVo = null;
-        return regionInfoDao.queryListRegionInfo(regionInfoVo);
+       // return regionInfoDao.queryListRegionInfo(regionInfoVo);
+        return null;
     }
 
     /**
@@ -120,7 +121,8 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
     @Override
     public List<RegionProjectVo> getRegionProjectList() {
         RegionProjectVo regionProjectVo = null;
-        return regionProjectDao.queryListRegionProject(regionProjectVo);
+       // return regionProjectDao.queryListRegionProject(regionProjectVo);
+        return null;
     }
 
 }
