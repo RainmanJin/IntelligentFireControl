@@ -43,7 +43,7 @@ public class DepartmentController {
      * @param: [page, departmentVo]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.basic.Department>>
      */
-    @PostMapping("query")
+    @GetMapping("query")
     @ResponseBody
     public ResponseVO<PageInfo<DepartmentVo>> queryList(Page<DepartmentVo> page, DepartmentVo departmentVo) {
             PageInfo<DepartmentVo> pageInfo = departmentDomain.queryListByPage(page, departmentVo);
@@ -85,13 +85,11 @@ public class DepartmentController {
         return ResponseVO.<List<Department>>success().setData(list);
     }
 
-    @PostMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<DepartmentVo> queryById(@PathVariable long id) {
+    public ResponseVO<Object> queryById(Long id) {
         Department department = departmentDomain.findById(id);
-        DepartmentVo departmentVo = new DepartmentVo();
-        CopyUtil.copyProperties(department, departmentVo);
-        return ResponseVO.<DepartmentVo>success().setData(departmentVo);
+        return ResponseVO.success().setData(department);
     }
 
     /**

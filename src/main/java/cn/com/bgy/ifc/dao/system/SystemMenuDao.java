@@ -22,7 +22,7 @@ public interface SystemMenuDao {
 
     public int deleteListSystemMenuInfo(Long[] id);
 
-    List<SystemMenu> findMenuByUser(Long userId);
+    List<SystemMenu> findMenuListByType(@Param("type") int type,@Param("userId") Long userId);
 
     List<SystemMenu> findMenuByUserAndParentId(@Param("parentId") Long parentId,@Param("userId") Long userId);
 }

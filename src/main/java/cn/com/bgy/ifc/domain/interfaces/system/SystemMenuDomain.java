@@ -30,32 +30,19 @@ public interface SystemMenuDomain {
     public ResponseVO deleteListSystemMenuInfo(Long[] id);
 
     /**
-     * 通过用户id查找访问权限菜单
+     * 通过用户和类型获取菜单
+     * @param type
      * @param userId
      * @return
      */
-    public List<SystemMenu> findMenuByUser(Long userId);
+    public List<SystemMenu> findMenuListByType(int type,Long userId);
 
     /**
-     * 根据用户名查询菜单树
+     * 通过用户和类型获取菜单树
+     * @param type
      * @param userId
      * @return
      */
-    public Map<String,Object> findTree(Long userId);
-
-    /**
-     * 通过用户id查找访问权限菜单
-     * @param userId,parentId
-     * @return
-     */
-    public List<SystemMenu> findMenuByUserAndParentId(Long parentId , Long userId);
-
-    /**
-     * 根据父级id查询用户子菜单
-     * @param parentId
-     * @param userId
-     * @return
-     */
-    public Map<String,Object> findTwoAndThreeUserMenuTree(Long parentId , Long userId);
+    public List<SystemMenu> findMenuTreeByType(int type , Long userId);
 
 }

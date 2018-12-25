@@ -159,32 +159,23 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
      * @return
      */
     @Override
-    public List<SystemMenu> findMenuByUser(Long userId) {
-        return systemMenuDao.findMenuByUser(userId);
+    public List<SystemMenu> findMenuListByType(int type,Long userId) {
+        return systemMenuDao.findMenuListByType(type,userId);
     }
-    /**
-     * 根据用户id查询所有权限菜单
-     * @param userId
-     * @return
-     */
-    @Override
-    public List<SystemMenu> findMenuByUserAndParentId(Long parentId,Long userId) {
-        return systemMenuDao.findMenuByUserAndParentId(parentId,userId);
-    }
+
     /**
      * 根据用户id查询所有菜单树
      * @param userId
      * @return
      */
-    @Override
-    public Map<String,Object> findTree(Long userId){
+    public Map<String,Object> findTree(int type,Long userId){
         Map<String,Object> data = new HashMap<String,Object>();
         try {//查询所有菜单
-            List<SystemMenu> allMenu = systemMenuDao.findMenuByUser(userId);
+            List<SystemMenu> allMenu = systemMenuDao.findMenuListByType(type,userId);
             //根节点
             List<SystemMenu> rootMenu = new ArrayList<SystemMenu>();
             for (SystemMenu nav : allMenu) {
-                if(nav.getParentId()==null||nav.getParentId().equals("")){//父节点是空的，为根节点。
+                if(nav.getParentId()==null){//父节点是空的，为根节点。
                     rootMenu.add(nav);
                 }
             }
@@ -256,20 +247,21 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
     }
 
     /**
+     * chenlie
      * 根据父级菜单和用户id查询菜单
-     * @param parentId
+     * @param type
      * @param userId
      * @return
      */
     @Override
-    public Map<String,Object> findTwoAndThreeUserMenuTree(Long parentId , Long userId){
+    public List<SystemMenu> findMenuTreeByType(int type , Long userId){
         Map<String,Object> data = new HashMap<String,Object>();
         try {//查询所有菜单
-            List<SystemMenu> allMenu = systemMenuDao.findMenuByUser(userId);
+            List<SystemMenu> allMenu = systemMenuDao.findMenuListByType(type,userId);
             //根节点
             List<SystemMenu> rootMenu = new ArrayList<SystemMenu>();
             for (SystemMenu nav : allMenu) {
-                if(nav.getParentId() !=null && nav.getParentId().longValue()==parentId.longValue()){//父节点是空的，为根节点。
+                if(nav.getParentId() ==null ){//父节点是空的，为根节点。
                     rootMenu.add(nav);
                 }
             }
@@ -281,18 +273,10 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
                 List<SystemMenu> childList = getChild(nav.getId(), allMenu);
                 nav.setChildren(childList);//给根节点设置子节点
             }
-            /**
-             * 输出构建好的菜单数据。
-             *
-             */
-            data.put("success", "true");
-            data.put("list", rootMenu);
-            return data;
+            return rootMenu;
         } catch (Exception e) {
             e.printStackTrace();
-            data.put("success", "false");
-            data.put("list", new ArrayList<>());
-            return data;
         }
+        return null;
     }
 }

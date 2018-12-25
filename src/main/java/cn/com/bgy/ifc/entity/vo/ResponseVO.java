@@ -10,15 +10,25 @@ public class ResponseVO<T> implements Serializable {
     /**
      * 成功
      */
-    public static final String SUCCESS = "0";
+    public static final String SUCCESS = "000";
     /**
      * 业务报错
      */
-    public static final String ERROR = "1";
+    public static final String ERROR = "001";
     /**
      * 程序异常
      */
-    public static final String EXCEPTION = "-1";
+    public static final String EXCEPTION = "503";
+
+    /**
+     * 未授权
+     */
+    public static final String WITHOUTPERMISSION = "401";
+
+    /**
+     * 未登陆
+     */
+    public static final String WITHOUTLOTIN = "606";
     /**
      * 状态码
      */
@@ -80,6 +90,22 @@ public class ResponseVO<T> implements Serializable {
         ResponseVO<T> responseVO = new ResponseVO<T>();
         return responseVO.setCode(ResponseVO.ERROR);
     }
+    /**
+     * 未授权
+     * @return
+     */
+    public static <T> ResponseVO<T> withoutPermission(){
+        ResponseVO<T> responseVO = new ResponseVO<T>();
+        return responseVO.setCode(ResponseVO.WITHOUTPERMISSION).setMsg("抱歉，您暂时没有权限进行该操作");
+    }
 
 
+    /**
+     * 未登陆
+     * @return
+     */
+    public static <T> ResponseVO<T> withoutLogin(){
+        ResponseVO<T> responseVO = new ResponseVO<T>();
+        return responseVO.setCode(ResponseVO.WITHOUTLOTIN).setMsg("抱歉，您暂时没有权限进行该操作");
+    }
 }

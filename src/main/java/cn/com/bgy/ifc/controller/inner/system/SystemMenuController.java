@@ -7,6 +7,7 @@ import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.SystemMenuVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -113,7 +114,7 @@ public class SystemMenuController {
      * @Date 2018/12/5 18:34
      * @Param [list]
      * @return cn.com.bgy.ifc.entity.vo.ResponseVO
-     */
+     *//*
     @GetMapping(value = "/findMenuByUserAndParentId")
     @ResponseBody
     public ResponseVO<Object> findMenuByUserAndParentId( Long parentId,Long userId){
@@ -125,7 +126,7 @@ public class SystemMenuController {
             System.out.println(e.getMessage());
         }
         return null;
-    }
+    }*/
     /**
      * @Author chenlie
      * @Description根据上级菜单获取二三级菜单
@@ -133,10 +134,12 @@ public class SystemMenuController {
      * @Param [list]
      * @return cn.com.bgy.ifc.entity.vo.ResponseVO
      */
-    @GetMapping(value = "/findTwoAndThreeUserMenuTree")
+    @GetMapping(value = "/findMenuTreeByType")
     @ResponseBody
-    public ResponseVO<Object> findTwoAndThreeUserMenuTree( Long parentId,Long userId){
-        return ResponseVO.success().setData(systemMenuDomain.findTwoAndThreeUserMenuTree(parentId,userId));
+    public ResponseVO<Object> findMenuTreeByType(int type){
+        Account user= (Account)SecurityUtils.getSubject().getSession().getAttribute("user");
+
+        return ResponseVO.success().setData(systemMenuDomain.findMenuTreeByType(type,user.getId()));
     }
 
     /**
@@ -145,7 +148,7 @@ public class SystemMenuController {
      * @Date 2018/12/5 10:04
      * @Param []
      * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
-     */
+     *//*
     @GetMapping(value = "/findTree")
     @ResponseBody
     public ResponseVO<Object> findTree(Account account){
@@ -158,5 +161,5 @@ public class SystemMenuController {
             e.printStackTrace();
         }
         return ResponseVO.error();
-    }
+    }*/
 }

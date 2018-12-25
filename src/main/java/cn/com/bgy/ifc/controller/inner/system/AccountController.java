@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
@@ -68,6 +69,7 @@ public class AccountController {
      * @return
      */
     @PostMapping("deleteById")
+    @SystemLogAfterSave(type = 1,description = "删除用户")
     @ResponseBody
     public ResponseVO<Object> deleteById(Long id){
 

@@ -30,6 +30,19 @@ spring:
         username: root
         password: root
         type: com.alibaba.druid.pool.DruidDataSource
+  secondary:
+           max-idle: 10
+           max-wait: 10000
+           min-idle: 5
+           initial-size: 5
+           query: SELECT 1
+           test-on-borrow: false
+           test-while-idle: true
+           time-between-eviction-runs-millis: 18800
+
+  jackson:
+           date-format: yyyy-MM-dd HH:mm:ss
+
   jpa:
         show-sql: true
         hibernate:

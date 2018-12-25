@@ -20,29 +20,34 @@ public class MaintenanceProgramDomainImpl implements MaintenanceProgramDomain {
     @Override
     public PageInfo<MaintenanceProgramVo> queryListByPage(Page<MaintenanceProgramVo> page, MaintenanceProgramVo record) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<MaintenanceProgramVo> maintenanceContractList = dao.queryListByParam(record);
+        //List<MaintenanceProgramVo> maintenanceContractList = dao.queryListByParam(record);
+        List<MaintenanceProgramVo> maintenanceContractList =null;
         PageInfo<MaintenanceProgramVo> pageInfo = new PageInfo<>(maintenanceContractList);
         return pageInfo;
     }
 
     @Override
     public List<MaintenanceProgramVo> queryListByParam(MaintenanceProgramVo record) {
-        return dao.queryListByParam(record);
+        //return dao.queryListByParam(record);
+        return null;
     }
 
     @Override
     public int addMaintenanceProgramInfo(MaintenanceProgramVo record) {
-        return dao.insert(record);
+        //return dao.insert(record);
+        return 0;
     }
 
     @Override
     public int updateMaintenanceProgram(MaintenanceProgramVo record) {
-        return dao.update(record);
+        //return dao.update(record);
+        return 0;
     }
 
     @Override
     public MaintenanceProgramVo findById(Long id) {
-        return dao.findById(id);
+        //return dao.findById(id);
+        return null;
     }
 
     @Override

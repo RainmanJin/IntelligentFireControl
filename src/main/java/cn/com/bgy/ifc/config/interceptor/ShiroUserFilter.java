@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.config.interceptor;
 
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import com.alibaba.fastjson.JSON;
 import org.apache.shiro.web.filter.authc.UserFilter;
 import org.springframework.http.HttpStatus;
@@ -36,14 +37,11 @@ import java.util.Map;
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletResponse res = (HttpServletResponse)response;
-        res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
+        //res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
         res.setStatus(HttpServletResponse.SC_OK);
         res.setCharacterEncoding("UTF-8");
         PrintWriter writer = res.getWriter();
-        Map<String, Object> map= new HashMap<>();
-        map.put("code", 702);
-        map.put("msg", "未登录");
-        writer.write(JSON.toJSONString(map));
+        writer.write(JSON.toJSONString( ResponseVO.withoutPermission()));
         writer.close();
         return false;
     }

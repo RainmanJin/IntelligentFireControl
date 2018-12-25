@@ -22,7 +22,7 @@ import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-//@Configuration
+@Configuration
 public class ShiroConfiguration {
 
     //@Qualifier代表spring里面的
@@ -66,13 +66,13 @@ public class ShiroConfiguration {
         SecurityManager securityManager = factory.getInstance();
         SecurityUtils.setSecurityManager(securityManager);
      * */
-    /*@Bean("securityManager")
+    @Bean("securityManager")
     public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm) {
         //这个DefaultWebSecurityManager构造函数,会对Subject，realm等进行基本的参数注入
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(authRealm);//往SecurityManager中注入Realm，代替原本的默认配置
         return manager;
-    }*/
+    }
     /**
      * cookie对象;
      * rememberMeCookie()方法是设置Cookie的生成模版，比如cookie的name，cookie的有效时间等等。
@@ -93,11 +93,11 @@ public class ShiroConfiguration {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
         //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
-        cookieRememberMeManager.setCipherKey(Base64.decode("2AvVhdsgUs0FSA3SDFAdag=="));
+        //cookieRememberMeManager.setCipherKey(Base64.decode("2AvVhdsgUs0FSA3SDFAdag=="));
         return cookieRememberMeManager;
     }
 
-    @Bean
+    /*@Bean
     public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm) {
         DefaultWebSecurityManager sm = new DefaultWebSecurityManager();
         sm.setRealm(authRealm);
@@ -111,12 +111,12 @@ public class ShiroConfiguration {
     @Bean("sessionManager")
     public SessionManager sessionManager(){
         MySessionManager manager = new MySessionManager();
-        /*使用了shiro自带缓存，
+        *//*使用了shiro自带缓存，
 		如果设置 redis为缓存需要重写CacheManager（其中需要重写Cache）
-		manager.setCacheManager(this.RedisCacheManager());*/
-        //manager.setSessionDAO(new EnterpriseCacheSessionDAO());
+		manager.setCacheManager(this.RedisCacheManager());*//*
+        manager.setSessionDAO(new EnterpriseCacheSessionDAO());
         return manager;
-    }
+    }*/
 
     //自定义的Realm
     @Bean("authRealm")
