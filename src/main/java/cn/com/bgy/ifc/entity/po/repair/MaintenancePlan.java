@@ -1,13 +1,21 @@
 package cn.com.bgy.ifc.entity.po.repair;
 
 import java.util.Date;
-
+/**
+ * 2018年12月25日14:34:44
+ * lbj
+ * 维保计划
+ */
 public class MaintenancePlan {
     private Long id;
 
     private Long organizationId;
+    //名称
+    private String planName;
 
     private Long projectId;
+  //所属区域IC
+    private Long regionId;
 
     private Long projectType;
 
@@ -29,7 +37,15 @@ public class MaintenancePlan {
         this.id = id;
     }
 
-    public Long getOrganizationId() {
+    public String getPlanName() {
+		return planName;
+	}
+
+	public void setPlanName(String planName) {
+		this.planName = planName;
+	}
+
+	public Long getOrganizationId() {
         return organizationId;
     }
 
@@ -37,7 +53,15 @@ public class MaintenancePlan {
         this.organizationId = organizationId;
     }
 
-    public Long getProjectId() {
+    public Long getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(Long regionId) {
+		this.regionId = regionId;
+	}
+
+	public Long getProjectId() {
         return projectId;
     }
 
