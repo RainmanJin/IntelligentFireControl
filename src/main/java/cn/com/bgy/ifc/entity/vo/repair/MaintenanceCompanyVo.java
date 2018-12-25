@@ -19,7 +19,7 @@ public class MaintenanceCompanyVo {
     private String telephone;
 
     private String remark;
-    @
+
     private Date createTime;
 
     private Boolean logicRemove;

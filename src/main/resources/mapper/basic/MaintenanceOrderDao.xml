@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.repair.MaintenanceOrderDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.repair.MaintenanceOrder">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="plan_id" jdbcType="BIGINT" property="planId" />
+    <result column="device_id" jdbcType="BIGINT" property="deviceId" />
+    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
+    <result column="staff_info" jdbcType="VARCHAR" property="staffInfo" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="order_state" jdbcType="INTEGER" property="orderState" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+    <result column="cycle" jdbcType="BIT" property="cycle" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.repair.MaintenanceOrderWithBLOBs">
+    <result column="sign" jdbcType="LONGVARCHAR" property="sign" />
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    sign, remark
+  </sql>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceOrderWithBLOBs">
+    insert into maintenance_order (id, plan_id, device_id, 
+      organization_id, staff_info, handle_time, 
+      order_state, create_time, logic_remove, 
+      cycle, sign, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{planId,jdbcType=BIGINT}, #{deviceId,jdbcType=BIGINT}, 
+      #{organizationId,jdbcType=BIGINT}, #{staffInfo,jdbcType=VARCHAR}, #{handleTime,jdbcType=TIMESTAMP}, 
+      #{orderState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, 
+      #{cycle,jdbcType=BIT}, #{sign,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceOrderWithBLOBs">
+    insert into maintenance_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="planId != null">
+        plan_id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="organizationId != null">
+        organization_id,
+      </if>
+      <if test="staffInfo != null">
+        staff_info,
+      </if>
+      <if test="handleTime != null">
+        handle_time,
+      </if>
+      <if test="orderState != null">
+        order_state,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+      <if test="cycle != null">
+        cycle,
+      </if>
+      <if test="sign != null">
+        sign,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="planId != null">
+        #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="staffInfo != null">
+        #{staffInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null">
+        #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderState != null">
+        #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="cycle != null">
+        #{cycle,jdbcType=BIT},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.repair.MaintenanceProgramDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
+    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+    <result column="region_id" jdbcType="BIGINT" property="regionId" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
+    <result column="equipment_type_id" jdbcType="BIGINT" property="equipmentTypeId" />
+    <result column="equipment_type_name" jdbcType="VARCHAR" property="equipmentTypeName" />
+    <result column="cproject_type" jdbcType="INTEGER" property="cprojectType" />
+    <result column="order_by_num" jdbcType="INTEGER" property="orderByNum" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="claim" jdbcType="VARCHAR" property="claim" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo">
+    insert into maintenance_program (id, organization_id, region_id, 
+      equipment_type_id, cproject_type, order_by_num, 
+      content, claim, create_time, 
+      logic_remove)
+    values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{regionId,jdbcType=BIGINT}, 
+      #{equipmentTypeId,jdbcType=BIGINT}, #{cprojectType,jdbcType=INTEGER}, #{orderByNum,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{claim,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{logicRemove,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo">
+    insert into maintenance_program
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="organizationId != null">
+        organization_id,
+      </if>
+      <if test="regionId != null">
+        region_id,
+      </if>
+      <if test="equipmentTypeId != null">
+        equipment_type_id,
+      </if>
+      <if test="cprojectType != null">
+        cproject_type,
+      </if>
+      <if test="orderByNum != null">
+        order_by_num,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="claim != null">
+        claim,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=BIGINT},
+      </if>
+      <if test="equipmentTypeId != null">
+        #{equipmentTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="cprojectType != null">
+        #{cprojectType,jdbcType=INTEGER},
+      </if>
+      <if test="orderByNum != null">
+        #{orderByNum,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="claim != null">
+        #{claim,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+   <sql id="Mysql">
+
+          SELECT   mp.id as id,-- 主键ID
+                    mp.organization_id as organization_id,-- 机构ID
+                    so.name as organization_name,-- 组织机构名称
+                    mp.region_id as region_id,-- 区域ID
+                    ri.name as region_name,-- 区域名称
+                    mp.equipment_type_id as equipment_type_id,-- 设备类型ID
+                    et.name as equipment_type_name,-- 设备类型名称
+                    mp.cproject_type as cproject_type,-- 范围类型：1半月维保项目、2季度维保项目、3半年维保项目、4年度维保项目
+                    mp.order_by_num as order_by_num ,-- 排序编号
+                    mp.content as content ,-- 维保项目（内容）
+                    mp.claim as claim ,-- 维保基本要求
+                    mp.create_time as create_time,-- 创建、修改时间
+                    mp.logic_removeas as logic_remove -- 是否逻辑删除
+          FROM maintenance_program mp
+          left join system_organization so on so.id = mp.organization_id
+          left join region_info ri on ri.id = mp.region_id
+          left join equipment_type et on et.id = mp.e
+   </sql>
+
+</mapper>
