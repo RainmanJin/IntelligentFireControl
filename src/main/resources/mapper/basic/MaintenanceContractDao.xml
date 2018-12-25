@@ -169,6 +169,7 @@
   <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenanceContractVo" resultMap="BaseResultMap">
     <include refid="selectMaintenanceContract"/>
     <trim prefix=" where " suffix="" suffixOverrides="and">
+      mc.logic_remove=0
       <if test="id != null">
         and mc.id=#{id,jdbcType=BIGINT}
       </if>
@@ -183,9 +184,8 @@
       </if>
       <if test="contractName != null">
         <!--暂定关键字查询为合同名称的模糊查询-->
-        and mc.contract_name like LIKE CONCAT(CONCAT('%', #{contractName}), '%');
+        and mc.contract_name like   concat('%',#{contractName},'%')
       </if>
-      and mc.logic_remove = 0
     </trim>
   </select>
   <!--通过id修改合同-->

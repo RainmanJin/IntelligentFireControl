@@ -6,6 +6,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author lvbingjian
@@ -55,4 +56,12 @@ public interface MaintenanceProgramDomain {
      * @return
      */
     int deleteMaintenancePrograms(String str);
+
+    /**
+     * 获取设备类型下拉框
+     * 2018年12月25日11:39:39
+     * lbj
+     * @return
+     */
+    List<Map<String,Object>>  queryListEquipmentType();
 }

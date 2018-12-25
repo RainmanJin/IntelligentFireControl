@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author lvbingjian
@@ -108,10 +109,9 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
      * @return
      */
     @Override
-    public List<RegionInfo> getRegionList() {
+    public List<Map<String,Object>> getRegionList() {
         RegionInfoVo regionInfoVo = null;
-       // return regionInfoDao.queryListRegionInfo(regionInfoVo);
-        return null;
+        return regionInfoDao.queryListRegionInfo(regionInfoVo);
     }
 
     /**
@@ -119,10 +119,9 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
      * @return
      */
     @Override
-    public List<RegionProjectVo> getRegionProjectList() {
+    public List<Map<String,Object>> getRegionProjectList() {
         RegionProjectVo regionProjectVo = null;
-       // return regionProjectDao.queryListRegionProject(regionProjectVo);
-        return null;
+        return regionProjectDao.queryListRegionProject(regionProjectVo);
     }
 
 }
