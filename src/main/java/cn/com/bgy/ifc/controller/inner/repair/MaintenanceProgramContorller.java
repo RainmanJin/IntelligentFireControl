@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.controller.inner.repair;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceContractDomain;
 import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceProgramDomain;
 import cn.com.bgy.ifc.entity.po.repair.MaintenanceProgram;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -16,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * lvbingjian
- * 维保合同
- * 2018年12月20日
+ * 维保项目库
+ * 22018年12月25日
  */
 @Controller
 @RequestMapping("/basic/maintenanceProgram")
@@ -25,6 +26,8 @@ public class MaintenanceProgramContorller {
 
     @Autowired
     private MaintenanceProgramDomain domain;
+    @Autowired
+    private MaintenanceContractDomain maintenanceContractDomain;
 
     /**
      * 分页查询
@@ -34,7 +37,7 @@ public class MaintenanceProgramContorller {
      */
     @GetMapping("queryPageList")
     @ResponseBody
-    public ResponseVO<Object> queryPageList(Page<MaintenanceProgramVo> page, MaintenanceProgramVo vo) {
+    public ResponseVO<Object> queryPageList(Page<MaintenanceProgramVo> page, MaintenanceProgramVo vo, String token) {
         //关键只查询暂时默认为维保项目名称的模糊查询
         PageInfo<MaintenanceProgramVo> pageInfo = domain.queryListByPage(page, vo);
         return ResponseVO.success().setData(pageInfo);
@@ -110,5 +113,22 @@ public class MaintenanceProgramContorller {
         }
         return ResponseVO.error().setMsg("删除失败！");
     }
-
+    /**
+     * 获取区域下拉框初始化
+     * @return
+     */
+    @GetMapping("queryRegionList")
+    @ResponseBody
+    public ResponseVO<Object> queryRegionList() {
+        return ResponseVO.success().setData(maintenanceContractDomain.getRegionList());
+    }
+    /**
+     * 获取设备类型下拉框初始化
+     * @return
+     */
+    @GetMapping("queryListEquipmentType")
+    @ResponseBody
+    public ResponseVO<Object> queryListEquipmentType() {
+        return ResponseVO.success().setData(domain.queryListEquipmentType());
+    }
 }

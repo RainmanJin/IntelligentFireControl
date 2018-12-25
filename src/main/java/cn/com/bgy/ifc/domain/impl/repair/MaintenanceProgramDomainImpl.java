@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.domain.impl.repair;
 
+import cn.com.bgy.ifc.dao.equipment.EquipmentTypeDao;
 import cn.com.bgy.ifc.dao.repair.MaintenanceProgramDao;
 import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceProgramDomain;
 import cn.com.bgy.ifc.entity.po.repair.MaintenanceProgram;
@@ -12,10 +13,15 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class MaintenanceProgramDomainImpl implements MaintenanceProgramDomain {
     @Resource
     private MaintenanceProgramDao dao ;
+
+    @Resource
+    private EquipmentTypeDao equipmentTypeDao ;
 
     @Override
     public PageInfo<MaintenanceProgramVo> queryListByPage(Page<MaintenanceProgramVo> page, MaintenanceProgramVo record) {
@@ -58,9 +64,15 @@ public class MaintenanceProgramDomainImpl implements MaintenanceProgramDomain {
             for (int i = 0; i <arr.length ; i++) {
                 list.add(Long.valueOf(arr[i]));
             }
-            return dao.deleteBatch(list);
+            return dao.delete(list);
         }else{
             return 0;
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> queryListEquipmentType() {
+        String keyword = null;
+        return equipmentTypeDao.queryListEquipmentType(keyword);
     }
 }

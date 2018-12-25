@@ -7,6 +7,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author lvbingjian
@@ -61,13 +62,13 @@ public interface MaintenanceContractDomain {
      * h获取区域下拉框初始值
      * @return
      */
-    List<RegionInfo> getRegionList();
+    List<Map<String,Object>> getRegionList();
 
 
     /**
      * 获取项目下拉框初始值
      * @return
      */
-    List<RegionProjectVo> getRegionProjectList();
+    List<Map<String,Object>> getRegionProjectList();
 
 }

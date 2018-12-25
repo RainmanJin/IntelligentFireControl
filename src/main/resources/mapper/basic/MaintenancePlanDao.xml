@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.repair.MaintenancePlanDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.repair.MaintenancePlan">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.vo.repair.MaintenancePlanVo">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
+    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+    <result column="plan_name" jdbcType="VARCHAR" property="planName" />
     <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="region_id" jdbcType="BIGINT" property="regionId" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
     <result column="project_type" jdbcType="BIGINT" property="projectType" />
     <result column="planned_date" jdbcType="TIMESTAMP" property="plannedDate" />
     <result column="time_slot" jdbcType="VARCHAR" property="timeSlot" />
     <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenancePlan">
-    insert into maintenance_plan (id, organization_id, project_id, 
+    insert into maintenance_plan (id,plan_name,region_id, organization_id, project_id, 
       project_type, planned_date, time_slot, 
       company_id, create_time, logic_remove
       )
-    values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT},#{planName,jdbcType=VARCHAR},#{regionId,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
       #{projectType,jdbcType=BIGINT}, #{plannedDate,jdbcType=TIMESTAMP}, #{timeSlot,jdbcType=VARCHAR}, 
       #{companyId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}
       )
@@ -27,6 +35,12 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="planName != null">
+        plan_name,
+      </if>
+      <if test="regionId != null">
+        region_id,
       </if>
       <if test="organizationId != null">
         organization_id,
@@ -57,6 +71,12 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
+      <if test="planName != null">
+        #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=BIGINT},
+      </if>
       <if test="organizationId != null">
         #{organizationId,jdbcType=BIGINT},
       </if>
@@ -83,4 +103,117 @@
       </if>
     </trim>
   </insert>
+  <sql id="Mysql">
+ 		 select 
+				mp.id as id ,-- 主键ID
+				mp.plan_name as plan_name,-- 维保策略名称
+				mp.organization_id as organization_id,-- 机构ID
+				so.name as organization_name,-- 机构名称
+				mp.region_id as region_id,-- 区域ID
+				ri.name as region_name,-- 区域名称
+				mp.project_id as project_id,-- 所属项目ID
+				rp.name as project_name,-- 所属项目名称
+				mp.project_type as project_type,-- 范围类型：1半月维保项目、2季度维保项目、3半年维保项目、4年度维保项目
+				mp.planned_date as planned_date,-- 保养日期
+				mp.time_slot as time_slot,-- 保养时间段
+				mp.company_id as company_id,-- 维保公司ID
+				mc.name as company_name,-- 维保公司名称
+				mp.create_time as create_time,-- 创建时间
+				mp.logic_remove as logic_remove-- 是否逻辑删除
+		from maintenance_plan mp 
+		left join system_organization so on so.id = mp.organization_id
+		left join region_project rp on rp.id = mp.project_id
+		left join maintenance_company mc on mc.id = mp.company_id
+		left join region_info ri on ri.id = mp.region_id 
+  </sql>
+  <!--分頁查詢-->
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenancePlanVo" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    <trim prefix=" where " suffix="" suffixOverrides="and">
+      mp.logic_remove=0
+      <if test="id != null">
+        and mp.id=#{id,jdbcType=BIGINT}
+      </if>
+      <if test="organizationId != null">
+        and mp.organization_id= #{organizationId,jdbcType=BIGINT}
+      </if>
+      <if test="regionId != null">
+        and mp.region_id= #{regionId,jdbcType=BIGINT}
+      </if>
+      <if test="projectId != null">
+        and mp.project_id= #{projectId,jdbcType=BIGINT}
+      </if>
+      <if test="projectType != null">
+        and mp.project_type= #{projectType,jdbcType=BIGINT}
+      </if>
+      <if test="companyId != null">
+        and mp.company_id= #{companyId,jdbcType=BIGINT}
+      </if>
+      <if test="beginTime!=null and beginTime!=''">
+	　　	AND mp.create_time&gt;=#{beginTime} 
+	  </if> 
+	  <if test="endTime!=null and endTime!=''">
+	 　　AND mp.create_time &lt;=#{endTime} 
+	  </if>
+      <if test="planName != null">
+        <!--暂定关键字查询为维保内容的模糊查询-->
+        and mp.plan_name like  concat('%',#{planName},'%')
+      </if>
+
+    </trim>
+  </select>
+
+  <!--修改维保项目-->
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenancePlanVo">
+    UPDATE maintenance_plan
+    <set>
+      <if test="planName != null">
+        plan_name=#{planName},
+      </if>
+      <if test="organizationId != null">
+        organization_id=#{organizationId},
+      </if>
+      <if test="regionId != null">
+        region_id=#{regionId},
+      </if>
+      <if test="projectId != null">
+        project_id=#{projectId},
+      </if>
+      <if test="projectType != null">
+        project_type=#{projectType},
+      </if>
+      <if test="plannedDate != null">
+        planned_date=#{plannedDate},
+      </if>
+      <if test="timeSlot != null">
+        time_slot=#{timeSlot},
+      </if>
+      <if test="companyId != null">
+        company_id=#{companyId},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+      <if test="logicRemove != null">
+        logic_remove=#{logicRemove},
+      </if>
+
+    </set>
+    WHERE id = #{id}
+
+  </update>
+
+  <!--通过id查询找-->
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    WHERE mp.id = #{id}
+  </select>
+
+  <!--逻辑批量删除-->
+  <update id="delete" parameterType="java.util.List">
+    UPDATE maintenance_plan set logic_remove =1 where id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
 </mapper>
