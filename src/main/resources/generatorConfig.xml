@@ -24,7 +24,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.bgy.ifc.dao.repair" targetProject="src/main/java" />
 
 
-       <table tableName="maintenance_program"  domainObjectName="MaintenanceProgram" mapperName="MaintenanceProgramDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+       <table tableName="repair_order"  domainObjectName="RepairOrder" mapperName="RepairOrderDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"/>
 <!--
         <table tableName="tj_dept"  domainObjectName="DeptBo" mapperName="DeptDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"

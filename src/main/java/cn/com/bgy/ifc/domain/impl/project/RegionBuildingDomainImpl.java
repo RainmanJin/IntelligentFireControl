@@ -3,7 +3,7 @@ package cn.com.bgy.ifc.domain.impl.project;
 import cn.com.bgy.ifc.dao.project.RegionBuildingDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionBuildingDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
-import cn.com.bgy.ifc.entity.vo.project.RegionBuildingVo;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,8 +29,8 @@ public class RegionBuildingDomainImpl implements RegionBuildingDomain {
      * @Date 2018/12/20 9:23
      */
     @Override
-    public List<Map<String,Object>> queryListRegionBuilding( RegionBuildingVo record ) {
-        return regionBuildingDao.queryListRegionBuilding(record);
+    public List<Map<String,Object>> queryListRegionBuilding( RegionAndBrandVO regionAndBrandVO ) {
+        return regionBuildingDao.queryListRegionBuilding(regionAndBrandVO);
     }
     /**
      * @Author huxin

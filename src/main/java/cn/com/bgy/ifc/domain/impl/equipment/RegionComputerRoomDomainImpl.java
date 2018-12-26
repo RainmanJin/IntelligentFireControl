@@ -2,7 +2,6 @@ package cn.com.bgy.ifc.domain.impl.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
-import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.StringUtil;
 import cn.com.bgy.ifc.dao.project.*;
@@ -12,8 +11,7 @@ import cn.com.bgy.ifc.entity.po.project.*;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyMachineRoomVo;
-import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
-import cn.com.bgy.ifc.service.impl.api.equipment.BgyEquipmentServiceImpl;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -316,8 +317,8 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
      * @Date 2018/12/20 14:36
      */
     @Override
-    public List<Map<String, Object>> queryListRegionComputerRoom(RegionComputerRoomVo record) {
-        return regionComputerRoomDao.queryListRegionComputerRoom(record);
+    public List<Map<String, Object>> queryListRegionComputerRoom( RegionAndBrandVO regionAndBrandVO ) {
+        return regionComputerRoomDao.queryListRegionComputerRoom(regionAndBrandVO);
     }
 
     /**

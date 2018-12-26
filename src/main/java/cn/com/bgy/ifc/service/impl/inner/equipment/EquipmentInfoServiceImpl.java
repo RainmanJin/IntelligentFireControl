@@ -3,7 +3,7 @@ package cn.com.bgy.ifc.service.impl.inner.equipment;
 
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfoView;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentInfoService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -31,8 +31,8 @@ public class EquipmentInfoServiceImpl implements EquipmentInfoService {
      */
 
     @Override
-    public PageInfo queryListEquipmentInfo( Page<Object> page,EquipmentInfoView equipmentInfoView ) {
-        return equipmentInfoDomain.queryListEquipmentInfo(page,equipmentInfoView);
+    public PageInfo queryListEquipmentInfo( Page<Object> page,RegionAndBrandVO regionAndBrandVO ) {
+        return equipmentInfoDomain.queryListEquipmentInfo(page,regionAndBrandVO);
     }
 
     /**

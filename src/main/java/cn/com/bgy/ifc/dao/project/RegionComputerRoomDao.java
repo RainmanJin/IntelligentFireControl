@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.dao.project;
 
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
-import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ public interface RegionComputerRoomDao {
 
     int updateSelective(RegionComputerRoom record);
 
-    List<Map<String,Object>> queryListRegionComputerRoom( RegionComputerRoomVo record);
+    List<Map<String,Object>> queryListRegionComputerRoom( RegionAndBrandVO record);
 
     int updateRegionComputerRoom(RegionComputerRoom record);
 
