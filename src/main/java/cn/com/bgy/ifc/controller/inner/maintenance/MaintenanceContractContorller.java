@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.controller.inner.repair;
+package cn.com.bgy.ifc.controller.inner.maintenance;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;

@@ -74,16 +74,18 @@
   <sql id="selectSql">
 
       select mc.id as id,mc.organization_id as organization_id,
-              ri.name as organization_name,
+              so.name as organization_name,
+              ri.name as region_name,
               mc.name as name,mc.telephone as telephone,
               mc.remark,mc.create_time,mc.logic_remove
       from maintenance_company as mc
-      left join region_info as ri on ri.id = mc.organization_id
+      left join system_organization so on so.id = mc.organization_id
+      left join region_info ri on ri.id = mc.region_id
   </sql>
   <!--分頁查詢-->
   <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany" resultMap="BaseResultMap">
   <include refid="selectSql"/>
-  <trim prefix=" where " suffix="" suffixOverrides="and">
+  where mc.logic_remove = 0
     <if test="id != null">
       and id=#{id,jdbcType=BIGINT}
     </if>
@@ -93,10 +95,9 @@
 
     <if test="companyName != null">
       <!--暂定关键字查询为合维保公司名称的模糊查询-->
-      and mc.name like LIKE "%"#{companyName}"%";
+      and mc.name like LIKE  concat('%',#{companyName},'%')
     </if>
 
-  </trim>
 </select>
   <!--修改维保公司-->
   <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">

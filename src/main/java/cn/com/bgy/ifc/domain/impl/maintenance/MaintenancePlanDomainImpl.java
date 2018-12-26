@@ -86,7 +86,5 @@ public class MaintenancePlanDomainImpl implements MaintenancePlanDomain {
 	public int insert(MaintenancePlan t) {
 		return dao.insert(t);
 	}
-	
-
 
 }

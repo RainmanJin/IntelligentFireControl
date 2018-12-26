@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.controller.inner.repair;
+package cn.com.bgy.ifc.controller.inner.maintenance;
 
 import java.util.ArrayList;
 import java.util.List;
