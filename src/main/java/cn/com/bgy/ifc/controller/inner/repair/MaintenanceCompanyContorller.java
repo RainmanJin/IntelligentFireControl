@@ -2,12 +2,12 @@ package cn.com.bgy.ifc.controller.inner.repair;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceCompanyDomain;
-import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceContractDomain;
-import cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany;
-
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenanceCompanyVo;
+import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceCompanyVo;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +37,9 @@ public class MaintenanceCompanyContorller {
      */
     @GetMapping("queryPageList")
     @ResponseBody
-    public ResponseVO<Object> queryPageList(Page<MaintenanceCompanyVo> page, MaintenanceCompanyVo vo) {
+    public ResponseVO<Object> queryPageList(Page<MaintenanceCompany> page, MaintenanceCompany po) {
         //关键只查询暂时默认为公司名称的模糊查询
-        PageInfo<MaintenanceCompanyVo> pageInfo = domain.queryListByPage(page, vo);
+        PageInfo<MaintenanceCompany> pageInfo = domain.queryListByPage(page, po);
         return ResponseVO.success().setData(pageInfo);
     }
     /**
@@ -93,10 +93,10 @@ public class MaintenanceCompanyContorller {
      */
     @GetMapping("queryById/{id}")
     @ResponseBody
-    public ResponseVO<MaintenanceCompanyVo> queryById(@PathVariable long id, String token) {
-        MaintenanceCompanyVo bean = domain.findById(id);
+    public ResponseVO<MaintenanceCompany> queryById(@PathVariable long id, String token) {
+        MaintenanceCompany bean = domain.findById(id);
 
-        return ResponseVO.<MaintenanceCompanyVo>success().setData(bean);
+        return ResponseVO.<MaintenanceCompany>success().setData(bean);
     }
     /**
      * @Author huxin

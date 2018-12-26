@@ -1,7 +1,7 @@
-package cn.com.bgy.ifc.dao.repair;
+package cn.com.bgy.ifc.dao.maintenance;
 
 import cn.com.bgy.ifc.dao.base.BaseDao;
-import cn.com.bgy.ifc.entity.po.repair.MaintenancePlan;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlan;
 
 import java.util.List;
 

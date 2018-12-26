@@ -2,11 +2,12 @@ package cn.com.bgy.ifc.controller.inner.repair;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceContractDomain;
-import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceProgramDomain;
-import cn.com.bgy.ifc.entity.po.repair.MaintenanceProgram;
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceProgramDomain;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo;
+import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceProgramVo;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,9 @@ public class MaintenanceProgramContorller {
      */
     @GetMapping("queryPageList")
     @ResponseBody
-    public ResponseVO<Object> queryPageList(Page<MaintenanceProgramVo> page, MaintenanceProgramVo vo, String token) {
+    public ResponseVO<Object> queryPageList(Page<MaintenanceProgram> page, MaintenanceProgram po, String token) {
         //关键只查询暂时默认为维保项目名称的模糊查询
-        PageInfo<MaintenanceProgramVo> pageInfo = domain.queryListByPage(page, vo);
+        PageInfo<MaintenanceProgram> pageInfo = domain.queryListByPage(page, po);
         return ResponseVO.success().setData(pageInfo);
     }
     /**
@@ -59,8 +60,8 @@ public class MaintenanceProgramContorller {
         MaintenanceProgram po = new MaintenanceProgram();
         //默认是false删除后设为true
         vo.setLogicRemove(false);
-        CopyUtil.copyProperties(po, vo);
-        int count = domain.addMaintenanceProgramInfo(vo);
+        CopyUtil.copyProperties(vo, po);
+        int count = domain.addMaintenanceProgramInfo(po);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功！");
         }
@@ -74,9 +75,9 @@ public class MaintenanceProgramContorller {
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "维保公司修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionStreet(MaintenanceProgramVo vo, String token){
+    public ResponseVO<Object> updateRegionStreet(MaintenanceProgram po, String token){
         int resout = 1;
-        int count = domain.updateMaintenanceProgram(vo);
+        int count = domain.updateMaintenanceProgram(po);
         if (count == resout) {
             return ResponseVO.success().setMsg("修改成功");
         }

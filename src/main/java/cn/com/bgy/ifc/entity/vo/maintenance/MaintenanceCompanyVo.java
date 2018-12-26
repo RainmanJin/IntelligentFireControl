@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.entity.vo.repair;
+package cn.com.bgy.ifc.entity.vo.maintenance;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -7,10 +7,15 @@ import java.util.Date;
 public class MaintenanceCompanyVo {
     private Long id;
 
-    @NotNull(message="所属区域不能为空")
+    
     private Long organizationId;
 
     private String organizationName;
+    
+    @NotNull(message="所属区域不能为空")
+    private Long regionId;
+    
+    private String regionName;
 
     @NotBlank(message="维保公司名称能为空")
     private String companyName;
@@ -51,8 +56,25 @@ public class MaintenanceCompanyVo {
     public String getTelephone() {
         return telephone;
     }
+    
 
-    public void setTelephone(String telephone) {
+    public String getRegionName() {
+		return regionName;
+	}
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+
+	public Long getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(Long regionId) {
+		this.regionId = regionId;
+	}
+
+	public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

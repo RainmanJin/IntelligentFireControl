@@ -1,15 +1,13 @@
-package cn.com.bgy.ifc.domain.impl.repair;
+package cn.com.bgy.ifc.domain.impl.maintenance;
 
 
+import cn.com.bgy.ifc.dao.maintenance.MaintenanceContractDao;
 import cn.com.bgy.ifc.dao.project.RegionInfoDao;
 import cn.com.bgy.ifc.dao.project.RegionProjectDao;
-import cn.com.bgy.ifc.dao.repair.MaintenanceContractDao;
-import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceContractDomain;
-import cn.com.bgy.ifc.entity.po.repair.MaintenanceContract;
-import cn.com.bgy.ifc.entity.po.project.RegionInfo;
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
 import cn.com.bgy.ifc.entity.vo.project.RegionInfoVo;
 import cn.com.bgy.ifc.entity.vo.project.RegionProjectVo;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenanceContractVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -44,10 +42,10 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
      * @return
      */
     @Override
-    public PageInfo<MaintenanceContractVo> queryListByPage(Page<MaintenanceContractVo> page, MaintenanceContractVo maintenanceContract) {
+    public PageInfo<MaintenanceContract> queryListByPage(Page<MaintenanceContract> page, MaintenanceContract maintenanceContract) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<MaintenanceContractVo> maintenanceContractList = dao.queryListByParam(maintenanceContract);
-        PageInfo<MaintenanceContractVo> pageInfo = new PageInfo<>(maintenanceContractList);
+        List<MaintenanceContract> maintenanceContractList = dao.queryListByParam(maintenanceContract);
+        PageInfo<MaintenanceContract> pageInfo = new PageInfo<>(maintenanceContractList);
         return pageInfo;
     }
 
@@ -57,7 +55,7 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
      * @return
      */
     @Override
-    public List<MaintenanceContractVo> queryListByParam(MaintenanceContract record) {
+    public List<MaintenanceContract> queryListByParam(MaintenanceContract record) {
         return null;
     }
     /**
@@ -86,7 +84,7 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
      * @return
      */
     @Override
-    public MaintenanceContractVo findById(Long id) {
+    public MaintenanceContract findById(Long id) {
         return dao.findById(id);
     }
 

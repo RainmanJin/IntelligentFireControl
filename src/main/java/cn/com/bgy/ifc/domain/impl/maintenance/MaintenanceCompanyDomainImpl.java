@@ -1,14 +1,13 @@
-package cn.com.bgy.ifc.domain.impl.repair;
+package cn.com.bgy.ifc.domain.impl.maintenance;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
-import cn.com.bgy.ifc.dao.repair.MaintenanceCompanyDao;
-import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceCompanyDomain;
+import cn.com.bgy.ifc.dao.maintenance.MaintenanceCompanyDao;
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
-import cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.repair.BgyRepairCompanyVo;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenanceCompanyVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -41,10 +40,10 @@ public class MaintenanceCompanyDomainImpl implements MaintenanceCompanyDomain {
      * @return
      */
     @Override
-    public PageInfo<MaintenanceCompanyVo> queryListByPage(Page<MaintenanceCompanyVo> page, MaintenanceCompanyVo maintenanceCompany) {
+    public PageInfo<MaintenanceCompany> queryListByPage(Page<MaintenanceCompany> page, MaintenanceCompany maintenanceCompany) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<MaintenanceCompanyVo> list = dao.queryListByParam(maintenanceCompany);
-        PageInfo<MaintenanceCompanyVo> pageInfo = new PageInfo<>(list);
+        List<MaintenanceCompany> list = dao.queryListByParam(maintenanceCompany);
+        PageInfo<MaintenanceCompany> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 
@@ -54,7 +53,7 @@ public class MaintenanceCompanyDomainImpl implements MaintenanceCompanyDomain {
      * @return
      */
     @Override
-    public List<MaintenanceCompanyVo> queryListByParam(MaintenanceCompanyVo record) {
+    public List<MaintenanceCompany> queryListByParam(MaintenanceCompany record) {
         return dao.queryListByParam(record);
     }
 
@@ -69,7 +68,7 @@ public class MaintenanceCompanyDomainImpl implements MaintenanceCompanyDomain {
     }
 
     @Override
-    public MaintenanceCompanyVo findById(Long id) {
+    public MaintenanceCompany findById(Long id) {
         return dao.findById(id);
     }
 

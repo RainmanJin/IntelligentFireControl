@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.repair.MaintenanceProgramDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo">
+<mapper namespace="cn.com.bgy.ifc.dao.maintenance.MaintenanceProgramDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
     <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
@@ -16,7 +16,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram">
     insert into maintenance_program (id, organization_id, region_id, 
       equipment_type_id, cproject_type, order_by_num, 
       content, claim, create_time, 
@@ -26,7 +26,7 @@
       #{content,jdbcType=VARCHAR}, #{claim,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{logicRemove,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram">
     insert into maintenance_program
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -114,7 +114,7 @@
           left join equipment_type et on et.id = mp.equipment_type_id
    </sql>
   <!--分頁查詢-->
-  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo" resultMap="BaseResultMap">
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram" resultMap="BaseResultMap">
     <include refid="Mysql"/>
     <trim prefix=" where " suffix="" suffixOverrides="and">
       mp.logic_remove=0
@@ -139,7 +139,7 @@
   </select>
 
   <!--修改维保项目-->
-  <update id="update" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo">
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram">
     UPDATE maintenance_program
     <set>
       <if test="organizationId != null">

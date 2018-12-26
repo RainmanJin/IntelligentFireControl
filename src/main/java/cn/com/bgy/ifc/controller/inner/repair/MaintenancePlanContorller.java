@@ -18,12 +18,10 @@ import com.github.pagehelper.PageInfo;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.domain.interfaces.repair.MaintenancePlanDomain;
-import cn.com.bgy.ifc.entity.po.repair.MaintenancePlan;
-import cn.com.bgy.ifc.entity.po.repair.MaintenanceProgram;
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenancePlanDomain;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlan;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenancePlanVo;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo;
+import cn.com.bgy.ifc.entity.vo.maintenance.MaintenancePlanVo;
 
 /**
  * lvbingjian
@@ -46,9 +44,9 @@ public class MaintenancePlanContorller {
      */
     @GetMapping("queryPageList")
     @ResponseBody
-    public ResponseVO<Object> queryPageList(Page<MaintenancePlanVo> page, MaintenancePlanVo vo, String token) {
+    public ResponseVO<Object> queryPageList(Page<MaintenancePlan> page, MaintenancePlan po, String token) {
         //关键只查询暂时默认为维保项目名称的模糊查询
-        PageInfo<MaintenancePlanVo> pageInfo = domain.queryListByPage(page, vo);
+        PageInfo<MaintenancePlan> pageInfo = domain.queryListByPage(page, po);
         return ResponseVO.success().setData(pageInfo);
     }
     /**
@@ -64,9 +62,12 @@ public class MaintenancePlanContorller {
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
+
+        MaintenancePlan po = new MaintenancePlan();
         //默认是false删除后设为true
         vo.setLogicRemove(false);
-        int count = domain.insert(vo);
+        CopyUtil.copyProperties(vo, po);
+        int count = domain.insert(po);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功！");
         }
@@ -80,7 +81,7 @@ public class MaintenancePlanContorller {
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "维保公司修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionStreet(MaintenancePlanVo vo, String token){
+    public ResponseVO<Object> updateRegionStreet(MaintenancePlan vo, String token){
         int resout = 1;
         int count = domain.update(vo);
         if (count == resout) {
@@ -99,10 +100,10 @@ public class MaintenancePlanContorller {
      */
     @GetMapping("queryById/{id}")
     @ResponseBody
-    public ResponseVO<MaintenancePlanVo> queryById(@PathVariable long id, String token) {
-    	MaintenancePlanVo bean = domain.findById(id);
+    public ResponseVO<MaintenancePlan> queryById(@PathVariable long id, String token) {
+    	MaintenancePlan bean = domain.findById(id);
 
-        return ResponseVO.<MaintenancePlanVo>success().setData(bean);
+        return ResponseVO.<MaintenancePlan>success().setData(bean);
     }
     /**
      * @Author huxin

@@ -2,11 +2,12 @@ package cn.com.bgy.ifc.controller.inner.repair;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceCompanyDomain;
-import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceContractDomain;
-import cn.com.bgy.ifc.entity.po.repair.MaintenanceContract;
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenanceContractVo;
+import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceContractVo;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,9 @@ public class MaintenanceContractContorller {
      */
     @GetMapping("queryPageList")
     @ResponseBody
-    public ResponseVO<Object> queryPageList(Page<MaintenanceContractVo> page, MaintenanceContractVo maintenanceContract) {
+    public ResponseVO<Object> queryPageList(Page<MaintenanceContract> page, MaintenanceContract maintenanceContract) {
         //关键只查询暂时默认为合同名称的模糊查询
-        PageInfo<MaintenanceContractVo> pageInfo = maintenanceContractDomain.queryListByPage(page, maintenanceContract);
+        PageInfo<MaintenanceContract> pageInfo = maintenanceContractDomain.queryListByPage(page, maintenanceContract);
         return ResponseVO.success().setData(pageInfo);
     }
     /**
@@ -93,10 +94,10 @@ public class MaintenanceContractContorller {
      */
     @GetMapping("queryById/{id}")
     @ResponseBody
-    public ResponseVO<MaintenanceContractVo> queryById(@PathVariable long id, String token) {
-        MaintenanceContractVo bean = maintenanceContractDomain.findById(id);
+    public ResponseVO<MaintenanceContract> queryById(@PathVariable long id, String token) {
+        MaintenanceContract bean = maintenanceContractDomain.findById(id);
 
-        return ResponseVO.<MaintenanceContractVo>success().setData(bean);
+        return ResponseVO.<MaintenanceContract>success().setData(bean);
     }
     /**
      * 获取区域下拉框初始化

@@ -1,9 +1,10 @@
-package cn.com.bgy.ifc.domain.interfaces.repair;
+package cn.com.bgy.ifc.domain.interfaces.maintenance;
 
-import cn.com.bgy.ifc.entity.po.repair.MaintenanceProgram;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram;
+import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceProgramVo;
 
 import java.util.List;
 import java.util.Map;
@@ -20,28 +21,28 @@ public interface MaintenanceProgramDomain {
      * @param MaintenanceProgram
      * @return
      */
-    PageInfo<MaintenanceProgramVo> queryListByPage(Page<MaintenanceProgramVo> page, MaintenanceProgramVo MaintenanceProgram);
+    PageInfo<MaintenanceProgram> queryListByPage(Page<MaintenanceProgram> page, MaintenanceProgram MaintenanceProgram);
 
     /**
      * 列表查询
      * @param record
      * @return
      */
-    List<MaintenanceProgramVo> queryListByParam(MaintenanceProgramVo record);
+    List<MaintenanceProgram> queryListByParam(MaintenanceProgram record);
 
     /**
      * 添加
      * @param record set值
      * @return
      */
-    int addMaintenanceProgramInfo(MaintenanceProgramVo record);
+    int addMaintenanceProgramInfo(MaintenanceProgram record);
 
     /**
      * 修改
      * @param record
      * @return
      */
-    int updateMaintenanceProgram( MaintenanceProgramVo record );
+    int updateMaintenanceProgram( MaintenanceProgram record );
 
     /**
      *通过ID查询

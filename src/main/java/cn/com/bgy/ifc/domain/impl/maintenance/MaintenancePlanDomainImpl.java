@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.domain.impl.repair;
+package cn.com.bgy.ifc.domain.impl.maintenance;
 
 import java.util.List;
 import java.util.Map;
@@ -11,11 +11,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-import cn.com.bgy.ifc.dao.repair.MaintenancePlanDao;
-import cn.com.bgy.ifc.domain.interfaces.repair.MaintenancePlanDomain;
-import cn.com.bgy.ifc.entity.po.repair.MaintenancePlan;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenanceContractVo;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenancePlanVo;
+import cn.com.bgy.ifc.dao.maintenance.MaintenancePlanDao;
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenancePlanDomain;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlan;
 /**
  * 
  * @author lvbingjian
@@ -32,31 +30,31 @@ public class MaintenancePlanDomainImpl implements MaintenancePlanDomain {
 	 * 分页查询
 	 */
 	@Override
-	public PageInfo<MaintenancePlanVo> queryListByPage(Page<MaintenancePlanVo> page, MaintenancePlanVo vo) {
+	public PageInfo<MaintenancePlan> queryListByPage(Page<MaintenancePlan> page, MaintenancePlan po) {
 		page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<MaintenancePlanVo> list = dao.queryListByParam(vo);
-        PageInfo<MaintenancePlanVo> pageInfo = new PageInfo<>(list);
+        List<MaintenancePlan> list = dao.queryListByParam(po);
+        PageInfo<MaintenancePlan> pageInfo = new PageInfo<>(list);
         return pageInfo;
 	}
 	/**
 	 * 通过ID查找
 	 */
 	@Override
-	public MaintenancePlanVo findById(Long id) {
+	public MaintenancePlan findById(Long id) {
 		return dao.findById(id);
 	}
 	/**
 	 * 查询列表
 	 */
 	@Override
-	public List<MaintenancePlanVo> queryListByParam(MaintenancePlanVo vo) {
-		return dao.queryListByParam(vo);
+	public List<MaintenancePlan> queryListByParam(MaintenancePlan po) {
+		return dao.queryListByParam(po);
 	}
 	/**
 	 * 通过ID修改
 	 */
 	@Override
-	public int update(MaintenancePlanVo t) {
+	public int update(MaintenancePlan t) {
 		return dao.update(t);
 	}
 	/**
@@ -69,23 +67,23 @@ public class MaintenancePlanDomainImpl implements MaintenancePlanDomain {
 	}
 
 	@Override
-	public int updateSelective(MaintenancePlanVo t) {
+	public int updateSelective(MaintenancePlan t) {
 		return dao.updateSelective(t);
 	}
 	@Override
-	public List<MaintenancePlanVo> queryListByMap(Map<String, Object> map) {
+	public List<MaintenancePlan> queryListByMap(Map<String, Object> map) {
 		return dao.queryListByMap(map);
 	}
 
 	@Override
-	public int insertSelective(MaintenancePlanVo t) {
+	public int insertSelective(MaintenancePlan t) {
 		return dao.insertSelective(t);
 	}
 	/**
 	 * 新增
 	 */
 	@Override
-	public int insert(MaintenancePlanVo t) {
+	public int insert(MaintenancePlan t) {
 		return dao.insert(t);
 	}
 	

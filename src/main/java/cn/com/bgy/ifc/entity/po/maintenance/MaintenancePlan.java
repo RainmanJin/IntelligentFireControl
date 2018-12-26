@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.entity.vo.repair;
+package cn.com.bgy.ifc.entity.po.maintenance;
 
 import java.util.Date;
 /**
@@ -6,8 +6,8 @@ import java.util.Date;
  * lbj
  * 维保计划
  */
-public class MaintenancePlanVo {
-    private Long id;
+public class MaintenancePlan {
+private Long id;
     
     //组织机构ID
     private Long organizationId;
@@ -41,7 +41,6 @@ public class MaintenancePlanVo {
     private Date endTime;
     //是否逻辑删除
     private Boolean logicRemove;
-
     public Long getId() {
         return id;
     }
@@ -54,36 +53,8 @@ public class MaintenancePlanVo {
 		return organizationName;
 	}
 
-	public Date getBeginTime() {
-		return beginTime;
-	}
-
-	public String getPlanName() {
-		return planName;
-	}
-
-	public void setPlanName(String planName) {
-		this.planName = planName;
-	}
-
-	public void setBeginTime(Date beginTime) {
-		this.beginTime = beginTime;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
-	public Long getRegionId() {
-		return regionId;
-	}
-
-	public void setRegionId(Long regionId) {
-		this.regionId = regionId;
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
 	}
 
 	public String getRegionName() {
@@ -92,10 +63,6 @@ public class MaintenancePlanVo {
 
 	public void setRegionName(String regionName) {
 		this.regionName = regionName;
-	}
-
-	public void setOrganizationName(String organizationName) {
-		this.organizationName = organizationName;
 	}
 
 	public String getProjectName() {
@@ -114,6 +81,30 @@ public class MaintenancePlanVo {
 		this.companyName = companyName;
 	}
 
+	public Date getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(Date beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getPlanName() {
+		return planName;
+	}
+
+	public void setPlanName(String planName) {
+		this.planName = planName;
+	}
+
 	public Long getOrganizationId() {
         return organizationId;
     }
@@ -122,7 +113,15 @@ public class MaintenancePlanVo {
         this.organizationId = organizationId;
     }
 
-    public Long getProjectId() {
+    public Long getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(Long regionId) {
+		this.regionId = regionId;
+	}
+
+	public Long getProjectId() {
         return projectId;
     }
 

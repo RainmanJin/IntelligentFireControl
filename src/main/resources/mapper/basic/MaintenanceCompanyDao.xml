@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.repair.MaintenanceCompanyDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.vo.repair.MaintenanceCompanyVo">
+<mapper namespace="cn.com.bgy.ifc.dao.maintenance.MaintenanceCompanyDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
     <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
@@ -13,7 +13,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">
     insert into maintenance_company (id, organization_id, name,
       telephone, remark, create_time, 
       logic_remove,r_id)
@@ -21,7 +21,7 @@
       #{telephone,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{logicRemove,jdbcType=BIT}, #{rId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">
     insert into maintenance_company
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -81,7 +81,7 @@
       left join region_info as ri on ri.id = mc.organization_id
   </sql>
   <!--分頁查詢-->
-  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany" resultMap="BaseResultMap">
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany" resultMap="BaseResultMap">
   <include refid="selectSql"/>
   <trim prefix=" where " suffix="" suffixOverrides="and">
     <if test="id != null">
@@ -99,7 +99,7 @@
   </trim>
 </select>
   <!--修改维保公司-->
-  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany">
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">
     UPDATE maintenance_company
     <set>
       <if test="organizationId != null">
@@ -138,7 +138,7 @@
       #{id}
     </foreach>
   </update>
-    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany">
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">
         UPDATE maintenance_company
         <set>
             <if test="organizationId != null">

@@ -1,10 +1,9 @@
-package cn.com.bgy.ifc.entity.vo.repair;
+package cn.com.bgy.ifc.entity.po.maintenance;
 
 import java.util.Date;
 
-public class MaintenanceProgramVo {
-
-    private Long id;
+public class MaintenanceProgram {
+	private Long id;
 
     //组织机构Id
     private Long organizationId;
@@ -51,7 +50,31 @@ public class MaintenanceProgramVo {
         return organizationId;
     }
 
-    public void setOrganizationId(Long organizationId) {
+    public String getOrganizationName() {
+		return organizationName;
+	}
+
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
+	}
+
+	public String getRegionName() {
+		return regionName;
+	}
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+
+	public String getEquipmentTypeName() {
+		return equipmentTypeName;
+	}
+
+	public void setEquipmentTypeName(String equipmentTypeName) {
+		this.equipmentTypeName = equipmentTypeName;
+	}
+
+	public void setOrganizationId(Long organizationId) {
         this.organizationId = organizationId;
     }
 
@@ -117,29 +140,5 @@ public class MaintenanceProgramVo {
 
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
-    }
-
-    public String getOrganizationName() {
-        return organizationName;
-    }
-
-    public void setOrganizationName(String organizationName) {
-        this.organizationName = organizationName;
-    }
-
-    public String getRegionName() {
-        return regionName;
-    }
-
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
-    }
-
-    public String getEquipmentTypeName() {
-        return equipmentTypeName;
-    }
-
-    public void setEquipmentTypeName(String equipmentTypeName) {
-        this.equipmentTypeName = equipmentTypeName;
     }
 }

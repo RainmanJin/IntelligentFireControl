@@ -1,26 +1,42 @@
-package cn.com.bgy.ifc.entity.po.repair;
+package cn.com.bgy.ifc.entity.vo.maintenance;
 
 import java.util.Date;
 
-public class MaintenanceProgram {
+public class MaintenanceProgramVo {
+
     private Long id;
 
+    //组织机构Id
     private Long organizationId;
 
+    private String organizationName;
+
+    //区域ID
     private Long regionId;
 
+    private String regionName;
+
+    //设备类型Id
     private Long equipmentTypeId;
 
+    private String equipmentTypeName;
+
+    //范围类型：1半月维保项目、2季度维保项目、3半年维保项目、4年度维保项目
     private Integer cprojectType;
 
+    //排序编号
     private Integer orderByNum;
 
+    //维保项目（内容）
     private String content;
 
+    //维保基本要求
     private String claim;
 
+    //创建时间
     private Date createTime;
 
+    //是否逻辑删除
     private Boolean logicRemove;
 
     public Long getId() {
@@ -101,5 +117,29 @@ public class MaintenanceProgram {
 
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
+    }
+
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public String getEquipmentTypeName() {
+        return equipmentTypeName;
+    }
+
+    public void setEquipmentTypeName(String equipmentTypeName) {
+        this.equipmentTypeName = equipmentTypeName;
     }
 }

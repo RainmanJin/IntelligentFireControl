@@ -6,7 +6,7 @@ import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
 import cn.com.bgy.ifc.bgy.utils.TimeUtil;
-import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceCompanyDomain;
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;

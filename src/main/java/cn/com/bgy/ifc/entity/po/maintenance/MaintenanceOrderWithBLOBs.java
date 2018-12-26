@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.entity.po.repair;
+package cn.com.bgy.ifc.entity.po.maintenance;
 
 public class MaintenanceOrderWithBLOBs extends MaintenanceOrder {
     private String sign;

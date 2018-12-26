@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.repair.MaintenanceContractDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.vo.repair.MaintenanceContractVo">
+<mapper namespace="cn.com.bgy.ifc.dao.maintenance.MaintenanceContractDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="org_name" jdbcType="VARCHAR" property="orgName" />
@@ -25,7 +25,7 @@
   <sql id="Blob_Column_List">
     remark
   </sql>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract">
     insert into maintenance_contract ( org_id, r_id,
       p_id, contract_name, contract_no, 
       company_id, master_contact, contact_phone, 
@@ -39,7 +39,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, #{remark,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract">
     insert into maintenance_contract
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -166,7 +166,7 @@
 
   </sql>
   <!--分页查询-->
-  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.repair.MaintenanceContractVo" resultMap="BaseResultMap">
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract" resultMap="BaseResultMap">
     <include refid="selectMaintenanceContract"/>
     <trim prefix=" where " suffix="" suffixOverrides="and">
       mc.logic_remove=0
@@ -189,7 +189,7 @@
     </trim>
   </select>
   <!--通过id修改合同-->
-  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.repair.MaintenanceContract">
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract">
     UPDATE maintenance_contract
     <set>
       <if test="orgId != null">

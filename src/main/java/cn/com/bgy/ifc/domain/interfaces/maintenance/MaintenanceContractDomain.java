@@ -1,8 +1,5 @@
-package cn.com.bgy.ifc.domain.interfaces.repair;
-import cn.com.bgy.ifc.entity.po.repair.MaintenanceContract;
-import cn.com.bgy.ifc.entity.po.project.RegionInfo;
-import cn.com.bgy.ifc.entity.vo.project.RegionProjectVo;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenanceContractVo;
+package cn.com.bgy.ifc.domain.interfaces.maintenance;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -21,14 +18,14 @@ public interface MaintenanceContractDomain {
      * @param maintenanceContract
      * @return
      */
-    PageInfo<MaintenanceContractVo> queryListByPage(Page<MaintenanceContractVo> page, MaintenanceContractVo maintenanceContract);
+    PageInfo<MaintenanceContract> queryListByPage(Page<MaintenanceContract> page, MaintenanceContract maintenanceContract);
 
     /**
      * 列表查询
      * @param record
      * @return
      */
-    List<MaintenanceContractVo> queryListByParam(MaintenanceContract record);
+    List<MaintenanceContract> queryListByParam(MaintenanceContract record);
 
     /**
      * 添加
@@ -49,7 +46,7 @@ public interface MaintenanceContractDomain {
      * @param （合同id）
      * @return
      */
-    MaintenanceContractVo findById(Long id);
+    MaintenanceContract findById(Long id);
 
     /**
      * 批量删除

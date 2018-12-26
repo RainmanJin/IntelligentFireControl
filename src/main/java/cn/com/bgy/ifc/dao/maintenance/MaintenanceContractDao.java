@@ -1,10 +1,10 @@
-package cn.com.bgy.ifc.dao.repair;
+package cn.com.bgy.ifc.dao.maintenance;
 
 
-import cn.com.bgy.ifc.entity.po.repair.MaintenanceContract;
-import cn.com.bgy.ifc.entity.vo.repair.MaintenanceContractVo;
 
 import java.util.List;
+
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
 
 public interface MaintenanceContractDao {
     int insert(MaintenanceContract record);
@@ -12,10 +12,10 @@ public interface MaintenanceContractDao {
     int insertSelective(MaintenanceContract record);
 
     /**维保合同列表查询*/
-    List<MaintenanceContractVo> queryListByParam(MaintenanceContractVo record);
+    List<MaintenanceContract> queryListByParam(MaintenanceContract record);
 
     /**维保合同ID查询*/
-    MaintenanceContractVo findById(Long id);
+    MaintenanceContract findById(Long id);
 
     /**维保合同修改*/
     int update(MaintenanceContract record);
