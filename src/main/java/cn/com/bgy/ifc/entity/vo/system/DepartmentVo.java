@@ -16,8 +16,8 @@ public class DepartmentVo {
 
 	private Long parentId;
 
-	@NotBlank(message="部门名称不能为空")
-	@Size(max=50,message="部门名称长度不正确")
+	@NotBlank(message="部门名称不能为空！")
+	@Size(max=50,message="部门名称长度不能超过50字符！")
 	private String name;
 
 	/**

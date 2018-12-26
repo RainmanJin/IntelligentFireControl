@@ -3,17 +3,17 @@
 <mapper namespace="cn.com.bgy.ifc.dao.system.SystemRoleDao">
     <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.SystemRole">
         <result column="id" jdbcType="BIGINT" property="id"/>
-        <result column="type" jdbcType="VARCHAR" property="type"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="value" jdbcType="VARCHAR" property="value"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
         <result column="organization_id" jdbcType="BIGINT" property="organizationId"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
-
+        <result column="type" jdbcType="INTEGER" property="type"/>
     </resultMap>
-<insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemRole">
-    insert into system_role (type,name, organization_id,
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemRole">
+    insert into system_role (type,name,value, organization_id,
       logic_remove,state)
-    values (#{type,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT},
+    values (#{type,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{value,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT},
       #{logicRemove,jdbcType=BIT},#{state,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemRole">
@@ -27,6 +27,9 @@
             </if>
             <if test="name != null">
                 name,
+            </if>
+            <if test="value != null">
+                value,
             </if>
             <if test="organizationId != null">
                 organization_id,
@@ -43,10 +46,13 @@
                 #{id,jdbcType=BIGINT},
             </if>
             <if test="type != null">
-                #{type,jdbcType=VARCHAR},
+                #{type,jdbcType=INTEGER},
             </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="value != null">
+                #{value,jdbcType=VARCHAR},
             </if>
             <if test="organizationId != null">
                 #{organizationId,jdbcType=BIGINT},
@@ -60,7 +66,8 @@
         </trim>
     </insert>
     <!--分页条件查询系统角色-->
-    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.vo.system.SystemRoleVo" parameterType="cn.com.bgy.ifc.entity.vo.system.SystemRoleVo">
+    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.vo.system.SystemRoleVo"
+            parameterType="cn.com.bgy.ifc.entity.vo.system.SystemRoleVo">
         SELECT
         t1.id,
         t1.type,
@@ -73,7 +80,7 @@
         LEFT JOIN system_organization t2 ON t1.organization_id = t2.id
         LEFT JOIN account t3 ON t2.user_id = t3.id
         WHERE
-            t1.logic_remove=false
+        t1.logic_remove=false
         <if test="userId != null">
             AND t2.user_id = #{userId}
         </if>
@@ -83,32 +90,7 @@
         <if test="keyWords != null">
             AND t1.name like concat('%',#{keyWords},'%')
         </if>
-  </select>
-
-    <!--<select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.SystemRoleVo" resultMap="BaseResultMap">-->
-        <!--SELECT-->
-        <!--t1.id,-->
-        <!--t1.type,-->
-        <!--t1.name,-->
-        <!--t1.organization_id,-->
-        <!--t1.logic_remove,-->
-        <!--t1.state-->
-        <!--FROM-->
-        <!--system_role t1-->
-        <!--LEFT JOIN system_organization t2 ON t1.organization_id = t2.id-->
-        <!--LEFT JOIN account t3 ON t2.user_id = t3.id-->
-        <!--WHERE-->
-        <!--where logic_remove=true-->
-        <!--<if test="userId != null">-->
-            <!--AND t2.user_id = #{userId}-->
-        <!--</if>-->
-        <!--<if test="type != null ">-->
-            <!--AND t1.type=#{type}-->
-        <!--</if>-->
-        <!--<if test="keyWords != null">-->
-            <!--AND t1.name like concat('%',#{keyWords},'%')-->
-        <!--</if>-->
-    <!--</select>-->
+    </select>
 
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
 		SELECT
@@ -120,30 +102,41 @@
 		state
 		FROM system_role WHERE id = #{id}
   </select>
-    <update id="updateRole" parameterType="cn.com.bgy.ifc.entity.po.system.SystemRole">
+    <update id="update " parameterType="cn.com.bgy.ifc.entity.po.system.SystemRole">
+        UPDATE system_role SET
+        type =#{type},
+            name =#{name},
+            organization_id =#{organizationId},
+            logic_remove =#{logicRemove},
+           state =#{state}
+        WHERE id
+        = #{id}
+    </update>
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemRole">
         UPDATE system_role
         <set>
             <if test="type != null">type =#{type},</if>
             <if test="name != null">name =#{name},</if>
             <if test="organizationId != null">organization_id =#{organizationId},</if>
             <if test="logicRemove != null">logic_remove =#{logicRemove},</if>
-            <if test="state != null">state =#{state}</if>
+            <if test="state != null">state =#{state},</if>
+            <if test="value != null">value =#{value},</if>
         </set>
         WHERE id
         = #{id}
     </update>
     <!--逻辑批量删除系统角色-->
     <update id="deleteBatch" parameterType="java.util.List">
-        UPDATE system_role set logic_remove =1 where id IN
+        UPDATE system_role SET logic_remove =1 WHERE id IN
         <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </update>
     <!--通过系统角色id删除-->
-    <delete id="deleteById" parameterType="Long">
+    <update id="deleteById" parameterType="Long">
        update system_role set logic_remove = true
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
     <select id="queryListByUserId" parameterType="Long" resultMap="BaseResultMap">
 		SELECT
 		id,
@@ -156,18 +149,4 @@
             select ur.role_id from system_user_role ur where ur.user_id =#{userId}
          ) and logic_remove=0
   </select>
-<!--根据用户登录id查询系统角色 下拉框展示-->
-   <!-- <select id="queryListByUserId" parameterType="Long" resultType="cn.com.bgy.ifc.entity.vo.system.basic.SystemRoleVo">
-		SELECT
-            s1.id,
-            s1.NAME
-        FROM
-	        system_role s1
-        LEFT JOIN system_organization s2 ON s1.organization_id = s2.id
-        LEFT JOIN account s3 ON s2.user_id = s3.id
-        WHERE
-	        s1.logic_remove = FALSE
-	    AND s2.user_id = #{userId}
-  </select>
- -->
 </mapper>

@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.controller.inner.equipment;
 
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentBrandService;
@@ -50,10 +51,11 @@ public class EquipmentBrandController {
     @ResponseBody
     public ResponseVO<Object> addEEquipmentBrand( EquipmentBrand record, String token){
         int count = equipmentBrandService.addEquipmentBrand(record);
-        if (count > 0) {
-            return ResponseVO.success().setMsg("添加成功");
+        if (count ==1) {
+            return ResponseVO.addSuccess();
+        }else{
+            return ResponseVO.addError();
         }
-        return ResponseVO.error().setMsg("添加失败！");
     }
     /**
      * @Author huxin

@@ -16,7 +16,7 @@ public class SystemRoleVo {
 	/**
 	 *角色名称
 	 */
-	@NotBlank(message="角色名称不能为空")
+	@NotBlank(message="角色名称不能为空！")
 	@Size(max=40,message="角色名称长度不正确")
 	private String name;
 	/*

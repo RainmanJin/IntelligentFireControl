@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.entity.vo.system;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 /**
  * 机构实体
@@ -13,6 +16,8 @@ public class SystemOrganizationVo {
     /**
      * 机构名称
      */
+    @NotBlank(message="机构名称不能为空！")
+    @Size(max=50,message="机构名称长度不能超过50字符！")
     private String name;
 
     /**
@@ -23,6 +28,7 @@ public class SystemOrganizationVo {
     /**
      * 机构管理员，用户表Id
      */
+    @NotNull(message="机构管理员不能为空！")
     private Long userId;
 
     /**
@@ -34,11 +40,6 @@ public class SystemOrganizationVo {
      * 是否逻辑删除
      */
     private Boolean logicRemove;
-
-    /**
-     * system_organization
-     */
-    private static final long serialVersionUID = 1L;
 
     /**
      * 系统自增Id

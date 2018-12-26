@@ -13,14 +13,6 @@ public interface SystemRoleDao extends BaseDao<SystemRole> {
 
     List<SystemRole> queryListByParam(SystemRole record);
 
-    SystemRole findById(Long id);
-
-    int insert(SystemRole record);
-
-    int insertSelective(SystemRole record);
-
-    int updateRole(SystemRole record);
-
     /**
      * YanXiaoLu
      * 根据当前用户查询父级部门名称（前端下拉展示）

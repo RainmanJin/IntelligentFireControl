@@ -8,12 +8,6 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 public interface SystemOrganizationDomain {
-    /**
-     * 分页
-     * @param interfaceAccount
-     * @return
-     */
-    PageInfo<SystemOrganization> searchByWhere(Page page, SystemOrganization interfaceAccount);
 
     /**
      * @author: ZhangCheng
