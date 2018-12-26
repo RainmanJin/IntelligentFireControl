@@ -20,6 +20,21 @@ public class SystemRole {
      * @Date 2018/12/17 17:19
      */
     private String name;
+
+    /**
+     * @Author chenlie
+     * 角色值
+     */
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     /**
      * @Author huxin
      * @Description 角色状态 0禁用 1 启用

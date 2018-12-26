@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AccountDomainImpl implements AccountDomain {
@@ -54,13 +55,43 @@ public class AccountDomainImpl implements AccountDomain {
     }
 
     @Override
+    public List<Account> queryListByParam(Account account) {
+        return null;
+    }
+
+    @Override
+    public List<Account> queryListByMap(Map<String, Object> map) {
+        return null;
+    }
+
+    @Override
     public Account findById(Long id) {
         return accountDao.findById(id);
     }
 
     @Override
+    public int insert(Account account) {
+        return 0;
+    }
+
+    @Override
+    public int insertSelective(Account account) {
+        return 0;
+    }
+
+    @Override
     public int update(Account account) {
         return accountDao.updateById(account);
+    }
+
+    @Override
+    public int updateSelective(Account account) {
+        return 0;
+    }
+
+    @Override
+    public int deleteBatch(List<Long> ids) {
+        return accountDao.deleteBatch(ids);
     }
 
     /**

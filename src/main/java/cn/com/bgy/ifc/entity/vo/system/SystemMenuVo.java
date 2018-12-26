@@ -25,6 +25,20 @@ public class SystemMenuVo {
 
     private Integer type;
 
+    /**
+     * @Author chenlie
+     * 角色值
+     */
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
 
     public Integer getType() {
         return type;

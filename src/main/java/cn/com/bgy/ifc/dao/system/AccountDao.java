@@ -1,15 +1,12 @@
 package cn.com.bgy.ifc.dao.system;
 
+import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.system.AccountVo;
 
 import java.util.List;
 
-public interface AccountDao {
-    int insert(Account record);
-
-    int insertSelective(Account record);
-
+public interface AccountDao extends BaseDao {
     /**
      * 条件查询用户
      * @param account

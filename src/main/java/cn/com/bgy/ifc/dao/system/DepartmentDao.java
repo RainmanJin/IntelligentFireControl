@@ -10,7 +10,7 @@ public interface DepartmentDao extends BaseDao<Department> {
 
     List<Department> queryAllList();
 
-    List<Department> queryListByParam(DepartmentVo record);
+    List<Department> queryListByParam(Department record);
 
     /**
      * YanXiaoLu

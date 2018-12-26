@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.system;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
@@ -18,13 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/basic/account")
+import java.util.Date;
+import java.util.List;
+
+@RestController
+@RequestMapping("/sys/account")
 public class AccountController extends BaseController {
 
     @Autowired
@@ -53,11 +54,10 @@ public class AccountController extends BaseController {
     }
     @GetMapping("searchPage")
     @ResponseBody
-    public ResponseVO<Object> searchPage(Page<Account> page,@Validated AccountVo accountVo, BindingResult error){
-
-        Account user = this.getUser();
-        Account account= new Account();
-        CopyUtil.copyProperties(accountVo,account);
+    public ResponseVO<Object> searchPage(Page<Account> page, Account account){ Account user = this.getUser();
+        //Account account= new Account();
+        //CopyUtil.copyProperties(accountVo,account);
+        //account.setRegistTimeStart(new Date());
         PageInfo<Account> pageInfo=accountDomain.searchByPage(page,account);
 
         return ResponseVO.success().setData(pageInfo);
@@ -65,21 +65,21 @@ public class AccountController extends BaseController {
 
     /**
      * 根据用户id删除用户
-     * @param id
+     * @param ids
      * @return
      */
-    @PostMapping("deleteById")
+    @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "删除用户")
-    @RequiresRoles(value = {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_ADMIN,SystemConstant.SYSTEM_ROLES_AREA_ADMIN,SystemConstant.SYSTEM_ROLES_PROJECT_ADMIN},logical = Logical.OR)
+   // @RequiresRoles(value = {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_ADMIN,SystemConstant.SYSTEM_ROLES_AREA_ADMIN,SystemConstant.SYSTEM_ROLES_PROJECT_ADMIN},logical = Logical.OR)
     @ResponseBody
-    public ResponseVO<Object> deleteById(Long id){
-
-            Account account=accountDomain.findById(id);
-            if(account==null) {
-                ResponseVO.error().setMsg("请求数据不存在，请刷新重试！");
-            }
-          int res=accountDomain.deleteById(id);
-        return ResponseVO.success().setMsg("数据删除成功！");
+    public ResponseVO<Object> deleteById(String ids){
+          List<Long>idslist=  ListUtil.getListId(ids);
+          int res=accountDomain.deleteBatch(idslist);
+          if(res>0){
+              return ResponseVO.success().setMsg("数据删除成功！");
+          }else{
+              return ResponseVO.error().setMsg("删除失败");
+          }
     }
 
     @PostMapping("findUserPowerByPage")

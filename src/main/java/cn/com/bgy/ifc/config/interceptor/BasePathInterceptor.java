@@ -1,6 +1,11 @@
 package cn.com.bgy.ifc.config.interceptor;
 
+import cn.com.bgy.ifc.bgy.utils.StringUtil;
+import cn.com.bgy.ifc.entity.po.system.Account;
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import com.alibaba.fastjson.JSON;
 import org.apache.shiro.util.PermissionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,13 +20,20 @@ public class BasePathInterceptor extends HandlerInterceptorAdapter {
         response.setHeader("Access-Control-Allow-Methods", "GET,POST,PATCH,PUT,OPTIONS,DELETE,HEAD");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Expose-Headers","Authorization");
-        String scheme = request.getScheme();
-        String serverName = request.getServerName();
-        int port = request.getServerPort();
-        String path = request.getContextPath();
-        String basePath = scheme + "://" + serverName + ":" + port + path;
-        request.setAttribute("basePath", basePath);
-        //PermissionUtils.isLogin(request);
+        Account sysUser = (Account) request.getSession().getAttribute("user");
+        if (null == sysUser && !StringUtil.contains(request.getRequestURI(),"/login") && !StringUtil.contains(request.getRequestURI(),"/getImage")) {
+            String requestedWith = request.getHeader("X-Requested-With");
+            if (StringUtil.isNotEmpty(requestedWith) &&  "XMLHttpRequest".equals("requestedWith")) {
+                //如果是ajax返回指定数据
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("application/json");
+                response.getWriter().write(JSON.toJSONString(ResponseVO.withoutLogin()));
+                return false;
+            } else {//不是ajax进行重定向处理
+                response.sendRedirect("/sys/login");
+                return false;
+            }
+        }
         return true;
     }
 }

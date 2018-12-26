@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DepartmentDomainImpl implements DepartmentDomain {
@@ -25,17 +26,21 @@ public class DepartmentDomainImpl implements DepartmentDomain {
     private DepartmentDao departmentDao;
 
 
-    @SuppressWarnings("UnusedAssignment")
     @Override
-    public PageInfo<DepartmentVo> queryListByPage(Page<DepartmentVo> page, DepartmentVo departmentVo) {
+    public PageInfo<Department> queryListByPage(Page<Department> page, Department department) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Department> list=departmentDao.queryListByParam(departmentVo);
-        return new PageInfo<DepartmentVo>(CopyUtil.convertList(list, new DepartmentVo()));
+        List<Department> list=departmentDao.queryListByParam(department);
+        return new PageInfo<Department>(list);
     }
 
     @Override
-    public List<Department> queryListByParam(DepartmentVo departmentVo) {
-        return departmentDao.queryListByParam(departmentVo);
+    public List<Department> queryListByParam(Department department) {
+        return departmentDao.queryListByParam(department);
+    }
+
+    @Override
+    public List<Department> queryListByMap(Map<String, Object> map) {
+        return null;
     }
 
     @Override
@@ -61,6 +66,11 @@ public class DepartmentDomainImpl implements DepartmentDomain {
         return departmentDao.insert(department);
     }
 
+    @Override
+    public int insertSelective(Department department) {
+        return 0;
+    }
+
     @Transactional
     @Override
     public int update(Department department) {
@@ -69,6 +79,16 @@ public class DepartmentDomainImpl implements DepartmentDomain {
         }
         department.setCreateTime(new Date());
         return departmentDao.update(department);
+    }
+
+    @Override
+    public int updateSelective(Department department) {
+        return 0;
+    }
+
+    @Override
+    public int deleteBatch(List<Long> ids) {
+        return departmentDao.deleteBatch(ids);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package cn.com.bgy.ifc.entity.po.system;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Department {
@@ -15,6 +17,17 @@ public class Department {
 
     private Long organizationId;
 
+    private String keywords;
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private Boolean logicRemove;

@@ -9,6 +9,7 @@ import cn.com.bgy.ifc.entity.vo.system.SystemMenuVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -139,7 +140,7 @@ public class SystemMenuController extends BaseController {
     @ResponseBody
     public ResponseVO<Object> findMenuTreeByType(int type){
         Account user= this.getUser();
-        return ResponseVO.success().setData(systemMenuDomain.findMenuTreeByType(type,1L));
+        return ResponseVO.success().setData(systemMenuDomain.findMenuTreeByType(type,user.getId()));
     }
 
     /**

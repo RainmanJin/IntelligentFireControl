@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.TreeUtil;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.DepartmentDomain;
 import cn.com.bgy.ifc.entity.po.system.Department;
@@ -28,8 +29,8 @@ import java.util.List;
  * @date: 2018-12-05 09:30
  **/
 @Controller
-@RequestMapping("/basic/department")
-public class DepartmentController {
+@RequestMapping("/sys/department")
+public class DepartmentController extends BaseController {
 
     @Autowired
     private DepartmentDomain departmentDomain;
@@ -43,11 +44,11 @@ public class DepartmentController {
      * @param: [page, departmentVo]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.basic.Department>>
      */
-    @GetMapping("query")
+    @GetMapping("searchPage")
     @ResponseBody
-    public ResponseVO<PageInfo<DepartmentVo>> queryList(Page<DepartmentVo> page, DepartmentVo departmentVo) {
-            PageInfo<DepartmentVo> pageInfo = departmentDomain.queryListByPage(page, departmentVo);
-            return ResponseVO.<PageInfo<DepartmentVo>>success().setData(pageInfo);
+    public ResponseVO<PageInfo<Department>> queryListByPage(Page<Department> page, Department department) {
+            PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page, department);
+            return ResponseVO.<PageInfo<Department>>success().setData(pageInfo);
     }
 
     /**
@@ -56,7 +57,7 @@ public class DepartmentController {
      * @param: []
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.util.List<cn.com.bgy.ifc.entity.vo.basic.DepartmentVo>>
      */
-    @GetMapping("tree")
+    @GetMapping("queryTree")
     @ResponseBody
     public ResponseVO<List<DepartmentVo>> queryTree(String token) {
         List<Department> list = departmentDomain.queryAllList();
@@ -70,6 +71,12 @@ public class DepartmentController {
         return ResponseVO.<List<DepartmentVo>>success().setData(treeList);
     }
 
+    @GetMapping("queryAllList")
+    @ResponseBody
+    public ResponseVO<List<Department>> queryAllList() {
+        List<Department> list = departmentDomain.queryAllList();
+        return ResponseVO.<List<Department>>success().setData(list);
+    }
     /**
      * @author: ZhangCheng
      * @description:上级部门查询
@@ -78,10 +85,8 @@ public class DepartmentController {
      */
     @GetMapping("queryList")
     @ResponseBody
-    public ResponseVO<List<Department>> queryList() {
-        DepartmentVo departmentVo = new DepartmentVo();
-        departmentVo.setState(SystemConstant.EnableState.ENABLE.getValue());
-        List<Department> list = departmentDomain.queryListByParam(departmentVo);
+    public ResponseVO<List<Department>> queryList(Department department) {
+        List<Department> list = departmentDomain.queryListByParam(department);
         return ResponseVO.<List<Department>>success().setData(list);
     }
 
@@ -192,13 +197,13 @@ public class DepartmentController {
      * @param: [id]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("delete")
     @ResponseBody
-    public ResponseVO<Object> delete(@PathVariable long id) {
-        /*int count = departmentDomain.deleteById(id);
-        if (count == 1) {
+    public ResponseVO<Object> delete( List<Long> ids) {
+        int count = departmentDomain.deleteBatch(ids);
+        if (count >1) {
             return ResponseVO.success().setMsg("删除成功");
-        }*/
+        }
         return ResponseVO.error().setMsg("删除失败！");
     }
     /**

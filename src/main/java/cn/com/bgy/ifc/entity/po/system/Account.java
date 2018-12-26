@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.entity.po.system;
 
 import cn.com.bgy.ifc.entity.po.system.SystemPower;
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,16 @@ public class Account {
      * 部门id
      */
     private Long departmentId;
+    private String departmentName;
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
     /**
      * 电话号码
      */
@@ -50,7 +61,29 @@ public class Account {
     /**
      * 注册日期
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registTime;
+
+    private Date registTimeStart;
+
+    private Date registTimeEnd;
+
+    public Date getRegistTimeStart() {
+        return registTimeStart;
+    }
+
+    public void setRegistTimeStart(Date registTimeStart) {
+        this.registTimeStart = registTimeStart;
+    }
+
+    public Date getRegistTimeEnd() {
+        return registTimeEnd;
+    }
+
+    public void setRegistTimeEnd(Date registTimeEnd) {
+        this.registTimeEnd = registTimeEnd;
+    }
+
     /**
      * 是否禁用0启用；1禁用
      */
@@ -62,6 +95,7 @@ public class Account {
     /**
      * 登陆时间
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date currentTime;
     /**
      * 最后一次登陆ip
@@ -70,6 +104,7 @@ public class Account {
     /**
      * 最后一次登陆时间
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
     /**
      * 用户类型

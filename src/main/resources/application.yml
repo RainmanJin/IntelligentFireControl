@@ -41,7 +41,8 @@ spring:
            time-between-eviction-runs-millis: 18800
 
   jackson:
-           date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
   jpa:
         show-sql: true

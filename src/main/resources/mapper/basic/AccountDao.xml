@@ -168,6 +168,7 @@
 <!--分页条件查询用户管理列表-->
   <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.Account" resultType="cn.com.bgy.ifc.entity.po.system.Account">
     SELECT
+    t1.id as id,
     t1.user_name as userName,
     t1.telephone,
     t1.job_number  as jobNumber,
@@ -175,13 +176,13 @@
     t1.sex,
     t1.identity_number  as identityNumber,
     t1.is_disable as isDisable,
-    t1.current_time as currentTime
+    t1.current_time as currentTime,
+    t1.regist_time as registTime
     FROM
     account t1
     LEFT JOIN system_organization t2 ON t1.organization_id = t2.id
     left join department t3 ON t1.department_id = t3.id
-    WHERE
-    t2.user_id = 1 AND t1.department_id = 1 AND t1.sex = 1
+
     <where>
         <if test="telephone != null" >
           and t1.telephone= #{telephone,jdbcType=VARCHAR}
@@ -192,8 +193,8 @@
         <if test="userName != null">
           and t1.user_name #{userName,jdbcType=VARCHAR}
         </if>
-        <if test="id != null ">
-          and t2.user_id=#{id}
+        <if test="organizationId != null ">
+          and t1.organization_id=#{organizationId}
         </if>
       <if test="departmentId != null ">
         and t1.department_id=#{departmentId}
@@ -208,8 +209,21 @@
         and t1.last_time=#{lastTime}
       </if>
       <if test="keyWords != null and '' != keyWords">
-        AND  (t1.user_name like CONCAT('%',#{keyWords},'%') OR t1.sex like  CONCAT('%',#{keyWords},'%'))
+        AND  (t1.user_name like CONCAT('%',#{keyWords},'%')
+               OR t1.job_number like  CONCAT('%',#{keyWords},'%')
+               OR t1.identity_number like  CONCAT('%',#{keyWords},'%')
+               OR t3.name like  CONCAT('%',#{keyWords},'%')
+             )
       </if>
+      <if test="registTimeStart != null">
+        <![CDATA[ and regist_time>=#{registTimeStart,jdbcType=TIMESTAMP} ]]>
+      </if>
+      <if test="registTimeEnd != null">
+        <![CDATA[
+         and  regist_time<=#{registTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+      </if>
+
     </where>
   </select>
 <update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.system.Account" >
@@ -356,4 +370,12 @@
       </if>
     </trim>
   </select>
+
+  <update id="deleteBatch" parameterType="java.util.List">
+    UPDATE account SET is_disable =3 WHERE id IN
+    <foreach collection="list" index="index" item="id" open="(" separator=","
+             close=")">
+      #{id}
+    </foreach>
+  </update>
 </mapper>

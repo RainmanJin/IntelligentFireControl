@@ -40,6 +40,7 @@ import java.util.Map;
         //res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
         res.setStatus(HttpServletResponse.SC_OK);
         res.setCharacterEncoding("UTF-8");
+        res.setContentType("application/json");
         PrintWriter writer = res.getWriter();
         writer.write(JSON.toJSONString( ResponseVO.withoutPermission()));
         writer.close();

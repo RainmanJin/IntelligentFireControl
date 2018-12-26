@@ -1,5 +1,7 @@
 package cn.com.bgy.ifc.bgy.utils;
 
+import com.alibaba.fastjson.JSON;
+
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -19,11 +21,7 @@ public class ListUtil {
      */
     public static List<Long> getListId(String ids){
         //获取的id为批量时截取
-        String[] stringIds = ids.split(",");
-        List<Long> list = new ArrayList<>();
-        for (String string : stringIds) {
-            list.add(Long.valueOf(string));
-        }
+        List<Long> list= JSON.parseArray(ids,Long.class);
         return list;
     }
 

@@ -26,12 +26,14 @@ public class StringUtil {
      * @Date 2018/12/12 10:34
      */
     public static boolean isNotEmpty(String s) {
-        if (null == s || "".equals(s) || "".equals(s.trim()) || "null".equalsIgnoreCase(s)||"undefined".equalsIgnoreCase(s)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !isEmpty(s);
     }
 
-
+    public static boolean contains(String source,String target){
+          if(source.indexOf(target) !=-1){
+            return true;
+          }else{
+              return false;
+          }
+    }
 }

@@ -81,9 +81,10 @@
 		FROM department WHERE logic_remove = 0
     </select>
 <!--分页条件查询部门管理-->
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.system.DepartmentVo" resultMap="BaseResultMap">
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.Department" resultType="cn.com.bgy.ifc.entity.po.system.Department">
         SELECT
-        t2.NAME,
+        t2.NAME as parentName,
+        t1.parent_id as parentId,
         t1.name,
         t1.state,
         t1.create_time
@@ -93,24 +94,21 @@
         LEFT JOIN system_organization t3 ON t1.organization_id = t3.id
         <where>
             <if test="parentId != null ">
-                AND a.parent_id=#{parentId}
+                AND t1.parent_id=#{parentId}
             </if>
             <if test="name != null ">
-                AND a.name=#{name}
+                AND t1.name=#{name}
             </if>
             <if test="state != null ">
-                AND a.state=#{state}
+                AND t1.state=#{state}
             </if>
             <if test="organizationId != null ">
-                AND a.organization_id=#{organizationId}
+                AND t1.organization_id=#{organizationId}
             </if>
-            <if test="userId != null ">
-                AND t3.user_id=#{userId}
+            <if test="keywords!='' and keywords!=null">
+                AND (t1.name LIKE concat('%',#{keywords},'%') OR t2.name LIKE concat('%',#{keywords},'%'))
             </if>
-            <if test="keyword!='' and keyword!=null">
-                AND (a.name LIKE concat('%',#{keyword},'%') OR b.name LIKE concat('%',#{keyword},'%'))
-            </if>
-            AND a.logic_remove = 0
+            AND t1.logic_remove = 0
         </where>
     </select>
 
@@ -153,7 +151,7 @@
         = #{id}
     </update>
 
-    <update id="deleteBatch" parameterType="list">
+    <update id="deleteBatch" parameterType="java.util.List">
         UPDATE department SET logic_remove =1 WHERE id IN
         <foreach collection="list" item="id" open="(" separator=","
                  close=")">
