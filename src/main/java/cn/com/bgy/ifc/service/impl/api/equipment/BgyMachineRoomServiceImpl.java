@@ -14,7 +14,6 @@ import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.HttpVo;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyMachineRoomVo;
-import cn.com.bgy.ifc.service.impl.api.system.UserApiServiceImpl;
 import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyMachineRoomService;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -80,22 +79,20 @@ public class BgyMachineRoomServiceImpl implements BgyMachineRoomService {
         //调用HTTP请求
         HttpVo httpVo = SignatureUtil.getHttpVo(config, reqUrl, data);
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
-        System.out.println("res:"+response);
         // 总页数
-        /*int pageCount = ResponseUtil.getPageCount(response, pageSize);
+        int pageCount = ResponseUtil.getPageCount(response, pageSize);
         List<BgyMachineRoomVo> oList = new ArrayList<>();
         BgyMachineRoomVo roomVo = new BgyMachineRoomVo();
         ResponseUtil.getResultList(oList, roomVo, response, "data", "equipmentMachineRoomVoList");
         if (pageCount != 0) {
             ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, roomVo, "data", "equipmentMachineRoomVoList");
-        }*/
-        return ResponseVO.success().setMsg("暂无集成平台机房数据同步！");
-        /*int totalCount = oList.size();
+        }
+        int totalCount = oList.size();
         if (totalCount > 0) {
             return regionComputerRoomDomain.saveBgyComputerRoomList(oList, orgId);
         } else {
             return ResponseVO.success().setMsg("暂无集成平台机房数据同步！");
-        }*/
+        }
     }
 
     @Override

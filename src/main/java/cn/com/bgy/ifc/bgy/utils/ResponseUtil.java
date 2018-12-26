@@ -19,28 +19,76 @@ import java.util.Map;
  **/
 public class ResponseUtil {
 
-
-
     /**
-     *  获取数据页数
+     * 获取数据页数
+     *
      * @param response
      * @param pageSize
      * @return
      */
-    public static int getPageCount(JSONObject response,int pageSize){
-        Integer recordCount=null;
+    public static int getPageCount(JSONObject response, int pageSize) {
+        Integer recordCount = null;
         if (response != null) {
             JSONObject jsonObject = response.getJSONObject("data");
             if (jsonObject != null) {
-                recordCount= jsonObject.getInteger("totalSize");
+                recordCount = jsonObject.getInteger("totalSize");
             }
         }
-        int pageCount=0;
+        int pageCount = 0;
         // 总页数
-        if(recordCount!=null){
+        if (recordCount != null) {
             pageCount = recordCount % pageSize > 0 ? recordCount / pageSize + 1 : recordCount / pageSize;
         }
         return pageCount;
+    }
+
+    /**
+     * 获取苑区，街道，楼栋单元名称
+     *
+     * @param description
+     * @param districtId
+     * @param streetId
+     * @param buildingId
+     * @param type
+     * @return
+     */
+    public static String getDescriptionName(String description, Long districtId, Long streetId, Long buildingId, int type) {
+        String name = null;
+        if (description.length() > 0) {
+            String[] str = description.split("/");
+            if (type == 1) {
+                if (districtId > 0) {
+                    return str[0];
+                }
+            } else if (type == 2) {
+                if (streetId > 0) {
+                    if (districtId == 0) {
+                        return str[0];
+                    } else {
+                        if (str.length >1) {
+                            return str[1];
+                        }
+                    }
+                }
+            } else if (type == 3) {
+                if (buildingId > 0) {
+                    if (districtId == 0 && streetId == 0) {
+                        return str[0];
+                    } else {
+                        if (districtId == 0 || streetId == 0) {
+                            if (str.length >1) {
+                                return str[1];
+                            }
+                        } else {
+                            if (str.length >2) {
+                                return str[2];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return name;
     }
 
     /**
@@ -71,7 +119,7 @@ public class ResponseUtil {
      * @author: ZhangCheng
      * @description:转换ListMap
      * @param: [response, dataKey, listKey]
-     * @return: java.util.List<java.util.Map < java.lang.String , java.lang.Object>>
+     * @return: java.util.List<java.util.Map               <               java.lang.String               ,               java.lang.Object>>
      */
     public static List<Map<String, Object>> getResultListMap(JSONObject response, String dataKey, String listKey) {
         List<Map<String, Object>> mapList = new ArrayList<>();
@@ -99,7 +147,7 @@ public class ResponseUtil {
      * @param: [pageNo, pageSize, pageCount, config, reqUrl, oList, bgyUserVo, dataKey, listKey]
      * @return: java.util.List
      */
-    public static List getResultByPage(int pageNo, int pageSize, int pageCount, ExternalInterfaceConfig config, String reqUrl, List oList, Object bgyUserVo, String dataKey, String listKey)throws Exception {
+    public static List getResultByPage(int pageNo, int pageSize, int pageCount, ExternalInterfaceConfig config, String reqUrl, List oList, Object bgyUserVo, String dataKey, String listKey) throws Exception {
         int startPage = pageNo + 1;
         int newPage = pageNo + 1;
         for (int i = startPage; i <= pageCount; i++) {
@@ -120,7 +168,7 @@ public class ResponseUtil {
      * @param: [pageNo, pageSize, startTime, pageCount, config, reqUrl, oList, bgyUserVo, dataKey, listKey]
      * @return: java.util.List
      */
-    public static List getIncResultByPage(int pageNo, int pageSize,String startTime, int pageCount, ExternalInterfaceConfig config, String reqUrl, List oList, Object bgyUserVo, String dataKey, String listKey)throws Exception {
+    public static List getIncResultByPage(int pageNo, int pageSize, String startTime, int pageCount, ExternalInterfaceConfig config, String reqUrl, List oList, Object bgyUserVo, String dataKey, String listKey) throws Exception {
         int startPage = pageNo + 1;
         int newPage = pageNo + 1;
         for (int i = startPage; i <= pageCount; i++) {

@@ -72,8 +72,11 @@
     </update>
     <select id="findByUserId" parameterType="Long" resultMap="BaseResultMap">
 		SELECT
-		id, region_id, project_id,
-      group_id, user_id
+		id, region_id, project_id,group_id, user_id
 		FROM user_group_items WHERE user_id = #{userId} AND group_id IS NULL
   </select>
+
+    <delete id="deleteById" parameterType="Long">
+       DELETE FROM user_group_items WHERE id = #{id}
+  </delete>
 </mapper>

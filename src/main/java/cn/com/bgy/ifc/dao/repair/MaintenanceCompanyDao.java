@@ -1,15 +1,18 @@
 package cn.com.bgy.ifc.dao.repair;
 
 
+import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.repair.MaintenanceCompany;
 import cn.com.bgy.ifc.entity.vo.repair.MaintenanceCompanyVo;
 
 import java.util.List;
 
-public interface MaintenanceCompanyDao  {
+public interface MaintenanceCompanyDao {
     int insert(MaintenanceCompany record);
 
     int insertSelective(MaintenanceCompany record);
+
+    int updateSelective(MaintenanceCompany record);
 
     /**维保公司列表查询*/
     List<MaintenanceCompanyVo> queryListByParam(MaintenanceCompanyVo record);

@@ -90,9 +90,10 @@ public class EquipmentBrandController {
      * @Description 查询所有设备品牌
      * @Date 2018/12/24 10:27
      */
+    @PostMapping("queryAllBrand")
+    @ResponseBody
     public ResponseVO<Object> queryAllEquipmentBrand(String token ){
-
         List<Map<String,Object>> list =  equipmentBrandService.queryAllEquipmentBrand();
-        return null;
+        return ResponseVO.success().setData(list);
     }
 }

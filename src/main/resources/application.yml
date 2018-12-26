@@ -26,7 +26,7 @@ spring:
         test-while-idle: true
         time-between-eviction-runs-millis: 60000
         min-evictable-idle-time-millis: 300000
-        jdbc-url: jdbc:mysql://47.99.100.79:3306/intelligent_fire_control?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
+        jdbc-url: jdbc:mysql://47.99.100.79:3306/intelligent_fire_control?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC&rewriteBatchedStatements=true
         username: root
         password: root
         type: com.alibaba.druid.pool.DruidDataSource

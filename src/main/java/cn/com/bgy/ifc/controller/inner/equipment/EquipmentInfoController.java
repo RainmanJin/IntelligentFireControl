@@ -94,4 +94,12 @@ public class EquipmentInfoController {
         Map<String,Object> map = equipmentInfoService.queryEquipmentInfoById(id);
         return ResponseVO.success().setData(map);
     }
+    /**
+     * @Author huxin
+     * @Description 设备信息Excel导出
+     * @Date 2018/12/26 9:13
+     */
+    public void exportEquipmentInfoExcel(Long regionId,Long projectId,Long courtId,String token){
+
+    }
 }

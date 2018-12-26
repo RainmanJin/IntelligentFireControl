@@ -76,5 +76,12 @@ public interface BaseDao<T> {
      */
     int deleteBatch(List<Long> ids);
 
+    /**
+     * 单条删除
+     *
+     * @param id
+     * @return
+     */
+    int deleteById(Long id);
 
 }

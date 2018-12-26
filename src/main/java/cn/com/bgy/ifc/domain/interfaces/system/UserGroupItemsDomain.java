@@ -1,8 +1,6 @@
 package cn.com.bgy.ifc.domain.interfaces.system;
 
-import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.domain.interfaces.base.BaseDomain;
-import cn.com.bgy.ifc.entity.po.system.UserGroup;
 import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.BgyUserPermissionVo;

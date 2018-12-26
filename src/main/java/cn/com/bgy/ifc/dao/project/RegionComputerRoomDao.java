@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
 import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RegionComputerRoomDao {
 
@@ -13,7 +14,7 @@ public interface RegionComputerRoomDao {
 
     int updateSelective(RegionComputerRoom record);
 
-    List<RegionComputerRoomVo> queryListRegionComputerRoom( RegionComputerRoomVo record);
+    List<Map<String,Object>> queryListRegionComputerRoom( RegionComputerRoomVo record);
 
     int updateRegionComputerRoom(RegionComputerRoom record);
 

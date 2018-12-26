@@ -15,5 +15,9 @@ public interface EquipmentVersionDao extends BaseDao<EquipmentVersion> {
     int updateEquipmentVersion(EquipmentVersion record);
 
     int deleteEquipmentVersion( List<Long> list );
+    //根据品牌id查询所属的所有型号
+    List<Map<String,Object>> queryEquipmentVersionByBrandId( Long id );
 
+    //根据品牌id查询所属的所有型号ID
+    List<Long> queryEquipmentVersionIdByBrandId(List<Long> list);
 }
