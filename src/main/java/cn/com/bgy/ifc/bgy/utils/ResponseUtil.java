@@ -65,7 +65,7 @@ public class ResponseUtil {
                     if (districtId == 0) {
                         return str[0];
                     } else {
-                        if (str.length == 2) {
+                        if (str.length >1) {
                             return str[1];
                         }
                     }
@@ -76,12 +76,11 @@ public class ResponseUtil {
                         return str[0];
                     } else {
                         if (districtId == 0 || streetId == 0) {
-                            if (str.length == 2) {
+                            if (str.length >1) {
                                 return str[1];
                             }
-
                         } else {
-                            if (str.length == 3) {
+                            if (str.length >2) {
                                 return str[2];
                             }
                         }

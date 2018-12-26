@@ -119,6 +119,9 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                     street.setOrganizationId(orgId);
                     street.setName(name);
                     street.setRegionId(areaId);
+                    if(districtId>0){
+                        street.setCourtId(districtId);
+                    }
                     street.setProjectId(projectId);
                     street.setId(streetId);
                     street.setCreateTime(createTime);
@@ -133,6 +136,12 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                     building.setName(name);
                     building.setRegionId(areaId);
                     building.setProjectId(projectId);
+                    if(districtId>0){
+                        building.setCourtId(districtId);
+                    }
+                    if(streetId>0){
+                        building.setStreetId(streetId);
+                    }
                     building.setId(buildingId);
                     building.setCreateTime(createTime);
                     building.setLogicRemove(false);
@@ -142,9 +151,15 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                 room.setOrganizationId(orgId);
                 room.setRegionId(areaId);
                 room.setProjectId(projectId);
-                room.setCourtId(districtId);
-                room.setBuildingId(buildingId);
-                room.setStreetId(streetId);
+                if(districtId>0){
+                    room.setCourtId(districtId);
+                }
+                if(streetId>0){
+                    room.setStreetId(streetId);
+                }
+                if(buildingId>0){
+                    room.setBuildingId(buildingId);
+                }
                 room.setName(bgyMachineRoomVo.getName());
                 room.setCode(bgyMachineRoomVo.getCode());
                 room.setDescription(bgyMachineRoomVo.getDescription());
