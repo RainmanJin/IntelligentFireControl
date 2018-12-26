@@ -19,7 +19,7 @@ public interface SystemMenuDomain {
 
     public PageInfo<SystemMenuVo> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord);
 
-    public SystemMenu queryOneSystemMenuInfo(Long id);
+    public SystemMenu findById(Long id);
 
     public ResponseVO addSystemMenuInfo( SystemMenu systemMenu);
 

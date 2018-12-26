@@ -91,8 +91,8 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
      * @Param []
      * @return java.util.List<cn.com.bgy.ifc.entity.po.basic.SystemMenu>
      */
-    public SystemMenu queryOneSystemMenuInfo(Long id){
-        return systemMenuDao.queryOneSystemMenuInfo(id);
+    public SystemMenu findById(Long id){
+        return systemMenuDao.findById(id);
     }
 
     /**

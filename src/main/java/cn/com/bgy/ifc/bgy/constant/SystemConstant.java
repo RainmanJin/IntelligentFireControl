@@ -12,34 +12,74 @@ import java.util.List;
  **/
 public class SystemConstant {
 
-    /**
-     * 用户类型(0一般用户,1机构管理员,2系统管理员,3技术管理员)
-     */
-    public enum UserType {
-        //一般用户
-        GENERAL_USER(0, "一般用户"),
-        //机构管理员
-        ORG_ADMIN(1, "机构管理员"),
-        //系统管理员
-        SYSTEM_ADMIN(2, "系统管理员"),
-        //技术管理员
-        ECHNOLOGY_ADMIN(3, "技术管理员");
+    public   static  final String SYSTEM_ROLES_ADMIN="admin";
+    public   static  final String SYSTEM_ROLES_ORG_ADMIN="orgAdmin";
+    public   static  final String SYSTEM_ROLES_ORG_USER="orgUser";
+    public   static  final String SYSTEM_ROLES_AREA_ADMIN="areaAdmin";
+    public   static  final String SYSTEM_ROLES_AREA_USRE="areaUser";
+    public   static  final String SYSTEM_ROLES_PROJECT_ADMIN="projectAdmin";
+    public   static  final String SYSTEM_ROLES_PROJECT_USER="projectUser";
 
-        private Integer value;
+
+    /**
+     * @author chenlie
+     * 用户角色
+     */
+    public enum SYSTEM_ROLES {
+        /**
+         * 系统管理员
+         */
+        ADMIN("admin", "系统管理员"),
+        /**
+         * 集团管理员
+         */
+        ORG_ADMIN("orgAdmin", "集团管理员"),
+        /**
+         * 集团用户
+         */
+        ORG_USER("orgUser", "集团用户"),
+        /**
+         * 区域管理员
+         */
+        AREA_ADMIN("areaAdmin", "区域管理员"),
+        /**
+         * 区域用户
+         */
+        AREA_USRE("areaUser", "区域用户"),
+        /**
+         * 项目管理员
+         */
+        PROJECT_ADMIN("projectAdmin", "项目管理员"),
+        /**
+         * 项目用户
+         */
+        PROJECT_USER("projectUser", "项目用户");
+
+        private String value;
 
         private String name;
 
-        private UserType(Integer value, String name) {
+        private SYSTEM_ROLES(String  value, String name) {
             this.value = value;
             this.name = name;
         }
 
-        public Integer getValue() {
+        public String getValue() {
             return value;
         }
 
         public String getName() {
             return name;
+        }
+        public static List<SelectVo> getSelectList() {
+            List<SelectVo> list = new ArrayList<>();
+            for (SYSTEM_ROLES systemRoles : SYSTEM_ROLES.values()) {
+                SelectVo selectVo = new SelectVo();
+                selectVo.setValue(String.valueOf(systemRoles.getValue()));
+                selectVo.setName(systemRoles.getName());
+                list.add(selectVo);
+            }
+            return list;
         }
     }
 

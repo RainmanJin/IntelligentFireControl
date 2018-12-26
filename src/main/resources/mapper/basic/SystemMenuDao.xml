@@ -152,7 +152,7 @@
             )
   </select>
 
-  <select id="queryOneSystemMenuInfo" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" parameterType="java.lang.Long">
+  <select id="findById" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" parameterType="java.lang.Long">
     SELECT
       id as id,
       name as name,

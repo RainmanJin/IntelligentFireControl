@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.SystemMenu;
@@ -22,7 +23,7 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping(value = "/sys/menu")
-public class SystemMenuController {
+public class SystemMenuController extends BaseController {
     @Autowired
     SystemMenuDomain systemMenuDomain;
 
@@ -51,10 +52,10 @@ public class SystemMenuController {
      * @Param [id]
      * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
      */
-    @GetMapping(value = "/queryOnelSystemMenuInfo")
+    @GetMapping(value = "/findById")
     @ResponseBody
-    public SystemMenu queryOnelSystemMenuInfo(Long id){
-        return systemMenuDomain.queryOneSystemMenuInfo(1L);
+    public SystemMenu findById(Long id){
+        return systemMenuDomain.findById(id);
     }
 
     /**
@@ -137,9 +138,8 @@ public class SystemMenuController {
     @GetMapping(value = "/findMenuTreeByType")
     @ResponseBody
     public ResponseVO<Object> findMenuTreeByType(int type){
-        Account user= (Account)SecurityUtils.getSubject().getSession().getAttribute("user");
-
-        return ResponseVO.success().setData(systemMenuDomain.findMenuTreeByType(type,user.getId()));
+        Account user= this.getUser();
+        return ResponseVO.success().setData(systemMenuDomain.findMenuTreeByType(type,1L));
     }
 
     /**

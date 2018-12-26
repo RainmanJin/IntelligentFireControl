@@ -1,7 +1,9 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -9,6 +11,8 @@ import cn.com.bgy.ifc.entity.vo.system.AccountVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/basic/account")
-public class AccountController {
+public class AccountController extends BaseController {
 
     @Autowired
     private AccountDomain accountDomain;
@@ -50,15 +54,11 @@ public class AccountController {
     @GetMapping("searchPage")
     @ResponseBody
     public ResponseVO<Object> searchPage(Page<Account> page,@Validated AccountVo accountVo, BindingResult error){
-        Subject subject = SecurityUtils.getSubject();
-        //subject.login(token);
-        Account user = (Account) subject.getPreviousPrincipals();
+
+        Account user = this.getUser();
         Account account= new Account();
         CopyUtil.copyProperties(accountVo,account);
-        //PageInfo<Account> pageInfo=accountDomain.searchByPage(page,account);
-//        Account account= new Account();
-//        CopyUtil.copyProperties(accountVo,account);
-        PageInfo<AccountVo> pageInfo=accountDomain.searchByPage(page,accountVo);
+        PageInfo<Account> pageInfo=accountDomain.searchByPage(page,account);
 
         return ResponseVO.success().setData(pageInfo);
     }
@@ -70,6 +70,7 @@ public class AccountController {
      */
     @PostMapping("deleteById")
     @SystemLogAfterSave(type = 1,description = "删除用户")
+    @RequiresRoles(value = {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_ADMIN,SystemConstant.SYSTEM_ROLES_AREA_ADMIN,SystemConstant.SYSTEM_ROLES_PROJECT_ADMIN},logical = Logical.OR)
     @ResponseBody
     public ResponseVO<Object> deleteById(Long id){
 

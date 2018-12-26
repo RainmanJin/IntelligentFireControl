@@ -80,6 +80,16 @@ public class Account {
      */
     private String remark;
 
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
+    }
+
+    private String keyWords;
+
     private List<SystemRole> roleList;
 
     public List<SystemRole> getRoleList() {

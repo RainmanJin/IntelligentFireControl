@@ -22,7 +22,7 @@ public interface AccountDomain {
      * @param account
      * @return
      */
-    List<AccountVo> searchByWhere(AccountVo account);
+    List<Account> searchByWhere(Account account);
 
     /**
      * 分页查询用户
@@ -30,7 +30,7 @@ public interface AccountDomain {
      * @param account
      * @return
      */
-    PageInfo<AccountVo> searchByPage(Page page, AccountVo account);
+    PageInfo<Account> searchByPage(Page page, Account account);
 
     /**
      * 根据id删除用户

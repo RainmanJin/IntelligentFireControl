@@ -15,8 +15,6 @@ public class SystemMenuVo {
 
     private String twoLabelName;
 
-    private String treeLabelName;
-
     private Integer sortIndex;
 
     private Long parentId;
@@ -50,14 +48,6 @@ public class SystemMenuVo {
 
     public void setTwoLabelName(String twoLabelName) {
         this.twoLabelName = twoLabelName;
-    }
-
-    public String getTreeLabelName() {
-        return treeLabelName;
-    }
-
-    public void setTreeLabelName(String treeLabelName) {
-        this.treeLabelName = treeLabelName;
     }
 
     public String getPowerName() {

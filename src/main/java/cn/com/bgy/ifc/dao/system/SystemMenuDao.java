@@ -14,7 +14,7 @@ public interface SystemMenuDao {
 
     public List<SystemMenu> queryAllSystemMenuInfo(@Param("keyWord") String keyWord);
 
-    public SystemMenu queryOneSystemMenuInfo(Long id);
+    public SystemMenu findById(Long id);
 
     public int updateSystemMenuInfo(SystemMenu systemMenu);
 
@@ -24,5 +24,5 @@ public interface SystemMenuDao {
 
     List<SystemMenu> findMenuListByType(@Param("type") int type,@Param("userId") Long userId);
 
-    List<SystemMenu> findMenuByUserAndParentId(@Param("parentId") Long parentId,@Param("userId") Long userId);
+    //List<SystemMenu> findMenuByUserAndParentId(@Param("parentId") Long parentId,@Param("userId") Long userId);
 }

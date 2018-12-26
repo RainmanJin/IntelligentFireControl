@@ -15,7 +15,7 @@ public interface AccountDao {
      * @param account
      * @return
      */
-    List<AccountVo> searchByWhere(AccountVo account);
+    List<Account> searchByWhere(Account account);
 
     /**
      * 根据Id删除用户

@@ -36,15 +36,15 @@ public class AccountDomainImpl implements AccountDomain {
     }
 
     @Override
-    public List<AccountVo> searchByWhere(AccountVo account) {
+    public List<Account> searchByWhere(Account account) {
         return accountDao.searchByWhere(account);
     }
 
     @Override
-    public PageInfo<AccountVo> searchByPage(Page page, AccountVo account) {
+    public PageInfo<Account> searchByPage(Page page, Account account) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<AccountVo> accountList = this.searchByWhere(account);
-        PageInfo<AccountVo> pageInfo = new PageInfo<>(accountList);
+        List<Account> accountList = this.searchByWhere(account);
+        PageInfo<Account> pageInfo = new PageInfo<>(accountList);
         return pageInfo;
     }
 
@@ -98,7 +98,7 @@ public class AccountDomainImpl implements AccountDomain {
                 account.setTelephone(userVo.getTelephone());
                 account.setUserName(userVo.getUserName());
                 account.setPassword(userVo.getPassword());
-                account.setUserType(SystemConstant.UserType.GENERAL_USER.getValue());
+                //account.setUserType(SystemConstant.UserType.GENERAL_USER.getValue());
                 account.setJobNumber(userVo.getJobNum());
                 account.setIsDisable(userVo.getIsDisable());
                 account.setIdentityNumber(userVo.getCreditNo());
@@ -139,7 +139,7 @@ public class AccountDomainImpl implements AccountDomain {
             account.setTelephone(userVo.getTelephone());
             account.setUserName(userVo.getUserName());
             account.setPassword(userVo.getPassword());
-            account.setUserType(SystemConstant.UserType.GENERAL_USER.getValue());
+            //account.setUserType(SystemConstant.UserType.GENERAL_USER.getValue());
             account.setJobNumber(userVo.getJobNum());
             account.setIsDisable(userVo.getIsDisable());
             account.setIdentityNumber(userVo.getCreditNo());
