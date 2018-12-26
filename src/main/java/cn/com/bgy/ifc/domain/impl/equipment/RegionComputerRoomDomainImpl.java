@@ -284,21 +284,16 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
             return ResponseVO.success().setMsg("同步集成平台设备机房增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
     }
-
-    @Override
-    public List<Map<String, Object>> queryListRegionComputerRoom(RegionComputerRoomVo record) {
-        return null;
-    }
     /**
      * @Author huxin
      * @Description 查询
      * @Date 2018/12/20 14:36
      */
-   /* @Override
-    public List<RegionComputerRoomVo> queryListRegionComputerRoom( RegionComputerRoomVo record ) {
-       // return regionComputerRoomDao.queryListRegionComputerRoom(record);
-        return null;
-    }*/
+    @Override
+    public List<Map<String, Object>> queryListRegionComputerRoom(RegionComputerRoomVo record) {
+        return regionComputerRoomDao.queryListRegionComputerRoom(record);
+    }
+
     /**
      * @Author huxin
      * @Description 修改

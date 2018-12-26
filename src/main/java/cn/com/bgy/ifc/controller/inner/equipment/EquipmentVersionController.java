@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author huxin
  * @Date 2018/12/21 16:22
@@ -81,5 +84,13 @@ public class EquipmentVersionController {
         }
         return ResponseVO.error().setMsg("删除失败！");
     }
-
+    /**
+     * @Author huxin
+     * @Description 根据品牌id查询所有型号
+     * @Date 2018/12/25 9:13
+     */
+    public ResponseVO<Object> queryEquipmentVersionByBrandId(Long id,String token){
+        List<Map<String,Object>> list = equipmentVersionService.queryEquipmentVersionByBrandId(id);
+        return ResponseVO.success().setData(list);
+    }
 }

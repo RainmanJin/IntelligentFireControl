@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
+import cn.com.bgy.ifc.dao.equipment.EquipmentVersionDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentVersionDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentVersion;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentVersionService;
@@ -7,6 +8,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -18,6 +23,8 @@ public class EquipmentVersionServiceImpl implements EquipmentVersionService {
 
     @Autowired
     private EquipmentVersionDomain equipmentVersionDomain;
+    @Resource
+    private EquipmentVersionDao equipmentVersionDao;
 
     /**
      * @Author huxin
@@ -55,5 +62,17 @@ public class EquipmentVersionServiceImpl implements EquipmentVersionService {
     @Override
     public int deleteEquipmentVersion( String str ) {
         return equipmentVersionDomain.deleteEquipmentVersion(str);
+    }
+    /**
+     * @Author huxin
+     * @Description 根据品牌ID查询所属的所有型号
+     * @Date 2018/12/25 9:17
+     */
+    @Override
+    public List<Map<String, Object>> queryEquipmentVersionByBrandId( Long id ) {
+        if(id==null || id.toString().length()<=0){
+            return null;
+        }
+        return equipmentVersionDao.queryEquipmentVersionByBrandId(id);
     }
 }

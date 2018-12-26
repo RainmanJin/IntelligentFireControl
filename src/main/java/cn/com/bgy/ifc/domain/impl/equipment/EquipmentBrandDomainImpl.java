@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentBrandDao;
+import cn.com.bgy.ifc.dao.equipment.EquipmentVersionDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentBrandDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
@@ -33,7 +34,8 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
 
     @Resource
     private EquipmentBrandDao equipmentBrandDao;
-
+    @Resource
+    private EquipmentVersionDao equipmentVersionDao;
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
@@ -60,11 +62,12 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
     }
     /**
      * @Author huxin
-     * @Description 删除
+     * @Description 修改
      * @Date 2018/12/21 18:37
      */
     @Override
     public int updateEquipmentBrand( EquipmentBrand equipmentBrand ) {
+
         return equipmentBrandDao.updateEquipmentBrand(equipmentBrand);
     }
     /**
@@ -73,10 +76,12 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
      * @Date 2018/12/21 18:38
      */
     @Override
-
+    @Transactional
     public int deleteEquipmentBrand( String str ) {
         List<Long> list = ListUtil.getListId(str);
         if(list.size()>0){
+           List<Long> versionList =  equipmentVersionDao.queryEquipmentVersionIdByBrandId(list);
+            equipmentVersionDao.deleteEquipmentVersion(versionList);
             return equipmentBrandDao.deleteEquipmentBrand(list);
         }
         return 0;
