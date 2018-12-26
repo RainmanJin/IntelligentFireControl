@@ -129,8 +129,8 @@
   <!--分頁查詢-->
   <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlan" resultMap="BaseResultMap">
     <include refid="Mysql"/>
-    <trim prefix=" where " suffix="" suffixOverrides="and">
-      mp.logic_remove=0
+    <where>
+      mp.logic_remove=0 
       <if test="id != null">
         and mp.id=#{id,jdbcType=BIGINT}
       </if>
@@ -149,22 +149,22 @@
       <if test="companyId != null">
         and mp.company_id= #{companyId,jdbcType=BIGINT}
       </if>
-      <if test="beginTime!=null and beginTime!=''">
-      <!-- // AND mp.create_time <= #{beginTime,jdbcType=TIMESTAMP})  -->
-      <![CDATA[   and DATE_FORMAT(mp.create_time , '%Y-%m-%d')>=  DATE_FORMAT(#{beginTime}, '%Y-%m-%d')   ]]>  
+      <if test="beginTime!=null">
+      <![CDATA[ 
+      and mp.create_time  >= #{beginTime,jdbcType=TIMESTAMP} 
+        ]]>
+	  </if>  
+	   <if test="endTime!=null">
+	  <![CDATA[ 
+	  and mp.create_time <= #{endTime,jdbcType=TIMESTAMP}
+	   ]]>
 	  </if> 
-	  <if test="endTime!=null and endTime!=''">
-	  	<![CDATA[
-			AND mp.create_time <= CONCAT(#{endTime},' 00:00:00')
-		]]>
-	 　　AND mp.create_time &lt;=#{endTime} 
-	  </if>
       <if test="planName != null">
         <!--暂定关键字查询为维保内容的模糊查询-->
-        and mp.plan_name like  concat('%',#{planName},'%')
+        and (mp.plan_name like  concat('%',#{planName},'%'))
       </if>
 
-    </trim>
+    </where>
   </select>
 
   <!--修改维保项目-->
@@ -199,7 +199,7 @@
         create_time=#{createTime},
       </if>
       <if test="logicRemove != null">
-        logic_remove=#{logicRemove},
+        logic_remove=#{logicRemove}
       </if>
 
     </set>

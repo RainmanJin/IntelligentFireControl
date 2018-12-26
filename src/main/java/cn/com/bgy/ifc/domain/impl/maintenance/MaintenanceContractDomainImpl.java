@@ -56,7 +56,7 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
      */
     @Override
     public List<MaintenanceContract> queryListByParam(MaintenanceContract record) {
-        return null;
+        return dao.queryListByParam(record);
     }
     /**
      * 添加

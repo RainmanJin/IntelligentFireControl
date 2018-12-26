@@ -182,6 +182,16 @@
       <if test="companyId != null">
         and mc.company_id=#{companyId,jdbcType=BIGINT}
       </if>
+       <if test="beginTime!=null">
+      <![CDATA[ 
+      and mc.start_date  = #{startDate,jdbcType=TIMESTAMP} 
+        ]]>
+	  </if>  
+	   <if test="endTime!=null">
+	  <![CDATA[ 
+	  and mc.end_date = #{endDate,jdbcType=TIMESTAMP}
+	   ]]>
+	  </if> 
       <if test="contractName != null">
         <!--暂定关键字查询为合同名称的模糊查询-->
         and mc.contract_name like   concat('%',#{contractName},'%')

@@ -43,8 +43,17 @@ public class MaintenanceContractContorller {
         return ResponseVO.success().setData(pageInfo);
     }
     /**
+     * 查询全部
+     * @return
+     */
+    @GetMapping("queryAllList")
+    @ResponseBody
+    public ResponseVO<Object> queryAllList() {
+       return ResponseVO.success().setData(maintenanceContractDomain.queryListByParam(null));
+    }
+    /**
      * @Author lvbingjian
-     * @Description 新增委办合同
+     * @Description 新增维保合同
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("add")

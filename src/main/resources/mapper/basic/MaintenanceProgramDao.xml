@@ -164,7 +164,7 @@
         create_time=#{createTime},
       </if>
       <if test="logicRemove != null">
-        logic_remove=#{logicRemove},
+        logic_remove=#{logicRemove}
       </if>
 
     </set>

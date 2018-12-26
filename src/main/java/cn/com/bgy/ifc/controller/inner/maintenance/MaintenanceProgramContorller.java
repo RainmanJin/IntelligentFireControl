@@ -44,6 +44,17 @@ public class MaintenanceProgramContorller {
         return ResponseVO.success().setData(pageInfo);
     }
     /**
+     * 分页查询
+     *
+     * @param vo
+     * @return
+     */
+    @GetMapping("queryAllList")
+    @ResponseBody
+    public ResponseVO<Object> queryAllList(String token) {
+    	return ResponseVO.success().setData(domain.queryListByParam(null));
+    }
+    /**
      * @Author lvbingjian
      * @Description 新增维保项目
      * @Date 2018年12月20日09:48:38
@@ -73,7 +84,7 @@ public class MaintenanceProgramContorller {
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "维保公司修改")
+    @SystemLogAfterSave(type = 1,description = "维保项目修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenanceProgram po, String token){
         int resout = 1;
@@ -100,12 +111,12 @@ public class MaintenanceProgramContorller {
         return ResponseVO.<MaintenanceProgramVo>success().setData(bean);
     }
     /**
-     * @Author huxin
+     * @Author lvbingjian
      * @Description 删除
-     * @Date 2018/12/18 15:22
+     * @Date 2018年12月26日15:36:00
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "维保公司删除")
+    @SystemLogAfterSave(type = 1,description = "维保项目删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
         int count = domain.deleteMaintenancePrograms(arr);

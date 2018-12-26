@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.entity.po.maintenance;
+package cn.com.bgy.ifc.entity.vo.maintenance;
 
 import java.util.Date;
 /**
@@ -6,7 +6,7 @@ import java.util.Date;
  * @author Administrator
  *
  */
-public class MaintenanceOrder {
+public class MaintenanceOrderVo {
 	//主键ID
     private Long id;
     //维保计划ID
@@ -42,6 +42,18 @@ public class MaintenanceOrder {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(Long planId) {
+        this.planId = planId;
+    }
+
     public String getOrganizationName() {
 		return organizationName;
 	}
@@ -50,12 +62,32 @@ public class MaintenanceOrder {
 		this.organizationName = organizationName;
 	}
 
-	public String getPlanName() {
+	public Long getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(Long deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    public String getPlanName() {
 		return planName;
 	}
 
 	public void setPlanName(String planName) {
 		this.planName = planName;
+	}
+
+	public String getDeviceName() {
+		return deviceName;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
 
 	public String getRemark() {
@@ -74,40 +106,7 @@ public class MaintenanceOrder {
 		this.sign = sign;
 	}
 
-	public String getDeviceName() {
-		return deviceName;
-	}
-
-	public void setDeviceName(String deviceName) {
-		this.deviceName = deviceName;
-	}
-
-
-	public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getPlanId() {
-        return planId;
-    }
-
-    public void setPlanId(Long planId) {
-        this.planId = planId;
-    }
-
-    public Long getDeviceId() {
-        return deviceId;
-    }
-
-    public void setDeviceId(Long deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    public Long getOrganizationId() {
-        return organizationId;
-    }
-
-    public void setOrganizationId(Long organizationId) {
+	public void setOrganizationId(Long organizationId) {
         this.organizationId = organizationId;
     }
 

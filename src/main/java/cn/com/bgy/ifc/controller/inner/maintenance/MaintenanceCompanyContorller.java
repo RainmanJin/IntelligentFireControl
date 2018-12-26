@@ -43,6 +43,15 @@ public class MaintenanceCompanyContorller {
         return ResponseVO.success().setData(pageInfo);
     }
     /**
+     * 查询全部
+     * @return
+     */
+    @GetMapping("queryAllList")
+    @ResponseBody
+    public ResponseVO<Object> queryAllList() {
+        return ResponseVO.success().setData(domain.queryListByParam(null));
+    }
+    /**
      * @Author lvbingjian
      * @Description 新增维保公司
      * @Date 2018年12月20日09:48:38
@@ -99,7 +108,7 @@ public class MaintenanceCompanyContorller {
         return ResponseVO.<MaintenanceCompany>success().setData(bean);
     }
     /**
-     * @Author huxin
+     * @Author lvbingjian
      * @Description 删除
      * @Date 2018/12/18 15:22
      */

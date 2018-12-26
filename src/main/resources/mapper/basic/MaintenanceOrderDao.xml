@@ -1,114 +1,242 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.maintenance.MaintenanceOrderDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="plan_id" jdbcType="BIGINT" property="planId" />
-    <result column="device_id" jdbcType="BIGINT" property="deviceId" />
-    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
-    <result column="staff_info" jdbcType="VARCHAR" property="staffInfo" />
-    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
-    <result column="order_state" jdbcType="INTEGER" property="orderState" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
-    <result column="cycle" jdbcType="BIT" property="cycle" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderWithBLOBs">
-    <result column="sign" jdbcType="LONGVARCHAR" property="sign" />
-    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
-  </resultMap>
-  <sql id="Blob_Column_List">
-    sign, remark
-  </sql>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderWithBLOBs">
-    insert into maintenance_order (id, plan_id, device_id, 
-      organization_id, staff_info, handle_time, 
-      order_state, create_time, logic_remove, 
-      cycle, sign, remark
-      )
-    values (#{id,jdbcType=BIGINT}, #{planId,jdbcType=BIGINT}, #{deviceId,jdbcType=BIGINT}, 
-      #{organizationId,jdbcType=BIGINT}, #{staffInfo,jdbcType=VARCHAR}, #{handleTime,jdbcType=TIMESTAMP}, 
-      #{orderState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, 
-      #{cycle,jdbcType=BIT}, #{sign,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderWithBLOBs">
-    insert into maintenance_order
-    <trim prefix="(" suffix=")" suffixOverrides=",">
+	<resultMap id="BaseResultMap"
+		type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder">
+		<result column="id" jdbcType="BIGINT" property="id" />
+		<result column="plan_id" jdbcType="BIGINT" property="planId" />
+		<result column="plan_name" jdbcType="VARCHAR" property="planName" />
+		<result column="device_id" jdbcType="BIGINT" property="deviceId" />
+		<result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+		<result column="organization_id" jdbcType="BIGINT" property="organizationId" />
+		<result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+		<result column="staff_info" jdbcType="VARCHAR" property="staffInfo" />
+		<result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+		<result column="order_state" jdbcType="INTEGER" property="orderState" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+		<result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+		<result column="sign" jdbcType="LONGVARCHAR" property="sign" />
+		<result column="cycle" jdbcType="BIT" property="cycle" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderWithBLOBs">
+		<result column="sign" jdbcType="LONGVARCHAR" property="sign" />
+		<result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+	</resultMap>
+	<sql id="Blob_Column_List">
+		sign, remark
+	</sql>
+	<insert id="insert"
+		parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderWithBLOBs">
+		insert into maintenance_order (id, plan_id, device_id,
+		organization_id, staff_info, handle_time,
+		order_state, create_time, logic_remove,
+		cycle, sign, remark
+		)
+		values (#{id,jdbcType=BIGINT}, #{planId,jdbcType=BIGINT},
+		#{deviceId,jdbcType=BIGINT},
+		#{organizationId,jdbcType=BIGINT}, #{staffInfo,jdbcType=VARCHAR}, #{handleTime,jdbcType=TIMESTAMP},
+		#{orderState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+		#{logicRemove,jdbcType=BIT},
+		#{cycle,jdbcType=BIT}, #{sign,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderWithBLOBs">
+		insert into maintenance_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="planId != null">
+				plan_id,
+			</if>
+			<if test="deviceId != null">
+				device_id,
+			</if>
+			<if test="organizationId != null">
+				organization_id,
+			</if>
+			<if test="staffInfo != null">
+				staff_info,
+			</if>
+			<if test="handleTime != null">
+				handle_time,
+			</if>
+			<if test="orderState != null">
+				order_state,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="logicRemove != null">
+				logic_remove,
+			</if>
+			<if test="cycle != null">
+				cycle,
+			</if>
+			<if test="sign != null">
+				sign,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="planId != null">
+				#{planId,jdbcType=BIGINT},
+			</if>
+			<if test="deviceId != null">
+				#{deviceId,jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId,jdbcType=BIGINT},
+			</if>
+			<if test="staffInfo != null">
+				#{staffInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="handleTime != null">
+				#{handleTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderState != null">
+				#{orderState,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="logicRemove != null">
+				#{logicRemove,jdbcType=BIT},
+			</if>
+			<if test="cycle != null">
+				#{cycle,jdbcType=BIT},
+			</if>
+			<if test="sign != null">
+				#{sign,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<sql id="Mysql">
+		select mo.id as id,-- 集成平台Id
+		mo.create_time as create_time,-- 创建时间
+		mo.cycle as cycle,-- 是否是维保周期任务工单:0 是 1 不是
+		mo.device_id as device_id,-- 消防设备信息表Id
+		ei.`name` as device_name, -- 设备信息名称
+		mo.handle_time as handle_time,-- 维保处理时间
+		mo.logic_remove as logic_remove,-- 是否逻辑删除
+		mo.order_state as order_state,-- 工单状态
+		mo.organization_id as organization_id,-- 机构表Id，用于区分平台
+		so.`name` as organization_name,-- 机构名称
+		mo.plan_id as plan_id,-- 维保计划表Id
+		mp.plan_name as plai_name,-- 计划名称
+		mo.remark as remark,-- 备注信息
+		mo.sign as sign,-- 维保签字信息
+		mo.staff_info as staff_info-- 维保人员电话备注信息
+		FROM maintenance_order mo
+		left join maintenance_plan mp on mp.id = mo.plan_id
+		left join system_organization so on so.id = mo.organization_id
+		left join equipment_info ei on ei.id = mo.device_id
+	</sql>
+	 <!--分頁查詢-->
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    <trim prefix=" where " suffix="" suffixOverrides="and">
+      mo.logic_remove=0
       <if test="id != null">
-        id,
+        and mo.id=#{id,jdbcType=BIGINT}
       </if>
       <if test="planId != null">
-        plan_id,
+        and mo.plan_id=#{planId,jdbcType=BIGINT}
       </if>
       <if test="deviceId != null">
-        device_id,
+        and mo.device_id= #{deviceId,jdbcType=BIGINT}
       </if>
       <if test="organizationId != null">
-        organization_id,
-      </if>
-      <if test="staffInfo != null">
-        staff_info,
+        and mo.organization_id= #{organizationId,jdbcType=BIGINT}
       </if>
       <if test="handleTime != null">
-        handle_time,
-      </if>
-      <if test="orderState != null">
-        order_state,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="logicRemove != null">
-        logic_remove,
-      </if>
-      <if test="cycle != null">
-        cycle,
+        and mo.handle_time= #{staffInfo,jdbcType=TIMESTAMP}
       </if>
       <if test="sign != null">
-        sign,
+        and mo.sign= #{sign,jdbcType=LONGVARCHAR}
       </if>
       <if test="remark != null">
-        remark,
+        and mo.remark= #{remark,jdbcType=LONGVARCHAR}
       </if>
+      <if test="staffInfo != null">
+        and mo.staff_info= #{staffInfo,jdbcType=VARCHAR}
+      </if>
+      <if test="cycle != null">
+        and mo.cycle= #{cycle,jdbcType=BIT}
+      </if>
+      <if test="remark != null">
+        <!--暂定关键字查询为维保内容的模糊查询-->
+        <!-- and mo.remark like  concat('%',#{remark},'%') -->
+      </if>
+
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
+  </select>
+
+  <!--修改维保工单-->
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram">
+    UPDATE maintenance_order
+    <set>
       <if test="planId != null">
-        #{planId,jdbcType=BIGINT},
+        plan_id=#{planId},
       </if>
       <if test="deviceId != null">
-        #{deviceId,jdbcType=BIGINT},
+        device_id=#{deviceId},
       </if>
       <if test="organizationId != null">
-        #{organizationId,jdbcType=BIGINT},
+        organization_id=#{organizationId},
       </if>
       <if test="staffInfo != null">
-        #{staffInfo,jdbcType=VARCHAR},
+        staff_info=#{staffInfo},
       </if>
       <if test="handleTime != null">
-        #{handleTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="orderState != null">
-        #{orderState,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="logicRemove != null">
-        #{logicRemove,jdbcType=BIT},
-      </if>
-      <if test="cycle != null">
-        #{cycle,jdbcType=BIT},
+        handle_time=#{handleTime},
       </if>
       <if test="sign != null">
-        #{sign,jdbcType=LONGVARCHAR},
+        sign=#{sign},
       </if>
       <if test="remark != null">
-        #{remark,jdbcType=LONGVARCHAR},
+        remark=#{remark},
       </if>
-    </trim>
-  </insert>
+      <if test="orderState != null">
+        order_state=#{orderState},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+      <if test="cycle != null">
+        cycle=#{cycle},
+      </if>
+      <if test="logicRemove != null">
+        logic_remove=#{logicRemove}
+      </if>
+
+    </set>
+    WHERE id = #{id}
+
+  </update>
+
+  <!--通过id查询找-->
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    WHERE mo.id = #{id}
+  </select>
+
+  <!--逻辑批量删除-->
+  <update id="deleteBatch" parameterType="java.util.List">
+    UPDATE maintenance_order set logic_remove =1 where id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
 </mapper>
