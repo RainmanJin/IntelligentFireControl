@@ -271,10 +271,11 @@
         </where>
     </select>
     <!--批量删除机构-->
-    <update id="deleteInterSystemOrganization" parameterType="Long[]">
-        update system_organization set logic_remove = true where id in
-        <foreach close=")" collection="array" index="no" item="item" open="(" separator=",">
-            #{item}
+    <update id="deleteBatch" parameterType="list">
+        UPDATE system_organization SET logic_remove =1 WHERE id IN
+        <foreach collection="list" item="id" open="(" separator=","
+                 close=")">
+            #{id}
         </foreach>
     </update>
     <!--根据当前登录用户获取机构对象-->

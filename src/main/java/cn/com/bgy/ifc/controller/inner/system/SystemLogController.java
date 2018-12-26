@@ -1,11 +1,11 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
-import cn.com.bgy.ifc.domain.interfaces.system.SystemLogDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemOperationLog;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemOperationLogVo;
+import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOperationLogService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import java.util.List;
 public class SystemLogController {
 
     @Autowired
-    SystemLogDomain systemLogDomain;
+   private SystemOperationLogService systemOperationLogService;
 
     /**
      * @author: ZhangCheng
@@ -37,7 +37,7 @@ public class SystemLogController {
     @PostMapping("/query")
     @ResponseBody
     public ResponseVO<PageInfo<SystemOperationLog>> querySystemLogInfo(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo,String token){
-        PageInfo<SystemOperationLog> pageInfo = systemLogDomain.queryListByParam(page,systemOperationLogVo);
+        PageInfo<SystemOperationLog> pageInfo = systemOperationLogService.queryListByParam(page,systemOperationLogVo);
         return ResponseVO.<PageInfo<SystemOperationLog>>success().setData(pageInfo);
     }
 

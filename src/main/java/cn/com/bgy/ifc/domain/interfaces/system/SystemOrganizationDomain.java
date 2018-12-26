@@ -8,18 +8,6 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 public interface SystemOrganizationDomain {
-    SystemOrganization findById(Long id);
-
-    int insert(SystemOrganization systemOrganization);
-
-    int deleteById(Long id);
-    /**
-     * 逻辑删除机构（批量）
-     * @param longs
-     */
-    void  deleteInterSystemOrganization(Long[] longs);
-
-    int update(SystemOrganization systemOrganization);
     /**
      * 分页
      * @param interfaceAccount
@@ -28,16 +16,18 @@ public interface SystemOrganizationDomain {
     PageInfo<SystemOrganization> searchByWhere(Page page, SystemOrganization interfaceAccount);
 
     /**
-     * 集成平台全量增加机构信息
-     * @param list
-     * @return
+     * @author: ZhangCheng
+     * @description:集成平台全量增加机构信息
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     ResponseVO<Object> saveBgyOrgList(List<BgyOrgVo> list,Long orgId );
 
     /**
-     * 集成平台增量增加机构信息
-     * @param list
-     * @return
+     * @author: ZhangCheng
+     * @description:集成平台增量增加机构信息
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     ResponseVO<Object> alterBgyOrgList(List<BgyOrgVo> list,Long orgId);
 

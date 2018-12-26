@@ -11,7 +11,7 @@
         <result column="type_id" jdbcType="BIGINT" property="typeId"/>
         <result column="keep_years" jdbcType="INTEGER" property="keepYears"/>
         <result column="in_work_time" jdbcType="TIMESTAMP" property="inWorkTime"/>
-        <result column="is_important" jdbcType="INTEGER" property="isImportant"/>
+        <result column="important" jdbcType="INTEGER" property="important"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="localtion_code" jdbcType="VARCHAR" property="localtionCode"/>
         <result column="simple_code" jdbcType="VARCHAR" property="simpleCode"/>
@@ -25,12 +25,12 @@
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
     insert into equipment_info (id, name, input_code, 
       version_id, brand_id, type_id, 
-      keep_years, in_work_time, is_important, 
+      keep_years, in_work_time, important,
       status, localtion_code, simple_code, 
       api_code, description,logic_remove)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{inputCode,jdbcType=BIGINT}, 
       #{versionId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, #{typeId,jdbcType=BIGINT}, 
-      #{keepYears,jdbcType=INTEGER}, #{inWorkTime,jdbcType=TIMESTAMP}, #{isImportant,jdbcType=INTEGER}, 
+      #{keepYears,jdbcType=INTEGER}, #{inWorkTime,jdbcType=TIMESTAMP}, #{important,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{localtionCode,jdbcType=VARCHAR}, #{simpleCode,jdbcType=VARCHAR}, 
       #{apiCode,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}, #{logicRemove,jdbcType=BIT})
   </insert>
@@ -64,8 +64,8 @@
             <if test="inWorkTime != null">
                 in_work_time,
             </if>
-            <if test="isImportant != null">
-                is_important,
+            <if test="important != null">
+                important,
             </if>
             <if test="status != null">
                 status,
@@ -114,8 +114,8 @@
             <if test="inWorkTime != null">
                 #{inWorkTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="isImportant != null">
-                #{isImportant,jdbcType=INTEGER},
+            <if test="important != null">
+                #{important,jdbcType=INTEGER},
             </if>
             <if test="status != null">
                 #{status,jdbcType=INTEGER},
@@ -164,8 +164,8 @@
             <if test="inWorkTime != null">
                 in_work_time=#{inWorkTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="isImportant != null">
-                is_important=#{isImportant,jdbcType=INTEGER},
+            <if test="important != null">
+                important=#{important,jdbcType=INTEGER},
             </if>
             <if test="status != null">
                 status=#{status,jdbcType=INTEGER},
@@ -211,8 +211,8 @@
             <if test="inWorkTime != null">
                 in_work_time=#{inWorkTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="isImportant != null">
-                is_important=#{isImportant,jdbcType=INTEGER},
+            <if test="important != null">
+                important=#{important,jdbcType=INTEGER},
             </if>
             <if test="status != null">
                 status=#{status,jdbcType=INTEGER},
@@ -293,7 +293,7 @@
         v.versionId as versionId,v.versionName as versionId,
         v.`name` as name,v.inputCode as inputCode,
         i.keep_years as keepYears,i.in_work_time as workTime,
-        i.is_important as isImportant,localtion_code as localtionCode,
+        i.important as important,localtion_code as localtionCode,
         i.simple_code as simpleCode,i.api_code as apiCode,
         v.`status` as status
         FROM equipment_info_v  v

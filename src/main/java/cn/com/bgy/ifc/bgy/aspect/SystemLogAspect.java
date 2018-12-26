@@ -1,8 +1,8 @@
 package cn.com.bgy.ifc.bgy.aspect;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogSave;
-import cn.com.bgy.ifc.domain.interfaces.system.SystemLogDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemOperationLog;
+import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOperationLogService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -10,11 +10,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.reflect.Method;
-import java.util.Date;
 
 /**
  * @author: ZhangCheng
@@ -31,7 +28,7 @@ import java.util.Date;
 public class SystemLogAspect {
 
     @Autowired
-    private SystemLogDomain systemLogDomain;
+    private SystemOperationLogService systemOperationLogService;
 
     @Pointcut("@annotation(cn.com.bgy.ifc.bgy.annotation.SystemLogSave)")
     public void systemLogSave() {
@@ -45,7 +42,6 @@ public class SystemLogAspect {
      */
     @Before("systemLogSave()")
     public void save(JoinPoint joinPoint) {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         //方法如果存在这样的注释，则返回指定类型的元素的注释，否则为null。
@@ -57,8 +53,6 @@ public class SystemLogAspect {
             //注解上的描述
             systemOperationLog.setOperatorDescribe(systemLogSave.description());
         }
-        systemOperationLog.setCreateTime(new Date());
-        systemOperationLog.setLogicRemove(false);
-        systemLogDomain.addSystemLogInfo(systemOperationLog);
+        systemOperationLogService.insertSystemLogInfo(systemOperationLog);
     }
 }

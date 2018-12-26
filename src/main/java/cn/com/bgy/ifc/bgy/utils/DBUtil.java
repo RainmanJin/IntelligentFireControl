@@ -30,35 +30,6 @@ public class DBUtil {
 
     private static Logger logger = LoggerFactory.getLogger(DBUtil.class);
 
-    public static void main(String[] args) {
-        List<RegionCourt> courtList = new ArrayList<>();
-        List<RegionCourt> newList = new ArrayList<>();
-        RegionCourt a=new RegionCourt();
-        RegionCourt b=new RegionCourt();
-        a.setId(1L);
-        a.setName("xxx");
-        b.setId(1L);
-        b.setName("ccc");
-        courtList.add(a);
-        courtList.add(b);
-        courtList.parallelStream().filter(distinctByKey(RegionCourt::getId))
-                .forEach(System.out::println);
-        for (RegionCourt user : courtList) {
-            boolean bool = newList.stream().anyMatch(u -> u.getId().equals(user.getId()));
-            if (!bool) {
-                newList.add(user);
-            }
-        }
-
-        //courtList.sort(Comparator.comparing(RegionCourt::getId));
-        System.out.println(courtList);
-    }
-
-    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
-        Set<Object> seen = ConcurrentHashMap.newKeySet();
-        return t -> seen.add(keyExtractor.apply(t));
-    }
-
     /**
      * 添加实体list数据
      *

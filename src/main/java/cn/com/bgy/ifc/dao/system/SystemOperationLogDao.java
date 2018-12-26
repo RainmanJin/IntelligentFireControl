@@ -13,7 +13,4 @@ public interface SystemOperationLogDao {
 
     List<SystemOperationLog> queryListByParam(SystemOperationLogVo systemOperationLogVo);
 
-    List<SystemOperationLog> queryRequirementSytemLogInfo(Map<String,String> map);
-
-    void addSystemLogInfo(SystemOperationLog record);
 }

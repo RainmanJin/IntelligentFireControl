@@ -1,9 +1,9 @@
-package cn.com.bgy.ifc.domain.impl.system;
+package cn.com.bgy.ifc.service.impl.inner.system;
 
 import cn.com.bgy.ifc.dao.system.SystemOperationLogDao;
-import cn.com.bgy.ifc.domain.interfaces.system.SystemLogDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemOperationLog;
 import cn.com.bgy.ifc.entity.vo.system.SystemOperationLogVo;
+import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOperationLogService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -14,20 +14,21 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @Author huxin
- * @Date 2018/12/6 10:36
- * @Description 系统日志domain实现层
+ * @author: ZhangCheng
+ * @description:系统日志
+ * @date: 2018-12-26 17:09
  **/
 @Service
-public class SystemLogDomainImpl implements SystemLogDomain {
+public class SystemOperationLogServiceImpl implements SystemOperationLogService {
+
     @Resource
-    SystemOperationLogDao systemOperationLogDao;
+    private SystemOperationLogDao systemOperationLogDao;
 
     /**
      * @author: ZhangCheng
-     * @description:分页查询系统日志
-     * @param: [page, param]
-     * @return: com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.basic.SystemOperationLog>
+     * @description:系统日志分页查询
+     * @param: [page, systemOperationLogVo]
+     * @return: com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.system.SystemOperationLog>
      */
     @Override
     public PageInfo<SystemOperationLog> queryListByParam(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo) {
@@ -37,15 +38,15 @@ public class SystemLogDomainImpl implements SystemLogDomain {
     }
 
     /**
-     * @Author huxin
-     * @Description 日志增加
-     * @Date 2018/12/6 18:24
+     * @author: ZhangCheng
+     * @description:系统日志添加
+     * @param: [systemOperationLog]
+     * @return: int
      */
     @Override
-    public void addSystemLogInfo(SystemOperationLog systemOperationLog) {
+    public int insertSystemLogInfo(SystemOperationLog systemOperationLog) {
         systemOperationLog.setCreateTime(new Date());
         systemOperationLog.setLogicRemove(false);
-        systemOperationLogDao.addSystemLogInfo(systemOperationLog);
+        return systemOperationLogDao.insertSelective(systemOperationLog);
     }
-
 }

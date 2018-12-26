@@ -70,6 +70,12 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
         return regionComputerRoomDao.updateSelective(record);
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:同步集成平台机房数据（包含苑区街道楼栋单元）
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @Override
     public ResponseVO<Object> saveBgyComputerRoomList(List<BgyMachineRoomVo> list, Long orgId) {
         try {
@@ -168,11 +174,12 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                 roomList.add(room);
             }
             if(courtList.size()>0){
+                //苑区数据去重
                 List<RegionCourt> courtList2 = new ArrayList<>();
-                for (RegionCourt user : courtList) {
-                    boolean bool = courtList2.stream().anyMatch(u -> u.getId().equals(user.getId()));
+                for (RegionCourt court : courtList) {
+                    boolean bool = courtList2.stream().anyMatch(u -> u.getId().equals(court.getId()));
                     if (!bool) {
-                        courtList2.add(user);
+                        courtList2.add(court);
                     }
                 }
                 int totalCount = DBUtil.insertByList("region_court", courtList2);
@@ -183,12 +190,12 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                 }
             }
             if(streetList.size()>0){
-                //去重
+                //街道数据去重
                 List<RegionStreet> streetList2 = new ArrayList<>();
-                for (RegionStreet obj : streetList) {
-                    boolean bool = streetList2.stream().anyMatch(u -> u.getId().equals(obj.getId()));
+                for (RegionStreet street : streetList) {
+                    boolean bool = streetList2.stream().anyMatch(u -> u.getId().equals(street.getId()));
                     if (!bool) {
-                        streetList2.add(obj);
+                        streetList2.add(street);
                     }
                 }
                 int totalCount = DBUtil.insertByList("region_street", streetList2);
@@ -199,11 +206,12 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                 }
             }
             if(buildingList.size()>0){
+                //楼栋单元数据去重
                 List<RegionBuilding> buildingList2 = new ArrayList<>();
-                for (RegionBuilding user : buildingList) {
-                    boolean bool = buildingList2.stream().anyMatch(u -> u.getId().equals(user.getId()));
+                for (RegionBuilding building : buildingList) {
+                    boolean bool = buildingList2.stream().anyMatch(u -> u.getId().equals(building.getId()));
                     if (!bool) {
-                        buildingList2.add(user);
+                        buildingList2.add(building);
                     }
                 }
                 int totalCount = DBUtil.insertByList("region_building", buildingList2);
@@ -227,6 +235,12 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
         }
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:同步设备机房增量数据
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @Transactional(rollbackFor = {RuntimeException.class})
     @Override
     public ResponseVO<Object> alterBgyComputerRoomList(List<BgyMachineRoomVo> list, Long orgId) {
@@ -244,9 +258,21 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
             room.setOrganizationId(orgId);
             room.setRegionId(bgyMachineRoomVo.getAreaId());
             room.setProjectId(bgyMachineRoomVo.getProjectId());
-            room.setCourtId(bgyMachineRoomVo.getDistrictId());
-            room.setBuildingId(bgyMachineRoomVo.getBuildingId());
-            room.setStreetId(bgyMachineRoomVo.getStreetId());
+            //苑区id
+            Long districtId=bgyMachineRoomVo.getDistrictId();
+            //街道id
+            Long streetId=bgyMachineRoomVo.getStreetId();
+            //楼栋id
+            Long buildingId=bgyMachineRoomVo.getBuildingId();
+            if(districtId>0){
+                room.setCourtId(districtId);
+            }
+            if(streetId>0){
+                room.setStreetId(streetId);
+            }
+            if(buildingId>0){
+                room.setBuildingId(buildingId);
+            }
             room.setName(bgyMachineRoomVo.getName());
             room.setCode(bgyMachineRoomVo.getCode());
             room.setDescription(bgyMachineRoomVo.getDescription());

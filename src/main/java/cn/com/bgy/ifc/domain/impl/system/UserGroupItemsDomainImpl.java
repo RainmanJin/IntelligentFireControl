@@ -116,47 +116,98 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
     @Transactional(rollbackFor = {RuntimeException.class})
     @Override
     public ResponseVO<Object> alterBgyPermissionList(List<BgyUserPermissionVo> list, Long orgId) {
-        int addType = ExternalConstant.OperationType.ADD.getValue();
-        int updateType = ExternalConstant.OperationType.UPDATE.getValue();
-        int deleteType = ExternalConstant.OperationType.DELETE.getValue();
-        int addCount = 0;
-        int updateCount = 0;
-        int deleteCount = 0;
-        int totalCount=0;
-        for (BgyUserPermissionVo bgyUserPermissionVo : list) {
-            List<BgyPermissionVo> permission = bgyUserPermissionVo.getPermission();
-            Long userId=bgyUserPermissionVo.getId();
-            UserGroupItems myItems=userGroupItemsDao.findByUserId(userId);
-            UserGroupItems group = new UserGroupItems();
-            int operType = bgyUserPermissionVo.getOperType();
-            //新增
-            if (operType == addType) {
-                int count = userGroupItemsDao.insertSelective(group);
-                if (count == 1) {
-                    addCount++;
+        try {
+            int addType = ExternalConstant.OperationType.ADD.getValue();
+            int updateType = ExternalConstant.OperationType.UPDATE.getValue();
+            int deleteType = ExternalConstant.OperationType.DELETE.getValue();
+            int addCount = 0;
+            int updateCount = 0;
+            int deleteCount = 0;
+            int totalCount = list.size();
+            for (BgyUserPermissionVo bgyUserPermissionVo : list) {
+                List<BgyPermissionVo> permission = bgyUserPermissionVo.getPermission();
+                Long userId = bgyUserPermissionVo.getId();
+                UserGroupItems myItems = userGroupItemsDao.findByUserId(userId);
+                UserGroupItems group = new UserGroupItems();
+                group.setUserId(userId);
+                int voSize = permission.size();
+                int typeCount = 0;
+                if (voSize > 0) {
+                    for (int i = 0; i < voSize; i++) {
+                        int type = permission.get(i).getType();
+                        //区域
+                        if (type == 2) {
+                            group.setRegionId(permission.get(i).getBdId());
+                            typeCount++;
+                        }
+                        //项目
+                        if (type == 3) {
+                            group.setProjectId(permission.get(i).getBdId());
+                            typeCount++;
+                        }
+                    }
+                }
+                if (typeCount == 0) {
+                    if (myItems == null) {
+                        deleteCount++;
+                    } else {
+                        int count = userGroupItemsDao.deleteById(myItems.getId());
+                        if (count == 1) {
+                            deleteCount++;
+                        }
+                    }
+                    continue;
+                }
+                int operType = bgyUserPermissionVo.getOperType();
+                //新增
+                if (operType == addType) {
+                    if (myItems == null) {
+                        int count = userGroupItemsDao.insertSelective(group);
+                        if (count == 1) {
+                            addCount++;
+                        }
+                    } else {
+                        group.setId(myItems.getId());
+                        int count = userGroupItemsDao.updateSelective(group);
+                        if (count == 1) {
+                            addCount++;
+                        }
+                    }
+
+                }
+                //修改
+                if (operType == updateType) {
+                    if (myItems == null) {
+                        int count = userGroupItemsDao.insertSelective(group);
+                        if (count == 1) {
+                            updateCount++;
+                        }
+                    } else {
+                        group.setId(myItems.getId());
+                        int count = userGroupItemsDao.updateSelective(group);
+                        if (count == 1) {
+                            updateCount++;
+                        }
+                    }
+                }
+                //删除
+                if (operType == deleteType) {
+                    int count = userGroupItemsDao.deleteById(myItems.getId());
+                    if (count == 1) {
+                        deleteCount++;
+                    }
                 }
             }
-            //修改
-            if (operType == updateType) {
-                int count = userGroupItemsDao.updateSelective(group);
-                if (count == 1) {
-                    updateCount++;
-                }
+            if (addCount + updateCount + deleteCount != totalCount) {
+                throw new RuntimeException("批量同步用户权限增量数据失败!");
+            } else {
+                int msgType = ExternalConstant.MsgTypeValue.BGY_PERMISSION_OBTAIN.getValue();
+                externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
+                return ResponseVO.success().setMsg("同步集成平台用户总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
             }
-            //删除
-            if (operType == deleteType) {
-                int count = userGroupItemsDao.deleteById(myItems.getId());
-                if (count == 1) {
-                    deleteCount++;
-                }
-            }
-        }
-        if (addCount + updateCount + deleteCount != totalCount) {
-            throw new RuntimeException("批量同步用户增量数据失败!");
-        } else {
-            int msgType = ExternalConstant.MsgTypeValue.BGY_PERMISSION_OBTAIN.getValue();
-            externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
-            return ResponseVO.success().setMsg("同步集成平台用户总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
     }
 

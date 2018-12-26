@@ -108,4 +108,68 @@ public class ResponseVO<T> implements Serializable {
         ResponseVO<T> responseVO = new ResponseVO<T>();
         return responseVO.setCode(ResponseVO.WITHOUTLOTIN).setMsg("抱歉，您暂时没有权限进行该操作");
     }
+
+    /**
+     * @author: ZhangCheng
+     * @description:添加成功提示信息
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<T>
+     */
+    public static <T> ResponseVO<T> addSuccess(){
+        ResponseVO<T> responseVO = new ResponseVO<T>();
+        return responseVO.setCode(ResponseVO.SUCCESS).setMsg("添加成功");
+    }
+    /**
+     * @author: ZhangCheng
+     * @description:修改成功提示信息
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<T>
+     */
+    public static <T> ResponseVO<T> editSuccess(){
+        ResponseVO<T> responseVO = new ResponseVO<T>();
+        return responseVO.setCode(ResponseVO.SUCCESS).setMsg("修改成功");
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:删除成功提示信息
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<T>
+     */
+    public static <T> ResponseVO<T> deleteSuccess(){
+        ResponseVO<T> responseVO = new ResponseVO<T>();
+        return responseVO.setCode(ResponseVO.SUCCESS).setMsg("删除成功");
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:添加失败提示信息
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<T>
+     */
+    public static <T> ResponseVO<T> addError(){
+        ResponseVO<T> responseVO = new ResponseVO<T>();
+        return responseVO.setCode(ResponseVO.ERROR).setMsg("添加失败！");
+    }
+    /**
+     * @author: ZhangCheng
+     * @description:修改失败提示信息
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<T>
+     */
+    public static <T> ResponseVO<T> editError(){
+        ResponseVO<T> responseVO = new ResponseVO<T>();
+        return responseVO.setCode(ResponseVO.ERROR).setMsg("修改失败！");
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:删除失败提示信息
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<T>
+     */
+    public static <T> ResponseVO<T> deleteError(){
+        ResponseVO<T> responseVO = new ResponseVO<T>();
+        return responseVO.setCode(ResponseVO.ERROR).setMsg("删除失败！");
+    }
 }

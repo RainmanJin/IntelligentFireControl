@@ -33,30 +33,6 @@ public class SystemOrganizationDomainImpl implements SystemOrganizationDomain {
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
-    @Override
-    public SystemOrganization findById(Long id) {
-        return systemOrganizationDao.findById(id);
-    }
-
-    @Override
-    public int insert(SystemOrganization systemOrganization) {
-        return systemOrganizationDao.insert(systemOrganization);
-    }
-
-    @Override
-    public int deleteById(Long id) {
-        return systemOrganizationDao.deleteById(id);
-    }
-
-    @Override
-    public void deleteInterSystemOrganization(Long[] longs) {
-        systemOrganizationDao.deleteInterSystemOrganization(longs);
-    }
-
-    @Override
-    public int update(SystemOrganization systemOrganization) {
-        return systemOrganizationDao.update(systemOrganization);
-    }
 
     /**
      * 分页查询
@@ -95,7 +71,7 @@ public class SystemOrganizationDomainImpl implements SystemOrganizationDomain {
                 sysOrg.setNature(bgyOrgVo.getNature());
                 sysOrg.setFixedTelephone(bgyOrgVo.getFixedTelephone());
                 if (bgyOrgVo.getRegisterTime() != null) {
-                    sysOrg.setRegisterTime(TimeUtil.parseStrToDate(bgyOrgVo.getRegisterTime()));
+                    sysOrg.setRegisterTime(TimeUtil.parseStrToDateTime(bgyOrgVo.getRegisterTime()));
                 }
                 sysOrg.setTelephone(bgyOrgVo.getTelephone());
                 sysOrg.setEmail(bgyOrgVo.getEmail());
@@ -148,7 +124,7 @@ public class SystemOrganizationDomainImpl implements SystemOrganizationDomain {
             sysOrg.setNature(bgyOrgVo.getNature());
             sysOrg.setFixedTelephone(bgyOrgVo.getFixedTelephone());
             if (bgyOrgVo.getRegisterTime() != null) {
-                sysOrg.setRegisterTime(TimeUtil.parseStrToDate(bgyOrgVo.getRegisterTime()));
+                sysOrg.setRegisterTime(TimeUtil.parseStrToDateTime(bgyOrgVo.getRegisterTime()));
             }
             sysOrg.setTelephone(bgyOrgVo.getTelephone());
             sysOrg.setEmail(bgyOrgVo.getEmail());

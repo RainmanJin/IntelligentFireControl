@@ -1,9 +1,6 @@
 package cn.com.bgy.ifc.bgy.utils;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -45,21 +42,43 @@ public class TimeUtil {
 
     /**
      * @author: ZhangCheng
-     * @description:时间字符串转换，格式yyyy-MM-dd HH:mm:ss
+     * @description:时间字符串转换，格式yyyy-MM-dd
      * @param: [date]
      * @return: java.lang.String
      */
     public static Date parseStrToDate(String date) {
-        return formatStrToDate(date, LONG_DATETIME_FORMATTER);
+        return formatStrToDate(date, TimeFormat.SHORT_DATE_PATTERN_LINE.dateTimeFormatter);
     }
 
     /**
      * @author: ZhangCheng
-     * @description:传入时间字符串，格式化时间
+     * @description:传入时间字符串，格式化时间yyyy-MM-dd
      * @param: [date, dateTimeFormatter]
      * @return: java.lang.String
      */
-    public static Date formatStrToDate(String date, DateTimeFormatter dateTimeFormatter) {
+    public static Date formatStrToDate(String date, DateTimeFormatter dateFormatter) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zdt = LocalDate.parse(date, dateFormatter).atStartOfDay(zoneId);
+        return Date.from(zdt.toInstant());
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:时间字符串转换，格式yyyy-MM-dd HH:mm:ss
+     * @param: [date]
+     * @return: java.lang.String
+     */
+    public static Date parseStrToDateTime(String date) {
+        return formatStrToDateTime(date, LONG_DATETIME_FORMATTER);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:传入时间字符串，格式化时间yyyy-MM-dd HH:mm:ss
+     * @param: [date, dateTimeFormatter]
+     * @return: java.lang.String
+     */
+    public static Date formatStrToDateTime(String date, DateTimeFormatter dateTimeFormatter) {
         ZoneId zoneId = ZoneId.systemDefault();
         ZonedDateTime zdt = LocalDateTime.parse(date, dateTimeFormatter).atZone(zoneId);
         return Date.from(zdt.toInstant());
