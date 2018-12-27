@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.entity.po.maintenance;
 
 import java.util.Date;
 
-public class MaintenanceOrderPphoto {
+public class MaintenanceOrderPhoto {
     private Long id;
 
     private Long orderId;

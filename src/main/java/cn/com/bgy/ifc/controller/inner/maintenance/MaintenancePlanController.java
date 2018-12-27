@@ -3,8 +3,6 @@ package cn.com.bgy.ifc.controller.inner.maintenance;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,28 +18,24 @@ import com.github.pagehelper.PageInfo;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
-import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceOrderDomain;
-import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceProgramDomain;
-import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenancePlanDomain;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlan;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceOrderVo;
+import cn.com.bgy.ifc.entity.vo.maintenance.MaintenancePlanVo;
 
 /**
  * lvbingjian
- * 维保工单控制
- * 2018年12月26日15:35:25
+ * 维保计划
+ * 2018年12月20日
  */
 @Controller
-@RequestMapping("/basic/maintenanceOrder")
-public class MaintenanceOrderContorller {
+@RequestMapping("/maintenance/maintenancePlan")
+public class MaintenancePlanController extends BaseController{
 	
-	@Resource 
-	private MaintenanceOrderDomain domain;
 	@Autowired
-    private MaintenanceContractDomain maintenanceContractDomain;
-	@Autowired
-    private MaintenanceProgramDomain maintenanceProgramDomain;
+	
+	private MaintenancePlanDomain domain;
 	
 	/**
      * 分页查询
@@ -51,9 +45,9 @@ public class MaintenanceOrderContorller {
      */
     @GetMapping("queryPageList")
     @ResponseBody
-    public ResponseVO<Object> queryPageList(Page<MaintenanceOrder> page, MaintenanceOrder po, String token) {
+    public ResponseVO<Object> queryPageList(Page<MaintenancePlan> page, MaintenancePlan po, String token) {
         //关键只查询暂时默认为维保项目名称的模糊查询
-        PageInfo<MaintenanceOrder> pageInfo = domain.queryListByPage(page, po);
+        PageInfo<MaintenancePlan> pageInfo = domain.queryListByPage(page, po);
         return ResponseVO.success().setData(pageInfo);
     }
     /**
@@ -63,7 +57,7 @@ public class MaintenanceOrderContorller {
     @GetMapping("queryAllList")
     @ResponseBody
     public ResponseVO<Object> queryAllList() {
-        return ResponseVO.success().setData(domain.queryListByParam(null));
+    	return ResponseVO.success().setData(domain.queryListByParam(null));
     }
     /**
      * @Author lvbingjian
@@ -71,15 +65,15 @@ public class MaintenanceOrderContorller {
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "维保工单新增")
+    @SystemLogAfterSave(type = 1,description = "维保计划新增")
     @ResponseBody
-    public ResponseVO<Object> add(@Validated MaintenanceOrderVo vo, BindingResult error, String token) {
+    public ResponseVO<Object> add(@Validated MaintenancePlanVo vo, BindingResult error, String token) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
 
-        MaintenanceOrder po = new MaintenanceOrder();
+        MaintenancePlan po = new MaintenancePlan();
         //默认是false删除后设为true
         vo.setLogicRemove(false);
         CopyUtil.copyProperties(vo, po);
@@ -95,11 +89,11 @@ public class MaintenanceOrderContorller {
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "维保工单修改")
+    @SystemLogAfterSave(type = 1,description = "维保计划修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionStreet(MaintenanceOrder po, String token){
+    public ResponseVO<Object> updateRegionStreet(MaintenancePlan vo, String token){
         int resout = 1;
-        int count = domain.update(po);
+        int count = domain.update(vo);
         if (count == resout) {
             return ResponseVO.success().setMsg("修改成功");
         }
@@ -116,18 +110,18 @@ public class MaintenanceOrderContorller {
      */
     @GetMapping("queryById/{id}")
     @ResponseBody
-    public ResponseVO<MaintenanceOrder> queryById(@PathVariable long id, String token) {
-    	MaintenanceOrder bean = domain.findById(id);
+    public ResponseVO<MaintenancePlan> queryById(@PathVariable long id, String token) {
+    	MaintenancePlan bean = domain.findById(id);
 
-        return ResponseVO.<MaintenanceOrder>success().setData(bean);
+        return ResponseVO.<MaintenancePlan>success().setData(bean);
     }
     /**
-     * @Author huxin
+     * @Author lvbingjian
      * @Description 删除
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "维保工单删除")
+    @SystemLogAfterSave(type = 1,description = "维保计划删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
     	List<Long> list = new ArrayList<>();
@@ -146,32 +140,4 @@ public class MaintenanceOrderContorller {
         }
         return ResponseVO.error().setMsg("删除失败！");
     }
-    /**
-     * 获取区域下拉框初始化
-     * @return
-     */
-    @GetMapping("queryRegionList")
-    @ResponseBody
-    public ResponseVO<Object> queryRegionList() {
-        return ResponseVO.success().setData(maintenanceContractDomain.getRegionList());
-    }
-    /**
-     * 获取设备类型下拉框初始化
-     * @return
-     */
-    @GetMapping("queryListEquipmentType")
-    @ResponseBody
-    public ResponseVO<Object> queryListEquipmentType() {
-        return ResponseVO.success().setData(maintenanceProgramDomain.queryListEquipmentType());
-    }
-    /**
-     * 项目下拉框初始化
-     * @return
-     */
-    @GetMapping("queryRegionProjectList")
-    @ResponseBody
-    public ResponseVO<Object> queryRegionProjectList() {
-        return ResponseVO.success().setData(maintenanceContractDomain.getRegionProjectList());
-    }
-
 }

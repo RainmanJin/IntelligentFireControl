@@ -1,15 +1,17 @@
-package cn.com.bgy.ifc.entity.po.maintenance;
+package cn.com.bgy.ifc.entity.vo.maintenance;
 
 import java.util.Date;
 
-public class RepairOrder {
+public class MaintenanceOrderPhotoVo {
     private Long id;
 
     private Long orderId;
 
-    private Long planDetaiId;
+    private Integer executeTyp;
 
-    private Integer resultState;
+    private Integer photoType;
+
+    private String fileName;
 
     private Date createTime;
 
@@ -31,20 +33,28 @@ public class RepairOrder {
         this.orderId = orderId;
     }
 
-    public Long getPlanDetaiId() {
-        return planDetaiId;
+    public Integer getExecuteTyp() {
+        return executeTyp;
     }
 
-    public void setPlanDetaiId(Long planDetaiId) {
-        this.planDetaiId = planDetaiId;
+    public void setExecuteTyp(Integer executeTyp) {
+        this.executeTyp = executeTyp;
     }
 
-    public Integer getResultState() {
-        return resultState;
+    public Integer getPhotoType() {
+        return photoType;
     }
 
-    public void setResultState(Integer resultState) {
-        this.resultState = resultState;
+    public void setPhotoType(Integer photoType) {
+        this.photoType = photoType;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public Date getCreateTime() {

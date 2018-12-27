@@ -7,6 +7,7 @@ import java.util.List;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
 
 public interface MaintenanceContractDao {
+	
     int insert(MaintenanceContract record);
 
     int insertSelective(MaintenanceContract record);
@@ -21,4 +22,5 @@ public interface MaintenanceContractDao {
     int update(MaintenanceContract record);
     /**批量删除*/
     int delete(List<Long> list);
+    
 }
