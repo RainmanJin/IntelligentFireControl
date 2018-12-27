@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.maintenance.MaintenancePlanDetailDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlanDetail">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="plan_id" jdbcType="BIGINT" property="planId" />
+    <result column="program_id" jdbcType="BIGINT" property="programId" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlanDetail">
+    insert into maintenance_plan_detail (id, plan_id, program_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{planId,jdbcType=BIGINT}, #{programId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlanDetail">
+    insert into maintenance_plan_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="planId != null">
+        plan_id,
+      </if>
+      <if test="programId != null">
+        program_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="planId != null">
+        #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="programId != null">
+        #{programId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+   <sql id="Mysql">
+  	select 
+		id,-- 附件ID
+		plan_id,-- 计划ID
+		program_id-- 维保项目ID
+		from maintenance_plan_detail
+  </sql>
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlanDetail" resultMap="BaseResultMap">
+  	<include refid="Mysql"/>
+	<trim prefix=" where " suffix="" suffixOverrides="and">
+		<if test="id != null">
+			and id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="planId != null">
+			and plan_id=#{planId,jdbcType=BIGINT}
+		</if>
+		<if test="programId != null">
+			and program_id=#{programId,jdbcType=BIGINT}
+		</if>
+	</trim>
+  </select>
+   <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlanDetail">
+    UPDATE maintenance_plan_detail
+    <set>
+      <if test="id != null">
+        id=#{id},
+      </if>
+      <if test="contractId != null">
+        contract_id=#{contractId},
+      </if>
+      <if test="fileUrl != null">
+        file_url=#{fileUrl},
+      </if>
+      <if test="fileSystemName != null">
+        file_system_name=#{fileSystemName},
+      </if>
+      <if test="fileName != null">
+        file_name=#{fileName},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    WHERE id = #{id}
+
+  </update>
+
+  <!--通过id查询找-->
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    WHERE mp.id = #{id}
+  </select>
+
+  <!--逻辑批量删除-->
+  <delete id="batchRemoveUserByPks" parameterType="java.util.List">
+		DELETE FROM maintenance_plan_detail WHERE ID in 
+　　<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+　　　 	#{id}
+　　</foreach>
+
+</delete>
+</mapper>
