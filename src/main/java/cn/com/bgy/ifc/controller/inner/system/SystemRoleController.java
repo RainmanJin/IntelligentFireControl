@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.system;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemRoleDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
@@ -10,6 +11,7 @@ import cn.com.bgy.ifc.entity.po.system.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemRoleVo;
+import cn.com.bgy.ifc.service.interfaces.inner.system.SystemRoleService;
 import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -31,7 +33,11 @@ import java.util.List;
 public class SystemRoleController {
 
     @Autowired
+    private SystemRoleService systemRoleService;
+
+    @Autowired
     private SystemRoleDomain roleDomain;
+
     @Autowired
     private SystemOrganizationDomain systemOrganizationDomain;
     /**
@@ -56,7 +62,7 @@ public class SystemRoleController {
     @GetMapping("queryById")
     @ResponseBody
     public ResponseVO<SystemRoleVo> queryById(Long id,String token) {
-        SystemRole systemRole = roleDomain.findById(id);
+        SystemRole systemRole = systemRoleService.findById(id);
         SystemRoleVo systemRoleVo = new SystemRoleVo();
         CopyUtil.copyProperties(systemRole, systemRoleVo);
         return ResponseVO.<SystemRoleVo>success().setData(systemRoleVo);
@@ -72,7 +78,7 @@ public class SystemRoleController {
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "系统角色添加")
     @ResponseBody
-    public ResponseVO<Object> add(@Validated SystemRoleVo systemRoleVo, BindingResult error) {
+    public ResponseVO<Object> add(@Validated SystemRoleVo systemRoleVo, BindingResult error,String token) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -88,16 +94,23 @@ public class SystemRoleController {
         SystemRole systemRole = new SystemRole();
         CopyUtil.copyProperties(systemRoleVo, systemRole);
         systemRole.setOrganizationId(systemOrganization.getId());
-        systemRole.setState(1);
-        systemRole.setLogicRemove(false);
-        int count = roleDomain.insert(systemRole);
+        //启用（有效）
+        systemRole.setState(SystemConstant.StatusType.EFFECTIVE.getValue());
+        int count = systemRoleService.insertSelective(systemRole);
         if (count == 1) {
-            return ResponseVO.success().setMsg("添加成功！");
+            return ResponseVO.addSuccess();
         }
-        return ResponseVO.error().setMsg("添加失败！");
+        return ResponseVO.editError();
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:系统角色修改
+     * @param: [systemRoleVo, error, token]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @PostMapping("edit")
+    @SystemLogAfterSave(type = 1,description = "系统角色修改")
     @ResponseBody
     public ResponseVO<Object> edit(@Validated SystemRoleVo systemRoleVo, BindingResult error,String token) {
         //参数校检
@@ -106,27 +119,33 @@ public class SystemRoleController {
         }
         SystemRole systemRole = new SystemRole();
         CopyUtil.copyProperties(systemRoleVo, systemRole);
-        int count = roleDomain.updateRole(systemRole);
+        int count =  systemRoleService.updateSelective(systemRole);
         if (count == 1) {
-            return ResponseVO.success().setMsg("修改成功");
+            return ResponseVO.editSuccess();
+        }else{
+            return ResponseVO.editError();
         }
-        return ResponseVO.error().setMsg("修改失败！");
     }
 
 
+
     /**
-     * @Author huxin
-     * @Description 系统角色修改
-     * @Date 2018/12/15 12:21
+     * @author: ZhangCheng
+     * @description:系统角色删除
+     * @param: [ids, token]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("updateRole")
+    @PostMapping("deleteBatch")
+    @SystemLogAfterSave(type = 1,description = "系统角色删除")
     @ResponseBody
-    public ResponseVO<Object> updateRole(SystemRole systemRole, BindingResult error,String token) {
-        int count = roleDomain.updateRole(systemRole);
-        if (count == 1) {
-            return ResponseVO.success().setMsg("修改成功");
-        }
-        return ResponseVO.error().setMsg("修改失败！");
+    public ResponseVO<Object> deleteBatch(String ids,String token){
+        List<Long> list= ListUtil.getListId(ids);
+       int deleteCount=systemRoleService.deleteBatch(list);
+       if(deleteCount==list.size()){
+           return ResponseVO.deleteSuccess();
+       }else{
+           return ResponseVO.deleteError();
+       }
     }
 
     /**
@@ -140,21 +159,7 @@ public class SystemRoleController {
         List<SelectVo> list=SystemConstant.SystemRoleType.getSelectList();
         return  ResponseVO.success().setData(list);
     }
-    /**
-     * 批量删除系统角色(通过id删除系统角色)
-     * @param ids
-     * @return
-     */
-    @PostMapping("deleteSystemRole")
-    @SystemLogAfterSave(type = 1,description = "批量删除角色信息")
-    @ResponseBody
-    public ResponseVO<Object> deleteSystemRole(List<Long> ids) {
-        if (ids==null||ids.isEmpty()){
-            return ResponseVO.error().setMsg("参数异常");
-        }
-        roleDomain.deleteBatch(ids);
-        return ResponseVO.success().setMsg("删除成功");
-    }
+
     /**
      * @author: YanXiaoLu
      * @description:根据登录用户查询角色类型（下拉框展示）

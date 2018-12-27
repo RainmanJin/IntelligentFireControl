@@ -18,8 +18,6 @@ public interface SystemRoleDomain extends BaseDomain<SystemRole> {
 
     SystemRole findById(Long id);
 
-    int updateRole(SystemRole record);
-
     /**
      * 根据用户id查询系统角色（下拉展示）
      * @param userId

@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
+import cn.com.bgy.ifc.service.interfaces.inner.base.BaseService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 

@@ -33,22 +33,6 @@ public class SystemOrganizationDomainImpl implements SystemOrganizationDomain {
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
-
-    /**
-     * 分页查询
-     *
-     * @param page
-     * @param systemOrganization
-     * @return
-     */
-    @Override
-    public PageInfo<SystemOrganization> searchByWhere(Page page, SystemOrganization systemOrganization) {
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<SystemOrganization> systemOrganizationtList = systemOrganizationDao.searchByWhere(systemOrganization);
-        PageInfo<SystemOrganization> pageInfo = new PageInfo<>(systemOrganizationtList);
-        return pageInfo;
-    }
-
     /**
      * @author: ZhangCheng
      * @description:同步机构全量

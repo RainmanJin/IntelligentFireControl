@@ -87,17 +87,6 @@ public class SystemRoleDomainImpl  implements SystemRoleDomain {
         return systemRoleDao.deleteBatch(ids);
     }
 
-    /**
-     * @Author huxin
-     * @Description 修改系统角色
-     * @Date 2018/12/17 14:40
-     */
-    @Override
-    public int updateRole(SystemRole record) {
-        return systemRoleDao.updateRole(record);
-    }
-
-
 
     /**
      * 根据登录用户查询系统角色（下拉展示）
