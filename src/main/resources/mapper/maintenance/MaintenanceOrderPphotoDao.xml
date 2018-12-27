@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.maintenance.MaintenanceOrderPphotoDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderPphoto">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="execute_typ" jdbcType="INTEGER" property="executeTyp" />
+    <result column="photo_type" jdbcType="INTEGER" property="photoType" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderPphoto">
+    insert into maintenance_order_photo (id, order_id, execute_typ, 
+      photo_type, file_name, create_time, 
+      logic_remove)
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{executeTyp,jdbcType=INTEGER}, 
+      #{photoType,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{logicRemove,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderPphoto">
+    insert into maintenance_order_photo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="executeTyp != null">
+        execute_typ,
+      </if>
+      <if test="photoType != null">
+        photo_type,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="executeTyp != null">
+        #{executeTyp,jdbcType=INTEGER},
+      </if>
+      <if test="photoType != null">
+        #{photoType,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+</mapper>
