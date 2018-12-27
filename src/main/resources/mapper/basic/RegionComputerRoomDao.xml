@@ -143,7 +143,7 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <select id="queryListRegionComputerRoom" parameterType="cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo" resultType="java.util.Map">
+    <select id="queryListRegionComputerRoom" parameterType="cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO" resultType="java.util.Map">
         SELECT
         cr.id as id,cr.organization_id as organizationId,cr.`name` as name,
         cr.code as code,cr.description as description,cr.create_time as createTime,

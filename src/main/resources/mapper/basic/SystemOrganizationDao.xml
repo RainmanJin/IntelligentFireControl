@@ -243,31 +243,15 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
     <!--分页条件查询机构管理-->
-    <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOrganization"
-            resultMap="BaseResultMap">
+    <select id="queryListByPage" parameterType="String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from system_organization
         <where>
-            logic_remove = FALSE
-            <if test="name != null">
-                and name = #{name,jdbcType=VARCHAR}
-            </if>
-            <if test="state != null">
-                and state = #{state,jdbcType=INTEGER}
-            </if>
-            <if test="userId != null">
-                and user_id = #{userId,jdbcType=BIGINT}
-            </if>
-            <if test="createTime != null">
-                and create_time = #{createTime,jdbcType=TIMESTAMP}
-            </if>
-            <if test="logicRemove != null">
-                and logic_remove = #{logicRemove,jdbcType=BIT}
-            </if>
             <if test="keyWords != null and '' != keyWords ">
                 AND name like CONCAT('%',#{keyWords},'%' )
             </if>
+            AND logic_remove = 0
         </where>
     </select>
     <!--批量删除机构-->

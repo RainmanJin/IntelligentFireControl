@@ -8,9 +8,9 @@ import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfoView;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVo;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -150,9 +150,9 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
      * @Date 2018/12/21 11:36
      */
     @Override
-    public PageInfo queryListEquipmentInfo( Page<Object> page, EquipmentInfoView equipmentInfoView ) {
+    public PageInfo queryListEquipmentInfo( Page<Object> page, RegionAndBrandVO regionAndBrandVO) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Map<String,Object>> list = equipmentInfoDao.queryListEquipmentInfo(equipmentInfoView);
+        List<Map<String,Object>> list = equipmentInfoDao.queryListEquipmentInfo(regionAndBrandVO);
         return new PageInfo(list);
     }
     /**

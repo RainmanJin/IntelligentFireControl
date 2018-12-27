@@ -1,9 +1,9 @@
 package cn.com.bgy.ifc.domain.interfaces.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfoView;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVo;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -33,7 +33,7 @@ public interface EquipmentInfoDomain {
      */
     ResponseVO<Object> alterBgyEquipmentInfo(List<BgyEquipmentVo> list, Long orgId);
 
-    PageInfo queryListEquipmentInfo( Page<Object> page, EquipmentInfoView equipmentInfoView);
+    PageInfo queryListEquipmentInfo( Page<Object> page, RegionAndBrandVO regionAndBrandVO);
 
     int addEquipmentInfo( EquipmentInfo equipmentInfo );
 

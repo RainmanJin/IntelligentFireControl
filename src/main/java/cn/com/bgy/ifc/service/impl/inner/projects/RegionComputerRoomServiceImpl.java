@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.service.impl.inner.projects;
 
 import cn.com.bgy.ifc.domain.interfaces.project.RegionComputerRoomDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
-import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionComputerRoomService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -32,7 +32,7 @@ public class RegionComputerRoomServiceImpl implements RegionComputerRoomService 
      * @Date 2018/12/20 14:42
      */
     @Override
-    public PageInfo queryListRegionComputerRoom( Page page, RegionComputerRoomVo record ) {
+    public PageInfo queryListRegionComputerRoom( Page page, RegionAndBrandVO record ) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<Map<String,Object>> list=  regionComputerRoomDomain.queryListRegionComputerRoom(record);
         return  new PageInfo(list);

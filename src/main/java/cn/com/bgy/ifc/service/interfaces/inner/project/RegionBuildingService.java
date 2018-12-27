@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.service.interfaces.inner.project;
 
 import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
-import cn.com.bgy.ifc.entity.vo.project.RegionBuildingVo;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -16,7 +16,7 @@ import java.util.Map;
 
 public interface RegionBuildingService {
 
-    PageInfo queryListRegionBuilding( Page page, RegionBuildingVo record );
+    PageInfo queryListRegionBuilding( Page page, RegionAndBrandVO regionAndBrandVO  );
 
     int insert( RegionBuilding record );
 

@@ -3,7 +3,7 @@ package cn.com.bgy.ifc.controller.inner.equipment;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.project.RegionComputerRoomVo;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionComputerRoomService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -33,8 +33,8 @@ public class RegionComputerRoomController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListComputerRoom( Page<Object> page, RegionComputerRoomVo regionComputerRoomVo, String token){
-        PageInfo pageInfo = regionComputerRoomService.queryListRegionComputerRoom(page,regionComputerRoomVo);
+    public ResponseVO<PageInfo> queryListComputerRoom( Page<Object> page, RegionAndBrandVO regionAndBrandVO, String token){
+        PageInfo pageInfo = regionComputerRoomService.queryListRegionComputerRoom(page,regionAndBrandVO);
         return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**

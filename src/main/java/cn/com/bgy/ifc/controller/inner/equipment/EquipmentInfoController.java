@@ -2,8 +2,8 @@ package cn.com.bgy.ifc.controller.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfoView;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentInfoService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -34,8 +34,8 @@ public class EquipmentInfoController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListEquipmentInfo( Page<Object> page, EquipmentInfoView equipmentInfoView, String token){
-        PageInfo pageInfo = equipmentInfoService.queryListEquipmentInfo(page,equipmentInfoView);
+    public ResponseVO<PageInfo> queryListEquipmentInfo( Page<Object> page, RegionAndBrandVO regionAndBrandVO, String token){
+        PageInfo pageInfo = equipmentInfoService.queryListEquipmentInfo(page,regionAndBrandVO);
         return  ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**e

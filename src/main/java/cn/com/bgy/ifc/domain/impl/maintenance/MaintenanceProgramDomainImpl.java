@@ -1,11 +1,10 @@
-package cn.com.bgy.ifc.domain.impl.maintenance;
+package cn.com.bgy.ifc.domain.impl.repair;
 
 import cn.com.bgy.ifc.dao.equipment.EquipmentTypeDao;
-import cn.com.bgy.ifc.dao.maintenance.MaintenanceProgramDao;
-import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceProgramDomain;
-import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram;
-import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceProgramVo;
-
+import cn.com.bgy.ifc.dao.repair.MaintenanceProgramDao;
+import cn.com.bgy.ifc.domain.interfaces.repair.MaintenanceProgramDomain;
+import cn.com.bgy.ifc.entity.po.repair.MaintenanceProgram;
+import cn.com.bgy.ifc.entity.vo.repair.MaintenanceProgramVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -25,28 +24,28 @@ public class MaintenanceProgramDomainImpl implements MaintenanceProgramDomain {
     private EquipmentTypeDao equipmentTypeDao ;
 
     @Override
-    public PageInfo<MaintenanceProgram> queryListByPage(Page<MaintenanceProgram> page, MaintenanceProgram record) {
+    public PageInfo<MaintenanceProgramVo> queryListByPage(Page<MaintenanceProgramVo> page, MaintenanceProgramVo record) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         //List<MaintenanceProgramVo> maintenanceContractList = dao.queryListByParam(record);
-        List<MaintenanceProgram> maintenanceContractList =null;
-        PageInfo<MaintenanceProgram> pageInfo = new PageInfo<>(maintenanceContractList);
+        List<MaintenanceProgramVo> maintenanceContractList =null;
+        PageInfo<MaintenanceProgramVo> pageInfo = new PageInfo<>(maintenanceContractList);
         return pageInfo;
     }
 
     @Override
-    public List<MaintenanceProgram> queryListByParam(MaintenanceProgram record) {
+    public List<MaintenanceProgramVo> queryListByParam(MaintenanceProgramVo record) {
         //return dao.queryListByParam(record);
         return null;
     }
 
     @Override
-    public int addMaintenanceProgramInfo(MaintenanceProgram record) {
+    public int addMaintenanceProgramInfo(MaintenanceProgramVo record) {
         //return dao.insert(record);
         return 0;
     }
 
     @Override
-    public int updateMaintenanceProgram(MaintenanceProgram record) {
+    public int updateMaintenanceProgram(MaintenanceProgramVo record) {
         //return dao.update(record);
         return 0;
     }

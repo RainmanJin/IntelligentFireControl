@@ -243,14 +243,10 @@
         </foreach>
     </update>
 
-    <select id="queryListEquipmentInfo"  resultType="java.util.Map" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfoView">
+    <select id="queryListEquipmentInfo"  resultType="java.util.Map" parameterType="cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO">
         SELECT
             id,
-            regionId,regionName,
-            projectId,projectName,
-            courtId,courtName,
-            streetId,streetName,
-            buildingId,buildingName,
+            concat(regionName,projectName,courtName,streetName,buildingName) as address,
             `name`,inputCode,
             typeId,typeName,
             brandId,brandName,
@@ -299,5 +295,9 @@
         FROM equipment_info_v  v
         LEFT JOIN equipment_info i ON v.id = i.id
         where i.id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="queryRoomIdByEquipmentId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT machine_room_id FROM equipment_info  WHERE id = #{id} and  logic_remove = 0
     </select>
 </mapper>

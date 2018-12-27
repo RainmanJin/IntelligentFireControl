@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.interfaces.project;
 
 import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
-import cn.com.bgy.ifc.entity.vo.project.RegionBuildingVo;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.Map;
 
 public interface RegionBuildingDomain {
 
-    List<Map<String,Object>> queryListRegionBuilding( RegionBuildingVo record );
+    List<Map<String,Object>> queryListRegionBuilding( RegionAndBrandVO regionAndBrandVO );
 
     int insert( RegionBuilding record );
 
