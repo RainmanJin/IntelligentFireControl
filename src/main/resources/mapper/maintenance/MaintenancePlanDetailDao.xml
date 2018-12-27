@@ -64,20 +64,11 @@
       <if test="id != null">
         id=#{id},
       </if>
-      <if test="contractId != null">
-        contract_id=#{contractId},
+      <if test="programId != null">
+        program_id=#{programId},
       </if>
-      <if test="fileUrl != null">
-        file_url=#{fileUrl},
-      </if>
-      <if test="fileSystemName != null">
-        file_system_name=#{fileSystemName},
-      </if>
-      <if test="fileName != null">
-        file_name=#{fileName},
-      </if>
-      <if test="createTime != null">
-        create_time=#{createTime},
+      <if test="planId != null">
+        plan_id=#{planId},
       </if>
     </set>
     WHERE id = #{id}
@@ -91,7 +82,7 @@
   </select>
 
   <!--逻辑批量删除-->
-  <delete id="batchRemoveUserByPks" parameterType="java.util.List">
+  <delete id="delete" parameterType="java.util.List">
 		DELETE FROM maintenance_plan_detail WHERE ID in 
 　　<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
 　　　 	#{id}
