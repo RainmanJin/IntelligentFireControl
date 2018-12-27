@@ -7,7 +7,7 @@ import com.github.pagehelper.PageInfo;
 
 /**
  * @author: ZhangCheng
- * @description:
+ * @description:系统日志
  * @date: 2018-12-26 17:08
  **/
 public interface SystemOperationLogService {

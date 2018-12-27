@@ -52,6 +52,7 @@ public class LoginController {
 
     @Autowired
     SystemUserRoleDomain systemUserRoleDomain;
+
     @Autowired
     SystemRolePowerDomain systemRolePowerDomain;
 
@@ -104,8 +105,8 @@ public class LoginController {
         //获取session中的验证码
         String code = request.getSession().getAttribute("identifyCode") == null ? "" : request.getSession().getAttribute("identifyCode").toString().toLowerCase();
         if (identifyCode == null || "".equals(identifyCode)) {
-            //验证吗不能为空
-            return ResponseVO.error().setMsg("验证吗不能为空");
+            //验证码不能为空
+            return ResponseVO.error().setMsg("验证码不能为空");
         } else if (identifyCode.toLowerCase().equals(code)) {
             UsernamePasswordToken token = new UsernamePasswordToken(userName, password.toUpperCase(),false,request.getRemoteHost());
             try {
