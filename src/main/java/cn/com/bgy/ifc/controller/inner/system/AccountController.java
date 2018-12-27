@@ -30,11 +30,7 @@ public class AccountController extends BaseController {
 
     @Autowired
     private AccountDomain accountDomain;
-    @GetMapping("/accountPage")
-    public String userPage(){
 
-        return "/basic/accountPage";
-    }
     @PostMapping("add")
     @ResponseBody
     public   ResponseVO<Object>  add(Page<Account> page,@Validated AccountVo accountVo, BindingResult error){
