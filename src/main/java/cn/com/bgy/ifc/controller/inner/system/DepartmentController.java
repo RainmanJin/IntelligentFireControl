@@ -13,6 +13,8 @@ import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.DepartmentVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -29,8 +31,10 @@ import java.util.List;
  * @date: 2018-12-05 09:30
  **/
 @Controller
-@RequestMapping("/sys/department")
+@RequestMapping("/system/department")
 public class DepartmentController extends BaseController {
+
+    private static Logger logger= LoggerFactory.getLogger(DepartmentController.class);
 
     @Autowired
     private DepartmentDomain departmentDomain;

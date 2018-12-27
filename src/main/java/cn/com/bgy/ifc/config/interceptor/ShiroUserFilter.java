@@ -37,7 +37,7 @@ import java.util.Map;
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletResponse res = (HttpServletResponse)response;
-        //res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
+        res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
         res.setStatus(HttpServletResponse.SC_OK);
         res.setCharacterEncoding("UTF-8");
         res.setContentType("application/json");

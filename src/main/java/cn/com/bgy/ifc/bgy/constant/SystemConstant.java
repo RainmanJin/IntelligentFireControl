@@ -12,6 +12,9 @@ import java.util.List;
  **/
 public class SystemConstant {
 
+    /**
+     * 用户角色
+     */
     public   static  final String SYSTEM_ROLES_ADMIN="admin";
     public   static  final String SYSTEM_ROLES_ORG_ADMIN="orgAdmin";
     public   static  final String SYSTEM_ROLES_ORG_USER="orgUser";
@@ -19,13 +22,16 @@ public class SystemConstant {
     public   static  final String SYSTEM_ROLES_AREA_USRE="areaUser";
     public   static  final String SYSTEM_ROLES_PROJECT_ADMIN="projectAdmin";
     public   static  final String SYSTEM_ROLES_PROJECT_USER="projectUser";
-
+    /**
+     * 初始化密码
+     */
+    public   static  final  String INITAL_PASSWORD="123456";
 
     /**
      * @author chenlie
      * 用户角色
      */
-    public enum SYSTEM_ROLES {
+    public enum System_Roles {
         /**
          * 系统管理员
          */
@@ -59,7 +65,7 @@ public class SystemConstant {
 
         private String name;
 
-        private SYSTEM_ROLES(String  value, String name) {
+        private System_Roles(String  value, String name) {
             this.value = value;
             this.name = name;
         }
@@ -73,7 +79,7 @@ public class SystemConstant {
         }
         public static List<SelectVo> getSelectList() {
             List<SelectVo> list = new ArrayList<>();
-            for (SYSTEM_ROLES systemRoles : SYSTEM_ROLES.values()) {
+            for (System_Roles systemRoles : System_Roles.values()) {
                 SelectVo selectVo = new SelectVo();
                 selectVo.setValue(String.valueOf(systemRoles.getValue()));
                 selectVo.setName(systemRoles.getName());

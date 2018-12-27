@@ -30,7 +30,7 @@ public class BasePathInterceptor extends HandlerInterceptorAdapter {
                 response.getWriter().write(JSON.toJSONString(ResponseVO.withoutLogin()));
                 return false;
             } else {//不是ajax进行重定向处理
-                response.sendRedirect("/sys/login");
+                response.sendRedirect("/system/login");
                 return false;
             }
         }

@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.dao.system;
 import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.system.AccountVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -55,4 +56,8 @@ public interface AccountDao extends BaseDao {
      * @return
      */
     List<Account> findUserPowerByPage(Account account);
+
+    int updateIsDisable(@Param("list") List<Long> idslist,@Param("isDisable") int isDisable);
+
+    int initalingPassword(Account account);
 }

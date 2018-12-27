@@ -85,4 +85,8 @@ public interface AccountDomain extends BaseDomain<Account> {
      */
     ResponseVO<Object> alterBgyAccountList(List<BgyUserVo> list, Long orgId);
 
+    public int updateIsDisable(List<Long>idslist,int isDisable);
+
+    public int initalingPassword(Account account);
+
 }

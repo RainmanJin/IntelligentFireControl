@@ -33,7 +33,7 @@ public class AccountDomainImpl implements AccountDomain {
 
     @Override
     public int save(Account account) {
-        return accountDao.insert(account);
+        return accountDao.insertSelective(account);
     }
 
     @Override
@@ -208,6 +208,25 @@ public class AccountDomainImpl implements AccountDomain {
             return ResponseVO.success().setMsg("同步集成平台用户总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
 
+    }
+
+    /**
+     * @author chenlie
+     * 批量更新用户状态
+     * @param idslist
+     * @param isDisable
+     * @return
+     */
+    @Override
+    public int updateIsDisable(List<Long>idslist,int isDisable){
+
+       return accountDao.updateIsDisable(idslist, isDisable);
+
+    }
+
+    @Override
+    public int initalingPassword(Account account) {
+        return accountDao.initalingPassword(account);
     }
 
 }

@@ -23,14 +23,14 @@
   </resultMap>
 
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.Account">
-    insert into account (id, organization_id, department_id,
+    insert into account ( organization_id, department_id,
       telephone, job_number, user_name,
       password, password_salt, identity_number, 
       sex, regist_time, is_disable, 
       current_ip, current_time, last_ip, 
       last_time, user_type, remark
       )
-    values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{departmentId,jdbcType=BIGINT}, 
+    values ( #{organizationId,jdbcType=BIGINT}, #{departmentId,jdbcType=BIGINT},
       #{telephone,jdbcType=VARCHAR}, #{jobNumber,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{passwordSalt,jdbcType=VARCHAR}, #{identityNumber,jdbcType=VARCHAR}, 
       #{sex,jdbcType=INTEGER}, #{registTime,jdbcType=TIMESTAMP}, #{isDisable,jdbcType=INTEGER}, 
@@ -233,7 +233,6 @@
     telephone = #{telephone,jdbcType=VARCHAR},
     job_number = #{jobNumber,jdbcType=VARCHAR},
     user_name = #{userName,jdbcType=VARCHAR},
-    password = #{password,jdbcType=VARCHAR},
     password_salt = #{passwordSalt,jdbcType=VARCHAR},
     identityn_umber = #{identityNumber,jdbcType=VARCHAR},
     sex =  #{sex,jdbcType=INTEGER},
@@ -266,9 +265,7 @@
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
+
       <if test="passwordSalt != null">
         password_salt = #{passwordSalt,jdbcType=VARCHAR},
       </if>
@@ -377,5 +374,22 @@
              close=")">
       #{id}
     </foreach>
+  </update>
+
+  <update id="updateIsDisable" >
+    UPDATE account SET is_disable =#{isDisable} WHERE id IN
+    <foreach collection="list" index="index" item="id" open="(" separator=","
+             close=")">
+      #{id}
+    </foreach>
+  </update>
+  <update id="initalingPassword" parameterType="cn.com.bgy.ifc.entity.po.system.Account">
+    update  account
+    <set>
+    <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+    </if>
+    </set>
+    where id=#{id}
   </update>
 </mapper>

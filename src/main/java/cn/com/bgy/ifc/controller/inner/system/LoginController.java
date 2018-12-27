@@ -15,12 +15,11 @@ import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
@@ -37,8 +36,10 @@ import java.util.Map;
 import static javax.imageio.ImageIO.write;
 
 @Controller
-@RequestMapping("/sys/")
+@RequestMapping("/system/")
 public class LoginController {
+
+    private static Logger logger= LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     LoginService loginService;
@@ -63,7 +64,7 @@ public class LoginController {
 
     /**
      * 根据用户id获取权限菜单
-     * @param userId
+     * @param
      * @return
      *//*
     @GetMapping("/findMenuByUser")
@@ -112,15 +113,12 @@ public class LoginController {
                 subject.login(token);
                 Account account = (Account) subject.getPrincipal();
                 account.setPassword("");
-                ResponseVO responseVO = new ResponseVO();
                 subject.getSession().setAttribute("user",account);
                 request.getSession().setAttribute("user", account);
-                responseVO= ResponseVO.success().setMsg("success");
-                responseVO.setData(account);
-                return responseVO;
+                return ResponseVO.success().setData(account).setMsg("登陆成功");
 
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
                 return ResponseVO.error().setMsg("用户名或密码错误");
             }
         } else {
@@ -131,12 +129,13 @@ public class LoginController {
     @RequiresUser
     @RequiresPermissions("")
     @RequestMapping("/logout")
-    public String logout() {
+    @ResponseBody
+    public ResponseVO logout() {
         Subject subject = SecurityUtils.getSubject();//取出当前验证主体
         if (subject != null) {
             subject.logout();//不为空，执行一次logout的操作，将session全部清空
         }
-        return "login";
+        return ResponseVO.success().setMsg("退出成功");
     }
 
 }

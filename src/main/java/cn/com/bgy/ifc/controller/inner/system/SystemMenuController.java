@@ -23,7 +23,7 @@ import java.util.Map;
  * @Description  系统主页面菜单
  **/
 @Controller
-@RequestMapping(value = "/sys/menu")
+@RequestMapping(value = "/system/menu")
 public class SystemMenuController extends BaseController {
     @Autowired
     SystemMenuDomain systemMenuDomain;

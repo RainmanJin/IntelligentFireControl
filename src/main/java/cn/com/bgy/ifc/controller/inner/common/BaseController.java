@@ -70,6 +70,7 @@ public class BaseController {
      * @return
      */ public Account getUser(){
         Account user= (Account) SecurityUtils.getSubject().getSession().getAttribute("user");
+        user.getRoleList();
         return user;
      }
 
