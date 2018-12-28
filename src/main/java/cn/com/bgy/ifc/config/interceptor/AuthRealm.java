@@ -1,18 +1,17 @@
 package cn.com.bgy.ifc.config.interceptor;
 
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
-import cn.com.bgy.ifc.domain.interfaces.system.SystemPowerDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemRoleDomain;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.SystemPower;
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
-import cn.com.bgy.ifc.entity.po.system.Account;
+import cn.com.bgy.ifc.service.interfaces.inner.system.SystemPowerService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +22,7 @@ public class AuthRealm extends AuthorizingRealm { //AuthenticatingRealm是抽象
     @Autowired
     private AccountDomain userService;
     @Autowired
-    private SystemPowerDomain systemPowerDomain;
+    private SystemPowerService systemPowerService;
 
     @Autowired
     private SystemRoleDomain systemRoleDomain;
@@ -39,13 +38,13 @@ public class AuthRealm extends AuthorizingRealm { //AuthenticatingRealm是抽象
         Account account = (Account) principals.fromRealm(this.getClass().getName()).iterator().next();
         Set<String> permissionSet = new HashSet<>();
         Set<String> roleNameSet = new HashSet<>();
-         for (SystemRole role :account.getRoleList()){
-             roleNameSet.add(Integer.toString(role.getType()));
-         }
-         for (SystemPower power: account.getPowerList()){
-          permissionSet.add(power.getName());
+        for (SystemRole role : account.getRoleList()) {
+            roleNameSet.add(Integer.toString(role.getType()));
+        }
+        for (SystemPower power : account.getPowerList()) {
+            permissionSet.add(power.getName());
 
-         }
+        }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.addStringPermissions(permissionSet);//拿到权限
         info.addRoles(roleNameSet);//拿到角色
@@ -70,11 +69,11 @@ public class AuthRealm extends AuthorizingRealm { //AuthenticatingRealm是抽象
         UsernamePasswordToken userpasswordToken = (UsernamePasswordToken) token;//这边是界面的登陆数据，将数据封装成token
         String username = userpasswordToken.getUsername();
         Account user = userService.findAccountByUserName(username);
-        List<SystemRole> roleList=systemRoleDomain.queryListByUserId(user.getId());
-        List<SystemPower>powerList=systemPowerDomain.queryListByUserId(user.getId());
+        List<SystemRole> roleList = systemRoleDomain.queryListByUserId(user.getId());
+        List<SystemPower> powerList = systemPowerService.queryListByUserId(user.getId());
         user.setRoleList(roleList);
         user.setPowerList(powerList);
-        return new SimpleAuthenticationInfo(user,user.getPassword(),this.getClass().getName());
+        return new SimpleAuthenticationInfo(user, user.getPassword(), this.getClass().getName());
     }
 
 }

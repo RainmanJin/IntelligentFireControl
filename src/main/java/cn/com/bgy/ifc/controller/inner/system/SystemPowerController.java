@@ -1,14 +1,15 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.domain.interfaces.system.SystemPowerDomain;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.entity.po.system.SystemPower;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.SystemPowerVo;
+import cn.com.bgy.ifc.service.interfaces.inner.system.SystemPowerService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,102 +21,102 @@ import java.util.List;
  * @description:系统权限
  * @date: 2018-12-05 11:27
  **/
-@Controller
+@RestController
 @RequestMapping("/basic/power")
 public class SystemPowerController {
 
     @Autowired
-    private SystemPowerDomain powerDomain;
+    private SystemPowerService systemPowerService;
 
-    @GetMapping("queryList")
-    @ResponseBody
-    public ResponseVO<PageInfo<SystemPower>> queryList(Page<SystemPower> page, SystemPowerVo systemPowerVo) {
-        try {
-            SystemPower systemPower = new SystemPower();
-            CopyUtil.copyProperties(systemPowerVo, systemPower);
-            PageInfo<SystemPower> pageInfo = powerDomain.queryListByPage(page, systemPower);
+    /**
+     * @author: ZhangCheng
+     * @description:分页查询
+     * @param: [page, systemPowerVo]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.system.SystemPower>>
+     */
+    @GetMapping("queryPage")
+    public ResponseVO<PageInfo<SystemPower>> queryList(Page<SystemPower> page, String keywords) {
+            PageInfo<SystemPower> pageInfo = systemPowerService.queryListByPage(page, keywords);
             return ResponseVO.<PageInfo<SystemPower>>success().setData(pageInfo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.<PageInfo<SystemPower>>exception();
-        }
-    }
-
-    @GetMapping("queryById/{id}")
-    @ResponseBody
-    public ResponseVO<SystemPowerVo> queryById(@PathVariable long id) {
-        try {
-            SystemPower systemPower = powerDomain.findById(id);
-            SystemPowerVo systemPowerVo = new SystemPowerVo();
-            CopyUtil.copyProperties(systemPower, systemPowerVo);
-            return ResponseVO.<SystemPowerVo>success().setData(systemPowerVo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.<SystemPowerVo>exception();
-        }
     }
 
     /**
      * @author: ZhangCheng
-     * @description:系统权限添加
+     * @description:ID查询
+     * @param: [id]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<cn.com.bgy.ifc.entity.po.system.SystemPower>
+     */
+    @GetMapping("findById/{id}")
+    public ResponseVO<SystemPower> findById(@PathVariable Long id) {
+        SystemPower systemPower = systemPowerService.findById(id);
+        return ResponseVO.<SystemPower>success().setData(systemPower);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:添加系统权限
      * @param: [systemPowerVo, error]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("add")
-    @ResponseBody
+    @SystemLogAfterSave(type = 1, description = "添加系统权限")
     public ResponseVO<Object> add(@Validated SystemPowerVo systemPowerVo, BindingResult error) {
-            //参数校检
-            if (error.hasErrors()) {
-                return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
-            }
-            SystemPower systemPower = new SystemPower();
-            CopyUtil.copyProperties(systemPowerVo, systemPower);
-            int count = powerDomain.insert(systemPower);
-            if (count == 1) {
-                return ResponseVO.success().setMsg("添加成功！");
-            }
-            return ResponseVO.error().setMsg("添加失败！");
-
+        //参数校检
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
+        }
+        SystemPower systemPower = new SystemPower();
+        CopyUtil.copyProperties(systemPowerVo, systemPower);
+        int result=systemPowerService.insertSelective(systemPower);
+        if (result == 1) {
+            return ResponseVO.addSuccess();
+        } else {
+            return ResponseVO.addError();
+        }
     }
 
     /**
      * @author: ZhangCheng
-     * @description:系统权限修改
+     * @description:修改系统权限
      * @param: [systemPowerVo, error]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("edit")
-    @ResponseBody
+    @SystemLogAfterSave(type = 1, description = "修改系统权限")
     public ResponseVO<Object> edit(@Validated SystemPowerVo systemPowerVo, BindingResult error) {
-            //参数校检
-            if (error.hasErrors()) {
-                return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
-            }
-            SystemPower systemPower = new SystemPower();
-            CopyUtil.copyProperties(systemPowerVo, systemPower);
-            int count = powerDomain.update(systemPower);
-            if (count == 1) {
-                return ResponseVO.success().setMsg("修改成功");
-            }
-            return ResponseVO.error().setMsg("修改失败！");
+        //参数校检
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
+        }
+        SystemPower systemPower = new SystemPower();
+        CopyUtil.copyProperties(systemPowerVo, systemPower);
+        int result=systemPowerService.updateSelective(systemPower);
+        if (result == 1) {
+            return ResponseVO.editSuccess();
+        } else {
+            return ResponseVO.editError();
+        }
     }
-
 
     /**
      * @author: ZhangCheng
-     * @description:系统权限删除
-     * @param: [id]
+     * @description:删除系统权限
+     * @param: [ids]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @DeleteMapping("delete")
-    @ResponseBody
-    public ResponseVO<Object> delete(List<Long> id) {
-
-        int count = powerDomain.deleteBatch(id);
-        if (count > 0) {
-            return ResponseVO.success().setMsg("删除成功");
+    @PostMapping("delete")
+    @SystemLogAfterSave(type = 1, description = "删除系统权限")
+    public ResponseVO<Object> delete(String ids) {
+        if (ids.length() == 0) {
+            return ResponseVO.deleteError();
         }
-        return ResponseVO.error().setMsg("删除失败");
+        List<Long> list = ListUtil.getListId(ids);
+        int resultCount = systemPowerService.deleteBatch(list);
+        if (resultCount == list.size()) {
+            return ResponseVO.deleteSuccess();
+        } else {
+            return ResponseVO.deleteError();
+        }
 
     }
 }
