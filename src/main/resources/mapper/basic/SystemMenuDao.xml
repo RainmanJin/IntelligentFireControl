@@ -166,7 +166,7 @@
     where s.id =#{id,jdbcType=BIGINT}
   </update>
 
-    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOrganization">
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
         update system_menu
         <set>
             <if test="name != null">

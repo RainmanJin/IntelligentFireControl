@@ -35,7 +35,7 @@ public class SystemOrganizationController {
      * @author: ZhangCheng
      * @description:机构分页查询
      * @param: [page, token]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo               <               cn.com.bgy.ifc.entity.po.system.SystemOrganization>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo                               <                               cn.com.bgy.ifc.entity.po.system.SystemOrganization>>
      */
     @GetMapping("queryPage")
     public ResponseVO<PageInfo<SystemOrganization>> searchPage(Page<SystemOrganization> page, String keywords, String token) {

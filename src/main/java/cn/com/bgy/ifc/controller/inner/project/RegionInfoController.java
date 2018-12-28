@@ -63,7 +63,7 @@ public class RegionInfoController extends BaseController {
      */
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "区域信息删除")
-    public ResponseVO<Object> deleteRegionInfo( Long [] ids){
+    public ResponseVO<Object> deleteRegionInfo( String  ids){
         int count = regionInfoDomain.deleteRegionInfo(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");

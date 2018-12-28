@@ -19,7 +19,7 @@ public interface RegionInfoDomain {
 
     int updateRegionInfo(RegionInfoVo record);
 
-    int deleteRegionInfo( Long [] arr);
+    int deleteRegionInfo(String ids);
 
     List<Map<String, Object>> queryRegionInfoName(Account user);
 
