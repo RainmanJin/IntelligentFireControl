@@ -3,8 +3,6 @@ package cn.com.bgy.ifc.controller;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
-import org.apache.poi.xssf.streaming.SXSSFSheet;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,7 +16,7 @@ import java.io.IOException;
 public class ExcelDemo {
 
 
-    public static void main( String[] args ) {
+    /*public static void main( String[] args ) {
         //创建workbook
         SXSSFWorkbook wb = new SXSSFWorkbook();
 
@@ -189,6 +187,6 @@ public class ExcelDemo {
 
         System.out.println("Excel文件生成成功...");
     }
-
+*/
 
 }
