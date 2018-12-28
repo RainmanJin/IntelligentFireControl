@@ -138,7 +138,7 @@
   </sql>
    <!--分頁查詢-->
   <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic" resultMap="BaseResultMap">
-  <include refid="selectSql"/>
+  <include refid="Mysql"/>
   where mp.logic_remove = 0
     <if test="id != null">
       and mp.id=#{id,jdbcType=BIGINT}
@@ -219,7 +219,7 @@
   </update>
   <!--通过id查询维保公司-->
   <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <include refid="selectSql"/>
+    <include refid="Mysql"/>
     WHERE mc.id = #{id}
   </select>
 
