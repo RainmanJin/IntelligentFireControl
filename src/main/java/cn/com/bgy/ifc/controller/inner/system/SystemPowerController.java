@@ -117,6 +117,5 @@ public class SystemPowerController {
         } else {
             return ResponseVO.deleteError();
         }
-
     }
 }

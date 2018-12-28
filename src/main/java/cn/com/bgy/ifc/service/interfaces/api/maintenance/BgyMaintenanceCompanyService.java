@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.service.interfaces.api.repair;
+package cn.com.bgy.ifc.service.interfaces.api.maintenance;
 
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -10,7 +10,7 @@ import java.util.Date;
  * @description:碧桂园集成平台维保公司
  * @date: 2018-12-24 10:07
  **/
-public interface BgyRepairCompanyService {
+public interface BgyMaintenanceCompanyService {
 
     /**
      * @author: ZhangCheng

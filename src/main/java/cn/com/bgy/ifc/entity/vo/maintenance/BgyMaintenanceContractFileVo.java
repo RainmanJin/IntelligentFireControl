@@ -1,11 +1,11 @@
-package cn.com.bgy.ifc.entity.vo.repair;
+package cn.com.bgy.ifc.entity.vo.maintenance;
 
 /**
  * @author: ZhangCheng
  * @description:碧桂园集成平台维保合同文件VO
  * @date: 2018-12-24 10:28
  **/
-public class BgyRepairContractFileVo {
+public class BgyMaintenanceContractFileVo {
 
     private Long id;
     /**

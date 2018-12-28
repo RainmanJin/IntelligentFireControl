@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.service.impl.api.repair;
+package cn.com.bgy.ifc.service.impl.api.maintenance;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
@@ -13,8 +13,8 @@ import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.HttpVo;
-import cn.com.bgy.ifc.entity.vo.repair.BgyRepairCompanyVo;
-import cn.com.bgy.ifc.service.interfaces.api.repair.BgyRepairCompanyService;
+import cn.com.bgy.ifc.entity.vo.maintenance.BgyMaintenanceCompanyVo;
+import cn.com.bgy.ifc.service.interfaces.api.maintenance.BgyMaintenanceCompanyService;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +29,9 @@ import java.util.*;
  * @date: 2018-12-24 10:17
  **/
 @Service
-public class BgyRepairCompanyServiceImpl implements BgyRepairCompanyService {
+public class BgyMaintenanceCompanyServiceImpl implements BgyMaintenanceCompanyService {
 
-    private static Logger logger = LoggerFactory.getLogger(BgyRepairCompanyServiceImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(BgyMaintenanceCompanyServiceImpl.class);
 
     @Autowired
     private MaintenanceCompanyDomain maintenanceCompanyDomain;
@@ -82,11 +82,11 @@ public class BgyRepairCompanyServiceImpl implements BgyRepairCompanyService {
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
         // 总页数
         int pageCount = ResponseUtil.getPageCount(response, pageSize);
-        List<BgyRepairCompanyVo> oList = new ArrayList<>();
-        BgyRepairCompanyVo bgyRepairCompanyVo = new BgyRepairCompanyVo();
-        ResponseUtil.getResultList(oList, bgyRepairCompanyVo, response, "data", "list");
+        List<BgyMaintenanceCompanyVo> oList = new ArrayList<>();
+        BgyMaintenanceCompanyVo bgyMaintenanceCompanyVo = new BgyMaintenanceCompanyVo();
+        ResponseUtil.getResultList(oList, bgyMaintenanceCompanyVo, response, "data", "list");
         if (pageCount != 0) {
-            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyRepairCompanyVo, "data", "list");
+            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyMaintenanceCompanyVo, "data", "list");
         }
         int totalCount = oList.size();
         if (totalCount > 0) {
@@ -113,11 +113,11 @@ public class BgyRepairCompanyServiceImpl implements BgyRepairCompanyService {
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
         // 总页数
         int pageCount = ResponseUtil.getPageCount(response, pageSize);
-        List<BgyRepairCompanyVo> oList = new ArrayList<>();
-        BgyRepairCompanyVo bgyRepairCompanyVo = new BgyRepairCompanyVo();
-        ResponseUtil.getResultList(oList, bgyRepairCompanyVo, response, "data", "list");
+        List<BgyMaintenanceCompanyVo> oList = new ArrayList<>();
+        BgyMaintenanceCompanyVo bgyMaintenanceCompanyVo = new BgyMaintenanceCompanyVo();
+        ResponseUtil.getResultList(oList, bgyMaintenanceCompanyVo, response, "data", "list");
         if (pageCount != 0) {
-            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyRepairCompanyVo, "data", "list");
+            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyMaintenanceCompanyVo, "data", "list");
         }
         int totalCount = oList.size();
         if (totalCount > 0) {

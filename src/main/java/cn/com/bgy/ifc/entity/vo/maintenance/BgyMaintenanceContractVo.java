@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.entity.vo.repair;
+package cn.com.bgy.ifc.entity.vo.maintenance;
 
 import cn.com.bgy.ifc.entity.vo.project.BgyBaseVo;
 
@@ -7,7 +7,7 @@ import cn.com.bgy.ifc.entity.vo.project.BgyBaseVo;
  * @description:碧桂园集成平台维保合同VO
  * @date: 2018-12-24 10:20
  **/
-public class BgyRepairContractVo extends BgyBaseVo {
+public class BgyMaintenanceContractVo extends BgyBaseVo {
 
     /**
      * 区域id

@@ -18,10 +18,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExternalTask {
 
-    /*
-    private void test(){
-        System.out.println("xxxxxxxx=====");
-    }*/
 
     @Autowired
     private BgyOrgService bgyOrgService;

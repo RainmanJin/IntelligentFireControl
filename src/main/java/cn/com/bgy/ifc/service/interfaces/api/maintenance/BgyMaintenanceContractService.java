@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.service.interfaces.api.repair;
+package cn.com.bgy.ifc.service.interfaces.api.maintenance;
 
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -8,9 +8,9 @@ import java.util.Date;
 /**
  * @author: ZhangCheng
  * @description:碧桂园集成平台维保合同
- * @date: 2018-12-24 10:14
+ * @date: 2018-12-28 14:30
  **/
-public interface BgyRepairContractService {
+public interface BgyMaintenanceContractService {
 
     /**
      * @author: ZhangCheng
@@ -35,5 +35,4 @@ public interface BgyRepairContractService {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     ResponseVO<Object> obtainBgyRepairContractIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime)throws Exception;
-
 }

@@ -7,7 +7,7 @@ import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.repair.BgyRepairCompanyVo;
+import cn.com.bgy.ifc.entity.vo.maintenance.BgyMaintenanceCompanyVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -87,11 +87,11 @@ public class MaintenanceCompanyDomainImpl implements MaintenanceCompanyDomain {
     }
 
     @Override
-    public ResponseVO<Object> saveBgyRepairCompany(List<BgyRepairCompanyVo> list, Long orgId) {
+    public ResponseVO<Object> saveBgyRepairCompany(List<BgyMaintenanceCompanyVo> list, Long orgId) {
         try{
             List<MaintenanceCompany> companyList=new ArrayList<>();
             Date createTime=new Date();
-            for(BgyRepairCompanyVo companyVo:list){
+            for(BgyMaintenanceCompanyVo companyVo:list){
                 MaintenanceCompany company=new MaintenanceCompany();
                 company.setId(companyVo.getId());
                 company.setCompanyName(companyVo.getName());
@@ -116,7 +116,7 @@ public class MaintenanceCompanyDomainImpl implements MaintenanceCompanyDomain {
 
     @Transactional(rollbackFor = {RuntimeException.class})
     @Override
-    public ResponseVO<Object> alterBgyRepairCompany(List<BgyRepairCompanyVo> list, Long orgId) {
+    public ResponseVO<Object> alterBgyRepairCompany(List<BgyMaintenanceCompanyVo> list, Long orgId) {
         int addType = ExternalConstant.OperationType.ADD.getValue();
         int updateType = ExternalConstant.OperationType.UPDATE.getValue();
         int deleteType = ExternalConstant.OperationType.DELETE.getValue();
@@ -125,7 +125,7 @@ public class MaintenanceCompanyDomainImpl implements MaintenanceCompanyDomain {
         int updateCount = 0;
         int deleteCount = 0;
         Date createTime = new Date();
-        for(BgyRepairCompanyVo companyVo:list){
+        for(BgyMaintenanceCompanyVo companyVo:list){
             MaintenanceCompany company=new MaintenanceCompany();
             company.setId(companyVo.getId());
             company.setCompanyName(companyVo.getName());

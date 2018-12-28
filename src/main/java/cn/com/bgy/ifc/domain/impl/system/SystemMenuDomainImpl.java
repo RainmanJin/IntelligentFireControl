@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.DBAgent;
 import cn.com.bgy.ifc.dao.system.SystemMenuDao;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemMenu;
@@ -33,9 +34,8 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
      * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
      */
     public PageInfo<SystemMenuVo> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord){
-
         List<SystemMenu> allMenu= systemMenuDao.queryAllSystemMenuInfo(keyWord);
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+      //  page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<SystemMenu> rootMenu=new ArrayList<>();
         List<SystemMenuVo> resultMenu=new ArrayList<>();
         for (SystemMenu nav : allMenu) {
@@ -61,14 +61,11 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
             }
         }
 
-        page.setEndRow(page.getPageNum()*page.getPageSize()>page.getTotal()?
-                (int)page.getTotal():(int)(page.getPageNum())*page.getPageSize());
-
-        PageInfo<SystemMenuVo> pageInfo=new PageInfo<SystemMenuVo>(resultMenu.subList(page.getStartRow(),page.getEndRow()));
-        pageInfo.setTotal(page.getTotal());
-        pageInfo.setPageSize(page.getPageSize());
-        pageInfo.setPageNum(page.getPageNum());
-        return pageInfo ;
+        //分页结果集
+        List<SystemMenuVo> newList=DBAgent.memoryPaging(resultMenu,page);
+        PageInfo<SystemMenuVo> pageInfo=new PageInfo<SystemMenuVo>(newList);
+        DBAgent.getPages(pageInfo,page);
+        return pageInfo;
     }
 
     /**

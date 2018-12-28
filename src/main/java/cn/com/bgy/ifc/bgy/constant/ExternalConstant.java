@@ -96,6 +96,23 @@ public class ExternalConstant {
         public String getName() {
             return name;
         }
+
+        /**
+         * @author: ZhangCheng
+         * @description:枚举中的属性转换为下拉列表List
+         * @param: []
+         * @return: java.util.List<cn.com.bgy.ifc.entity.vo.basic.SelectVo>
+         */
+        public static List<SelectVo> getSelectList() {
+            List<SelectVo> list = new ArrayList<>();
+            for (PlatformValue platformValue : PlatformValue.values()) {
+                SelectVo selectVo = new SelectVo();
+                selectVo.setValue(String.valueOf(platformValue.getValue()));
+                selectVo.setName(platformValue.getName());
+                list.add(selectVo);
+            }
+            return list;
+        }
     }
 
     /*
@@ -134,7 +151,9 @@ public class ExternalConstant {
         //街道street
         BGY_STREET_OBTAIN(14, "街道"),
         //楼栋单元building
-        BGY_BUILDING_OBTAIN(15, "楼栋单元");
+        BGY_BUILDING_OBTAIN(15, "楼栋单元"),
+        //维保工单
+        BGY_WORK_ORDER_OBTAIN(16, "维保工单");
 
         private Integer value;
         private String name;

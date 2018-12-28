@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.domain.interfaces.maintenance;
 
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.repair.BgyRepairCompanyVo;
+import cn.com.bgy.ifc.entity.vo.maintenance.BgyMaintenanceCompanyVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -62,7 +62,7 @@ public interface MaintenanceCompanyDomain {
      * @param: [list, orgId]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    ResponseVO<Object> saveBgyRepairCompany(List<BgyRepairCompanyVo> list, Long orgId);
+    ResponseVO<Object> saveBgyRepairCompany(List<BgyMaintenanceCompanyVo> list, Long orgId);
 
     /**
      * @author: ZhangCheng
@@ -70,5 +70,5 @@ public interface MaintenanceCompanyDomain {
      * @param: [list, orgId]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    ResponseVO<Object> alterBgyRepairCompany(List<BgyRepairCompanyVo> list, Long orgId);
+    ResponseVO<Object> alterBgyRepairCompany(List<BgyMaintenanceCompanyVo> list, Long orgId);
 }

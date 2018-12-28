@@ -35,16 +35,16 @@ public class SystemMenuController extends BaseController {
     private SystemMenuService systemMenuService;
 
     /**
-     * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
-     * @Author huxin
-     * @Description 分页查询所有菜单信息
-     * @Date 2018/12/5 10:04
-     * @Param []
+     * @author: ZhangCheng
+     * @description:分页查询
+     * @param: [page, keyWord]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.vo.system.SystemMenuVo>>
      */
-    @GetMapping(value = "/queryAllSystemMenuInfo")
-    public ResponseVO<Object> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord) {
-        PageInfo<SystemMenuVo> pageInfo = systemMenuService.queryAllSystemMenuInfo(page, keyWord);
-        return ResponseVO.success().setData(pageInfo);
+    @GetMapping("queryPage")
+    public ResponseVO<PageInfo<SystemMenuVo>> queryPage(Page<SystemMenuVo> page, String keyword) {
+        PageInfo<SystemMenuVo> pageInfo = systemMenuService.queryAllSystemMenuInfo(page, keyword);
+        System.out.println("===="+pageInfo);
+        return ResponseVO.<PageInfo<SystemMenuVo>>success().setData(pageInfo);
     }
 
     /**

@@ -1,10 +1,13 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
+import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.ExternalInterfaceConfigVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.ExternalInterfaceConfigService;
 import com.github.pagehelper.Page;
@@ -37,7 +40,7 @@ public class ExternalInterfaceConfigController {
      * @param: [page, platformValue]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo < cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig>>
      */
-    @PostMapping("queryPage")
+    @GetMapping("queryPage")
     public ResponseVO<PageInfo<ExternalInterfaceConfig>> searchPage(Page<ExternalInterfaceConfig> page, Integer platformValue) {
         PageInfo<ExternalInterfaceConfig> pageInfo = externalInterfaceConfigService.queryListByPage(page, platformValue);
         return ResponseVO.<PageInfo<ExternalInterfaceConfig>>success().setData(pageInfo);
@@ -115,6 +118,18 @@ public class ExternalInterfaceConfigController {
         } else {
             return ResponseVO.deleteError();
         }
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("getPlatform")
+    public ResponseVO<Object> getPlatform() {
+        List<SelectVo> list = ExternalConstant.PlatformValue.getSelectList();
+        return ResponseVO.success().setData(list);
     }
 
 }

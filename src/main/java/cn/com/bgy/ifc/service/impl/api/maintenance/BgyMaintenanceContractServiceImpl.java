@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.service.impl.api.repair;
+package cn.com.bgy.ifc.service.impl.api.maintenance;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
@@ -13,8 +13,8 @@ import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.HttpVo;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyMachineRoomVo;
-import cn.com.bgy.ifc.entity.vo.repair.BgyRepairCompanyVo;
-import cn.com.bgy.ifc.service.interfaces.api.repair.BgyRepairContractService;
+import cn.com.bgy.ifc.entity.vo.maintenance.BgyMaintenanceCompanyVo;
+import cn.com.bgy.ifc.service.interfaces.api.maintenance.BgyMaintenanceContractService;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +26,12 @@ import java.util.*;
 /**
  * @author: ZhangCheng
  * @description:碧桂园集成平台维保合同
- * @date: 2018-12-24 10:18
+ * @date: 2018-12-28 14:31
  **/
 @Service
-public class BgyRepairContractServiceImpl implements BgyRepairContractService {
-    private static Logger logger = LoggerFactory.getLogger(BgyRepairContractServiceImpl.class);
+public class BgyMaintenanceContractServiceImpl implements BgyMaintenanceContractService {
+
+    private static Logger logger = LoggerFactory.getLogger(BgyMaintenanceContractServiceImpl.class);
 
     @Autowired
     private ExternalInterfaceConfigDomain externalInterfaceConfigDomain;
@@ -78,11 +79,11 @@ public class BgyRepairContractServiceImpl implements BgyRepairContractService {
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
         // 总页数
         int pageCount = ResponseUtil.getPageCount(response, pageSize);
-        List<BgyRepairCompanyVo> oList = new ArrayList<>();
-        BgyRepairCompanyVo bgyRepairCompanyVo = new BgyRepairCompanyVo();
-        ResponseUtil.getResultList(oList, bgyRepairCompanyVo, response, "data", "list");
+        List<BgyMaintenanceCompanyVo> oList = new ArrayList<>();
+        BgyMaintenanceCompanyVo bgyMaintenanceCompanyVo = new BgyMaintenanceCompanyVo();
+        ResponseUtil.getResultList(oList, bgyMaintenanceCompanyVo, response, "data", "list");
         if (pageCount != 0) {
-            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyRepairCompanyVo, "data", "list");
+            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyMaintenanceCompanyVo, "data", "list");
         }
         int totalCount = oList.size();
         if (totalCount > 0) {
@@ -118,7 +119,7 @@ public class BgyRepairContractServiceImpl implements BgyRepairContractService {
         }
         int totalCount = oList.size();
         if (totalCount > 0) {
-           // return regionComputerRoomDomain.alterBgyComputerRoomList(oList, orgId);
+            // return regionComputerRoomDomain.alterBgyComputerRoomList(oList, orgId);
             return null;
         } else {
             return ResponseVO.success().setMsg("暂无集成平台机房增量数据同步！");

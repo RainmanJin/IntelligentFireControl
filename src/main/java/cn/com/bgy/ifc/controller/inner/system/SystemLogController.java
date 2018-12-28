@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.system.SystemOperationLog;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/basic/systemLog")
-public class SystemLogController {
+public class SystemLogController extends BaseController {
 
     @Autowired
     private SystemOperationLogService systemOperationLogService;
@@ -33,8 +34,8 @@ public class SystemLogController {
      * @param: [page, systemOperationLogVo, token]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo < cn.com.bgy.ifc.entity.po.system.SystemOperationLog>>
      */
-    @PostMapping("/queryPage")
-    public ResponseVO<PageInfo<SystemOperationLog>> querySystemLogInfo(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo) {
+    @GetMapping("queryPage")
+    public ResponseVO<PageInfo<SystemOperationLog>> queryPage(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo) {
         PageInfo<SystemOperationLog> pageInfo = systemOperationLogService.queryListByParam(page, systemOperationLogVo);
         return ResponseVO.<PageInfo<SystemOperationLog>>success().setData(pageInfo);
     }
@@ -45,7 +46,7 @@ public class SystemLogController {
      * @param: [token]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @GetMapping("/getLogType")
+    @GetMapping("getLogType")
     public ResponseVO<Object> getLogType() {
         List<SelectVo> list = SystemConstant.SystemLogType.getSelectList();
         return ResponseVO.success().setData(list);
