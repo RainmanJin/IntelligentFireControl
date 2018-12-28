@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.domain.impl.project;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.project.*;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionInfoDomain;
@@ -57,6 +58,7 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
 
     @Resource
     private UserGroupItemsDao userGroupItemsDao;
+
     /**
      * @Author huxin
      * @Description 查询
@@ -108,20 +110,20 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
      */
     @Transactional
     @Override
-    public int deleteRegionInfo( Long [] arr) {
-        if(arr.length>0){
-            List<Long> list = Arrays.asList(arr);
+    public int deleteRegionInfo( String ids) {
+        if(ids.length()>0){
+            List<Long> list = ListUtil.getListId(ids);
             if(list.size()>0){
                 //删除机房信息
-//            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
+                regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
                 //删除区域信息
-//            regionBuildingDao.deleteRegionBuildingBySuperId(list);
+                regionBuildingDao.deleteRegionBuildingBySuperId(list);
                 //删除街道
-//            regionStreetDao.deleteRegionStreetBySuperId(list);
+                 regionStreetDao.deleteRegionStreetBySuperId(list);
                 //删除苑区信息
-//            regionCourtDao.deleteRegionCourtBySuperId(list);
+                regionCourtDao.deleteRegionCourtBySuperId(list);
                 //删除项目信息
-//            regionProjectDao.deleteRegionProjecBySuperId(list);
+                regionProjectDao.deleteRegionProjecBySuperId(list);
                 //删除区域信息
                 return regionInfoDao.deleteRegionInfo(list);
             }
