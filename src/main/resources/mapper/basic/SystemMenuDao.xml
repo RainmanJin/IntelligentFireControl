@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.system.SystemMenuDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.SystemMenu">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
-    <result column="navigate_url" jdbcType="VARCHAR" property="navigateUrl" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="sort_index" jdbcType="INTEGER" property="sortIndex" />
-    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-    <result column="power_id" jdbcType="BIGINT" property="powerId" />
-    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
-     <result column="type" jdbcType="INTEGER" property="type" />
-  </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.SystemMenu">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="image_url" jdbcType="VARCHAR" property="imageUrl"/>
+        <result column="navigate_url" jdbcType="VARCHAR" property="navigateUrl"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="sort_index" jdbcType="INTEGER" property="sortIndex"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="power_id" jdbcType="BIGINT" property="powerId"/>
+        <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
     insert into system_menu (id, name, image_url, 
       navigate_url, remark, sort_index, 
       parent_id, power_id, logic_remove,type
@@ -23,136 +23,126 @@
       #{parentId,jdbcType=BIGINT}, #{powerId,jdbcType=BIGINT}, #{logicRemove,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
-    insert into system_menu
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="imageUrl != null">
-        image_url,
-      </if>
-      <if test="navigateUrl != null">
-        navigate_url,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-      <if test="sortIndex != null">
-        sort_index,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="powerId != null">
-        power_id,
-      </if>
-      <if test="logicRemove != null">
-        logic_remove,
-      </if>
-        <if test="type != null">
-            type,
-        </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="imageUrl != null">
-        #{imageUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="navigateUrl != null">
-        #{navigateUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="sortIndex != null">
-        #{sortIndex,jdbcType=INTEGER},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="powerId != null">
-        #{powerId,jdbcType=BIGINT},
-      </if>
-      <if test="logicRemove != null">
-        #{logicRemove,jdbcType=BIT},
-      </if>
-        <if test="type != null">
-            #{type,jdbcType=INTEGER},
-        </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
+        insert into system_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="imageUrl != null">
+                image_url,
+            </if>
+            <if test="navigateUrl != null">
+                navigate_url,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="sortIndex != null">
+                sort_index,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="powerId != null">
+                power_id,
+            </if>
+            <if test="logicRemove != null">
+                logic_remove,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="imageUrl != null">
+                #{imageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="navigateUrl != null">
+                #{navigateUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="sortIndex != null">
+                #{sortIndex,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="powerId != null">
+                #{powerId,jdbcType=BIGINT},
+            </if>
+            <if test="logicRemove != null">
+                #{logicRemove,jdbcType=BIT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
 
-  <insert id="addSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu" >
-    insert into system_menu (id, name, image_url,
-      navigate_url, remark, sort_index,
-      parent_id, power_id, logic_remove,type
-      )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR},
-      #{navigateUrl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{sortIndex,jdbcType=INTEGER},
-      #{parentId,jdbcType=BIGINT}, #{powerId,jdbcType=BIGINT}, #{logicRemove,jdbcType=BIT},#{type,jdbcType=INTEGER}
-      )
-  </insert>
-
-  <select id="queryAllSystemMenuInfo" parameterType="java.lang.String" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
-     SELECT
-            m.id as id,
-            m.name as name,
-            m.image_url as imageUrl,
-            m.navigate_url as navigateUrl,
-            m.remark as remark,
-            m.sort_index as sortIndex,
-            m.parent_id as parentId ,
-            m.power_id as powerId,
-            p.`name` as powerName,
-            m.logic_remove as logicRemove,
-            m.type as type
+    <select id="queryAllSystemMenuInfo" parameterType="java.lang.String"
+            resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
+        SELECT
+        m.id as id,
+        m.name as name,
+        m.image_url as imageUrl,
+        m.navigate_url as navigateUrl,
+        m.remark as remark,
+        m.sort_index as sortIndex,
+        m.parent_id as parentId ,
+        m.power_id as powerId,
+        p.`name` as powerName,
+        m.logic_remove as logicRemove,
+        m.type as type
         FROM
-            system_menu m  LEFT JOIN system_power p on m.power_id=p.id
+        system_menu m LEFT JOIN system_power p on m.power_id=p.id
         WHERE m.logic_remove=0
         <if test="keyWord !=null">
             and (
-               m.name like concat(concat('%',#{keyWord}),'%')
+            m.name like concat(concat('%',#{keyWord}),'%')
             )
 
         </if>
 
         and
-            m.power_id IN (
-                SELECT
-                    id
-                FROM
-                    system_power p
-                WHERE p.logic_remove=0 and
-                    p.id IN (
-                        SELECT
-                            rp.power_id
-                        FROM
-                            system_role_power rp
-                        WHERE
-                            rp.role_id IN (
-                                SELECT
-                                    ur.role_id
-                                FROM
-                                    system_user_role ur
-                                WHERE
-                                    ur.id in (
-                                               select id from system_role r  where r.logic_remove=0
-                                  )
-                            )
-                    )
-            )
-  </select>
+        m.power_id IN (
+        SELECT
+        id
+        FROM
+        system_power p
+        WHERE p.logic_remove=0 and
+        p.id IN (
+        SELECT
+        rp.power_id
+        FROM
+        system_role_power rp
+        WHERE
+        rp.role_id IN (
+        SELECT
+        ur.role_id
+        FROM
+        system_user_role ur
+        WHERE
+        ur.id in (
+        select id from system_role r where r.logic_remove=0
+        )
+        )
+        )
+        )
+    </select>
 
-  <select id="findById" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" parameterType="java.lang.Long">
+    <select id="findById" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" parameterType="java.lang.Long">
     SELECT
       id as id,
       name as name,
@@ -164,114 +154,103 @@
       power_id as powerId,
       logic_remove as logicRemove,
       type as type
-    from system_menu s where s.id = #{id,jdbcType=BIGINT}
+    from system_menu s where s.id = #{id}
   </select>
 
-  <update id="updateSystemMenuInfo" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
     update system_menu s
     set s.image_url= #{imageUrl,jdbcType=VARCHAR},s.logic_remove=#{logicRemove,jdbcType=BIT},
     s.`name`=#{name,jdbcType=VARCHAR},s.navigate_url= #{navigateUrl,jdbcType=VARCHAR},s.parent_id= #{parentId,jdbcType=BIGINT},
     s.power_id= #{powerId,jdbcType=BIGINT},s.remark=#{remark,jdbcType=VARCHAR},s.sort_index=#{sortIndex,jdbcType=INTEGER},
     s.type=#{type,jdbcType=INTEGER}
     where s.id =#{id,jdbcType=BIGINT}
-
   </update>
 
-  <update id="deleteSystemMenuInfo" parameterType="java.lang.Long">
-    update system_menu s set s.logic_remove=1 where s.id =#{id,jdbcType=BIGINT}
-  </update>
-  <update id="deleteListSystemMenuInfo"  parameterType="java.lang.Long"  >
-    update system_menu s set s.logic_remove=1 where s.id in
-    <foreach collection="array" index="index" item="id" open="(" separator="," close=")">
-      #{id,jdbcType=BIGINT}
-    </foreach>
-  </update>
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOrganization">
+        update system_menu
+        <set>
+            <if test="name != null">
+                name=  #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="imageUrl != null">
+                image_url= #{imageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="navigateUrl != null">
+                navigate_url=#{navigateUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark= #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="sortIndex != null">
+                sort_index=#{sortIndex,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                parent_id=  #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="powerId != null">
+                power_id= #{powerId,jdbcType=BIGINT},
+            </if>
+            <if test="logicRemove != null">
+                logic_remove=#{logicRemove,jdbcType=BIT},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
 
-  <!--<select id="findMenuByUser" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" >
-       SELECT
-            id as id,
-            name as name,
-            image_url as imageUrl,
-            navigate_url as navigateUrl,
-            remark as remark,
-            sort_index as sortIndex,
-            parent_id as parentId ,
-            power_id as powerId,
-            logic_remove as logicRemove,
-            type as type
+    <update id="deleteBatch" parameterType="list">
+        UPDATE system_menu SET logic_remove =1 WHERE id IN
+        <foreach collection="list" item="id" open="(" separator=","
+                 close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findMenuListByType" parameterType="java.util.Map"
+            resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
+        SELECT
+        id as id,
+        name as name,
+        image_url as imageUrl,
+        navigate_url as navigateUrl,
+        remark as remark,
+        sort_index as sortIndex,
+        parent_id as parentId ,
+        power_id as powerId,
+        logic_remove as logicRemove
         FROM
-            system_menu m
-        WHERE m.logic_remove=0 and
-            m.power_id IN (
-                SELECT
-                    id
-                FROM
-                    system_power p
-                WHERE p.logic_remove=0 and
-                    p.id IN (
-                        SELECT
-                            rp.power_id
-                        FROM
-                            system_role_power rp
-                        WHERE
-                            rp.role_id IN (
-                                SELECT
-                                    ur.role_id
-                                FROM
-                                    system_user_role ur
-                                WHERE
-                                    ur.user_id = #{userId} and ur.id in (
-                                               select id from system_role r  where r.logic_remove=0
-                                  )
-                            )
-                    )
-            )
-  </select>-->
-
-
-
-    <select id="findMenuListByType" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" >
-       SELECT
-            id as id,
-            name as name,
-            image_url as imageUrl,
-            navigate_url as navigateUrl,
-            remark as remark,
-            sort_index as sortIndex,
-            parent_id as parentId ,
-            power_id as powerId,
-            logic_remove as logicRemove
-        FROM
-            system_menu m
+        system_menu m
         WHERE m.logic_remove=0
         <if test="type !=null">
             and type = #{type}
         </if>
-         and
-            m.power_id IN (
-                SELECT
-                    id
-                FROM
-                    system_power p
-                WHERE p.logic_remove=0 and
-                    p.id IN (
-                        SELECT
-                            rp.power_id
-                        FROM
-                            system_role_power rp
-                        WHERE
-                            rp.role_id IN (
-                                SELECT
-                                    ur.role_id
-                                FROM
-                                    system_user_role ur
-                                WHERE
-                                    ur.user_id = #{userId} and ur.id in (
-                                               select id from system_role r  where r.logic_remove=0
-                                  )
-                            )
-                    )
-            ) order by   m.sort_index asc
-  </select>
+        and
+        m.power_id IN (
+        SELECT
+        id
+        FROM
+        system_power p
+        WHERE p.logic_remove=0 and
+        p.id IN (
+        SELECT
+        rp.power_id
+        FROM
+        system_role_power rp
+        WHERE
+        rp.role_id IN (
+        SELECT
+        ur.role_id
+        FROM
+        system_user_role ur
+        WHERE
+        ur.user_id = #{userId} and ur.id in (
+        select id from system_role r where r.logic_remove=0
+        )
+        )
+        )
+        ) order by m.sort_index asc
+    </select>
 
 </mapper>

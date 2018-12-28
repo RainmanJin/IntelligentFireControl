@@ -1,166 +1,140 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
-import cn.com.bgy.ifc.domain.interfaces.system.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.SystemMenuVo;
+import cn.com.bgy.ifc.service.interfaces.inner.system.SystemMenuService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import java.util.List;
 
 
 /**
  * @Author huxin
  * @Date 2018/12/5 9:52
- * @Description  系统主页面菜单
+ * @Description 系统主页面菜单
  **/
-@Controller
+@RestController
 @RequestMapping(value = "/system/menu")
 public class SystemMenuController extends BaseController {
+
     @Autowired
-    SystemMenuDomain systemMenuDomain;
+    private SystemMenuService systemMenuService;
 
     /**
+     * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
      * @Author huxin
      * @Description 分页查询所有菜单信息
-     * @Date 2018/12/5 10:04 
+     * @Date 2018/12/5 10:04
      * @Param []
-     * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
      */
     @GetMapping(value = "/queryAllSystemMenuInfo")
-    @ResponseBody
-    public ResponseVO<Object> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord){
-        try {
-            PageInfo<SystemMenuVo> pageInfo = systemMenuDomain.queryAllSystemMenuInfo(page,keyWord);
-            return ResponseVO.success().setData(pageInfo);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return ResponseVO.error();
-    }
-    /**
-     * @Author huxin
-     * @Description 根据ID查询系统菜单 单条信息
-     * @Date 2018/12/5 18:04
-     * @Param [id]
-     * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
-     */
-    @GetMapping(value = "/findById")
-    @ResponseBody
-    public SystemMenu findById(Long id){
-        return systemMenuDomain.findById(id);
+    public ResponseVO<Object> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord) {
+        PageInfo<SystemMenuVo> pageInfo = systemMenuService.queryAllSystemMenuInfo(page, keyWord);
+        return ResponseVO.success().setData(pageInfo);
     }
 
     /**
-     * @Author huxin
-     * @Description 增加系统二级菜单
-     * @Date 2018/12/5 10:06 
-     * @Param [systemMenu]
-     * @return void
-     */
-    @PostMapping(value = "/add")
-    @ResponseBody
-    public ResponseVO addSystemMenuInfo( SystemMenu systemMenu){
-
-        return systemMenuDomain.addSystemMenuInfo(systemMenu);
-
-    }
-    /**
-     * @Author huxin
-     * @Description 根据ID修改系统二级菜单信息
-     * @Date 2018/12/5 10:09
-     * @Param [systemMenu]
-     * @return void
-     */
-    @PostMapping(value = "/update")
-    @ResponseBody
-    public ResponseVO updateSystemMenuInfo(SystemMenu systemMenu){
-        return systemMenuDomain.updateSystemMenuInfo(systemMenu);
-    }
-    /**
-     * @Author huxin
-     * @Description 根据ID删除一条二级菜单信息
-     * @Date 2018/12/5 10:11
-     * @Param [id]
-     * @return void
-     */
-    @PostMapping(value = "/deteleOne")
-    @ResponseBody
-    public ResponseVO deleteSystemMenuInfo(Long id){
-        return systemMenuDomain.deleteSystemMenuInfo(id);
-    }
-   /**
-    * @Author huxin
-    * @Description 根据ID批量删除菜单，包括一二级菜单
-    * @Date 2018/12/5 18:34
-    * @Param [list]
-    * @return cn.com.bgy.ifc.entity.vo.ResponseVO
-    */
-    @GetMapping(value = "/deleteList")
-    @ResponseBody
-    public ResponseVO deleteListSystemMenuInfo( Long[] id){
-        return systemMenuDomain.deleteListSystemMenuInfo(id);
-    }
-
-    /**
-     * @Author huxin
-     * @Description 根据用户id和父级菜单id获取子级菜单
-     * @Date 2018/12/5 18:34
-     * @Param [list]
      * @return cn.com.bgy.ifc.entity.vo.ResponseVO
-     *//*
-    @GetMapping(value = "/findMenuByUserAndParentId")
-    @ResponseBody
-    public ResponseVO<Object> findMenuByUserAndParentId( Long parentId,Long userId){
-        try {
-
-
-        return ResponseVO.success().setData(systemMenuDomain.findMenuByUserAndParentId(parentId,userId));
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }*/
-    /**
      * @Author chenlie
      * @Description根据上级菜单获取二三级菜单
      * @Date 2018/12/5 18:34
      * @Param [list]
-     * @return cn.com.bgy.ifc.entity.vo.ResponseVO
      */
     @GetMapping(value = "/findMenuTreeByType")
-    @ResponseBody
-    public ResponseVO<Object> findMenuTreeByType(int type){
-        Account user= this.getUser();
-        return ResponseVO.success().setData(systemMenuDomain.findMenuTreeByType(type,user.getId()));
+    public ResponseVO<Object> findMenuTreeByType(int type) {
+        Account user = this.getUser();
+        return ResponseVO.success().setData(systemMenuService.findMenuTreeByType(type, user.getId()));
     }
 
     /**
-     * @Author huxin
-     * @Description 树级结构获取所有菜单信息
-     * @Date 2018/12/5 10:04
-     * @Param []
-     * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
-     *//*
-    @GetMapping(value = "/findTree")
-    @ResponseBody
-    public ResponseVO<Object> findTree(Account account){
-        try {
-            account=new Account();
-            account.setId(1L);
-            Map<String,Object> map = systemMenuDomain.findTree(account.getId());
-            return ResponseVO.success().setData(map);
-        }catch (Exception e){
-            e.printStackTrace();
+     * @author: ZhangCheng
+     * @description:ID查询
+     * @param: [id]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<cn.com.bgy.ifc.entity.po.system.SystemMenu>
+     */
+    @GetMapping(value = "/findById")
+    public ResponseVO<SystemMenu> findById(Long id) {
+        SystemMenu systemMenu = systemMenuService.findById(id);
+        return ResponseVO.<SystemMenu>success().setData(systemMenu);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:添加系统菜单
+     * @param: [systemMenuVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO
+     */
+    @PostMapping(value = "/add")
+    @SystemLogAfterSave(type = 1, description = "添加系统菜单")
+    public ResponseVO<Object> add(@Validated SystemMenuVo systemMenuVo, BindingResult error) {
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
-        return ResponseVO.error();
-    }*/
+        SystemMenu systemMenu = new SystemMenu();
+        CopyUtil.copyProperties(systemMenuVo, systemMenu);
+        int result = systemMenuService.insertSelective(systemMenu);
+        if (result == 1) {
+            return ResponseVO.addSuccess();
+        } else {
+            return ResponseVO.addError();
+        }
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:修改系统菜单
+     * @param: [systemMenuVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("edit")
+    @SystemLogAfterSave(type = 1, description = "修改系统菜单")
+    public ResponseVO<Object> edit(@Validated SystemMenuVo systemMenuVo, BindingResult error) {
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
+        }
+        SystemMenu systemMenu = new SystemMenu();
+        CopyUtil.copyProperties(systemMenuVo, systemMenu);
+        int result = systemMenuService.updateSelective(systemMenu);
+        if (result == 1) {
+            return ResponseVO.editSuccess();
+        } else {
+            return ResponseVO.editError();
+        }
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:删除系统菜单
+     * @param: [ids]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("delete")
+    @SystemLogAfterSave(type = 1, description = "删除系统菜单")
+    public ResponseVO<Object> deleteBatch(String ids) {
+        if (ids.length() == 0) {
+            return ResponseVO.deleteError();
+        }
+        List<Long> list = ListUtil.getListId(ids);
+        int resultCount = systemMenuService.deleteBatch(list);
+        if (resultCount == list.size()) {
+            return ResponseVO.deleteSuccess();
+        } else {
+            return ResponseVO.deleteError();
+        }
+    }
+
 }

@@ -58,12 +58,12 @@ public class SystemOrganizationController {
     /**
      * @author: ZhangCheng
      * @description:添加机构信息
-     * @param: [systemOrganizationVo, error, token]
+     * @param: [systemOrganizationVo, error]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("add")
     @SystemLogAfterSave(type = 1, description = "添加机构信息")
-    public ResponseVO<Object> add(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error, String token) {
+    public ResponseVO<Object> add(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -81,12 +81,12 @@ public class SystemOrganizationController {
     /**
      * @author: ZhangCheng
      * @description:修改机构信息
-     * @param: [systemOrganizationVo, error, token]
+     * @param: [systemOrganizationVo, error]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("edit")
     @SystemLogAfterSave(type = 1, description = "修改机构信息")
-    public ResponseVO<Object> edit(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error, String token) {
+    public ResponseVO<Object> edit(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error) {
         //做参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -104,12 +104,12 @@ public class SystemOrganizationController {
     /**
      * @author: ZhangCheng
      * @description:删除机构信息
-     * @param: [ids, token]
+     * @param: [ids]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1, description = "删除机构信息")
-    public ResponseVO<Object> deleteBatch(String ids, String token) {
+    public ResponseVO<Object> deleteBatch(String ids) {
         if (ids.length() == 0) {
             return ResponseVO.deleteError();
         }

@@ -1,8 +1,17 @@
 package cn.com.bgy.ifc.entity.vo.system;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class SystemMenuVo {
     private Long id;
 
+    /**
+     * 菜单名称
+     */
+    @NotBlank(message="菜单名称不能为空！")
+    @Size(max=50,message="菜单名称长度不能超过50字符！")
     private String name;
 
     private String imageUrl;
@@ -15,10 +24,18 @@ public class SystemMenuVo {
 
     private String twoLabelName;
 
+    /**
+     * 顺序编号
+     */
+    @NotNull(message="顺序编号不能为空！")
     private Integer sortIndex;
 
     private Long parentId;
 
+    /**
+     * 系统权限表Id
+     */
+    @NotNull(message="权限配置不能为空！")
     private Long powerId;
 
     private String powerName;

@@ -17,25 +17,7 @@ import java.util.Map;
 
 public interface SystemMenuDomain {
 
-    public PageInfo<SystemMenuVo> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord);
-
-    public SystemMenu findById(Long id);
-
-    public ResponseVO addSystemMenuInfo( SystemMenu systemMenu);
-
-    public ResponseVO updateSystemMenuInfo(SystemMenu systemMenu);
-
-    public ResponseVO deleteSystemMenuInfo(Long id);
-
-    public ResponseVO deleteListSystemMenuInfo(Long[] id);
-
-    /**
-     * 通过用户和类型获取菜单
-     * @param type
-     * @param userId
-     * @return
-     */
-    public List<SystemMenu> findMenuListByType(int type,Long userId);
+     PageInfo<SystemMenuVo> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord);
 
     /**
      * 通过用户和类型获取菜单树
@@ -43,6 +25,6 @@ public interface SystemMenuDomain {
      * @param userId
      * @return
      */
-    public List<SystemMenu> findMenuTreeByType(int type , Long userId);
+     List<SystemMenu> findMenuTreeByType(int type , Long userId);
 
 }

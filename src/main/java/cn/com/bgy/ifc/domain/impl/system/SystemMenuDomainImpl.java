@@ -22,10 +22,9 @@ import java.util.*;
  **/
 @Service
 public class SystemMenuDomainImpl implements SystemMenuDomain {
-    @Autowired
     @Resource
     SystemMenuDao systemMenuDao;
-    //<editor-fold desc="Description">
+
     /**
      * @Author huxin
      * @Description 分页查询所有菜单信息
@@ -37,9 +36,7 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
 
         List<SystemMenu> allMenu= systemMenuDao.queryAllSystemMenuInfo(keyWord);
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<SystemMenu> pageMenu= systemMenuDao.queryAllSystemMenuInfo(keyWord);
         List<SystemMenu> rootMenu=new ArrayList<>();
-        List<SystemMenu> twoMenu=new ArrayList<>();
         List<SystemMenuVo> resultMenu=new ArrayList<>();
         for (SystemMenu nav : allMenu) {
             if(nav.getParentId()==null||nav.getParentId().equals("")){//父节点是空的，为根节点。
@@ -59,16 +56,6 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
                         CopyUtil.copyProperties(twonav,vo);
                         vo.setTwoLabelName(twonav.getName());
                         resultMenu.add(vo);
-                        /*for (SystemMenu threenav : allMenu) {
-                            if(threenav.getParentId() !=null &&threenav.getParentId().longValue()==twonav.getId().longValue()){
-                                vo=new SystemMenuVo();
-                                CopyUtil.copyProperties(threenav,vo);
-                                vo.setTreeLabelName(threenav.getName());
-                                vo.setPowerName(twonav.getPowerName()+"["+threenav.getPowerName()+"]");
-                                resultMenu.add(vo);
-
-                        }
-                    }*/
                 }
 
             }
@@ -83,125 +70,6 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
         pageInfo.setPageNum(page.getPageNum());
         return pageInfo ;
     }
-    //</editor-fold>
-    /**
-     * @Author huxin
-     * @Description 根据ID查询系统菜单 单条信息
-     * @Date 2018/12/5 17:00
-     * @Param []
-     * @return java.util.List<cn.com.bgy.ifc.entity.po.basic.SystemMenu>
-     */
-    public SystemMenu findById(Long id){
-        return systemMenuDao.findById(id);
-    }
-
-    /**
-     * @Author huxin
-     * @Description 增加菜单,包括一二级菜单
-     * @Date 2018/12/5 10:06
-     * @Param [systemMenu]
-     * @return void
-     */
-    public ResponseVO addSystemMenuInfo(SystemMenu systemMenu){
-        int i =systemMenuDao.addSystemMenuInfo(systemMenu);
-        if(i>0){
-            return ResponseVO.success().setMsg("添加成功");
-        }
-        return ResponseVO.success().setMsg("添加失败");
-    }
-    /**
-     * @Author huxin
-     * @Description 根据ID修改菜单，包括一二级信息
-     * @Date 2018/12/5 10:09
-     * @Param [systemMenu]
-     * @return void
-     */
-    public ResponseVO updateSystemMenuInfo(SystemMenu systemMenu){
-        int i =systemMenuDao.updateSystemMenuInfo(systemMenu);
-        if(i>0){
-            return ResponseVO.success().setMsg("修改成功");
-        }
-        return ResponseVO.success().setMsg("修改失败");
-    }
-    /**
-     * @Author huxin
-     * @Description 根据ID删除一条菜单，包括一二级菜单
-     * @Date 2018/12/5 10:11
-     * @Param [id]
-     * @return void
-     */
-    public ResponseVO deleteSystemMenuInfo(Long id){
-        int i =systemMenuDao.deleteSystemMenuInfo(id);
-        if(i>0){
-            return ResponseVO.success().setMsg("删除成功");
-        }
-        return ResponseVO.success().setMsg("删除失败");
-    }
-    /**
-     * @Author huxin
-     * @Description 根据ID批量删除菜单，包括一二级菜单
-     * @Date 2018/12/5 10:13
-     * @Param [id]
-     * @return void
-     */
-    public ResponseVO deleteListSystemMenuInfo(Long[] id){
-        id = new Long[]{1L,2l,5L};
-        int i =systemMenuDao.deleteListSystemMenuInfo(id);
-        if(i==id.length){
-            return ResponseVO.success().setMsg("删除成功");
-        }
-        return ResponseVO.success().setMsg("删除失败");
-    }
-
-    /**
-     * 根据用户id查询所有权限菜单
-     * @param userId
-     * @return
-     */
-    @Override
-    public List<SystemMenu> findMenuListByType(int type,Long userId) {
-        return systemMenuDao.findMenuListByType(type,userId);
-    }
-
-    /**
-     * 根据用户id查询所有菜单树
-     * @param userId
-     * @return
-     */
-    public Map<String,Object> findTree(int type,Long userId){
-        Map<String,Object> data = new HashMap<String,Object>();
-        try {//查询所有菜单
-            List<SystemMenu> allMenu = systemMenuDao.findMenuListByType(type,userId);
-            //根节点
-            List<SystemMenu> rootMenu = new ArrayList<SystemMenu>();
-            for (SystemMenu nav : allMenu) {
-                if(nav.getParentId()==null){//父节点是空的，为根节点。
-                    rootMenu.add(nav);
-                }
-            }
-            /* 根据Menu类的order排序 */
-            Collections.sort(rootMenu, order());
-            //为根菜单设置子菜单，getClild是递归调用的
-            for (SystemMenu nav : rootMenu) {
-                /* 获取根节点下的所有子节点 使用getChild方法*/
-                List<SystemMenu> childList = getChild(nav.getId(), allMenu);
-                nav.setChildren(childList);//给根节点设置子节点
-            }
-            /**
-             * 输出构建好的菜单数据。
-             *
-             */
-            data.put("success", "true");
-            data.put("list", rootMenu);
-            return data;
-        } catch (Exception e) {
-            e.printStackTrace();
-            data.put("success", "false");
-            data.put("list", new ArrayList<>());
-            return data;
-        }
-    }
-
 
     /**
      * 获取子节点
@@ -255,7 +123,6 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
      */
     @Override
     public List<SystemMenu> findMenuTreeByType(int type , Long userId){
-        Map<String,Object> data = new HashMap<String,Object>();
         try {//查询所有菜单
             List<SystemMenu> allMenu = systemMenuDao.findMenuListByType(type,userId);
             //根节点

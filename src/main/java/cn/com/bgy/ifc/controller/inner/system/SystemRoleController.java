@@ -54,7 +54,7 @@ public class SystemRoleController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<cn.com.bgy.ifc.entity.vo.system.SystemRoleVo>
      */
     @GetMapping("findById")
-    public ResponseVO<SystemRoleVo> queryById(Long id) {
+    public ResponseVO<SystemRoleVo> findById(Long id) {
         SystemRole systemRole = systemRoleService.findById(id);
         SystemRoleVo systemRoleVo = new SystemRoleVo();
         CopyUtil.copyProperties(systemRole, systemRoleVo);
