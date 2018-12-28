@@ -83,6 +83,7 @@
 <!--分页条件查询部门管理-->
     <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.Department" resultType="cn.com.bgy.ifc.entity.po.system.Department">
         SELECT
+        t1.id as id,
         t2.NAME as parentName,
         t1.parent_id as parentId,
         t1.name,
@@ -105,8 +106,8 @@
             <if test="organizationId != null ">
                 AND t1.organization_id=#{organizationId}
             </if>
-            <if test="keyWords!='' and keyWords!=null">
-                AND (t1.name LIKE concat('%',#{keywords},'%') OR t2.name LIKE concat('%',#{keywords},'%'))
+            <if test="keyWords !='' and keyWords!=null">
+                AND (t1.name LIKE concat('%',#{keyWords},'%') OR t2.name LIKE concat('%',#{keyWords},'%'))
             </if>
             AND t1.logic_remove = 0
         </where>
@@ -147,8 +148,7 @@
             <if test="createTime != null">create_time =#{createTime},</if>
             <if test="logicRemove != null">logic_remove =#{logicRemove}</if>
         </set>
-        WHERE id
-        = #{id}
+        WHERE id = #{id}
     </update>
 
     <update id="deleteBatch" parameterType="java.util.List">

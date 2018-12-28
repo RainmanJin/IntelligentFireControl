@@ -71,13 +71,11 @@ public class DepartmentDomainImpl implements DepartmentDomain {
         return 0;
     }
 
-    @Transactional
     @Override
     public int update(Department department) {
-        if(department == null || StringUtils.isEmpty(department.getId())){
+        if(department.getId() == null ){
             return 0;
         }
-        department.setCreateTime(new Date());
         return departmentDao.update(department);
     }
 

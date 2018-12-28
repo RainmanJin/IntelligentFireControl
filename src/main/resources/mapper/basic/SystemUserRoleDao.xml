@@ -46,21 +46,26 @@
       from system_user_role where id=#{id,jdbcType=BIGINT}
   </select>
 <!--分页查询用户角色-->
-  <select id="findByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.SystemUserRole" resultType="cn.com.bgy.ifc.entity.po.system.SystemUserRole">
+  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.Account" resultType="java.util.Map">
     SELECT
     a.id,
-    a.deptName,
+    a.departmentName,
     a.telephone,
-    a.job_number,
-    a.user_name,
+    a.job_number as jobNumber,
+    a.user_name as userName,
     a.sex,
-    GROUP_CONCAT( a.roleName ) as  currentRole
+    GROUP_CONCAT( a.roleName ) as  roleName
     FROM
     (
     SELECT
-    t4.NAME AS deptName,
+    t4.NAME AS departmentName,
     t2.NAME AS roleName,
-    t1.*
+    t1.id,
+    t1.organization_id,
+    t1.department_id,
+    t1.telephone,
+    t1.job_number,
+    t1.sex,
     FROM
     account t1
     LEFT JOIN system_organization t5 ON t1.organization_id = t5.user_id
@@ -79,12 +84,18 @@
           <if test="keyWords != null and '' != keyWords ">
              AND  a.user_name like CONCAT('%',#{keyWords},'%',)
           </if>
-          <if test="dpartmentId != null ">
-             AND  t1.dpartmentId = #{dpartmentId}
+          <if test="departmentId != null ">
+             AND  t1.departmentId = #{departmentId}
           </if>
           <if test="sex != null ">
              AND  a.sex = #{sex}
           </if>
+         <if test="hasRole != null and hasRole=0  ">
+           AND  a.roleName is null
+         </if>
+         <if test="hasRole != null and hasRole=1  ">
+           AND  a.roleName is not null
+         </if>
     </where>
   </select>
   <update id="updateById" parameterType="cn.com.bgy.ifc.entity.po.system.SystemUserRole">

@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+import java.util.Map;
+
 @Controller
-@RequestMapping("/basic/systemUserRole")
+@RequestMapping("/system/systemUserRole")
 public class SystemUserRoleController {
 
     @Autowired
@@ -49,17 +52,15 @@ public class SystemUserRoleController {
 
     /**
      * 用户角色分页查询
+     * @author chenlie
      * @param page
-     * @param systemUserRoleVo
-     * @param error
+     * @param account
      * @return
      */
     @GetMapping("searchPage")
     @ResponseBody
-    public ResponseVO<Object> searchPage(Page<Account> page,@Validated SystemUserRoleVo systemUserRoleVo, BindingResult error){
-        SystemUserRole systemUserRole= new SystemUserRole();
-        CopyUtil.copyProperties(systemUserRoleVo,systemUserRole);
-        PageInfo<SystemUserRole> pageInfo=systemUserRoleDomain.searchByPage(page,systemUserRole);
+    public ResponseVO<Object> searchPage(Page<Account> page, Account account){
+        PageInfo<Map<String,Object>> pageInfo=systemUserRoleDomain.searchByPage(page,account);
         return ResponseVO.success().setData(pageInfo);
     }
 

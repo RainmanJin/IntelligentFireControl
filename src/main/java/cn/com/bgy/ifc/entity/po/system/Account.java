@@ -115,6 +115,16 @@ public class Account {
      */
     private String remark;
 
+    private Integer hasRole;
+
+    public Integer getHasRole() {
+        return hasRole;
+    }
+
+    public void setHasRole(Integer hasRole) {
+        this.hasRole = hasRole;
+    }
+
     public String getKeyWords() {
         return keyWords;
     }

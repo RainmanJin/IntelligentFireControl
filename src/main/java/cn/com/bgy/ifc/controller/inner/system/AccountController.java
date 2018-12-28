@@ -51,9 +51,6 @@ public class AccountController extends BaseController {
     @GetMapping("searchPage")
     @ResponseBody
     public ResponseVO<Object> searchPage(Page<Account> page, Account account){ Account user = this.getUser();
-        //Account account= new Account();
-        //CopyUtil.copyProperties(accountVo,account);
-        //account.setRegistTimeStart(new Date());
         PageInfo<Account> pageInfo=accountDomain.searchByPage(page,account);
 
         return ResponseVO.success().setData(pageInfo);

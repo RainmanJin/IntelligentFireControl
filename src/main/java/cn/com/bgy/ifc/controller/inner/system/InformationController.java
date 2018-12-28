@@ -24,7 +24,7 @@ import java.util.List;
  * @date: 2018-12-05 09:30
  **/
 @Controller
-@RequestMapping("/basic/information")
+@RequestMapping("/system/information")
 public class InformationController {
     @Autowired
     private InformationDomain informationDomain;

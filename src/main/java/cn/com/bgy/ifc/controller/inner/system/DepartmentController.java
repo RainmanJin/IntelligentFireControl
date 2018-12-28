@@ -8,6 +8,7 @@ import cn.com.bgy.ifc.bgy.utils.TreeUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.DepartmentDomain;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.Department;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -113,24 +114,13 @@ public class DepartmentController extends BaseController {
     @SystemLogAfterSave(type = 1,description = "部门信息添加")
     @ResponseBody
     public ResponseVO<Object> add(@Validated DepartmentVo departmentVo, BindingResult error) {
-        //参数校检
-        if (error.hasErrors()) {
-            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
-        }
-        if(departmentVo.getUserId()==null){
-            return ResponseVO.error().setMsg("userId参数异常");
-        }
-        //根据当前登录用户的id获取机构
-        SystemOrganization systemOrganization=systemOrganizationDomain.querySystemOrganizationByUserId(departmentVo.getUserId());
-        if (systemOrganization==null){
-            return ResponseVO.error().setMsg("当前登录用户没有所属机构");
-        }
+        Account user=this.getUser();
         Department department = new Department();
         CopyUtil.copyProperties(departmentVo, department);
         if(departmentVo.getParentId()==null){
             department.setParentId(0L);
         }
-        department.setOrganizationId(systemOrganization.getId());
+        department.setOrganizationId(user.getOrganizationId());
         department.setCreateTime(new Date());
         department.setState(1);
         department.setLogicRemove(false);
@@ -163,34 +153,14 @@ public class DepartmentController extends BaseController {
      * @param: [departmentVo, error]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("edit")
+    @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "部门信息修改")
     @ResponseBody
-    public ResponseVO<Object> edit(@Validated DepartmentVo departmentVo, BindingResult error) {
-        //参数校检
-        if (error.hasErrors()) {
-            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
-        }
+    public ResponseVO<Object> update(@Validated DepartmentVo departmentVo, BindingResult error) {
         Department department = new Department();
         CopyUtil.copyProperties(departmentVo, department);
         int count = departmentDomain.update(department);
-        if (count == 1) {
-            return ResponseVO.success().setMsg("修改成功");
-        }
-        return ResponseVO.error().setMsg("修改失败！");
-    }
-
-    /**
-     * @author: ZhangCheng
-     * @description:部门启用禁用操作
-     * @param: [id, state]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
-     */
-    @PostMapping("prohibit")
-    @ResponseBody
-    public ResponseVO<Object> prohibit(Department department) {
-        int count = departmentDomain.update(department);
-        if (count == 1) {
+        if (count >0) {
             return ResponseVO.success().setMsg("操作成功");
         }
         return ResponseVO.error().setMsg("操作失败！");
@@ -198,16 +168,34 @@ public class DepartmentController extends BaseController {
 
     /**
      * @author: ZhangCheng
+     * @description:部门信息修改
+     * @param: [departmentVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("forbidden")
+    @SystemLogAfterSave(type = 1,description = "部门信息修改")
+    @ResponseBody
+    public ResponseVO<Object> forbidden(DepartmentVo departmentVo) {
+        Department department = new Department();
+        CopyUtil.copyProperties(departmentVo, department);
+        int count = departmentDomain.update(department);
+        if (count >0) {
+            return ResponseVO.success().setMsg("操作成功");
+        }
+        return ResponseVO.error().setMsg("操作失败！");
+    }
+    /**
+     * @author: ZhangCheng
      * @description:部门信息删除
      * @param: [id]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @DeleteMapping("delete")
+    @PostMapping("delete")
     @ResponseBody
     public ResponseVO<Object> delete( String ids) {
 
         int count = departmentDomain.deleteBatch(ListUtil.getListId(ids));
-        if (count >1) {
+        if (count >0) {
             return ResponseVO.success().setMsg("删除成功");
         }
         return ResponseVO.error().setMsg("删除失败！");

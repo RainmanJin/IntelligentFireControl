@@ -23,6 +23,15 @@ public class SystemRole {
 
 
     private String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     /**
      * @Author huxin
      * @Description 角色状态 0禁用 1 启用

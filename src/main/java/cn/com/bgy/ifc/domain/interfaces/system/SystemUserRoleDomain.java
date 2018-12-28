@@ -1,10 +1,12 @@
 package cn.com.bgy.ifc.domain.interfaces.system;
 
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.SystemUserRole;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SystemUserRoleDomain {
     /**
@@ -16,18 +18,18 @@ public interface SystemUserRoleDomain {
 
     /**
      * 条件查询
-     * @param systemUserRole
+     * @param account
      * @return
      */
-    List<SystemUserRole> searchByWhere(SystemUserRole systemUserRole);
+    List<Map<String,Object>> searchByWhere(Account account);
 
     /**
      * 分页查询
      * @param page
-     * @param systemUserRole
+     * @param account
      * @return
      */
-    PageInfo<SystemUserRole> searchByPage(Page page, SystemUserRole systemUserRole);
+    PageInfo<Map<String,Object>>  searchByPage(Page page, Account account);
 
     /**
      * 删除

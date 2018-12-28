@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.dao.system.SystemUserRoleDao;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemUserRoleDomain;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.SystemUserRole;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SystemUserRoleDomainImpl implements SystemUserRoleDomain {
@@ -22,15 +24,15 @@ public class SystemUserRoleDomainImpl implements SystemUserRoleDomain {
     }
 
     @Override
-    public List<SystemUserRole> searchByWhere(SystemUserRole systemUserRole) {
-        return systemUserRoleDao.searchByWhere(systemUserRole);
+    public List<Map<String,Object>> searchByWhere(Account account) {
+        return systemUserRoleDao.searchByWhere(account);
     }
 
     @Override
-    public PageInfo<SystemUserRole> searchByPage(Page page, SystemUserRole systemUserRole) {
+    public PageInfo<Map<String,Object>> searchByPage(Page page, Account account) {
         page=PageHelper.startPage(page.getPageNum(),page.getPageSize(),page.getOrderBy());
-        List<SystemUserRole> systemUserRoleList=this.searchByWhere(systemUserRole);
-        PageInfo<SystemUserRole> pageInfo=new PageInfo<>(systemUserRoleList);
+        List<Map<String,Object>> systemUserRoleList=this.searchByWhere(account);
+        PageInfo<Map<String,Object>> pageInfo=new PageInfo<>(systemUserRoleList);
         return pageInfo;
     }
 

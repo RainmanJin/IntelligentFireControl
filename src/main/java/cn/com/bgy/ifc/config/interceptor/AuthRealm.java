@@ -40,7 +40,7 @@ public class AuthRealm extends AuthorizingRealm { //AuthenticatingRealm是抽象
         Set<String> permissionSet = new HashSet<>();
         Set<String> roleNameSet = new HashSet<>();
          for (SystemRole role :account.getRoleList()){
-             roleNameSet.add(Integer.toString(role.getType()));
+             roleNameSet.add(role.getValue());
          }
          for (SystemPower power: account.getPowerList()){
           permissionSet.add(power.getName());
