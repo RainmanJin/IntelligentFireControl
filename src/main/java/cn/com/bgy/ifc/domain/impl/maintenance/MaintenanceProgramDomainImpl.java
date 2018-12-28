@@ -48,7 +48,7 @@ public class MaintenanceProgramDomainImpl implements MaintenanceProgramDomain {
     }
 
     @Override
-    public MaintenanceProgramVo findById(Long id) {
+    public MaintenanceProgram findById(Long id) {
         return dao.findById(id);
     }
 
