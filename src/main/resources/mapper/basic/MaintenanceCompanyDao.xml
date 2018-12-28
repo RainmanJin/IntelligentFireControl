@@ -87,7 +87,7 @@
   <include refid="selectSql"/>
   where mc.logic_remove = 0
     <if test="id != null">
-      and id=#{id,jdbcType=BIGINT}
+      and MC.id=#{id,jdbcType=BIGINT}
     </if>
     <if test="organizationId != null">
       and mc.organization_id= #{organizationId,jdbcType=BIGINT}

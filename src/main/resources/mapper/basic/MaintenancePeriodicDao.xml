@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.maintenance.MaintenancePeriodicDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
+    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+    <result column="region_id" jdbcType="BIGINT" property="regionId" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="equipment_id" jdbcType="BIGINT" property="equipmentId" />
+    <result column="equipment_name" jdbcType="VARCHAR" property="equipmentName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="cycle_type" jdbcType="INTEGER" property="cycleType" />
+    <result column="cycle_day" jdbcType="INTEGER" property="cycleDay" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="sum" jdbcType="INTEGER" property="sum" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic">
+    insert into maintenance_periodic (id, organization_id, region_id, 
+      project_id, equipment_id, content, 
+      company_id, cycle_type, cycle_day, 
+      end_time, sum, logic_remove
+      )
+    values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{regionId,jdbcType=BIGINT}, 
+      #{projectId,jdbcType=BIGINT}, #{equipmentId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=BIGINT}, #{cycleType,jdbcType=INTEGER}, #{cycleDay,jdbcType=INTEGER}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{sum,jdbcType=INTEGER}, #{logicRemove,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic">
+    insert into maintenance_periodic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="organizationId != null">
+        organization_id,
+      </if>
+      <if test="regionId != null">
+        region_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="equipmentId != null">
+        equipment_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="cycleType != null">
+        cycle_type,
+      </if>
+      <if test="cycleDay != null">
+        cycle_day,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="sum != null">
+        sum,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="equipmentId != null">
+        #{equipmentId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="cycleType != null">
+        #{cycleType,jdbcType=INTEGER},
+      </if>
+      <if test="cycleDay != null">
+        #{cycleDay,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sum != null">
+        #{sum,jdbcType=INTEGER},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Mysql">
+		 select mp.id as id ,-- 周期性主表主键ID
+				mp.organization_id as organization_id,-- 机构表ID用于区分平台
+				so.name as organization_name,-- 机构名称
+				mp.region_id as region_id,-- 区域表ID
+				ri.name as region_name,-- 区域名称
+				mp.project_id as project_id,  -- 项目表ID
+				rp.name as project_name,-- 项目名称
+				mp.equipment_id as equipment_id,-- 消防设备信息表ID
+				qi.name as equipment_name,-- 消防设备名称
+				mp.content as content,-- 维保内荣
+				mp.company_id as company_id,-- 维保公司ID
+				mc.name as company_name,-- 维保公司名称
+				mp.cycle_type as cycle_type,-- 维保周期时间：1月2季3半年4年5自定义（天）
+				mp.cycle_day as cycle_day,-- 维保周期自定义天数
+				mp.end_time as end_time,-- 维保结束时间
+				mp.sum as sum,-- 维保总次数
+				mp.logic_remove as logic_remove-- 是否逻辑删除
+		from maintenance_periodic mp 
+		left join system_organization so on so.id = mp.organization_id
+		left join region_info ri on ri.id = mp.region_id
+		left join region_project rp on rp.id = mp.project_id
+		left join equipment_info qi on qi.id = mp.equipment_id
+		left join maintenance_company mc on mc.id = mp.company_id
+  </sql>
+   <!--分頁查詢-->
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic" resultMap="BaseResultMap">
+  <include refid="Mysql"/>
+  where mp.logic_remove = 0
+    <if test="id != null">
+      and mp.id=#{id,jdbcType=BIGINT}
+    </if>
+    <if test="organizationId != null">
+      and mp.organization_id= #{organizationId,jdbcType=BIGINT}
+    </if>
+    <if test="regionId != null">
+      and mp.region_id= #{regionId,jdbcType=BIGINT}
+    </if>
+    <if test="projectId != null">
+      and mp.project_id= #{projectId,jdbcType=BIGINT}
+    </if>
+    <if test="equipmentId != null">
+      and mp.equipment_id= #{equipmentId,jdbcType=BIGINT}
+    </if>
+    <if test="companyId != null">
+      and mp.company_id= #{companyId,jdbcType=BIGINT}
+    </if>
+    <if test="cycleType != null">
+      and mp.cycle_type= #{cycleType,jdbcType=INTEGER}
+    </if>
+
+    <if test="content != null">
+      <!--暂定关键字查询为合维保公司名称的模糊查询-->
+      and (mp.content like LIKE  concat('%',#{content},'%')
+      or  (so.name like LIKE  concat('%',#{content},'%'))
+      or  (ri.name like LIKE  concat('%',#{content},'%'))
+      or  (qi.name like LIKE  concat('%',#{content},'%'))
+      or  (mc.name like LIKE  concat('%',#{content},'%'))
+      or  (rp.name like LIKE  concat('%',#{content},'%')))
+    </if>
+
+</select>
+  <!--修改-->
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic">
+    UPDATE maintenance_periodic
+    <set>
+      <if test="id != null">
+         id=#{id,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        organization_id= #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="regionId != null">
+        region_id=#{regionId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        project_id=#{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="equipmentId != null">
+        equipment_id=#{equipmentId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        content=#{content,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        company_id=#{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="cycleType != null">
+        cycle_type=#{cycleType,jdbcType=INTEGER},
+      </if>
+      <if test="cycleDay != null">
+        cycle_day=#{cycleDay,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        endTime=#{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sum != null">
+        sum=#{sum,jdbcType=INTEGER},
+      </if>
+      <if test="logicRemove != null">
+        logic_remove=#{logicRemove,jdbcType=BIT},
+      </if>
+    </set>
+    WHERE mp.id = #{id}
+
+  </update>
+  <!--通过id查询维保公司-->
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    WHERE mc.id = #{id}
+  </select>
+
+  <!--逻辑批量删除维保公司-->
+  <update id="delete" parameterType="java.util.List">
+    UPDATE maintenance_periodic set logic_remove =1 where id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic">
+        UPDATE maintenance_company
+         <set>
+       <if test="id != null">
+         id=#{id,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        organization_id= #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="regionId != null">
+        region_id=#{regionId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        project_id=#{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="equipmentId != null">
+        equipment_id=#{equipmentId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        content=#{content,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        company_id=#{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="cycleType != null">
+        cycle_type=#{cycleType,jdbcType=INTEGER},
+      </if>
+      <if test="cycleDay != null">
+        cycle_day=#{cycleDay,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        endTime=#{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sum != null">
+        sum=#{sum,jdbcType=INTEGER},
+      </if>
+      <if test="logicRemove != null">
+        logic_remove=#{logicRemove,jdbcType=BIT},
+      </if>
+    </set>
+        WHERE id
+        = #{id}
+    </update>
+</mapper>

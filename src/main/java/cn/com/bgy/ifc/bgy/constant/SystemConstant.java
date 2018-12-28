@@ -31,7 +31,7 @@ public class SystemConstant {
      * @author chenlie
      * 用户角色
      */
-    public enum System_Roles {
+    public enum SystemRoles {
         /**
          * 系统管理员
          */
@@ -65,7 +65,7 @@ public class SystemConstant {
 
         private String name;
 
-        private System_Roles(String  value, String name) {
+        private SystemRoles(String  value, String name) {
             this.value = value;
             this.name = name;
         }
@@ -77,9 +77,10 @@ public class SystemConstant {
         public String getName() {
             return name;
         }
+
         public static List<SelectVo> getSelectList() {
             List<SelectVo> list = new ArrayList<>();
-            for (System_Roles systemRoles : System_Roles.values()) {
+            for (SystemRoles systemRoles : SystemRoles.values()) {
                 SelectVo selectVo = new SelectVo();
                 selectVo.setValue(String.valueOf(systemRoles.getValue()));
                 selectVo.setName(systemRoles.getName());
@@ -211,61 +212,5 @@ public class SystemConstant {
             return list;
         }
     }
-
-    /**
-     * @Author huxin
-     * @Description 系统角色类型
-     * @Date 2018/12/17 18:18
-     */
-    public enum SystemRoleType {
-        //普通用户
-        USER_ROLR(0, "普通用户"),
-        //集团管理员
-        GROUP_ADMIN_ROLE(1, "集团管理员"),
-        //集团用户
-        GROUP_UERR_ROLE(2, "集团用户"),
-        //区域管理员
-        REGION_ADMIN_ROLE(3, "区域管理员"),
-        //区域用户
-        REGION_USER_ROLE(4, "区域管理员"),
-        //项目管理员
-        POJECT_ADMIN_ROLE(5, "项目管理员"),
-        //项目用户
-        POJECT_ADMIN_USER(6, "项目用户");
-        private Integer value;
-        private String name;
-
-        private SystemRoleType(Integer value, String name) {
-            this.value = value;
-            this.name = name;
-        }
-
-        public Integer getValue() {
-            return value;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        /**
-         * @author: ZhangCheng
-         * @description:枚举中的属性转换为下拉列表List
-         * @param: []
-         * @return: java.util.List<cn.com.bgy.ifc.entity.vo.basic.SelectVo>
-         */
-        public static List<SelectVo> getSelectList() {
-            List<SelectVo> list = new ArrayList<>();
-            SelectVo selectVo = new SelectVo();
-            for (SystemRoleType systemRoleType : SystemRoleType.values()) {
-                selectVo.setValue(String.valueOf(systemRoleType.getValue()));
-                selectVo.setName(systemRoleType.getName());
-                list.add(selectVo);
-            }
-            return list;
-        }
-
-    }
-
 
 }

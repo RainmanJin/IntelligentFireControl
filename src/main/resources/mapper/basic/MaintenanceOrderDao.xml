@@ -20,7 +20,7 @@
 		<result column="cycle" jdbcType="BIT" property="cycle" />
 	</resultMap>
 	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
-		type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderWithBLOBs">
+		type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder">
 		<result column="sign" jdbcType="LONGVARCHAR" property="sign" />
 		<result column="remark" jdbcType="LONGVARCHAR" property="remark" />
 	</resultMap>
@@ -28,7 +28,7 @@
 		sign, remark
 	</sql>
 	<insert id="insert"
-		parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderWithBLOBs">
+		parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder">
 		insert into maintenance_order (id, plan_id, device_id,
 		organization_id, staff_info, handle_time,
 		order_state, create_time, logic_remove,
@@ -43,7 +43,7 @@
 		)
 	</insert>
 	<insert id="insertSelective"
-		parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderWithBLOBs">
+		parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder">
 		insert into maintenance_order
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">

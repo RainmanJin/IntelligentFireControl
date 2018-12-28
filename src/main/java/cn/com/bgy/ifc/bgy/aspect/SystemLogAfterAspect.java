@@ -37,22 +37,22 @@ public class SystemLogAfterAspect {
      */
     @AfterReturning(returning = "result", pointcut = "@annotation(cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave)")
     public void save(JoinPoint joinPoint, ResponseVO<Object> result) {
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        Method method = signature.getMethod();
-        //方法如果存在这样的注释，则返回指定类型的元素的注释，否则为null。
-        SystemLogAfterSave systemLogAfterSave = method.getAnnotation(SystemLogAfterSave.class);
-        SystemOperationLog systemOperationLog = new SystemOperationLog();
-        //joinPoint.
-        if (systemLogAfterSave != null) {
-            //注解上的类型
-            systemOperationLog.setLogType(systemLogAfterSave.type());
-            //注解上的描述
-            systemOperationLog.setOperatorDescribe(systemLogAfterSave.description());
-        }
-        //获取操作完成后的信息
-        if (null != result.getMsg()) {
-            systemOperationLog.setOperatorContent(result.getMsg());
-        }
-        systemOperationLogService.insertSystemLogInfo(systemOperationLog);
+            MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+            Method method = signature.getMethod();
+            //方法如果存在这样的注释，则返回指定类型的元素的注释，否则为null。
+            SystemLogAfterSave systemLogAfterSave = method.getAnnotation(SystemLogAfterSave.class);
+            SystemOperationLog systemOperationLog = new SystemOperationLog();
+            //joinPoint.
+            if (systemLogAfterSave != null) {
+                //注解上的类型
+                systemOperationLog.setLogType(systemLogAfterSave.type());
+                //注解上的描述
+                systemOperationLog.setOperatorDescribe(systemLogAfterSave.description());
+            }
+            //获取操作完成后的信息
+            if (null != result.getMsg()) {
+                systemOperationLog.setOperatorContent(result.getMsg());
+            }
+            systemOperationLogService.insertSystemLogInfo(systemOperationLog);
     }
 }

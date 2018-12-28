@@ -17,8 +17,6 @@ import java.util.Set;
 public class BasePathInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        //response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
-        //response.setHeader("Access-Control-Allow-Origin", "http://192.168.0.102:8080");// *
 
         String []  allowDomain= {"http://192.168.0.110:8080","http://192.168.0.109:8080","http://192.168.0.102:8080","http://127.0.0.1:8080"};
         Set<String> allowedOrigins= new HashSet<>(Arrays.asList(allowDomain));

@@ -3,21 +3,20 @@ package cn.com.bgy.ifc.controller.inner.system;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
-import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.SystemOrganizationVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOrganizationService;
-import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ import java.util.List;
  * @description:机构信息
  * @date: 2018-12-05 09:30
  **/
-@Controller
+@RestController
 @RequestMapping("/system/systemOrganization")
 public class SystemOrganizationController {
 
@@ -36,13 +35,11 @@ public class SystemOrganizationController {
      * @author: ZhangCheng
      * @description:机构分页查询
      * @param: [page, token]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo   <   cn.com.bgy.ifc.entity.po.system.SystemOrganization>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo               <               cn.com.bgy.ifc.entity.po.system.SystemOrganization>>
      */
     @GetMapping("queryPage")
-    @SystemLogAfterSave(type = 1, description = "分页查询机构")
-    @ResponseBody
-    public ResponseVO<PageInfo<SystemOrganization>> searchPage(Page<SystemOrganization> page,String keywords, String token) {
-        PageInfo<SystemOrganization> pageInfo = systemOrganizationService.queryListByPage(page,keywords);
+    public ResponseVO<PageInfo<SystemOrganization>> searchPage(Page<SystemOrganization> page, String keywords, String token) {
+        PageInfo<SystemOrganization> pageInfo = systemOrganizationService.queryListByPage(page, keywords);
         return ResponseVO.<PageInfo<SystemOrganization>>success().setData(pageInfo);
     }
 
@@ -53,8 +50,6 @@ public class SystemOrganizationController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @GetMapping("findById")
-    @SystemLogAfterSave(type = 1, description = "通过id查询机构")
-    @ResponseBody
     public ResponseVO<Object> findById(Long id) {
         SystemOrganization systemOrganization = systemOrganizationService.findById(id);
         return ResponseVO.success().setData(systemOrganization);
@@ -68,7 +63,6 @@ public class SystemOrganizationController {
      */
     @PostMapping("add")
     @SystemLogAfterSave(type = 1, description = "添加机构信息")
-    @ResponseBody
     public ResponseVO<Object> add(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error, String token) {
         //参数校检
         if (error.hasErrors()) {
@@ -92,7 +86,6 @@ public class SystemOrganizationController {
      */
     @PostMapping("edit")
     @SystemLogAfterSave(type = 1, description = "修改机构信息")
-    @ResponseBody
     public ResponseVO<Object> edit(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error, String token) {
         //做参数校检
         if (error.hasErrors()) {
@@ -116,7 +109,6 @@ public class SystemOrganizationController {
      */
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1, description = "删除机构信息")
-    @ResponseBody
     public ResponseVO<Object> deleteBatch(String ids, String token) {
         if (ids.length() == 0) {
             return ResponseVO.deleteError();
