@@ -1,17 +1,16 @@
 package cn.com.bgy.ifc.controller.inner.project;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionInfoDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionInfo;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.RegionInfoVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -21,9 +20,9 @@ import java.util.Map;
  * @Description 区域信息controller
  * @Date 2018/12/18 15:19
  */
-@Controller
-@RequestMapping("/basic/regionInfo")
-public class RegionInfoController {
+@RestController
+@RequestMapping("/project/regionInfo")
+public class RegionInfoController extends BaseController {
 
 
     @Autowired
@@ -34,11 +33,13 @@ public class RegionInfoController {
      * @Description 查询
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("query")
-    @ResponseBody
-    public ResponseVO<PageInfo> queryListRegionInfo( Page<Object> page, RegionInfoVo regionInfoVo, String token){
-            PageInfo pageInfo = regionInfoDomain.queryListRegionInfo(page, regionInfoVo);
-            return ResponseVO.<PageInfo>success().setData(pageInfo);
+    @GetMapping("query")
+//    @RequiresRoles(value={SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_USER,
+//            SystemConstant.SYSTEM_ROLES_AREA_ADMIN,SystemConstant.SYSTEM_ROLES_AREA_USRE},logical = Logical.OR)
+    public ResponseVO<PageInfo> queryListRegionInfo( Page<Object> page, String keyword){
+        Account user=this.getUser();
+        PageInfo pageInfo = regionInfoDomain.queryListRegionInfo(page, keyword,user);
+        return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**
      * @Author huxin
@@ -47,7 +48,6 @@ public class RegionInfoController {
      */
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "区域信息修改")
-    @ResponseBody
     public ResponseVO<Object> updateRegionInfo( RegionInfoVo regionInfoVo, String token){
 
         int count = regionInfoDomain.updateRegionInfo(regionInfoVo);
@@ -63,9 +63,8 @@ public class RegionInfoController {
      */
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "区域信息删除")
-    @ResponseBody
-    public ResponseVO<Object> deleteRegionInfo( String arr, String token){
-        int count = regionInfoDomain.deleteRegionInfo(arr);
+    public ResponseVO<Object> deleteRegionInfo( Long [] ids){
+        int count = regionInfoDomain.deleteRegionInfo(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }
@@ -78,8 +77,7 @@ public class RegionInfoController {
      */
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "区域信息添加")
-    @ResponseBody
-    public ResponseVO<Object> insertRegionInfo(RegionInfo regionInfo,String token){
+    public ResponseVO<Object> insertRegionInfo(RegionInfo regionInfo){
         int count = regionInfoDomain.insert(regionInfo);
         if (count > 0) {
             return ResponseVO.success().setMsg("添加成功");
@@ -95,7 +93,8 @@ public class RegionInfoController {
     @PostMapping("queryAllName")
     @ResponseBody
     public ResponseVO<Object> queryRegionInfoName(){
-        List<Map<String,Object>> list  = regionInfoDomain.queryRegionInfoName();
+        Account user=this.getUser();
+        List<Map<String,Object>> list  = regionInfoDomain.queryRegionInfoName(user);
         return ResponseVO.<Object>success().setData(list);
     }
 }

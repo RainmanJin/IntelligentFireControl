@@ -154,7 +154,7 @@
         LEFT JOIN region_project p ON cr.project_id = p.id
         <where>
             <if test="regionId != null and regionId!= '' ">
-                AND cr.region_id= #{regionId,jdbcType=BIGINT},
+                AND cr.region_id= #{regionId,jdbcType=BIGINT}
             </if>
             <if test="projectId != null and projectId != '' ">
                 AND cr.project_id= #{ projectId,jdbcType=BIGINT}

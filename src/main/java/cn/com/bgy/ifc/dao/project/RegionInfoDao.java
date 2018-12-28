@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface RegionInfoDao extends BaseDao<RegionInfo> {
 
-    List<Map<String,Object>> queryListRegionInfo(RegionInfoVo regionInfoVo);
+    List<Map<String,Object>> queryListRegionInfo(Map<String,Object> map);
 
     int updateRegionInfo(RegionInfoVo record);
 

@@ -75,6 +75,16 @@
 		id, region_id, project_id,group_id, user_id
 		FROM user_group_items WHERE user_id = #{userId} AND group_id IS NULL
   </select>
+    <select id="queryRegionIdByUserId" parameterType="Long" resultType="java.lang.Long">
+		SELECT
+		region_id as regionId
+		FROM user_group_items WHERE user_id = #{userId} AND group_id IS NULL GROUP BY region_id
+    </select>
+    <select id="queryProjectIdByUserId" parameterType="Long" resultType="java.lang.Long">
+		SELECT
+		project_id as projectId
+		FROM user_group_items WHERE user_id = #{userId} AND group_id IS NULL GROUP BY project_id
+    </select>
 
     <delete id="deleteById" parameterType="Long">
        DELETE FROM user_group_items WHERE id = #{id}

@@ -2,11 +2,12 @@ package cn.com.bgy.ifc.domain.impl.project;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
-import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.project.*;
-import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
+import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionInfoDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionInfo;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.BgyRegionInfoVo;
 import cn.com.bgy.ifc.entity.vo.project.RegionInfoVo;
@@ -20,10 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author huxin
@@ -56,15 +54,27 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
 
     @Resource
     private RegionComputerRoomDao regionComputerRoomDao;
+
+    @Resource
+    private UserGroupItemsDao userGroupItemsDao;
     /**
      * @Author huxin
      * @Description 查询
      * @Date 2018/12/18 16:26
      */
     @Override
-    public PageInfo queryListRegionInfo(Page page, RegionInfoVo systemRoleVo) {
+    public PageInfo queryListRegionInfo(Page page, String keyword,Account user) {
+        List<Long>  regionList = userGroupItemsDao.queryRegionIdByUserId(user.getId());
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("keyword",keyword);
+        if(regionList.size()>0){
+            map.put("regionList",regionList);
+        }else{
+            map.put("regionList",null);
+        }
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Map<String,Object>> list = regionInfoDao.queryListRegionInfo(systemRoleVo);
+        List<Map<String,Object>> list = regionInfoDao.queryListRegionInfo(map);
         return new PageInfo(list);
     }
 
@@ -98,22 +108,26 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
      */
     @Transactional
     @Override
-    public int deleteRegionInfo(String str) {
-        List<Long> list = ListUtil.getListId(str);
-        if(list.size()>0){
-            //删除机房信息
-            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
-            //删除区域信息
-            regionBuildingDao.deleteRegionBuildingBySuperId(list);
-            //删除街道
-            regionStreetDao.deleteRegionStreetBySuperId(list);
-            //删除苑区信息
-            regionCourtDao.deleteRegionCourtBySuperId(list);
-            //删除项目信息
-            regionProjectDao.deleteRegionProjecBySuperId(list);
-            //删除区域信息
-            return regionInfoDao.deleteRegionInfo(list);
+    public int deleteRegionInfo( Long [] arr) {
+        if(arr.length>0){
+            List<Long> list = Arrays.asList(arr);
+            if(list.size()>0){
+                //删除机房信息
+//            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
+                //删除区域信息
+//            regionBuildingDao.deleteRegionBuildingBySuperId(list);
+                //删除街道
+//            regionStreetDao.deleteRegionStreetBySuperId(list);
+                //删除苑区信息
+//            regionCourtDao.deleteRegionCourtBySuperId(list);
+                //删除项目信息
+//            regionProjectDao.deleteRegionProjecBySuperId(list);
+                //删除区域信息
+                return regionInfoDao.deleteRegionInfo(list);
+            }
+            return 0;
         }
+
         return 0;
 
     }
@@ -123,7 +137,8 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
      * @Date 2018/12/21 9:22
      */
     @Override
-    public List<Map<String, Object>> queryRegionInfoName() {
+    public List<Map<String, Object>> queryRegionInfoName(Account user) {
+        List<Long>  regionList = userGroupItemsDao.queryRegionIdByUserId(user.getId());
         return regionInfoDao.queryRegionInfoName();
     }
 

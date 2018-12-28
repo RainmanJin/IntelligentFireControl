@@ -22,7 +22,7 @@ import java.util.Map;
  * @Description 区域项目
  **/
 @Controller
-@RequestMapping("/basic/regionProject")
+@RequestMapping("/project/regionProject")
 public class RegionProjectController {
 
     @Autowired

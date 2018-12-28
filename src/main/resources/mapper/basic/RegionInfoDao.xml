@@ -90,11 +90,16 @@
             </if>
         </where>
     </select>
-    <select id="queryListRegionInfo" parameterType="cn.com.bgy.ifc.entity.vo.project.RegionInfoVo"
-            resultType="java.util.Map">
-        select id, organization_id, code, name, create_time
+    <select id="queryListRegionInfo" parameterType="java.util.Map" resultType="java.util.Map">
+        select id as id, organization_id as organizationId, code as code, name as name, create_time as createTime
         from region_info
         <where>
+            <if test="regionList != null ">
+                id IN
+                <foreach collection="regionList" index="index" item="regionList" open="(" separator="," close=")">
+                    #{regionList}
+                </foreach>
+            </if>
             <if test="keyword != null and keyword !='' ">
                 AND (code LIKE concat('%',#{keyword},'%') OR name LIKE concat('%',#{keyword},'%'))
             </if>

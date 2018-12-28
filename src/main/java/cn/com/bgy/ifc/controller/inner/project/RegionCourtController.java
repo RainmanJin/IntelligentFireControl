@@ -22,7 +22,7 @@ import java.util.Map;
  * @Description 苑区信息
  **/
 @Controller
-@RequestMapping("/basic/regionCourt")
+@RequestMapping("/project/regionCourt")
 public class RegionCourtController {
 
     @Resource

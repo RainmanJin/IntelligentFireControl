@@ -8,6 +8,7 @@ import cn.com.bgy.ifc.service.interfaces.inner.project.RegionStreetService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +23,7 @@ import java.util.Map;
  * @Description 苑区信息
  **/
 @Controller
-@RequestMapping("/basic/regionStreet")
+@RequestMapping("/project/regionStreet")
 public class RegionStreetController {
 
     @Resource
@@ -33,7 +34,7 @@ public class RegionStreetController {
      * @Description 查询
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("query")
+    @GetMapping("query")
     @ResponseBody
     public ResponseVO<PageInfo> queryListRegionStreet( Page<Object> page, RegionStreetVo regionStreetVo, String token){
         PageInfo pageInfo = regionStreetService.queryListRegionStreet(page,regionStreetVo);

@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.service.interfaces.inner.project;
 
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -13,7 +14,7 @@ import com.github.pagehelper.PageInfo;
 
 public interface RegionComputerRoomService {
 
-    PageInfo queryListRegionComputerRoom( Page page, RegionAndBrandVO regionAndBrandVO );
+    PageInfo queryListRegionComputerRoom( Page page, RegionAndBrandVO regionAndBrandVO,Account user );
 
     int insert( RegionComputerRoom record );
 

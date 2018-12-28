@@ -6,7 +6,6 @@ import cn.com.bgy.ifc.dao.project.RegionInfoDao;
 import cn.com.bgy.ifc.dao.project.RegionProjectDao;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
-import cn.com.bgy.ifc.entity.vo.project.RegionInfoVo;
 import cn.com.bgy.ifc.entity.vo.project.RegionProjectVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -108,8 +107,7 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
      */
     @Override
     public List<Map<String,Object>> getRegionList() {
-        RegionInfoVo regionInfoVo = null;
-        return regionInfoDao.queryListRegionInfo(regionInfoVo);
+        return regionInfoDao.queryRegionInfoName();
     }
 
     /**

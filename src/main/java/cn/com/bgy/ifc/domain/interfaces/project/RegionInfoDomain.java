@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.domain.interfaces.project;
 
 import cn.com.bgy.ifc.entity.po.project.RegionInfo;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.BgyRegionInfoVo;
 import cn.com.bgy.ifc.entity.vo.project.RegionInfoVo;
@@ -12,15 +13,15 @@ import java.util.Map;
 
 public interface RegionInfoDomain {
 
-    PageInfo queryListRegionInfo(Page page, RegionInfoVo systemRoleVo);
+    PageInfo queryListRegionInfo(Page page, String keyword,Account user);
 
     int insert(RegionInfo record);
 
     int updateRegionInfo(RegionInfoVo record);
 
-    int deleteRegionInfo(String str);
+    int deleteRegionInfo( Long [] arr);
 
-    List<Map<String, Object>> queryRegionInfoName();
+    List<Map<String, Object>> queryRegionInfoName(Account user);
 
     /**
      * @author: ZhangCheng

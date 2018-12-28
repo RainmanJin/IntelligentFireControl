@@ -1,7 +1,10 @@
 package cn.com.bgy.ifc.service.impl.inner.projects;
 
+import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionComputerRoomDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
+import cn.com.bgy.ifc.entity.po.system.Account;
+import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionComputerRoomService;
 import com.github.pagehelper.Page;
@@ -10,6 +13,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +29,8 @@ public class RegionComputerRoomServiceImpl implements RegionComputerRoomService 
     @Autowired
     private RegionComputerRoomDomain regionComputerRoomDomain;
 
+    @Resource
+    private UserGroupItemsDao userGroupItemsDao;
 
     /**
      * @Author huxin
@@ -32,10 +38,16 @@ public class RegionComputerRoomServiceImpl implements RegionComputerRoomService 
      * @Date 2018/12/20 14:42
      */
     @Override
-    public PageInfo queryListRegionComputerRoom( Page page, RegionAndBrandVO record ) {
+    public PageInfo queryListRegionComputerRoom( Page page, RegionAndBrandVO record,Account user) {
+        UserGroupItems userGroupItems =  userGroupItemsDao.findByUserId(user.getId());
+        //根据用户的权限判定查询的范围
+        record.setRegionId(userGroupItems.getRegionId());
+        record.setProjectId(userGroupItems.getProjectId());
+
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<Map<String,Object>> list=  regionComputerRoomDomain.queryListRegionComputerRoom(record);
         return  new PageInfo(list);
+
     }
     /**
      * @Author huxin
