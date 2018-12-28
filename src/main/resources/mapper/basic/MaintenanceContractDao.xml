@@ -182,12 +182,12 @@
       <if test="companyId != null">
         and mc.company_id=#{companyId,jdbcType=BIGINT}
       </if>
-       <if test="beginTime!=null">
+       <if test="startDate!=null">
       <![CDATA[ 
       and mc.start_date  = #{startDate,jdbcType=TIMESTAMP} 
         ]]>
 	  </if>  
-	   <if test="endTime!=null">
+	   <if test="endDate!=null">
 	  <![CDATA[ 
 	  and mc.end_date = #{endDate,jdbcType=TIMESTAMP}
 	   ]]>

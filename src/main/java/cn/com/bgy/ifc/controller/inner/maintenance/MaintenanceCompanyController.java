@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
  * 2018年12月20日
  */
 @Controller
-@RequestMapping("/basic/maintenanceCompany")
+@RequestMapping("/maintenance/maintenanceCompany")
 public class MaintenanceCompanyController extends BaseController{
     @Autowired
     private MaintenanceCompanyDomain domain;

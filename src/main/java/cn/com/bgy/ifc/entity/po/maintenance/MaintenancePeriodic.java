@@ -20,7 +20,7 @@ public class MaintenancePeriodic {
 	// 项目ID
 	private Long projectId;
 	// 项目名称
-	private String rojectName;
+	private String projectName;
 	// 设备ID
 	private Long equipmentId;
 	// 设备名称
@@ -74,12 +74,12 @@ public class MaintenancePeriodic {
 		this.regionName = regionName;
 	}
 
-	public String getRojectName() {
-		return rojectName;
+	public String getprojectName() {
+		return projectName;
 	}
 
-	public void setRojectName(String rojectName) {
-		this.rojectName = rojectName;
+	public void setprojectName(String projectName) {
+		this.projectName = projectName;
 	}
 
 	public String getEquipmentName() {

@@ -188,37 +188,37 @@
     UPDATE maintenance_order
     <set>
       <if test="planId != null">
-        plan_id=#{planId},
+        plan_id=#{planId,jdbcType=BIGINT},
       </if>
       <if test="deviceId != null">
-        device_id=#{deviceId},
+        device_id=#{deviceId,jdbcType=BIGINT},
       </if>
       <if test="organizationId != null">
-        organization_id=#{organizationId},
+        organization_id=#{organizationId,jdbcType=BIGINT},
       </if>
       <if test="staffInfo != null">
-        staff_info=#{staffInfo},
+        staff_info=#{staffInfo,jdbcType=VARCHAR},
       </if>
       <if test="handleTime != null">
-        handle_time=#{handleTime},
+        handle_time=#{handleTime,jdbcType=BIGINT},
       </if>
       <if test="sign != null">
-        sign=#{sign},
+        sign=#{sign,jdbcType=LONGVARCHAR},
       </if>
       <if test="remark != null">
-        remark=#{remark},
+        remark=#{remark,jdbcType=LONGVARCHAR},
       </if>
       <if test="orderState != null">
-        order_state=#{orderState},
+        order_state=#{orderState,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
-        create_time=#{createTime},
+        create_time=#{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="cycle != null">
-        cycle=#{cycle},
+        cycle=#{cycle,jdbcType=BIT},
       </if>
       <if test="logicRemove != null">
-        logic_remove=#{logicRemove}
+        logic_remove=#{logicRemove,jdbcType=BIT}
       </if>
 
     </set>

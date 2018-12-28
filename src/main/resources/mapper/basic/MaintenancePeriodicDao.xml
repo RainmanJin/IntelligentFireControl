@@ -164,12 +164,12 @@
 
     <if test="content != null">
       <!--暂定关键字查询为合维保公司名称的模糊查询-->
-      and (mp.content like LIKE  concat('%',#{content},'%')
-      or  (so.name like LIKE  concat('%',#{content},'%'))
-      or  (ri.name like LIKE  concat('%',#{content},'%'))
-      or  (qi.name like LIKE  concat('%',#{content},'%'))
-      or  (mc.name like LIKE  concat('%',#{content},'%'))
-      or  (rp.name like LIKE  concat('%',#{content},'%')))
+      and (mp.content like  concat('%',#{content},'%')
+      or  (so.name like   concat('%',#{content},'%'))
+      or  (ri.name like   concat('%',#{content},'%'))
+      or  (qi.name like   concat('%',#{content},'%'))
+      or  (mc.name like   concat('%',#{content},'%'))
+      or  (rp.name like   concat('%',#{content},'%')))
     </if>
 
 </select>
@@ -214,17 +214,17 @@
         logic_remove=#{logicRemove,jdbcType=BIT},
       </if>
     </set>
-    WHERE mp.id = #{id}
+    WHERE id = #{id}
 
   </update>
   <!--通过id查询维保公司-->
   <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <include refid="Mysql"/>
-    WHERE mc.id = #{id}
+    WHERE mp.id = #{id}
   </select>
 
   <!--逻辑批量删除维保公司-->
-  <update id="delete" parameterType="java.util.List">
+  <update id="deleteBatch" parameterType="java.util.List">
     UPDATE maintenance_periodic set logic_remove =1 where id IN
     <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
       #{id}

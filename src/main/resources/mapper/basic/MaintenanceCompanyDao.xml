@@ -5,8 +5,8 @@
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
     <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
-    <result column="r_id" jdbcType="BIGINT" property="rId" />
-    <result column="r_name" jdbcType="VARCHAR" property="rName" />
+    <result column="region_id" jdbcType="BIGINT" property="regionId" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
     <result column="name" jdbcType="VARCHAR" property="companyName" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -16,10 +16,10 @@
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">
     insert into maintenance_company (id, organization_id, name,
       telephone, remark, create_time, 
-      logic_remove,r_id)
+      logic_remove,region_id)
     values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR},
       #{telephone,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-      #{logicRemove,jdbcType=BIT}, #{rId,jdbcType=BIGINT})
+      #{logicRemove,jdbcType=BIT}, #{regionId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">
     insert into maintenance_company
@@ -75,6 +75,7 @@
 
       select mc.id as id,mc.organization_id as organization_id,
               so.name as organization_name,
+              ri.id as region_id,
               ri.name as region_name,
               mc.name as name,mc.telephone as telephone,
               mc.remark,mc.create_time,mc.logic_remove

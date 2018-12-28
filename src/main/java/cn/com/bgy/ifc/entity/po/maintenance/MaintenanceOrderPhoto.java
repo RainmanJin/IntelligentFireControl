@@ -7,7 +7,7 @@ public class MaintenanceOrderPhoto {
 
     private Long orderId;
 
-    private Integer executeTyp;
+    private Integer executeType;
 
     private Integer photoType;
 
@@ -33,12 +33,12 @@ public class MaintenanceOrderPhoto {
         this.orderId = orderId;
     }
 
-    public Integer getExecuteTyp() {
-        return executeTyp;
+    public Integer getexecuteType() {
+        return executeType;
     }
 
-    public void setExecuteTyp(Integer executeTyp) {
-        this.executeTyp = executeTyp;
+    public void setexecuteType(Integer executeType) {
+        this.executeType = executeType;
     }
 
     public Integer getPhotoType() {

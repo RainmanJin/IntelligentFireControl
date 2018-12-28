@@ -34,7 +34,7 @@ import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceOrderVo;
  * 2018年12月26日15:35:25
  */
 @Controller
-@RequestMapping("/basic/maintenanceOrder")
+@RequestMapping("/maintenance/maintenanceOrder")
 public class MaintenanceOrderController extends BaseController{
 	
 	@Resource 

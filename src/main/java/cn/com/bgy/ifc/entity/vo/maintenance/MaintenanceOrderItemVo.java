@@ -1,19 +1,19 @@
-package cn.com.bgy.ifc.entity.po.maintenance;
+package cn.com.bgy.ifc.entity.vo.maintenance;
 
 import java.util.Date;
-/**
- *维保工单项目结果
- * @author lvbingjian
- *2018年12月28日11:11:31
- */
-public class MaintenanceOrderItem {
-	
-    private Long id;
+
+import javax.validation.constraints.NotNull;
+
+public class MaintenanceOrderItemVo {
+	private Long id;
     /**维保工单ID**/
+	@NotNull(message="维保工单不能为空")
     private Long orderId;
     /**维保计划明细**/
+	@NotNull(message="维保计划明细不能为空")
     private Long planDetaiId;
     /**维保项处理结果：1正常，2无需处理，3处理后使用，4无此项**/
+	@NotNull(message="维保项处理结果不能为空")
     private Integer resultState;
     /**创建时间**/
     private Date createTime;
