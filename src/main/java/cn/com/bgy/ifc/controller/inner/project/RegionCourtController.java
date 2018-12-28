@@ -8,9 +8,7 @@ import cn.com.bgy.ifc.service.interfaces.inner.project.RegionCourtService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,7 +31,7 @@ public class RegionCourtController {
      * @Description 查询
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("query")
+    @GetMapping("query")
     @ResponseBody
     public ResponseVO<PageInfo> queryListRegionCourt( Page<Object> page, RegionCourtVo regionCourtVo, String token){
             PageInfo pageInfo = regionCourtService.queryListRegionCourt(page, regionCourtVo);
@@ -91,10 +89,10 @@ public class RegionCourtController {
      * @Description 根据父id查询所有街道信息
      * @Date 2018/12/20 18:24
      */
-    @PostMapping("queryAllName")
+    @GetMapping("queryAllName")
     @ResponseBody
-    public ResponseVO<Object> queryRegionCourtNameBySuperId(Long id){
-        List<Map<String,Object>> list  = regionCourtService.queryRegionCourtNameBySuperId(id);
+    public ResponseVO<Object> queryRegionCourtNameBySuperId(Long projectId){
+        List<Map<String,Object>> list  = regionCourtService.queryRegionCourtNameBySuperId(projectId);
         return ResponseVO.<Object>success().setData(list);
     }
 

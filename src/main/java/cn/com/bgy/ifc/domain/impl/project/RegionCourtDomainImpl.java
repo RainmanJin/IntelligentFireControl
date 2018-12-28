@@ -73,11 +73,11 @@ public class RegionCourtDomainImpl implements RegionCourtDomain {
 
         if(list.size()>0){
             //删除机房
-            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
-            //删除楼栋
-            regionBuildingDao.deleteRegionBuildingBySuperId(list);
-            //删除街道
-            regionStreetDao.deleteRegionStreetBySuperId(list);
+//            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
+//            //删除楼栋
+//            regionBuildingDao.deleteRegionBuildingBySuperId(list);
+//            //删除街道
+//            regionStreetDao.deleteRegionStreetBySuperId(list);
             //删除苑区
             return regionCourtDao.deleteRegionCourt(list);
         }

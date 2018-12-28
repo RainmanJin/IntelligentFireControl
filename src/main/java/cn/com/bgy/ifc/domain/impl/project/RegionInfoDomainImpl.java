@@ -114,16 +114,16 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
         if(ids.length()>0){
             List<Long> list = ListUtil.getListId(ids);
             if(list.size()>0){
-                //删除机房信息
-                regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
-                //删除区域信息
-                regionBuildingDao.deleteRegionBuildingBySuperId(list);
-                //删除街道
-                 regionStreetDao.deleteRegionStreetBySuperId(list);
-                //删除苑区信息
-                regionCourtDao.deleteRegionCourtBySuperId(list);
-                //删除项目信息
-                regionProjectDao.deleteRegionProjecBySuperId(list);
+//                //删除机房信息
+//                regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
+//                //删除区域信息
+//                regionBuildingDao.deleteRegionBuildingBySuperId(list);
+//                //删除街道
+//                 regionStreetDao.deleteRegionStreetBySuperId(list);
+//                //删除苑区信息
+//                regionCourtDao.deleteRegionCourtBySuperId(list);
+//                //删除项目信息
+//                regionProjectDao.deleteRegionProjecBySuperId(list);
                 //删除区域信息
                 return regionInfoDao.deleteRegionInfo(list);
             }

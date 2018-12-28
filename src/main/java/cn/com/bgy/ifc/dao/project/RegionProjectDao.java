@@ -2,14 +2,13 @@ package cn.com.bgy.ifc.dao.project;
 
 import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
-import cn.com.bgy.ifc.entity.vo.project.RegionProjectVo;
 
 import java.util.List;
 import java.util.Map;
 
 public interface RegionProjectDao extends BaseDao<RegionProject> {
 
-    List<Map<String,Object>> queryListRegionProject( RegionProjectVo record);
+    List<Map<String,Object>> queryListRegionProject( Map<String,Object> map);
 
     int deleteRegionProject(List<Long> list);
 

@@ -4,14 +4,11 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionProjectDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.project.RegionProjectVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -34,10 +31,10 @@ public class RegionProjectController {
      * @Description 查询
      * @Date 2018/12/18 17:21
      */
-    @PostMapping("query")
+    @GetMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListRegionProject( Page<Object> page, RegionProjectVo regionInfoVo, String token){
-            PageInfo pageInfo = regionProjectDomain.queryListRegionProjec(page, regionInfoVo);
+    public ResponseVO<PageInfo> queryListRegionProject( Page<Object> page,Long regionId , String keyword){
+            PageInfo pageInfo = regionProjectDomain.queryListRegionProjec(page, regionId,keyword);
             return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**
@@ -48,7 +45,7 @@ public class RegionProjectController {
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "项目信息修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionProject( RegionProject regionProject, String token){
+    public ResponseVO<Object> updateRegionProject( RegionProject regionProject){
 
         int count = regionProjectDomain.updateRegionProjec(regionProject);
         if (count == 1) {
@@ -64,8 +61,8 @@ public class RegionProjectController {
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "项目信息删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionProject( String arr, String token){
-        int count = regionProjectDomain.deleteRegionProjec(arr);
+    public ResponseVO<Object> deleteRegionProject( String ids){
+        int count = regionProjectDomain.deleteRegionProjec(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }
@@ -92,10 +89,10 @@ public class RegionProjectController {
      * @Description 根据父id查询所有项目名
      * @Date 2018/12/20 18:24
      */
-    @PostMapping("queryAllName")
+    @GetMapping("queryAllName")
     @ResponseBody
-    public ResponseVO<Object> queryRegionProjectName(Long id){
-        List<Map<String,Object>> list  = regionProjectDomain.queryRegionProjectNameBySuperId(id);
+    public ResponseVO<Object> queryRegionProjectName(Long regionId){
+        List<Map<String,Object>> list  = regionProjectDomain.queryRegionProjectNameBySuperId(regionId);
         return ResponseVO.<Object>success().setData(list);
     }
 }

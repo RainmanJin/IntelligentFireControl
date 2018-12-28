@@ -8,10 +8,7 @@ import cn.com.bgy.ifc.service.interfaces.inner.project.RegionStreetService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -94,10 +91,10 @@ public class RegionStreetController {
      * @Description 根据父id查询所有街道信息
      * @Date 2018/12/20 18:24
      */
-    @PostMapping("queryAllName")
+    @GetMapping("queryAllName")
     @ResponseBody
-    public ResponseVO<Object> queryRegionStreettNameBySuperId(Long id){
-        List<Map<String,Object>> list  = regionStreetService.queryRegionStreetNameBySuperId(id);
+    public ResponseVO<Object> queryRegionStreettNameBySuperId(Long courtId){
+        List<Map<String,Object>> list  = regionStreetService.queryRegionStreetNameBySuperId(courtId);
         return ResponseVO.<Object>success().setData(list);
     }
 }

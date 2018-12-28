@@ -70,10 +70,10 @@
   <select id="queryListRegionCourt" parameterType="cn.com.bgy.ifc.entity.vo.project.RegionCourtVo" resultType="java.util.Map">
     SELECT
     c.region_id as regionId,c.project_id as projectId,c.id as id,c.organization_id as organizationId,
-    c.name as regionName ,p.name as projectName,i.name as name,c.create_time as createTime
+    i.name as regionName ,p.name as projectName,c.name as name,c.create_time as createTime
     from region_court c
     LEFT JOIN region_project p on  p.id = c.project_id
-    LEFT JOIN region_info i on c.region_id = p.id
+    LEFT JOIN region_info i on i.id = c.region_id
     <where>
       <if test="regionId != null and regionId!= '' ">
         AND c.region_id= #{regionId,jdbcType=BIGINT}

@@ -8,9 +8,7 @@ import cn.com.bgy.ifc.service.interfaces.inner.project.RegionBuildingService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,7 +31,7 @@ public class RegionBuildingController {
      * @Description 查询
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("query")
+    @GetMapping("query")
     @ResponseBody
     public ResponseVO<PageInfo> queryListRegionBuilding( Page<Object> page, RegionAndBrandVO regionAndBrandVO, String token){
         PageInfo pageInfo = regionBuildingService.queryListRegionBuilding(page,regionAndBrandVO);

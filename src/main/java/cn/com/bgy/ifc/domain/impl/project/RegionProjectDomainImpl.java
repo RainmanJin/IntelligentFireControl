@@ -4,12 +4,11 @@ import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.project.*;
-import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionProjectDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.BgyProjectVo;
-import cn.com.bgy.ifc.entity.vo.project.RegionProjectVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -20,10 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author huxin
@@ -58,9 +54,12 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
      * @Date 2018/12/18 17:31
      */
     @Override
-    public PageInfo queryListRegionProjec(Page page, RegionProjectVo record) {
+    public PageInfo queryListRegionProjec(Page page,Long id , String keyword) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("regionId",id);
+        map.put("keyword",keyword);
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Map<String,Object>> list = regionProjectDao.queryListRegionProject(record);
+        List<Map<String,Object>> list = regionProjectDao.queryListRegionProject(map);
         return new PageInfo(list);
     }
 
@@ -99,13 +98,13 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
 
         if(list.size()>0){
             //删除机房
-            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
-            //删除楼栋
-            regionBuildingDao.deleteRegionBuildingBySuperId(list);
-            //删除街道
-            regionStreetDao.deleteRegionStreetBySuperId(list);
-            //删除苑区
-            regionCourtDao.deleteRegionCourtBySuperId(list);
+//            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
+//            //删除楼栋
+//            regionBuildingDao.deleteRegionBuildingBySuperId(list);
+//            //删除街道
+//            regionStreetDao.deleteRegionStreetBySuperId(list);
+//            //删除苑区
+//            regionCourtDao.deleteRegionCourtBySuperId(list);
             //删除项目
             return regionProjectDao.deleteRegionProject(list);
         }

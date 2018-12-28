@@ -71,9 +71,9 @@ public class RegionStreetDomainImpl implements RegionStreetDomain {
     public int deleteRegionStreet( List<Long> list ) {
         if(list.size()>0){
             //删除机房
-            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
-            //删除楼栋
-            regionBuildingDao.deleteRegionBuildingBySuperId(list);
+//            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
+//            //删除楼栋
+//            regionBuildingDao.deleteRegionBuildingBySuperId(list);
             //删除区域
             return regionStreetDao.deleteRegionStreet(list);
         }

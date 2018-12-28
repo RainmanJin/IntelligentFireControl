@@ -90,7 +90,7 @@ public class RegionInfoController extends BaseController {
      * @Description 查询所有区域名
      * @Date 2018/12/20 18:24
      */
-    @PostMapping("queryAllName")
+    @GetMapping("queryAllName")
     @ResponseBody
     public ResponseVO<Object> queryRegionInfoName(){
         Account user=this.getUser();

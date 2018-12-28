@@ -3,7 +3,6 @@ package cn.com.bgy.ifc.domain.interfaces.project;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.BgyProjectVo;
-import cn.com.bgy.ifc.entity.vo.project.RegionProjectVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -18,7 +17,7 @@ import java.util.Map;
 
 public interface RegionProjectDomain {
 
-    PageInfo queryListRegionProjec(Page page, RegionProjectVo record);
+    PageInfo queryListRegionProjec(Page page,Long id , String keyword);
 
     int insert(RegionProject record);
 
