@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.entity.vo.system;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class SystemRoleVo {
@@ -12,13 +13,19 @@ public class SystemRoleVo {
 	/**
 	 *角色类型
 	 */
+	@NotNull(message="角色分类不能为空！")
 	private Integer type;
 	/**
 	 *角色名称
 	 */
 	@NotBlank(message="角色名称不能为空！")
-	@Size(max=40,message="角色名称长度不正确")
+	@Size(max=50,message="角色名称长度不能超过50字符！")
 	private String name;
+
+	/**
+	 * 角色标示
+	 */
+	private String value;
 	/*
 	 * 状态：0 启用 	1 禁用
 	 */
@@ -107,10 +114,11 @@ public class SystemRoleVo {
 		this.logicRemove = logicRemove;
 	}
 
+	public String getValue() {
+		return value;
+	}
 
-
-	@Override
-	public String toString() {
-		return "SystemRoleVo{" + "id=" + id + ", type=" + type + ", name='" + name + '\'' + ", state=" + state + ", organizationId=" + organizationId + ", logicRemove=" + logicRemove + ", keyWords='" + keyWords + '\'' + '}';
+	public void setValue(String value) {
+		this.value = value;
 	}
 }

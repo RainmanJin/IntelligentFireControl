@@ -25,19 +25,6 @@ public class SystemRoleDomainImpl  implements SystemRoleDomain {
     @Resource
     private SystemRoleDao systemRoleDao;
 
-    /**
-     * @Author huxin
-     * @Description 查询系统角色（条件查询）
-     * @Date 2018/12/17 14:43
-     */
-    @SuppressWarnings("UnusedAssignment")
-    @Override
-    public PageInfo<SystemRole> queryListByPage( Page<SystemRole> page, SystemRoleVo systemRoleVo) {
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<SystemRole> list= systemRoleDao.queryAllList(systemRoleVo);
-        return  new PageInfo<SystemRole>(list);
-    }
-
     @Override
     public List<SystemRole> queryListByParam(SystemRole record) {
         return systemRoleDao.queryListByParam(record);

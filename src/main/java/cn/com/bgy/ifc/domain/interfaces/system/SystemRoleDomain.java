@@ -10,11 +10,7 @@ import java.util.List;
 
 public interface SystemRoleDomain extends BaseDomain<SystemRole> {
 
-    PageInfo<SystemRole> queryListByPage(Page<SystemRole> page,SystemRoleVo systemRoleVo);
-
     List<SystemRole> queryListByParam(SystemRole record);
-
-    int insert(SystemRole record);
 
     SystemRole findById(Long id);
 

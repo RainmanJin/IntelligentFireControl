@@ -37,4 +37,56 @@
       </if>
     </trim>
   </insert>
+   <sql id="Mysql">
+  	select 
+		id,-- 附件ID
+		plan_id,-- 计划ID
+		program_id-- 维保项目ID
+		from maintenance_plan_detail
+  </sql>
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlanDetail" resultMap="BaseResultMap">
+  	<include refid="Mysql"/>
+	<trim prefix=" where " suffix="" suffixOverrides="and">
+		<if test="id != null">
+			and id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="planId != null">
+			and plan_id=#{planId,jdbcType=BIGINT}
+		</if>
+		<if test="programId != null">
+			and program_id=#{programId,jdbcType=BIGINT}
+		</if>
+	</trim>
+  </select>
+   <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlanDetail">
+    UPDATE maintenance_plan_detail
+    <set>
+      <if test="id != null">
+        id=#{id},
+      </if>
+      <if test="programId != null">
+        program_id=#{programId},
+      </if>
+      <if test="planId != null">
+        plan_id=#{planId},
+      </if>
+    </set>
+    WHERE id = #{id}
+
+  </update>
+
+  <!--通过id查询找-->
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    WHERE mp.id = #{id}
+  </select>
+
+  <!--逻辑批量删除-->
+  <delete id="delete" parameterType="java.util.List">
+		DELETE FROM maintenance_plan_detail WHERE ID in 
+　　<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+　　　 	#{id}
+　　</foreach>
+
+</delete>
 </mapper>

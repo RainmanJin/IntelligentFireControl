@@ -2,7 +2,11 @@ package cn.com.bgy.ifc.service.impl.inner.system;
 
 import cn.com.bgy.ifc.dao.system.SystemRoleDao;
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
+import cn.com.bgy.ifc.entity.vo.system.SystemRoleVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemRoleService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -49,5 +53,12 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     @Override
     public int deleteBatch(List<Long> ids) {
         return systemRoleDao.deleteBatch(ids);
+    }
+
+    @Override
+    public PageInfo<SystemRole> queryListByPage(Page<SystemRole> page, SystemRoleVo systemRoleVo) {
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        List<SystemRole> list= systemRoleDao.queryAllList(systemRoleVo);
+        return  new PageInfo<SystemRole>(list);
     }
 }

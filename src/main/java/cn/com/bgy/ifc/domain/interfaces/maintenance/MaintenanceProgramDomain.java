@@ -49,7 +49,7 @@ public interface MaintenanceProgramDomain {
      * @param （
      * @return
      */
-    MaintenanceProgramVo findById(Long id);
+    MaintenanceProgram findById(Long id);
 
     /**
      * 批量删除

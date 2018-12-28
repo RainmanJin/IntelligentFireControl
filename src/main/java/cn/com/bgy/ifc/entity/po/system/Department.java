@@ -17,14 +17,14 @@ public class Department {
 
     private Long organizationId;
 
-    private String keywords;
+    private String keyWords;
 
-    public String getKeywords() {
-        return keywords;
+    public String getKeyWords() {
+        return keyWords;
     }
 
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
     }
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")

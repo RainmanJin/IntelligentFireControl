@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.entity.vo.system;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -19,21 +22,28 @@ public class ExternalInterfaceConfigVo {
     /**
      * 外部接口平台枚举
      */
+    @NotNull(message="外部接口平台不能为空！")
     private Integer platformValue;
 
     /**
      * 外部接入接口地址
      */
+    @NotBlank(message="接入接口地址不能为空！")
+    @Size(max=250,message="接入接口地址长度不能超过250字符！")
     private String url;
 
     /**
      * 外部接口接口平台账号
      */
+    @NotBlank(message="接口平台账号不能为空！")
+    @Size(max=50,message="接口平台账号长度不能超过50字符！")
     private String account;
 
     /**
      * 外部接口接口平台专用密码
      */
+    @NotBlank(message="接口平台密码不能为空！")
+    @Size(max=50,message="接口平台密码长度不能超过50字符！")
     private String signKey;
 
     /**

@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.controller.inner.maintenance;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/basic/maintenanceContract")
-public class MaintenanceContractContorller {
+public class MaintenanceContractController extends BaseController{
     @Autowired
     private MaintenanceContractDomain maintenanceContractDomain;
 

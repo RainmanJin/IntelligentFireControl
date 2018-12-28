@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.system;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.bgy.utils.TreeUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
@@ -203,8 +204,9 @@ public class DepartmentController extends BaseController {
      */
     @DeleteMapping("delete")
     @ResponseBody
-    public ResponseVO<Object> delete( List<Long> ids) {
-        int count = departmentDomain.deleteBatch(ids);
+    public ResponseVO<Object> delete( String ids) {
+
+        int count = departmentDomain.deleteBatch(ListUtil.getListId(ids));
         if (count >1) {
             return ResponseVO.success().setMsg("删除成功");
         }
