@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/basic/userPower")
+@RequestMapping("/system/userPower")
 public class UserPowerController {
     @Autowired
     private UserPowerDomain userPowerDomain;
@@ -30,7 +30,7 @@ public class UserPowerController {
      * @param systemUserPower
      * @return
      */
-    @PostMapping ("/queryPageList")
+    @PostMapping ("/searchPage")
     @ResponseBody
     public ResponseVO<PageInfo<SystemUserPower>> queryPageList(Page<Object> page,SystemUserPower systemUserPower) {
         PageInfo<SystemUserPower> pageInfo = userPowerDomain.queryPageList(page, systemUserPower);

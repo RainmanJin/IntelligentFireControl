@@ -55,12 +55,17 @@ public class SystemPowerServiceImpl implements SystemPowerService {
     @Override
     public PageInfo<SystemPower> queryListByPage(Page<SystemPower> page, String keywords) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<SystemPower> list = systemPowerDao.queryListByPage(keywords);
+        List<SystemPower> list = systemPowerDao.queryListByWhere(keywords);
         return new PageInfo<SystemPower>(list);
     }
 
     @Override
     public List<SystemPower> queryListByUserId(Long userId) {
         return systemPowerDao.queryListByUserId(userId);
+    }
+
+    @Override
+    public List<SystemPower> queryListByWhere(String keyWords) {
+        return systemPowerDao.queryListByWhere(keyWords);
     }
 }

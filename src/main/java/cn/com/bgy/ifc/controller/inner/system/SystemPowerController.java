@@ -3,6 +3,8 @@ package cn.com.bgy.ifc.controller.inner.system;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
+import cn.com.bgy.ifc.domain.interfaces.system.SystemPowerDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemPower;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.SystemPowerVo;
@@ -22,8 +24,8 @@ import java.util.List;
  * @date: 2018-12-05 11:27
  **/
 @RestController
-@RequestMapping("/basic/power")
-public class SystemPowerController {
+@RequestMapping("/system/power")
+public class SystemPowerController extends BaseController {
 
     @Autowired
     private SystemPowerService systemPowerService;
@@ -117,5 +119,17 @@ public class SystemPowerController {
         } else {
             return ResponseVO.deleteError();
         }
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:分页查询
+     * @param: [page, systemPowerVo]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.system.SystemPower>>
+     */
+    @GetMapping("queryAllList")
+    public ResponseVO<Object> queryAllList() {
+        List<SystemPower>  list = systemPowerService.queryListByWhere( null);
+        return ResponseVO.<Object>success().setData(list);
     }
 }

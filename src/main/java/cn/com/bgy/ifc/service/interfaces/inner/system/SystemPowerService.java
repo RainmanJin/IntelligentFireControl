@@ -29,4 +29,12 @@ public interface SystemPowerService extends BaseService<SystemPower> {
      * @return: java.util.List<cn.com.bgy.ifc.entity.po.system.SystemPower>
      */
     List<SystemPower> queryListByUserId(Long userId);
+
+    /**
+     * @author chenlie
+     * 查询所有权限
+     * @param keyWords
+     * @return
+     */
+    List<SystemPower> queryListByWhere(String keyWords);
 }

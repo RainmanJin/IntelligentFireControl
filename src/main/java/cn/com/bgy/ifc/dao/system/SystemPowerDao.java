@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SystemPowerDao extends BaseDao<SystemPower> {
 
-    List<SystemPower> queryListByPage(String keywords);
+    List<SystemPower> queryListByWhere(String keywords);
 
     List<SystemPower> queryListByUserId(Long userId);
 }

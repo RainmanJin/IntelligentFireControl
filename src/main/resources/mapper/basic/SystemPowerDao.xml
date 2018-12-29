@@ -52,7 +52,7 @@
         </trim>
     </insert>
 
-    <select id="queryListByPage" parameterType="String" resultMap="BaseResultMap">
+    <select id="queryListByWhere" parameterType="String" resultMap="BaseResultMap">
         SELECT
         id,
         name,
