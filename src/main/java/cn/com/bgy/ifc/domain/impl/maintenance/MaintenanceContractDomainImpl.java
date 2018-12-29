@@ -109,7 +109,7 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
     @Override
     public List<Map<String,Object>> getRegionList() {
         return regionInfoDao.queryRegionInfoName();
-    }
+    }      
 
     /**
      * 获取项目下拉框初始值
