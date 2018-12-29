@@ -81,7 +81,7 @@ public class RegionStreetServiceImpl implements RegionStreetService {
      */
     @Override
     public List<Map<String, Object>> queryRegionStreetNameBySuperId( Long id ) {
-        return null;
+        return regionStreetDomain.queryRegionStreetNameBySuperId(id);
     }
 
 

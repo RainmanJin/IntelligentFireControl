@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.project;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.project.RegionStreet;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.RegionStreetVo;
@@ -21,7 +22,7 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("/project/regionStreet")
-public class RegionStreetController {
+public class RegionStreetController extends BaseController {
 
     @Resource
     private RegionStreetService regionStreetService;
@@ -61,8 +62,8 @@ public class RegionStreetController {
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "街道信息删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionStreet( String arr, String token){
-        int count = regionStreetService.deleteRegionStreet(arr);
+    public ResponseVO<Object> deleteRegionStreet( String ids){
+        int count = regionStreetService.deleteRegionStreet(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }

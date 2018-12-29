@@ -78,7 +78,7 @@ public class RegionCourtServiceImpl implements RegionCourtService {
      */
     @Override
     public List<Map<String, Object>> queryRegionCourtNameBySuperId( Long id ) {
-        return null;
+        return regionCourtDomain.queryRegionCourtNameBySuperId(id);
     }
 
 }

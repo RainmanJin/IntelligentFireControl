@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.project;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
@@ -21,7 +22,7 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("/project/regionBuilding")
-public class RegionBuildingController {
+public class RegionBuildingController extends BaseController {
 
     @Resource
     private RegionBuildingService regionBuildingService;
@@ -33,7 +34,7 @@ public class RegionBuildingController {
      */
     @GetMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListRegionBuilding( Page<Object> page, RegionAndBrandVO regionAndBrandVO, String token){
+    public ResponseVO<PageInfo> queryListRegionBuilding( Page<Object> page, RegionAndBrandVO regionAndBrandVO){
         PageInfo pageInfo = regionBuildingService.queryListRegionBuilding(page,regionAndBrandVO);
         return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
@@ -45,7 +46,7 @@ public class RegionBuildingController {
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "楼栋单元信息修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionBuilding( RegionBuilding regionBuilding, String token){
+    public ResponseVO<Object> updateRegionBuilding( RegionBuilding regionBuilding){
 
         int count = regionBuildingService.updateRegionBuilding(regionBuilding);
         if (count == 1) {
@@ -61,8 +62,8 @@ public class RegionBuildingController {
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "街道信息删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionBuilding( String arr, String token){
-        int count = regionBuildingService.deleteRegionBuilding(arr);
+    public ResponseVO<Object> deleteRegionBuilding( String ids){
+        int count = regionBuildingService.deleteRegionBuilding(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }

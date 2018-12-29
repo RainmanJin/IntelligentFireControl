@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.project;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionProjectDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -20,7 +21,7 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("/project/regionProject")
-public class RegionProjectController {
+public class RegionProjectController extends BaseController {
 
     @Autowired
     private RegionProjectDomain regionProjectDomain;
@@ -76,7 +77,7 @@ public class RegionProjectController {
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "项目信息添加")
     @ResponseBody
-    public ResponseVO<Object> insertRegionInfo( RegionProject regionProject, String token){
+    public ResponseVO<Object> insertRegionInfo( RegionProject regionProject){
         int count = regionProjectDomain.insert(regionProject);
         if (count > 0) {
             return ResponseVO.success().setMsg("添加成功");

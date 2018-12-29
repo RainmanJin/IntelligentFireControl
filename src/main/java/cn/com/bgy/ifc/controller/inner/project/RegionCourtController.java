@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.project;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.project.RegionCourt;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.RegionCourtVo;
@@ -21,7 +22,7 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("/project/regionCourt")
-public class RegionCourtController {
+public class RegionCourtController extends BaseController {
 
     @Resource
     private RegionCourtService regionCourtService;
@@ -33,7 +34,7 @@ public class RegionCourtController {
      */
     @GetMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListRegionCourt( Page<Object> page, RegionCourtVo regionCourtVo, String token){
+    public ResponseVO<PageInfo> queryListRegionCourt( Page<Object> page, RegionCourtVo regionCourtVo){
             PageInfo pageInfo = regionCourtService.queryListRegionCourt(page, regionCourtVo);
             return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
@@ -45,7 +46,7 @@ public class RegionCourtController {
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "苑区信息修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionCourt( RegionCourt regionCourt, String token){
+    public ResponseVO<Object> updateRegionCourt( RegionCourt regionCourt){
 
         int count =  regionCourtService.updateRegionCourt(regionCourt);
         if (count == 1) {
@@ -61,8 +62,8 @@ public class RegionCourtController {
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "苑区信息删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionCourt( String arr, String token){
-        int count = regionCourtService.deleteRegionCourt(arr);
+    public ResponseVO<Object> deleteRegionCourt( String ids){
+        int count = regionCourtService.deleteRegionCourt(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }
