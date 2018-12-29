@@ -21,6 +21,7 @@ public class UserPowerDomainImpl implements UserPowerDomain {
     private UserPowerDao userPowerDao;
 
     /**
+     * @author chenlie
      * 查询用户权限列表展示页面
      * @param systemUserPower
      * @return

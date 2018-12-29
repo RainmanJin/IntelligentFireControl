@@ -6,39 +6,18 @@
         <result column="userName" jdbcType="VARCHAR" property="userName" />
         <result column="telephone" jdbcType="VARCHAR" property="telephone" />
         <result column="jobNumber" jdbcType="VARCHAR" property="jobNumber" />
-        <result column="dpartmentName" jdbcType="VARCHAR" property="dpartmentName" />
+        <result column="departmentName" jdbcType="VARCHAR" property="departmentName" />
         <result column="sex" jdbcType="BIGINT" property="sex" />
         <result column="powerName" jdbcType="VARCHAR" property="powerName" />
     </resultMap>
     <select id="queryPageList" resultMap="BaseResultMap" parameterType="cn.com.bgy.ifc.entity.po.system.SystemUserPower">
         SELECT
         a.id,
-        a.user_name,
-        a.telephone,
-        a.job_number,
-        department.id,
-        department.NAME,
-        a.sex,
-        a.user_type
-        FROM
-        account a
-        LEFT JOIN department ON a.department_id = department.id
-        <if test="powerName != null and '' != powerName">
-            <if test=" '未设置权限' == powerName">
-                WHERE (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) = 0
-            </if>
-            <if test=" '已设置权限' == powerName">
-                WHERE (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) > 0
-            </if>
-        </if>
-
-        SELECT
-        a.id,
         a.userName,
         a.telephone,
         a.jobNumber,
-        a.dpartmentName,
-        a.dpartmentId,
+        a.departmentName,
+        a.departmentId,
         a.sex,
         GROUP_CONCAT(a.powerName) AS powerName
         FROM
@@ -48,34 +27,47 @@
         account.user_name AS userName,
         account.telephone AS telephone,
         account.job_number AS jobNumber,
-        department.NAME AS dpartmentName,
-        department.id AS dpartmentId,
+        department.NAME AS departmentName,
+        department.id AS departmentId,
         account.sex AS sex,
-        system_power.name AS powerName
+        system_power.display_name AS powerName
         FROM
         account
         LEFT JOIN department ON account.department_id = department.id
         leFt Join system_user_role ON account.id = system_user_role.user_id
         LEFT JOIN system_role_power ON system_role_power.role_id = system_user_role.role_id
-        LEFT JOIN system_power ON system_power.id = system_role_power.power_id AND system_power.logic_remove = FALSE
-        <if test="powerName != null and '' != powerName">
-            <if test=" '未设置权限' == powerName">
-                WHERE (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) = 0
-            </if>
-            <if test=" '已设置权限' == powerName">
-                WHERE (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) > 0
-            </if>
-        </if>
+        LEFT JOIN system_power ON system_power.id = system_role_power.power_id AND system_power.logic_remove = 0
+        <where>
+                <if test="powerName != null and '' != powerName">
+                    <if test=" '0' == powerName">
+                        and (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) = 0
+                    </if>
+                    <if test=" '1' == powerName">
+                       and  WHERE (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) > 0
+                    </if>
+                </if>
+                <if test="departmentId != null and '' != departmentId">
+                   and  department.id=#{departmentId}
+                </if>
+        </where>
         GROUP BY
-        account.id,system_power.name
+        account.id,system_power.display_name
         ) a
         <where>
             1=1
             <if test="keyWords != null and '' != keyWords ">
-            AND  a.userName like CONCAT('%',#{keyWords},'%',)
-        </if>
-            <if test="dpartmentId != null ">
-                AND  a.dpartmentId = #{dpartmentId}
+                AND (
+                a.userName like CONCAT('%',#{keyWords},'%')
+                or
+                a.departmentName like CONCAT('%',#{keyWords},'%')
+                or
+                a.telephone like CONCAT('%',#{keyWords},'%')
+                or
+                a.jobNumber like CONCAT('%',#{keyWords},'%')
+                )
+            </if>
+            <if test="departmentId != null ">
+                AND  a.departmentId = #{departmentId}
             </if>
             <if test="sex != null ">
                 AND  a.sex = #{sex}
@@ -84,13 +76,11 @@
         GROUP BY
         a.id
 
-
-
     </select>
     <!--批量逻辑删除系统权限-->
     <update id="deleteBatch" parameterType="java.util.List">
         UPDATE system_power set logic_remove =1 where id IN
-        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </update>

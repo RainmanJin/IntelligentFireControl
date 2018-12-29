@@ -10,6 +10,31 @@ public class SystemUserPower implements Serializable {
      * id
      */
     private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
+
     /**
      * 用户姓名
      */
@@ -25,11 +50,11 @@ public class SystemUserPower implements Serializable {
     /**
      * 部门名称
      */
-    private String dpartmentName;
+    private String departmentName;
     /**
      * 部门Id
      */
-    private Long dpartmentId;
+    private Long departmentId;
     /**
      * 性别
      */
@@ -75,13 +100,7 @@ public class SystemUserPower implements Serializable {
         this.jobNumber = jobNumber;
     }
 
-    public String getDpartmentName() {
-        return dpartmentName;
-    }
 
-    public void setDpartmentName(String dpartmentName) {
-        this.dpartmentName = dpartmentName;
-    }
 
     public Integer getSex() {
         return sex;
@@ -99,11 +118,4 @@ public class SystemUserPower implements Serializable {
         this.powerName = powerName;
     }
 
-    public Long getDpartmentId() {
-        return dpartmentId;
-    }
-
-    public void setDpartmentId(Long dpartmentId) {
-        this.dpartmentId = dpartmentId;
-    }
 }

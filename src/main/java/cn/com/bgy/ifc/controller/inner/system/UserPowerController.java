@@ -30,7 +30,7 @@ public class UserPowerController {
      * @param systemUserPower
      * @return
      */
-    @PostMapping ("/searchPage")
+    @GetMapping("/searchPage")
     @ResponseBody
     public ResponseVO<PageInfo<SystemUserPower>> queryPageList(Page<Object> page,SystemUserPower systemUserPower) {
         PageInfo<SystemUserPower> pageInfo = userPowerDomain.queryPageList(page, systemUserPower);
