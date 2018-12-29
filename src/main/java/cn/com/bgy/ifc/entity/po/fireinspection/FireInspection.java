@@ -4,42 +4,46 @@ import java.util.Date;
 
 public class FireInspection {
     private Long id;
-
+    /**区域表Id*/
     private Long regionId;
-
+    private String regionName;
+    /**项目表Id*/
     private Long projectId;
-
+    private String projectName;
+    /**创建时间*/
     private Date createTime;
-
+    /**消防巡检名称（区域        +项目+防火检查记录表（月/重大节日））*/
     private String name;
-
+    /**是否逻辑删除*/
     private Boolean logicRemove;
-
+    /**检查人意见*/
     private String examinerOpinion;
-
+    /**检查人*/
     private String examiner;
-
+    /**检查人签字日期*/
     private Date examinerDate;
-
+    /**被检查部门负责人意见*/
     private String managerOpinion;
-
+    /**被检查部门负责人签字日期*/
     private Date managerDate;
-
+    /**被检查部门负责人*/
     private String manager;
-
+    /**消防安全管理人意见*/
     private String fireManagerOpinion;
-
+    /**消防安全管理人签字日期*/
     private Date fireManagerDate;
-
+    /**消防安全管理人*/
     private String fireManager;
-
+    /**项目消防安全责任人意见*/
     private String projectManagerOpinion;
-
+    /**项目消防安全责任人签字日期*/
     private Date projectManagerDate;
-
+    /**项目消防安全责任人*/
     private String projectManager;
-
+    /**被检查单位 (部位）*/
     private String inspectedUnits;
+    /**项目消防安全责任人签字日期*/
+    private Date inspectionDay;
 
     public Long getId() {
         return id;
@@ -65,7 +69,31 @@ public class FireInspection {
         this.projectId = projectId;
     }
 
-    public Date getCreateTime() {
+    public String getRegionName() {
+		return regionName;
+	}
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public Date getInspectionDay() {
+		return inspectionDay;
+	}
+
+	public void setInspectionDay(Date inspectionDay) {
+		this.inspectionDay = inspectionDay;
+	}
+
+	public Date getCreateTime() {
         return createTime;
     }
 
