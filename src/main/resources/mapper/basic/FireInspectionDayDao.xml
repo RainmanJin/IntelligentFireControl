@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.fireinspection.FireInspectionDayDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDay">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="inspected_units" jdbcType="VARCHAR" property="inspectedUnits" />
+    <result column="inspection_day" jdbcType="TIMESTAMP" property="inspectionDay" />
+    <result column="situation" jdbcType="VARCHAR" property="situation" />
+    <result column="resoult" jdbcType="VARCHAR" property="resoult" />
+    <result column="examiner" jdbcType="VARCHAR" property="examiner" />
+    <result column="manager" jdbcType="VARCHAR" property="manager" />
+    <result column="fire_manager" jdbcType="VARCHAR" property="fireManager" />
+    <result column="project_manager" jdbcType="VARCHAR" property="projectManager" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDay">
+    insert into fire_inspection_day (id, inspected_units, inspection_day, 
+      situation, resoult, examiner, 
+      manager, fire_manager, project_manager, 
+      create_time, logic_remove)
+    values (#{id,jdbcType=BIGINT}, #{inspectedUnits,jdbcType=VARCHAR}, #{inspectionDay,jdbcType=TIMESTAMP}, 
+      #{situation,jdbcType=VARCHAR}, #{resoult,jdbcType=VARCHAR}, #{examiner,jdbcType=VARCHAR}, 
+      #{manager,jdbcType=VARCHAR}, #{fireManager,jdbcType=VARCHAR}, #{projectManager,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDay">
+    insert into fire_inspection_day
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="inspectedUnits != null">
+        inspected_units,
+      </if>
+      <if test="inspectionDay != null">
+        inspection_day,
+      </if>
+      <if test="situation != null">
+        situation,
+      </if>
+      <if test="resoult != null">
+        resoult,
+      </if>
+      <if test="examiner != null">
+        examiner,
+      </if>
+      <if test="manager != null">
+        manager,
+      </if>
+      <if test="fireManager != null">
+        fire_manager,
+      </if>
+      <if test="projectManager != null">
+        project_manager,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="inspectedUnits != null">
+        #{inspectedUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionDay != null">
+        #{inspectionDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="situation != null">
+        #{situation,jdbcType=VARCHAR},
+      </if>
+      <if test="resoult != null">
+        #{resoult,jdbcType=VARCHAR},
+      </if>
+      <if test="examiner != null">
+        #{examiner,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="fireManager != null">
+        #{fireManager,jdbcType=VARCHAR},
+      </if>
+      <if test="projectManager != null">
+        #{projectManager,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.fireinspection.FireHiddenDangerDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.fireinspection.FireHiddenDanger">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="inspected_units" jdbcType="VARCHAR" property="inspectedUnits" />
+    <result column="examiner" jdbcType="VARCHAR" property="examiner" />
+    <result column="inspection_day" jdbcType="TIMESTAMP" property="inspectionDay" />
+    <result column="rec_opinion" jdbcType="VARCHAR" property="recOpinion" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+    <result column="manager_opinion" jdbcType="VARCHAR" property="managerOpinion" />
+    <result column="manager_date" jdbcType="TIMESTAMP" property="managerDate" />
+    <result column="fire_manager_opinion" jdbcType="VARCHAR" property="fireManagerOpinion" />
+    <result column="fire_manager _date" jdbcType="TIMESTAMP" property="fireManagerDate" />
+    <result column="manager" jdbcType="VARCHAR" property="manager" />
+    <result column="fire_manager" jdbcType="VARCHAR" property="fireManager" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="pro_fire_manager" jdbcType="VARCHAR" property="proFireManager" />
+    <result column="project_manager" jdbcType="VARCHAR" property="projectManager" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireHiddenDanger">
+    insert into fire_hidden_danger (id, inspected_units, examiner, 
+      inspection_day, rec_opinion, logic_remove, 
+      manager_opinion, manager_date, fire_manager_opinion, 
+      "fire_manager _date", manager, fire_manager, 
+      result, pro_fire_manager, project_manager
+      )
+    values (#{id,jdbcType=BIGINT}, #{inspectedUnits,jdbcType=VARCHAR}, #{examiner,jdbcType=VARCHAR}, 
+      #{inspectionDay,jdbcType=TIMESTAMP}, #{recOpinion,jdbcType=VARCHAR}, #{logicRemove,jdbcType=BIT}, 
+      #{managerOpinion,jdbcType=VARCHAR}, #{managerDate,jdbcType=TIMESTAMP}, #{fireManagerOpinion,jdbcType=VARCHAR}, 
+      #{fireManagerDate,jdbcType=TIMESTAMP}, #{manager,jdbcType=VARCHAR}, #{fireManager,jdbcType=VARCHAR}, 
+      #{result,jdbcType=VARCHAR}, #{proFireManager,jdbcType=VARCHAR}, #{projectManager,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireHiddenDanger">
+    insert into fire_hidden_danger
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="inspectedUnits != null">
+        inspected_units,
+      </if>
+      <if test="examiner != null">
+        examiner,
+      </if>
+      <if test="inspectionDay != null">
+        inspection_day,
+      </if>
+      <if test="recOpinion != null">
+        rec_opinion,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+      <if test="managerOpinion != null">
+        manager_opinion,
+      </if>
+      <if test="managerDate != null">
+        manager_date,
+      </if>
+      <if test="fireManagerOpinion != null">
+        fire_manager_opinion,
+      </if>
+      <if test="fireManagerDate != null">
+        "fire_manager _date",
+      </if>
+      <if test="manager != null">
+        manager,
+      </if>
+      <if test="fireManager != null">
+        fire_manager,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="proFireManager != null">
+        pro_fire_manager,
+      </if>
+      <if test="projectManager != null">
+        project_manager,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="inspectedUnits != null">
+        #{inspectedUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="examiner != null">
+        #{examiner,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionDay != null">
+        #{inspectionDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recOpinion != null">
+        #{recOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="managerOpinion != null">
+        #{managerOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="managerDate != null">
+        #{managerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fireManagerOpinion != null">
+        #{fireManagerOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="fireManagerDate != null">
+        #{fireManagerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manager != null">
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="fireManager != null">
+        #{fireManager,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="proFireManager != null">
+        #{proFireManager,jdbcType=VARCHAR},
+      </if>
+      <if test="projectManager != null">
+        #{projectManager,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

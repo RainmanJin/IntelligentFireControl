@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.fireinspection.FireInspectionDetailDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDetail">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="fire_inspe_id" jdbcType="BIGINT" property="fireInspeId" />
+    <result column="fire_contents_id" jdbcType="BIGINT" property="fireContentsId" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+    <result column="situation" jdbcType="VARCHAR" property="situation" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDetail">
+    insert into fire_inspection_detail (id, fire_inspe_id, fire_contents_id, 
+      logic_remove, situation, result
+      )
+    values (#{id,jdbcType=BIGINT}, #{fireInspeId,jdbcType=BIGINT}, #{fireContentsId,jdbcType=BIGINT}, 
+      #{logicRemove,jdbcType=BIT}, #{situation,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDetail">
+    insert into fire_inspection_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fireInspeId != null">
+        fire_inspe_id,
+      </if>
+      <if test="fireContentsId != null">
+        fire_contents_id,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+      <if test="situation != null">
+        situation,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fireInspeId != null">
+        #{fireInspeId,jdbcType=BIGINT},
+      </if>
+      <if test="fireContentsId != null">
+        #{fireContentsId,jdbcType=BIGINT},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="situation != null">
+        #{situation,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
