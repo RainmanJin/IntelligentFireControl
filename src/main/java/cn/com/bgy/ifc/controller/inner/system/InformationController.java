@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.InformationDomain;
 import cn.com.bgy.ifc.entity.po.system.Information;
@@ -61,15 +62,16 @@ public class InformationController {
             informationDomain.update(information);
             return ResponseVO.success();
     }
-    @DeleteMapping("delete/{id}")
+    /*@PostMapping("delete")
     @ResponseBody
-    public ResponseVO<Object> delete(@PathVariable Long id){
+    public ResponseVO<Object> delete(String  ids){
+        ListUtil.getListId(ids);
         if(id==null){
             return ResponseVO.error().setMsg("id不能为空");
         }
-        informationDomain.deleteById(id);
+        informationDomain.delete(id);
         return ResponseVO.success();
-    }
+    }*/
 
     @GetMapping("findById")
     @SystemLogAfterSave(type = 1,description = "通过id查询通知公告")

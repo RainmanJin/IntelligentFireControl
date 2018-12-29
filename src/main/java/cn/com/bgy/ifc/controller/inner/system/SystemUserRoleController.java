@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemUserRoleDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.SystemUserRole;
@@ -22,7 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/system/systemUserRole")
-public class SystemUserRoleController {
+public class SystemUserRoleController extends BaseController {
 
     @Autowired
     private SystemUserRoleDomain systemUserRoleDomain;
@@ -60,6 +61,8 @@ public class SystemUserRoleController {
     @GetMapping("searchPage")
     @ResponseBody
     public ResponseVO<Object> searchPage(Page<Account> page, Account account){
+        Account user=this.getUser();
+        account.setOrganizationId(user.getOrganizationId());
         PageInfo<Map<String,Object>> pageInfo=systemUserRoleDomain.searchByPage(page,account);
         return ResponseVO.success().setData(pageInfo);
     }

@@ -123,8 +123,7 @@ public class LoginController {
                 return ResponseVO.error().setMsg("用户名或密码错误");
             }
         } else {
-            //验证码已失效
-            return ResponseVO.error().setMsg("验证码已失效");
+            return ResponseVO.error().setMsg("验证码错误");
         }
     }
     @RequiresUser

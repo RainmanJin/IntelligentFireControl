@@ -1,10 +1,11 @@
 package cn.com.bgy.ifc.dao.system;
 
+import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.system.Information;
 
 import java.util.List;
 
-public interface InformationDao {
+public interface InformationDao extends BaseDao<Information> {
     Information findById(Long id);
 
     int insert(Information information);

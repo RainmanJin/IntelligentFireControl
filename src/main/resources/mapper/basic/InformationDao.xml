@@ -76,41 +76,50 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <!--分页-->
-  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.Information" resultMap="BaseResultMap">
+  <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.Information" resultType="cn.com.bgy.ifc.entity.po.system.Information">
     select
-    <include refid="Base_Column_List" />
-    from information
+    i.id,
+    i.org_id as orgId,
+    i.type_id as typeId,
+    i.title,
+    i.signature,
+    i.date_line as dateLine,
+    i.d_id as dId,
+    i.u_id as uId,
+    i.create_time as createTime,
+    t.name as departmentName
+    from information i left join department t on i.u_id=t.id
     <where>
-      logic_remove = false
+      i.logic_remove = 0
       <if test="orgId != null">
-        and org_id = #{orgId,jdbcType=BIGINT},
+        and i.org_id = #{orgId,jdbcType=BIGINT},
       </if>
       <if test="typeId != null">
-        and type_id = #{typeId,jdbcType=BIGINT},
+        and i.type_id = #{typeId,jdbcType=BIGINT},
       </if>
       <if test="title != null">
-        and title = #{title,jdbcType=VARCHAR},
+        and i.title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="signature != null">
         and  signature = #{signature,jdbcType=VARCHAR},
       </if>
       <if test="dateLine != null">
-        and date_line = #{dateLine,jdbcType=VARCHAR},
+        and i.date_line = #{dateLine,jdbcType=VARCHAR},
       </if>
       <if test="dId != null">
-        and d_id = #{dId,jdbcType=BIGINT},
+        and i.d_id = #{dId,jdbcType=BIGINT},
       </if>
       <if test="uId != null">
-        and u_id = #{uId,jdbcType=BIGINT},
+        and i.u_id = #{uId,jdbcType=BIGINT},
       </if>
       <if test="createTime != null">
-        and create_time = #{createTime,jdbcType=TIMESTAMP},
+        and i.create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null">
-        and content = #{content,jdbcType=LONGVARCHAR},
+        and i.content = #{content,jdbcType=LONGVARCHAR},
       </if>
       <if test="keyWords != null and '' != keyWords ">
-        AND  title like CONCAT('%',#{keyWords},'%' )
+        AND  i.title like CONCAT('%',#{keyWords},'%' )
       </if>
     </where>
   </select>

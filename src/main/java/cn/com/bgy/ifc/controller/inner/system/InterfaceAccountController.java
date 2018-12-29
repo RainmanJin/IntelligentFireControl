@@ -25,10 +25,10 @@ import java.util.List;
  * @date: 2018-12-05 09:30
  **/
 @Controller
-@RequestMapping("/basic/interfaceAccount")
+@RequestMapping("/system/interfaceAccount")
 public class InterfaceAccountController {
     @Autowired
-    private InterfaceAccountDomain interfaceaccountDomain;
+    private InterfaceAccountDomain interfaceAccountDomain;
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "添加接口用户")
     @ResponseBody
@@ -41,7 +41,7 @@ public class InterfaceAccountController {
             CopyUtil.copyProperties(interfaceaccountVo,interfaceaccount);
             interfaceaccount.setCreateTime(new Date());
             interfaceaccount.setLogicRemove(false);
-            interfaceaccountDomain.insert(interfaceaccount);
+            interfaceAccountDomain.insert(interfaceaccount);
             return ResponseVO.success();
 
     }
@@ -56,7 +56,7 @@ public class InterfaceAccountController {
             }
             InterfaceAccount interfaceaccount= new InterfaceAccount();
             CopyUtil.copyProperties(interfaceaccountVo,interfaceaccount);
-            interfaceaccountDomain.update(interfaceaccount);
+            interfaceAccountDomain.update(interfaceaccount);
             return ResponseVO.success();
 
     }
@@ -66,7 +66,7 @@ public class InterfaceAccountController {
         if(id==null){
             return ResponseVO.error().setMsg("id不能为空");
         }
-        interfaceaccountDomain.deleteById(id);
+        interfaceAccountDomain.deleteById(id);
         return ResponseVO.success();
     }
     @GetMapping("findById")
@@ -76,7 +76,7 @@ public class InterfaceAccountController {
         if(id==null){
             return ResponseVO.error().setMsg("id不能为空");
         }
-        InterfaceAccount interfaceaccount = interfaceaccountDomain.findById(id);
+        InterfaceAccount interfaceaccount = interfaceAccountDomain.findById(id);
         ResponseVO responseVO = new ResponseVO();
         responseVO.setData(interfaceaccount);
         responseVO.setCode(ResponseVO.SUCCESS);
@@ -84,16 +84,16 @@ public class InterfaceAccountController {
         return responseVO.setData(interfaceaccount);
     }
     /**
+     * @author chenlie
      * 分页查询
      * @param page
      * @return
      */
     @GetMapping("searchPage")
-    @SystemLogAfterSave(type = 1,description = "分页查询通知公告")
+    @SystemLogAfterSave(type = 1,description = "分页查询接口用户")
     @ResponseBody
-    public ResponseVO<Object> searchPage(Page<InterfaceAccount> page){
-        InterfaceAccount interfaceAccount= new InterfaceAccount();
-        PageInfo<InterfaceAccount> pageInfo=interfaceaccountDomain.searchByWhere(page,interfaceAccount);
+    public ResponseVO<Object> searchPage(Page<InterfaceAccount> page, InterfaceAccount interfaceAccount){
+        PageInfo<InterfaceAccount> pageInfo=interfaceAccountDomain.searchByWhere(page,interfaceAccount);
         return ResponseVO.success().setData(pageInfo);
     }
     /**
@@ -112,10 +112,10 @@ public class InterfaceAccountController {
         Long[] deleteLongs = new Long[list.size()];
         list.toArray(deleteLongs);
         if (list.size()==1){
-            interfaceaccountDomain.deleteById(deleteLongs[0]);
+            interfaceAccountDomain.deleteById(deleteLongs[0]);
             return ResponseVO.success().setMsg("删除成功").setData(null);
         }else {
-            interfaceaccountDomain.deleteInterfaceAccount(deleteLongs);
+            interfaceAccountDomain.deleteInterfaceAccount(deleteLongs);
             return ResponseVO.success().setMsg("删除成功").setData(null);
         }
     }

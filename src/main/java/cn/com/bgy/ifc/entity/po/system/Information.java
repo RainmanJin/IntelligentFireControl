@@ -18,6 +18,8 @@ public class Information  implements Serializable {
      */
     private Long orgId;
 
+
+
     /**
      * 1，通知 2，公告
      */
@@ -42,6 +44,18 @@ public class Information  implements Serializable {
      * 部门id(为0时全部可以查看，具体值时为所有人)
      */
     private Long dId;
+    /**
+     * 部门名称
+     */
+    private String  departmentName;
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
 
     /**
      * 用户表id
