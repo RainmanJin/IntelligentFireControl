@@ -9,6 +9,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +22,7 @@ import java.util.Map;
  * @Description 设备信息
  **/
 @Controller
-@RequestMapping("/basic/EquipmentInfo")
+@RequestMapping("/equipment/index")
 public class EquipmentInfoController {
 
     @Autowired
@@ -32,7 +33,7 @@ public class EquipmentInfoController {
      * @Description 查询
      * @Date 2018/12/21 11:08
      */
-    @PostMapping("query")
+    @GetMapping("query")
     @ResponseBody
     public ResponseVO<PageInfo> queryListEquipmentInfo( Page<Object> page, RegionAndBrandVO regionAndBrandVO, String token){
         PageInfo pageInfo = equipmentInfoService.queryListEquipmentInfo(page,regionAndBrandVO);

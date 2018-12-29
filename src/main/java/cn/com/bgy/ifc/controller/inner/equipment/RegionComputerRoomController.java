@@ -23,7 +23,7 @@ import javax.annotation.Resource;
  * @Description 机房信息
  **/
 @Controller
-@RequestMapping("/equipment/regionComputerRoom")
+@RequestMapping("/equipment/computerRoom")
 public class RegionComputerRoomController extends BaseController {
 
     @Resource

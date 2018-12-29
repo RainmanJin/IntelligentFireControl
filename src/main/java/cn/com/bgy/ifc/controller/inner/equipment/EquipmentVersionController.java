@@ -8,6 +8,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +23,7 @@ import java.util.Map;
  **/
 
 @Controller
-@RequestMapping("/basic/EquipmentVersion")
+@RequestMapping("/equipment/version")
 public class EquipmentVersionController {
 
     @Autowired
@@ -33,7 +34,7 @@ public class EquipmentVersionController {
      * @Description 查
      * @Date 2018/12/21 18:13
      */
-    @PostMapping("query")
+    @GetMapping("query")
     @ResponseBody
     public ResponseVO queryListEquipmentVersion( Page<Object> page,Integer brandID,String keyword, String token){
         PageInfo pageInfo = equipmentVersionService.queryListEquipmentVersion(page,brandID,keyword);
@@ -89,6 +90,7 @@ public class EquipmentVersionController {
      * @Description 根据品牌id查询所有型号
      * @Date 2018/12/25 9:13
      */
+    @GetMapping("queryAllName")
     public ResponseVO<Object> queryEquipmentVersionByBrandId(Long id,String token){
         List<Map<String,Object>> list = equipmentVersionService.queryEquipmentVersionByBrandId(id);
         return ResponseVO.success().setData(list);

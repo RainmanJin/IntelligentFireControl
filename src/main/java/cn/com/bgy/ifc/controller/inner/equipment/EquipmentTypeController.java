@@ -8,6 +8,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +23,7 @@ import java.util.Map;
  **/
 
 @Controller
-@RequestMapping("/basic/EquipmentType")
+@RequestMapping("/equipment/type")
 public class EquipmentTypeController {
 
     @Autowired
@@ -33,7 +34,7 @@ public class EquipmentTypeController {
      * @Description 查
      * @Date 2018/12/21 18:13
      */
-    @PostMapping("query")
+    @GetMapping("query")
     @ResponseBody
     public ResponseVO<PageInfo> queryListEquipmentType( Page<Object> page, String keyword,String token){
         PageInfo pageInfo = equipmentTypeService.queryListEquipmentType(page,keyword);

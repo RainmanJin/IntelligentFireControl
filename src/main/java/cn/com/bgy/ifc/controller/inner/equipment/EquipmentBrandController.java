@@ -2,7 +2,6 @@ package cn.com.bgy.ifc.controller.inner.equipment;
 
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
-import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentBrandService;
@@ -10,6 +9,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +23,7 @@ import java.util.Map;
  * @Date 2018/12/24 9:12
  */
 @Controller
-@RequestMapping("/basic/brand")
+@RequestMapping("/equipment/brand")
 public class EquipmentBrandController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class EquipmentBrandController {
      * @Description 查
      * @Date 2018/12/21 18:13
      */
-    @PostMapping("query")
+    @GetMapping("query")
     @ResponseBody
     public ResponseVO<PageInfo> queryListEquipmentBrand( Page<Object> page, String keyword,String token){
         PageInfo pageInfo = equipmentBrandService.queryListEquipmentBrand(page,keyword);
@@ -92,7 +92,7 @@ public class EquipmentBrandController {
      * @Description 查询所有设备品牌
      * @Date 2018/12/24 10:27
      */
-    @PostMapping("queryAllBrand")
+    @GetMapping("queryAllName")
     @ResponseBody
     public ResponseVO<Object> queryAllEquipmentBrand(String token ){
         List<Map<String,Object>> list =  equipmentBrandService.queryAllEquipmentBrand();

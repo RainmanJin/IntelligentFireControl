@@ -68,7 +68,7 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
     @Override
     public int updateEquipmentBrand( EquipmentBrand equipmentBrand ) {
 
-        return equipmentBrandDao.updateEquipmentBrand(equipmentBrand);
+        return equipmentBrandDao.updateSelective(equipmentBrand);
     }
     /**
      * @Author huxin

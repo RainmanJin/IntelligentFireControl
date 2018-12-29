@@ -4,7 +4,6 @@ import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionComputerRoomDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
 import cn.com.bgy.ifc.entity.po.system.Account;
-import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionComputerRoomService;
 import com.github.pagehelper.Page;
@@ -39,10 +38,10 @@ public class RegionComputerRoomServiceImpl implements RegionComputerRoomService 
      */
     @Override
     public PageInfo queryListRegionComputerRoom( Page page, RegionAndBrandVO record,Account user) {
-        UserGroupItems userGroupItems =  userGroupItemsDao.findByUserId(user.getId());
+//        UserGroupItems userGroupItems =  userGroupItemsDao.findByUserId(user.getId());
         //根据用户的权限判定查询的范围
-        record.setRegionId(userGroupItems.getRegionId());
-        record.setProjectId(userGroupItems.getProjectId());
+//        record.setRegionId(userGroupItems.getRegionId());
+//        record.setProjectId(userGroupItems.getProjectId());
 
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<Map<String,Object>> list=  regionComputerRoomDomain.queryListRegionComputerRoom(record);

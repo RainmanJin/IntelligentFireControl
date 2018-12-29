@@ -71,7 +71,7 @@
 
     <select id="queryListEquipmentType" resultType="java.util.Map" parameterType="java.lang.String">
         SELECT
-        t.id as id,t.`name` as name,t.parent_id,e.`name` as parentName,t.`status` as `status`
+        t.id as id,t.`name` as name,t.parent_id as parentId ,e.`name` as parentName,t.`status` as `status`
       FROM (SELECT id,`name`,parent_id,`status`,logic_remove FROM equipment_type) as t
       LEFT JOIN equipment_type e ON t.parent_id = e.id
 
