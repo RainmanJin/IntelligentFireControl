@@ -6,7 +6,6 @@ import cn.com.bgy.ifc.dao.project.RegionInfoDao;
 import cn.com.bgy.ifc.dao.project.RegionProjectDao;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
-import cn.com.bgy.ifc.entity.po.project.RegionProject;
 import cn.com.bgy.ifc.entity.vo.project.RegionProjectVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -109,7 +108,7 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
     @Override
     public List<Map<String,Object>> getRegionList() {
         return regionInfoDao.queryRegionInfoName();
-    }      
+    }
 
     /**
      * 获取项目下拉框初始值
@@ -117,8 +116,9 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
      */
     @Override
     public List<Map<String,Object>> getRegionProjectList() {
-        RegionProject regionProject = null;
-        return null;
+        RegionProjectVo regionProjectVo = null;
+       return null;
+        // return regionProjectDao.queryListRegionProject(regionProjectVo);
     }
 
 }

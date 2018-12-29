@@ -6,10 +6,12 @@ import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemRoleDomain;
+import cn.com.bgy.ifc.entity.po.system.Department;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
+import cn.com.bgy.ifc.entity.vo.system.DepartmentVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemRoleVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemRoleService;
 import com.alibaba.fastjson.JSONArray;
@@ -82,6 +84,24 @@ public class SystemRoleController {
         }else{
             return ResponseVO.editError();
         }
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:系统角色启用操作
+     * @param: [systemRoleVo]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("forbidden")
+    @SystemLogAfterSave(type = 1,description = "系统角色启用操作")
+    public ResponseVO<Object> forbidden(SystemRoleVo systemRoleVo) {
+        SystemRole systemRole = new SystemRole();
+        CopyUtil.copyProperties(systemRoleVo, systemRole);
+        int count = systemRoleService.updateSelective(systemRole);
+        if (count ==1) {
+            return ResponseVO.success().setMsg("操作成功");
+        }
+        return ResponseVO.error().setMsg("操作失败！");
     }
 
 

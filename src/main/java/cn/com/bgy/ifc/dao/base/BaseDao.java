@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.dao.base;
 
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -74,7 +75,7 @@ public interface BaseDao<T> {
      * @param ids
      * @return
      */
-    int deleteBatch(List<Long> ids);
+    int deleteBatch(@Param("list")List<Long> ids);
 
     /**
      * 单条删除

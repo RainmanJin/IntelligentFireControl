@@ -32,7 +32,7 @@ public class SystemOperationLogServiceImpl implements SystemOperationLogService 
      */
     @Override
     public PageInfo<SystemOperationLog> queryListByParam(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo) {
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), "create_time DESC");
         List<SystemOperationLog> list= systemOperationLogDao.queryListByParam(systemOperationLogVo);
         return  new PageInfo<SystemOperationLog>(list);
     }

@@ -4,8 +4,10 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
+import cn.com.bgy.ifc.entity.po.system.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.SystemOrganizationVo;
+import cn.com.bgy.ifc.entity.vo.system.SystemRoleVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOrganizationService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -34,11 +36,11 @@ public class SystemOrganizationController {
     /**
      * @author: ZhangCheng
      * @description:机构分页查询
-     * @param: [page, token]
+     * @param: [page, keywords]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo                               <                               cn.com.bgy.ifc.entity.po.system.SystemOrganization>>
      */
     @GetMapping("queryPage")
-    public ResponseVO<PageInfo<SystemOrganization>> searchPage(Page<SystemOrganization> page, String keywords, String token) {
+    public ResponseVO<PageInfo<SystemOrganization>> searchPage(Page<SystemOrganization> page, String keywords) {
         PageInfo<SystemOrganization> pageInfo = systemOrganizationService.queryListByPage(page, keywords);
         return ResponseVO.<PageInfo<SystemOrganization>>success().setData(pageInfo);
     }
@@ -103,11 +105,29 @@ public class SystemOrganizationController {
 
     /**
      * @author: ZhangCheng
+     * @description:机构管理启用操作
+     * @param: [systemOrganizationVo]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("forbidden")
+    @SystemLogAfterSave(type = 1,description = "机构管理启用操作")
+    public ResponseVO<Object> forbidden(SystemOrganizationVo systemOrganizationVo) {
+        SystemOrganization systemOrganization = new SystemOrganization();
+        CopyUtil.copyProperties(systemOrganizationVo, systemOrganization);
+        int result = systemOrganizationService.updateSelective(systemOrganization);
+        if (result ==1) {
+            return ResponseVO.success().setMsg("操作成功");
+        }
+        return ResponseVO.error().setMsg("操作失败！");
+    }
+
+    /**
+     * @author: ZhangCheng
      * @description:删除机构信息
      * @param: [ids]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("delete")
+    @PostMapping("deleteBatch")
     @SystemLogAfterSave(type = 1, description = "删除机构信息")
     public ResponseVO<Object> deleteBatch(String ids) {
         if (ids.length() == 0) {

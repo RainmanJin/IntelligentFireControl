@@ -61,10 +61,13 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
             }
         }
 
+        int nowPage=page.getPageNum();
+        int recordCount=allMenu.size();
+        int pageSize=page.getPageSize();
+        PageInfo pageInfo= DBAgent.getPages(recordCount, pageSize, nowPage);
         //分页结果集
-        List<SystemMenuVo> newList=DBAgent.memoryPaging(resultMenu,page);
-        PageInfo<SystemMenuVo> pageInfo=new PageInfo<SystemMenuVo>(newList);
-        DBAgent.getPages(pageInfo,page);
+        List<SystemMenuVo> newList=DBAgent.memoryPaging(resultMenu,pageInfo);
+        pageInfo.setList(newList);
         return pageInfo;
     }
 

@@ -43,7 +43,6 @@ public class SystemMenuController extends BaseController {
     @GetMapping("queryPage")
     public ResponseVO<PageInfo<SystemMenuVo>> queryPage(Page<SystemMenuVo> page, String keyword) {
         PageInfo<SystemMenuVo> pageInfo = systemMenuService.queryAllSystemMenuInfo(page, keyword);
-        System.out.println("===="+pageInfo);
         return ResponseVO.<PageInfo<SystemMenuVo>>success().setData(pageInfo);
     }
 

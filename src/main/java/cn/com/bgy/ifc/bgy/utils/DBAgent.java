@@ -13,18 +13,19 @@ import java.util.List;
  **/
 public class DBAgent {
 
-    /**
-     * 根据指定数据集合进行内存分页
-     * pageNum 当前页
-     * pageSize 每页记录数
-     * total 总记录数
-     * startRow 获取翻页起始加载记录位置
-     * @param dataList 要进行分页的数据集合
-     * @param pages 翻页信息对象
-     * @return 内存数据翻页结果集
-     */
+   /**
+    * @author: ZhangCheng
+    * @description:
+    *  根据指定数据集合进行内存分页
+    *  pageNum 当前页
+    *  pageSize 每页记录数
+    *  total 总记录数
+    *  startRow 获取翻页起始加载记录位置
+    * @param: [dataList, pages]要进行分页的数据集合,翻页信息对象
+    * @return: java.util.List 内存数据翻页结果集
+    */
     @SuppressWarnings("rawtypes")
-    public static List memoryPaging(final List dataList, final Page pages) {
+    public static List memoryPaging(final List dataList, final PageInfo pages) {
         int size = pages.getPageSize(), page = pages.getPageNum(), start = pages.getStartRow();
         List datas = dataList;
         while (start > datas.size()) {
@@ -41,17 +42,15 @@ public class DBAgent {
     }
 
     /**
-     *
-     * @param info
-     * @param pages
-     * @return
+     * @author: ZhangCheng
+     * @description:
+     * @param: [recordCount, pageSize, nowPage]
+     * @return: com.github.pagehelper.PageInfo
      */
-    public static PageInfo getPages(final PageInfo info,final Page pages) {
-        int nowPage=pages.getPageNum();
-        long recordCount=pages.getTotal();
-        int pageSize=pages.getPageSize();
+    public static PageInfo getPages(int recordCount,int pageSize,int nowPage) {
+        PageInfo info=new PageInfo<>();
         // 总页数
-        int pageCount = (int)recordCount % pageSize > 0 ? (int)recordCount / pageSize + 1 : (int)recordCount / pageSize;
+        int pageCount = recordCount % pageSize > 0 ? recordCount / pageSize + 1 : recordCount / pageSize;
         // 判断总页数是否小于当前页
         int newNowPage = pageCount < nowPage ? 1 : nowPage;
         // 开始记录数

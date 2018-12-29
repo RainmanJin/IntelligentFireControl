@@ -3,6 +3,7 @@ import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface SystemOrganizationDao extends BaseDao<SystemOrganization> {
      * @param: [keywords]
      * @return: java.util.List<cn.com.bgy.ifc.entity.po.system.SystemOrganization>
      */
-    List<SystemOrganization> queryListByPage(String keywords);
+    List<SystemOrganization> queryListByPage(@Param("keywords")String keywords);
 
     /**
      * 根据当前登录用获取机构

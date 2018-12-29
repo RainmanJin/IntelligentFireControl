@@ -15,6 +15,11 @@ public class SystemOrganization {
      * 机构名称
      */
     private String name;
+
+    /**
+     * 机构管理员
+     */
+    private String userName;
     /**
      * 公司编码
      */
@@ -95,18 +100,7 @@ public class SystemOrganization {
      * 是否逻辑删除
      */
     private Boolean logicRemove;
-    /**
-     * 关键字
-     */
-    private String keyWords;
 
-    public String getKeyWords() {
-        return keyWords;
-    }
-
-    public void setKeyWords(String keyWords) {
-        this.keyWords = keyWords;
-    }
 
     /**
      * 系统自增Id
@@ -312,4 +306,11 @@ public class SystemOrganization {
         this.homePage = homePage;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

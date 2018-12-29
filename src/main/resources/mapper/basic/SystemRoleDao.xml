@@ -130,7 +130,7 @@
     <!--逻辑批量删除系统角色-->
     <update id="deleteBatch" parameterType="java.util.List">
         UPDATE system_role SET logic_remove =1 WHERE id IN
-        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </update>

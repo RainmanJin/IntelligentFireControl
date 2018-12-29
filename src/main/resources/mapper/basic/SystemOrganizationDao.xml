@@ -20,6 +20,7 @@
         <result column="register_time" jdbcType="TIMESTAMP" property="registerTime"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemOrganization">
     insert into system_organization (id, code, name, 
@@ -244,18 +245,18 @@
     </update>
     <!--分页条件查询机构管理-->
     <select id="queryListByPage" parameterType="String" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from system_organization
+        SELECT
+        s.id id, s.name name, s.code,s.state, s.user_id,s.register_time, s.create_time, a.user_name,s.logic_remove
+        FROM system_organization s LEFT JOIN account a ON s.user_id =a.id
         <where>
-            <if test="keyWords != null and '' != keyWords ">
-                AND name like CONCAT('%',#{keyWords},'%' )
+            <if test="keywords != null and '' != keywords ">
+                AND s.name like CONCAT('%',#{keywords},'%' )
             </if>
-            AND logic_remove = 0
+            AND s.logic_remove = 0
         </where>
     </select>
     <!--批量删除机构-->
-    <update id="deleteBatch" parameterType="list">
+    <update id="deleteBatch" parameterType="java.util.List">
         UPDATE system_organization SET logic_remove =1 WHERE id IN
         <foreach collection="list" item="id" open="(" separator=","
                  close=")">

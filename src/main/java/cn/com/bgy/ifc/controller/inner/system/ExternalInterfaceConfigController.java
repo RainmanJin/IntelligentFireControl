@@ -105,7 +105,7 @@ public class ExternalInterfaceConfigController {
      * @param: [ids]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("delete")
+    @PostMapping("deleteBatch")
     @SystemLogAfterSave(type = 1, description = "删除接入接口配置")
     public ResponseVO<Object> deleteBatch(String ids) {
         if (ids.length() == 0) {
