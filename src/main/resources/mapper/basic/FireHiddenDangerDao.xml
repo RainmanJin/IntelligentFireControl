@@ -12,6 +12,7 @@
     <result column="manager_date" jdbcType="TIMESTAMP" property="managerDate" />
     <result column="fire_manager_opinion" jdbcType="VARCHAR" property="fireManagerOpinion" />
     <result column="fire_manager _date" jdbcType="TIMESTAMP" property="fireManagerDate" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="manager" jdbcType="VARCHAR" property="manager" />
     <result column="fire_manager" jdbcType="VARCHAR" property="fireManager" />
     <result column="result" jdbcType="VARCHAR" property="result" />
@@ -19,13 +20,13 @@
     <result column="project_manager" jdbcType="VARCHAR" property="projectManager" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireHiddenDanger">
-    insert into fire_hidden_danger (id, inspected_units, examiner, 
+    insert into fire_hidden_danger (id,create_time, inspected_units, examiner, 
       inspection_day, rec_opinion, logic_remove, 
       manager_opinion, manager_date, fire_manager_opinion, 
       "fire_manager _date", manager, fire_manager, 
       result, pro_fire_manager, project_manager
       )
-    values (#{id,jdbcType=BIGINT}, #{inspectedUnits,jdbcType=VARCHAR}, #{examiner,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{inspectedUnits,jdbcType=VARCHAR}, #{examiner,jdbcType=VARCHAR}, 
       #{inspectionDay,jdbcType=TIMESTAMP}, #{recOpinion,jdbcType=VARCHAR}, #{logicRemove,jdbcType=BIT}, 
       #{managerOpinion,jdbcType=VARCHAR}, #{managerDate,jdbcType=TIMESTAMP}, #{fireManagerOpinion,jdbcType=VARCHAR}, 
       #{fireManagerDate,jdbcType=TIMESTAMP}, #{manager,jdbcType=VARCHAR}, #{fireManager,jdbcType=VARCHAR}, 
@@ -37,6 +38,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+       <if test="createTime != null">
+        create_time,
       </if>
       <if test="inspectedUnits != null">
         inspected_units,
@@ -85,6 +89,9 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
+       <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="inspectedUnits != null">
         #{inspectedUnits,jdbcType=VARCHAR},
       </if>
@@ -129,4 +136,141 @@
       </if>
     </trim>
   </insert>
+  <sql id="Mysql">
+	  select 
+			fhd.id,-- 表单主键ID
+			fhd.inspected_units,-- 检查部位
+			fhd.examiner,-- 检察人员
+			fhd.create_time,-- 创建时间
+			fhd.inspection_day,-- 检查日期
+			fhd.rec_opinion,-- 整改意见
+			fhd.logic_remove,-- 是否逻辑删除
+			fhd.manager,-- 被检查部门负责人
+			fhd.manager_date,-- 被检查部门负责人签字日期
+			fhd.manager_opinion,-- 被检查部门方负责人意见
+			fhd.fire_manager,-- 消防安全管理人
+			fhd.fire_manager _date,-- 消防安全管理人签字日期
+			fhd.fire_manager_opinion,-- 消防安全管理人意见
+			fhd.result,-- 处置结果
+			fhd.project_manager,-- 项目消防安全责任人
+			fhd.pro_fire_manager-- 项目消防安全管理人
+	from fire_hidden_danger fhd 
+	</sql>
+	 <!--分頁查詢-->
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireHiddenDanger" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    <trim prefix=" where " suffix="" suffixOverrides="and">
+      fhd.logic_remove=0 
+      <if test="id != null">
+       and fhd.id =#{id,jdbcType=BIGINT}
+      </if>
+       <if test="createTime != null">
+        and fhd.create_time=#{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="inspectedUnits != null">
+        and fhd.inspected_units like concat('%',#{inspectedUnits},'%')
+      </if>
+      <if test="examiner != null">
+        and fhd.examiner like concat('%',#{examiner},'%')
+      </if>
+      <if test="inspectionDay != null">
+        and fhd.inspection_day=#{inspectionDay,jdbcType=TIMESTAMP}
+      </if>
+      <if test="recOpinion != null">
+        and  fhd.rec_opinion like concat('%',#{recOpinion},'%')
+      </if>
+      <if test="managerOpinion != null">
+        and fhd.manager_opinion like concat('%',#{managerOpinion},'%')
+      </if>
+      <if test="managerDate != null">
+        and fhd.manager_date=#{managerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fireManagerOpinion != null">
+        and fhd.manager_opinion like concat('%',#{fireManagerOpinion},'%')
+      </if>
+      <if test="fireManagerDate != null">
+        and fhd.fire_manager _date =#{fireManagerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manager != null">
+        and fhd.manager like concat('%',#{manager},'%')
+      </if>
+      <if test="fireManager != null">
+        and fhd.fire_manager like concat('%',#{fireManager},'%')
+      </if>
+      <if test="result != null">
+        and fhd.result like concat('%',#{result},'%')
+      </if>
+      <if test="proFireManager != null">
+        and fhd.pro_fire_manager like concat('%',#{proFireManager},'%')
+      </if>
+      <if test="projectManager != null">
+        and fhd.project_manager like concat('%',#{projectManager},'%')
+      </if>
+    </trim>
+  </select>
+
+  <!--修改-->
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireHiddenDanger">
+    UPDATE fire_hidden_danger
+    <set>
+       <if test="createTime != null">
+        create_time=#{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectedUnits != null">
+        inspected_units =#{inspectedUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="examiner != null">
+        examiner =#{examiner,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionDay != null">
+        ainspection_day=#{inspectionDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recOpinion != null">
+       rec_opinion =#{recOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="managerOpinion != null">
+        manager_opinion =#{managerOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="managerDate != null">
+        manager_date=#{managerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fireManagerOpinion != null">
+        manager_opinion =#{fireManagerOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="fireManagerDate != null">
+        fire_manager_date =#{fireManagerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manager != null">
+        manager =#{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="fireManager != null">
+        fire_manager =#{fireManager,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result =#{result,jdbcType=VARCHAR},
+      </if>
+      <if test="proFireManager != null">
+        pro_fire_manager =#{proFireManager,jdbcType=VARCHAR},
+      </if>
+      <if test="projectManager != null">
+        project_manager =#{projectManager,jdbcType=VARCHAR}
+      </if>
+    </set>
+    WHERE id = #{id}
+
+  </update>
+
+  <!--通过id查询找-->
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    WHERE mp.id = #{id}
+  </select>
+
+  <!--逻辑批量删除-->
+  <update id="delete" parameterType="java.util.List">
+    UPDATE fire_hidden_danger set logic_remove =1 where id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
 </mapper>

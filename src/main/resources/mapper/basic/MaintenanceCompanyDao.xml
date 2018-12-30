@@ -96,7 +96,7 @@
 
     <if test="companyName != null">
       <!--暂定关键字查询为合维保公司名称的模糊查询-->
-      and mc.name like LIKE  concat('%',#{companyName},'%')
+      and mc.name like   concat('%',#{companyName},'%')
     </if>
 
 </select>

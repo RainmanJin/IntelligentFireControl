@@ -10,16 +10,17 @@
     <result column="examiner" jdbcType="VARCHAR" property="examiner" />
     <result column="manager" jdbcType="VARCHAR" property="manager" />
     <result column="fire_manager" jdbcType="VARCHAR" property="fireManager" />
+    <result column="fire_contents" jdbcType="VARCHAR" property="fireContents" />
     <result column="project_manager" jdbcType="VARCHAR" property="projectManager" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDay">
-    insert into fire_inspection_day (id, inspected_units, inspection_day, 
+    insert into fire_inspection_day (id,fire_contents, inspected_units, inspection_day, 
       situation, resoult, examiner, 
       manager, fire_manager, project_manager, 
       create_time, logic_remove)
-    values (#{id,jdbcType=BIGINT}, #{inspectedUnits,jdbcType=VARCHAR}, #{inspectionDay,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=BIGINT} #{fireContents,jdbcType=VARCHAR}, #{inspectedUnits,jdbcType=VARCHAR}, #{inspectionDay,jdbcType=TIMESTAMP}, 
       #{situation,jdbcType=VARCHAR}, #{resoult,jdbcType=VARCHAR}, #{examiner,jdbcType=VARCHAR}, 
       #{manager,jdbcType=VARCHAR}, #{fireManager,jdbcType=VARCHAR}, #{projectManager,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT})
@@ -32,6 +33,9 @@
       </if>
       <if test="inspectedUnits != null">
         inspected_units,
+      </if>
+      <if test="fireContents != null">
+        fire_contents,
       </if>
       <if test="inspectionDay != null">
         inspection_day,
@@ -97,4 +101,105 @@
       </if>
     </trim>
   </insert>
+  <sql id="Mysql">
+		  select 
+			fid.id,-- 主键ID
+			fid.inspected_units,-- 被检查单位（部位）
+			fid.inspection_day,-- 检查日期
+			fid.situation,-- 检查情况
+			fid.resoult,-- 处置结果
+			fid.fire_contents,-- 检查内容
+			fid.examiner,-- 检查人
+			fid.manager,-- 被检查部位、场所负责人
+			fid.fire_manager,-- 消防安全管理人
+			fid.project_manager,-- 项目消防安全责任人
+			fid.create_time,-- 创建时间
+			fid.logic_remove-- 是否逻辑删除
+			from fire_inspection_day fid
+  </sql>
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDay" resultMap="BaseResultMap">
+  	<include refid="Mysql"/>
+  	<trim prefix=" where " suffix="" suffixOverrides="and">
+      	fid.logic_remove=0
+        <if test="inspectedUnits != null">
+       and  fid.inspected_units like concat('%',#{inspectedUnits},'%')
+      </if>
+      <if test="inspectionDay != null">
+        and  fid.inspection_day=#{inspectionDay,jdbcType=TIMESTAMP}
+      </if>
+      <if test="situation != null">
+       and fid.situation like concat('%',#{situation},'%')
+      </if>
+      <if test="resoult != null">
+        and fid.resoult like concat('%',#{resoult},'%')
+      </if>
+      <if test="examiner != null">
+        and fid.examiner like concat('%',#{examiner},'%')
+      </if>
+      <if test="manager != null">
+        and fid.manager like concat('%',#{manager},'%')
+      </if>
+      <if test="fireManager != null">
+       and fid.fire_manager like concat('%',#{fireManager},'%')
+      </if>
+      <if test="projectManager != null">
+       and fid.project_manager like concat('%',#{projectManager},'%')
+      </if>
+      <if test="createTime != null">
+        and  fid.create_time=#{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="logicRemove != null">
+        and  fid.logic_remove=#{logicRemove,jdbcType=TIMESTAMP}
+      </if>
+    </trim>
+  </select>
+  <!--修改维保工单-->
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram">
+    UPDATE fire_inspection_day fid
+    <set>
+        <if test="inspectedUnits != null">
+         fid.inspected_units = #{inspectedUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionDay != null">
+          fid.inspection_day=#{inspectionDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="situation != null">
+        fid.situation = #{inspectedUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="resoult != null">
+         fid.resoult = #{inspectedUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="examiner != null">
+         fid.examiner = #{inspectedUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+         fid.manager = #{inspectedUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="fireManager != null">
+        fid.fire_manager = #{inspectedUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="projectManager != null">
+        fid.project_manager = #{inspectedUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+          fid.create_time=#{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+          fid.logic_remove=#{logicRemove,jdbcType=TIMESTAMP}
+      </if>
+    </set>
+    WHERE fid.id = #{id}
+  </update>
+  <!--通过id查询找-->
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    WHERE fi.id = #{id}
+  </select>
+  <!--逻辑批量删除-->
+  <update id="deleteBatch" parameterType="java.util.List">
+    UPDATE fire_inspection_day set logic_remove =1 where id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
 </mapper>

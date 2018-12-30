@@ -15,5 +15,4 @@ public interface UserGroupItemsDao extends BaseDao<UserGroupItems> {
     //根据用户ID查询返回项目ID
     List<Long> queryProjectIdByUserId(Long userId);
 
-
 }

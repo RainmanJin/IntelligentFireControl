@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.fireinspection.FireContentsDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.fireinspection.FireContents">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireContents">
+    insert into "c_fire_contents" (id, name, logic_remove
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{logicRemove,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireContents">
+    insert into c_fire_contents
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Mysql">
+  select id,name from c_fire_contents
+  </sql>
+     <!--分頁查詢-->
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireContents" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    <where>
+      logic_remove=0 
+      <if test="id != null">
+        and id=#{id,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+        and (name like  concat('%',#{name},'%'))
+      </if>
+    </where>
+  </select>
+  <!--修改-->
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireContents">
+    UPDATE c_fire_contents
+    <set>
+      <if test="name != null">
+        name=#{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE id = #{id}
+
+  </update>
+
+  <!--通过id查询找-->
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    WHERE id = #{id}
+  </select>
+
+  <!--逻辑批量删除-->
+  <update id="delete" parameterType="java.util.List">
+    UPDATE c_fire_contents set logic_remove =1 where id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+</mapper>
