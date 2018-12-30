@@ -9,7 +9,7 @@ import java.util.Map;
 public interface EquipmentBrandDao extends BaseDao<EquipmentBrand> {
 
 
-    List<Map<String,Object>> queryListEquipmentBrand(String keyword);
+    List<Map<String,Object>> queryListEquipmentBrand(Map<String,Object> map);
 
     int updateEquipmentBrand( EquipmentBrand equipmentBrand );
 

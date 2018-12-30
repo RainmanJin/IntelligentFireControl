@@ -4,8 +4,6 @@ import cn.com.bgy.ifc.dao.equipment.EquipmentTypeDao;
 import cn.com.bgy.ifc.dao.maintenance.MaintenanceProgramDao;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceProgramDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram;
-import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceProgramVo;
-
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -69,6 +67,6 @@ public class MaintenanceProgramDomainImpl implements MaintenanceProgramDomain {
     @Override
     public List<Map<String, Object>> queryListEquipmentType() {
         String keyword = null;
-        return equipmentTypeDao.queryListEquipmentType(keyword);
+        return equipmentTypeDao.queryListEquipmentType(null);
     }
 }

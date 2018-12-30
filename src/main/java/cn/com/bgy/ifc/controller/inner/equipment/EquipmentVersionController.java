@@ -36,8 +36,8 @@ public class EquipmentVersionController {
      */
     @GetMapping("query")
     @ResponseBody
-    public ResponseVO queryListEquipmentVersion( Page<Object> page,Integer brandID,String keyword, String token){
-        PageInfo pageInfo = equipmentVersionService.queryListEquipmentVersion(page,brandID,keyword);
+    public ResponseVO queryListEquipmentVersion( Page<Object> page,Integer brandId,String keyword){
+        PageInfo pageInfo = equipmentVersionService.queryListEquipmentVersion(page,brandId,keyword);
         return ResponseVO.success().setData(pageInfo);
     }
     /**
@@ -48,7 +48,7 @@ public class EquipmentVersionController {
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "型号信息添加")
     @ResponseBody
-    public ResponseVO<Object> addEquipmentVersion( EquipmentVersion record,String token){
+    public ResponseVO<Object> addEquipmentVersion( EquipmentVersion record){
         int count = equipmentVersionService.addEquipmentVersion(record);
         if (count > 0) {
             return ResponseVO.success().setMsg("添加成功");
@@ -63,7 +63,7 @@ public class EquipmentVersionController {
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "型号信息修改")
     @ResponseBody
-    public ResponseVO<Object> uopdateEquipmentVersion(EquipmentVersion record,String token){
+    public ResponseVO<Object> uopdateEquipmentVersion(EquipmentVersion record){
         int count = equipmentVersionService.updateEquipmentVersion(record);
         if (count == 1) {
             return ResponseVO.success().setMsg("修改成功");
@@ -78,8 +78,8 @@ public class EquipmentVersionController {
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "型号信息删除")
     @ResponseBody
-    public ResponseVO<Object>  deleteEquipmentVersion( String arr,String token ){
-        int count = equipmentVersionService.deleteEquipmentVersion(arr);
+    public ResponseVO<Object>  deleteEquipmentVersion( String ids ){
+        int count = equipmentVersionService.deleteEquipmentVersion(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }

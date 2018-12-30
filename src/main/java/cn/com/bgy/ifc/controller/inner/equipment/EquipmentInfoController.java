@@ -77,9 +77,9 @@ public class EquipmentInfoController {
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "设备信息删除")
     @ResponseBody
-    public ResponseVO<Object> deleteEquipmentInfo(String arr,String token){
+    public ResponseVO<Object> deleteEquipmentInfo(String ids){
 
-        int count = equipmentInfoService.deleteEquipmentInfo(arr);
+        int count = equipmentInfoService.deleteEquipmentInfo(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }
@@ -91,16 +91,9 @@ public class EquipmentInfoController {
      * @Description 根据一个设备id查询设备数据
      * @Date 2018/12/24 15:52
      */
-    public ResponseVO<Object> queryEquipmentInfoById(Long id,String token){
+    public ResponseVO<Object> queryEquipmentInfoById(Long id){
         Map<String,Object> map = equipmentInfoService.queryEquipmentInfoById(id);
         return ResponseVO.success().setData(map);
     }
-    /**
-     * @Author huxin
-     * @Description 设备信息Excel导出
-     * @Date 2018/12/26 9:13
-     */
-    public void exportEquipmentInfoExcel(Long regionId,Long projectId,Long courtId,String token){
 
-    }
 }

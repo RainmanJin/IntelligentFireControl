@@ -281,7 +281,7 @@
     <select id="queryEquipmentInfoById" resultType="java.util.Map" parameterType="java.lang.Long">
         SELECT v.id as id,
         v.regionId as regionId,v.regionName as regionName,
-        v.projectId as projectId,v.projectName asprojectName,
+        v.projectId as projectId,v.projectName as projectName,
         i.machine_room_id as machineRoomId,
         (SELECT rr.`name` FROM region_computer_room rr WHERE rr.id = i.machine_room_id) as machineRoomName,
         v.typeId as typeId,v.typeName as typeName,

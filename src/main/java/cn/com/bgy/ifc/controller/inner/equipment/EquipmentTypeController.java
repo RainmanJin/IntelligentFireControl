@@ -79,8 +79,8 @@ public class EquipmentTypeController {
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "类型信息删除")
     @ResponseBody
-    public ResponseVO<Object>  deleteEquipmentType( String arr,String token ){
-        int count = equipmentTypeService.deleteEquipmentType(arr);
+    public ResponseVO<Object>  deleteEquipmentType( String ids){
+        int count = equipmentTypeService.deleteEquipmentType(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }

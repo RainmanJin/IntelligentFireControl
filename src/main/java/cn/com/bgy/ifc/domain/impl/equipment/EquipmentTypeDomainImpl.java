@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -134,7 +135,9 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
     @Override
     public PageInfo queryListEquipmentType( Page page ,String keyword) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Map<String,Object>> list = equipmentTypeDao.queryListEquipmentType(keyword);
+        Map<String,Object> map = new HashMap<>();
+        map.put("keyword",keyword);
+        List<Map<String,Object>> list = equipmentTypeDao.queryListEquipmentType(map);
         return new PageInfo(list);
     }
 

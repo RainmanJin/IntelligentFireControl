@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,9 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
     @Override
     public PageInfo queryListEquipmentBrand( Page page,String keyword ) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Map<String,Object>> list  = equipmentBrandDao.queryListEquipmentBrand(keyword);
+        Map<String,Object> map = new HashMap<>();
+        map.put("keyword",keyword);
+        List<Map<String,Object>> list  = equipmentBrandDao.queryListEquipmentBrand(map);
         return new PageInfo(list);
     }
     /**
@@ -80,8 +83,8 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
     public int deleteEquipmentBrand( String str ) {
         List<Long> list = ListUtil.getListId(str);
         if(list.size()>0){
-           List<Long> versionList =  equipmentVersionDao.queryEquipmentVersionIdByBrandId(list);
-            equipmentVersionDao.deleteEquipmentVersion(versionList);
+//           List<Long> versionList =  equipmentVersionDao.queryEquipmentVersionIdByBrandId(list);
+//            equipmentVersionDao.deleteEquipmentVersion(versionList);
             return equipmentBrandDao.deleteEquipmentBrand(list);
         }
         return 0;

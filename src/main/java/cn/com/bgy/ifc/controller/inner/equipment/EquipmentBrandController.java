@@ -65,7 +65,7 @@ public class EquipmentBrandController {
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "型号信息修改")
     @ResponseBody
-    public ResponseVO<Object> uopdateEquipmentBrand( EquipmentBrand record, String token){
+    public ResponseVO<Object> uopdateEquipmentBrand( EquipmentBrand record){
         int count = equipmentBrandService.updateEquipmentBrand(record);
         if (count == 1) {
             return ResponseVO.success().setMsg("修改成功");
@@ -80,8 +80,8 @@ public class EquipmentBrandController {
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "型号信息删除")
     @ResponseBody
-    public ResponseVO<Object>  deleteEquipmentBrand( String arr,String token ){
-        int count = equipmentBrandService.deleteEquipmentBrand(arr);
+    public ResponseVO<Object>  deleteEquipmentBrand( String ids ){
+        int count = equipmentBrandService.deleteEquipmentBrand(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }
@@ -94,7 +94,7 @@ public class EquipmentBrandController {
      */
     @GetMapping("queryAllName")
     @ResponseBody
-    public ResponseVO<Object> queryAllEquipmentBrand(String token ){
+    public ResponseVO<Object> queryAllEquipmentBrand(){
         List<Map<String,Object>> list =  equipmentBrandService.queryAllEquipmentBrand();
         return ResponseVO.success().setData(list);
     }

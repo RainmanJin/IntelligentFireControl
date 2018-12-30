@@ -97,7 +97,7 @@
             <if test="keyword != null and keyword !='' ">
                 AND (b.`name` LIKE concat('%',#{keyword},'%') OR v.name LIKE concat('%',#{keyword},'%'))
             </if>
-            WHERE v.logic_remove = 0
+            AND v.logic_remove = 0
         </where>
 
     </select>

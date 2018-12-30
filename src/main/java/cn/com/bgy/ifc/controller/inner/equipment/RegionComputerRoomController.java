@@ -64,8 +64,8 @@ public class RegionComputerRoomController extends BaseController {
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "机房删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionComputerRoom( String arr){
-        int count = regionComputerRoomService.deleteRegionComputerRoom(arr);
+    public ResponseVO<Object> deleteRegionComputerRoom( String ids){
+        int count = regionComputerRoomService.deleteRegionComputerRoom(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }
