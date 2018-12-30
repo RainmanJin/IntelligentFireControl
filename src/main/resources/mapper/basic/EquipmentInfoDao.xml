@@ -252,7 +252,7 @@
             brandId,brandName,
             versionId,versionName,
             `status`
-        FROM equipment_info_v
+        FROM equipment_info_view
         <where>
             <if test="regionId != null and regionId !='' ">
                 AND regionId = #{regionId,jdbcType=BIGINT}
@@ -292,7 +292,7 @@
         i.important as important,localtion_code as localtionCode,
         i.simple_code as simpleCode,i.api_code as apiCode,
         v.`status` as status
-        FROM equipment_info_v  v
+        FROM equipment_info_view  v
         LEFT JOIN equipment_info i ON v.id = i.id
         where i.id = #{id,jdbcType=BIGINT}
     </select>

@@ -117,6 +117,10 @@
         OR s.name LIKE concat('%',#{keyword},'%')
         OR b.name like concat('%',#{keyword},'%'))
       </if>
+      AND i.logic_remove = 0
+      AND p.logic_remove = 0
+      AND c.logic_remove = 0
+      AND s.logic_remove = 0
       AND b.logic_remove = 0
     </where>
   </select>

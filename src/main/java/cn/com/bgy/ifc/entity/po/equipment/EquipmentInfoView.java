@@ -21,17 +21,24 @@ public class EquipmentInfoView {
 //    eb.id as brandId,eb.`name` as brandName,
 //    ev.id as versionId,ev.`name` as versionName,
 //    ei.`status` as  `status`
-//    FROM equipment_info ei
-//    LEFT JOIN region_computer_room rr ON ei.machine_room_id = rr.id
-//    LEFT JOIN region_info ri ON rr.region_id = ri.id
-//    LEFT JOIN region_project rp ON rr.project_id = rp.id
-//    LEFT JOIN region_court rc ON rr.court_id = rc.id
-//    LEFT JOIN region_street rs ON rr.street_id = rs.id
-//    LEFT JOIN region_building rb ON rr.building_id = rb.id
-//    LEFT JOIN equipment_type et ON ei.type_id = et.id
-//    LEFT JOIN equipment_brand eb ON ei.brand_id = eb.id
+//    FROM ((((((((equipment_info ei
+//    LEFT JOIN region_computer_room rr ON ei.machine_room_id = rr.id)
+//    LEFT JOIN region_info ri ON rr.region_id = ri.id)
+//    LEFT JOIN region_project rp ON rr.project_id = rp.id)
+//    LEFT JOIN region_court rc ON rr.court_id = rc.id)
+//    LEFT JOIN region_street rs ON rr.street_id = rs.id)
+//    LEFT JOIN region_building rb ON rr.building_id = rb.id)
+//    LEFT JOIN equipment_type et ON ei.type_id = et.id)
+//    LEFT JOIN equipment_brand eb ON ei.brand_id = eb.id)
 //    LEFT JOIN equipment_version ev ON ei.version_id = ev.id
 //    WHERE ei.logic_remove = 0
+//    AND rr.logic_remove = 0
+//    AND rp.logic_remove = 0
+//    AND rs.logic_remove = 0
+//    AND rb.logic_remove = 0
+//    AND et.logic_remove = 0
+//    AND eb.`status` in(0,1)
+//    AND ev.logic_remove = 0
 
 
 

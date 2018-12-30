@@ -106,6 +106,7 @@
       OR p.name LIKE concat('%',#{keyword},'%')
       OR p.ascription like concat('%',#{keyword},'%'))
     </if>
+      AND i.logic_remove = 0
       AND p.logic_remove = 0
     </where>
   </select>

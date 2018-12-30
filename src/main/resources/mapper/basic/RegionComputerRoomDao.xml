@@ -166,6 +166,8 @@
                 AND (i.name LIKE concat('%',#{keyword},'%')
                 OR p.name LIKE concat('%',#{keyword},'%'))
             </if>
+            AND i.logic_remove = 0
+            AND p.logic_remove = 0
             AND cr.logic_remove = 0
         </where>
     </select>
