@@ -208,12 +208,9 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <sql id="Base_Column_List">
-    id, name, state, user_id, create_time, logic_remove
-    </sql>
     <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+         id, code,name, state, user_id, create_time, register_time,logic_remove
         from system_organization
         where id = #{id,jdbcType=BIGINT}
     </select>

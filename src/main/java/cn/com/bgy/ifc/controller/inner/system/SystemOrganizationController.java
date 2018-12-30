@@ -1,11 +1,13 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemOrganizationVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemRoleVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOrganizationService;
@@ -140,5 +142,17 @@ public class SystemOrganizationController {
         } else {
             return ResponseVO.deleteError();
         }
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:获取机构管理员
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("getOrgAdmin")
+    public ResponseVO<Object> getOrgAdmin() {
+        List<SelectVo> list = SystemConstant.SystemLogType.getSelectList();
+        return ResponseVO.success().setData(list);
     }
 }
