@@ -245,37 +245,63 @@
 
     <select id="queryListEquipmentInfo"  resultType="java.util.Map" parameterType="cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO">
         SELECT
-            id,
-            concat(regionName,projectName,courtName,streetName,buildingName) as address,
-            `name`,inputCode,
-            typeId,typeName,
-            brandId,brandName,
-            versionId,versionName,
-            `status`
-        FROM equipment_info_view
+        ei.id as id,
+        ri.id as regionId,
+        rp.id as projectId,
+        rc.id as courtId,
+        rs.id as streetId,
+        rb.id as buildingId,
+        CONCAT(ri.`name`,rp.`name`,rc.`name`,rs.`name`,rb.`name`) as address,
+        ei.`name` as name,
+        ei.input_code as inputCode,
+        et.id as typeId,et.`name` as typeName,
+        eb.id as brandId,eb.`name` as brandName,
+        ev.id as versionId,ev.`name` as versionName,
+        ei.`status` as  `status`
+        FROM ((((((((equipment_info ei
+        LEFT JOIN region_computer_room rr ON ei.machine_room_id = rr.id)
+        LEFT JOIN region_info ri ON rr.region_id = ri.id)
+        LEFT JOIN region_project rp ON rr.project_id = rp.id)
+        LEFT JOIN region_court rc ON rr.court_id = rc.id)
+        LEFT JOIN region_street rs ON rr.street_id = rs.id)
+        LEFT JOIN region_building rb ON rr.building_id = rb.id)
+        LEFT JOIN equipment_type et ON ei.type_id = et.id)
+        LEFT JOIN equipment_brand eb ON ei.brand_id = eb.id)
+        LEFT JOIN equipment_version ev ON ei.version_id = ev.id
         <where>
             <if test="regionId != null and regionId !='' ">
-                AND regionId = #{regionId,jdbcType=BIGINT}
+                AND ri.id = #{regionId,jdbcType=BIGINT}
             </if>
             <if test="projectId != null and projectId !='' ">
-                AND projectId = #{projectId,jdbcType=BIGINT}
+                AND  rp.id = #{projectId,jdbcType=BIGINT}
             </if>
             <if test="courtId != null and courtId !='' ">
-                AND courtId = #{courtId,jdbcType=BIGINT}
+                AND  rc.id = #{courtId,jdbcType=BIGINT}
             </if>
 
             <if test="typeId != null and typeId !='' ">
-                AND typeId = #{typeId,jdbcType=BIGINT}
+                AND et.id = #{typeId,jdbcType=BIGINT}
             </if>
             <if test="brandId != null and brandId !='' ">
-                AND brandId = #{brandId,jdbcType=BIGINT}
+                AND eb.id = #{brandId,jdbcType=BIGINT}
             </if>
             <if test="versionId != null and versionId !='' ">
-                AND versionId = #{versionId,jdbcType=BIGINT}
+                AND ev.id = #{versionId,jdbcType=BIGINT}
             </if>
             <if test="keyword != null and keyword !='' ">
-                AND (streetName LIKE concat('%',#{keyword},'%') OR buildingName LIKE concat('%',#{keyword},'%'))
+                AND (rs.`name` LIKE concat('%',#{keyword},'%') OR rb.`name` LIKE concat('%',#{keyword},'%') OR et.`name` LIKE concat('%',#{keyword},'%'))
             </if>
+
+            AND ei.logic_remove = 0
+            <!--
+            AND rr.logic_remove = 0
+            AND rp.logic_remove = 0
+            AND rs.logic_remove = 0
+            AND rb.logic_remove = 0
+            AND et.logic_remove = 0
+            AND eb.`status` in(0,1)
+            AND ev.logic_remove = 0
+             -->
         </where>
     </select>
     <select id="queryEquipmentInfoById" resultType="java.util.Map" parameterType="java.lang.Long">
