@@ -111,9 +111,9 @@ public class MaintenanceContractFileController extends BaseController{
      * @param token
      * @return
      */
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<MaintenanceContractFile> queryById(@PathVariable long id, String token) {
+    public ResponseVO<MaintenanceContractFile> queryById( long id, String token) {
         MaintenanceContractFile bean = domain.findById(id);
 
         return ResponseVO.<MaintenanceContractFile>success().setData(bean);

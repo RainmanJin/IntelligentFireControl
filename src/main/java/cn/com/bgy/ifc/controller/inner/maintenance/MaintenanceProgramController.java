@@ -104,9 +104,9 @@ public class MaintenanceProgramController extends BaseController{
      * @param token
      * @return
      */
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<MaintenanceProgram> queryById(@PathVariable long id, String token) {
+    public ResponseVO<MaintenanceProgram> queryById( long id, String token) {
         MaintenanceProgram bean = domain.findById(id);
 
         return ResponseVO.<MaintenanceProgram>success().setData(bean);

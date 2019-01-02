@@ -101,9 +101,9 @@ public class MaintenancePeriodicController extends BaseController {
      * @param token
      * @return
      */
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<MaintenancePeriodic> queryById(@PathVariable long id, String token) {
+    public ResponseVO<MaintenancePeriodic> queryById( long id, String token) {
     	MaintenancePeriodic bean = domain.findById(id);
 
         return ResponseVO.<MaintenancePeriodic>success().setData(bean);

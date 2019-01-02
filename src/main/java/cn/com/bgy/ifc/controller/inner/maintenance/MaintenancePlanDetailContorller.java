@@ -111,9 +111,9 @@ public class MaintenancePlanDetailContorller extends BaseController{
      * @param token
      * @return
      */
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<MaintenancePlanDetail> queryById(@PathVariable long id, String token) {
+    public ResponseVO<MaintenancePlanDetail> queryById( long id, String token) {
         MaintenancePlanDetail bean = domain.findById(id);
 
         return ResponseVO.<MaintenancePlanDetail>success().setData(bean);

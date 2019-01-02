@@ -150,7 +150,7 @@
               mc.company_id as company_id,-- 维保公司ID
               mcp.name as company_name,-- 维保公司名称
               mc.master_contact as master_contact,-- 主联系人
-              mc.contact_phone ascontact_phone,-- 联系电话
+              mc.contact_phone as contact_phone,-- 联系电话
               mc.start_date as start_date,-- 合同生效日期
               mc.end_date as  end_date,-- 合同截止日期
               mc.state as state, -- 合同状态

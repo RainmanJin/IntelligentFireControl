@@ -109,9 +109,9 @@ public class MaintenanceOrderPhotoController extends BaseController{
      * @param token
      * @return
      */
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<MaintenanceOrderPhoto> queryById(@PathVariable long id, String token) {
+    public ResponseVO<MaintenanceOrderPhoto> queryById( long id, String token) {
         MaintenanceOrderPhoto bean = domain.findById(id);
 
         return ResponseVO.<MaintenanceOrderPhoto>success().setData(bean);

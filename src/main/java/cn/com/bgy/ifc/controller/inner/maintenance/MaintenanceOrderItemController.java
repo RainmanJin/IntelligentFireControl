@@ -24,6 +24,7 @@ import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceOrderItemDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrderItem;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceOrderItemVo;
 /**
@@ -74,7 +75,9 @@ public class MaintenanceOrderItemController extends BaseController{
 
         MaintenanceOrderItem MaintenanceOrderItem = new MaintenanceOrderItem();
         //默认是false删除后设为true
+        
         vo.setLogicRemove(false);
+       
         CopyUtil.copyProperties(vo, MaintenanceOrderItem);
         int count = domain.insert(MaintenanceOrderItem);
         if (count == 1) {
@@ -108,9 +111,9 @@ public class MaintenanceOrderItemController extends BaseController{
      * @param token
      * @return
      */
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<MaintenanceOrderItem> queryById(@PathVariable long id, String token) {
+    public ResponseVO<MaintenanceOrderItem> queryById( long id, String token) {
         MaintenanceOrderItem bean = domain.findById(id);
 
         return ResponseVO.<MaintenanceOrderItem>success().setData(bean);

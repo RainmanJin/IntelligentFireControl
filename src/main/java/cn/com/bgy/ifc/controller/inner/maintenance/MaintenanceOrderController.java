@@ -115,9 +115,9 @@ public class MaintenanceOrderController extends BaseController{
      * @param token
      * @return
      */
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<MaintenanceOrder> queryById(@PathVariable long id, String token) {
+    public ResponseVO<MaintenanceOrder> queryById( long id, String token) {
     	MaintenanceOrder bean = domain.findById(id);
 
         return ResponseVO.<MaintenanceOrder>success().setData(bean);

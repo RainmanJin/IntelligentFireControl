@@ -103,9 +103,9 @@ public class FireInspectionDetailController extends BaseController{
      * @param token
      * @return
      */
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<FireInspectionDetail> queryById(@PathVariable long id, String token) {
+    public ResponseVO<FireInspectionDetail> queryById( long id, String token) {
         FireInspectionDetail bean = domain.findById(id);
 
         return ResponseVO.<FireInspectionDetail>success().setData(bean);

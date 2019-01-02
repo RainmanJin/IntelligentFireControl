@@ -6,6 +6,7 @@ import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceContractVo;
 
@@ -67,6 +68,8 @@ public class MaintenanceContractController extends BaseController{
         }
 
         MaintenanceContract maintenanceContract = new MaintenanceContract();
+        Account user= this.getUser();
+        maintenanceContractVo.setOrgId(user.getOrganizationId());
         //默认是false删除后设为true
         maintenanceContractVo.setLogicRemove(false);
         CopyUtil.copyProperties(maintenanceContractVo, maintenanceContract);
@@ -102,9 +105,10 @@ public class MaintenanceContractController extends BaseController{
      * @param token
      * @return
      */
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
+    
     @ResponseBody
-    public ResponseVO<MaintenanceContract> queryById(@PathVariable long id, String token) {
+    public ResponseVO<MaintenanceContract> queryById( long id, String token) {
         MaintenanceContract bean = maintenanceContractDomain.findById(id);
 
         return ResponseVO.<MaintenanceContract>success().setData(bean);
