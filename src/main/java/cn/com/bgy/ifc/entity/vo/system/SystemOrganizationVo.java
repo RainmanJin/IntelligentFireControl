@@ -1,5 +1,7 @@
 package cn.com.bgy.ifc.entity.vo.system;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,6 +14,11 @@ public class SystemOrganizationVo {
      * 系统自增Id
      */
     private Long id;
+
+    /**
+     * 机构编码
+     */
+    private String code;
 
     /**
      * 机构名称
@@ -35,6 +42,11 @@ public class SystemOrganizationVo {
      * 创建、修改时间
      */
     private Date createTime;
+
+    /**
+     * 注册时间(yyyy-mm-dd HH:mm:ss)
+     */
+    private Date registerTime;
 
     /**
      * 是否逻辑删除
@@ -135,5 +147,21 @@ public class SystemOrganizationVo {
      */
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Date getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
     }
 }

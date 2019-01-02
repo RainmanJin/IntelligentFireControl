@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -13,7 +14,9 @@ import cn.com.bgy.ifc.entity.vo.system.SystemRoleVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOrganizationService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +33,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/system/systemOrganization")
-public class SystemOrganizationController {
+public class SystemOrganizationController extends  BaseController {
 
     @Autowired
     private SystemOrganizationService systemOrganizationService;
@@ -147,12 +150,12 @@ public class SystemOrganizationController {
     /**
      * @author: ZhangCheng
      * @description:获取机构管理员
-     * @param: []
+     * @param: [orgId]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @GetMapping("getOrgAdmin")
-    public ResponseVO<Object> getOrgAdmin() {
-        List<SelectVo> list = SystemConstant.SystemLogType.getSelectList();
+    public ResponseVO<Object> getOrgAdmin(Long orgId) {
+        List<SelectVo> list =systemOrganizationService.getOrgAdmin("orgAdmin",orgId);
         return ResponseVO.success().setData(list);
     }
 }

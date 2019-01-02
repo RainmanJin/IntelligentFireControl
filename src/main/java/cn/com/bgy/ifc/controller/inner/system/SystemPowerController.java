@@ -46,8 +46,8 @@ public class SystemPowerController {
      * @param: [id]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<cn.com.bgy.ifc.entity.po.system.SystemPower>
      */
-    @GetMapping("findById/{id}")
-    public ResponseVO<SystemPower> findById(@PathVariable Long id) {
+    @GetMapping("findById")
+    public ResponseVO<SystemPower> findById(Long id) {
         SystemPower systemPower = systemPowerService.findById(id);
         return ResponseVO.<SystemPower>success().setData(systemPower);
     }

@@ -1,10 +1,12 @@
 package cn.com.bgy.ifc.service.interfaces.inner.system;
 
 import cn.com.bgy.ifc.entity.po.system.SystemMenu;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemMenuVo;
 import cn.com.bgy.ifc.service.interfaces.inner.base.BaseService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.List;
 
@@ -30,4 +32,16 @@ public interface SystemMenuService extends BaseService<SystemMenu> {
      * @return: java.util.List<cn.com.bgy.ifc.entity.po.system.SystemMenu>
      */
     List<SystemMenu> findMenuTreeByType(int type , Long userId);
+
+
+    List<SystemMenu> queryListByParam(SystemMenu systemMenu);
+
+    /**
+     * @author: ZhangCheng
+     * @description:获取上级菜单
+     * @param: []
+     * @return: java.util.List<cn.com.bgy.ifc.entity.vo.common.SelectVo>
+     */
+    List<SelectVo> getParentMenu();
+
 }

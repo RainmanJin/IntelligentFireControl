@@ -6,7 +6,7 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="image_url" jdbcType="VARCHAR" property="imageUrl"/>
         <result column="navigate_url" jdbcType="VARCHAR" property="navigateUrl"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="remark" jdbcType="LONGVARCHAR" property="remark"/>
         <result column="sort_index" jdbcType="INTEGER" property="sortIndex"/>
         <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
         <result column="power_id" jdbcType="BIGINT" property="powerId"/>
@@ -19,7 +19,7 @@
       parent_id, power_id, logic_remove,type
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
-      #{navigateUrl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{sortIndex,jdbcType=INTEGER}, 
+      #{navigateUrl,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}, #{sortIndex,jdbcType=INTEGER},
       #{parentId,jdbcType=BIGINT}, #{powerId,jdbcType=BIGINT}, #{logicRemove,jdbcType=BIT}
       )
   </insert>
@@ -71,7 +71,7 @@
                 #{navigateUrl,jdbcType=VARCHAR},
             </if>
             <if test="remark != null">
-                #{remark,jdbcType=VARCHAR},
+                #{remark,jdbcType=LONGVARCHAR},
             </if>
             <if test="sortIndex != null">
                 #{sortIndex,jdbcType=INTEGER},
@@ -157,11 +157,50 @@
     from system_menu s where s.id = #{id}
   </select>
 
+    <select id="queryParentMenu" resultMap="BaseResultMap" >
+    SELECT
+      id ,
+      name ,
+      image_url,
+      navigate_url ,
+      remark,
+      sort_index,
+      parent_id ,
+      power_id,
+      logic_remove,
+      type
+    FROM system_menu WHERE parent_id IS NULL AND logic_remove = 0 AND id !=1
+  </select>
+
+    <select id="queryListByParam" resultMap="BaseResultMap" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
+        SELECT
+        id ,
+        name ,
+        image_url,
+        navigate_url ,
+        remark,
+        sort_index,
+        parent_id ,
+        power_id,
+        logic_remove,
+        type
+        FROM system_menu
+        <where>
+            <if test="parentId != null ">
+                AND parent_id=#{parentId}
+            </if>
+            <if test="name != null ">
+                AND name=#{name}
+            </if>
+            AND logic_remove = 0
+        </where>
+    </select>
+
     <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
     update system_menu s
     set s.image_url= #{imageUrl,jdbcType=VARCHAR},s.logic_remove=#{logicRemove,jdbcType=BIT},
     s.`name`=#{name,jdbcType=VARCHAR},s.navigate_url= #{navigateUrl,jdbcType=VARCHAR},s.parent_id= #{parentId,jdbcType=BIGINT},
-    s.power_id= #{powerId,jdbcType=BIGINT},s.remark=#{remark,jdbcType=VARCHAR},s.sort_index=#{sortIndex,jdbcType=INTEGER},
+    s.power_id= #{powerId,jdbcType=BIGINT},s.remark=#{remark,jdbcType=LONGVARCHAR},s.sort_index=#{sortIndex,jdbcType=INTEGER},
     s.type=#{type,jdbcType=INTEGER}
     where s.id =#{id,jdbcType=BIGINT}
   </update>
@@ -179,7 +218,7 @@
                 navigate_url=#{navigateUrl,jdbcType=VARCHAR},
             </if>
             <if test="remark != null">
-                remark= #{remark,jdbcType=VARCHAR},
+                remark= #{remark,jdbcType=LONGVARCHAR},
             </if>
             <if test="sortIndex != null">
                 sort_index=#{sortIndex,jdbcType=INTEGER},

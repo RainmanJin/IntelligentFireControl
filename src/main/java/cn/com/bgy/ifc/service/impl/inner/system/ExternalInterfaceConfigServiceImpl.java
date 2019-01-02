@@ -53,10 +53,11 @@ public class ExternalInterfaceConfigServiceImpl implements ExternalInterfaceConf
     }
 
     @Override
-    public PageInfo<ExternalInterfaceConfig> queryListByPage(Page<ExternalInterfaceConfig> page, Integer platformValue) {
+    public PageInfo<ExternalInterfaceConfig> queryListByPage(Page<ExternalInterfaceConfig> page, Integer platformValue,Long orgId) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         ExternalInterfaceConfig config=new ExternalInterfaceConfig();
         config.setPlatformValue(platformValue);
+        config.setOrgId(orgId);
         List<ExternalInterfaceConfig> externalInterfaceConfigList = externalInterfaceConfigDao.queryListByParam(config);
         PageInfo<ExternalInterfaceConfig> pageInfo = new PageInfo<>(externalInterfaceConfigList);
         return pageInfo;

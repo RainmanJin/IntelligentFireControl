@@ -12,4 +12,6 @@ public interface SystemMenuDao extends BaseDao<SystemMenu> {
 
     List<SystemMenu> findMenuListByType(@Param("type") int type,@Param("userId") Long userId);
 
+    List<SystemMenu>  queryParentMenu();
+
 }

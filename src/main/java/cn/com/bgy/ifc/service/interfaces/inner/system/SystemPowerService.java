@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.service.interfaces.inner.system;
 
 import cn.com.bgy.ifc.entity.po.system.SystemPower;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.service.interfaces.inner.base.BaseService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -37,4 +38,12 @@ public interface SystemPowerService extends BaseService<SystemPower> {
      * @return
      */
     List<SystemPower> queryListByWhere(String keyWords);
+
+    /**
+     * @author: ZhangCheng
+     * @description:获取权限配置
+     * @param: []
+     * @return: java.util.List<cn.com.bgy.ifc.entity.vo.common.SelectVo>
+     */
+    List<SelectVo> getPowerConfig();
 }

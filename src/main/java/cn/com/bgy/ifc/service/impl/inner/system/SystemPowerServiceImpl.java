@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.service.impl.inner.system;
 
 import cn.com.bgy.ifc.dao.system.SystemPowerDao;
 import cn.com.bgy.ifc.entity.po.system.SystemPower;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemPowerService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -9,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,5 +69,21 @@ public class SystemPowerServiceImpl implements SystemPowerService {
     @Override
     public List<SystemPower> queryListByWhere(String keyWords) {
         return systemPowerDao.queryListByWhere(keyWords);
+    }
+
+    @Override
+    public List<SelectVo> getPowerConfig() {
+        List<SelectVo> selectVos=new ArrayList<>();
+        List<SystemPower> list = systemPowerDao.queryListByWhere(null);
+        for(SystemPower systemPower:list){
+            SelectVo selectVo=new SelectVo();
+            if(systemPower.getSystemMenu()==null)
+                continue;
+            String name="["+systemPower.getSystemMenu().getName()+"]"+systemPower.getDisplayName();
+            selectVo.setValue(String.valueOf(systemPower.getId()));
+            selectVo.setName(name);
+            selectVos.add(selectVo);
+        }
+        return selectVos;
     }
 }

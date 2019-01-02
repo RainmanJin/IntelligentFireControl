@@ -229,4 +229,9 @@ public class AccountDomainImpl implements AccountDomain {
         return accountDao.initalingPassword(account);
     }
 
+    @Override
+    public List<Account> queryListByRole(Map<String, Object> map) {
+        return accountDao.queryListByRole(map);
+    }
+
 }

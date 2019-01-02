@@ -1,8 +1,11 @@
 package cn.com.bgy.ifc.service.impl.inner.system;
 
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
+import cn.com.bgy.ifc.dao.system.AccountDao;
 import cn.com.bgy.ifc.dao.system.SystemOrganizationDao;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOrganizationService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -10,8 +13,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author: ZhangCheng
@@ -23,6 +25,9 @@ public class SystemOrganizationServiceImpl implements SystemOrganizationService 
 
     @Resource
     private SystemOrganizationDao systemOrganizationDao;
+
+    @Resource
+    private AccountDao accountDao;
 
     @Override
     public SystemOrganization findById(Long id) {
@@ -68,5 +73,21 @@ public class SystemOrganizationServiceImpl implements SystemOrganizationService 
         List<SystemOrganization> list = systemOrganizationDao.queryListByPage(keywords);
         PageInfo<SystemOrganization> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    @Override
+    public List<SelectVo> getOrgAdmin(String roleValue, Long orgId) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("roleValue",roleValue);
+        map.put("organizationId",orgId);
+        List<SelectVo> selectVos=new ArrayList<>();
+        List<Account> list=accountDao.queryListByRole(map);
+        for(Account account:list){
+            SelectVo selectVo=new SelectVo();
+            selectVo.setValue(String.valueOf(account.getId()));
+            selectVo.setName(account.getUserName());
+            selectVos.add(selectVo);
+        }
+        return selectVos;
     }
 }

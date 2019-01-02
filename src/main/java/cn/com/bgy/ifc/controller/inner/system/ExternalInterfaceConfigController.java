@@ -5,6 +5,7 @@ import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
@@ -29,7 +30,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/basic/interfaceConfig")
-public class ExternalInterfaceConfigController {
+public class ExternalInterfaceConfigController extends BaseController {
 
     @Autowired
     private ExternalInterfaceConfigService externalInterfaceConfigService;
@@ -38,11 +39,12 @@ public class ExternalInterfaceConfigController {
      * @author: ZhangCheng
      * @description:分页查询外部接口配置
      * @param: [page, platformValue]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo < cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo   <   cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig>>
      */
     @GetMapping("queryPage")
     public ResponseVO<PageInfo<ExternalInterfaceConfig>> searchPage(Page<ExternalInterfaceConfig> page, Integer platformValue) {
-        PageInfo<ExternalInterfaceConfig> pageInfo = externalInterfaceConfigService.queryListByPage(page, platformValue);
+        Long orgId = this.getUser().getOrganizationId();
+        PageInfo<ExternalInterfaceConfig> pageInfo = externalInterfaceConfigService.queryListByPage(page, platformValue,orgId);
         return ResponseVO.<PageInfo<ExternalInterfaceConfig>>success().setData(pageInfo);
     }
 
@@ -65,7 +67,7 @@ public class ExternalInterfaceConfigController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("statusEnabled")
-    public ResponseVO<Object> statusEnabled(Long id,Integer state){
+    public ResponseVO<Object> statusEnabled(Long id, Integer state) {
         ExternalInterfaceConfig config = new ExternalInterfaceConfig();
         config.setId(id);
         config.setState(state);

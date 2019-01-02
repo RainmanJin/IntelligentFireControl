@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.entity.vo.system;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class SystemPowerVo {
@@ -28,6 +29,12 @@ public class SystemPowerVo {
 	 *备注
 	 */
 	private String remark;
+
+	/**
+	 *所属模块Id
+	 */
+	@NotNull(message="所属模块不能为空")
+	private Long moduleId;
 
 	/**
 	 *是否逻辑删除
@@ -74,4 +81,11 @@ public class SystemPowerVo {
 		this.logicRemove = logicRemove;
 	}
 
+	public Long getModuleId() {
+		return moduleId;
+	}
+
+	public void setModuleId(Long moduleId) {
+		this.moduleId = moduleId;
+	}
 }

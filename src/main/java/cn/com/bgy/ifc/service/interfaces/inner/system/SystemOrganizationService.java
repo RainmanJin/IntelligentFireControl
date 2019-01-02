@@ -1,9 +1,12 @@
 package cn.com.bgy.ifc.service.interfaces.inner.system;
 
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.service.interfaces.inner.base.BaseService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 /**
  * @author: ZhangCheng
@@ -13,4 +16,12 @@ import com.github.pagehelper.PageInfo;
 public interface SystemOrganizationService extends BaseService<SystemOrganization> {
 
     PageInfo<SystemOrganization>  queryListByPage(Page page, String keywords);
+
+    /**
+     * 获取机构管理员
+     * @param roleValue
+     * @param orgId
+     * @return
+     */
+    List<SelectVo> getOrgAdmin(String roleValue, Long orgId);
 }

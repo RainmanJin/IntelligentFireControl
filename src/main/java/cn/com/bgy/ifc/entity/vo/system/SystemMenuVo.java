@@ -14,8 +14,12 @@ public class SystemMenuVo {
     @Size(max=50,message="菜单名称长度不能超过50字符！")
     private String name;
 
+    @NotBlank(message="菜单图标不能为空！")
+    @Size(max=500,message="菜单图标长度不能超过500字符！")
     private String imageUrl;
 
+    @NotBlank(message="菜单地址不能为空！")
+    @Size(max=500,message="菜单地址长度不能超过500字符！")
     private String navigateUrl;
 
     private String remark;
@@ -30,12 +34,14 @@ public class SystemMenuVo {
     @NotNull(message="顺序编号不能为空！")
     private Integer sortIndex;
 
+    /**
+     * 上级菜单Id
+     */
     private Long parentId;
 
     /**
      * 系统权限表Id
      */
-    @NotNull(message="权限配置不能为空！")
     private Long powerId;
 
     private String powerName;
