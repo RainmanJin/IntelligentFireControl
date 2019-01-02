@@ -184,6 +184,9 @@
     left join department t3 ON t1.department_id = t3.id
 
     <where>
+        <![CDATA[
+          is_disable <> 0
+        ]]>
         <if test="telephone != null" >
           and t1.telephone= #{telephone,jdbcType=VARCHAR}
         </if>
