@@ -109,17 +109,17 @@ public class InformationController extends BaseController {
     }
     /**
      * 批量删除
-     * @param longs
+     * @param ids
      * @return
      */
     @PostMapping("deleteInformation")
     @SystemLogAfterSave(type = 1,description = "批量删除通知公告")
     @ResponseBody
-    public ResponseVO<Object> deleteInformation(String longs) {
-        if (longs==null){
+    public ResponseVO<Object> deleteInformation(String ids) {
+        if (ids==null){
             return ResponseVO.error().setMsg("参数异常");
         }
-        List<Long> list = JSONArray.parseArray(longs,Long.class);
+        List<Long> list = JSONArray.parseArray(ids,Long.class);
         Long[] deleteLongs = new Long[list.size()];
         list.toArray(deleteLongs);
         if (list.size()==1){

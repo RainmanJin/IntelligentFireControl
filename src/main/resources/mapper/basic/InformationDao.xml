@@ -88,7 +88,7 @@
     i.u_id as uId,
     i.create_time as createTime,
     t.name as departmentName
-    from information i left join department t on i.u_id=t.id
+    from information i left join department t on i.d_id=t.id
     <where>
       i.logic_remove = 0
       <if test="orgId != null">
