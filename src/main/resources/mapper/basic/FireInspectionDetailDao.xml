@@ -119,7 +119,7 @@
   <!--通过id查询找-->
   <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <include refid="Mysql"/>
-    WHERE mp.id = #{id}
+    WHERE fid.id = #{id}
   </select>
 
   <!--逻辑批量删除-->

@@ -71,13 +71,15 @@ public class FireHiddenDangerDomainImpl implements FireHiddenDangerDomain {
 
 	@Override
 	public PageInfo<FireHiddenDanger> getPageList(Page<FireHiddenDanger> page, FireHiddenDanger t, Account user) {
-		List<Long>regionIds = userDao.queryRegionIdByUserId(user.getId());
-		 List<Long>projectIds = userDao.queryProjectIdByUserId(user.getId());
-		 page = PageHelper.startPage(page.getPageNum(), page.getPages(), page.getOrderBy());
-		 Map<String, Object> map = new HashMap<String, Object>();
-		 map.put("regionIds", regionIds);
-		 map.put("projectIds", projectIds);
-		 map.put("bean", t);
+		if(user!=null) {
+			List<Long>regionIds = userDao.queryRegionIdByUserId(user.getId());
+			List<Long>projectIds = userDao.queryProjectIdByUserId(user.getId());
+			page = PageHelper.startPage(page.getPageNum(), page.getPages(), page.getOrderBy());
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("regionIds", regionIds);
+			map.put("projectIds", projectIds);
+			map.put("bean", t);
+		}
 		 List<FireHiddenDanger>list = dao.queryListByParam(t);//dao.queryListByMap(map);
 		 PageInfo<FireHiddenDanger> info= new PageInfo<FireHiddenDanger>(list);
 		return info;

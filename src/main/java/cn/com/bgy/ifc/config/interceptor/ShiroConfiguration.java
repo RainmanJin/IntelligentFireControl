@@ -17,7 +17,7 @@ import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Configuration
+//@Configuration
 public class ShiroConfiguration {
 
     //@Qualifier代表spring里面的

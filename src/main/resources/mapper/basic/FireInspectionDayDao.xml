@@ -20,7 +20,7 @@
       situation, resoult, examiner, 
       manager, fire_manager, project_manager, 
       create_time, logic_remove)
-    values (#{id,jdbcType=BIGINT} #{fireContents,jdbcType=VARCHAR}, #{inspectedUnits,jdbcType=VARCHAR}, #{inspectionDay,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=BIGINT},#{fireContents,jdbcType=VARCHAR}, #{inspectedUnits,jdbcType=VARCHAR}, #{inspectionDay,jdbcType=TIMESTAMP}, 
       #{situation,jdbcType=VARCHAR}, #{resoult,jdbcType=VARCHAR}, #{examiner,jdbcType=VARCHAR}, 
       #{manager,jdbcType=VARCHAR}, #{fireManager,jdbcType=VARCHAR}, #{projectManager,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT})
@@ -193,7 +193,7 @@
   <!--通过id查询找-->
   <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <include refid="Mysql"/>
-    WHERE fi.id = #{id}
+    WHERE fid.id = #{id}
   </select>
   <!--逻辑批量删除-->
   <update id="deleteBatch" parameterType="java.util.List">

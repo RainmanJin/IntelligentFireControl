@@ -70,13 +70,15 @@ public class FireInspectionDomainImpl implements FireInspectionDomain {
 	}
 	@Override
 	public PageInfo<FireInspection> getPageList(Page<FireInspection> page, FireInspection t, Account user) {
-		 
-		 List<Long>regionIds = userDao.queryRegionIdByUserId(user.getId());
-		 List<Long>projectIds = userDao.queryProjectIdByUserId(user.getId());
-		 Map<String, Object> map = new HashMap<String, Object>();
-		 map.put("regionIds", regionIds);
-		 map.put("projectIds", projectIds);
-		 map.put("bean", t);
+		if(user!=null) {
+			List<Long>regionIds = userDao.queryRegionIdByUserId(user.getId());
+			List<Long>projectIds = userDao.queryProjectIdByUserId(user.getId());
+			page = PageHelper.startPage(page.getPageNum(), page.getPages(), page.getOrderBy());
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("regionIds", regionIds);
+			map.put("projectIds", projectIds);
+			map.put("bean", t);
+		}
 		 page = PageHelper.startPage(page.getPageNum(), page.getPages(), page.getOrderBy());
 		 List<FireInspection>list = dao.queryListByParam(t);//dao.queryListByMap(map);
 		 PageInfo<FireInspection> info= new PageInfo<FireInspection>(list);

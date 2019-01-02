@@ -36,19 +36,19 @@ public class FireInspectionDetailController extends BaseController{
      * @param vo
      * @return
      */
-    @GetMapping("queryPageList")
+    @GetMapping("queryPageData")
     @ResponseBody
     public ResponseVO<Object> queryPageList(Page<FireInspectionDetail> page, FireInspectionDetail po) {
     	//获取当前登录人做角色数据权限过滤
-    	Account user=this.getUser();
-        PageInfo<FireInspectionDetail> pageInfo = domain.getPageList(page, po,user);
+    	//Account user=this.getUser();
+        PageInfo<FireInspectionDetail> pageInfo = domain.getPageList(page, po,null);
         return ResponseVO.success().setData(pageInfo);
     }
     /**
      * 查询全部
      * @return
      */
-    @GetMapping("queryAllList")
+    @GetMapping("queryAllData")
     @ResponseBody
     public ResponseVO<Object> queryAllList() {
         return ResponseVO.success().setData(domain.queryListByParam(null));
@@ -58,7 +58,7 @@ public class FireInspectionDetailController extends BaseController{
      * @Description 新增消防巡检明细
      * @Date 2018年12月30日15:12:24
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(type = 1,description = "消防巡检明细新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated FireInspectionDetailVo vo, BindingResult error, String token) {
@@ -69,7 +69,7 @@ public class FireInspectionDetailController extends BaseController{
 
         FireInspectionDetail FireInspectionDetail = new FireInspectionDetail();
         //默认是false删除后设为true
-        //vo.setLogicRemove(false);
+        vo.setLogicRemove(false);
         CopyUtil.copyProperties(vo, FireInspectionDetail);
         int count = domain.insert(FireInspectionDetail);
         if (count == 1) {
@@ -82,7 +82,7 @@ public class FireInspectionDetailController extends BaseController{
      * @Description 修改
      * @Date 2018年12月30日15:12:24
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     //@RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
     @SystemLogAfterSave(type = 1,description = "消防巡检明细修改")
     @ResponseBody
@@ -115,7 +115,7 @@ public class FireInspectionDetailController extends BaseController{
      * @Description 删除
      * @Date 2018年12月30日15:12:24
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(type = 1,description = "消防巡检明细删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
