@@ -18,7 +18,7 @@ public class BasePathInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
-        String []  allowDomain= {"http://192.168.0.110:8080","http://192.168.0.109:8080","http://192.168.0.102:8080","http://127.0.0.1:8080"};
+        String []  allowDomain= {"http://192.168.0.112:8080","http://192.168.0.109:8080","http://192.168.0.108:8080","http://127.0.0.1:8080"};
         Set<String> allowedOrigins= new HashSet<>(Arrays.asList(allowDomain));
         String originHeader=request.getHeader("Origin");
         if (allowedOrigins.contains(originHeader)) {
