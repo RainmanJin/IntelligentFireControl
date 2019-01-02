@@ -7,7 +7,7 @@
     <result column="type_id" jdbcType="BIGINT" property="typeId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="signature" jdbcType="VARCHAR" property="signature" />
-    <result column="date_line" jdbcType="VARCHAR" property="dateLine" />
+    <result column="date_line" jdbcType="TIMESTAMP" property="dateLine" />
     <result column="d_id" jdbcType="BIGINT" property="dId" />
     <result column="u_id" jdbcType="BIGINT" property="uId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />

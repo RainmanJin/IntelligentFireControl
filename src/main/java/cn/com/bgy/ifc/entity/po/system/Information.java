@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.entity.po.system;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.pagehelper.Page;
 
 import java.io.Serializable;
@@ -38,7 +39,8 @@ public class Information  implements Serializable {
     /**
      * 落款日期
      */
-    private String dateLine;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date dateLine;
 
     /**
      * 部门id(为0时全部可以查看，具体值时为所有人)
@@ -178,7 +180,7 @@ public class Information  implements Serializable {
      * 落款日期
      * @return date_line 落款日期
      */
-    public String getDateLine() {
+    public Date getDateLine() {
         return dateLine;
     }
 
@@ -186,8 +188,8 @@ public class Information  implements Serializable {
      * 落款日期
      * @param dateLine 落款日期
      */
-    public void setDateLine(String dateLine) {
-        this.dateLine = dateLine == null ? null : dateLine.trim();
+    public void setDateLine(Date dateLine) {
+        this.dateLine = dateLine;
     }
 
     /**

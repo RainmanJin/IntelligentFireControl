@@ -38,13 +38,11 @@
         LEFT JOIN system_role_power ON system_role_power.role_id = system_user_role.role_id
         LEFT JOIN system_power ON system_power.id = system_role_power.power_id AND system_power.logic_remove = 0
         <where>
-                <if test="powerName != null and '' != powerName">
-                    <if test=" '0' == powerName">
-                        and (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) = 0
-                    </if>
-                    <if test=" '1' == powerName">
-                       and  WHERE (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) > 0
-                    </if>
+                <if test="powerName != null and 0 == powerName">
+                    and (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) = 0
+                </if>
+                <if test="powerName != null and 1 == powerName">
+                   and   (SELECT count(1) FROM system_user_role where system_user_role.user_id = account.id ) > 0
                 </if>
                 <if test="departmentId != null and '' != departmentId">
                    and  department.id=#{departmentId}

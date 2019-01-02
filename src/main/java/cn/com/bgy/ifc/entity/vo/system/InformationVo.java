@@ -33,7 +33,7 @@ public class InformationVo {
     /**
      * 落款日期
      */
-    private String dateLine;
+    private Date dateLine;
 
     /**
      * 部门id(为0时全部可以查看，具体值时为所有人)
@@ -149,7 +149,7 @@ public class InformationVo {
      * 落款日期
      * @return date_line 落款日期
      */
-    public String getDateLine() {
+    public Date getDateLine() {
         return dateLine;
     }
 
@@ -157,8 +157,8 @@ public class InformationVo {
      * 落款日期
      * @param dateLine 落款日期
      */
-    public void setDateLine(String dateLine) {
-        this.dateLine = dateLine == null ? null : dateLine.trim();
+    public void setDateLine(Date dateLine) {
+        this.dateLine = dateLine;
     }
 
     /**

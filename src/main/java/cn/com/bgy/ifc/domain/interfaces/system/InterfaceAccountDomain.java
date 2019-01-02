@@ -25,4 +25,5 @@ public interface InterfaceAccountDomain {
      * @return
      */
      PageInfo<InterfaceAccount> searchByWhere(Page page, InterfaceAccount interfaceAccount);
+
 }

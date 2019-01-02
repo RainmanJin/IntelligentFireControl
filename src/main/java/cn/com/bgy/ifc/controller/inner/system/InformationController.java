@@ -3,8 +3,10 @@ package cn.com.bgy.ifc.controller.inner.system;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.InformationDomain;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.Information;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.InformationVo;
@@ -26,7 +28,7 @@ import java.util.List;
  **/
 @Controller
 @RequestMapping("/system/information")
-public class InformationController {
+public class InformationController extends BaseController {
     @Autowired
     private InformationDomain informationDomain;
 
@@ -37,10 +39,15 @@ public class InformationController {
     @SystemLogAfterSave(type = 1,description = "添加通知公告")
     @ResponseBody
     public ResponseVO<Object> add(@Validated InformationVo informationVo, BindingResult error){
+
             //todo informationVo 做参数校检
             if(error.hasErrors()){
+
                 return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
             }
+            Account user=this.getUser();
+            informationVo.setOrgId(user.getOrganizationId());
+            informationVo.setuId(user.getId());
             Information information= new Information();
             CopyUtil.copyProperties(informationVo,information);
             information.setCreateTime(new Date());

@@ -62,7 +62,7 @@
     t2.NAME AS roleName,
     t1.id,
     t1.organization_id,
-    t1.department_id,
+    t1.department_id as departmentId,
     t1.telephone,
     t1.job_number,
     t1.sex,
@@ -96,7 +96,7 @@
         )
       </if>
       <if test="departmentId != null ">
-        AND  t1.departmentId = #{departmentId}
+        AND  a.departmentId = #{departmentId}
       </if>
       <if test="sex != null ">
         AND  a.sex = #{sex}
