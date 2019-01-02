@@ -35,7 +35,7 @@ import cn.com.bgy.ifc.entity.vo.fireinspection.FireContentsVo;
  * 2018年12月30日
  */
 @Controller
-@RequestMapping("/FireContents/fireContents")
+@RequestMapping("/fireinspection/fireContents")
 public class FireContentsController extends BaseController{
 	@Autowired
 	private FireContentsDomain domain;
@@ -45,11 +45,11 @@ public class FireContentsController extends BaseController{
      * @param vo
      * @return
      */
-    @GetMapping("queryPageList")
+    @GetMapping("queryPageData")
     @ResponseBody
     public ResponseVO<Object> queryPageList(Page<FireContents> page, FireContents po) {
     	//获取当前登录人做角色数据权限过滤
-    	Account user=this.getUser();
+    	//Account user=this.getUser();
         PageInfo<FireContents> pageInfo = domain.getPageList(page, po);
         return ResponseVO.success().setData(pageInfo);
     }
@@ -57,7 +57,7 @@ public class FireContentsController extends BaseController{
      * 查询全部
      * @return
      */
-    @GetMapping("queryAllList")
+    @GetMapping("queryAllData")
     @ResponseBody
     public ResponseVO<Object> queryAllList() {
         return ResponseVO.success().setData(domain.queryListByParam(null));
@@ -67,7 +67,7 @@ public class FireContentsController extends BaseController{
      * @Description 新增检查内容  码表
      * @Date 2018年12月20日09:48:38
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(type = 1,description = "检查内容  码表新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated FireContentsVo vo, BindingResult error, String token) {
@@ -76,11 +76,11 @@ public class FireContentsController extends BaseController{
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
 
-        FireContents FireContents = new FireContents();
+        FireContents fireContents = new FireContents();
         //默认是false删除后设为true
         vo.setLogicRemove(false);
-        CopyUtil.copyProperties(vo, FireContents);
-        int count = domain.insert(FireContents);
+        CopyUtil.copyProperties(vo, fireContents);
+        int count = domain.insert(fireContents);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功！");
         }
@@ -91,7 +91,7 @@ public class FireContentsController extends BaseController{
      * @Description 修改
      * @Date 2018年12月20日09:48:38
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
     @SystemLogAfterSave(type = 1,description = "检查内容  码表修改")
     @ResponseBody
@@ -124,7 +124,7 @@ public class FireContentsController extends BaseController{
      * @Description 删除
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(type = 1,description = "检查内容  码表删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){

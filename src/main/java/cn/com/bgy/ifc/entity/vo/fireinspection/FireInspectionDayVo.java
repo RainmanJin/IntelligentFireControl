@@ -14,6 +14,7 @@ public class FireInspectionDayVo {
     private String resoult;
 
     private String examiner;
+    private String fireContents;
 
     private String manager;
 
@@ -33,7 +34,15 @@ public class FireInspectionDayVo {
         this.id = id;
     }
 
-    public String getInspectedUnits() {
+    public String getFireContents() {
+		return fireContents;
+	}
+
+	public void setFireContents(String fireContents) {
+		this.fireContents = fireContents;
+	}
+
+	public String getInspectedUnits() {
         return inspectedUnits;
     }
 

@@ -34,7 +34,7 @@ import cn.com.bgy.ifc.entity.vo.fireinspection.FireInspectionDayVo;
  * 2018年12月30日
  */
 @Controller
-@RequestMapping("/fireinspection/FireInspectionDayDay")
+@RequestMapping("/fireinspection/fireInspectionDay")
 public class FireInspectionDayController extends BaseController{
 	@Autowired
 	private FireInspectionDayDomain domain;
@@ -48,8 +48,8 @@ public class FireInspectionDayController extends BaseController{
     @ResponseBody
     public ResponseVO<Object> queryPageList(Page<FireInspectionDay> page, FireInspectionDay po) {
     	//获取当前登录人做角色数据权限过滤
-    	Account user=this.getUser();
-        PageInfo<FireInspectionDay> pageInfo = domain.getPageList(page, po,user);
+    	//Account user=this.getUser();
+        PageInfo<FireInspectionDay> pageInfo = domain.getPageList(page, po,null);
         return ResponseVO.success().setData(pageInfo);
     }
     /**
@@ -75,11 +75,11 @@ public class FireInspectionDayController extends BaseController{
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
 
-        FireInspectionDay FireInspectionDay = new FireInspectionDay();
+        FireInspectionDay fireInspectionDay = new FireInspectionDay();
         //默认是false删除后设为true
         vo.setLogicRemove(false);
-        CopyUtil.copyProperties(vo, FireInspectionDay);
-        int count = domain.insert(FireInspectionDay);
+        CopyUtil.copyProperties(vo, fireInspectionDay);
+        int count = domain.insert(fireInspectionDay);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功！");
         }

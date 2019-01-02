@@ -21,18 +21,19 @@
     <result column="fire_manager" jdbcType="VARCHAR" property="fireManager" />
     <result column="project_manager_opinion" jdbcType="VARCHAR" property="projectManagerOpinion" />
     <result column="project_manager_date" jdbcType="TIMESTAMP" property="projectManagerDate" />
+    <result column="inspection_day" jdbcType="TIMESTAMP" property="inspectionDay" />
     <result column="project_manager" jdbcType="VARCHAR" property="projectManager" />
     <result column="inspected_units" jdbcType="VARCHAR" property="inspectedUnits" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspection">
-    insert into fire_inspection (id, region_id, project_id, 
+    insert into fire_inspection (id,inspection_day, region_id, project_id, 
       create_time, name, logic_remove, 
       examiner_opinion, examiner, examiner_date, 
       manager_opinion, manager_date, manager, 
       fire_manager_opinion, fire_manager_date, 
       fire_manager, project_manager_opinion, project_manager_date, 
       project_manager, inspected_units)
-    values (#{id,jdbcType=BIGINT}, #{regionId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{inspectionDay,jdbcType=TIMESTAMP}, #{regionId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, #{logicRemove,jdbcType=BIT}, 
       #{examinerOpinion,jdbcType=VARCHAR}, #{examiner,jdbcType=VARCHAR}, #{examinerDate,jdbcType=TIMESTAMP}, 
       #{managerOpinion,jdbcType=VARCHAR}, #{managerDate,jdbcType=TIMESTAMP}, #{manager,jdbcType=VARCHAR}, 
@@ -84,6 +85,9 @@
       </if>
       <if test="fireManagerDate != null">
         fire_manager_date,
+      </if>
+      <if test="inspectionDay != null">
+        inspection_day,
       </if>
       <if test="fireManager != null">
         fire_manager,
@@ -143,6 +147,9 @@
       </if>
       <if test="fireManagerDate != null">
         #{fireManagerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectionDay != null">
+        #{inspectionDay,jdbcType=TIMESTAMP},
       </if>
       <if test="fireManager != null">
         #{fireManager,jdbcType=VARCHAR},
@@ -221,7 +228,7 @@
         and fi.examiner_date=#{examinerDate,jdbcType=TIMESTAMP}
       </if>
       <if test="managerOpinion != null">
-        and fi.manager_opinion like   concat('%',#{examiner},'%')
+        and fi.manager_opinion like   concat('%',#{managerOpinion},'%')
       </if>
       <if test="managerDate != null">
         and fi.manager_date=#{managerDate,jdbcType=TIMESTAMP}
@@ -230,19 +237,22 @@
        and fi.manager  like   concat('%',#{manager},'%')
       </if>
       <if test="fireManagerOpinion != null">
-        #{fireManagerOpinion,jdbcType=VARCHAR}
+       and fire_manager_opinion= #{fireManagerOpinion,jdbcType=VARCHAR}
       </if>
       <if test="fireManagerDate != null">
-        and fi.id=#{fireManagerDate,jdbcType=TIMESTAMP}
+        and fi.fire_manager_date=#{fireManagerDate,jdbcType=TIMESTAMP}
       </if>
       <if test="fireManager != null">
         and fi.fire_manager  like   concat('%',#{fireManager},'%')
       </if>
       <if test="projectManagerOpinion != null">
-        #{projectManagerOpinion,jdbcType=VARCHAR}
+        and project_manager_opinion  like   concat('%',#{projectManagerOpinion},'%')
       </if>
       <if test="projectManagerDate != null">
         and fi.project_manager_date=#{projectManagerDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="inspectionDay != null">
+        and fi.inspection_date=#{inspectionDay,jdbcType=TIMESTAMP}
       </if>
       <if test="projectManager != null">
        and fi.project_manager  like   concat('%',#{projectManager},'%')
@@ -278,10 +288,10 @@
          fi.examiner =#{examiner,jdbcType=VARCHAR},
       </if>
       <if test="examinerDate != null">
-         fi.examiner_date=#{examinerDate,jdbcType=TIMESTAMP}
+         fi.examiner_date=#{examinerDate,jdbcType=TIMESTAMP},
       </if>
       <if test="managerOpinion != null">
-         fi.manager_opinion =#{examinerOpinion,jdbcType=VARCHAR},
+         fi.manager_opinion =#{managerOpinion,jdbcType=VARCHAR},
       </if>
       <if test="managerDate != null">
          fi.manager_date=#{managerDate,jdbcType=TIMESTAMP},
@@ -293,7 +303,7 @@
          fi.fire_manager_opinion=#{fireManagerOpinion,jdbcType=VARCHAR},
       </if>
       <if test="fireManagerDate != null">
-         fi.id=#{fireManagerDate,jdbcType=TIMESTAMP},
+         fi.fire_manager_date=#{fireManagerDate,jdbcType=TIMESTAMP},
       </if>
       <if test="fireManager != null">
          fi.fire_manager =#{fireManager,jdbcType=VARCHAR},
@@ -303,6 +313,9 @@
       </if>
       <if test="projectManagerDate != null">
          fi.project_manager_date=#{projectManagerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectionDate != null">
+         fi.inspection_date=#{inspectionDate,jdbcType=TIMESTAMP},
       </if>
       <if test="projectManager != null">
         fi.project_manager  =#{projectManager,jdbcType=VARCHAR},

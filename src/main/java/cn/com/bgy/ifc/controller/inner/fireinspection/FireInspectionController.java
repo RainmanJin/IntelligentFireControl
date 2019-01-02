@@ -47,8 +47,8 @@ public class FireInspectionController extends BaseController{
     @ResponseBody
     public ResponseVO<Object> queryPageList(Page<FireInspection> page, FireInspection po) {
     	//获取当前登录人做角色数据权限过滤
-    	Account user=this.getUser();
-        PageInfo<FireInspection> pageInfo = domain.getPageList(page, po,user);
+//    	Account user=this.getUser();
+        PageInfo<FireInspection> pageInfo = domain.getPageList(page, po,null);
         return ResponseVO.success().setData(pageInfo);
     }
     /**

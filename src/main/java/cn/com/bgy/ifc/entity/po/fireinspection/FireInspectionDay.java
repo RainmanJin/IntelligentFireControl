@@ -20,6 +20,8 @@ public class FireInspectionDay {
     private String fireManager;
 
     private String projectManager;
+    
+    private String fireContents;
 
     private Date createTime;
 
@@ -29,7 +31,15 @@ public class FireInspectionDay {
         return id;
     }
 
-    public void setId(Long id) {
+    public String getFireContents() {
+		return fireContents;
+	}
+
+	public void setFireContents(String fireContents) {
+		this.fireContents = fireContents;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 

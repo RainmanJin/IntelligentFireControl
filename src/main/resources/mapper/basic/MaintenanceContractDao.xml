@@ -252,7 +252,7 @@
   <!--通过id查询合同-->
   <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <include refid="selectMaintenanceContract"/>
-    WHERE id = #{id}
+    WHERE mc.id = #{id}
   </select>
 
   <!--逻辑批量删除维保合同-->
