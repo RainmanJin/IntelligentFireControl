@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.service.impl.inner.projects;
 
+import cn.com.bgy.ifc.dao.project.RegionStreetDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionStreetDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionStreet;
 import cn.com.bgy.ifc.entity.vo.project.RegionStreetVo;
@@ -10,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,9 @@ public class RegionStreetServiceImpl implements RegionStreetService {
 
     @Autowired
     private RegionStreetDomain regionStreetDomain;
+
+    @Resource
+    private RegionStreetDao regionStreetDao;
     /**
      * @Author huxin
      * @Description 查
@@ -82,6 +87,19 @@ public class RegionStreetServiceImpl implements RegionStreetService {
     @Override
     public List<Map<String, Object>> queryRegionStreetNameBySuperId( Long id ) {
         return regionStreetDomain.queryRegionStreetNameBySuperId(id);
+    }
+    /**
+     * @Author huxin
+     * @Description 根据id查询
+     * @Date 2019/1/2 9:58
+     */
+    @Override
+    public Map<String, Object> findById( Long id ) {
+
+        if(id != null || id>0){
+            return (Map<String, Object>) regionStreetDao.findById(id);
+        }
+        return null;
     }
 
 

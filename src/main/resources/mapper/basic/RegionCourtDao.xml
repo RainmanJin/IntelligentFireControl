@@ -121,4 +121,21 @@
       #{id}
     </foreach>
   </update>
+  <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
+    SELECT
+    c.region_id as regionId,c.project_id as projectId,c.id as id,c.organization_id as organizationId,
+    i.name as regionName ,p.name as projectName,c.name as name
+    from region_court c
+    LEFT JOIN region_project p on  p.id = c.project_id
+    LEFT JOIN region_info i on i.id = c.region_id
+    from region_court c
+    LEFT JOIN region_project p on  p.id = c.project_id
+    LEFT JOIN region_info i on i.id = c.region_id
+    WHERE
+      c.id= #{id,jdbcType=BIGINT}
+      AND i.logic_remove = 0
+      AND p.logic_remove = 0
+      AND c.logic_remove = 0
+
+  </select>
 </mapper>

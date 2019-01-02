@@ -24,4 +24,6 @@ public interface RegionBuildingService {
 
     int deleteRegionBuilding( String str );
     List<Map<String,Object>> queryRegionBuildingNameBySuperId( Long id);
+
+    Map<String,Object> findById( Long id );
 }

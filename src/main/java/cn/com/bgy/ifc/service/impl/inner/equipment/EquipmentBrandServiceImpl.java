@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
+import cn.com.bgy.ifc.dao.equipment.EquipmentBrandDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentBrandDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentBrandService;
@@ -8,6 +9,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +23,9 @@ public class EquipmentBrandServiceImpl implements EquipmentBrandService {
 
     @Autowired
     private EquipmentBrandDomain equipmentBrandDomain;
+
+    @Resource
+    private EquipmentBrandDao equipmentBrandDao;
 
     /**
      * @Author huxin
@@ -66,5 +71,13 @@ public class EquipmentBrandServiceImpl implements EquipmentBrandService {
     @Override
     public List<Map<String, Object>> queryAllEquipmentBrand() {
         return equipmentBrandDomain.queryAllEquipmentBrand();
+    }
+
+    @Override
+    public Map<String, Object> findById( Long id ) {
+        if(id != null || id>0){
+            return (Map<String, Object>) equipmentBrandDao.findById(id);
+        }
+        return null;
     }
 }

@@ -222,6 +222,18 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
             return ResponseVO.success().setMsg("同步集成平台项目增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
     }
+    /**
+     * @Author huxin
+     * @Description根据id查询当前项目信息
+     * @Date 2019/1/2 9:31
+     */
+    @Override
+    public Map<String, Object> findById( Long id ) {
+        if(id != null || id>0){
+            return (Map<String, Object>) regionProjectDao.findById(id);
+        }
+        return null;
+    }
 
 
 }

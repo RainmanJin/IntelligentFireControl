@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.service.impl.inner.projects;
 
+import cn.com.bgy.ifc.dao.project.RegionComputerRoomDao;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionComputerRoomDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
@@ -27,6 +28,9 @@ public class RegionComputerRoomServiceImpl implements RegionComputerRoomService 
 
     @Autowired
     private RegionComputerRoomDomain regionComputerRoomDomain;
+
+    @Resource
+    private RegionComputerRoomDao regionComputerRoomDao;
 
     @Resource
     private UserGroupItemsDao userGroupItemsDao;
@@ -82,5 +86,13 @@ public class RegionComputerRoomServiceImpl implements RegionComputerRoomService 
             return regionComputerRoomDomain.deleteRegionComputerRoom(list);
         }
         return 0;
+    }
+
+    @Override
+    public Map<String, Object> findById( Long id ) {
+        if(id != null ||id >0){
+            return (Map<String, Object>) regionComputerRoomDao.findById(id);
+        }
+        return null;
     }
 }

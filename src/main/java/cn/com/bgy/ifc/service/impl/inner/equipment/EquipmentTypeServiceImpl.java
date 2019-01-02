@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
+import cn.com.bgy.ifc.dao.equipment.EquipmentTypeDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentTypeDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentTypeService;
@@ -8,6 +9,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +23,10 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
 
     @Autowired
     private EquipmentTypeDomain equipmentTypeDomain;
+
+    @Resource
+    private EquipmentTypeDao equipmentTypeDao;
+
     /**
      * @Author huxin
      * @Description 查
@@ -63,6 +69,18 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     @Override
     public List<Map<String, Object>> queryEquipmentTypeBySuperId( Long id ) {
         return equipmentTypeDomain.queryEquipmentTypeBySuperId(id);
+    }
+    /**
+     * @Author huxin
+     * @Description 根据ID查询类型信息
+     * @Date 2019/1/2 14:21
+     */
+    @Override
+    public Map<String, Object> findById( Long id ) {
+        if(id != null || id>0){
+            return (Map<String, Object>) equipmentTypeDao.findById(id);
+        }
+        return null;
     }
 
 }

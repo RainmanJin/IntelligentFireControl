@@ -1,15 +1,14 @@
 package cn.com.bgy.ifc.dao.project;
 
+import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.project.RegionStreet;
 import cn.com.bgy.ifc.entity.vo.project.RegionStreetVo;
 
 import java.util.List;
 import java.util.Map;
 
-public interface RegionStreetDao {
-    int insert(RegionStreet record);
+public interface RegionStreetDao extends BaseDao<RegionStreet> {
 
-    int insertSelective(RegionStreet record);
 
     List<Map<String,Object>> queryListRegionStreet( RegionStreetVo record);
 

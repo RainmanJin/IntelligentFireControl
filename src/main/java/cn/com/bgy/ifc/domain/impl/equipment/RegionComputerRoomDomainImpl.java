@@ -330,32 +330,7 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
     @Transactional
     public int updateRegionComputerRoom( RegionComputerRoom record ) {
         if(record.getId()>0){
-            //查询苑区信息
-            RegionComputerRoom computerRoom = regionComputerRoomDao.queryRegionComputerRoomById(record.getId());
-            //修改街道信息
-            if(computerRoom.getStreetId() != record.getStreetId()){
-                RegionStreet street= new RegionStreet();
-                street.setId(record.getStreetId());
-                street.setCourtId(record.getCourtId());
-                street.setProjectId(record.getProjectId());
-                street.setRegionId(record.getRegionId());
-                regionStreetDao.updateRegionStreet(street);
-            }
-            //修改苑区信息
-            if(computerRoom.getCourtId() != record.getCourtId()){
-                RegionCourt court = new RegionCourt();
-                court.setId(record.getCourtId());
-                court.setProjectId(record.getProjectId());
-                court.setRegionId(record.getRegionId());
-                regionCourtDao.updateRegionCourt(court);
-            }
-            //修改项目信息
-            if(computerRoom.getProjectId()!= record.getProjectId()){
-                RegionProject project = new RegionProject();
-                project.setId(record.getProjectId());
-                project.setRegionId(record.getRegionId());
-                regionProjectDao.updateSelective(project);
-            }
+
             //查询苑区名
             String courtName = regionCourtDao.queryRegionCourtNameById(record.getCourtId());
             //查询街道名

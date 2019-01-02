@@ -36,7 +36,7 @@ public class EquipmentTypeController {
      */
     @GetMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListEquipmentType( Page<Object> page, String keyword,String token){
+    public ResponseVO<PageInfo> queryListEquipmentType( Page<Object> page, String keyword){
         PageInfo pageInfo = equipmentTypeService.queryListEquipmentType(page,keyword);
         return   ResponseVO.<PageInfo>success().setData(pageInfo);
 
@@ -49,7 +49,7 @@ public class EquipmentTypeController {
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "类型信息添加")
     @ResponseBody
-    public ResponseVO<Object> addEEquipmentType( EquipmentType record,String token){
+    public ResponseVO<Object> addEEquipmentType( EquipmentType record){
         int count = equipmentTypeService.addEquipmentType(record);
         if (count > 0) {
             return ResponseVO.success().setMsg("添加成功");
@@ -64,7 +64,7 @@ public class EquipmentTypeController {
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "类型信息修改")
     @ResponseBody
-    public ResponseVO<Object> uopdateEquipmentType(EquipmentType record,String token){
+    public ResponseVO<Object> uopdateEquipmentType(EquipmentType record){
         int count = equipmentTypeService.updateEquipmentType(record);
         if (count == 1) {
             return ResponseVO.success().setMsg("修改成功");
@@ -93,12 +93,23 @@ public class EquipmentTypeController {
      */
     @PostMapping("queryBySuperId")
     @ResponseBody
-    public ResponseVO<Object> queryEquipmentTypeBySuperId( Long id,String token){
+    public ResponseVO<Object> queryEquipmentTypeBySuperId( Long id){
         List<Map<String,Object>> list = equipmentTypeService.queryEquipmentTypeBySuperId(id);
         if(list.size()>0){
             return ResponseVO.success().setData(list);
         }
         return ResponseVO.success().setMsg("没有下级节点");
 
+    }
+    /**
+     * @Author huxin
+     * @Description 根据ID查询型号信息
+     * @Date 2019/1/2 9:44
+     */
+    @GetMapping("find")
+    @ResponseBody
+    public ResponseVO<Object> findById(Long id){
+        Map<String,Object> map  = equipmentTypeService.findById(id);
+        return ResponseVO.<Object>success().setData(map);
     }
 }

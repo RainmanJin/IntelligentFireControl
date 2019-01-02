@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.service.impl.inner.projects;
 
+import cn.com.bgy.ifc.dao.project.RegionCourtDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionCourtDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionCourt;
 import cn.com.bgy.ifc.entity.vo.project.RegionCourtVo;
@@ -10,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,10 @@ import java.util.Map;
 public class RegionCourtServiceImpl implements RegionCourtService {
     @Autowired
     private RegionCourtDomain regionCourtDomain;
+
+    @Resource
+    private RegionCourtDao regionCourtDao;
+
     /**
      * @Author huxin
      * @Description 查
@@ -80,5 +86,16 @@ public class RegionCourtServiceImpl implements RegionCourtService {
     public List<Map<String, Object>> queryRegionCourtNameBySuperId( Long id ) {
         return regionCourtDomain.queryRegionCourtNameBySuperId(id);
     }
-
+    /**
+     * @Author huxin
+     * @Description 根据id查询
+     * @Date 2019/1/2 9:46
+     */
+    @Override
+    public Map<String, Object> findById( Long id ) {
+        if(id != null || id>0){
+           return  (Map<String, Object>) regionCourtDao.findById(id);
+        }
+        return null;
+    }
 }

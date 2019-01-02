@@ -75,4 +75,12 @@ public class EquipmentVersionServiceImpl implements EquipmentVersionService {
         }
         return equipmentVersionDao.queryEquipmentVersionByBrandId(id);
     }
+
+    @Override
+    public Map<String, Object> findById( Long id ) {
+        if(id != null || id>0){
+            return (Map<String, Object>) equipmentVersionDao.findById(id);
+        }
+        return null;
+    }
 }

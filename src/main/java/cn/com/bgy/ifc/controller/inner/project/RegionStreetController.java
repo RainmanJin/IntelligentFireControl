@@ -98,4 +98,16 @@ public class RegionStreetController extends BaseController {
         List<Map<String,Object>> list  = regionStreetService.queryRegionStreetNameBySuperId(courtId);
         return ResponseVO.<Object>success().setData(list);
     }
+
+    /**
+     * @Author huxin
+     * @Description 根据ID查询所有街道信息
+     * @Date 2019/1/2 9:44
+     */
+    @GetMapping("find")
+    @ResponseBody
+    public ResponseVO<Object> findById(Long id){
+        Map<String,Object> map  = regionStreetService.findById(id);
+        return ResponseVO.<Object>success().setData(map);
+    }
 }

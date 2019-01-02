@@ -40,22 +40,6 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
-
-    @Resource
-    private RegionProjectDao regionProjectDao;
-
-    @Resource
-    private RegionCourtDao regionCourtDao;
-
-    @Resource
-    private RegionStreetDao regionStreetDao;
-
-    @Resource
-    private RegionBuildingDao regionBuildingDao;
-
-    @Resource
-    private RegionComputerRoomDao regionComputerRoomDao;
-
     @Resource
     private UserGroupItemsDao userGroupItemsDao;
 
@@ -114,24 +98,11 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
         if(ids.length()>0){
             List<Long> list = ListUtil.getListId(ids);
             if(list.size()>0){
-//                //删除机房信息
-//                regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
-//                //删除区域信息
-//                regionBuildingDao.deleteRegionBuildingBySuperId(list);
-//                //删除街道
-//                 regionStreetDao.deleteRegionStreetBySuperId(list);
-//                //删除苑区信息
-//                regionCourtDao.deleteRegionCourtBySuperId(list);
-//                //删除项目信息
-//                regionProjectDao.deleteRegionProjecBySuperId(list);
-                //删除区域信息
                 return regionInfoDao.deleteRegionInfo(list);
             }
             return 0;
         }
-
         return 0;
-
     }
     /**
      * @Author huxin
@@ -245,5 +216,13 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
             externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
             return ResponseVO.success().setMsg("同步集成平台区域增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
+    }
+
+    @Override
+    public Map<String, Object> findById( Long id ) {
+        if(id != null || id>0){
+            return (Map<String, Object>) regionInfoDao.findById(id);
+        }
+        return null;
     }
 }

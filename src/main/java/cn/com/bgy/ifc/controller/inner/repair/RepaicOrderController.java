@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.repair;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.repair.RepairOrder;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
@@ -22,7 +23,7 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("/basic/Repair")
-public class RepaicOrderController {
+public class RepaicOrderController extends BaseController {
 
     @Autowired
     private RepaicOrderService repaicOrderService;
@@ -35,7 +36,7 @@ public class RepaicOrderController {
     @PostMapping("launchRepair")
     @SystemLogAfterSave(type = 1,description = "发起招修，添加订单")
     @ResponseBody
-    public ResponseVO<Object> launchRepair( String token, RepairOrder repairOrder ){
+    public ResponseVO<Object> launchRepair(RepairOrder repairOrder ){
         return repaicOrderService.launchRepair(repairOrder);
     }
     /**
@@ -45,7 +46,7 @@ public class RepaicOrderController {
      */
     @PostMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListRepairOrder( String token, Page<Object> page,RegionAndBrandVO regionAndBrandVO ){
+    public ResponseVO<PageInfo> queryListRepairOrder( Page<Object> page,RegionAndBrandVO regionAndBrandVO ){
         PageInfo pageInfo = repaicOrderService.queryListRepairOrder(page,regionAndBrandVO);
         return   ResponseVO.<PageInfo>success().setData(pageInfo);
     }
@@ -56,7 +57,7 @@ public class RepaicOrderController {
      */
     @PostMapping("queryInfo")
     @ResponseBody
-    public ResponseVO<Object> queryRepairOrderById(String token,Long id){
+    public ResponseVO<Object> queryRepairOrderById(Long id){
         Map<String,Object> map = repaicOrderService.queryRepairOrderById(id);
         return ResponseVO.<Object>success().setData(map);
     }
@@ -67,7 +68,7 @@ public class RepaicOrderController {
      */
     @PostMapping("update")
     @ResponseBody
-    public ResponseVO<Object> updateRepairOrder(String token,RepairOrder repairOrder){
+    public ResponseVO<Object> updateRepairOrder(RepairOrder repairOrder){
         int count = repaicOrderService.updateRepairOrder(repairOrder);
         if (count > 0) {
             return ResponseVO.success().setMsg("添加成功");
@@ -82,8 +83,8 @@ public class RepaicOrderController {
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "订单信息删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRepairOrder(String token,String arr){
-        int count = repaicOrderService.deleteRepairOrder(arr);
+    public ResponseVO<Object> deleteRepairOrder(String ids){
+        int count = repaicOrderService.deleteRepairOrder(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }

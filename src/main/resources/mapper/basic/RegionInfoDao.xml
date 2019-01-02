@@ -148,4 +148,13 @@
     <select id="queryRegionInfoName" resultType="java.util.Map">
      SELECT name,id FROM region_info  WHERE logic_remove = 0
     </select>
+
+    <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
+     SELECT
+    id as id, organization_id as organizationId, code as code, name as name
+    from region_info
+    WHERE
+      id= #{id,jdbcType=BIGINT}
+      AND logic_remove = 0
+  </select>
 </mapper>

@@ -139,4 +139,17 @@
       #{id}
     </foreach>
   </update>
+  <select id="findById" parameterType="java.lang.Long"  resultType="java.util.Map">
+       SELECT
+    p.id as id,p.name as name,p.organization_id as organizationId,
+    p.region_id as regionId,p.code as code,i.`name` as regionName,
+    p.longitude as longitude,p.latitude as latitude,
+    p.ascription as ascription
+    from region_project p
+    LEFT JOIN region_info i on p.region_id = i.id
+      WHERE
+      p.id= #{id,jdbcType=BIGINT}
+      AND i.logic_remove = 0
+      AND p.logic_remove = 0
+  </select>
 </mapper>

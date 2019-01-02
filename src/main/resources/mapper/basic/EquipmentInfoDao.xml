@@ -305,22 +305,35 @@
         </where>
     </select>
     <select id="queryEquipmentInfoById" resultType="java.util.Map" parameterType="java.lang.Long">
-        SELECT v.id as id,
-        v.regionId as regionId,v.regionName as regionName,
-        v.projectId as projectId,v.projectName as projectName,
-        i.machine_room_id as machineRoomId,
-        (SELECT rr.`name` FROM region_computer_room rr WHERE rr.id = i.machine_room_id) as machineRoomName,
-        v.typeId as typeId,v.typeName as typeName,
-        v.brandId as brandId,v.brandName as brandName,
-        v.versionId as versionId,v.versionName as versionId,
-        v.`name` as name,v.inputCode as inputCode,
-        i.keep_years as keepYears,i.in_work_time as workTime,
-        i.important as important,localtion_code as localtionCode,
-        i.simple_code as simpleCode,i.api_code as apiCode,
-        v.`status` as status
-        FROM equipment_info_view  v
-        LEFT JOIN equipment_info i ON v.id = i.id
-        where i.id = #{id,jdbcType=BIGINT}
+
+
+         SELECT
+        ei.id as id,ei.`name` as name,
+        ri.id as regionId,ri.`name` as regionName,
+        rp.id as projectId,rp.`name` as projectName,
+        rc.id as courtId,rc.`name` as courtName,
+        rs.id as streetId,rs.`name` as streetName,
+        rb.id as buildingId,rb.`name` as buildingName,
+        ei.input_code as inputCode,
+        et.id as typeId,et.`name` as typeName,
+        eb.id as brandId,eb.`name` as brandName,
+        ev.id as versionId,ev.`name` as versionName,
+        ei.inputCode as inputCode,
+        ei.keep_years as keepYears,ei.in_work_time as workTime,
+        ei.important as important,ei.localtion_code as localtionCode,
+        ei.simple_code as simpleCode,ei.api_code as apiCode,
+        ei.`status` as  `status`
+        FROM ((((((((equipment_info ei
+        LEFT JOIN region_computer_room rr ON ei.machine_room_id = rr.id)
+        LEFT JOIN region_info ri ON rr.region_id = ri.id)
+        LEFT JOIN region_project rp ON rr.project_id = rp.id)
+        LEFT JOIN region_court rc ON rr.court_id = rc.id)
+        LEFT JOIN region_street rs ON rr.street_id = rs.id)
+        LEFT JOIN region_building rb ON rr.building_id = rb.id)
+        LEFT JOIN equipment_type et ON ei.type_id = et.id)
+        LEFT JOIN equipment_brand eb ON ei.brand_id = eb.id)
+        LEFT JOIN equipment_version ev ON ei.version_id = ev.id
+        WHERE i.id = #{id,jdbcType=BIGINT}
     </select>
 
     <select id="queryRoomIdByEquipmentId" parameterType="java.lang.Long" resultType="java.lang.Long">

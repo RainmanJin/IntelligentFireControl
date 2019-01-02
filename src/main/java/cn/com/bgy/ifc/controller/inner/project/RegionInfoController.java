@@ -48,7 +48,7 @@ public class RegionInfoController extends BaseController {
      */
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "区域信息修改")
-    public ResponseVO<Object> updateRegionInfo( RegionInfoVo regionInfoVo, String token){
+    public ResponseVO<Object> updateRegionInfo( RegionInfoVo regionInfoVo){
 
         int count = regionInfoDomain.updateRegionInfo(regionInfoVo);
         if (count == 1) {
@@ -96,5 +96,16 @@ public class RegionInfoController extends BaseController {
         Account user=this.getUser();
         List<Map<String,Object>> list  = regionInfoDomain.queryRegionInfoName(user);
         return ResponseVO.<Object>success().setData(list);
+    }
+    /**
+     * @Author huxin
+     * @Description 根据ID查询区域信息
+     * @Date 2019/1/2 9:44
+     */
+    @GetMapping("find")
+    @ResponseBody
+    public ResponseVO<Object> findById(Long id){
+        Map<String,Object> map  = regionInfoDomain.findById(id);
+        return ResponseVO.<Object>success().setData(map);
     }
 }

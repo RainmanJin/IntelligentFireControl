@@ -91,7 +91,10 @@ public class EquipmentInfoController {
      * @Description 根据一个设备id查询设备数据
      * @Date 2018/12/24 15:52
      */
+    @GetMapping("find")
+    @ResponseBody
     public ResponseVO<Object> queryEquipmentInfoById(Long id){
+
         Map<String,Object> map = equipmentInfoService.queryEquipmentInfoById(id);
         return ResponseVO.success().setData(map);
     }

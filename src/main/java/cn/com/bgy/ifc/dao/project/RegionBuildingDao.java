@@ -1,15 +1,14 @@
 package cn.com.bgy.ifc.dao.project;
 
+import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 
 import java.util.List;
 import java.util.Map;
 
-public interface RegionBuildingDao {
-    int insert(RegionBuilding record);
+public interface RegionBuildingDao extends BaseDao<RegionBuilding> {
 
-    int insertSelective(RegionBuilding record);
 
     List<Map<String,Object>> queryListRegionBuilding(  RegionAndBrandVO regionAndBrandVO);
 

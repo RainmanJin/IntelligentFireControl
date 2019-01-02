@@ -25,4 +25,6 @@ public interface RegionCourtService {
     int deleteRegionCourt(String str);
 
     List<Map<String,Object>> queryRegionCourtNameBySuperId( Long id);
+
+    Map<String,Object> findById( Long id );
 }

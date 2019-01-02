@@ -25,4 +25,6 @@ public interface RegionStreetService {
     int deleteRegionStreet( String str );
 
     List<Map<String,Object>> queryRegionStreetNameBySuperId( Long id);
+
+    Map<String,Object> findById( Long id );
 }

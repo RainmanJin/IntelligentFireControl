@@ -46,4 +46,6 @@ public interface RegionInfoDomain {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     ResponseVO<Object> alterBgyRegionInfo(List<BgyRegionInfoVo> list, Long orgId);
+
+    Map<String,Object> findById( Long id );
 }

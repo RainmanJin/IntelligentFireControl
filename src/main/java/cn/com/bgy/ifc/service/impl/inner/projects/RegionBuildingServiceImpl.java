@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.service.impl.inner.projects;
 
+import cn.com.bgy.ifc.dao.project.RegionBuildingDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionBuildingDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
@@ -10,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +28,8 @@ public class RegionBuildingServiceImpl implements RegionBuildingService {
     @Autowired
     private RegionBuildingDomain regionBuildingDomain;
 
-
+    @Resource
+    private RegionBuildingDao regionBuildingDao;
     /**
      * @Author huxin
      * @Description 查询
@@ -88,6 +91,14 @@ public class RegionBuildingServiceImpl implements RegionBuildingService {
     @Override
     public List<Map<String, Object>> queryRegionBuildingNameBySuperId( Long id ) {
         return regionBuildingDomain.queryRegionBuildingtNameBySuperId(id);
+    }
+
+    @Override
+    public Map<String, Object> findById( Long id ) {
+        if(id != null||id>0){
+           return (Map<String, Object>) regionBuildingDao.findById(id );
+        }
+        return null;
     }
 
 

@@ -46,4 +46,5 @@ public interface RegionProjectDomain {
     ResponseVO<Object> alterBgyRegionProject(List<BgyProjectVo> list, Long orgId);
 
 
+    Map<String,Object> findById( Long id );
 }

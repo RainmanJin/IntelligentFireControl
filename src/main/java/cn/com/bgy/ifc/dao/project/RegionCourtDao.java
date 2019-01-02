@@ -1,15 +1,14 @@
 package cn.com.bgy.ifc.dao.project;
 
+import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.project.RegionCourt;
 import cn.com.bgy.ifc.entity.vo.project.RegionCourtVo;
 
 import java.util.List;
 import java.util.Map;
 
-public interface RegionCourtDao {
-    int insert(RegionCourt record);
+public interface RegionCourtDao extends BaseDao<RegionCourt> {
 
-    int insertSelective(RegionCourt record);
 
     List<Map<String,Object>> queryListRegionCourt( RegionCourtVo regionCourtVo);
 

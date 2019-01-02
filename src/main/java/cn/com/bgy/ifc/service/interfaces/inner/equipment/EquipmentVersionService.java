@@ -25,4 +25,6 @@ public interface EquipmentVersionService  {
     int deleteEquipmentVersion( String str );
 
     List<Map<String,Object>> queryEquipmentVersionByBrandId( Long id );
+
+    Map<String,Object> findById( Long id );
 }

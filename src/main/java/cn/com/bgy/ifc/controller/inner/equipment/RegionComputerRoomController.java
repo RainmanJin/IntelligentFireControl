@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -87,5 +89,17 @@ public class RegionComputerRoomController extends BaseController {
         }
         return ResponseVO.error().setMsg("添加失败！");
 
+    }
+
+    /**
+     * @Author huxin
+     * @Description 根据ID查询所有机房信息
+     * @Date 2019/1/2 9:44
+     */
+    @GetMapping("find")
+    @ResponseBody
+    public ResponseVO<Object> findById(Long id){
+        Map<String,Object> map  = regionComputerRoomService.findById(id);
+        return ResponseVO.<Object>success().setData(map);
     }
 }
