@@ -366,6 +366,27 @@
     from  account where telephone = #{telephone,jdbcType=VARCHAR}
   </select>
 
+  <select id="queryListByRole" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT
+    a.id AS id,
+    a.organization_id,
+    a.department_id,
+    a.telephone,
+    a.job_number,
+    a.user_name
+    FROM system_user_role s
+    LEFT JOIN account a ON s.user_id=a.id
+    LEFT JOIN system_role r ON r.id=s.role_id
+    <where>
+      <if test="roleValue != null">
+        AND r.value= #{roleValue}
+      </if>
+      <if test="organizationId != null">
+        AND a.organization_id = #{organizationId}
+      </if>
+    </where>
+  </select>
+
   <select id="findUserPowerByPage" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.system.Account">
     select  id,
     organization_id,

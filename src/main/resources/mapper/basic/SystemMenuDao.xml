@@ -169,7 +169,7 @@
       power_id,
       logic_remove,
       type
-    FROM system_menu WHERE parent_id IS NULL AND logic_remove = 0 AND id !=1
+    FROM system_menu WHERE parent_id IS NULL AND logic_remove = 0
   </select>
 
     <select id="queryListByParam" resultMap="BaseResultMap" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
