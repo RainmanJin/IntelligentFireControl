@@ -20,9 +20,7 @@ public interface RegionComputerRoomDao extends BaseDao<RegionComputerRoom> {
     int updateRegionComputerRoom(RegionComputerRoom record);
 
     int deleteRegionComputerRoom( List<Long> list );
-    //传入ID查询机房信息
-    RegionComputerRoom queryRegionComputerRoomById(Long id);
 
-    //根据父级id删除所有机房
-    int deleteRegionComputerRoomBySuperId(List<Long> list);
+    //根据区域ID、项目ID、苑区ID、街道ID、楼栋单元ID修改所属地址
+    int updateFindByAddressId(Map<String,Object> map);
 }

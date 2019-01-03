@@ -146,12 +146,15 @@
     <select id="queryListRegionComputerRoom" parameterType="cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO" resultType="java.util.Map">
         SELECT
         cr.id as id,cr.organization_id as organizationId,cr.`name` as name,
-        cr.code as code,cr.description as description,cr.create_time as createTime,
+        cr.code as code,CONCAT(c.name,s.name,b.name) as description,cr.create_time as createTime,
         cr.region_id as regionId,i.`name` as regionName,
         cr.project_id as projectId,p.`name` as projectName
         FROM region_computer_room cr
         LEFT JOIN region_info i on cr.region_id = i.id
         LEFT JOIN region_project p ON cr.project_id = p.id
+        LEFT JOIN region_court c on cr.court_id = c.id
+        LEFT JOIN region_street s on cr.street_id = s.id
+        LEFT JOIN region_building b on cr.building_id = b.id
         <where>
             <if test="regionId != null and regionId!= '' ">
                 AND cr.region_id= #{regionId,jdbcType=BIGINT}
@@ -230,4 +233,21 @@
           AND s.logic_remove = 0
           AND b.logic_remove = 0
     </select>
+    <update id="updateFindByAddressId" parameterType="java.util.Map">
+        UPDATE region_computer_room
+        <set>
+            <if test="regionId != null">region_id =#{regionId},</if>
+            <if test="projectId != null">project_id =#{projectId},</if>
+            <if test="courtId != null">court_id= #{courtId},</if>
+            <if test="streetId != null">street_id= #{streetId},</if>
+            <if test="buildingId !=null">building_id= #{buildingId}</if>
+        </set>
+        <where>
+            <if test="regionId != null">AND region_id =#{regionId}</if>
+            <if test="projectId != null">AND project_id =#{projectId}</if>
+            <if test="courtId != null">AND court_id= #{courtId}</if>
+            <if test="streetId != null">AND street_id= #{ streetId}</if>
+            <if test="buildingId !=null">AND building_id= #{buildingId}</if>
+        </where>
+    </update>
 </mapper>

@@ -3,11 +3,13 @@ package cn.com.bgy.ifc.domain.impl.equipment;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
-import cn.com.bgy.ifc.bgy.utils.StringUtil;
 import cn.com.bgy.ifc.dao.project.*;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionComputerRoomDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
-import cn.com.bgy.ifc.entity.po.project.*;
+import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
+import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
+import cn.com.bgy.ifc.entity.po.project.RegionCourt;
+import cn.com.bgy.ifc.entity.po.project.RegionStreet;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyMachineRoomVo;
@@ -19,10 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author: ZhangCheng
@@ -327,22 +326,10 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
      * @Date 2018/12/20 14:36
      */
     @Override
-    @Transactional
     public int updateRegionComputerRoom( RegionComputerRoom record ) {
-        if(record.getId()>0){
-
-            //查询苑区名
-            String courtName = regionCourtDao.queryRegionCourtNameById(record.getCourtId());
-            //查询街道名
-            String streetName = regionStreetDao.queryRegionStreetNameById(record.getStreetId());
-            //查询楼栋名
-            String buildingName= regionBuildingDao.queryRegionBuildingtNameById(record.getBuildingId());
-
-            if(StringUtil.isNotEmpty(courtName) || StringUtil.isNotEmpty(streetName) || StringUtil.isNotEmpty(buildingName)){
-                record.setName(courtName+courtName+streetName);
-                record.setCreateTime(new Date());
-                return regionComputerRoomDao.updateRegionComputerRoom(record);
-            }
+        if(record.getId() != null||record.getId()>0){
+            record.setCreateTime(new Date());
+            return regionComputerRoomDao.updateRegionComputerRoom(record);
         }
         return 0;
     }

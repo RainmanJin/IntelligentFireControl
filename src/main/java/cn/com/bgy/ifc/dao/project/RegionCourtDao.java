@@ -22,6 +22,6 @@ public interface RegionCourtDao extends BaseDao<RegionCourt> {
     //根据父级ID查询所有苑区名
     List<Map<String,Object>> queryRegionCourtNameBySuperId( Long id);
 
-    //根据父级id删除所有苑区
-    int deleteRegionCourtBySuperId(List<Long> list);
+    //根据区域ID、项目ID、苑区ID、街道ID、楼栋单元ID修改所属地址
+    int updateFindByAddressId(Map<String,Object> map);
 }

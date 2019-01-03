@@ -187,55 +187,6 @@
         WHERE id
         = #{id}
     </update>
-    <update id="updateEquipmentInfo" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
-        UPDATE equipment_info
-        <set>
-            <if test="name != null">
-                name =#{name,jdbcType=VARCHAR},
-            </if>
-            <if test="inputCode != null">
-                input_code=#{inputCode,jdbcType=BIGINT},
-            </if>
-            <if test="versionId != null">
-                version_id=#{versionId,jdbcType=BIGINT},
-            </if>
-            <if test="brandId != null">
-                brand_id= #{brandId,jdbcType=BIGINT},
-            </if>
-            <if test="typeId != null">
-                type_id=#{typeId,jdbcType=BIGINT},
-            </if>
-            <if test="keepYears != null">
-                keep_years=#{keepYears,jdbcType=INTEGER},
-            </if>
-            <if test="inWorkTime != null">
-                in_work_time=#{inWorkTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="important != null">
-                important=#{important,jdbcType=INTEGER},
-            </if>
-            <if test="status != null">
-                status=#{status,jdbcType=INTEGER},
-            </if>
-            <if test="localtionCode != null">
-                localtion_code=#{localtionCode,jdbcType=VARCHAR},
-            </if>
-            <if test="simpleCode != null">
-                simple_code=#{simpleCode,jdbcType=VARCHAR},
-            </if>
-            <if test="apiCode != null">
-                api_code= #{apiCode,jdbcType=VARCHAR},
-            </if>
-            <if test="description != null">
-                description=#{description,jdbcType=LONGVARCHAR},
-            </if>
-            <if test="logicRemove != null">
-                logic_remove=#{logicRemove,jdbcType=BIT}
-            </if>
-        </set>
-        WHERE id
-        = #{id}
-    </update>
     <update id="deleteEquipmentInfo" parameterType="java.util.List">
         UPDATE  equipment_info set logic_remove =1  where id IN
         <foreach collection="list" index="index" item="id" open="(" separator="," close=")">

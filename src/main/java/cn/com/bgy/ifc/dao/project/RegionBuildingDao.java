@@ -23,7 +23,7 @@ public interface RegionBuildingDao extends BaseDao<RegionBuilding> {
     //根据父级ID查询所有楼栋名
     List<Map<String,Object>> queryRegionBuildingtNameBySuperId( Long id);
 
-    //根据父级id删除所有楼栋单元
-    int deleteRegionBuildingBySuperId(List<Long> list);
+    //根据区域ID、项目ID、苑区ID、街道ID、楼栋单元ID修改所属地址
+    int updateFindByAddressId(Map<String,Object> map);
 
 }

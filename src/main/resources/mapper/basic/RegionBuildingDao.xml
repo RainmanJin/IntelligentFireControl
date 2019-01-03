@@ -175,4 +175,19 @@
       AND s.logic_remove = 0
       AND b.logic_remove = 0
   </select>
+  <update id="updateFindByAddressId" parameterType="java.util.Map">
+      UPDATE region_building
+    <set>
+      <if test="regionId != null">region_id =#{regionId},</if>
+      <if test="projectId != null">project_id =#{projectId},</if>
+      <if test="courtId != null">court_id= #{courtId},</if>
+      <if test="streetId != null">street_id= #{streetId},</if>
+    </set>
+    <where>
+      <if test="regionId != null">AND region_id =#{regionId}</if>
+      <if test="projectId != null">AND project_id =#{projectId}</if>
+      <if test="courtId != null">AND court_id= #{courtId}</if>
+      <if test="streetId != null">AND street_id= #{streetId}</if>
+    </where>
+  </update>
 </mapper>

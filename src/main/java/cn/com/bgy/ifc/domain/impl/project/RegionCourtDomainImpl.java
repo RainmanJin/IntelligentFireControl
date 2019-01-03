@@ -8,9 +8,11 @@ import cn.com.bgy.ifc.domain.interfaces.project.RegionCourtDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionCourt;
 import cn.com.bgy.ifc.entity.vo.project.RegionCourtVo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,8 +61,26 @@ public class RegionCourtDomainImpl implements RegionCourtDomain {
      * @Date 2018/12/19 15:18
      */
     @Override
+    @Transactional(rollbackFor = {Exception.class})
     public int updateRegionCourt( RegionCourt record ) {
-        return regionCourtDao.updateRegionCourt(record);
+        if(record.getId()!=null){
+            Map<String,Object> map  = new HashMap<>();
+            map.put("regionId",record.getRegionId());
+            map.put("projectId",record.getId());
+            map.put("courtId",record.getId());
+            //修改机房
+            regionComputerRoomDao.updateFindByAddressId(map);
+            //修改楼栋单元
+            regionBuildingDao.updateFindByAddressId(map);
+            //修改街道
+            regionStreetDao.updateFindByAddressId(map);
+
+            record.setCreateTime(new Date());
+            return regionCourtDao.updateRegionCourt(record);
+        }
+
+        return 0;
+
 
     }
     /**
@@ -72,13 +92,6 @@ public class RegionCourtDomainImpl implements RegionCourtDomain {
     public int deleteRegionCourt( List<Long> list ) {
 
         if(list.size()>0){
-            //删除机房
-//            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
-//            //删除楼栋
-//            regionBuildingDao.deleteRegionBuildingBySuperId(list);
-//            //删除街道
-//            regionStreetDao.deleteRegionStreetBySuperId(list);
-            //删除苑区
             return regionCourtDao.deleteRegionCourt(list);
         }
         return 0;

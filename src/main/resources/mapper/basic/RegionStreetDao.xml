@@ -141,7 +141,7 @@
     s.id as id,s.`name` as name,s.organization_id as organizationId,
     s.region_id as regionId,i.name as regionName,
     s.project_id as projectId,p.name as projectName,
-    s.court_id as courtId,c.name as courtName,
+    s.court_id as courtId,c.name as courtName
     FROM region_street s
     LEFT JOIN region_info i ON i.id = s.region_id
     LEFT JOIN region_project p ON p.id = s.project_id
@@ -153,4 +153,18 @@
       AND c.logic_remove = 0
       AND s.logic_remove = 0
   </select>
+  <update id="updateFindByAddressId" parameterType="java.util.Map">
+    UPDATE region_street
+    <set>
+      <if test="regionId != null">region_id =#{regionId},</if>
+      <if test="projectId != null">project_id =#{projectId},</if>
+      <if test="courtId != null">court_id= #{courtId},</if>
+
+    </set>
+    <where>
+      <if test="regionId != null">AND region_id =#{regionId}</if>
+      <if test="projectId != null">AND project_id =#{projectId}</if>
+      <if test="courtId != null">AND court_id= #{courtId}</if>
+    </where>
+  </update>
 </mapper>

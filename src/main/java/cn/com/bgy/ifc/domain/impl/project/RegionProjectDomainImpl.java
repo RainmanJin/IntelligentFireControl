@@ -81,9 +81,26 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
      * @Date 2018/12/18 17:31
      */
     @Override
+    @Transactional(rollbackFor = {Exception.class})
     public int updateRegionProjec(RegionProject record) {
-        record.setCreateTime(new Date());
-        return regionProjectDao.updateSelective(record);
+        if(record.getId()!=null){
+            Map<String,Object> map  = new HashMap<>();
+            map.put("regionId",record.getRegionId());
+            map.put("projectId",record.getId());
+            //修改机房
+            regionComputerRoomDao.updateFindByAddressId(map);
+            //修改楼栋单元
+            regionBuildingDao.updateFindByAddressId(map);
+            //修改街道
+            regionStreetDao.updateFindByAddressId(map);
+            //修改苑区
+            regionCourtDao.updateFindByAddressId(map);
+            record.setCreateTime(new Date());
+            return regionProjectDao.updateSelective(record);
+        }
+
+        return 0;
+
     }
 
     /**
@@ -97,15 +114,6 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
         List<Long> list = ListUtil.getListId(str);
 
         if(list.size()>0){
-            //删除机房
-//            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
-//            //删除楼栋
-//            regionBuildingDao.deleteRegionBuildingBySuperId(list);
-//            //删除街道
-//            regionStreetDao.deleteRegionStreetBySuperId(list);
-//            //删除苑区
-//            regionCourtDao.deleteRegionCourtBySuperId(list);
-            //删除项目
             return regionProjectDao.deleteRegionProject(list);
         }
         return 0;

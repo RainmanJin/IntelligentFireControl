@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,8 +58,22 @@ public class RegionStreetDomainImpl implements RegionStreetDomain {
      * @Date 2018/12/19 15:18
      */
     @Override
+    @Transactional(rollbackFor = {Exception.class})
     public int updateRegionStreet( RegionStreet record ) {
-        return regionStreetDao.updateRegionStreet(record);
+        if(record.getId()!=null){
+            Map<String,Object> map  = new HashMap<>();
+            map.put("regionId",record.getRegionId());
+            map.put("projectId",record.getProjectId());
+            map.put("courtId",record.getCourtId());
+            map.put("streetId",record.getId());
+            //修改机房
+            regionComputerRoomDao.updateFindByAddressId(map);
+            //修改街道信息
+            regionBuildingDao.updateFindByAddressId(map);
+            return regionStreetDao.updateRegionStreet(record);
+        }
+
+        return 0;
 
     }
     /**
@@ -70,11 +85,6 @@ public class RegionStreetDomainImpl implements RegionStreetDomain {
     @Override
     public int deleteRegionStreet( List<Long> list ) {
         if(list.size()>0){
-            //删除机房
-//            regionComputerRoomDao.deleteRegionComputerRoomBySuperId(list);
-//            //删除楼栋
-//            regionBuildingDao.deleteRegionBuildingBySuperId(list);
-            //删除区域
             return regionStreetDao.deleteRegionStreet(list);
         }
         return 0;

@@ -128,9 +128,6 @@
     from region_court c
     LEFT JOIN region_project p on  p.id = c.project_id
     LEFT JOIN region_info i on i.id = c.region_id
-    from region_court c
-    LEFT JOIN region_project p on  p.id = c.project_id
-    LEFT JOIN region_info i on i.id = c.region_id
     WHERE
       c.id= #{id,jdbcType=BIGINT}
       AND i.logic_remove = 0
@@ -138,4 +135,15 @@
       AND c.logic_remove = 0
 
   </select>
+  <update id="updateFindByAddressId" parameterType="java.util.Map">
+    UPDATE region_street
+    <set>
+      <if test="regionId != null">region_id =#{regionId},</if>
+      <if test="projectId != null">project_id =#{projectId},</if>
+    </set>
+    <where>
+      <if test="regionId != null">AND region_id =#{regionId}</if>
+      <if test="projectId != null">AND project_id =#{projectId}</if>
+    </where>
+  </update>
 </mapper>

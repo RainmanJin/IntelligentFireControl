@@ -173,7 +173,7 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
     @Override
 
     public int updateEquipmentInfo( EquipmentInfo equipmentInfo ) {
-        return equipmentInfoDao.updateEquipmentInfo(equipmentInfo);
+        return equipmentInfoDao.updateSelective(equipmentInfo);
     }
     /**
      * @Author huxin
