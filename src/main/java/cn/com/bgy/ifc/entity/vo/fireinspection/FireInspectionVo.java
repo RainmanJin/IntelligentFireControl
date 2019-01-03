@@ -44,7 +44,14 @@ public class FireInspectionVo {
     private String inspectedUnits;
     /**项目消防安全责任人签字日期*/
     private Date inspectionDay;
-
+    /**完成时间*/
+    private Date finishTime;
+    /**耗时时间*/
+    private String consumeTime;
+    /**检查类型(1设施故障检测,2每日防火巡查记,3月/重大节日)*/
+    private int inspectionType;
+    /**工单状态：1草稿、2处理中、3已完成*/
+    private int status;
     public Long getId() {
         return id;
     }
@@ -53,7 +60,39 @@ public class FireInspectionVo {
         this.id = id;
     }
 
-    public Long getRegionId() {
+    public Date getFinishTime() {
+		return finishTime;
+	}
+
+	public void setFinishTime(Date finishTime) {
+		this.finishTime = finishTime;
+	}
+
+	public String getConsumeTime() {
+		return consumeTime;
+	}
+
+	public void setConsumeTime(String consumeTime) {
+		this.consumeTime = consumeTime;
+	}
+
+	public int getInspectionType() {
+		return inspectionType;
+	}
+
+	public void setInspectionType(int inspectionType) {
+		this.inspectionType = inspectionType;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Long getRegionId() {
         return regionId;
     }
 

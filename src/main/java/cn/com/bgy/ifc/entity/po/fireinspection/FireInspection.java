@@ -44,16 +44,96 @@ public class FireInspection {
     private String inspectedUnits;
     /**项目消防安全责任人签字日期*/
     private Date inspectionDay;
+    /**完成时间*/
+    private Date finishTime;
+    /**耗时时间*/
+    private String consumeTime;
+    /**查询关键字*/
+    private String keyword;
+    /***/
+    private String fireContents;
+    /***/
+    private String situation;
+    /***/
+    private String result;
+    /**检查类型(1设施故障检测,2每日防火巡查记,3月/重大节日)*/
+    private int inspectionType;
+    /**工单状态：1草稿、2处理中、3已完成*/
+    private int status;
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public String getFireContents() {
+		return fireContents;
+	}
+
+	public void setFireContents(String fireContents) {
+		this.fireContents = fireContents;
+	}
+
+	public String getSituation() {
+		return situation;
+	}
+
+	public void setSituation(String situation) {
+		this.situation = situation;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getRegionId() {
+    public Date getFinishTime() {
+		return finishTime;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public void setFinishTime(Date finishTime) {
+		this.finishTime = finishTime;
+	}
+
+	public String getConsumeTime() {
+		return consumeTime;
+	}
+
+	public void setConsumeTime(String consumeTime) {
+		this.consumeTime = consumeTime;
+	}
+
+	public int getInspectionType() {
+		return inspectionType;
+	}
+
+	public void setInspectionType(int inspectionType) {
+		this.inspectionType = inspectionType;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Long getRegionId() {
         return regionId;
     }
 

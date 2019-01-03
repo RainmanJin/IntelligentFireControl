@@ -112,9 +112,9 @@ public class FireContentsController extends BaseController{
      * @param token
      * @return
      */
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<FireContents> queryById(@PathVariable long id, String token) {
+    public ResponseVO<FireContents> queryById( long id, String token) {
         FireContents bean = domain.findById(id);
 
         return ResponseVO.<FireContents>success().setData(bean);

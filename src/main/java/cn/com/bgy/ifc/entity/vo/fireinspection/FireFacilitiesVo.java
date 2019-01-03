@@ -1,6 +1,6 @@
-package cn.com.bgy.ifc.entity.po.fireinspection;
+package cn.com.bgy.ifc.entity.vo.fireinspection;
 
-public class FireContentsVo {
+public class FireFacilitiesVo {
     private Long id;
 
     private String name;

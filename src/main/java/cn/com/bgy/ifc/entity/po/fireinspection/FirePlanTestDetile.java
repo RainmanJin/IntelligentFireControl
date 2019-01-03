@@ -1,83 +1,108 @@
 package cn.com.bgy.ifc.entity.po.fireinspection;
 
+/**
+ * lvbingjian
+ * 
+ * @author 设施故障检测工作计划（明细） 2019年1月3日11:29:30
+ */
 public class FirePlanTestDetile {
-    private Long id;
+	private Long id;
+	// 设施故障检测工作计划主表ID
+	private Long firePlanId;
+	// 是否逻辑删除
+	private Boolean logicRemove;
+	// 消防设施ID
+	private Long fireFacilitiesId;
+	// 检查情况
+	private String situation;
+	// 处置结果
+	private String result;
+	// 设施所属区域表Id
+	private Long regionId;
+	// 设施所属区域表名称
+	private String regionName;
+	// 设施所属项目表Id
+	private Long projectId;
+	// 设施所属项目表名称
+	private String projectName;
 
-    private Long firePlanId;
+	public Long getId() {
+		return id;
+	}
 
-    private Boolean logicRemove;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    private Long fireFacilitiesId;
+	public Long getFirePlanId() {
+		return firePlanId;
+	}
 
-    private String situation;
+	public void setFirePlanId(Long firePlanId) {
+		this.firePlanId = firePlanId;
+	}
 
-    private String result;
+	public String getRegionName() {
+		return regionName;
+	}
 
-    private Long regionId;
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
 
-    private Long projectId;
+	public String getProjectName() {
+		return projectName;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Boolean getLogicRemove() {
+		return logicRemove;
+	}
 
-    public Long getFirePlanId() {
-        return firePlanId;
-    }
+	public void setLogicRemove(Boolean logicRemove) {
+		this.logicRemove = logicRemove;
+	}
 
-    public void setFirePlanId(Long firePlanId) {
-        this.firePlanId = firePlanId;
-    }
+	public Long getFireFacilitiesId() {
+		return fireFacilitiesId;
+	}
 
-    public Boolean getLogicRemove() {
-        return logicRemove;
-    }
+	public void setFireFacilitiesId(Long fireFacilitiesId) {
+		this.fireFacilitiesId = fireFacilitiesId;
+	}
 
-    public void setLogicRemove(Boolean logicRemove) {
-        this.logicRemove = logicRemove;
-    }
+	public String getSituation() {
+		return situation;
+	}
 
-    public Long getFireFacilitiesId() {
-        return fireFacilitiesId;
-    }
+	public void setSituation(String situation) {
+		this.situation = situation;
+	}
 
-    public void setFireFacilitiesId(Long fireFacilitiesId) {
-        this.fireFacilitiesId = fireFacilitiesId;
-    }
+	public String getResult() {
+		return result;
+	}
 
-    public String getSituation() {
-        return situation;
-    }
+	public void setResult(String result) {
+		this.result = result;
+	}
 
-    public void setSituation(String situation) {
-        this.situation = situation;
-    }
+	public Long getRegionId() {
+		return regionId;
+	}
 
-    public String getResult() {
-        return result;
-    }
+	public void setRegionId(Long regionId) {
+		this.regionId = regionId;
+	}
 
-    public void setResult(String result) {
-        this.result = result;
-    }
+	public Long getProjectId() {
+		return projectId;
+	}
 
-    public Long getRegionId() {
-        return regionId;
-    }
-
-    public void setRegionId(Long regionId) {
-        this.regionId = regionId;
-    }
-
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
 }

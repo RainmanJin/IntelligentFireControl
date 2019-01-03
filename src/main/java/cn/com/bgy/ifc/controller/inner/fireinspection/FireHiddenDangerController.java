@@ -112,9 +112,9 @@ public class FireHiddenDangerController extends BaseController{
      * @param token
      * @return
      */
-    @GetMapping("queryById/{id}")
+    @GetMapping("queryById")
     @ResponseBody
-    public ResponseVO<FireHiddenDanger> queryById(@PathVariable long id, String token) {
+    public ResponseVO<FireHiddenDanger> queryById( long id, String token) {
         FireHiddenDanger bean = domain.findById(id);
 
         return ResponseVO.<FireHiddenDanger>success().setData(bean);

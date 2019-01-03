@@ -67,4 +67,64 @@
       </if>
     </trim>
   </insert>
+  <sql id="Mysql">
+	  select 
+			id,
+			status,
+			Plan_cycle,
+			logic_remove,
+			create_time,
+			begin_time,
+			end_time
+	  from fire_plan_testing 
+  </sql>
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FirePlanTest" resultMap="BaseResultMap">
+  	<include refid="Mysql"/>
+  	 <where>
+      logic_remove=0 
+       <if test="id != null">
+        and id=#{id,jdbcType=BIGINT}
+      </if>
+      <if test="status != null">
+         and status=#{status,jdbcType=INTEGER}
+      </if>
+      <if test="planCycle != null">
+         and plan_cycle=#{planCycle,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="beginTime != null">
+        and begin_time=#{beginTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null">
+        and end_time=#{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </where>
+  </select>
+   <!--修改-->
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FirePlanTest">
+    UPDATE fire_plan_testing
+    <set>
+      <if test="name != null">
+        name=#{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE id = #{id}
+
+  </update>
+
+  <!--通过id查询找-->
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="Mysql"/>
+    WHERE id = #{id}
+  </select>
+
+  <!--逻辑批量删除-->
+  <update id="deleteBatch" parameterType="java.util.List">
+    UPDATE fire_plan_testing set logic_remove =1 where id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
 </mapper>

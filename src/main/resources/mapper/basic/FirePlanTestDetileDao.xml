@@ -9,7 +9,9 @@
     <result column="situation" jdbcType="VARCHAR" property="situation" />
     <result column="result" jdbcType="VARCHAR" property="result" />
     <result column="region_id" jdbcType="BIGINT" property="regionId" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
     <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FirePlanTestDetile">
     insert into fire_plan_testing_detile (id, fire_plan_id, logic_remove, 

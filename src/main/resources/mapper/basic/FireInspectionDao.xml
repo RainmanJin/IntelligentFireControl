@@ -24,16 +24,26 @@
     <result column="inspection_day" jdbcType="TIMESTAMP" property="inspectionDay" />
     <result column="project_manager" jdbcType="VARCHAR" property="projectManager" />
     <result column="inspected_units" jdbcType="VARCHAR" property="inspectedUnits" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="consume_time" jdbcType="VARCHAR" property="consumeTime" />
+    <result column="inspection_type" jdbcType="INTEGER" property="inspectionType" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="fire_contents" jdbcType="VARCHAR" property="fireContents" />
+    <result column="situation" jdbcType="VARCHAR" property="situation" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspection">
-    insert into fire_inspection (id,inspection_day, region_id, project_id, 
+    insert into fire_inspection (id,finish_time,consume_time,inspection_type,status,
+    inspection_day, region_id, project_id, 
       create_time, name, logic_remove, 
       examiner_opinion, examiner, examiner_date, 
       manager_opinion, manager_date, manager, 
       fire_manager_opinion, fire_manager_date, 
       fire_manager, project_manager_opinion, project_manager_date, 
       project_manager, inspected_units)
-    values (#{id,jdbcType=BIGINT}, #{inspectionDay,jdbcType=TIMESTAMP}, #{regionId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{finishTime,jdbcType=TIMESTAMP}, #{consumeTime,jdbcType=VARCHAR},
+     #{inspectionType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+    #{inspectionDay,jdbcType=TIMESTAMP}, #{regionId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, #{logicRemove,jdbcType=BIT}, 
       #{examinerOpinion,jdbcType=VARCHAR}, #{examiner,jdbcType=VARCHAR}, #{examinerDate,jdbcType=TIMESTAMP}, 
       #{managerOpinion,jdbcType=VARCHAR}, #{managerDate,jdbcType=TIMESTAMP}, #{manager,jdbcType=VARCHAR}, 
@@ -104,6 +114,18 @@
       <if test="inspectedUnits != null">
         inspected_units,
       </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+      <if test="consumeTime != null">
+        consume_time,
+      </if>
+      <if test="inspectionType != null">
+        inspection_type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -166,38 +188,71 @@
       <if test="inspectedUnits != null">
         #{inspectedUnits,jdbcType=VARCHAR},
       </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consumeTime != null">
+        #{consumeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionType != null">
+        #{inspectionType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+     
     </trim>
   </insert>
   <sql id="Mysql">
 	  select 
-	fi.id as id ,
-	fi.region_id as region_id,-- 区域ID
-	ri.`name` as region_name,-- 区域名称
-	fi.project_id as project_id,-- 项目ID
-	rp.name as project_name,-- 项目名称
-	fi.create_time as create_time,-- 创建时间
-	fi.name as name,-- 消防巡检名称
-	fi.logic_remove as logic_remove,-- 是否逻辑删除
-	fi.examiner_date as examiner_date,-- 检查人签字日期
-	fi.examiner_opinion as examiner_opinion,-- 检查人意见
-	fi.examiner as examiner,-- 检查人
-	fi.manager as manager,-- 被检查部门负责人反复
-	fi.manager_date as manager_date,
-	fi.manager_opinion as manager_opinion,
-	fi.fire_manager as fire_manager,
-	fi.fire_manager_date as fire_manager_date,
-	fi.fire_manager_opinion as fire_manager_opinion,
-	fi.project_manager as project_manager,
-	fi.project_manager_date as project_manager_date,
-	fi.project_manager_opinion as project_manager_opinion,
-	fi.inspected_units as inspected_units,
-	fi.inspection_day as inspection_day
+			fi.id as id ,
+			fi.region_id as region_id,-- 区域ID
+			ri.name as region_name,-- 区域名称
+			fi.project_id as project_id,-- 项目ID
+			rp.name as project_name,-- 项目名称
+			fi.create_time as create_time,-- 创建时间
+			fi.name as name,-- 消防巡检名称
+			fi.logic_remove as logic_remove,-- 是否逻辑删除
+			fi.examiner_date as examiner_date,-- 检查人签字日期
+			fi.examiner_opinion as examiner_opinion,-- 检查人意见
+			fi.examiner as examiner,-- 检查人
+			fi.manager as manager,-- 被检查部门负责人反复
+			fi.manager_date as manager_date,
+			fi.manager_opinion as manager_opinion,
+			fi.fire_manager as fire_manager,
+			fi.fire_manager_date as fire_manager_date,
+			fi.fire_manager_opinion as fire_manager_opinion,
+			fi.project_manager as project_manager,
+			fi.project_manager_date as project_manager_date,
+			fi.project_manager_opinion as project_manager_opinion,
+			fi.inspected_units as inspected_units,
+			fi.inspection_day as inspection_day,-- 检查时间
+		  FI.finish_time AS finish_time,-- 完成时间
+		  fi.consume_time AS consume_time,-- 耗时时间
+		  fi.inspection_type AS inspection_type,-- 检查类型
+		  fi.status AS status -- 工单状态
 	from fire_inspection fi
 	left join region_info ri on ri.id = fi.region_id
 	left join region_project rp on rp.id = fi.region_id 
   </sql>
   <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspection" resultMap="BaseResultMap">
-  	<include refid="Mysql"/>
+	  	select 
+		fi.id as id ,
+		fi.inspected_units as inspected_units,-- 检查部位
+		fi.examiner as examiner,-- 检查人
+	    fi.inspection_day as inspection_day,-- 检查时间
+	    FI.finish_time AS finish_time,-- 完成时间
+	    fi.consume_time AS consume_time,-- 耗时时间
+	 	fi.inspection_type AS inspection_type,-- 检查类型
+	 	concat (",",GROUP_CONCAT(cfc.`name`),",") as fire_contents,-- 检查内容
+		concat (",",GROUP_CONCAT(fid.situation),",")as situation,-- 检查情况
+		concat (",",GROUP_CONCAT(fid.result),",") as result ,-- 处置结果
+	  	fi.status AS status -- 工单状态
+		from fire_inspection fi
+		left join region_info ri on ri.id = fi.region_id
+		left join region_project rp on rp.id = fi.region_id 
+		left join fire_inspection_detail fid on fid.fire_inspe_id = fi.id
+		left join c_fire_contents cfc on cfc.id = fid.fire_contents_id
   	<trim prefix=" where " suffix="" suffixOverrides="and">
       	fi.logic_remove=0
        <if test="id != null">
@@ -209,6 +264,23 @@
       <if test="projectId != null">
         and fi.project_id=#{projectId,jdbcType=BIGINT}
       </if>
+       <if test="inspectionType != null">
+        and fi.inspection_type=#{inspectionType,jdbcType=INTEGER}
+      </if>
+       <if test="status != null">
+        and fi.status=#{status,jdbcType=INTEGER}
+      </if>
+      <if test="keyword != null">
+        and (fi.name like   concat('%',#{keyword},'%')or
+        rp.name like   concat('%',#{keyword},'%')or
+        ri.name like   concat('%',#{keyword},'%')or
+        fi.inspected_units like   concat('%',#{keyword},'%')or
+        fi.examiner like   concat('%',#{keyword},'%')or
+        fi.name like   concat('%',#{keyword},'%')or
+        fi.name like   concat('%',#{keyword},'%'))
+      </if>
+      <!-- 
+      
       <if test="createTime != null">
         and fi.create_time=#{createTime,jdbcType=TIMESTAMP}
       </if>
@@ -259,13 +331,26 @@
       </if>
       <if test="inspectedUnits != null">
         and fi.inspected_units  like   concat('%',#{inspectedUnits},'%')
-      </if>
+      </if> -->
     </trim>
+    GROUP BY fi.id
   </select>
   <!--修改维保工单-->
   <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram">
     UPDATE fire_inspection fi
-    <set>
+    <set> 
+       <if test="finishTime != null">
+        fi.finish_time=#{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consumeTime != null">
+        fi.consume_time=#{consumeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionType != null">
+        fi.inspection_type=#{inspectionType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        fi.status=#{status,jdbcType=INTEGER},
+      </if>
       <if test="regionId != null">
          fi.region_id=#{regionId,jdbcType=BIGINT},
       </if>
