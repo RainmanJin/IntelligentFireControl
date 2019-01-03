@@ -223,6 +223,43 @@
       </if>
       <if test="registTimeEnd != null">
         <![CDATA[
+        <where>
+            <if test="telephone != null">
+                and t1.telephone= #{telephone,jdbcType=VARCHAR}
+            </if>
+            <if test="jobNumber != null">
+                and t1.job_number #{jobNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="userName != null">
+                and t1.user_name #{userName,jdbcType=VARCHAR}
+            </if>
+            <if test="organizationId != null ">
+                and t1.organization_id=#{organizationId}
+            </if>
+            <if test="departmentId != null ">
+                and t1.department_id=#{departmentId}
+            </if>
+            <if test="sex != null ">
+                and t1.sex=#{sex}
+            </if>
+            <if test="currentTime != null ">
+                and t1.current_time=#{currentTime}
+            </if>
+            <if test="lastTime != null ">
+                and t1.last_time=#{lastTime}
+            </if>
+            <if test="keyWords != null and '' != keyWords">
+                AND (t1.user_name like CONCAT('%',#{keyWords},'%')
+                OR t1.job_number like CONCAT('%',#{keyWords},'%')
+                OR t1.identity_number like CONCAT('%',#{keyWords},'%')
+                OR t3.name like CONCAT('%',#{keyWords},'%')
+                )
+            </if>
+            <if test="registTimeStart != null">
+                <![CDATA[ and regist_time>=#{registTimeStart,jdbcType=TIMESTAMP} ]]>
+            </if>
+            <if test="registTimeEnd != null">
+                <![CDATA[
          and  regist_time<=#{registTimeEnd,jdbcType=TIMESTAMP}
         ]]>
       </if>
@@ -327,6 +364,27 @@
       user_type,
       remark
     from  account where telephone = #{telephone,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryListByRole" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT
+    a.id AS id,
+    a.organization_id,
+    a.department_id,
+    a.telephone,
+    a.job_number,
+    a.user_name
+    FROM system_user_role s
+    LEFT JOIN account a ON s.user_id=a.id
+    LEFT JOIN system_role r ON r.id=s.role_id
+    <where>
+      <if test="roleValue != null">
+        AND r.value= #{roleValue}
+      </if>
+      <if test="organizationId != null">
+        AND a.organization_id = #{organizationId}
+      </if>
+    </where>
   </select>
 
   <select id="findUserPowerByPage" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.system.Account">

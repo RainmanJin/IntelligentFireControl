@@ -35,12 +35,11 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
      */
     public PageInfo<SystemMenuVo> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord){
         List<SystemMenu> allMenu= systemMenuDao.queryAllSystemMenuInfo(keyWord);
-      //  page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<SystemMenu> rootMenu=new ArrayList<>();
         List<SystemMenuVo> resultMenu=new ArrayList<>();
         for (SystemMenu nav : allMenu) {
             if(nav.getParentId()==null||nav.getParentId().equals("")){//父节点是空的，为根节点。
-                nav.setPowerName("["+nav.getPowerName()+"]");
+                nav.setPowerName("["+nav.getName()+"]");
                 rootMenu.add(nav);
             }
         }

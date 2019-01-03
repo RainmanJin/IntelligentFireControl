@@ -5,14 +5,19 @@
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="display_name" jdbcType="VARCHAR" property="displayName"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="remark" jdbcType="LONGVARCHAR" property="remark"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
+        <result column="module_id" jdbcType="BIGINT" property="moduleId"/>
+        <association property="systemMenu" column="module_id" javaType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
+            <id  column="menu_id" property="id"/>
+            <result  column="menu_name" property="name"/>
+        </association>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemPower">
     insert into system_power (name, display_name,
-      remark, logic_remove)
+      remark, logic_remove,module_id)
     values (#{name,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR},
-      #{remark,jdbcType=VARCHAR}, #{logicRemove,jdbcType=BIT})
+      #{remark,jdbcType=LONGVARCHAR}, #{logicRemove,jdbcType=BIT}), #{moduleId,jdbcType=BIGINT})
   </insert>
     <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemPower">
         insert into system_power
@@ -32,6 +37,9 @@
             <if test="logicRemove != null">
                 logic_remove,
             </if>
+            <if test="moduleId != null">
+                module_id,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -44,27 +52,32 @@
                 #{displayName,jdbcType=VARCHAR},
             </if>
             <if test="remark != null">
-                #{remark,jdbcType=VARCHAR},
+                #{remark,jdbcType=LONGVARCHAR},
             </if>
             <if test="logicRemove != null">
                 #{logicRemove,jdbcType=BIT},
+            </if>
+            <if test="moduleId != null">
+                #{moduleId,jdbcType=BIT},
             </if>
         </trim>
     </insert>
 
     <select id="queryListByWhere" parameterType="String" resultMap="BaseResultMap">
         SELECT
-        id,
-        name,
-        display_name,
-        remark,
-        logic_remove
-        FROM system_power
+        p.id AS id,
+        p.name,
+        p.display_name,
+        p.remark,
+        p.logic_remove,
+        p.module_id,
+        m.name AS menu_name
+        FROM system_power p LEFT JOIN  system_menu m ON p.module_id=m.id
         <where>
             <if test="keyWords!='' and keyWords!=null">
-                AND (name LIKE concat('%',#{keywords},'%') OR display_name LIKE concat('%',#{keywords},'%'))
+                AND (p.name LIKE concat('%',#{keywords},'%') OR p.display_name LIKE concat('%',#{keywords},'%'))
             </if>
-            AND logic_remove = 0
+            AND p.logic_remove = 0
         </where>
     </select>
 
@@ -74,8 +87,9 @@
 		name,
 		display_name,
 		remark,
-		logic_remove
-		FROM system_power WHERE id = #{id}
+		logic_remove,
+        module_id
+		FROM system_power  WHERE id = #{id}
   </select>
 
     <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.SystemPower">
@@ -85,6 +99,7 @@
             <if test="displayName != null">display_name =#{displayName},</if>
             <if test="remark != null">remark =#{remark},</if>
             <if test="logicRemove != null">logic_remove =#{logicRemove}</if>
+            <if test="moduleId != null">module_id =#{moduleId}</if>
         </set>
         WHERE id
         = #{id}
@@ -97,6 +112,7 @@
             <if test="displayName != null">display_name =#{displayName},</if>
             <if test="remark != null">remark =#{remark},</if>
             <if test="logicRemove != null">logic_remove =#{logicRemove}</if>
+            <if test="moduleId != null">module_id =#{moduleId}</if>
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>

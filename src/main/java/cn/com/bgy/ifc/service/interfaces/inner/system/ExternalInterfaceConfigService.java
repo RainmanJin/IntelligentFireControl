@@ -18,7 +18,7 @@ public interface ExternalInterfaceConfigService extends BaseService<ExternalInte
      * @param: [page, platformValue]
      * @return: com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig>
      */
-    PageInfo<ExternalInterfaceConfig> queryListByPage(Page<ExternalInterfaceConfig> page, Integer platformValue);
+    PageInfo<ExternalInterfaceConfig> queryListByPage(Page<ExternalInterfaceConfig> page, Integer platformValue,Long orgId);
 
 
 }

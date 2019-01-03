@@ -213,4 +213,49 @@ public class SystemConstant {
         }
     }
 
+    /**
+     * 系统菜单模块类型
+     */
+    public enum SystemMenuType{
+        //系统管理
+        SYSTEM_MENU(1, "系统管理"),
+        //设备管理及监测equipment
+        EQUIPMENT_MENU(2, "设备管理及监测"),
+        //维保管理Maintenance
+        MAINTENANCE_MENU(3, "维保管理"),
+        //召修管理repair
+        REPAIR_MENU(4, "召修管理"),
+        //报表管理Report form
+        REPORT_FORM_MENU(5, "报表管理"),
+        //消防巡查监管Fire patrol
+        FIRE_PATROL_MENU(6, "消防巡查监管");
+
+        private Integer value;
+        private String name;
+
+        private SystemMenuType(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public static List<SelectVo> getSelectList() {
+            List<SelectVo> list = new ArrayList<>();
+            for (SystemMenuType systemMenuType : SystemMenuType.values()) {
+                SelectVo selectVo = new SelectVo();
+                selectVo.setValue(String.valueOf(systemMenuType.getValue()));
+                selectVo.setName(systemMenuType.getName());
+                list.add(selectVo);
+            }
+            return list;
+        }
+    }
+
 }

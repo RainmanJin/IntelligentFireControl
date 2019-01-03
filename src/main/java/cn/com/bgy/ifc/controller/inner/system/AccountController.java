@@ -37,7 +37,6 @@ public class AccountController extends BaseController {
     @PostMapping("add")
     @ResponseBody
     public   ResponseVO<Object>  add(Page<Account> page,@Validated AccountVo accountVo, BindingResult error){
-
             Account account= new Account();
             account.setOrganizationId(this.getUser().getOrganizationId());
             CopyUtil.copyProperties(accountVo,account);

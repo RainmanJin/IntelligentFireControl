@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.service.impl.inner.system;
 import cn.com.bgy.ifc.dao.system.SystemMenuDao;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemMenu;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemMenuVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemMenuService;
 import com.github.pagehelper.Page;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,5 +69,23 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Override
     public List<SystemMenu> findMenuTreeByType(int type, Long userId) {
         return systemMenuDomain.findMenuTreeByType(type,userId);
+    }
+
+    @Override
+    public List<SystemMenu> queryListByParam(SystemMenu systemMenu) {
+        return systemMenuDao.queryListByParam(systemMenu);
+    }
+
+    @Override
+    public List<SelectVo> getParentMenu() {
+        List<SelectVo> selectVos=new ArrayList<>();
+        List<SystemMenu> list= systemMenuDao.queryParentMenu();
+        for(SystemMenu systemMenu:list){
+            SelectVo selectVo=new SelectVo();
+            selectVo.setValue(String.valueOf(systemMenu.getId()));
+            selectVo.setName(systemMenu.getName());
+            selectVos.add(selectVo);
+        }
+        return selectVos;
     }
 }

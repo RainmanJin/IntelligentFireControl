@@ -11,6 +11,10 @@ public class SystemPower {
 
     private Boolean logicRemove;
 
+    private Long moduleId;
+
+    private SystemMenu systemMenu;
+
     public Long getId() {
         return id;
     }
@@ -51,4 +55,19 @@ public class SystemPower {
         this.logicRemove = logicRemove;
     }
 
+    public Long getModuleId() {
+        return moduleId;
+    }
+
+    public void setModuleId(Long moduleId) {
+        this.moduleId = moduleId;
+    }
+
+    public SystemMenu getSystemMenu() {
+        return systemMenu;
+    }
+
+    public void setSystemMenu(SystemMenu systemMenu) {
+        this.systemMenu = systemMenu;
+    }
 }

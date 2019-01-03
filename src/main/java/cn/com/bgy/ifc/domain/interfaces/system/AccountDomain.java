@@ -9,10 +9,12 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AccountDomain extends BaseDomain<Account> {
     /**
      * 保存用户
+     *
      * @param account
      * @return
      */
@@ -20,6 +22,7 @@ public interface AccountDomain extends BaseDomain<Account> {
 
     /**
      * 条件查找用户
+     *
      * @param account
      * @return
      */
@@ -27,6 +30,7 @@ public interface AccountDomain extends BaseDomain<Account> {
 
     /**
      * 分页查询用户
+     *
      * @param page
      * @param account
      * @return
@@ -35,6 +39,7 @@ public interface AccountDomain extends BaseDomain<Account> {
 
     /**
      * 根据id删除用户
+     *
      * @param id
      * @return
      */
@@ -42,6 +47,7 @@ public interface AccountDomain extends BaseDomain<Account> {
 
     /**
      * 根据id查找用户
+     *
      * @param id
      * @return
      */
@@ -49,6 +55,7 @@ public interface AccountDomain extends BaseDomain<Account> {
 
     /**
      * 根据id更新用户
+     *
      * @param account
      * @return
      */
@@ -56,6 +63,7 @@ public interface AccountDomain extends BaseDomain<Account> {
 
     /**
      * 根据电话称查询用户对象
+     *
      * @param telephone
      * @return
      */
@@ -63,6 +71,7 @@ public interface AccountDomain extends BaseDomain<Account> {
 
     /**
      * 根据用户名查询用户
+     *
      * @param page
      * @param account
      * @return
@@ -72,6 +81,7 @@ public interface AccountDomain extends BaseDomain<Account> {
 
     /**
      * 集成平台全量增加用户信息
+     *
      * @param list
      * @return
      */
@@ -79,14 +89,22 @@ public interface AccountDomain extends BaseDomain<Account> {
 
     /**
      * 集成平台增量增加用户信息
+     *
      * @param list
      * @param orgId
      * @return
      */
     ResponseVO<Object> alterBgyAccountList(List<BgyUserVo> list, Long orgId);
 
-    public int updateIsDisable(List<Long>idslist,int isDisable);
+    int updateIsDisable(List<Long> idslist, int isDisable);
 
-    public int initalingPassword(Account account);
+    int initalingPassword(Account account);
+
+    /**
+     * 根据角色信息查询用户信息
+     * @param map
+     * @return
+     */
+    List<Account> queryListByRole(Map<String, Object> map);
 
 }

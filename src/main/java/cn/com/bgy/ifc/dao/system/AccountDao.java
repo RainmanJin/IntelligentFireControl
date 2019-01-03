@@ -6,6 +6,7 @@ import cn.com.bgy.ifc.entity.vo.system.AccountVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AccountDao extends BaseDao {
     /**
@@ -60,4 +61,11 @@ public interface AccountDao extends BaseDao {
     int updateIsDisable(@Param("list") List<Long> idslist,@Param("isDisable") int isDisable);
 
     int initalingPassword(Account account);
+
+    /**
+     * 根据角色信息查询用户信息
+     * @param map
+     * @return
+     */
+    List<Account> queryListByRole(Map<String, Object> map);
 }
