@@ -12,7 +12,7 @@ public class HttpVo {
 
 
     /**
-     * 请求头部
+     * 请求地址
      */
     private String url;
 

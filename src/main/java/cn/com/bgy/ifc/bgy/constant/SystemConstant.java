@@ -217,18 +217,20 @@ public class SystemConstant {
      * 系统菜单模块类型
      */
     public enum SystemMenuType{
+        //首页
+        INDEX_MENU(1, "首页"),
         //系统管理
-        SYSTEM_MENU(1, "系统管理"),
+        SYSTEM_MENU(2, "系统管理"),
         //设备管理及监测equipment
-        EQUIPMENT_MENU(2, "设备管理及监测"),
+        EQUIPMENT_MENU(3, "设备管理及监测"),
         //维保管理Maintenance
-        MAINTENANCE_MENU(3, "维保管理"),
+        MAINTENANCE_MENU(4, "维保管理"),
         //召修管理repair
-        REPAIR_MENU(4, "召修管理"),
+        REPAIR_MENU(5, "召修管理"),
         //报表管理Report form
-        REPORT_FORM_MENU(5, "报表管理"),
+        REPORT_FORM_MENU(6, "报表管理"),
         //消防巡查监管Fire patrol
-        FIRE_PATROL_MENU(6, "消防巡查监管");
+        FIRE_PATROL_MENU(7, "消防巡查监管");
 
         private Integer value;
         private String name;

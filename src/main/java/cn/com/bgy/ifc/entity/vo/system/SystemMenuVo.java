@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.entity.vo.system;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,6 +35,7 @@ public class SystemMenuVo {
      * 顺序编号
      */
     @NotNull(message="顺序编号不能为空！")
+    @Max(value = 1000, message = "顺序编号不能大于1000")
     private Integer sortIndex;
 
     /**

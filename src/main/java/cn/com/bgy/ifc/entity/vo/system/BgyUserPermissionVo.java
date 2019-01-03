@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.entity.vo.system;
 
-import cn.com.bgy.ifc.entity.vo.project.BgyBaseVo;
+import cn.com.bgy.ifc.entity.vo.common.BgyBaseVo;
 
 import java.util.List;
 
@@ -35,13 +35,5 @@ public class BgyUserPermissionVo extends BgyBaseVo {
 
     public void setPermission(List<BgyPermissionVo> permission) {
         this.permission = permission;
-    }
-
-    @Override
-    public String toString() {
-        return "BgyUserPermissionVo{" +
-                "telephone='" + telephone + '\'' +
-                ", permission=" + permission +
-                '}';
     }
 }

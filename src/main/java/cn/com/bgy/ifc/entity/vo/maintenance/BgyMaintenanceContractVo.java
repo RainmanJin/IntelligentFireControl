@@ -1,6 +1,8 @@
 package cn.com.bgy.ifc.entity.vo.maintenance;
 
-import cn.com.bgy.ifc.entity.vo.project.BgyBaseVo;
+import cn.com.bgy.ifc.entity.vo.common.BgyBaseVo;
+
+import java.util.List;
 
 /**
  * @author: ZhangCheng
@@ -32,7 +34,7 @@ public class BgyMaintenanceContractVo extends BgyBaseVo {
     /**
      * 维保公司id
      */
-    private String companyId;
+    private Long companyId;
     /**
      * 主联系人
      */
@@ -58,6 +60,11 @@ public class BgyMaintenanceContractVo extends BgyBaseVo {
      * 创建时间
      */
     private String createTime;
+
+    /**
+     * 合同附件
+     */
+    private List<BgyMaintenanceContractFileVo> fileList;
 
     public Long getAreaId() {
         return areaId;
@@ -99,11 +106,11 @@ public class BgyMaintenanceContractVo extends BgyBaseVo {
         this.telephone = telephone;
     }
 
-    public String getCompanyId() {
+    public Long getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(String companyId) {
+    public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
 
@@ -153,5 +160,13 @@ public class BgyMaintenanceContractVo extends BgyBaseVo {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public List<BgyMaintenanceContractFileVo> getFileList() {
+        return fileList;
+    }
+
+    public void setFileList(List<BgyMaintenanceContractFileVo> fileList) {
+        this.fileList = fileList;
     }
 }

@@ -58,7 +58,7 @@ public interface MaintenanceCompanyDomain {
 
     /**
      * @author: ZhangCheng
-     * @description:集成平台全量增加设备型号信息（全量）
+     * @description:集成平台全量获取维保公司信息（全量）
      * @param: [list, orgId]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
@@ -66,7 +66,7 @@ public interface MaintenanceCompanyDomain {
 
     /**
      * @author: ZhangCheng
-     * @description:集成平台增量增加设备型号信息（增量）
+     * @description:集成平台增量获取维保公司信息（增量）
      * @param: [list, orgId]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */

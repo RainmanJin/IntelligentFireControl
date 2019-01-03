@@ -1,11 +1,13 @@
 package cn.com.bgy.ifc.entity.vo.project;
 
+import cn.com.bgy.ifc.entity.vo.common.BgyBaseVo;
+
 import java.util.Date;
 
 /**
  * 区域列表
  */
-public class BgyRegionInfoVo extends BgyBaseVo{
+public class BgyRegionInfoVo extends BgyBaseVo {
     /**
      * 集成平台Id
      */

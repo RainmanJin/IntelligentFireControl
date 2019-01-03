@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.domain.interfaces.maintenance;
+
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.maintenance.BgyMaintenanceContractVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -14,6 +17,7 @@ import java.util.Map;
 public interface MaintenanceContractDomain {
     /**
      * 分页查询
+     *
      * @param page
      * @param maintenanceContract
      * @return
@@ -22,6 +26,7 @@ public interface MaintenanceContractDomain {
 
     /**
      * 列表查询
+     *
      * @param record
      * @return
      */
@@ -29,6 +34,7 @@ public interface MaintenanceContractDomain {
 
     /**
      * 添加
+     *
      * @param record set值
      * @return
      */
@@ -36,13 +42,15 @@ public interface MaintenanceContractDomain {
 
     /**
      * 修改
+     *
      * @param record 合同修改字段
      * @return
      */
-    int updateMaintenanceContract( MaintenanceContract record );
+    int updateMaintenanceContract(MaintenanceContract record);
 
     /**
-     *通过ID查询
+     * 通过ID查询
+     *
      * @param （合同id）
      * @return
      */
@@ -50,6 +58,7 @@ public interface MaintenanceContractDomain {
 
     /**
      * 批量删除
+     *
      * @param str（id逗号拼接）
      * @return
      */
@@ -57,15 +66,39 @@ public interface MaintenanceContractDomain {
 
     /**
      * h获取区域下拉框初始值
+     *
      * @return
      */
-    List<Map<String,Object>> getRegionList();
+    List<Map<String, Object>> getRegionList();
 
 
     /**
      * 获取项目下拉框初始值
+     *
      * @return
      */
-    List<Map<String,Object>> getRegionProjectList();
+    List<Map<String, Object>> getRegionProjectList();
+
+    /**
+     * @author: ZhangCheng
+     * @description:集成平台全量获取维保合同信息（全量）
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    ResponseVO<Object> saveBgyMaintenanceContract(List<BgyMaintenanceContractVo> list, Long orgId);
+
+    /**
+     * @author: ZhangCheng
+     * @description:
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    /**
+     * @author: ZhangCheng
+     * @description:集成平台增量获取维保合同信息（增量）
+     * @param: [list, orgId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    ResponseVO<Object> alterBgyMaintenanceContract(List<BgyMaintenanceContractVo> list, Long orgId);
 
 }

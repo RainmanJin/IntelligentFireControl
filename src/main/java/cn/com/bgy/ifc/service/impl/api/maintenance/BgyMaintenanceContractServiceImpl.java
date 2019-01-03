@@ -12,8 +12,7 @@ import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.HttpVo;
-import cn.com.bgy.ifc.entity.vo.equipment.BgyMachineRoomVo;
-import cn.com.bgy.ifc.entity.vo.maintenance.BgyMaintenanceCompanyVo;
+import cn.com.bgy.ifc.entity.vo.maintenance.BgyMaintenanceContractVo;
 import cn.com.bgy.ifc.service.interfaces.api.maintenance.BgyMaintenanceContractService;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -79,11 +78,11 @@ public class BgyMaintenanceContractServiceImpl implements BgyMaintenanceContract
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
         // 总页数
         int pageCount = ResponseUtil.getPageCount(response, pageSize);
-        List<BgyMaintenanceCompanyVo> oList = new ArrayList<>();
-        BgyMaintenanceCompanyVo bgyMaintenanceCompanyVo = new BgyMaintenanceCompanyVo();
-        ResponseUtil.getResultList(oList, bgyMaintenanceCompanyVo, response, "data", "list");
+        List<BgyMaintenanceContractVo> oList = new ArrayList<>();
+        BgyMaintenanceContractVo contractVo = new BgyMaintenanceContractVo();
+        ResponseUtil.getResultList(oList, contractVo, response, "data", "list");
         if (pageCount != 0) {
-            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, bgyMaintenanceCompanyVo, "data", "list");
+            ResponseUtil.getResultByPage(pageNo, pageSize, pageCount, config, reqUrl, oList, contractVo, "data", "list");
         }
         int totalCount = oList.size();
         if (totalCount > 0) {
@@ -96,7 +95,7 @@ public class BgyMaintenanceContractServiceImpl implements BgyMaintenanceContract
 
     @Override
     public ResponseVO<Object> obtainBgyRepairContractIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime) throws Exception {
-        String reqUrl = "/api/third/equipment/getMachineRoomIncrement";
+        String reqUrl = "/api/third/contract/getContratIncrement";
         Long orgId = config.getOrgId();
         //格式化时间字符串
         String dateTime = TimeUtil.parseDateToStr(createTime);
@@ -111,11 +110,11 @@ public class BgyMaintenanceContractServiceImpl implements BgyMaintenanceContract
         JSONObject response = HttpHelper.httpPost(httpVo.getUrl(), data, httpVo.getHeaderMap());
         // 总页数
         int pageCount = ResponseUtil.getPageCount(response, pageSize);
-        List<BgyMachineRoomVo> oList = new ArrayList<>();
-        BgyMachineRoomVo roomVo = new BgyMachineRoomVo();
-        ResponseUtil.getResultList(oList, roomVo, response, "data", "list");
+        List<BgyMaintenanceContractVo> oList = new ArrayList<>();
+        BgyMaintenanceContractVo contractVo = new BgyMaintenanceContractVo();
+        ResponseUtil.getResultList(oList, contractVo, response, "data", "list");
         if (pageCount != 0) {
-            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, roomVo, "data", "list");
+            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, contractVo, "data", "list");
         }
         int totalCount = oList.size();
         if (totalCount > 0) {

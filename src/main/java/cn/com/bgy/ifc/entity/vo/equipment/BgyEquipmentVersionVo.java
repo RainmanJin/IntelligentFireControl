@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.entity.vo.equipment;
 
-import cn.com.bgy.ifc.entity.vo.project.BgyBaseVo;
+import cn.com.bgy.ifc.entity.vo.common.BgyBaseVo;
 
 /**
  * @author: ZhangCheng

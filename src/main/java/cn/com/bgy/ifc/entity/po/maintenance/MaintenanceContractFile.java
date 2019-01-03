@@ -13,6 +13,8 @@ public class MaintenanceContractFile {
 
     private String fileName;
 
+    private Boolean isDownload;
+
     private Date createTime;
 
     private Boolean logicRemove;
@@ -55,6 +57,14 @@ public class MaintenanceContractFile {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public Boolean getDownload() {
+        return isDownload;
+    }
+
+    public void setDownload(Boolean download) {
+        isDownload = download;
     }
 
     public Date getCreateTime() {

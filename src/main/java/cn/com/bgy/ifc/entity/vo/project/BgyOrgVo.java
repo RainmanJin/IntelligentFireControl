@@ -1,5 +1,7 @@
 package cn.com.bgy.ifc.entity.vo.project;
 
+import cn.com.bgy.ifc.entity.vo.common.BgyBaseVo;
+
 /**
  * @author: ZhangCheng
  * @description:碧桂园集成平台机构VO

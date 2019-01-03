@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.entity.vo.project;
+package cn.com.bgy.ifc.entity.vo.common;
 
 /**
  * @author: ZhangCheng
