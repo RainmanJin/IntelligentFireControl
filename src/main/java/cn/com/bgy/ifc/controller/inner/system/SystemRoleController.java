@@ -23,7 +23,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -36,6 +39,9 @@ public class SystemRoleController {
 
     @Autowired
     private SystemRoleService systemRoleService;
+
+    @Autowired
+    private SystemRoleDomain systemRoleDomain;
     /**
      * 分页查询
      * @param page
@@ -148,4 +154,59 @@ public class SystemRoleController {
         List<SystemRole> list = roleDomain.queryListByUserId(userId);
         return ResponseVO.<List<SystemRole>>success().setData(list);
     }*/
+    /**
+     * @author: chenlie
+     * @description:根据登录用户查询角色
+     * @param:
+     * @return:
+     */
+    @GetMapping("queryListByUserId")
+    public ResponseVO<Object> findParentNameByUserId(Long userId) {
+
+        List<SystemRole> list = systemRoleDomain.queryListByUserId(userId);
+        return ResponseVO.<Object>success().setData(list);
+    }
+    /**
+     * @author: chenlie
+     * @description:查询系统所有角色
+     * @param:
+     * @return:
+     */
+    @GetMapping("queryAll")
+    public ResponseVO<Object> queryAll() {
+
+        List<SystemRole> list = systemRoleDomain.queryListByParam(null);
+        List<Map<String,List<SystemRole>>> resultList=new ArrayList<>();
+        Map<String,List<SystemRole>> map1=new HashMap<>();
+        Map<String,List<SystemRole>> map2=new HashMap<>();
+        Map<String,List<SystemRole>> map3=new HashMap<>();
+        Map<String,List<SystemRole>> map4=new HashMap<>();
+        List<SystemRole> list1=new ArrayList<>();
+        List<SystemRole> list2=new ArrayList<>();
+        List<SystemRole> list3=new ArrayList<>();
+        List<SystemRole> list4=new ArrayList<>();
+        for (SystemRole role:list){
+            if (role.getType() !=null&&role.getType().longValue()==1){
+                list1.add(role);
+            }
+            if (role.getType() !=null&&role.getType().longValue()==2){
+                list2.add(role);
+            }
+            if (role.getType() !=null&&role.getType().longValue()==3){
+                list3.add(role);
+            }
+            if (role.getType() !=null&&role.getType().longValue()==4){
+                list4.add(role);
+            }
+        }
+        map1.put("one",list1);
+        map1.put("two",list2);
+        map1.put("three",list3);
+        map1.put("four",list4);
+        resultList.add(map1);
+        resultList.add(map2);
+        resultList.add(map3);
+        resultList.add(map4);
+        return ResponseVO.<Object>success().setData(list);
+    }
 }
