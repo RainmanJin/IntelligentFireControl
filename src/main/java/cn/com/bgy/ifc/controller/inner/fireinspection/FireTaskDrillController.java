@@ -4,9 +4,11 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.entity.po.fireinspection.FireTaskDrill;
+import cn.com.bgy.ifc.entity.po.fireinspection.FireTaskTrain;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.fireinspection.FireTaskDrillVo;
+import cn.com.bgy.ifc.entity.vo.fireinspection.FireTaskTrainVo;
 import cn.com.bgy.ifc.service.interfaces.inner.fireinspection.FireTaskDrillService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -32,11 +34,17 @@ public class FireTaskDrillController {
     @Autowired
     private FireTaskDrillService fireTaskDrillService;
 
-   /* @GetMapping("queryPage")
-    public ResponseVO<PageInfo<FireTaskDrill>> searchPage(Page<FireTaskDrill> page, String keywords) {
-        PageInfo<FireTaskDrill> pageInfo = fireTaskDrillService.queryListByPage(page, keywords);
+    /**
+     * @author: ZhangCheng
+     * @description:消防演练任务分页查询
+     * @param: [page, fireTaskDrillVo]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.fireinspection.FireTaskDrill>>
+     */
+    @GetMapping("queryPageData")
+    public ResponseVO<PageInfo<FireTaskDrill>> searchPage(Page<FireTaskDrill> page, FireTaskDrillVo fireTaskDrillVo) {
+        PageInfo<FireTaskDrill> pageInfo = fireTaskDrillService.queryListByPage(page, fireTaskDrillVo);
         return ResponseVO.<PageInfo<FireTaskDrill>>success().setData(pageInfo);
-    }*/
+    }
 
     /**
      * @author: ZhangCheng

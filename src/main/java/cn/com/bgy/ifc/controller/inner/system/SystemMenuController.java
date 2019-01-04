@@ -127,7 +127,7 @@ public class SystemMenuController extends BaseController {
      * @param: [ids]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(type = 1, description = "删除系统菜单")
     public ResponseVO<Object> deleteBatch(String ids) {
         if (ids.length() == 0) {

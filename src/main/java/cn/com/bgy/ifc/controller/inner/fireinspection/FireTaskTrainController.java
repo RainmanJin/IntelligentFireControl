@@ -3,12 +3,12 @@ package cn.com.bgy.ifc.controller.inner.fireinspection;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
-import cn.com.bgy.ifc.entity.po.fireinspection.FireTaskDrill;
 import cn.com.bgy.ifc.entity.po.fireinspection.FireTaskTrain;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.fireinspection.FireTaskDrillVo;
 import cn.com.bgy.ifc.entity.vo.fireinspection.FireTaskTrainVo;
 import cn.com.bgy.ifc.service.interfaces.inner.fireinspection.FireTaskTrainService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +30,19 @@ public class FireTaskTrainController {
 
     @Autowired
     private FireTaskTrainService fireTaskTrainService;
+
+
+    /**
+     * @author: ZhangCheng
+     * @description:消防培训任务分页查询
+     * @param: [page, fireTaskTrainVo]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo < cn.com.bgy.ifc.entity.po.fireinspection.FireTaskTrain>>
+     */
+    @GetMapping("queryPageData")
+    public ResponseVO<PageInfo<FireTaskTrain>> searchPage(Page<FireTaskTrain> page, FireTaskTrainVo fireTaskTrainVo) {
+        PageInfo<FireTaskTrain> pageInfo = fireTaskTrainService.queryListByPage(page, fireTaskTrainVo);
+        return ResponseVO.<PageInfo<FireTaskTrain>>success().setData(pageInfo);
+    }
 
     /**
      * @author: ZhangCheng

@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * @author: ZhangCheng
- * @description:
+ * @description:消防演练任务
  * @date: 2019-01-04 15:05
  **/
 public class FireTaskDrillVo {
@@ -12,69 +12,84 @@ public class FireTaskDrillVo {
     private Long id;
 
     /**
-     *消防演练任务名称
+     * 消防演练任务名称
      */
     private String name;
 
     /**
-     *开始时间
+     * 开始时间
      */
     private Date startTime;
 
     /**
-     *结束时间
+     * 结束时间
      */
     private Date endTime;
 
     /**
-     *地点
+     * 地点
      */
     private String place;
 
     /**
-     *指挥人
+     * 指挥人
      */
     private String command;
 
     /**
-     *参与部门
+     * 参与部门
      */
     private String department;
 
     /**
-     *出动人数
+     * 出动人数
      */
     private Integer dispatchedPerson;
 
     /**
-     *出动车数
+     * 出动车数
      */
     private Integer vehiclesDispatched;
 
     /**
-     *消防演练结果
+     * 消防演练结果
      */
     private String trainResults;
 
     /**
-     *物业名称
+     * 物业名称
      */
     private String propertyName;
 
     /**
-     *区域ID
+     * 区域ID
      */
     private Long regionId;
 
     /**
-     *创建时间
+     * 创建时间
      */
     private Date createTime;
 
     /**
-     *消防演练内容
+     * 消防演练内容
      */
     private String content;
+
+    /**
+     * 开始日期时间
+     */
+    private String startStr;
+
+    /**
+     * 结束日期时间
+     */
+    private String endStr;
+
+    /**
+     * 关键字
+     */
+    private String keywords;
 
     public Long getId() {
         return id;
@@ -186,5 +201,29 @@ public class FireTaskDrillVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    public String getStartStr() {
+        return startStr;
+    }
+
+    public void setStartStr(String startStr) {
+        this.startStr = startStr;
+    }
+
+    public String getEndStr() {
+        return endStr;
+    }
+
+    public void setEndStr(String endStr) {
+        this.endStr = endStr;
     }
 }

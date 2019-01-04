@@ -3,30 +3,61 @@ package cn.com.bgy.ifc.entity.po.fireinspection;
 import java.util.Date;
 
 public class FireTaskTrain {
+
     private Long id;
 
+    /**
+     * 消防培训任务名称
+     */
     private String name;
 
+    /**
+     * 开始时间
+     */
     private Date startTime;
 
+    /**
+     * 结束时间
+     */
     private Date endTime;
 
+    /**
+     * 人数
+     */
     private Integer number;
 
+    /**
+     * 培训对象
+     */
     private String trainingObject;
 
+    /**
+     * 消防培训结果
+     */
     private String trainResults;
 
+    /**
+     * 培训部门
+     */
     private String department;
 
+    /**
+     * 合格率
+     */
     private Integer passRate;
 
+    /**
+     * 区域ID
+     */
     private Long regionId;
 
     private Date createTime;
 
     private Boolean logicRemove;
 
+    /**
+     * 消防培训内容
+     */
     private String content;
 
     public Long getId() {

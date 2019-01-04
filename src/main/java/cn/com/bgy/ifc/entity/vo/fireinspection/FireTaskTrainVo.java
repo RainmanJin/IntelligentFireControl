@@ -11,27 +11,70 @@ public class FireTaskTrainVo {
 
     private Long id;
 
+    /**
+     * 消防培训任务名称
+     */
     private String name;
 
+    /**
+     * 开始时间
+     */
     private Date startTime;
 
+    /**
+     * 结束时间
+     */
     private Date endTime;
 
+    /**
+     * 人数
+     */
     private Integer number;
 
+    /**
+     * 培训对象
+     */
     private String trainingObject;
 
+    /**
+     * 消防培训结果
+     */
     private String trainResults;
 
+    /**
+     * 培训部门
+     */
     private String department;
 
+    /**
+     * 合格率
+     */
     private Integer passRate;
 
+    /**
+     * 区域ID
+     */
     private Long regionId;
 
     private Date createTime;
 
     private String content;
+
+
+    /**
+     * 开始日期时间
+     */
+    private String startStr;
+
+    /**
+     * 结束日期时间
+     */
+    private String endStr;
+
+    /**
+     * 关键字
+     */
+    private String keywords;
 
     public Long getId() {
         return id;
@@ -127,5 +170,29 @@ public class FireTaskTrainVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    public String getStartStr() {
+        return startStr;
+    }
+
+    public void setStartStr(String startStr) {
+        this.startStr = startStr;
+    }
+
+    public String getEndStr() {
+        return endStr;
+    }
+
+    public void setEndStr(String endStr) {
+        this.endStr = endStr;
     }
 }

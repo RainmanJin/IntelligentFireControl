@@ -205,6 +205,28 @@
         = #{id}
     </update>
 
+    <select id="queryListByPage" parameterType="cn.com.bgy.ifc.entity.vo.fireinspection.FireTaskDrillVo" resultMap="BaseResultMap">
+		SELECT
+	  id, name, start_time,
+      end_time, place, command,
+      department, dispatched_person, vehicles_dispatched,
+      train_results, property_name, region_id,
+      create_time, logic_remove, content
+		FROM fire_task_drill
+        <where>
+            <if test="startStr != null and startStr != ''">
+                AND start_time >=#{startStr}
+            </if>
+            <if test="endStr != null and endStr != ''">
+                AND end_time &lt;= #{endStr}
+            </if>
+            <if test="keywords!='' and keywords!=null">
+                AND (name LIKE concat('%',#{keywords},'%') OR place LIKE concat('%',#{keywords},'%'))
+            </if>
+            AND logic_remove = 0
+        </where>
+    </select>
+
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
 		SELECT
 	  id, name, start_time,

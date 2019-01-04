@@ -104,7 +104,7 @@ public class SystemPowerController {
      * @param: [ids]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(type = 1, description = "删除系统权限")
     public ResponseVO<Object> delete(String ids) {
         if (ids.length() == 0) {

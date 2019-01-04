@@ -2,7 +2,11 @@ package cn.com.bgy.ifc.service.impl.inner.fireinspection;
 
 import cn.com.bgy.ifc.dao.fireinspection.FireTaskDrillDao;
 import cn.com.bgy.ifc.entity.po.fireinspection.FireTaskDrill;
+import cn.com.bgy.ifc.entity.vo.fireinspection.FireTaskDrillVo;
 import cn.com.bgy.ifc.service.interfaces.inner.fireinspection.FireTaskDrillService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -47,5 +51,13 @@ public class FireTaskDrillServiceImpl implements FireTaskDrillService {
     @Override
     public int deleteBatch(List<Long> ids) {
         return fireTaskDrillDao.deleteBatch(ids);
+    }
+
+    @Override
+    public PageInfo<FireTaskDrill> queryListByPage(Page<FireTaskDrill> page, FireTaskDrillVo fireTaskDrillVo) {
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        List<FireTaskDrill> list = fireTaskDrillDao.queryListByPage(fireTaskDrillVo);
+        PageInfo<FireTaskDrill> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }
