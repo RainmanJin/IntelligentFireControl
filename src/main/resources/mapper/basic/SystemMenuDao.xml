@@ -108,7 +108,7 @@
         FROM
         system_menu m LEFT JOIN system_power p on m.power_id=p.id
         WHERE m.logic_remove=0
-        <if test="keyWord !=null">
+        <if test="keyWord !=null and keyWord !='' ">
             and (
             m.name like concat(concat('%',#{keyWord}),'%')
             )
@@ -134,7 +134,7 @@
         FROM
         system_user_role ur
         WHERE
-        ur.id in (
+        ur.role_id in (
         select id from system_role r where r.logic_remove=0
         )
         )
