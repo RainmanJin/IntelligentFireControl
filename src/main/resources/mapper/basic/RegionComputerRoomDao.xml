@@ -214,7 +214,7 @@
         cr.id as id,cr.organization_id as organizationId,
         cr.`name` as name,cr.code as code,
         cr.region_id as regionId,i.`name` as regionName,
-        cr.project_id as projectId,p.`name` as projectName
+        cr.project_id as projectId,p.`name` as projectName,
         cr.court_id as courtId,c.name as courtName,
         cr.street_id as streetId,s.name as streetName,
         cr.building_id as buildingId,b.name as buildingName

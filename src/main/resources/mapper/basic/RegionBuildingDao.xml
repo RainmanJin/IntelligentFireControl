@@ -168,7 +168,7 @@
     LEFT JOIN region_court c on b.court_id = c.id
     LEFT JOIN region_street s on b.street_id = s.id
     WHERE
-      s.id= #{id,jdbcType=BIGINT}
+      b.id= #{id,jdbcType=BIGINT}
       AND i.logic_remove = 0
       AND p.logic_remove = 0
       AND c.logic_remove = 0
