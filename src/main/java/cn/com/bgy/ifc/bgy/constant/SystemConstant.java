@@ -164,20 +164,17 @@ public class SystemConstant {
      * 系统日志类型
      * */
     public enum SystemLogType {
+        //登录日志，操作日志，错误日志，接口日志，系统日志
         //操作日志
         OPERATION_LOG(1, "操作日志"),
-        //设备日志
-        DEVICE_LOG(2, "设备日志"),
-        //消防监测日志
-        FIRE_MONITOR_LOG(3, "消防监测日志"),
-        //告警日志
-        GIVE_ALARM_LOG(4, "告警日志"),
-        //召修日志
-        CALL_REPAIR_LOG(5, "召修日志"),
-        //维保日志
-        MAINTENANCE_LOG(6, "维保日志"),
-        //接口调用日志
-        INTERFACE_LOG(7, "接口调用日志");
+        //登录日志
+        LOGON_LOG(2, "登录日志"),
+        //错误日志
+        ERROR_LOG(3, "错误日志"),
+        //系统日志
+        SYSTEM_LOG(4, "系统日志"),
+        //接口日志
+        INTERFACE_LOG(5, "接口日志");
 
         private Integer value;
         private String name;

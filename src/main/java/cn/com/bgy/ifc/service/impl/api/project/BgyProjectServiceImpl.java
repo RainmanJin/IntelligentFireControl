@@ -47,7 +47,7 @@ public class BgyProjectServiceImpl implements BgyProjectService {
     @Autowired
     private RegionInfoDomain regionInfoDomain;
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台项目数据")
+    @SystemLogAfterSave(type = 5, description = "同步集成平台项目数据")
     @Override
     public ResponseVO<Object> baseObtainBgyProject(int pageNo, int pageSize) {
         try {

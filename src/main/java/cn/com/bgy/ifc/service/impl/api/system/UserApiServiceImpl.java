@@ -134,7 +134,7 @@ public class UserApiServiceImpl implements UserApiService {
         }
     }
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台用户数据")
+    @SystemLogAfterSave(type = 5, description = "同步集成平台用户数据")
     @Override
     public ResponseVO<Object> baseObtainBgyUser(int pageNo, int pageSize) {
         try {
@@ -229,7 +229,7 @@ public class UserApiServiceImpl implements UserApiService {
         }
     }
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台用户权限数据")
+    @SystemLogAfterSave(type = 5, description = "同步集成平台用户权限数据")
     @Override
     public ResponseVO<Object> baseObtainBgyUserPermission(int pageNo, int pageSize) {
         try {

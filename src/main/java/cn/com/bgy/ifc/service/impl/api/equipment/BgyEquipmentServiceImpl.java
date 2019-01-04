@@ -57,7 +57,7 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
     @Autowired
     private EquipmentVersionDomain equipmentVersionDomain;
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台设备信息数据")
+    @SystemLogAfterSave(type = 5, description = "同步集成平台设备信息数据")
     @Override
     public ResponseVO<Object> baseObtainBgyEquipmentInfo(int pageNo, int pageSize) {
         try {
@@ -230,7 +230,7 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
 
     }
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台设备品牌数据")
+    @SystemLogAfterSave(type = 5, description = "同步集成平台设备品牌数据")
     @Override
     public ResponseVO<Object> baseObtainBgyEquipmentBrand(int pageNo, int pageSize) {
         try {
@@ -316,7 +316,7 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
         }
     }
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台设备型号数据")
+    @SystemLogAfterSave(type = 5, description = "同步集成平台设备型号数据")
     @Override
     public ResponseVO<Object> baseObtainBgyEquipmentVersion(int pageNo, int pageSize) {
         try {

@@ -42,7 +42,7 @@ public class BgyOrgServiceImpl implements BgyOrgService {
     @Autowired
     private SystemOrganizationDomain systemOrganizationDomain;
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台机构数据")
+    @SystemLogAfterSave(type = 5, description = "同步集成平台机构数据")
     @Override
     public ResponseVO<Object> baseObtainBgyOrg(int pageNo, int pageSize) {
         try {

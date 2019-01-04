@@ -1,8 +1,14 @@
-package cn.com.bgy.ifc.entity.po.fireinspection;
+package cn.com.bgy.ifc.entity.vo.fireinspection;
 
 import java.util.Date;
 
-public class FireTaskDrill {
+/**
+ * @author: ZhangCheng
+ * @description:
+ * @date: 2019-01-04 15:05
+ **/
+public class FireTaskDrillVo {
+
     private Long id;
 
     /**
@@ -61,14 +67,9 @@ public class FireTaskDrill {
     private Long regionId;
 
     /**
-     *
+     *创建时间
      */
     private Date createTime;
-
-    /**
-     *
-     */
-    private Boolean logicRemove;
 
     /**
      *消防演练内容
@@ -177,14 +178,6 @@ public class FireTaskDrill {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Boolean getLogicRemove() {
-        return logicRemove;
-    }
-
-    public void setLogicRemove(Boolean logicRemove) {
-        this.logicRemove = logicRemove;
     }
 
     public String getContent() {

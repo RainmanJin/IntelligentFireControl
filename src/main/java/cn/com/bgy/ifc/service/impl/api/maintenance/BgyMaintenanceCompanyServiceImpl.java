@@ -42,7 +42,7 @@ public class BgyMaintenanceCompanyServiceImpl implements BgyMaintenanceCompanySe
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台维保公司数据")
+    @SystemLogAfterSave(type = 5, description = "同步集成平台维保公司数据")
     @Override
     public ResponseVO<Object> baseObtainBgyRepairCompany(int pageNo, int pageSize) {
         try {

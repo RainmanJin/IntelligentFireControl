@@ -40,7 +40,7 @@ public class BgyMaintenanceWorkOrderServiceImpl implements BgyMaintenanceWorkOrd
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台维保工单数据")
+    @SystemLogAfterSave(type = 5, description = "同步集成平台维保工单数据")
     @Override
     public ResponseVO<Object> baseObtainBgyMaintenanceWorkOrder(int pageNo, int pageSize) {
         try {

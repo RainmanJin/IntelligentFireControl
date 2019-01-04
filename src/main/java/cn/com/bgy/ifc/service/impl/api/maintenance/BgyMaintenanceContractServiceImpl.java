@@ -38,7 +38,7 @@ public class BgyMaintenanceContractServiceImpl implements BgyMaintenanceContract
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台维保合同数据")
+    @SystemLogAfterSave(type = 5, description = "同步集成平台维保合同数据")
     @Override
     public ResponseVO<Object> baseObtainBgyRepairContract(int pageNo, int pageSize) {
         try {

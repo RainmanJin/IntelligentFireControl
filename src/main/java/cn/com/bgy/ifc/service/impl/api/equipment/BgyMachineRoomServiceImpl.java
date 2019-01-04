@@ -42,7 +42,7 @@ public class BgyMachineRoomServiceImpl implements BgyMachineRoomService {
     @Autowired
     private RegionComputerRoomDomain regionComputerRoomDomain;
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台机房数据")
+    @SystemLogAfterSave(type = 5, description = "同步集成平台机房数据")
     @Override
     public ResponseVO<Object> baseObtainBgyMachineRoom(int pageNo, int pageSize) {
         try {
