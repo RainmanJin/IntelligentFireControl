@@ -284,7 +284,7 @@
         FROM
         system_user_role ur
         WHERE
-        ur.user_id = #{userId} and ur.id in (
+        ur.user_id = #{userId} and ur.role_id in (
         select id from system_role r where r.logic_remove=0
         )
         )
