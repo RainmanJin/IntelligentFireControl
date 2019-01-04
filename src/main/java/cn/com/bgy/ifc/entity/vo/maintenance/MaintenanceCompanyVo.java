@@ -22,7 +22,10 @@ public class MaintenanceCompanyVo {
 
     @NotBlank(message="维保公司电话能为空")
     private String telephone;
-
+    //公司简称
+    private String shortName;
+    //联系人
+    private String contact;
     private String remark;
 
     private Date createTime;
@@ -33,7 +36,23 @@ public class MaintenanceCompanyVo {
         return id;
     }
 
-    public void setId(Long id) {
+    public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
