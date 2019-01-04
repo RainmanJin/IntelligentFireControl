@@ -9,15 +9,18 @@
     <result column="region_name" jdbcType="VARCHAR" property="regionName" />
     <result column="name" jdbcType="VARCHAR" property="companyName" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="short_name" jdbcType="VARCHAR" property="shortName" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany">
-    insert into maintenance_company (id, organization_id, name,
+    insert into maintenance_company (id, short_name,contact,organization_id, name,
       telephone, remark, create_time, 
       logic_remove,region_id)
-    values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR},
+    values (#{id,jdbcType=BIGINT}, #{shortName,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR},
       #{telephone,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{logicRemove,jdbcType=BIT}, #{regionId,jdbcType=BIGINT})
   </insert>
@@ -26,6 +29,12 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="shortName != null">
+        short_name,
+      </if>
+      <if test="contact != null">
+        contact,
       </if>
       <if test="organizationId != null">
         organization_id,
@@ -49,6 +58,12 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="shortName != null">
+        #{shortName,jdbcType=VARCHAR}, 
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
       </if>
       <if test="organizationId != null">
         #{organizationId,jdbcType=BIGINT},
@@ -76,6 +91,8 @@
       select mc.id as id,mc.organization_id as organization_id,
               so.name as organization_name,
               ri.id as region_id,
+              mc.short_name as short_name,
+              mc.contact as contact,
               ri.name as region_name,
               mc.name as name,mc.telephone as telephone,
               mc.remark,mc.create_time,mc.logic_remove
@@ -94,9 +111,15 @@
       and mc.organization_id= #{organizationId,jdbcType=BIGINT}
     </if>
 
-    <if test="companyName != null">
+    <if test="keyword != null">
       <!--暂定关键字查询为合维保公司名称的模糊查询-->
-      and mc.name like   concat('%',#{companyName},'%')
+      and (mc.name like   concat('%',#{keyword},'%')or
+      so.name like   concat('%',#{keyword},'%')or
+      mc.short_name like   concat('%',#{keyword},'%')or
+      mc.contact like   concat('%',#{keyword},'%')or
+      ri.name like   concat('%',#{keyword},'%')or
+      mc.remark like   concat('%',#{keyword},'%')
+      )
     </if>
 
 </select>
@@ -109,6 +132,12 @@
       </if>
       <if test="name != null">
         name=#{name},
+      </if>
+      <if test="shortName != null">
+        short_name=#{shortName},
+      </if>
+      <if test="contact != null">
+        contact=#{contact},
       </if>
       <if test="telephone != null">
         telephone=#{telephone},

@@ -21,6 +21,12 @@ public class MaintenanceCompany {
     private String telephone;
 
     private String remark;
+    //公司简称
+    private String shortName;
+    //联系人
+    private String contact;
+    //查询关键字
+    private String keyword;
 
     private Date createTime;
 
@@ -32,6 +38,30 @@ public class MaintenanceCompany {
 
 	public Long getRegionId() {
 		return regionId;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 
 	public void setRegionId(Long regionId) {
