@@ -150,8 +150,8 @@
         cr.region_id as regionId,i.`name` as regionName,
         cr.project_id as projectId,p.`name` as projectName
         FROM region_computer_room cr
-        LEFT JOIN region_info i on cr.region_id = i.id
-        LEFT JOIN region_project p ON cr.project_id = p.id
+        INNER JOIN region_info i on cr.region_id = i.id
+        INNER JOIN region_project p ON cr.project_id = p.id
         LEFT JOIN region_court c on cr.court_id = c.id
         LEFT JOIN region_street s on cr.street_id = s.id
         LEFT JOIN region_building b on cr.building_id = b.id
@@ -165,20 +165,28 @@
             <if test="courtId != null and courtId != '' ">
                 AND cr.court_id= #{ courtId,jdbcType=BIGINT}
             </if>
+            <if test="code != null and code != '' ">
+                AND cr.code= #{code,jdbcType=VARCHAR}
+            </if>
             <if test="keyword!='' and keyword!=null">
-                AND (i.name LIKE concat('%',#{keyword},'%')
-                OR p.name LIKE concat('%',#{keyword},'%'))
+                AND (cr.name LIKE concat('%',#{keyword},'%'))
             </if>
             AND i.logic_remove = 0
             AND p.logic_remove = 0
+            AND c.logic_remove = 0
+            AND s.logic_remove = 0
+            AND b.logic_remove = 0
             AND cr.logic_remove = 0
         </where>
     </select>
     <update id="updateRegionComputerRoom" parameterType="cn.com.bgy.ifc.entity.po.project.RegionComputerRoom">
         UPDATE region_computer_room
         <set>
-            <if test="regionId != null and projectId != null and courtId != null and streetId != null">
-                region_id =#{regionId},project_id =#{projectId},court_id= #{ projectId},street_id= #{ streetId},
+            <if test="regionId != null and projectId != null and courtId != null">
+                region_id =#{regionId},project_id =#{projectId},court_id= #{ projectId},
+            </if>
+            <if test="streetId != null">
+                street_id= #{ streetId},
             </if>
             <if test="buildingId != null">
                 building_id= #{buildingId},

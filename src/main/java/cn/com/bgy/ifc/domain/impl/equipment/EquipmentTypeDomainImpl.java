@@ -177,10 +177,15 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
      */
     @Override
     public List<Map<String, Object>> queryEquipmentTypeBySuperId( Long id ) {
-        if(id==null|| id==77L){
-            id=77L;
+        if (id == null || id > 0) {
+            //根据ID查询返回父节点ID
+            Long superId = equipmentTypeDao.queryBySuperIdRtrueSuperId(id);
+            if (superId != null || superId > 0) {
+                return equipmentTypeDao.queryEquipmentTypeBySuperId(superId);
+            }
+            return null;
         }
-        return equipmentTypeDao.queryEquipmentTypeBySuperId(id);
+        return null;
     }
 
 	@Override

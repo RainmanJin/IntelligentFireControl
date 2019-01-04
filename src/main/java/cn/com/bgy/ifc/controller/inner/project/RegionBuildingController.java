@@ -92,10 +92,10 @@ public class RegionBuildingController extends BaseController {
      * @Description 根据父id查询所有楼栋信息
      * @Date 2018/12/20 18:24
      */
-    @PostMapping("queryAllName")
+    @GetMapping("queryAllName")
     @ResponseBody
-    public ResponseVO<Object> queryRegionBuildingNameBySuperId(Long id){
-        List<Map<String,Object>> list  = regionBuildingService.queryRegionBuildingNameBySuperId(id);
+    public ResponseVO<Object> queryRegionBuildingNameBySuperId(Long streetId){
+        List<Map<String,Object>> list  = regionBuildingService.queryRegionBuildingNameBySuperId(streetId);
         return ResponseVO.<Object>success().setData(list);
     }
 

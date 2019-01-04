@@ -17,4 +17,6 @@ public interface EquipmentTypeDao extends BaseDao<EquipmentType> {
     int deleteEquipmentType( List<Long> list );
 
     List<Map<String,Object>> queryEquipmentTypeBySuperId( Long id );
+
+    Long queryBySuperIdRtrueSuperId( Long id );
 }

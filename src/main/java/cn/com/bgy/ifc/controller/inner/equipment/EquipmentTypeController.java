@@ -91,7 +91,7 @@ public class EquipmentTypeController {
      * @Description 根据父级id查询下级所有节点
      * @Date 2018/12/24 16:33
      */
-    @PostMapping("queryBySuperId")
+    @GetMapping("queryBySuperId")
     @ResponseBody
     public ResponseVO<Object> queryEquipmentTypeBySuperId( Long id){
         List<Map<String,Object>> list = equipmentTypeService.queryEquipmentTypeBySuperId(id);

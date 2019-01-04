@@ -34,6 +34,8 @@ public class RegionAndBrandVO {
     //特殊查询字段
     private int state;//状态
 
+    private String code;//编码
+
     public Long getRegionId() {
         return regionId;
     }
@@ -112,5 +114,13 @@ public class RegionAndBrandVO {
 
     public void setState( int state ) {
         this.state = state;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode( String code ) {
+        this.code = code;
     }
 }

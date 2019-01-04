@@ -94,7 +94,7 @@
   <update id="updateRegionCourt" parameterType="cn.com.bgy.ifc.entity.po.project.RegionCourt">
     UPDATE region_court
     <set>
-      <if test="regionId != null and project_id != null">region_id =#{regionId},project_id =#{projectId}</if>
+      <if test="regionId != null and projectId != null">region_id =#{regionId},project_id =#{projectId},</if>
       <if test="name != null">name =#{name},</if>
       <if test="createTime != null">create_Time =#{createTime}</if>
     </set>
