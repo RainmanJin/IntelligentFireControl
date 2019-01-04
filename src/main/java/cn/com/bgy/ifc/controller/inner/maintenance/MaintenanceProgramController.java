@@ -6,11 +6,15 @@ import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceProgramDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceProgramVo;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -70,6 +74,11 @@ public class MaintenanceProgramController extends BaseController{
         }
 
         MaintenanceProgram po = new MaintenanceProgram();
+        Account user= this.getUser();
+        //默认登录人的机构
+        vo.setOrganizationId(user.getOrganizationId());
+        //当前系统时间为新建时间
+        vo.setCreateTime(new Date());
         //默认是false删除后设为true
         vo.setLogicRemove(false);
         CopyUtil.copyProperties(vo, po);
@@ -89,6 +98,8 @@ public class MaintenanceProgramController extends BaseController{
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenanceProgram po, String token){
         int resout = 1;
+        //当前系统时间为新建时间
+        po.setCreateTime(new Date());
         int count = domain.updateMaintenanceProgram(po);
         if (count == resout) {
             return ResponseVO.success().setMsg("修改成功");
@@ -119,8 +130,10 @@ public class MaintenanceProgramController extends BaseController{
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "维保项目删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
-        int count = domain.deleteMaintenancePrograms(arr);
+    public ResponseVO<Object> deleteRegionComputerRoom( String ids, String token){
+    	ids = ids.replace("[", "") ;
+    	ids = ids.replace("]", "") ;
+        int count = domain.deleteMaintenancePrograms(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }

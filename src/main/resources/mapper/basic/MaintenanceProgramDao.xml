@@ -15,6 +15,7 @@
     <result column="claim" jdbcType="VARCHAR" property="claim" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram">
     insert into maintenance_program (id, organization_id, region_id, 
@@ -130,9 +131,14 @@
       <if test="cprojectType != null">
         and mp.cproject_type= #{cprojectType,jdbcType=BIGINT}
       </if>
-      <if test="content != null">
+      <if test="keyword != null">
         <!--暂定关键字查询为维保内容的模糊查询-->
-        and mp.content like  concat('%',#{content},'%')
+        and (mp.content like  concat('%',#{keyword},'%') or 
+        so.name like  concat('%',#{keyword},'%') or 
+        ri.name like  concat('%',#{keyword},'%') or 
+        et.name like  concat('%',#{keyword},'%') or 
+        mp.order_by_num like  concat('%',#{keyword},'%') or 
+        mp.claim like  concat('%',#{keyword},'%'))
       </if>
 
     </trim>

@@ -6,11 +6,15 @@ import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceCompanyVo;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -67,6 +71,11 @@ public class MaintenanceCompanyController extends BaseController{
         }
 
         MaintenanceCompany maintenanceCompany = new MaintenanceCompany();
+        Account user= this.getUser();
+        //默认登录人的机构
+        vo.setOrganizationId(user.getOrganizationId());
+        //当前系统时间为新建时间
+        vo.setCreateTime(new Date());
         //默认是false删除后设为true
         vo.setLogicRemove(false);
         CopyUtil.copyProperties(vo, maintenanceCompany);
@@ -86,6 +95,8 @@ public class MaintenanceCompanyController extends BaseController{
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenanceCompany po, String token){
         int resout = 1;
+        //当前系统时间为新建时间
+        po.setCreateTime(new Date());
         int count = domain.updateMaintenanceCompany(po);
         if (count == resout) {
             return ResponseVO.success().setMsg("修改成功");
@@ -116,8 +127,10 @@ public class MaintenanceCompanyController extends BaseController{
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "维保公司删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
-        int count = domain.deleteMaintenanceCompanys(arr);
+    public ResponseVO<Object> deleteRegionComputerRoom( String ids, String token){
+    	ids = ids.replace("[", "") ;
+    	ids = ids.replace("]", "") ;
+        int count = domain.deleteMaintenanceCompanys(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }

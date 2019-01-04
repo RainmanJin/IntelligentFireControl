@@ -41,6 +41,8 @@ public class MaintenanceContract {
     private Boolean logicRemove;
     /**备注信息*/
     private String remark;
+    //查询关键字
+    private String keyword;
 
     public Long getId() {
         return id;
@@ -54,7 +56,15 @@ public class MaintenanceContract {
         return orgId;
     }
 
-    public void setOrgId(Long orgId) {
+    public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public void setOrgId(Long orgId) {
         this.orgId = orgId;
     }
 

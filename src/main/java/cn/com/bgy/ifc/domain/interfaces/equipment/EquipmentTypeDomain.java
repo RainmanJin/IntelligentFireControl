@@ -39,6 +39,6 @@ public interface EquipmentTypeDomain {
     int updateEquipmentType( EquipmentType equipmentType );
 
     int deleteEquipmentType( String str );
-
+    List<EquipmentType> queryAll();
     List<Map<String,Object>> queryEquipmentTypeBySuperId( Long id );
 }

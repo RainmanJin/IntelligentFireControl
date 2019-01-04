@@ -37,6 +37,9 @@ public class MaintenanceProgram {
 
     //是否逻辑删除
     private Boolean logicRemove;
+    
+  //查询关键字
+    private String keyword;
 
     public Long getId() {
         return id;
@@ -46,7 +49,15 @@ public class MaintenanceProgram {
         this.id = id;
     }
 
-    public Long getOrganizationId() {
+    public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public Long getOrganizationId() {
         return organizationId;
     }
 

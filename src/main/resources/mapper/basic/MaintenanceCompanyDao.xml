@@ -117,6 +117,7 @@
       so.name like   concat('%',#{keyword},'%')or
       mc.short_name like   concat('%',#{keyword},'%')or
       mc.contact like   concat('%',#{keyword},'%')or
+      mc.telephone like   concat('%',#{keyword},'%')or
       ri.name like   concat('%',#{keyword},'%')or
       mc.remark like   concat('%',#{keyword},'%')
       )

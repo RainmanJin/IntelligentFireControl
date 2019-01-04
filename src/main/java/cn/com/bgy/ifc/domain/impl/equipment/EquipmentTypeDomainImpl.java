@@ -182,4 +182,9 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
         }
         return equipmentTypeDao.queryEquipmentTypeBySuperId(id);
     }
+
+	@Override
+	public List<EquipmentType> queryAll() {
+		return equipmentTypeDao.queryListByParam(null);
+	}
 }

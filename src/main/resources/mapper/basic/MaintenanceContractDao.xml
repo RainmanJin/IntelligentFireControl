@@ -15,6 +15,7 @@
     <result column="company_name" jdbcType="VARCHAR" property="companyName" />
     <result column="master_contact" jdbcType="VARCHAR" property="masterContact" />
     <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
     <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
     <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
     <result column="state" jdbcType="INTEGER" property="state" />
@@ -192,9 +193,17 @@
 	  and mc.end_date = #{endDate,jdbcType=TIMESTAMP}
 	   ]]>
 	  </if> 
-      <if test="contractName != null">
+      <if test="keyword != null">
         <!--暂定关键字查询为合同名称的模糊查询-->
-        and mc.contract_name like   concat('%',#{contractName},'%')
+        and (mc.contract_name like   concat('%',#{keyword},'%') or
+        so.name like   concat('%',#{keyword},'%') or
+        ri.name like   concat('%',#{keyword},'%') or
+        rp.name like   concat('%',#{keyword},'%') or
+        mcp.name like   concat('%',#{keyword},'%') or
+        mc.master_contact like   concat('%',#{keyword},'%') or
+       mc.state like   concat('%',#{keyword},'%') or
+        mc.remark like   concat('%',#{keyword},'%') 
+        )
       </if>
     </trim>
   </select>

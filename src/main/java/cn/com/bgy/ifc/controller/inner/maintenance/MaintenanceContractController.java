@@ -12,6 +12,9 @@ import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceContractVo;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -69,7 +72,10 @@ public class MaintenanceContractController extends BaseController{
 
         MaintenanceContract maintenanceContract = new MaintenanceContract();
         Account user= this.getUser();
+        //默认登录人的机构
         maintenanceContractVo.setOrgId(user.getOrganizationId());
+        //当前系统时间为新建时间
+        maintenanceContractVo.setCreateTime(new Date());
         //默认是false删除后设为true
         maintenanceContractVo.setLogicRemove(false);
         CopyUtil.copyProperties(maintenanceContractVo, maintenanceContract);
@@ -139,8 +145,10 @@ public class MaintenanceContractController extends BaseController{
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "维保合同删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
-        int count = maintenanceContractDomain.deleteMaintenanceContracts(arr);
+    public ResponseVO<Object> deleteRegionComputerRoom( String ids, String token){
+    	ids = ids.replace("[", "") ;
+    	ids = ids.replace("]", "") ;
+        int count = maintenanceContractDomain.deleteMaintenanceContracts(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }

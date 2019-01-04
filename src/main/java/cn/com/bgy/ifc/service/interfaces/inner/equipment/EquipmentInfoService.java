@@ -1,11 +1,13 @@
 package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
-import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
+import java.util.List;
+import java.util.Map;
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
-import java.util.Map;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 
 /**
  * @Author huxin
