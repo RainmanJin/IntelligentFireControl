@@ -66,14 +66,14 @@
         </trim>
     </insert>
     <!--分页条件查询系统角色-->
-    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.vo.system.SystemRoleVo"
+    <select id="queryAllList" resultType="cn.com.bgy.ifc.entity.po.system.SystemRole"
             parameterType="cn.com.bgy.ifc.entity.vo.system.SystemRoleVo">
         SELECT
         t1.id,
         t1.type,
         t1.name,
-        t1.organization_id,
-        t1.logic_remove,
+        t1.organization_id as organizationId,
+        t1.logic_remove as logicRemove,
         t1.state,
         t1.value
         FROM

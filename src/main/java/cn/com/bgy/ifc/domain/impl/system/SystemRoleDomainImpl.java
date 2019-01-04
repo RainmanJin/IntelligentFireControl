@@ -29,7 +29,10 @@ public class SystemRoleDomainImpl  implements SystemRoleDomain {
     public List<SystemRole> queryListByParam(SystemRole record) {
         return systemRoleDao.queryListByParam(record);
     }
-
+    @Override
+    public List<SystemRole> queryAllList(SystemRoleVo record) {
+        return systemRoleDao.queryAllList(record);
+    }
     @Override
     public List<SystemRole> queryListByMap(Map<String, Object> map) {
         return systemRoleDao.queryListByMap(map);

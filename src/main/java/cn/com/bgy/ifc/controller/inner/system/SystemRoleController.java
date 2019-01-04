@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.domain.interfaces.system.SystemRoleDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
@@ -158,12 +159,15 @@ public class SystemRoleController  {
     @GetMapping("queryAll")
     public ResponseVO<Object> queryAll() {
 
-        List<SystemRole> list = systemRoleDomain.queryListByParam(null);
-        List<Map<String,List<SystemRole>>> resultList=new ArrayList<>();
-        Map<String,List<SystemRole>> map1=new HashMap<>();
-        Map<String,List<SystemRole>> map2=new HashMap<>();
-        Map<String,List<SystemRole>> map3=new HashMap<>();
-        Map<String,List<SystemRole>> map4=new HashMap<>();
+        try {
+
+        List<SystemRole> list = systemRoleDomain.queryAllList(null);
+        List<Map<String,Object>> resultList=new ArrayList<>();
+
+        Map<String,Object> map1=new HashMap<>();
+        Map<String,Object> map2=new HashMap<>();
+        Map<String,Object> map3=new HashMap<>();
+        Map<String,Object> map4=new HashMap<>();
         List<SystemRole> list1=new ArrayList<>();
         List<SystemRole> list2=new ArrayList<>();
         List<SystemRole> list3=new ArrayList<>();
@@ -182,14 +186,27 @@ public class SystemRoleController  {
                 list4.add(role);
             }
         }
-        map1.put("one",list1);
-        map1.put("two",list2);
-        map1.put("three",list3);
-        map1.put("four",list4);
+        map1.put("type","platform");
+        map1.put("list",list1);
+        map1.put("name","平台级用户");
+        map2.put("list",list2);
+        map2.put("type","head");
+        map2.put("name","集团级用户");
+        map3.put("list",list3);
+        map3.put("type","area");
+        map3.put("name","区域级用户");
+        map4.put("list",list4);
+        map4.put("type","project");
+        map4.put("name","项目级用户");
         resultList.add(map1);
         resultList.add(map2);
         resultList.add(map3);
         resultList.add(map4);
-        return ResponseVO.<Object>success().setData(list);
+            return ResponseVO.<Object>success().setData(resultList);
+      }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
+
 }

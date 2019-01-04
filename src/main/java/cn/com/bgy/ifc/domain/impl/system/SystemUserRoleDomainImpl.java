@@ -8,6 +8,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,7 +20,12 @@ public class SystemUserRoleDomainImpl implements SystemUserRoleDomain {
     private SystemUserRoleDao systemUserRoleDao;
 
     @Override
+    @Transactional
     public int save(SystemUserRole systemUserRole) {
+        int res=systemUserRoleDao.deleteByUserId(systemUserRole.getUserId());
+        if(systemUserRole.getRoleId()==null){
+           return 1;
+        }
         return systemUserRoleDao.insert(systemUserRole);
     }
 

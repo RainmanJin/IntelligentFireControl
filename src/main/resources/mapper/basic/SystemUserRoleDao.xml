@@ -123,4 +123,7 @@
             user_id= #{userId,jdbcType=BIGINT}
     where id= #{id,jdbcType=BIGINT}
   </update>
+  <delete id="deleteByUserId" parameterType="long">
+    delete from system_user_role where user_id=#{usreId}
+  </delete>
 </mapper>

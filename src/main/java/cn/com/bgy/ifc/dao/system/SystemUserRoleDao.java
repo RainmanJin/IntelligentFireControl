@@ -19,5 +19,7 @@ public interface SystemUserRoleDao {
 
     int updateById(SystemUserRole record);
 
+    int deleteByUserId(Long userId);
+
 
 }

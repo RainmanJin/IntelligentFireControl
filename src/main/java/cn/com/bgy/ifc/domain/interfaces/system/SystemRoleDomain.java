@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface SystemRoleDomain extends BaseDomain<SystemRole> {
 
-    List<SystemRole> queryListByParam(SystemRole record);
+    List<SystemRole> queryAllList(SystemRoleVo record);
 
     SystemRole findById(Long id);
 

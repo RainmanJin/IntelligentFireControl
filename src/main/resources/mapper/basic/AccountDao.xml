@@ -185,7 +185,7 @@
 
     <where>
         <![CDATA[
-          is_disable <> 0
+          is_disable <> 3
         ]]>
         <if test="telephone != null" >
           and t1.telephone= #{telephone,jdbcType=VARCHAR}
