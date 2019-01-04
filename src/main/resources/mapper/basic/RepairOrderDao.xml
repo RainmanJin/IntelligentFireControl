@@ -173,35 +173,75 @@
     </trim>
   </insert>
 
-  <select id="queryListRepairOrder" resultType="java.util.Map" parameterType="cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO">
-        SELECT o.id as id,v.`name` as name,
-        CONCAT(v.regionName,v.projectName,v.courtName,v.streetName,v.buildingName) AS address,
-        o.maintaindetail as maintaindetail,o.repair_person as personName,
-        o.repair_person_time as repairTime,o.is_urgent as isUrgent,
-        o.state as state,o.process_time as processTime
-        FROM repair_order o
-        LEFT JOIN equipment_info_v v ON o.equipment_id = v.id
+  <select id="queryListRepairOrder" resultType="java.util.Map" parameterType="java.util.Map">
+    SELECT o.id as id,
+    v.`name` as equipmentName,
+    CONCAT(ri.name,rp.name,rc.name,rs.name,rb.name) AS address,
+    o.maintaindetail as maintaindetail,
+    o.repair_person as repairPerson,
+    o.repair_reason as repairReason,
+    o.repair_time as repairTime,
+    o.is_urgent as isUrgent,
+    o.state as state,
+    o.process_time as processTime,
+    o.process_person as processPerson,
+    o.process_remark as processRemark,
+    o.order_no as orderNo,
+    o.extend_id as extendId,
+    o.create_time  as createTime,
+    o.is_push  as isPush
+    FROM repair_order o
+    LEFT JOIN equipment_info v ON o.equipment_id = v.id
+    LEFT JOIN region_computer_room rr ON o.computer_room_id = rr.id
+    LEFT JOIN region_info ri ON rr.region_id = ri.id
+    LEFT JOIN region_project rp ON rr.project_id = rp.id
+    LEFT JOIN region_court rc ON rr.court_id = rc.id
+    LEFT JOIN region_street rs ON rr.street_id = rs.id
+    LEFT JOIN region_building rb ON rr.building_id = rb.id
+    LEFT JOIN equipment_type et ON v.type_id= et.id
+    LEFT JOIN equipment_brand eb ON v.brand_id = eb.id
+    LEFT JOIN equipment_version ev ON v.version_id = ev.id
         <where>
-          <if test="regionId != null and regionId !='' ">
-            AND v.regionId = #{regionId,jdbcType=BIGINT},
+          <if test="params.regionId != null and params.regionId !='' ">
+            AND v.regionId = #{params.regionId,jdbcType=BIGINT}
           </if>
-          <if test="projectId != null and projectId !='' ">
-            AND v.projectId = #{projectId,jdbcType=BIGINT},
+          <if test="params.projectId != null and params.projectId !='' ">
+            AND v.projectId = #{params.projectId,jdbcType=BIGINT}
           </if>
-          <if test="typeId != null and typeId !='' ">
-            AND v.typeId = #{typeId,jdbcType=BIGINT},
+          <if test="params.typeId != null and params.typeId !='' ">
+            AND v.typeId = #{params.typeId,jdbcType=BIGINT}
           </if>
-          <if test="versionId != null and versionId !='' ">
-            AND v.versionId = #{versionId,jdbcType=BIGINT},
+          <if test="params.versionId != null and params.versionId !='' ">
+            AND v.versionId = #{params.versionId,jdbcType=BIGINT},
           </if>
-          <if test="brandId != null and brandId !='' ">
-            AND v.brandId = #{brandId,jdbcType=BIGINT},
+          <if test="params.brandId != null and params.brandId !='' ">
+            AND v.brandId = #{params.brandId,jdbcType=BIGINT}
           </if>
-          <if test="state !null and state !='' ">
-            AND o.state = #{state,jdbcType=INTEGER},
+          <if test="params.state !=null and params.state !=''"  >
+            AND o.state = #{params.state,jdbcType=INTEGER}
           </if>
-          <if test="keyword != null and keyword !='' ">
-            AND ( o.maintaindetail like concat('%',#{keyword},'%') OR  o.repair_person like concat('%',#{keyword},'%'))
+          <if test="params.isUrgent !=null and params.isUrgent !=''">
+            AND o.is_urgent = #{params.isUrgent,jdbcType=INTEGER}
+          </if>
+          <if test="params.orderNo != null and params.orderNo !='' ">
+            AND o.order_no = #{params.orderNo,jdbcType=BIGINT}
+          </if>
+          <if test="params.repairPerson != null and params.repairPerson !='' ">
+            AND o.repair_person = #{params.repairPerson,jdbcType=BIGINT}
+          </if>
+          <if test="params.keyWords != null and params.keyWords !='' ">
+            AND ( o.maintaindetail like concat('%',#{params.keyWords},'%')
+            OR  o.repair_person like concat('%',#{params.keyWords},'%')
+            or o.order_no like concat('%',#{params.keyWords},'%')
+            )
+          </if>
+          <if test="params.repairTimeStart !=null and params.repairTimeStart !=''">
+            and o.repair_time >= #{params.repairTimeStart}
+          </if>
+          <if test="params.repairTimeEnd !=null and params.repairTimeEnd !=''">
+            <![CDATA[
+            and o.repair_time <= #{params.repairTimeEnd}
+            ]]>
           </if>
           AND o.logic_remove = 0
         </where>

@@ -55,6 +55,13 @@ public class AccountController extends BaseController {
         return ResponseVO.success().setData(pageInfo);
     }
 
+
+    @GetMapping("findById")
+    @ResponseBody
+    public ResponseVO<Object> findById(Long id){
+          Account user=accountDomain.findById(id);
+        return ResponseVO.success().setData(user);
+    }
     /**
      * 根据用户id更新用户状态
      * @param ids
@@ -104,5 +111,16 @@ public class AccountController extends BaseController {
         PageInfo<Account> pageInfo= accountDomain.findUserPowerByPage(page, account);
         return ResponseVO.success().setData(pageInfo);
     }
+    @PostMapping("editData")
+    @ResponseBody
+    public   ResponseVO<Object>  editData(@Validated AccountVo accountVo, BindingResult error){
+        Account account= accountDomain.findById(accountVo.getId());
+        account.setDepartmentId(accountVo.getDepartmentId());
+        account.setTelephone(accountVo.getTelephone());
+        account.setUserName(accountVo.getUserName());
+        account.setUserName(accountVo.getUserName());
+        accountDomain.update(account);
+        return ResponseVO.success();
 
+    }
 }

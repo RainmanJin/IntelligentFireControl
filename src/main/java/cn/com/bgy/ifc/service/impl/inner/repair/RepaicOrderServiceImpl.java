@@ -49,9 +49,9 @@ public class RepaicOrderServiceImpl implements RepaicOrderService {
      * @Date 2018/12/26 12:03
      */
     @Override
-    public PageInfo queryListRepairOrder( Page<Object> page,RegionAndBrandVO regionAndBrandVO  ) {
+    public PageInfo queryListRepairOrder( Page<Object> page,Map<String, Object> params  ) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Map<String,Object>> list  = repairOrderDao.queryListRepairOrder(regionAndBrandVO);
+        List<Map<String,Object>> list  = repairOrderDao.queryListRepairOrder(params);
         return new PageInfo(list);
     }
     /**

@@ -10,10 +10,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,7 +22,7 @@ import java.util.Map;
  * @Description 招修订单Controller
  **/
 @Controller
-@RequestMapping("/basic/Repair")
+@RequestMapping("/repair/repairOrder")
 public class RepaicOrderController extends BaseController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class RepaicOrderController extends BaseController {
      * @Description 发起设备招修
      * @Date 2018/12/26 10:35
      */
-    @PostMapping("launchRepair")
+    @PostMapping("createData")
     @SystemLogAfterSave(type = 1,description = "发起招修，添加订单")
     @ResponseBody
     public ResponseVO<Object> launchRepair(RepairOrder repairOrder ){
@@ -44,18 +44,26 @@ public class RepaicOrderController extends BaseController {
      * @Description 查询工单列表
      * @Date 2018/12/26 10:36
      */
-    @PostMapping("query")
+    @GetMapping("queryPageData")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListRepairOrder( Page<Object> page,RegionAndBrandVO regionAndBrandVO ){
-        PageInfo pageInfo = repaicOrderService.queryListRepairOrder(page,regionAndBrandVO);
+    public ResponseVO<PageInfo> queryListRepairOrder(Page<Object> page, @RequestParam Map<String, Object> params){
+        try {
+
+
+        PageInfo pageInfo = repaicOrderService.queryListRepairOrder(page,params);
+
         return   ResponseVO.<PageInfo>success().setData(pageInfo);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
     /**
      * @Author huxin
      * @Description 根据工单Id查询详细信息
      * @Date 2018/12/26 10:39
      */
-    @PostMapping("queryInfo")
+    @PostMapping("queryById")
     @ResponseBody
     public ResponseVO<Object> queryRepairOrderById(Long id){
         Map<String,Object> map = repaicOrderService.queryRepairOrderById(id);
@@ -66,7 +74,7 @@ public class RepaicOrderController extends BaseController {
      * @Description 修改工单信息
      * @Date 2018/12/26 14:54
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @ResponseBody
     public ResponseVO<Object> updateRepairOrder(RepairOrder repairOrder){
         int count = repaicOrderService.updateRepairOrder(repairOrder);
@@ -80,7 +88,7 @@ public class RepaicOrderController extends BaseController {
      * @Description 删除工单信息（含批量）
      * @Date 2018/12/26 10:40
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(type = 1,description = "订单信息删除")
     @ResponseBody
     public ResponseVO<Object> deleteRepairOrder(String ids){

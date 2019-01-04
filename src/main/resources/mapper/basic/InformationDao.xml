@@ -12,10 +12,11 @@
     <result column="u_id" jdbcType="BIGINT" property="uId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, org_id, type_id, title, signature, date_line, d_id, u_id, create_time
+    id, org_id, type_id, title, signature, date_line, case when d_id is null then '' else d_id  end as d_id, u_id, create_time,content
   </sql>
 
   <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">

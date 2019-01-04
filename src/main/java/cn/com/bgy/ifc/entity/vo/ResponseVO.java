@@ -106,7 +106,7 @@ public class ResponseVO<T> implements Serializable {
      */
     public static <T> ResponseVO<T> withoutLogin(){
         ResponseVO<T> responseVO = new ResponseVO<T>();
-        return responseVO.setCode(ResponseVO.WITHOUTLOTIN).setMsg("抱歉，您暂时没有权限进行该操作");
+        return responseVO.setCode(ResponseVO.WITHOUTLOTIN).setMsg("抱歉，您还没有登录");
     }
 
     /**

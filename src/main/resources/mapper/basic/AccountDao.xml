@@ -157,13 +157,17 @@
     delete  from account where id=#{id,jdbcType=BIGINT}
   </delete>
   <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.system.Account">
-     select  id, organization_id, department_id,
-              telephone, job_number, user_name,
-              password, password_salt, identity_number,
-              sex, regist_time, is_disable,
-              current_ip, current_time, last_ip,
-              last_time, user_type, remark
-      from account where id=#{id,jdbcType=BIGINT}
+     select
+      t1.id as id,
+      t1.user_name as userName,
+      t1.telephone,
+      t1.job_number  as jobNumber,
+      t1.sex,
+      t1.identity_number  as identityNumber,
+      t1.is_disable as isDisable,
+      t1.current_time as currentTime,
+      t1.regist_time as registTime
+      from account t1 where id=#{id,jdbcType=BIGINT}
   </select>
 <!--分页条件查询用户管理列表-->
   <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.Account" resultType="cn.com.bgy.ifc.entity.po.system.Account">

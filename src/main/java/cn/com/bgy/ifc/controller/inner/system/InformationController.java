@@ -64,7 +64,7 @@ public class InformationController extends BaseController {
             if(error.hasErrors()){
                 return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
             }
-            Information information= new Information();
+            Information information= informationDomain.findById(informationVo.getdId());
             CopyUtil.copyProperties(informationVo,information);
             informationDomain.update(information);
             return ResponseVO.success();

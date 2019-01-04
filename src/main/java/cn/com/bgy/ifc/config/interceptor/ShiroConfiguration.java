@@ -22,13 +22,13 @@ public class ShiroConfiguration {
 
     //@Qualifier代表spring里面的
 
-    @Bean("shiroFilter")
+   @Bean("shiroFilter")
     public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
 
-        Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
+       /* Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
         LogoutFilter logoutFilter = new LogoutFilter();
         logoutFilter.setRedirectUrl("/system/login");
         filters.put("logout", logoutFilter);
@@ -46,7 +46,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/**", "authc");
         //配置shiro默认登录界面地址，前后端分离中登录界面跳转应由前端路由控制，后台仅返回json数据
         //shiroFilterFactoryBean.setLoginUrl("/api/unauth");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);*/
         return shiroFilterFactoryBean;
     }
 

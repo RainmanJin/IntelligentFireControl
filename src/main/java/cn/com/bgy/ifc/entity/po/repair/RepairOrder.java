@@ -24,7 +24,7 @@ public class RepairOrder {
     //报修内容
     private String maintaindetail;
     //报修时间
-    private Date repairPersonTime;
+    private Date repairTime;
     //是否紧急   0：不紧急 1表示紧急
     private Boolean isUrgent;
     //工单状态(0：未派单  1：待接单  2：维修中  3：待料中  4：完成维修 5:已销单 6:已取消)
@@ -104,12 +104,12 @@ public class RepairOrder {
         this.repairPersonCall = repairPersonCall;
     }
 
-    public Date getRepairPersonTime() {
-        return repairPersonTime;
+    public Date getRepairTime() {
+        return repairTime;
     }
 
-    public void setRepairPersonTime( Date repairPersonTime ) {
-        this.repairPersonTime = repairPersonTime;
+    public void setRepairTime( Date repairTime ) {
+        this.repairTime = repairTime;
     }
 
     public Boolean getUrgent() {

@@ -20,7 +20,7 @@ public interface RepaicOrderService {
     ResponseVO<Object> launchRepair( RepairOrder repairOrder );
 
 
-    PageInfo queryListRepairOrder( Page<Object> page ,RegionAndBrandVO regionAndBrandVO );
+    PageInfo queryListRepairOrder( Page<Object> page ,Map<String, Object> params );
 
     Map<String,Object> queryRepairOrderById( Long id );
 

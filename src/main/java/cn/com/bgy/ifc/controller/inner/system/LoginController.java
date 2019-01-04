@@ -127,7 +127,6 @@ public class LoginController {
         }
     }
     @RequiresUser
-    @RequiresPermissions("")
     @RequestMapping("/logout")
     @ResponseBody
     public ResponseVO logout() {

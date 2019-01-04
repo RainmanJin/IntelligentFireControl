@@ -190,9 +190,9 @@ public class DepartmentController extends BaseController {
      * @param: [id]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @ResponseBody
-    public ResponseVO<Object> delete( String ids) {
+    public ResponseVO<Object> deleteData( String ids) {
 
         int count = departmentDomain.deleteBatch(ListUtil.getListId(ids));
         if (count >0) {
