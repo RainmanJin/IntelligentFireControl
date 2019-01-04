@@ -162,40 +162,11 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
             List<MaintenanceContract> contractList = new ArrayList<>();
             List<MaintenanceContractFile> fileList = new ArrayList<>();
             for (BgyMaintenanceContractVo contractVo : list) {
-                MaintenanceContract contract = new MaintenanceContract();
                 Long conId = contractVo.getId();
-                contract.setId(conId);
-                contract.setContractName(contractVo.getName());
-                contract.setrId(contractVo.getAreaId());
-                contract.setpId(contractVo.getProjectId());
-                contract.setCompanyId(contractVo.getCompanyId());
-                contract.setContractNo(contractVo.getContractNum());
-                contract.setRemark(contractVo.getRemark());
-                contract.setMasterContact(contractVo.getMainContact());
-                contract.setContactPhone(contractVo.getTelephone());
-                contract.setState(contractVo.getStatus());
-                if (contractVo.getCreateTime() != null) {
-                    contract.setCreateTime(TimeUtil.parseStrToDateTime(contractVo.getCreateTime()));
-                }
-                if (contractVo.getStartDay() != null) {
-                    contract.setStartDate(TimeUtil.parseStrToDate(contractVo.getStartDay()));
-                }
-                if (contractVo.getEndDay() != null) {
-                    contract.setEndDate(TimeUtil.parseStrToDate(contractVo.getEndDay()));
-                }
-                contract.setLogicRemove(false);
+                MaintenanceContract contract = contract(contractVo,conId);
                 List<BgyMaintenanceContractFileVo> fileVoList = contractVo.getFileList();
                 for (BgyMaintenanceContractFileVo fileVo : fileVoList) {
-                    MaintenanceContractFile file = new MaintenanceContractFile();
-                    file.setId(fileVo.getId());
-                    file.setFileUrl(fileVo.getUrl());
-                    file.setFileName(fileVo.getName());
-                    if (fileVo.getCreateTime() != null) {
-                        file.setCreateTime(TimeUtil.parseStrToDateTime(fileVo.getCreateTime()));
-                    }
-                    file.setContractId(conId);
-                    file.setLogicRemove(false);
-                    file.setDownload(false);
+                    MaintenanceContractFile file = contractFile(fileVo,conId);
                     fileList.add(file);
                 }
                 contractList.add(contract);
@@ -236,43 +207,14 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
         int deleteCount = 0;
         List<MaintenanceContractFile> fileList = new ArrayList<>();
         for (BgyMaintenanceContractVo contractVo : list) {
-            MaintenanceContract contract = new MaintenanceContract();
             Long conId = contractVo.getId();
-            contract.setId(conId);
-            contract.setContractName(contractVo.getName());
-            contract.setrId(contractVo.getAreaId());
-            contract.setpId(contractVo.getProjectId());
-            contract.setCompanyId(contractVo.getCompanyId());
-            contract.setContractNo(contractVo.getContractNum());
-            contract.setRemark(contractVo.getRemark());
-            contract.setMasterContact(contractVo.getMainContact());
-            contract.setContactPhone(contractVo.getTelephone());
-            contract.setState(contractVo.getStatus());
-            if (contractVo.getCreateTime() != null) {
-                contract.setCreateTime(TimeUtil.parseStrToDateTime(contractVo.getCreateTime()));
-            }
-            if (contractVo.getStartDay() != null) {
-                contract.setStartDate(TimeUtil.parseStrToDate(contractVo.getStartDay()));
-            }
-            if (contractVo.getEndDay() != null) {
-                contract.setEndDate(TimeUtil.parseStrToDate(contractVo.getEndDay()));
-            }
-            contract.setLogicRemove(false);
+            MaintenanceContract contract = contract(contractVo,conId);
             int operType = contractVo.getOperType();
             //新增
             if (operType == addType) {
                 List<BgyMaintenanceContractFileVo> fileVoList = contractVo.getFileList();
                 for (BgyMaintenanceContractFileVo fileVo : fileVoList) {
-                    MaintenanceContractFile file = new MaintenanceContractFile();
-                    file.setId(fileVo.getId());
-                    file.setFileUrl(fileVo.getUrl());
-                    file.setFileName(fileVo.getName());
-                    if (fileVo.getCreateTime() != null) {
-                        file.setCreateTime(TimeUtil.parseStrToDateTime(fileVo.getCreateTime()));
-                    }
-                    file.setContractId(conId);
-                    file.setLogicRemove(false);
-                    file.setDownload(false);
+                    MaintenanceContractFile file = contractFile(fileVo,conId);
                     fileList.add(file);
                 }
                 int count = dao.insertSelective(contract);
@@ -314,4 +256,54 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
         }
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:合同数据转换
+     * @param: [contractVo]
+     * @return: cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract
+     */
+    private MaintenanceContract contract(BgyMaintenanceContractVo contractVo,Long conId){
+        MaintenanceContract contract = new MaintenanceContract();
+        contract.setId(conId);
+        contract.setContractName(contractVo.getName());
+        contract.setrId(contractVo.getAreaId());
+        contract.setpId(contractVo.getProjectId());
+        contract.setCompanyId(contractVo.getCompanyId());
+        contract.setContractNo(contractVo.getContractNum());
+        contract.setRemark(contractVo.getRemark());
+        contract.setMasterContact(contractVo.getMainContact());
+        contract.setContactPhone(contractVo.getTelephone());
+        contract.setState(contractVo.getStatus());
+        if (contractVo.getCreateTime() != null) {
+            contract.setCreateTime(TimeUtil.parseStrToDateTime(contractVo.getCreateTime()));
+        }
+        if (contractVo.getStartDay() != null) {
+            contract.setStartDate(TimeUtil.parseStrToDate(contractVo.getStartDay()));
+        }
+        if (contractVo.getEndDay() != null) {
+            contract.setEndDate(TimeUtil.parseStrToDate(contractVo.getEndDay()));
+        }
+        contract.setLogicRemove(false);
+        return contract;
+    }
+
+    /**
+     * 合同附件转换
+     * @param fileVo
+     * @param conId
+     * @return
+     */
+    private MaintenanceContractFile contractFile(BgyMaintenanceContractFileVo fileVo,Long conId){
+        MaintenanceContractFile file = new MaintenanceContractFile();
+        file.setId(fileVo.getId());
+        file.setFileUrl(fileVo.getUrl());
+        file.setFileName(fileVo.getName());
+        if (fileVo.getCreateTime() != null) {
+            file.setCreateTime(TimeUtil.parseStrToDateTime(fileVo.getCreateTime()));
+        }
+        file.setContractId(conId);
+        file.setLogicRemove(false);
+        file.setDownload(false);
+        return file;
+    }
 }

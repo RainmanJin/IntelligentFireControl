@@ -91,7 +91,7 @@ public class BgyMaintenanceWorkOrderServiceImpl implements BgyMaintenanceWorkOrd
             //return maintenanceCompanyDomain.alterBgyRepairCompany(oList, orgId);
             return null;
         } else {
-            return ResponseVO.success().setMsg("暂无集成平台维保公司增量数据同步！");
+            return ResponseVO.success().setMsg("暂无集成平台维保工单全量数据同步！");
         }
     }
 
@@ -123,7 +123,7 @@ public class BgyMaintenanceWorkOrderServiceImpl implements BgyMaintenanceWorkOrd
             // return regionComputerRoomDomain.alterBgyComputerRoomList(oList, orgId);
             return null;
         } else {
-            return ResponseVO.success().setMsg("暂无集成平台机房增量数据同步！");
+            return ResponseVO.success().setMsg("暂无集成平台维保工单增量数据同步！");
         }
     }
 }

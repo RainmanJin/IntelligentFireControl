@@ -89,12 +89,6 @@ public interface MaintenanceContractDomain {
 
     /**
      * @author: ZhangCheng
-     * @description:
-     * @param: [list, orgId]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
-     */
-    /**
-     * @author: ZhangCheng
      * @description:集成平台增量获取维保合同信息（增量）
      * @param: [list, orgId]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>

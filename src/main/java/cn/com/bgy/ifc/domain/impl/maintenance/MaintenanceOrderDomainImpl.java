@@ -3,6 +3,8 @@ package cn.com.bgy.ifc.domain.impl.maintenance;
 import java.util.List;
 import java.util.Map;
 
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.maintenance.BgyMaintenanceWorkOrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceOrderDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder;
+
+import javax.annotation.Resource;
+
 /**
  * @Author lvbingjian
  * @Date 2018年12月26日15:25:08
@@ -23,7 +28,7 @@ import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder;
 @Service
 public class MaintenanceOrderDomainImpl implements MaintenanceOrderDomain {
 
-	@Autowired
+	@Resource
 	private MaintenanceOrderDao dao;
 	/**
 	 * 通过ID查询
@@ -65,6 +70,29 @@ public class MaintenanceOrderDomainImpl implements MaintenanceOrderDomain {
 		PageInfo<MaintenanceOrder> pageInfo = new PageInfo<>(list);
 		return pageInfo;
 	}
+
+	/**
+	 * @author: ZhangCheng
+	 * @description:
+	 * @param: [list, orgId]
+	 * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+	 */
+	@Override
+	public ResponseVO<Object> saveBgyMaintenanceWorkOrder(List<BgyMaintenanceWorkOrderVo> list, Long orgId) {
+		return null;
+	}
+
+	/**
+	 * @author: ZhangCheng
+	 * @description:
+	 * @param: [list, orgId]
+	 * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+	 */
+	@Override
+	public ResponseVO<Object> alterBgyMaintenanceWorkOrder(List<BgyMaintenanceWorkOrderVo> list, Long orgId) {
+		return null;
+	}
+
 	/**
 	 * 查询全部
 	 */
