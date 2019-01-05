@@ -126,13 +126,15 @@ public class MaintenancePlanDetailContorller extends BaseController{
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "维保计划明细表删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
-    	String []ids = arr.split(",");
+    public ResponseVO<Object> deleteRegionComputerRoom( String ids, String token){
+    	ids = ids.replace("[", "") ;
+    	ids = ids.replace("]", "") ;
+    	String []idss = ids.split(",");
     	List<Long>list = new ArrayList<Long>();
     	int count;
-    	if(ids.length>0) {
-    		for (int i = 0; i < ids.length; i++) {
-    			list.add(Long.valueOf(ids[i]));
+    	if(idss.length>0) {
+    		for (int i = 0; i < idss.length; i++) {
+    			list.add(Long.valueOf(idss[i]));
 			}
     		count = domain.deleteBatch(list);
     	}else {

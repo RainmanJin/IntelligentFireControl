@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.maintenance;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenancePlanDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlan;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenancePlanVo;
 
@@ -75,6 +77,11 @@ public class MaintenancePlanController extends BaseController{
 
         MaintenancePlan po = new MaintenancePlan();
         //默认是false删除后设为true
+        Account user= this.getUser();
+        //默认登录人的机构
+        vo.setOrganizationId(user.getOrganizationId());
+        //当前系统时间为新建时间
+        vo.setCreateTime(new Date());
         vo.setLogicRemove(false);
         CopyUtil.copyProperties(vo, po);
         int count = domain.insert(po);
@@ -93,7 +100,10 @@ public class MaintenancePlanController extends BaseController{
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenancePlan vo, String token){
         int resout = 1;
+       //当前系统时间为新建时间
+        vo.setCreateTime(new Date());
         int count = domain.update(vo);
+        
         if (count == resout) {
             return ResponseVO.success().setMsg("修改成功");
         }
@@ -123,9 +133,11 @@ public class MaintenancePlanController extends BaseController{
     @PostMapping("delete")
     @SystemLogAfterSave(type = 1,description = "维保计划删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
+    public ResponseVO<Object> deleteRegionComputerRoom( String ids, String token){
+    	ids = ids.replace("[", "") ;
+    	ids = ids.replace("]", "") ;
     	List<Long> list = new ArrayList<>();
-    	String[]str = arr.split(",");
+    	String[]str = ids.split(",");
     	int count  ;
     	   if(str.length>0){
                for (int i = 0; i <str.length ; i++) {

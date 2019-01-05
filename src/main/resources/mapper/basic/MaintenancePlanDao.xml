@@ -11,10 +11,11 @@
     <result column="region_id" jdbcType="BIGINT" property="regionId" />
     <result column="region_name" jdbcType="VARCHAR" property="regionName" />
     <result column="project_type" jdbcType="BIGINT" property="projectType" />
-    <result column="planned_date" jdbcType="TIMESTAMP" property="plannedDate" />
-    <result column="time_slot" jdbcType="VARCHAR" property="timeSlot" />
+    <result column="begin_date" jdbcType="TIMESTAMP" property="beginDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
     <result column="company_id" jdbcType="BIGINT" property="companyId" />
     <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
@@ -22,11 +23,11 @@
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlan">
     insert into maintenance_plan (id,plan_name,region_id, organization_id, project_id, 
-      project_type, planned_date, time_slot, 
+      project_type, begin_date, end_date, 
       company_id, create_time, logic_remove
       )
     values (#{id,jdbcType=BIGINT},#{planName,jdbcType=VARCHAR},#{regionId,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
-      #{projectType,jdbcType=BIGINT}, #{plannedDate,jdbcType=TIMESTAMP}, #{timeSlot,jdbcType=VARCHAR}, 
+      #{projectType,jdbcType=BIGINT}, #{beginDate,jdbcType=TIMESTAMP},#{endDate,jdbcType=TIMESTAMP}, 
       #{companyId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}
       )
   </insert>
@@ -51,11 +52,11 @@
       <if test="projectType != null">
         project_type,
       </if>
-      <if test="plannedDate != null">
-        planned_date,
+      <if test="beginDate != null">
+        begin_date,
       </if>
-      <if test="timeSlot != null">
-        time_slot,
+      <if test="endDate != null">
+        end_date,
       </if>
       <if test="companyId != null">
         company_id,
@@ -86,8 +87,11 @@
       <if test="projectType != null">
         #{projectType,jdbcType=BIGINT},
       </if>
-      <if test="plannedDate != null">
-        #{plannedDate,jdbcType=TIMESTAMP},
+      <if test="beginDate != null">
+        #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
       </if>
       <if test="timeSlot != null">
         #{timeSlot,jdbcType=VARCHAR},
@@ -114,8 +118,8 @@
 				mp.project_id as project_id,-- 所属项目ID
 				rp.name as project_name,-- 所属项目名称
 				mp.project_type as project_type,-- 范围类型：1半月维保项目、2季度维保项目、3半年维保项目、4年度维保项目
-				mp.planned_date as planned_date,-- 保养日期
-				mp.time_slot as time_slot,-- 保养时间段
+				mp.begin_date as begin_date,-- 保养日期
+				mp.end_date as end_date,-- 保养日期
 				mp.company_id as company_id,-- 维保公司ID
 				mc.name as company_name,-- 维保公司名称
 				mp.create_time as create_time,-- 创建时间
@@ -186,17 +190,17 @@
       <if test="projectType != null">
         project_type=#{projectType},
       </if>
-      <if test="plannedDate != null">
-        planned_date=#{plannedDate},
+      <if test="beginDate != null">
+        begin_date=#{beginDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="timeSlot != null">
-        time_slot=#{timeSlot},
+      <if test="endDate != null">
+        end_date=#{endDate,jdbcType=TIMESTAMP},
       </if>
       <if test="companyId != null">
         company_id=#{companyId},
       </if>
       <if test="createTime != null">
-        create_time=#{createTime},
+        create_time=#{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="logicRemove != null">
         logic_remove=#{logicRemove}

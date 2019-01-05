@@ -25,14 +25,16 @@ private Long id;
     private String projectName;
     //范围类型：1半月维保项目、2季度维保项目、3半年维保项目、4年度维保项目
     private Long projectType;
-    //保养日期
-    private Date plannedDate;
-    //保养时间段
-    private String timeSlot;
+    //保养开始日期
+    private Date beginDate;
+    //保养结束日期
+    private Date endDate;
     //维保公司Id
     private Long companyId;
     //维保公司名称
     private String companyName;
+   //查询关键字
+    private String keyword;
     //创建时间
     private Date createTime;
     //开始日期
@@ -137,23 +139,32 @@ private Long id;
         this.projectType = projectType;
     }
 
-    public Date getPlannedDate() {
-        return plannedDate;
-    }
 
-    public void setPlannedDate(Date plannedDate) {
-        this.plannedDate = plannedDate;
-    }
+    public Date getBeginDate() {
+		return beginDate;
+	}
 
-    public String getTimeSlot() {
-        return timeSlot;
-    }
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
 
-    public void setTimeSlot(String timeSlot) {
-        this.timeSlot = timeSlot;
-    }
+	public Date getEndDate() {
+		return endDate;
+	}
 
-    public Long getCompanyId() {
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public Long getCompanyId() {
         return companyId;
     }
 
