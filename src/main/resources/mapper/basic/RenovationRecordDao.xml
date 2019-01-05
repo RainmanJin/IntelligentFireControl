@@ -19,17 +19,15 @@
     <result column="responsible_person_tel" jdbcType="VARCHAR" property="responsiblePersonTel" />
     <result column="is_ fire" jdbcType="BIT" property="isFire" />
     <result column="is_fire_facilities" jdbcType="BIT" property="isFireFacilities" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.firepatrol.RenovationRecordWithBLOBs">
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
     <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
   <sql id="Blob_Column_List">
     description, remark
   </sql>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RenovationRecordWithBLOBs">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RenovationRecord">
     insert into fire_renovation_record (id, junk_id, config_id, 
       address, acreage, nature, 
       property_owner, property_owner_tel, proposer, 
@@ -47,7 +45,7 @@
       #{logicRemove,jdbcType=BIT}, #{description,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RenovationRecordWithBLOBs">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RenovationRecord">
     insert into fire_renovation_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.firepatrol.FireApplicationDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.fireinspection.FireApplication">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.FireApplication">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="recordId" jdbcType="BIGINT" property="recordid" />
     <result column="fire_location" jdbcType="VARCHAR" property="fireLocation" />
