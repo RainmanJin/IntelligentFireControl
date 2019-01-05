@@ -30,8 +30,8 @@ public class InformationDomainImpl implements InformationDomain {
     }
 
     @Override
-    public void deleteInformation(Long[] longs) {
-        informationDao.deleteInformation(longs);
+    public void deleteInformation(List<Long> ids) {
+        informationDao.deleteInformation(ids);
     }
 
     @Override

@@ -24,7 +24,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.bgy.ifc.dao.fireinspection" targetProject="src/main/java" />
 
 
-       <table tableName="fire_task_train"  domainObjectName="FireTaskTrain" mapperName="FireTaskTrainDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+       <table tableName="fire_brigade"  domainObjectName="FireTaskTrain" mapperName="FireTaskTrainDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"/>
 <!--
         <table tableName="tj_dept"  domainObjectName="DeptBo" mapperName="DeptDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"

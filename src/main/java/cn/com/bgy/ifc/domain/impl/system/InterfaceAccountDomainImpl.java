@@ -30,11 +30,11 @@ public class InterfaceAccountDomainImpl implements InterfaceAccountDomain {
 
     /**
      * 批量删除用户接口
-     * @param longs
+     * @param list
      */
     @Override
-    public void deleteInterfaceAccount(Long[] longs) {
-        interfaceaccountDao.deleteInterfaceAccount(longs);
+    public void deleteInterfaceAccount(List<Long> list) {
+        interfaceaccountDao.deleteInterfaceAccount(list);
     }
 
     @Override

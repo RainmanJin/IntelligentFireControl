@@ -23,4 +23,6 @@ public interface RepairOrderDao extends BaseDao<RepairOrder> {
     int queryRepairOrderIsUpdate( Long id );
     //修改
     int updateRepairOrder( RepairOrder repairOrder );
+
+    RepairOrder queryRepairOrderByExtendId(Integer extendId);
 }

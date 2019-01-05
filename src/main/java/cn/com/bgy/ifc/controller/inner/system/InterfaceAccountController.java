@@ -111,26 +111,19 @@ public class InterfaceAccountController extends BaseController {
     /**
      * 批量删除用户接口
      *
-     * @param longs
+     * @param ids
      * @return
      */
     @PostMapping("deleteInterfaceAccount")
     @SystemLogAfterSave(type = 1, description = "批量删除接口用户")
     @ResponseBody
-    public ResponseVO<Object> deleteInterfaceAccount(String longs) {
-        if (longs == null) {
+    public ResponseVO<Object> deleteInterfaceAccount(String ids) {
+        if (ids == null || ids.isEmpty()) {
             return ResponseVO.error().setMsg("参数异常");
         }
-        List<Long> list = JSONArray.parseArray(longs, Long.class);
-        Long[] deleteLongs = new Long[list.size()];
-        list.toArray(deleteLongs);
-        if (list.size() == 1) {
-            interfaceAccountDomain.deleteById(deleteLongs[0]);
-            return ResponseVO.success().setMsg("删除成功").setData(null);
-        } else {
-            interfaceAccountDomain.deleteInterfaceAccount(deleteLongs);
-            return ResponseVO.success().setMsg("删除成功").setData(null);
-        }
+        List<Long> list = JSONArray.parseArray(ids, Long.class);
+        interfaceAccountDomain.deleteInterfaceAccount(list);
+        return ResponseVO.success().setMsg("删除成功").setData(null);
     }
 
 }

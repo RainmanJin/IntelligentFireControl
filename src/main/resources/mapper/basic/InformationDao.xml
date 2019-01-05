@@ -125,11 +125,11 @@
     </where>
   </select>
   <!--批量删除通知公告-->
-  <update id="deleteInformation" parameterType="Long[]">
+  <update id="deleteInformation" >
     update information set logic_remove = true where id in
-    <foreach collection="array" item="item" index="no" open="("
+    <foreach collection="list" item="id" index="index" open="("
              separator="," close=")">
-      #{item}
+      #{id}
     </foreach>
   </update>
 

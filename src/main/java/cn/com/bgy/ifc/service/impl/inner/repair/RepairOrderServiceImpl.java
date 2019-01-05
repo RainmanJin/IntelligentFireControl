@@ -5,8 +5,7 @@ import cn.com.bgy.ifc.dao.repair.RepairOrderDao;
 import cn.com.bgy.ifc.domain.interfaces.repair.RepairOrderDomain;
 import cn.com.bgy.ifc.entity.po.repair.RepairOrder;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
-import cn.com.bgy.ifc.service.interfaces.inner.repair.RepaicOrderService;
+import cn.com.bgy.ifc.service.interfaces.inner.repair.RepairOrderService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -23,7 +22,7 @@ import java.util.Map;
  * @Description
  **/
 @Service
-public class RepaicOrderServiceImpl implements RepaicOrderService {
+public class RepairOrderServiceImpl implements RepairOrderService {
 
         @Resource
         private RepairOrderDao repairOrderDao;
@@ -101,5 +100,15 @@ public class RepaicOrderServiceImpl implements RepaicOrderService {
         return 0;
     }
 
+    /**
+     * chenlie
+     * 根据凤凰汇Id查询订单
+     * @param extendId
+     * @return
+     */
+    @Override
+    public RepairOrder queryRepairOrderByExtendId(Integer extendId){
+        return repairOrderDao.queryRepairOrderByExtendId(extendId);
+    }
 
 }

@@ -248,9 +248,53 @@
 
   </select>
   <select id="queryRepairOrderById" parameterType="java.lang.Long" resultType="java.util.Map">
-
+    SELECT o.id as id,
+    v.`name` as equipmentName,
+    ri.name as regionName,
+    rp.name as projectName,
+    rc.name as courtName,
+    rs.name as streetName,
+    rb.name as buildingName,
+    o.maintaindetail as maintaindetail,
+    o.repair_person as repairPerson,
+    o.repair_reason as repairReason,
+    o.repair_time as repairTime,
+    o.is_urgent as isUrgent,
+    o.state as state,
+    o.process_time as processTime,
+    o.process_person as processPerson,
+    o.process_remark as processRemark,
+    o.order_no as orderNo,
+    o.extend_id as extendId,
+    o.create_time  as createTime,
+    o.is_push  as isPush
+    FROM repair_order o
+    LEFT JOIN equipment_info v ON o.equipment_id = v.id
+    LEFT JOIN region_computer_room rr ON o.computer_room_id = rr.id
+    LEFT JOIN region_info ri ON rr.region_id = ri.id
+    LEFT JOIN region_project rp ON rr.project_id = rp.id
+    LEFT JOIN region_court rc ON rr.court_id = rc.id
+    LEFT JOIN region_street rs ON rr.street_id = rs.id
+    LEFT JOIN region_building rb ON rr.building_id = rb.id
+    LEFT JOIN equipment_type et ON v.type_id= et.id
+    LEFT JOIN equipment_brand eb ON v.brand_id = eb.id
+    LEFT JOIN equipment_version ev ON v.version_id = ev.id
+    where
+    o.id=#{id}
   </select>
-
+  <select id="queryRepairOrderByExtendId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+   SELECT id, organization_id, computer_room_id,
+      equipment_id, mcid, repair_person,
+      repair_person_call, repair_person_time, is_urgent,
+      state, process_person, process_time,
+      maintaindetail, repair_reason,
+      process_remark, order_no, extend_id,
+      create_time, is_push
+      logic_remove
+    FROM repair_order o
+    where
+    o.extend_id=#{extendId} and logic_remove=0
+  </select>
   <update id="deleteRepairOrder" parameterType="java.util.List">
     UPDATE  repair_order set logic_remove =1  where id IN
     <foreach collection="list" index="index" item="id" open="(" separator="," close=")">

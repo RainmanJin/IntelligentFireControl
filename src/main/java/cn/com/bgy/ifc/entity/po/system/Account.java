@@ -61,7 +61,7 @@ public class Account {
     /**
      * 注册日期
      */
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    //@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registTime;
 
     private Date registTimeStart;

@@ -14,7 +14,7 @@ import java.util.Map;
  * @Description 设备招修
  **/
 
-public interface RepaicOrderService {
+public interface RepairOrderService {
 
 
     ResponseVO<Object> launchRepair( RepairOrder repairOrder );
@@ -27,4 +27,6 @@ public interface RepaicOrderService {
     int deleteRepairOrder( String arr );
 
     int updateRepairOrder( RepairOrder repairOrder );
+
+    RepairOrder queryRepairOrderByExtendId(Integer extendId);
 }

@@ -4,16 +4,13 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.repair.RepairOrder;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
-import cn.com.bgy.ifc.service.interfaces.inner.repair.RepaicOrderService;
+import cn.com.bgy.ifc.service.interfaces.inner.repair.RepairOrderService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -23,10 +20,10 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("/repair/repairOrder")
-public class RepaicOrderController extends BaseController {
+public class RepairOrderController extends BaseController {
 
     @Autowired
-    private RepaicOrderService repaicOrderService;
+    private RepairOrderService repaicOrderService;
 
     /**
      * @Author huxin

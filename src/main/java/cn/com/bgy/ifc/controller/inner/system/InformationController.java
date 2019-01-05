@@ -116,19 +116,12 @@ public class InformationController extends BaseController {
     @SystemLogAfterSave(type = 1,description = "批量删除通知公告")
     @ResponseBody
     public ResponseVO<Object> deleteInformation(String ids) {
-        if (ids==null){
+        if (ids==null || ids.isEmpty()){
             return ResponseVO.error().setMsg("参数异常");
         }
-        List<Long> list = JSONArray.parseArray(ids,Long.class);
-        Long[] deleteLongs = new Long[list.size()];
-        list.toArray(deleteLongs);
-        if (list.size()==1){
-            informationDomain.deleteById(deleteLongs[0]);
+            List<Long> list = JSONArray.parseArray(ids,Long.class);
+            informationDomain.deleteInformation(list);
             return ResponseVO.success().setMsg("删除成功").setData(null);
-        }else {
-            informationDomain.deleteInformation(deleteLongs);
-            return ResponseVO.success().setMsg("删除成功").setData(null);
-        }
     }
 
 }

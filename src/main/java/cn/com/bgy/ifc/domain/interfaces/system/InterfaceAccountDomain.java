@@ -4,6 +4,8 @@ import cn.com.bgy.ifc.entity.po.system.InterfaceAccount;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface InterfaceAccountDomain {
 
     InterfaceAccount findById(Long id);
@@ -13,9 +15,9 @@ public interface InterfaceAccountDomain {
     int deleteById(Long id);
     /**
      * 逻辑删除用户接口（批量）
-     * @param longs
+     * @param ids
      */
-    void  deleteInterfaceAccount(Long[] longs);
+    void  deleteInterfaceAccount(List<Long> ids);
 
     int update(InterfaceAccount interfaceAccount);
     /**

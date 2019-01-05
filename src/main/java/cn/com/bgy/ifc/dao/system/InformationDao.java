@@ -13,9 +13,9 @@ public interface InformationDao extends BaseDao<Information> {
     int deleteById(Long id);
     /**
      * 逻辑删除通知公告（批量）
-     * @param longs
+     * @param list
      */
-    void  deleteInformation(Long[] longs);
+    void  deleteInformation(List<Long> list);
 
     int update(Information information);
 

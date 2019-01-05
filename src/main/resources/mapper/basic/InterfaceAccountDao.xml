@@ -119,11 +119,11 @@
            </if>
        </where>
     </select>
-    <update id="deleteInterfaceAccount" parameterType="Long[]">
+    <update id="deleteInterfaceAccount" >
         update interface_account set logic_remove = true where id in
-        <foreach collection="array" item="item" index="no" open="("
+        <foreach collection="list" item="id" index="index" open="("
                  separator="," close=")">
-            #{item}
+            #{id}
         </foreach>
     </update>
 
