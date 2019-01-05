@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.controller.inner.equipment;
 
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentBrandService;
@@ -24,7 +25,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/equipment/brand")
-public class EquipmentBrandController {
+public class EquipmentBrandController extends BaseController {
 
     @Autowired
     private EquipmentBrandService equipmentBrandService;
