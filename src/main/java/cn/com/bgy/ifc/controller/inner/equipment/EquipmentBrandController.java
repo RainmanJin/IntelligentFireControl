@@ -36,7 +36,7 @@ public class EquipmentBrandController {
      */
     @GetMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListEquipmentBrand( Page<Object> page, String keyword,String token){
+    public ResponseVO<PageInfo> queryListEquipmentBrand( Page<Object> page, String keyword){
         PageInfo pageInfo = equipmentBrandService.queryListEquipmentBrand(page,keyword);
         return   ResponseVO.<PageInfo>success().setData(pageInfo);
 
@@ -49,7 +49,7 @@ public class EquipmentBrandController {
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "型号信息添加")
     @ResponseBody
-    public ResponseVO<Object> addEEquipmentBrand( EquipmentBrand record, String token){
+    public ResponseVO<Object> addEEquipmentBrand( EquipmentBrand record){
         int count = equipmentBrandService.addEquipmentBrand(record);
         if (count ==1) {
             return ResponseVO.addSuccess();

@@ -61,6 +61,8 @@ public class EquipmentVersionDomainImpl implements EquipmentVersionDomain {
      */
     @Override
     public int addEquipmentVersion( EquipmentVersion record ) {
+        record.setStatus(1);
+        record.setLogicRemove(false);
         return equipmentVersionDao.insert(record);
     }
     /**

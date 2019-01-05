@@ -35,7 +35,7 @@ public class EquipmentInfoController {
      */
     @GetMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListEquipmentInfo( Page<Object> page, RegionAndBrandVO regionAndBrandVO, String token){
+    public ResponseVO<PageInfo> queryListEquipmentInfo( Page<Object> page, RegionAndBrandVO regionAndBrandVO){
         PageInfo pageInfo = equipmentInfoService.queryListEquipmentInfo(page,regionAndBrandVO);
         return  ResponseVO.<PageInfo>success().setData(pageInfo);
     }
@@ -47,7 +47,7 @@ public class EquipmentInfoController {
     @PostMapping("add")
     @SystemLogAfterSave(type = 1,description = "设备信息添加")
     @ResponseBody
-    public ResponseVO<Object> addEquipmentInfo( EquipmentInfo equipmentInfo ,String token){
+    public ResponseVO<Object> addEquipmentInfo( EquipmentInfo equipmentInfo){
         int count = equipmentInfoService.addEquipmentInfo(equipmentInfo);
         if (count > 0) {
             return ResponseVO.success().setMsg("添加成功");
@@ -62,7 +62,7 @@ public class EquipmentInfoController {
     @PostMapping("update")
     @SystemLogAfterSave(type = 1,description = "设备信息修改")
     @ResponseBody
-    public ResponseVO<Object> updateEquipmentInfo(EquipmentInfo equipmentInfo,String token){
+    public ResponseVO<Object> updateEquipmentInfo(EquipmentInfo equipmentInfo){
         int count = equipmentInfoService.updateEquipmentInfo(equipmentInfo);
         if (count == 1) {
             return ResponseVO.success().setMsg("修改成功");

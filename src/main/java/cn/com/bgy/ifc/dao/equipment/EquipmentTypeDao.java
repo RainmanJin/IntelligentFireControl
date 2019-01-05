@@ -10,9 +10,6 @@ public interface EquipmentTypeDao extends BaseDao<EquipmentType> {
 
     List<Map<String,Object>> queryListEquipmentType(Map<String,Object> map);
 
-    int addEquipmentType( EquipmentType equipmentType );
-
-    int updateEquipmentType( EquipmentType equipmentType );
 
     int deleteEquipmentType( List<Long> list );
 

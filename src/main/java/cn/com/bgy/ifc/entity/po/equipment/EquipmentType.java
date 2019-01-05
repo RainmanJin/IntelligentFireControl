@@ -28,7 +28,8 @@ public class EquipmentType implements Serializable {
      * 状态(0:无效;1:有效)
      */
     private Integer status;
-
+    //逻辑删除
+    private Boolean logicRemove;
     /**
      * equipment_type
      */
@@ -96,5 +97,13 @@ public class EquipmentType implements Serializable {
      */
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
+
+    public void setLogicRemove( Boolean logicRemove ) {
+        this.logicRemove = logicRemove;
     }
 }

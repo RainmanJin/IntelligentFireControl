@@ -147,8 +147,11 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
      * @Date 2018/12/23 16:03
      */
     @Override
+
     public int addEquipmentType( EquipmentType equipmentType ) {
-        return equipmentTypeDao.addEquipmentType(equipmentType);
+        equipmentType.setStatus(1);
+        equipmentType.setLogicRemove(false);
+        return equipmentTypeDao.insert(equipmentType);
     }
     /*
      * @Author huxin

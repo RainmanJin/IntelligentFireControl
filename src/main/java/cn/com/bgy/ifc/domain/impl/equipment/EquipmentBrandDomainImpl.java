@@ -61,6 +61,7 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
      */
     @Override
     public int addEquipmentBrand( EquipmentBrand equipmentBrand ) {
+        equipmentBrand.setStatus(0);
         return equipmentBrandDao.insert(equipmentBrand);
     }
     /**
