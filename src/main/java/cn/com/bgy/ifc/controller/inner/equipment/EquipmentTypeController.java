@@ -103,7 +103,7 @@ public class EquipmentTypeController {
     }
     /**
      * @Author huxin
-     * @Description 根据ID查询型号信息
+     * @Description 根据ID查询类型信息
      * @Date 2019/1/2 9:44
      */
     @GetMapping("find")
@@ -111,5 +111,17 @@ public class EquipmentTypeController {
     public ResponseVO<Object> findById(Long id){
         Map<String,Object> map  = equipmentTypeService.findById(id);
         return ResponseVO.<Object>success().setData(map);
+    }
+
+    /**
+     * @Author huxin
+     * @Description 查询所有类型信息
+     * @Date 2019/1/5 11:02
+     */
+    @GetMapping("queryAllName")
+    @ResponseBody
+    public ResponseVO<Object> queryAllEquipmentType(){
+        List<Map<String,Object>> list =  equipmentTypeService.queryAllEquipmentType();
+        return ResponseVO.success().setData(list);
     }
 }

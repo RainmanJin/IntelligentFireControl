@@ -83,4 +83,9 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
         return null;
     }
 
+    @Override
+    public List<Map<String, Object>> queryAllEquipmentType() {
+        return equipmentTypeDao.queryAllEquipmentType();
+    }
+
 }

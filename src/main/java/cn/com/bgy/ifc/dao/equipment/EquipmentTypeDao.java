@@ -19,4 +19,6 @@ public interface EquipmentTypeDao extends BaseDao<EquipmentType> {
     List<Map<String,Object>> queryEquipmentTypeBySuperId( Long id );
 
     Long queryBySuperIdRtrueSuperId( Long id );
+
+    List<Map<String,Object>> queryAllEquipmentType();
 }

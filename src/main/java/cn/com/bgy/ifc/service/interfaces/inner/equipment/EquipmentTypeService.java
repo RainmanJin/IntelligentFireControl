@@ -27,4 +27,6 @@ public interface EquipmentTypeService {
     List<Map<String,Object>> queryEquipmentTypeBySuperId( Long id );
 
     Map<String,Object> findById( Long id );
+
+    List<Map<String,Object>> queryAllEquipmentType();
 }

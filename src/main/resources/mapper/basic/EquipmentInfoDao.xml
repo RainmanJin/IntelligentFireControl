@@ -209,15 +209,16 @@
         eb.id as brandId,eb.`name` as brandName,
         ev.id as versionId,ev.`name` as versionName,
         ei.`status` as  `status`
-        FROM ((((((((equipment_info ei
-        LEFT JOIN region_computer_room rr ON ei.machine_room_id = rr.id)
-        LEFT JOIN region_info ri ON rr.region_id = ri.id)
-        LEFT JOIN region_project rp ON rr.project_id = rp.id)
-        LEFT JOIN region_court rc ON rr.court_id = rc.id)
-        LEFT JOIN region_street rs ON rr.street_id = rs.id)
-        LEFT JOIN region_building rb ON rr.building_id = rb.id)
-        LEFT JOIN equipment_type et ON ei.type_id = et.id)
-        LEFT JOIN equipment_brand eb ON ei.brand_id = eb.id)
+        FROM equipment_info ei
+        INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
+        INNER JOIN region_info ri ON rr.region_id = ri.id
+        INNER JOIN region_project rp ON rr.project_id = rp.id AND rp.region_id = ri.id
+        LEFT JOIN region_court rc ON rr.court_id = rc.id AND rc.region_id = ri.id AND rc.project_id = rp.id
+        LEFT JOIN region_street rs ON rr.street_id = rs.id AND rs.region_id = ri.id AND rs.project_id = rp.id AND rs.court_id = rc.id
+        LEFT JOIN region_building rb ON rr.building_id = rb.id AND rb.region_id = ri.id AND rb.project_id = rp.id
+        AND rb.court_id = rc.id AND rb.street_id = rs.id
+        LEFT JOIN equipment_type et ON ei.type_id = et.id
+        INNER JOIN equipment_brand eb ON ei.brand_id = eb.id
         LEFT JOIN equipment_version ev ON ei.version_id = ev.id
         <where>
             <if test="regionId != null and regionId !='' ">
@@ -244,50 +245,63 @@
             </if>
 
             AND ei.logic_remove = 0
-            <!--
             AND rr.logic_remove = 0
-            AND rp.logic_remove = 0
-            AND rs.logic_remove = 0
-            AND rb.logic_remove = 0
-            AND et.logic_remove = 0
-            AND eb.`status` in(0,1)
-            AND ev.logic_remove = 0
+            <!--
+             AND ri.logic_remove = 0
+             AND rp.logic_remove = 0
+             AND rs.logic_remove = 0
+             AND rb.logic_remove = 0
+             AND et.logic_remove = 0
+             AND eb.`status` in(0,1)
+             AND ev.logic_remove = 0
              -->
-        </where>
-    </select>
-    <select id="queryEquipmentInfoById" resultType="java.util.Map" parameterType="java.lang.Long">
 
-         SELECT
-        ei.id as id,ei.`name` as name,
-        ri.id as regionId,ri.`name` as regionName,
-        rp.id as projectId,rp.`name` as projectName,
-        rc.id as courtId,rc.`name` as courtName,
-        rs.id as streetId,rs.`name` as streetName,
-        rb.id as buildingId,rb.`name` as buildingName,
-        ei.input_code as inputCode,
-        et.id as typeId,et.`name` as typeName,
-        eb.id as brandId,eb.`name` as brandName,
-        ev.id as versionId,ev.`name` as versionName,
-        ei.input_code as inputCode,
-        ei.keep_years as keepYears,ei.in_work_time as workTime,
-        ei.important as important,ei.localtion_code as localtionCode,
-        ei.simple_code as simpleCode,ei.api_code as apiCode,
-        ei.`status` as  `status`
-        FROM ((((((((equipment_info ei
-        LEFT JOIN region_computer_room rr ON ei.machine_room_id = rr.id)
-        LEFT JOIN region_info ri ON rr.region_id = ri.id)
-        LEFT JOIN region_project rp ON rr.project_id = rp.id)
-        LEFT JOIN region_court rc ON rr.court_id = rc.id)
-        LEFT JOIN region_street rs ON rr.street_id = rs.id)
-        LEFT JOIN region_building rb ON rr.building_id = rb.id)
-        LEFT JOIN equipment_type et ON ei.type_id = et.id)
-        LEFT JOIN equipment_brand eb ON ei.brand_id = eb.id)
-        LEFT JOIN equipment_version ev ON ei.version_id = ev.id
-        WHERE ei.id =  #{id,jdbcType=BIGINT}
+         </where>
+     </select>
+     <select id="queryEquipmentInfoById" resultType="java.util.Map" parameterType="java.lang.Long">
 
-    </select>
+          SELECT
+         ei.id as id,ei.`name` as name,
+         ri.id as regionId,ri.`name` as regionName,
+         rp.id as projectId,rp.`name` as projectName,
+         rc.id as courtId,rc.`name` as courtName,
+         rs.id as streetId,rs.`name` as streetName,
+         rb.id as buildingId,rb.`name` as buildingName,
+         ei.input_code as inputCode,
+         et.id as typeId,et.`name` as typeName,
+         eb.id as brandId,eb.`name` as brandName,
+         ev.id as versionId,ev.`name` as versionName,
+         ei.input_code as inputCode,
+         ei.keep_years as keepYears,ei.in_work_time as workTime,
+         ei.important as important,ei.localtion_code as localtionCode,
+         ei.simple_code as simpleCode,ei.api_code as apiCode,
+         ei.`status` as  `status`
+         FROM equipment_info ei
+         INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
+         INNER JOIN region_info ri ON rr.region_id = ri.id
+         INNER JOIN region_project rp ON rr.project_id = rp.id AND rp.region_id = ri.id
+         LEFT JOIN region_court rc ON rr.court_id = rc.id AND rc.region_id = ri.id AND rc.project_id = rp.id
+         LEFT JOIN region_street rs ON rr.street_id = rs.id AND rs.region_id = ri.id AND rs.project_id = rp.id AND rs.court_id = rc.id
+         LEFT JOIN region_building rb ON rr.building_id = rb.id AND rb.region_id = ri.id AND rb.project_id = rp.id
+         AND rb.court_id = rc.id AND rb.street_id = rs.id
+         LEFT JOIN equipment_type et ON ei.type_id = et.id
+         INNER JOIN equipment_brand eb ON ei.brand_id = eb.id
+         LEFT JOIN equipment_version ev ON ei.version_id = ev.id
+         WHERE ei.id =  #{id,jdbcType=BIGINT}
+         AND ei.logic_remove = 0
+         AND rr.logic_remove = 0
+         <!--
+         AND ri.logic_remove = 0
+         AND rp.logic_remove = 0
+         AND rs.logic_remove = 0
+         AND rb.logic_remove = 0
+         AND et.logic_remove = 0
+         AND eb.`status` in(0,1)
+         AND ev.logic_remove = 0
+         -->
+     </select>
 
-    <select id="queryRoomIdByEquipmentId" parameterType="java.lang.Long" resultType="java.lang.Long">
-        SELECT machine_room_id FROM equipment_info  WHERE id = #{id} and  logic_remove = 0
-    </select>
-</mapper>
+     <select id="queryRoomIdByEquipmentId" parameterType="java.lang.Long" resultType="java.lang.Long">
+         SELECT machine_room_id FROM equipment_info  WHERE id = #{id} and  logic_remove = 0
+     </select>
+ </mapper>

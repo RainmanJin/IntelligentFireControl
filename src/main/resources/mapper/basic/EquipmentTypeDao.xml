@@ -105,4 +105,8 @@
          id= #{id,jdbcType=BIGINT}
          AND `status`=1 AND logic_remove = 0
     </select>
+
+    <select id="queryAllEquipmentType" resultType="java.util.Map">
+        SELECT id,name FROM equipment_type WHERE logic_remove=0
+    </select>
 </mapper>

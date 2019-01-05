@@ -91,7 +91,8 @@ public class EquipmentVersionController {
      * @Date 2018/12/25 9:13
      */
     @GetMapping("queryAllName")
-    public ResponseVO<Object> queryEquipmentVersionByBrandId(Long id,String token){
+    @ResponseBody
+    public ResponseVO<Object> queryEquipmentVersionByBrandId(Long id){
         List<Map<String,Object>> list = equipmentVersionService.queryEquipmentVersionByBrandId(id);
         return ResponseVO.success().setData(list);
     }

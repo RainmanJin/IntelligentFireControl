@@ -72,8 +72,8 @@
     c.region_id as regionId,c.project_id as projectId,c.id as id,c.organization_id as organizationId,
     i.name as regionName ,p.name as projectName,c.name as name,c.create_time as createTime
     from region_court c
-    LEFT JOIN region_project p on  p.id = c.project_id
     LEFT JOIN region_info i on i.id = c.region_id
+    LEFT JOIN region_project p on c.project_id = p.id AND c.region_id = i.id
     <where>
       <if test="regionId != null and regionId!= '' ">
         AND c.region_id= #{regionId,jdbcType=BIGINT}
@@ -126,8 +126,8 @@
     c.region_id as regionId,c.project_id as projectId,c.id as id,c.organization_id as organizationId,
     i.name as regionName ,p.name as projectName,c.name as name
     from region_court c
-    LEFT JOIN region_project p on  p.id = c.project_id
     LEFT JOIN region_info i on i.id = c.region_id
+    LEFT JOIN region_project p on c.project_id = p.id AND c.region_id = i.id
     WHERE
       c.id= #{id,jdbcType=BIGINT}
       AND i.logic_remove = 0

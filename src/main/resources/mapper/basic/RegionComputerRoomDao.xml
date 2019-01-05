@@ -151,10 +151,10 @@
         cr.project_id as projectId,p.`name` as projectName
         FROM region_computer_room cr
         INNER JOIN region_info i on cr.region_id = i.id
-        INNER JOIN region_project p ON cr.project_id = p.id
-        LEFT JOIN region_court c on cr.court_id = c.id
-        LEFT JOIN region_street s on cr.street_id = s.id
-        LEFT JOIN region_building b on cr.building_id = b.id
+        INNER JOIN region_project p ON cr.project_id = p.id AND p.region_id = i.id
+        LEFT JOIN region_court c on cr.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id
+        LEFT JOIN region_street s on cr.street_id = s.id AND s.region_id =i.id AND s.project_id = p.id AND s.court_id = c.id
+        LEFT JOIN region_building b on cr.building_id = b.id AND b.region_id = i.id AND b.project_id =p.id AND b.court_id = c.id AND b.street_id =s.id
         <where>
             <if test="regionId != null and regionId!= '' ">
                 AND cr.region_id= #{regionId,jdbcType=BIGINT}
@@ -228,10 +228,10 @@
         cr.building_id as buildingId,b.name as buildingName
         FROM region_computer_room cr
         LEFT JOIN region_info i on cr.region_id = i.id
-        LEFT JOIN region_project p ON cr.project_id = p.id
-        LEFT JOIN region_court c on cr.court_id = c.id
-        LEFT JOIN region_street s on cr.street_id = s.id
-        LEFT JOIN region_building b on cr.building_id = b.id
+        INNER JOIN region_project p ON cr.project_id = p.id AND p.region_id = i.id
+        LEFT JOIN region_court c on cr.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id
+        LEFT JOIN region_street s on cr.street_id = s.id AND s.region_id =i.id AND s.project_id = p.id AND s.court_id = c.id
+        LEFT JOIN region_building b on cr.building_id = b.id AND b.region_id = i.id AND b.project_id =p.id AND b.court_id = c.id AND b.street_id =s.id
         WHERE
          cr.id= #{id,jdbcType=BIGINT}
           AND cr.logic_remove = 0
