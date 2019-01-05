@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.firepatrol.RenovationRecordDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.RenovationRecord">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="junk_id" jdbcType="BIGINT" property="junkId" />
+    <result column="config_id" jdbcType="BIGINT" property="configId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="acreage" jdbcType="DECIMAL" property="acreage" />
+    <result column="nature" jdbcType="INTEGER" property="nature" />
+    <result column="property_owner" jdbcType="VARCHAR" property="propertyOwner" />
+    <result column="property_owner_tel" jdbcType="VARCHAR" property="propertyOwnerTel" />
+    <result column="proposer" jdbcType="VARCHAR" property="proposer" />
+    <result column="proposer_tel" jdbcType="VARCHAR" property="proposerTel" />
+    <result column="decoration_method" jdbcType="INTEGER" property="decorationMethod" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="responsible_person" jdbcType="VARCHAR" property="responsiblePerson" />
+    <result column="responsible_person_tel" jdbcType="VARCHAR" property="responsiblePersonTel" />
+    <result column="is_ fire" jdbcType="BIT" property="isFire" />
+    <result column="is_fire_facilities" jdbcType="BIT" property="isFireFacilities" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.bgy.ifc.entity.po.firepatrol.RenovationRecordWithBLOBs">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    description, remark
+  </sql>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RenovationRecordWithBLOBs">
+    insert into fire_renovation_record (id, junk_id, config_id, 
+      address, acreage, nature, 
+      property_owner, property_owner_tel, proposer, 
+      proposer_tel, decoration_method, start_time, 
+      end_time, responsible_person, responsible_person_tel, 
+      "is_ fire", is_fire_facilities, create_time, 
+      logic_remove, description, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{junkId,jdbcType=BIGINT}, #{configId,jdbcType=BIGINT}, 
+      #{address,jdbcType=VARCHAR}, #{acreage,jdbcType=DECIMAL}, #{nature,jdbcType=INTEGER}, 
+      #{propertyOwner,jdbcType=VARCHAR}, #{propertyOwnerTel,jdbcType=VARCHAR}, #{proposer,jdbcType=VARCHAR}, 
+      #{proposerTel,jdbcType=VARCHAR}, #{decorationMethod,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{responsiblePerson,jdbcType=VARCHAR}, #{responsiblePersonTel,jdbcType=VARCHAR}, 
+      #{isFire,jdbcType=BIT}, #{isFireFacilities,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{logicRemove,jdbcType=BIT}, #{description,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RenovationRecordWithBLOBs">
+    insert into fire_renovation_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="junkId != null">
+        junk_id,
+      </if>
+      <if test="configId != null">
+        config_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="acreage != null">
+        acreage,
+      </if>
+      <if test="nature != null">
+        nature,
+      </if>
+      <if test="propertyOwner != null">
+        property_owner,
+      </if>
+      <if test="propertyOwnerTel != null">
+        property_owner_tel,
+      </if>
+      <if test="proposer != null">
+        proposer,
+      </if>
+      <if test="proposerTel != null">
+        proposer_tel,
+      </if>
+      <if test="decorationMethod != null">
+        decoration_method,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="responsiblePerson != null">
+        responsible_person,
+      </if>
+      <if test="responsiblePersonTel != null">
+        responsible_person_tel,
+      </if>
+      <if test="isFire != null">
+        "is_ fire",
+      </if>
+      <if test="isFireFacilities != null">
+        is_fire_facilities,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="junkId != null">
+        #{junkId,jdbcType=BIGINT},
+      </if>
+      <if test="configId != null">
+        #{configId,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="acreage != null">
+        #{acreage,jdbcType=DECIMAL},
+      </if>
+      <if test="nature != null">
+        #{nature,jdbcType=INTEGER},
+      </if>
+      <if test="propertyOwner != null">
+        #{propertyOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyOwnerTel != null">
+        #{propertyOwnerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="proposer != null">
+        #{proposer,jdbcType=VARCHAR},
+      </if>
+      <if test="proposerTel != null">
+        #{proposerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="decorationMethod != null">
+        #{decorationMethod,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="responsiblePerson != null">
+        #{responsiblePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePersonTel != null">
+        #{responsiblePersonTel,jdbcType=VARCHAR},
+      </if>
+      <if test="isFire != null">
+        #{isFire,jdbcType=BIT},
+      </if>
+      <if test="isFireFacilities != null">
+        #{isFireFacilities,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

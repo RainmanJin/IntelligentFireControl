@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.firepatrol.ExtinguisherConfigDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.ExtinguisherConfig">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="buying _time" jdbcType="TIMESTAMP" property="buyingTime" />
+    <result column="setting_position" jdbcType="VARCHAR" property="settingPosition" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="person" jdbcType="VARCHAR" property="person" />
+    <result column="condition" jdbcType="VARCHAR" property="condition" />
+    <result column="other" jdbcType="LONGVARCHAR" property="other" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ExtinguisherConfig">
+    insert into fire_extinguisher_config (id, type, "buying _time", 
+      setting_position, number, person, 
+      condition, create_time, logic_remove, 
+      other)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{buyingTime,jdbcType=TIMESTAMP}, 
+      #{settingPosition,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, #{person,jdbcType=VARCHAR}, 
+      #{condition,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, 
+      #{other,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ExtinguisherConfig">
+    insert into fire_extinguisher_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="buyingTime != null">
+        "buying _time",
+      </if>
+      <if test="settingPosition != null">
+        setting_position,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="person != null">
+        person,
+      </if>
+      <if test="condition != null">
+        condition,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+      <if test="other != null">
+        other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="buyingTime != null">
+        #{buyingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settingPosition != null">
+        #{settingPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="person != null">
+        #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="condition != null">
+        #{condition,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="other != null">
+        #{other,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

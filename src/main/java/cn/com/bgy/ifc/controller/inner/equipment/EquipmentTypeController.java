@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentTypeService;
@@ -24,7 +25,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/equipment/type")
-public class EquipmentTypeController {
+public class EquipmentTypeController extends BaseController {
 
     @Autowired
     private EquipmentTypeService equipmentTypeService;

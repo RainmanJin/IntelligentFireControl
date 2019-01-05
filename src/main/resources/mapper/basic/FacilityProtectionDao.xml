@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.firepatrol.FacilityProtectionDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.FacilityProtection">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="recordId" jdbcType="BIGINT" property="recordid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="check_person" jdbcType="VARCHAR" property="checkPerson" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="check_status" jdbcType="LONGVARCHAR" property="checkStatus" />
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FacilityProtection">
+    insert into fire_facility_protection (id, recordId, name, 
+      state, check_person, create_time, 
+      logic_remove, description, check_status, 
+      remark)
+    values (#{id,jdbcType=BIGINT}, #{recordid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{checkPerson,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{logicRemove,jdbcType=BIT}, #{description,jdbcType=LONGVARCHAR}, #{checkStatus,jdbcType=LONGVARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FacilityProtection">
+    insert into fire_facility_protection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="recordid != null">
+        recordId,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="checkPerson != null">
+        check_person,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="checkStatus != null">
+        check_status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="recordid != null">
+        #{recordid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="checkPerson != null">
+        #{checkPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="checkStatus != null">
+        #{checkStatus,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
