@@ -62,7 +62,7 @@ public class MaintenanceContractController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "维保合同新增")
+    @SystemLogAfterSave(description = "维保合同新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated MaintenanceContractVo maintenanceContractVo, BindingResult error, String token) {
         //参数校检
@@ -92,7 +92,7 @@ public class MaintenanceContractController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "维保合同修改")
+    @SystemLogAfterSave(description = "维保合同修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenanceContract maintenanceContract, String token){
         int resout = 1;
@@ -143,7 +143,7 @@ public class MaintenanceContractController extends BaseController{
      * @Date 2018年12月24日15:06:02
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "维保合同删除")
+    @SystemLogAfterSave(description = "维保合同删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String ids, String token){
     	ids = ids.replace("[", "") ;

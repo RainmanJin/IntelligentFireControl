@@ -31,11 +31,12 @@ public class RepairOrderController extends BaseController {
      * @Date 2018/12/26 10:35
      */
     @PostMapping("createData")
-    @SystemLogAfterSave(type = 1,description = "发起招修，添加订单")
+    @SystemLogAfterSave(description = "发起招修，添加订单")
     @ResponseBody
-    public ResponseVO<Object> launchRepair(RepairOrder repairOrder ){
+    public ResponseVO<Object> launchRepair(RepairOrder repairOrder) {
         return repaicOrderService.launchRepair(repairOrder);
     }
+
     /**
      * @Author huxin
      * @Description 查询工单列表
@@ -43,18 +44,11 @@ public class RepairOrderController extends BaseController {
      */
     @GetMapping("queryPageData")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListRepairOrder(Page<Object> page, @RequestParam Map<String, Object> params){
-        try {
-
-
-        PageInfo pageInfo = repaicOrderService.queryListRepairOrder(page,params);
-
-        return   ResponseVO.<PageInfo>success().setData(pageInfo);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+    public ResponseVO<PageInfo> queryListRepairOrder(Page<Object> page, @RequestParam Map<String, Object> params) {
+        PageInfo pageInfo = repaicOrderService.queryListRepairOrder(page, params);
+        return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
+
     /**
      * @Author huxin
      * @Description 根据工单Id查询详细信息
@@ -62,10 +56,11 @@ public class RepairOrderController extends BaseController {
      */
     @PostMapping("queryById")
     @ResponseBody
-    public ResponseVO<Object> queryRepairOrderById(Long id){
-        Map<String,Object> map = repaicOrderService.queryRepairOrderById(id);
+    public ResponseVO<Object> queryRepairOrderById(Long id) {
+        Map<String, Object> map = repaicOrderService.queryRepairOrderById(id);
         return ResponseVO.<Object>success().setData(map);
     }
+
     /**
      * @Author huxin
      * @Description 修改工单信息
@@ -73,22 +68,23 @@ public class RepairOrderController extends BaseController {
      */
     @PostMapping("editData")
     @ResponseBody
-    public ResponseVO<Object> updateRepairOrder(RepairOrder repairOrder){
+    public ResponseVO<Object> updateRepairOrder(RepairOrder repairOrder) {
         int count = repaicOrderService.updateRepairOrder(repairOrder);
         if (count > 0) {
             return ResponseVO.success().setMsg("添加成功");
         }
         return ResponseVO.error().setMsg("添加失败！");
     }
+
     /**
      * @Author huxin
      * @Description 删除工单信息（含批量）
      * @Date 2018/12/26 10:40
      */
     @PostMapping("deleteData")
-    @SystemLogAfterSave(type = 1,description = "订单信息删除")
+    @SystemLogAfterSave(description = "订单信息删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRepairOrder(String ids){
+    public ResponseVO<Object> deleteRepairOrder(String ids) {
         int count = repaicOrderService.deleteRepairOrder(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");

@@ -47,7 +47,7 @@ public class EquipmentVersionController extends BaseController {
      * @Date 2018/12/21 18:13
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "型号信息添加")
+    @SystemLogAfterSave(description = "型号信息添加")
     @ResponseBody
     public ResponseVO<Object> addEquipmentVersion( EquipmentVersion record){
         int count = equipmentVersionService.addEquipmentVersion(record);
@@ -62,7 +62,7 @@ public class EquipmentVersionController extends BaseController {
      * @Date 2018/12/21 18:13
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "型号信息修改")
+    @SystemLogAfterSave(description = "型号信息修改")
     @ResponseBody
     public ResponseVO<Object> uopdateEquipmentVersion(EquipmentVersion record){
         int count = equipmentVersionService.updateEquipmentVersion(record);
@@ -77,7 +77,7 @@ public class EquipmentVersionController extends BaseController {
      * @Date 2018/12/21 18:13
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "型号信息删除")
+    @SystemLogAfterSave(description = "型号信息删除")
     @ResponseBody
     public ResponseVO<Object>  deleteEquipmentVersion( String ids ){
         int count = equipmentVersionService.deleteEquipmentVersion(ids);

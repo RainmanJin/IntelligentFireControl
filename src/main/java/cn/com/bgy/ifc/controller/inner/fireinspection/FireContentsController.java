@@ -42,7 +42,6 @@ public class FireContentsController extends BaseController{
 	/**
      * 分页查询
      *
-     * @param vo
      * @return
      */
     @GetMapping("queryPageData")
@@ -68,7 +67,7 @@ public class FireContentsController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("createData")
-    @SystemLogAfterSave(type = 1,description = "检查内容  码表新增")
+    @SystemLogAfterSave(description = "检查内容  码表新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated FireContentsVo vo, BindingResult error, String token) {
         //参数校检
@@ -93,7 +92,7 @@ public class FireContentsController extends BaseController{
      */
     @PostMapping("editData")
     @RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
-    @SystemLogAfterSave(type = 1,description = "检查内容  码表修改")
+    @SystemLogAfterSave(description = "检查内容  码表修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(FireContents po, String token){
         int resout = 1;
@@ -125,7 +124,7 @@ public class FireContentsController extends BaseController{
      * @Date 2018/12/18 15:22
      */
     @PostMapping("deleteData")
-    @SystemLogAfterSave(type = 1,description = "检查内容  码表删除")
+    @SystemLogAfterSave(description = "检查内容  码表删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
     	String []ids = arr.split(",");

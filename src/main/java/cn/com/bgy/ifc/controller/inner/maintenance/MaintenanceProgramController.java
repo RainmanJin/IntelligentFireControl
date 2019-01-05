@@ -38,7 +38,6 @@ public class MaintenanceProgramController extends BaseController{
     /**
      * 分页查询
      *
-     * @param vo
      * @return
      */
     @GetMapping("queryPageList")
@@ -51,7 +50,6 @@ public class MaintenanceProgramController extends BaseController{
     /**
      * 分页查询
      *
-     * @param vo
      * @return
      */
     @GetMapping("queryAllList")
@@ -65,7 +63,7 @@ public class MaintenanceProgramController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "维保项目新增")
+    @SystemLogAfterSave(description = "维保项目新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated MaintenanceProgramVo vo, BindingResult error, String token) {
         //参数校检
@@ -94,7 +92,7 @@ public class MaintenanceProgramController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "维保项目修改")
+    @SystemLogAfterSave(description = "维保项目修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenanceProgram po, String token){
         int resout = 1;
@@ -128,7 +126,7 @@ public class MaintenanceProgramController extends BaseController{
      * @Date 2018年12月26日15:36:00
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "维保项目删除")
+    @SystemLogAfterSave(description = "维保项目删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String ids, String token){
     	ids = ids.replace("[", "") ;

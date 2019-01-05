@@ -65,7 +65,7 @@ public class ResponseUtil {
                     if (districtId == 0) {
                         return str[0];
                     } else {
-                        if (str.length >1) {
+                        if (str.length > 1) {
                             return str[1];
                         }
                     }
@@ -76,11 +76,11 @@ public class ResponseUtil {
                         return str[0];
                     } else {
                         if (districtId == 0 || streetId == 0) {
-                            if (str.length >1) {
+                            if (str.length > 1) {
                                 return str[1];
                             }
                         } else {
-                            if (str.length >2) {
+                            if (str.length > 2) {
                                 return str[2];
                             }
                         }
@@ -119,7 +119,7 @@ public class ResponseUtil {
      * @author: ZhangCheng
      * @description:转换ListMap
      * @param: [response, dataKey, listKey]
-     * @return: java.util.List<java.util.Map               <               java.lang.String               ,               java.lang.Object>>
+     * @return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
      */
     public static List<Map<String, Object>> getResultListMap(JSONObject response, String dataKey, String listKey) {
         List<Map<String, Object>> mapList = new ArrayList<>();

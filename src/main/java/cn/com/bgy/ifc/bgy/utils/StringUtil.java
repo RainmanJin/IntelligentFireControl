@@ -7,13 +7,14 @@ package cn.com.bgy.ifc.bgy.utils;
  **/
 
 public class StringUtil {
+
     /**
      * @Author huxin
      * @Description 判定String是否为null
      * @Date 2018/12/12 10:29
      */
     public static boolean isEmpty(String s) {
-        if (null == s || "".equals(s) || "".equals(s.trim()) || "null".equalsIgnoreCase(s)|| "undefined".equalsIgnoreCase(s)) {
+        if (null == s || "".equals(s) || "".equals(s.trim()) || "null".equalsIgnoreCase(s) || "undefined".equalsIgnoreCase(s)) {
             return true;
         } else {
             return false;
@@ -29,11 +30,11 @@ public class StringUtil {
         return !isEmpty(s);
     }
 
-    public static boolean contains(String source,String target){
-          if(source.indexOf(target) !=-1){
+    public static boolean contains(String source, String target) {
+        if (source.indexOf(target) != -1) {
             return true;
-          }else{
-              return false;
-          }
+        } else {
+            return false;
+        }
     }
 }

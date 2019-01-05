@@ -49,7 +49,7 @@ public class RegionComputerRoomController extends BaseController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "机房信息修改")
+    @SystemLogAfterSave(description = "机房信息修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionComputerRoom( RegionComputerRoom regionComputerRoom){
         int count = regionComputerRoomService.updateRegionComputerRoom(regionComputerRoom);
@@ -64,7 +64,7 @@ public class RegionComputerRoomController extends BaseController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "机房删除")
+    @SystemLogAfterSave(description = "机房删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String ids){
         int count = regionComputerRoomService.deleteRegionComputerRoom(ids);
@@ -79,7 +79,7 @@ public class RegionComputerRoomController extends BaseController {
      * @Date 2018/12/19 17:00
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "机房添加")
+    @SystemLogAfterSave(description = "机房添加")
     @ResponseBody
     public ResponseVO<Object> addRegionComputerRoom(RegionComputerRoom regionComputerRoom){
 

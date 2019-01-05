@@ -65,7 +65,7 @@ public class FireTaskDrillController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("createData")
-    @SystemLogAfterSave(type = 1, description = "添加消防演练任务")
+    @SystemLogAfterSave( description = "添加消防演练任务")
     public ResponseVO<Object> add(@Validated FireTaskDrillVo fireTaskDrillVo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
@@ -88,7 +88,7 @@ public class FireTaskDrillController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("editData")
-    @SystemLogAfterSave(type = 1, description = "修改消防演练任务")
+    @SystemLogAfterSave(description = "修改消防演练任务")
     public ResponseVO<Object> edit(@Validated FireTaskDrillVo fireTaskDrillVo, BindingResult error) {
         //做参数校检
         if (error.hasErrors()) {
@@ -111,7 +111,7 @@ public class FireTaskDrillController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("deleteData")
-    @SystemLogAfterSave(type = 1, description = "删除消防演练任务")
+    @SystemLogAfterSave(description = "删除消防演练任务")
     public ResponseVO<Object> deleteBatch(String ids) {
         if (ids.length() == 0) {
             return ResponseVO.deleteError();

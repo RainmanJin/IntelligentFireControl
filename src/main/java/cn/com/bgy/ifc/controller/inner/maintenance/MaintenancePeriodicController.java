@@ -58,7 +58,7 @@ public class MaintenancePeriodicController extends BaseController {
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "维保周期性计划新增")
+    @SystemLogAfterSave(description = "维保周期性计划新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated MaintenancePeriodicVo vo, BindingResult error, String token) {
         //参数校检
@@ -82,7 +82,7 @@ public class MaintenancePeriodicController extends BaseController {
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "维保周期性计划修改")
+    @SystemLogAfterSave(description = "维保周期性计划修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenancePeriodic po, String token){
         int resout = 1;
@@ -114,7 +114,7 @@ public class MaintenancePeriodicController extends BaseController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "维保周期性计划删除")
+    @SystemLogAfterSave(description = "维保周期性计划删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
     	List<Long> list = new ArrayList<>();

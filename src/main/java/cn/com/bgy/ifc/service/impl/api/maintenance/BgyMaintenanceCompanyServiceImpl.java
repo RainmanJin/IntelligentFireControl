@@ -2,6 +2,8 @@ package cn.com.bgy.ifc.service.impl.api.maintenance;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
+import cn.com.bgy.ifc.bgy.constant.LoginState;
+import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
@@ -42,7 +44,14 @@ public class BgyMaintenanceCompanyServiceImpl implements BgyMaintenanceCompanySe
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
-    @SystemLogAfterSave(type = 5, description = "同步集成平台维保公司数据")
+    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步集成平台维保公司数据",login = LoginState.NOT_LOGIN)
+    @Override
+    public ResponseVO<Object> test() {
+        int a = 1/0;
+        return ResponseVO.error().setMsg("获取数据成功！");
+    }
+
+    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步集成平台维保公司数据")
     @Override
     public ResponseVO<Object> baseObtainBgyRepairCompany(int pageNo, int pageSize) {
         try {

@@ -2,6 +2,8 @@ package cn.com.bgy.ifc.service.impl.api.project;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
+import cn.com.bgy.ifc.bgy.constant.LoginState;
+import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
@@ -47,7 +49,7 @@ public class BgyProjectServiceImpl implements BgyProjectService {
     @Autowired
     private RegionInfoDomain regionInfoDomain;
 
-    @SystemLogAfterSave(type = 5, description = "同步集成平台项目数据")
+    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步集成平台项目数据",login= LoginState.NOT_LOGIN)
     @Override
     public ResponseVO<Object> baseObtainBgyProject(int pageNo, int pageSize) {
         try {

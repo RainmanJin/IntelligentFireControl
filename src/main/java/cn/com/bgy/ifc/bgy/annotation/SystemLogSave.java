@@ -1,10 +1,9 @@
 package cn.com.bgy.ifc.bgy.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-import java.lang.annotation.RetentionPolicy;
+import cn.com.bgy.ifc.bgy.constant.LoginState;
+import cn.com.bgy.ifc.bgy.constant.SystemLogType;
+
+import java.lang.annotation.*;
 
 /**
  * @author: ZhangCheng
@@ -23,9 +22,12 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SystemLogSave {
 
-    //日志类型（type类型参考SystemConstant.SystemLogType中枚举类型）
-    int type() default 1;
+    //日志类型（type类型参考SystemLogType中枚举类型）
+    SystemLogType type() default SystemLogType.OPERATION_LOG;
 
     //日志描述
     String description() default "";
+
+    //判断是否已登录
+    LoginState login() default LoginState.IS_LOGIN;
 }

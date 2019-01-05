@@ -32,7 +32,6 @@ public class FirePlanTestController extends BaseController{
 	/**
      * 分页查询
      *
-     * @param vo
      * @return
      */
     @GetMapping("queryPageData")
@@ -58,7 +57,7 @@ public class FirePlanTestController extends BaseController{
      * @Date 2018年12月30日15:12:24
      */
     @PostMapping("createData")
-    @SystemLogAfterSave(type = 1,description = "设施故障检测工作计划（主表）新增")
+    @SystemLogAfterSave(description = "设施故障检测工作计划（主表）新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated FirePlanTestVo vo, BindingResult error, String token) {
         //参数校检
@@ -83,7 +82,7 @@ public class FirePlanTestController extends BaseController{
      */
     @PostMapping("editData")
     //@RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
-    @SystemLogAfterSave(type = 1,description = "设施故障检测工作计划（主表）修改")
+    @SystemLogAfterSave(description = "设施故障检测工作计划（主表）修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(FirePlanTest po, String token){
         int resout = 1;
@@ -115,7 +114,7 @@ public class FirePlanTestController extends BaseController{
      * @Date 2018年12月30日15:12:24
      */
     @PostMapping("deleteData")
-    @SystemLogAfterSave(type = 1,description = "设施故障检测工作计划（主表）删除")
+    @SystemLogAfterSave(description = "设施故障检测工作计划（主表）删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
     	String []ids = arr.split(",");

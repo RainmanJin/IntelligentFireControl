@@ -72,7 +72,7 @@ public class MaintenanceOrderController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "维保工单新增")
+    @SystemLogAfterSave(description = "维保工单新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated MaintenanceOrderVo vo, BindingResult error, String token) {
         //参数校检
@@ -96,7 +96,7 @@ public class MaintenanceOrderController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "维保工单修改")
+    @SystemLogAfterSave(description = "维保工单修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenanceOrder po, String token){
         int resout = 1;
@@ -128,7 +128,7 @@ public class MaintenanceOrderController extends BaseController{
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "维保工单删除")
+    @SystemLogAfterSave(description = "维保工单删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
     	List<Long> list = new ArrayList<>();

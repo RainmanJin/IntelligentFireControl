@@ -42,7 +42,6 @@ public class MaintenanceContractFileController extends BaseController{
 	/**
      * 分页查询
      *
-     * @param vo
      * @return
      */
     @GetMapping("queryPageList")
@@ -67,7 +66,7 @@ public class MaintenanceContractFileController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "维保合同附件新增")
+    @SystemLogAfterSave(description = "维保合同附件新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated MaintenanceContractFileVo vo, BindingResult error, String token) {
         //参数校检
@@ -92,7 +91,7 @@ public class MaintenanceContractFileController extends BaseController{
      */
     @PostMapping("update")
     @RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
-    @SystemLogAfterSave(type = 1,description = "维保合同附件修改")
+    @SystemLogAfterSave(description = "维保合同附件修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenanceContractFile po, String token){
         int resout = 1;
@@ -124,7 +123,7 @@ public class MaintenanceContractFileController extends BaseController{
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "维保合同附件删除")
+    @SystemLogAfterSave(description = "维保合同附件删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
     	String []ids = arr.split(",");

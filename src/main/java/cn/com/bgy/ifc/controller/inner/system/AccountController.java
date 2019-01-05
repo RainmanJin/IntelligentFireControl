@@ -68,7 +68,7 @@ public class AccountController extends BaseController {
      * @return
      */
     @PostMapping("updateIsDisable")
-    @SystemLogAfterSave(type = 1,description = "更新用户状态")
+    @SystemLogAfterSave(description = "更新用户状态")
    // @RequiresRoles(value = {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_ADMIN,SystemConstant.SYSTEM_ROLES_AREA_ADMIN,SystemConstant.SYSTEM_ROLES_PROJECT_ADMIN},logical = Logical.OR)
     @ResponseBody
     public ResponseVO<Object> updateIsDisable(String ids,Integer isDisable ){
@@ -86,7 +86,7 @@ public class AccountController extends BaseController {
      * @return
      */
     @PostMapping("initalingPassword")
-    @SystemLogAfterSave(type = 1,description = "初始用户密码")
+    @SystemLogAfterSave(description = "初始用户密码")
      //@RequiresRoles(value = {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_ADMIN,SystemConstant.SYSTEM_ROLES_AREA_ADMIN,SystemConstant.SYSTEM_ROLES_PROJECT_ADMIN},logical = Logical.OR)
     @ResponseBody
     public ResponseVO<Object> initalingPassword(Account account ){

@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.constant.LoginState;
+import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.utils.ImageGenerationUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemMenuDomain;
@@ -35,7 +38,7 @@ import java.util.Map;
 
 import static javax.imageio.ImageIO.write;
 
-@Controller
+@RestController
 @RequestMapping("/system/")
 public class LoginController {
 
@@ -78,7 +81,6 @@ public class LoginController {
 
 
     @GetMapping("/getImage")
-    @ResponseBody
     public String getImage(HttpServletRequest request,HttpServletResponse response,HttpSession session ) throws IOException {
         Map<String, Object> map = ImageGenerationUtil.generateCodeAndPic();
         //验证数字
@@ -100,7 +102,7 @@ public class LoginController {
      * @return
      */
     @PostMapping ("/login")
-    @ResponseBody
+    @SystemLogAfterSave(type = SystemLogType.LOGON_LOG,description = "系统登录",login = LoginState.NOT_LOGIN)
     public ResponseVO<Object> login(HttpServletResponse response,HttpServletRequest request,String userName,String password,String identifyCode) {
         //获取session中的验证码
         String code = request.getSession().getAttribute("identifyCode") == null ? "" : request.getSession().getAttribute("identifyCode").toString().toLowerCase();

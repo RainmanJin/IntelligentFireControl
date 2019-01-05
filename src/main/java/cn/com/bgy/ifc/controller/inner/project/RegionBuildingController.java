@@ -44,7 +44,7 @@ public class RegionBuildingController extends BaseController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "楼栋单元信息修改")
+    @SystemLogAfterSave(description = "楼栋单元信息修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionBuilding( RegionBuilding regionBuilding){
 
@@ -60,7 +60,7 @@ public class RegionBuildingController extends BaseController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "街道信息删除")
+    @SystemLogAfterSave(description = "街道信息删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionBuilding( String ids){
         int count = regionBuildingService.deleteRegionBuilding(ids);
@@ -75,7 +75,7 @@ public class RegionBuildingController extends BaseController {
      * @Date 2018/12/19 17:00
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "街道信息添加")
+    @SystemLogAfterSave(description = "街道信息添加")
     @ResponseBody
     public ResponseVO<Object> addRegionBuilding(RegionBuilding regionBuilding){
 

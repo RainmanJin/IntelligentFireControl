@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 
-public interface AccountDao extends BaseDao {
+public interface AccountDao extends BaseDao<Account> {
     /**
      * 条件查询用户
      * @param account
@@ -17,18 +17,25 @@ public interface AccountDao extends BaseDao {
     List<Account> searchByWhere(Account account);
 
     /**
-     * 根据Id删除用户
-     * @param id
-     * @return
-     */
-    int deleteById(Long id);
-
-    /**
      * 根据Id查找用户
      * @param id
      * @return
      */
     Account findById(Long id);
+
+    /**
+     *
+     * @param thirdUserId
+     * @return
+     */
+    Account findByThirdId(Long thirdUserId);
+
+    /**
+     *
+     * @param organizationId
+     * @return
+     */
+    List<Account> queryThirdList(Long organizationId);
 
     /**
      * 根据id更新用户
@@ -43,6 +50,13 @@ public interface AccountDao extends BaseDao {
      * @return
      */
     int updateSelective(Account account);
+
+    /**
+     * 根据第三方ID更新数据
+     * @param account
+     * @return
+     */
+    int updateByThirdId(Account account);
 
     /**
      *

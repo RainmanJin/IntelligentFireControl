@@ -59,7 +59,7 @@ public class SystemPowerController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1, description = "添加系统权限")
+    @SystemLogAfterSave(description = "添加系统权限")
     public ResponseVO<Object> add(@Validated SystemPowerVo systemPowerVo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
@@ -82,7 +82,7 @@ public class SystemPowerController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("edit")
-    @SystemLogAfterSave(type = 1, description = "修改系统权限")
+    @SystemLogAfterSave(description = "修改系统权限")
     public ResponseVO<Object> edit(@Validated SystemPowerVo systemPowerVo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
@@ -105,7 +105,7 @@ public class SystemPowerController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("deleteData")
-    @SystemLogAfterSave(type = 1, description = "删除系统权限")
+    @SystemLogAfterSave(description = "删除系统权限")
     public ResponseVO<Object> delete(String ids) {
         if (ids.length() == 0) {
             return ResponseVO.deleteError();

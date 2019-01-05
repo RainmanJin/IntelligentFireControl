@@ -20,6 +20,7 @@
     <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
     <result column="user_type" jdbcType="INTEGER" property="userType" />
     <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+    <result column="third_user_id" jdbcType="BIGINT" property="thirdUserId" />
   </resultMap>
 
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.Account">
@@ -28,14 +29,14 @@
       password, password_salt, identity_number, 
       sex, regist_time, is_disable, 
       current_ip, current_time, last_ip, 
-      last_time, user_type, remark
+      last_time, user_type, remark,third_user_id
       )
     values ( #{organizationId,jdbcType=BIGINT}, #{departmentId,jdbcType=BIGINT},
       #{telephone,jdbcType=VARCHAR}, #{jobNumber,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{passwordSalt,jdbcType=VARCHAR}, #{identityNumber,jdbcType=VARCHAR}, 
       #{sex,jdbcType=INTEGER}, #{registTime,jdbcType=TIMESTAMP}, #{isDisable,jdbcType=INTEGER}, 
       #{currentIp,jdbcType=VARCHAR}, #{currentTime,jdbcType=TIMESTAMP}, #{lastIp,jdbcType=VARCHAR}, 
-      #{lastTime,jdbcType=TIMESTAMP}, #{userType,jdbcType=INTEGER}, #{remark,jdbcType=LONGVARCHAR}
+      #{lastTime,jdbcType=TIMESTAMP}, #{userType,jdbcType=INTEGER}, #{remark,jdbcType=LONGVARCHAR},#{thirdUserId,jdbcType=BIGINT},
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.Account">
@@ -95,6 +96,9 @@
       <if test="remark != null">
         remark,
       </if>
+      <if test="thirdUserId != null">
+        third_user_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -153,11 +157,9 @@
       </if>
     </trim>
   </insert>
-  <delete id="deleteById" parameterType="long" >
-    delete  from account where id=#{id,jdbcType=BIGINT}
-  </delete>
+
   <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.system.Account">
-     select
+      select
       t1.id as id,
       t1.user_name as userName,
       t1.telephone,
@@ -168,6 +170,26 @@
       t1.current_time as currentTime,
       t1.regist_time as registTime
       from account t1 where id=#{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="findByThirdId" parameterType="long" resultMap="BaseResultMap">
+      SELECT  id, organization_id, department_id,
+              telephone, job_number, user_name,
+              password, password_salt, identity_number,
+              sex, regist_time, is_disable,
+              current_ip, current_time, last_ip,
+              last_time, user_type, remark,third_user_id
+      FROM account WHERE third_user_id=#{thirdUserId,jdbcType=BIGINT}
+  </select>
+
+  <select id="queryThirdList" parameterType="long" resultMap="BaseResultMap">
+      SELECT  id, organization_id, department_id,
+              telephone, job_number, user_name,
+              password, password_salt, identity_number,
+              sex, regist_time, is_disable,
+              current_ip, current_time, last_ip,
+              last_time, user_type, remark,third_user_id
+      FROM account WHERE third_user_id IS NOT NULL AND organization_id=#{organizationId,jdbcType=BIGINT}
   </select>
 <!--分页条件查询用户管理列表-->
   <select id="searchByWhere" parameterType="cn.com.bgy.ifc.entity.po.system.Account" resultType="cn.com.bgy.ifc.entity.po.system.Account">
@@ -345,6 +367,62 @@
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByThirdId" parameterType="cn.com.bgy.ifc.entity.po.system.Account">
+    update account
+    <set>
+      <if test="organizationId != null">
+        organization_id =#{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=BIGINT},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="jobNumber != null">
+        job_number = #{jobNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+
+      <if test="passwordSalt != null">
+        password_salt = #{passwordSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="identityNumber != null">
+        identityn_umber = #{identityNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex =  #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="registTime != null">
+        regist_time = #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDisable != null">
+        is_disable = #{isDisable,jdbcType=INTEGER},
+      </if>
+      <if test="currentIp != null">
+        current_ip= #{currentIp,jdbcType=VARCHAR},
+      </if>
+      <if test="currentTime != null">
+        current_time= #{currentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastIp != null">
+        last_ip= #{lastIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null">
+        last_time= #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null">
+        user_type= #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark= #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    WHERE thirdUserId = #{third_user_id,jdbcType=BIGINT}
   </update>
   <!--根据电话号码查询用户对象-->
   <select id="findAccountByUserName" parameterType="String" resultMap="BaseResultMap">

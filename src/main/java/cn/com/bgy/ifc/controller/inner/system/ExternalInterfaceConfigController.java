@@ -86,7 +86,7 @@ public class ExternalInterfaceConfigController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("edit")
-    @SystemLogAfterSave(type = 1, description = "修改接入接口配置")
+    @SystemLogAfterSave(description = "修改接入接口配置")
     public ResponseVO<Object> edit(@Validated ExternalInterfaceConfigVo externalInterfaceConfigVo, BindingResult error) {
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -108,7 +108,7 @@ public class ExternalInterfaceConfigController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("deleteBatch")
-    @SystemLogAfterSave(type = 1, description = "删除接入接口配置")
+    @SystemLogAfterSave(description = "删除接入接口配置")
     public ResponseVO<Object> deleteBatch(String ids) {
         if (ids.length() == 0) {
             return ResponseVO.deleteError();

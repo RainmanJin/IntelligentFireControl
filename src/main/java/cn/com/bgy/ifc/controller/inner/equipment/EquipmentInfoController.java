@@ -46,7 +46,7 @@ public class EquipmentInfoController extends BaseController {
      * @Date 2018/12/21 11:09
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "设备信息添加")
+    @SystemLogAfterSave(description = "设备信息添加")
     @ResponseBody
     public ResponseVO<Object> addEquipmentInfo( EquipmentInfo equipmentInfo){
         int count = equipmentInfoService.addEquipmentInfo(equipmentInfo);
@@ -61,7 +61,7 @@ public class EquipmentInfoController extends BaseController {
      * @Date 2018/12/21 11:10
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "设备信息修改")
+    @SystemLogAfterSave(description = "设备信息修改")
     @ResponseBody
     public ResponseVO<Object> updateEquipmentInfo(EquipmentInfo equipmentInfo){
         int count = equipmentInfoService.updateEquipmentInfo(equipmentInfo);
@@ -76,7 +76,7 @@ public class EquipmentInfoController extends BaseController {
      * @Date 2018/12/21 11:10
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "设备信息删除")
+    @SystemLogAfterSave(description = "设备信息删除")
     @ResponseBody
     public ResponseVO<Object> deleteEquipmentInfo(String ids){
 

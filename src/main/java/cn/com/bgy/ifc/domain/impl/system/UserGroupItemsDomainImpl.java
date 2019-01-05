@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.dao.system.AccountDao;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.UserGroupItemsDomain;
@@ -20,6 +21,10 @@ import java.util.Map;
 
 @Service
 public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
+
+    @Resource
+    private AccountDao accountDao;
+
     @Resource
     private UserGroupItemsDao userGroupItemsDao;
 

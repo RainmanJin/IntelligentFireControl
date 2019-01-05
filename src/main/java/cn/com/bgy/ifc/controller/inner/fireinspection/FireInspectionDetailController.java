@@ -33,7 +33,6 @@ public class FireInspectionDetailController extends BaseController{
 	/**
      * 分页查询
      *
-     * @param vo
      * @return
      */
     @GetMapping("queryPageData")
@@ -59,7 +58,7 @@ public class FireInspectionDetailController extends BaseController{
      * @Date 2018年12月30日15:12:24
      */
     @PostMapping("createData")
-    @SystemLogAfterSave(type = 1,description = "消防巡检明细新增")
+    @SystemLogAfterSave(description = "消防巡检明细新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated FireInspectionDetailVo vo, BindingResult error, String token) {
         //参数校检
@@ -84,7 +83,7 @@ public class FireInspectionDetailController extends BaseController{
      */
     @PostMapping("editData")
     //@RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
-    @SystemLogAfterSave(type = 1,description = "消防巡检明细修改")
+    @SystemLogAfterSave(description = "消防巡检明细修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(FireInspectionDetail po, String token){
         int resout = 1;
@@ -116,7 +115,7 @@ public class FireInspectionDetailController extends BaseController{
      * @Date 2018年12月30日15:12:24
      */
     @PostMapping("deleteData")
-    @SystemLogAfterSave(type = 1,description = "消防巡检明细删除")
+    @SystemLogAfterSave(description = "消防巡检明细删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
     	String []ids = arr.split(",");

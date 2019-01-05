@@ -44,7 +44,7 @@ public class RegionProjectController extends BaseController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "项目信息修改")
+    @SystemLogAfterSave(description = "项目信息修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionProject( RegionProject regionProject){
 
@@ -60,7 +60,7 @@ public class RegionProjectController extends BaseController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "项目信息删除")
+    @SystemLogAfterSave(description = "项目信息删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionProject( String ids){
         int count = regionProjectDomain.deleteRegionProjec(ids);
@@ -75,7 +75,7 @@ public class RegionProjectController extends BaseController {
      * @Date 2018/12/19 11:44
             */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "项目信息添加")
+    @SystemLogAfterSave(description = "项目信息添加")
     @ResponseBody
     public ResponseVO<Object> insertRegionInfo( RegionProject regionProject){
         int count = regionProjectDomain.insert(regionProject);

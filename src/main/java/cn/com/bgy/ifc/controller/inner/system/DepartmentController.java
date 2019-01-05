@@ -32,7 +32,7 @@ import java.util.List;
  * @description:部门管理
  * @date: 2018-12-05 09:30
  **/
-@Controller
+@RestController
 @RequestMapping("/system/department")
 public class DepartmentController extends BaseController {
 
@@ -51,7 +51,6 @@ public class DepartmentController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.basic.Department>>
      */
     @GetMapping("searchPage")
-    @ResponseBody
     public ResponseVO<PageInfo<Department>> queryListByPage(Page<Department> page, Department department) {
             PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page, department);
             return ResponseVO.<PageInfo<Department>>success().setData(pageInfo);
@@ -64,7 +63,6 @@ public class DepartmentController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.util.List<cn.com.bgy.ifc.entity.vo.basic.DepartmentVo>>
      */
     @GetMapping("queryTree")
-    @ResponseBody
     public ResponseVO<List<DepartmentVo>> queryTree(String token) {
         List<Department> list = departmentDomain.queryAllList();
         List<DepartmentVo> functionList = new ArrayList<DepartmentVo>();
@@ -78,7 +76,6 @@ public class DepartmentController extends BaseController {
     }
 
     @GetMapping("queryAllList")
-    @ResponseBody
     public ResponseVO<List<Department>> queryAllList() {
         List<Department> list = departmentDomain.queryAllList();
         return ResponseVO.<List<Department>>success().setData(list);
@@ -90,14 +87,12 @@ public class DepartmentController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.util.List<cn.com.bgy.ifc.entity.po.basic.Department>>
      */
     @GetMapping("queryList")
-    @ResponseBody
     public ResponseVO<List<Department>> queryList(Department department) {
         List<Department> list = departmentDomain.queryListByParam(department);
         return ResponseVO.<List<Department>>success().setData(list);
     }
 
     @GetMapping("queryById")
-    @ResponseBody
     public ResponseVO<Object> queryById(Long id) {
         Department department = departmentDomain.findById(id);
         return ResponseVO.success().setData(department);
@@ -111,8 +106,7 @@ public class DepartmentController extends BaseController {
      * @return
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "部门信息添加")
-    @ResponseBody
+    @SystemLogAfterSave(description = "部门信息添加")
     public ResponseVO<Object> add(@Validated DepartmentVo departmentVo, BindingResult error) {
         Account user=this.getUser();
         Department department = new Department();
@@ -137,7 +131,6 @@ public class DepartmentController extends BaseController {
      * @return:
      */
     @GetMapping("findParentNameByUserId")
-    @ResponseBody
     public ResponseVO<List<Department>> findParentNameByUserId(Long userId) {
         DepartmentVo departmentVo = new DepartmentVo();
         departmentVo.setState(SystemConstant.EnableState.ENABLE.getValue());
@@ -154,8 +147,7 @@ public class DepartmentController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "部门信息修改")
-    @ResponseBody
+    @SystemLogAfterSave(description = "部门信息修改")
     public ResponseVO<Object> update(@Validated DepartmentVo departmentVo, BindingResult error) {
         Department department = new Department();
         CopyUtil.copyProperties(departmentVo, department);
@@ -173,8 +165,7 @@ public class DepartmentController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("forbidden")
-    @SystemLogAfterSave(type = 1,description = "部门信息修改")
-    @ResponseBody
+    @SystemLogAfterSave(description = "部门信息修改")
     public ResponseVO<Object> forbidden(DepartmentVo departmentVo) {
         Department department = new Department();
         CopyUtil.copyProperties(departmentVo, department);
@@ -190,22 +181,20 @@ public class DepartmentController extends BaseController {
      * @param: [id]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("deleteData")
-    @ResponseBody
-    public ResponseVO<Object> deleteData( String ids) {
-
+    @PostMapping("delete")
+    @SystemLogAfterSave(description = "部门信息删除")
+    public ResponseVO<Object> delete(String ids) {
         int count = departmentDomain.deleteBatch(ListUtil.getListId(ids));
         if (count >0) {
-            return ResponseVO.success().setMsg("删除成功");
+            return ResponseVO.deleteSuccess();
         }
-        return ResponseVO.error().setMsg("删除失败！");
+        return ResponseVO.deleteError();
     }
     /**
      * 查询所有部门
      * @return
      */
     @GetMapping("getDpartmentName")
-    @ResponseBody
     public ResponseVO<Object> getDpartmentName() {
         List<Department> list = departmentDomain.queryAllList();
         return ResponseVO.success().setData(list);

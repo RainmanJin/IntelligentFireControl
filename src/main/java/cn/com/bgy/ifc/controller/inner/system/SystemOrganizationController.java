@@ -1,22 +1,18 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
-import cn.com.bgy.ifc.bgy.constant.SystemConstant;
+import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
-import cn.com.bgy.ifc.entity.po.system.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemOrganizationVo;
-import cn.com.bgy.ifc.entity.vo.system.SystemRoleVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOrganizationService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +29,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/system/systemOrganization")
-public class SystemOrganizationController extends  BaseController {
+public class SystemOrganizationController extends BaseController {
 
     @Autowired
     private SystemOrganizationService systemOrganizationService;
@@ -42,7 +38,7 @@ public class SystemOrganizationController extends  BaseController {
      * @author: ZhangCheng
      * @description:机构分页查询
      * @param: [page, keywords]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo                               <                               cn.com.bgy.ifc.entity.po.system.SystemOrganization>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo                                                               <                                                               cn.com.bgy.ifc.entity.po.system.SystemOrganization>>
      */
     @GetMapping("queryPage")
     public ResponseVO<PageInfo<SystemOrganization>> searchPage(Page<SystemOrganization> page, String keywords) {
@@ -69,7 +65,7 @@ public class SystemOrganizationController extends  BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1, description = "添加机构信息")
+    @SystemLogAfterSave(description = "添加机构信息")
     public ResponseVO<Object> add(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
@@ -92,7 +88,7 @@ public class SystemOrganizationController extends  BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("edit")
-    @SystemLogAfterSave(type = 1, description = "修改机构信息")
+    @SystemLogAfterSave(description = "修改机构信息")
     public ResponseVO<Object> edit(@Validated SystemOrganizationVo systemOrganizationVo, BindingResult error) {
         //做参数校检
         if (error.hasErrors()) {
@@ -115,12 +111,12 @@ public class SystemOrganizationController extends  BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("forbidden")
-    @SystemLogAfterSave(type = 1,description = "机构管理启用操作")
+    @SystemLogAfterSave(description = "机构管理启用操作")
     public ResponseVO<Object> forbidden(SystemOrganizationVo systemOrganizationVo) {
         SystemOrganization systemOrganization = new SystemOrganization();
         CopyUtil.copyProperties(systemOrganizationVo, systemOrganization);
         int result = systemOrganizationService.updateSelective(systemOrganization);
-        if (result ==1) {
+        if (result == 1) {
             return ResponseVO.success().setMsg("操作成功");
         }
         return ResponseVO.error().setMsg("操作失败！");
@@ -133,7 +129,7 @@ public class SystemOrganizationController extends  BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("deleteBatch")
-    @SystemLogAfterSave(type = 1, description = "删除机构信息")
+    @SystemLogAfterSave(type = SystemLogType.OPERATION_LOG, description = "删除机构信息")
     public ResponseVO<Object> deleteBatch(String ids) {
         if (ids.length() == 0) {
             return ResponseVO.deleteError();
@@ -155,7 +151,7 @@ public class SystemOrganizationController extends  BaseController {
      */
     @GetMapping("getOrgAdmin")
     public ResponseVO<Object> getOrgAdmin(Long orgId) {
-        List<SelectVo> list =systemOrganizationService.getOrgAdmin("orgAdmin",orgId);
+        List<SelectVo> list = systemOrganizationService.getOrgAdmin("orgAdmin", orgId);
         return ResponseVO.success().setData(list);
     }
 }

@@ -12,6 +12,8 @@ import java.util.Date;
  **/
 public interface BgyMaintenanceCompanyService {
 
+    ResponseVO<Object> test();
+
     /**
      * @author: ZhangCheng
      * @description:碧桂园集成平台维保公司信息同步

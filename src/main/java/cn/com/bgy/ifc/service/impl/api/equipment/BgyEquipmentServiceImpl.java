@@ -2,6 +2,8 @@ package cn.com.bgy.ifc.service.impl.api.equipment;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
+import cn.com.bgy.ifc.bgy.constant.LoginState;
+import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
@@ -57,7 +59,7 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
     @Autowired
     private EquipmentVersionDomain equipmentVersionDomain;
 
-    @SystemLogAfterSave(type = 5, description = "同步集成平台设备信息数据")
+    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步集成平台设备信息数据",login = LoginState.NOT_LOGIN)
     @Override
     public ResponseVO<Object> baseObtainBgyEquipmentInfo(int pageNo, int pageSize) {
         try {
@@ -143,7 +145,7 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
         }
     }
 
-    @SystemLogAfterSave(type = 7, description = "同步集成平台设备类型数据")
+    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步集成平台设备类型数据",login = LoginState.NOT_LOGIN)
     @Override
     public ResponseVO<Object> baseObtainBgyEquipmentType(int pageNo, int pageSize) {
         try {
@@ -230,7 +232,7 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
 
     }
 
-    @SystemLogAfterSave(type = 5, description = "同步集成平台设备品牌数据")
+    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步集成平台设备品牌数据",login = LoginState.NOT_LOGIN)
     @Override
     public ResponseVO<Object> baseObtainBgyEquipmentBrand(int pageNo, int pageSize) {
         try {
@@ -316,7 +318,7 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
         }
     }
 
-    @SystemLogAfterSave(type = 5, description = "同步集成平台设备型号数据")
+    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步集成平台设备型号数据",login = LoginState.NOT_LOGIN)
     @Override
     public ResponseVO<Object> baseObtainBgyEquipmentVersion(int pageNo, int pageSize) {
         try {

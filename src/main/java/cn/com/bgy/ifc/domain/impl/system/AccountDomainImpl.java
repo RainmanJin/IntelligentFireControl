@@ -122,14 +122,14 @@ public class AccountDomainImpl implements AccountDomain {
             Date createTime = new Date();
             for (BgyUserVo userVo : list) {
                 Account account = new Account();
-                account.setId(userVo.getId());
+                //改为第三方用户ID
+                account.setThirdUserId(userVo.getId());
                 account.setSex(userVo.getSex());
                 account.setOrganizationId(orgId);
                 account.setDepartmentId(0L);
                 account.setTelephone(userVo.getTelephone());
                 account.setUserName(userVo.getUserName());
                 account.setPassword(userVo.getPassword());
-                //account.setUserType(SystemConstant.UserType.GENERAL_USER.getValue());
                 account.setJobNumber(userVo.getJobNum());
                 account.setIsDisable(userVo.getIsDisable());
                 account.setIdentityNumber(userVo.getCreditNo());
@@ -163,14 +163,14 @@ public class AccountDomainImpl implements AccountDomain {
         Date createTime = new Date();
         for (BgyUserVo userVo : list) {
             Account account = new Account();
-            account.setId(userVo.getId());
+            //改为第三方用户ID
+            account.setThirdUserId(userVo.getId());
             account.setSex(userVo.getSex());
             account.setOrganizationId(orgId);
             account.setDepartmentId(0L);
             account.setTelephone(userVo.getTelephone());
             account.setUserName(userVo.getUserName());
             account.setPassword(userVo.getPassword());
-            //account.setUserType(SystemConstant.UserType.GENERAL_USER.getValue());
             account.setJobNumber(userVo.getJobNum());
             account.setIsDisable(userVo.getIsDisable());
             account.setIdentityNumber(userVo.getCreditNo());
@@ -186,7 +186,7 @@ public class AccountDomainImpl implements AccountDomain {
             }
             //修改
             if (operType == updateType) {
-                int count = accountDao.updateSelective(account);
+                int count = accountDao.updateByThirdId(account);
                 if (count == 1) {
                     updateCount++;
                 }
@@ -194,7 +194,7 @@ public class AccountDomainImpl implements AccountDomain {
             //删除
             if (operType == deleteType) {
                 account.setIsDisable(isDelete);
-                int count = accountDao.updateSelective(account);
+                int count = accountDao.updateByThirdId(account);
                 if (count == 1) {
                     deleteCount++;
                 }

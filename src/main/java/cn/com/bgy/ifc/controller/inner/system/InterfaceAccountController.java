@@ -26,17 +26,16 @@ import java.util.List;
  * @description:接口用户
  * @date: 2018-12-05 09:30
  **/
-@Controller
+@RestController
 @RequestMapping("/system/interfaceAccount")
 public class InterfaceAccountController extends BaseController {
     @Autowired
     private InterfaceAccountDomain interfaceAccountDomain;
 
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1, description = "添加接口用户")
-    @ResponseBody
+    @SystemLogAfterSave(description = "添加接口用户")
     public ResponseVO<Object> add(@Validated InterfaceAccountVo interfaceaccountVo, BindingResult error) {
-        //todo informationVo 做参数校检
+        // 做参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
@@ -52,12 +51,11 @@ public class InterfaceAccountController extends BaseController {
 
     }
 
-    @SystemLogAfterSave(type = 1, description = "修改接口用户")
+    @SystemLogAfterSave(description = "修改接口用户")
     @PostMapping("update")
-    @ResponseBody
     public ResponseVO<Object> update(@Validated InterfaceAccountVo interfaceaccountVo, BindingResult error) {
 
-        //todo interfaceaccountVo 做参数校检
+        // 做参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
@@ -70,7 +68,6 @@ public class InterfaceAccountController extends BaseController {
     }
 
     @DeleteMapping("delete/{id}")
-    @ResponseBody
     public ResponseVO<Object> delete(@PathVariable Long id) {
         if (id == null) {
             return ResponseVO.error().setMsg("id不能为空");
@@ -80,8 +77,7 @@ public class InterfaceAccountController extends BaseController {
     }
 
     @GetMapping("findById")
-    @SystemLogAfterSave(type = 1, description = "通过id查询接口用户")
-    @ResponseBody
+    @SystemLogAfterSave(description = "通过id查询接口用户")
     public ResponseVO<Object> findById(Long id) {
         if (id == null) {
             return ResponseVO.error().setMsg("id不能为空");
@@ -101,8 +97,7 @@ public class InterfaceAccountController extends BaseController {
      * 分页查询
      */
     @GetMapping("searchPage")
-    @SystemLogAfterSave(type = 1, description = "分页查询接口用户")
-    @ResponseBody
+    @SystemLogAfterSave(description = "分页查询接口用户")
     public ResponseVO<Object> searchPage(Page<InterfaceAccount> page, InterfaceAccount interfaceAccount) {
         PageInfo<InterfaceAccount> pageInfo = interfaceAccountDomain.searchByWhere(page, interfaceAccount);
         return ResponseVO.success().setData(pageInfo);
@@ -115,15 +110,14 @@ public class InterfaceAccountController extends BaseController {
      * @return
      */
     @PostMapping("deleteInterfaceAccount")
-    @SystemLogAfterSave(type = 1, description = "批量删除接口用户")
-    @ResponseBody
+    @SystemLogAfterSave(description = "批量删除接口用户")
     public ResponseVO<Object> deleteInterfaceAccount(String ids) {
         if (ids == null || ids.isEmpty()) {
             return ResponseVO.error().setMsg("参数异常");
         }
         List<Long> list = JSONArray.parseArray(ids, Long.class);
         interfaceAccountDomain.deleteInterfaceAccount(list);
-        return ResponseVO.success().setMsg("删除成功").setData(null);
+        return ResponseVO.success().setMsg("删除成功");
     }
 
 }

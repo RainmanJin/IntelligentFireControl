@@ -26,78 +26,83 @@ import java.util.Date;
 
 public class BaseController {
 
-    Logger logger= LoggerFactory.getLogger(BaseController.class);
+    Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     @InitBinder
-    protected void initBinder(WebDataBinder binder){
+    protected void initBinder(WebDataBinder binder) {
 
-        binder.registerCustomEditor(Date.class,new MyDateEditor());
+        binder.registerCustomEditor(Date.class, new MyDateEditor());
 
     }
 
-    private class MyDateEditor extends PropertyEditorSupport{
-          public SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-          @Override
-          public void setAsText(String text) throws IllegalArgumentException{
+    private class MyDateEditor extends PropertyEditorSupport {
+        public SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-              Date date = null;
-              try {
-                  if(text !=null && !text.isEmpty()){
-                  date = format.parse(text);
-                  }
-              } catch (ParseException e) {
-                  format = new SimpleDateFormat("yyyy-MM-dd");
-                  try {
-                      date = format.parse(text);
-                  } catch (ParseException e1) {
-                      logger.error("日期格式化异常：",e1);
-                  }
-              }
-              setValue(date);
-          }
+        @Override
+        public void setAsText(String text) throws IllegalArgumentException {
 
-          @Override
-          public String getAsText(){
-              return format.format(getValue());
-          }
+            Date date = null;
+            try {
+                if (text != null && !text.isEmpty()) {
+                    date = format.parse(text);
+                }
+            } catch (ParseException e) {
+                format = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    date = format.parse(text);
+                } catch (ParseException e1) {
+                    logger.error("日期格式化异常：", e1);
+                }
+            }
+            setValue(date);
+        }
 
+        @Override
+        public String getAsText() {
+            return format.format(getValue());
+        }
 
 
     }
 
     /**
      * 获取登录用户信息
+     *
      * @return
-     */ public Account getUser(){
-        Account user= (Account) SecurityUtils.getSubject().getSession().getAttribute("user");
+     */
+    public Account getUser() {
+        Account user = (Account) SecurityUtils.getSubject().getSession().getAttribute("user");
         user.getRoleList();
         return user;
-     }
+    }
 
     /**
      * 登录认证异常
      */
-    @ExceptionHandler({ UnauthenticatedException.class, AuthenticationException.class })
+    @ExceptionHandler({UnauthenticatedException.class, AuthenticationException.class})
     public String authenticationException(HttpServletRequest request, HttpServletResponse response) {
-            writeJson(ResponseVO.withoutLogin(), response);
-            return null;
+        writeJson(ResponseVO.withoutLogin(), response);
+        return null;
     }
+
     /**
      * 权限异常
      */
-    @ExceptionHandler({ UnauthorizedException.class, AuthorizationException.class })
+    @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
     public String authorizationException(HttpServletRequest request, HttpServletResponse response) {
-            writeJson(ResponseVO.withoutPermission(), response);
-            return null;
+        writeJson(ResponseVO.withoutPermission(), response);
+        return null;
 
-}
+    }
+
     /**
-    * 输出JSON
-    * @param response
-    * @author SHANHY
-    * @create 2017年4月4日
-    */
-    private void writeJson(Object obj,HttpServletResponse response) {
+     * 输出JSON
+     *
+     * @param response
+     * @author SHANHY
+     * @create 2017年4月4日
+     */
+    private void writeJson(Object obj, HttpServletResponse response) {
         PrintWriter out = null;
         try {
             response.setCharacterEncoding("UTF-8");

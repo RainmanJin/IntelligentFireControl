@@ -74,7 +74,7 @@ public class SystemRoleController  {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("edit")
-    @SystemLogAfterSave(type = 1, description = "系统角色修改")
+    @SystemLogAfterSave(description = "系统角色修改")
     public ResponseVO<Object> edit(@Validated SystemRoleVo systemRoleVo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
@@ -97,7 +97,7 @@ public class SystemRoleController  {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("forbidden")
-    @SystemLogAfterSave(type = 1, description = "系统角色启用操作")
+    @SystemLogAfterSave(description = "系统角色启用操作")
     public ResponseVO<Object> forbidden(SystemRoleVo systemRoleVo) {
         SystemRole systemRole = new SystemRole();
         CopyUtil.copyProperties(systemRoleVo, systemRole);
@@ -116,7 +116,7 @@ public class SystemRoleController  {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("deleteBatch")
-    @SystemLogAfterSave(type = 1, description = "系统角色删除")
+    @SystemLogAfterSave(description = "系统角色删除")
     public ResponseVO<Object> deleteBatch(String ids) {
         List<Long> list = ListUtil.getListId(ids);
         int deleteCount = systemRoleService.deleteBatch(list);
@@ -146,7 +146,6 @@ public class SystemRoleController  {
      */
     @GetMapping("queryListByUserId")
     public ResponseVO<Object> findParentNameByUserId(Long userId) {
-
         List<SystemRole> list = systemRoleDomain.queryListByUserId(userId);
         return ResponseVO.<Object>success().setData(list);
     }

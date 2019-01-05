@@ -9,11 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -32,7 +28,7 @@ import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceOrderItemVo;
  * 维保工单项目结果---控制层
  * 2018年12月26日15:35:25
  */
-@Controller
+@RestController
 @RequestMapping("/maintenance/maintenanceOrderItem")
 public class MaintenanceOrderItemController extends BaseController{
 	@Autowired
@@ -44,7 +40,6 @@ public class MaintenanceOrderItemController extends BaseController{
      * @return
      */
     @GetMapping("queryPageList")
-    @ResponseBody
     public ResponseVO<Object> queryPageList(Page<MaintenanceOrderItem> page, MaintenanceOrderItem po) {
         //关键只查询暂时默认为公司名称的模糊查询
         PageInfo<MaintenanceOrderItem> pageInfo = domain.queryListByPage(page, po);
@@ -55,7 +50,6 @@ public class MaintenanceOrderItemController extends BaseController{
      * @return
      */
     @GetMapping("queryAllList")
-    @ResponseBody
     public ResponseVO<Object> queryAllList() {
         return ResponseVO.success().setData(domain.queryListByParam(null));
     }
@@ -65,8 +59,7 @@ public class MaintenanceOrderItemController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "维保工单项目新增")
-    @ResponseBody
+    @SystemLogAfterSave(description = "维保工单项目新增")
     public ResponseVO<Object> add(@Validated MaintenanceOrderItemVo vo, BindingResult error, String token) {
         //参数校检
         if (error.hasErrors()) {
@@ -92,8 +85,7 @@ public class MaintenanceOrderItemController extends BaseController{
      */
     @PostMapping("update")
     @RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
-    @SystemLogAfterSave(type = 1,description = "维保工单项目修改")
-    @ResponseBody
+    @SystemLogAfterSave(description = "维保工单项目修改")
     public ResponseVO<Object> updateRegionStreet(MaintenanceOrderItem po, String token){
         int resout = 1;
         int count = domain.update(po);
@@ -112,7 +104,6 @@ public class MaintenanceOrderItemController extends BaseController{
      * @return
      */
     @GetMapping("queryById")
-    @ResponseBody
     public ResponseVO<MaintenanceOrderItem> queryById( long id, String token) {
         MaintenanceOrderItem bean = domain.findById(id);
 
@@ -124,8 +115,7 @@ public class MaintenanceOrderItemController extends BaseController{
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "维保工单项目删除")
-    @ResponseBody
+    @SystemLogAfterSave(description = "维保工单项目删除")
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
     	String []ids = arr.split(",");
     	List<Long>list = new ArrayList<Long>();

@@ -47,7 +47,7 @@ public class RegionInfoController extends BaseController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("update")
-    @SystemLogAfterSave(type = 1,description = "区域信息修改")
+    @SystemLogAfterSave(description = "区域信息修改")
     public ResponseVO<Object> updateRegionInfo( RegionInfoVo regionInfoVo){
 
         int count = regionInfoDomain.updateRegionInfo(regionInfoVo);
@@ -62,7 +62,7 @@ public class RegionInfoController extends BaseController {
      * @Date 2018/12/18 15:22
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(type = 1,description = "区域信息删除")
+    @SystemLogAfterSave(description = "区域信息删除")
     public ResponseVO<Object> deleteRegionInfo( String  ids){
         int count = regionInfoDomain.deleteRegionInfo(ids);
         if (count > 0) {
@@ -76,7 +76,7 @@ public class RegionInfoController extends BaseController {
      * @Date 2018/12/19 11:44
      */
     @PostMapping("add")
-    @SystemLogAfterSave(type = 1,description = "区域信息添加")
+    @SystemLogAfterSave(description = "区域信息添加")
     public ResponseVO<Object> insertRegionInfo(RegionInfo regionInfo){
         int count = regionInfoDomain.insert(regionInfo);
         if (count > 0) {

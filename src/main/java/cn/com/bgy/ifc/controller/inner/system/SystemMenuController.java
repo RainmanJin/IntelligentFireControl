@@ -84,7 +84,7 @@ public class SystemMenuController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO
      */
     @PostMapping(value = "/createData")
-    @SystemLogAfterSave(type = 1, description = "添加系统菜单")
+    @SystemLogAfterSave(description = "添加系统菜单")
     public ResponseVO<Object> add(@Validated SystemMenuVo systemMenuVo, BindingResult error) {
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -106,7 +106,7 @@ public class SystemMenuController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("editData")
-    @SystemLogAfterSave(type = 1, description = "修改系统菜单")
+    @SystemLogAfterSave(description = "修改系统菜单")
     public ResponseVO<Object> edit(@Validated SystemMenuVo systemMenuVo, BindingResult error) {
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -128,7 +128,7 @@ public class SystemMenuController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("deleteData")
-    @SystemLogAfterSave(type = 1, description = "删除系统菜单")
+    @SystemLogAfterSave(description = "删除系统菜单")
     public ResponseVO<Object> deleteBatch(String ids) {
         if (ids.length() == 0) {
             return ResponseVO.deleteError();

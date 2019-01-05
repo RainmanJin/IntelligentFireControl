@@ -1,7 +1,5 @@
 package cn.com.bgy.ifc.entity.po.system;
 
-import cn.com.bgy.ifc.entity.po.system.SystemPower;
-import cn.com.bgy.ifc.entity.po.system.SystemRole;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
@@ -67,6 +65,11 @@ public class Account {
     private Date registTimeStart;
 
     private Date registTimeEnd;
+
+    /**
+     * 第三方用户ID
+     */
+    private Long thirdUserId;
 
     public Date getRegistTimeStart() {
         return registTimeStart;
@@ -309,5 +312,13 @@ public class Account {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Long getThirdUserId() {
+        return thirdUserId;
+    }
+
+    public void setThirdUserId(Long thirdUserId) {
+        this.thirdUserId = thirdUserId;
     }
 }
