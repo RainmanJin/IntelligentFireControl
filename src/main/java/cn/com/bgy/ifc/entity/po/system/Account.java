@@ -20,14 +20,6 @@ public class Account {
     private Long departmentId;
     private String departmentName;
 
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
     /**
      * 电话号码
      */
@@ -71,22 +63,6 @@ public class Account {
      */
     private Long thirdUserId;
 
-    public Date getRegistTimeStart() {
-        return registTimeStart;
-    }
-
-    public void setRegistTimeStart(Date registTimeStart) {
-        this.registTimeStart = registTimeStart;
-    }
-
-    public Date getRegistTimeEnd() {
-        return registTimeEnd;
-    }
-
-    public void setRegistTimeEnd(Date registTimeEnd) {
-        this.registTimeEnd = registTimeEnd;
-    }
-
     /**
      * 是否禁用0启用；1禁用
      */
@@ -120,41 +96,9 @@ public class Account {
 
     private Integer hasRole;
 
-    public Integer getHasRole() {
-        return hasRole;
-    }
-
-    public void setHasRole(Integer hasRole) {
-        this.hasRole = hasRole;
-    }
-
-    public String getKeyWords() {
-        return keyWords;
-    }
-
-    public void setKeyWords(String keyWords) {
-        this.keyWords = keyWords;
-    }
-
     private String keyWords;
 
     private List<SystemRole> roleList;
-
-    public List<SystemRole> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(List<SystemRole> roleList) {
-        this.roleList = roleList;
-    }
-
-    public List<SystemPower> getPowerList() {
-        return powerList;
-    }
-
-    public void setPowerList(List<SystemPower> powerList) {
-        this.powerList = powerList;
-    }
 
     private List<SystemPower> powerList;
     /**
@@ -162,13 +106,7 @@ public class Account {
      */
     private String powerListStr;
 
-    public String getPowerListStr() {
-        return powerListStr;
-    }
 
-    public void setPowerListStr(String powerListStr) {
-        this.powerListStr = powerListStr;
-    }
 
     public Long getId() {
         return id;
@@ -192,6 +130,14 @@ public class Account {
 
     public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public String getTelephone() {
@@ -258,6 +204,30 @@ public class Account {
         this.registTime = registTime;
     }
 
+    public Date getRegistTimeStart() {
+        return registTimeStart;
+    }
+
+    public void setRegistTimeStart(Date registTimeStart) {
+        this.registTimeStart = registTimeStart;
+    }
+
+    public Date getRegistTimeEnd() {
+        return registTimeEnd;
+    }
+
+    public void setRegistTimeEnd(Date registTimeEnd) {
+        this.registTimeEnd = registTimeEnd;
+    }
+
+    public Long getThirdUserId() {
+        return thirdUserId;
+    }
+
+    public void setThirdUserId(Long thirdUserId) {
+        this.thirdUserId = thirdUserId;
+    }
+
     public Integer getIsDisable() {
         return isDisable;
     }
@@ -314,11 +284,43 @@ public class Account {
         this.remark = remark;
     }
 
-    public Long getThirdUserId() {
-        return thirdUserId;
+    public Integer getHasRole() {
+        return hasRole;
     }
 
-    public void setThirdUserId(Long thirdUserId) {
-        this.thirdUserId = thirdUserId;
+    public void setHasRole(Integer hasRole) {
+        this.hasRole = hasRole;
+    }
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
+    }
+
+    public List<SystemRole> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<SystemRole> roleList) {
+        this.roleList = roleList;
+    }
+
+    public List<SystemPower> getPowerList() {
+        return powerList;
+    }
+
+    public void setPowerList(List<SystemPower> powerList) {
+        this.powerList = powerList;
+    }
+
+    public String getPowerListStr() {
+        return powerListStr;
+    }
+
+    public void setPowerListStr(String powerListStr) {
+        this.powerListStr = powerListStr;
     }
 }

@@ -36,7 +36,7 @@ public class FireTaskTrainController {
      * @author: ZhangCheng
      * @description:消防培训任务分页查询
      * @param: [page, fireTaskTrainVo]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo < cn.com.bgy.ifc.entity.po.fireinspection.FireTaskTrain>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo       <       cn.com.bgy.ifc.entity.po.fireinspection.FireTaskTrain>>
      */
     @GetMapping("queryPageData")
     public ResponseVO<PageInfo<FireTaskTrain>> searchPage(Page<FireTaskTrain> page, FireTaskTrainVo fireTaskTrainVo) {
@@ -122,4 +122,5 @@ public class FireTaskTrainController {
             return ResponseVO.deleteError();
         }
     }
+
 }

@@ -1,7 +1,5 @@
 package cn.com.bgy.ifc.config.api;
 
-import org.springframework.beans.factory.annotation.Value;
-
 /**
  * @author: ZhangCheng
  * @description:JDBC配置参数Config

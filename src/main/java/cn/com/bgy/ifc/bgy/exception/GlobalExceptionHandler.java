@@ -36,7 +36,8 @@ public class GlobalExceptionHandler {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     private ResponseVO<Object> logAndResult(String errCode, String errMsg, Exception e) {
-        String exString = "系统出现异常,异常信息：" + e.getMessage();
+        StackTraceElement stackTraceElement= e.getStackTrace()[0];
+        String exString = "系统出现异常,异常信息：" + e.getMessage()+"，详细信息："+stackTraceElement+"，异常行数:"+stackTraceElement.getLineNumber();
         SystemOperationLog systemOperationLog = new SystemOperationLog();
         systemOperationLog.setLogType(SystemLogType.ERROR_LOG.getValue());
         systemOperationLog.setOperatorDescribe("系统异常");

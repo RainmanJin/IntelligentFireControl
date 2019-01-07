@@ -61,7 +61,7 @@ public class BgyMaintenanceContractServiceImpl implements BgyMaintenanceContract
             }
         } catch (Exception e) {
             logger.error("获取集成平台维保合同数据接口请求异常：" + e);
-            return ResponseVO.error().setMsg("获取集成平台维保合同数据接口请求异常！");
+            return ResponseVO.error().setMsg("获取集成平台维保合同数据接口请求异常！"+ e);
         }
     }
 

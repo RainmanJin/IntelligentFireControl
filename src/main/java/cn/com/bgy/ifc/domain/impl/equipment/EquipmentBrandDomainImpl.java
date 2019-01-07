@@ -4,7 +4,6 @@ import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DBUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentBrandDao;
-import cn.com.bgy.ifc.dao.equipment.EquipmentVersionDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentBrandDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
@@ -35,61 +34,61 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
 
     @Resource
     private EquipmentBrandDao equipmentBrandDao;
-    @Resource
-    private EquipmentVersionDao equipmentVersionDao;
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
     private static Logger logger = LoggerFactory.getLogger(EquipmentBrandDomainImpl.class);
+
     /**
      * @Author huxin
      * @Description 查
      * @Date 2018/12/21 18:37
      */
     @Override
-    public PageInfo queryListEquipmentBrand( Page page,String keyword ) {
+    public PageInfo queryListEquipmentBrand(Page page, String keyword) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        Map<String,Object> map = new HashMap<>();
-        map.put("keyword",keyword);
-        List<Map<String,Object>> list  = equipmentBrandDao.queryListEquipmentBrand(map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("keyword", keyword);
+        List<Map<String, Object>> list = equipmentBrandDao.queryListEquipmentBrand(map);
         return new PageInfo(list);
     }
+
     /**
      * @Author huxin
      * @Description 增
      * @Date 2018/12/21 18:37
      */
     @Override
-    public int addEquipmentBrand( EquipmentBrand equipmentBrand ) {
+    public int addEquipmentBrand(EquipmentBrand equipmentBrand) {
         equipmentBrand.setStatus(0);
         return equipmentBrandDao.insert(equipmentBrand);
     }
+
     /**
      * @Author huxin
      * @Description 修改
      * @Date 2018/12/21 18:37
      */
     @Override
-    public int updateEquipmentBrand( EquipmentBrand equipmentBrand ) {
+    public int updateEquipmentBrand(EquipmentBrand equipmentBrand) {
 
         return equipmentBrandDao.updateSelective(equipmentBrand);
     }
+
     /**
      * @Author huxin
      * @Description 删除
      * @Date 2018/12/21 18:38
      */
     @Override
-    @Transactional
-    public int deleteEquipmentBrand( String str ) {
+    public int deleteEquipmentBrand(String str) {
         List<Long> list = ListUtil.getListId(str);
-        if(list.size()>0){
-//           List<Long> versionList =  equipmentVersionDao.queryEquipmentVersionIdByBrandId(list);
-//            equipmentVersionDao.deleteEquipmentVersion(versionList);
+        if (list.size() > 0) {
             return equipmentBrandDao.deleteEquipmentBrand(list);
         }
         return 0;
     }
+
     /**
      * @Author huxin
      * @Description 查询所有品牌
@@ -121,7 +120,7 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
                 return ResponseVO.success().setMsg("同步集成平台设备品牌总条数：" + totalCount + "，新增条数：" + totalCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
             }
         } catch (Exception e) {
-            logger.error("同步集成平台设备品牌doMain异常:" + e);
+            logger.error("同步集成平台设备品牌doMain异常:", e);
             return ResponseVO.error().setMsg("同步集成平台设备品牌异常");
         }
     }

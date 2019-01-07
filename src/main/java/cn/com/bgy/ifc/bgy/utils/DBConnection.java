@@ -1,7 +1,6 @@
 package cn.com.bgy.ifc.bgy.utils;
 
 import cn.com.bgy.ifc.config.api.JDBCConfig;
-import com.alibaba.druid.pool.DruidDataSource;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
