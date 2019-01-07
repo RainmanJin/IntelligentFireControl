@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.dao.system.AccountDao;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
@@ -103,7 +103,7 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
             }
            int groupSize = groupList.size();
             if (groupSize > 0) {
-                int sumCount = DBUtil.insertByList("user_group_items", groupList);
+                int sumCount = DbUtil.insertByList("user_group_items", groupList);
                 if (sumCount != groupList.size()) {
                     return ResponseVO.error().setMsg("同步集成平台用户权限异常");
                 } else {
@@ -121,7 +121,6 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
     @Transactional(rollbackFor = {RuntimeException.class})
     @Override
     public ResponseVO<Object> alterBgyPermissionList(List<BgyUserPermissionVo> list, Long orgId) {
-        try {
             int addType = ExternalConstant.OperationType.ADD.getValue();
             int updateType = ExternalConstant.OperationType.UPDATE.getValue();
             int deleteType = ExternalConstant.OperationType.DELETE.getValue();
@@ -210,10 +209,6 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
                 externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
                 return ResponseVO.success().setMsg("同步集成平台用户总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
             }
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
     }
 
 }

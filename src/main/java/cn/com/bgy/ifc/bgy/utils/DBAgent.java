@@ -11,7 +11,7 @@ import java.util.List;
  * @description:
  * @date: 2018-12-28 19:01
  **/
-public class DBAgent {
+public class DbAgent {
 
    /**
     * @author: ZhangCheng

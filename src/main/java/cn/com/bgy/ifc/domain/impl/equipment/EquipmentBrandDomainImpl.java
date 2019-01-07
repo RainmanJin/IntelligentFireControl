@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentBrandDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentBrandDomain;
@@ -112,7 +112,7 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
                 brand.setStatus(bgyEquipmentBrandVo.getStatus());
                 brandList.add(brand);
             }
-            int totalCount = DBUtil.insertByList("equipment_brand", brandList);
+            int totalCount = DbUtil.insertByList("equipment_brand", brandList);
             if (totalCount != brandList.size()) {
                 return ResponseVO.error().setMsg("同步集成平台设备品牌异常");
             } else {

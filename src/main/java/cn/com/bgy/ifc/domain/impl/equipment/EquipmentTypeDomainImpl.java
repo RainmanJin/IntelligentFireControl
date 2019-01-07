@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.domain.impl.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentTypeDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentTypeDomain;
@@ -59,7 +59,7 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
                 type.setStatus(equipmentTypeVo.getStatus());
                 newList.add(type);
             }
-            int totalCount = DBUtil.insertByList("equipment_type", newList);
+            int totalCount = DbUtil.insertByList("equipment_type", newList);
             if (totalCount != newList.size()) {
                 return ResponseVO.error().setMsg("同步集成平台设备类型异常");
             } else {

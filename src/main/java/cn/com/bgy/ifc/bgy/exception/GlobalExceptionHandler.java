@@ -23,10 +23,26 @@ public class GlobalExceptionHandler {
     @Autowired
     private SystemOperationLogService systemOperationLogService;
 
-    //运行时异常
+    /**
+     * 系统异常
+     *
+     * @param exception
+     * @return
+     */
     @ExceptionHandler(Exception.class)
     public ResponseVO<Object> exceptionHandler(Exception exception) {
         return logAndResult(ResponseVO.EXCEPTION, "服务器发生异常，请联系管理员！", exception);
+    }
+
+    /**
+     * 业务异常
+     *
+     * @param businessException
+     * @return
+     */
+    @ExceptionHandler(BusinessException.class)
+    public ResponseVO<Object> businessException(BusinessException businessException) {
+        return logAndResult(ResponseVO.ERROR, "服务器发生异常，请联系管理员！", businessException);
     }
 
     /**
@@ -36,8 +52,13 @@ public class GlobalExceptionHandler {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     private ResponseVO<Object> logAndResult(String errCode, String errMsg, Exception e) {
-        StackTraceElement stackTraceElement= e.getStackTrace()[0];
-        String exString = "系统出现异常,异常信息：" + e.getMessage()+"，详细信息："+stackTraceElement+"，异常行数:"+stackTraceElement.getLineNumber();
+        StackTraceElement stackTraceElement = e.getStackTrace()[0];
+        String message = "系统出现异常,异常信息：";
+        //业务异常
+        if (errCode == ResponseVO.ERROR) {
+            message = "系统出现业务异常,异常信息：";
+        }
+        String exString = message + e.getMessage() + "，详细信息：" + stackTraceElement + "，异常行数:" + stackTraceElement.getLineNumber();
         SystemOperationLog systemOperationLog = new SystemOperationLog();
         systemOperationLog.setLogType(SystemLogType.ERROR_LOG.getValue());
         systemOperationLog.setOperatorDescribe("系统异常");

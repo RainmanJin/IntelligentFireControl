@@ -72,7 +72,7 @@ public class UserApiServiceImpl implements UserApiService {
                 //data作为key获取JSONObject
                 // statusCode
                 String statusCode = response.getString("statusCode");
-                if (!statusCode.equals("200")) {
+                if (!"200".equals(statusCode)) {
                     String info = response.getString("info");
                     return ResponseVO.error().setMsg(info);
                 }
@@ -121,7 +121,7 @@ public class UserApiServiceImpl implements UserApiService {
                 //data作为key获取JSONObject
                 // statusCode
                 String statusCode = response.getString("statusCode");
-                if (!statusCode.equals("200")) {
+                if (!"200".equals(statusCode)) {
                     String info = response.getString("info");
                     return ResponseVO.error().setMsg(info);
                 } else {

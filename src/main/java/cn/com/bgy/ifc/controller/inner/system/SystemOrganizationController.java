@@ -9,6 +9,7 @@ import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemOrganizationVo;
+import cn.com.bgy.ifc.service.interfaces.api.maintenance.BgyMaintenanceCompanyService;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOrganizationService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -33,6 +34,9 @@ public class SystemOrganizationController extends BaseController {
 
     @Autowired
     private SystemOrganizationService systemOrganizationService;
+
+    @Autowired
+    private BgyMaintenanceCompanyService bgyMaintenanceCompanyService;
 
     /**
      * @author: ZhangCheng

@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.project;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.project.*;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionProjectDomain;
@@ -108,7 +108,6 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
      * @Description 删除
      * @Date 2018/12/18 17:31
      */
-    @Transactional
     @Override
     public int deleteRegionProjec(String str) {
         List<Long> list = ListUtil.getListId(str);
@@ -155,7 +154,7 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
                 project.setLogicRemove(false);
                 infoList.add(project);
             }
-            int totalCount = DBUtil.insertByList("region_project", infoList);
+            int totalCount = DbUtil.insertByList("region_project", infoList);
             if (totalCount != infoList.size()) {
                 return ResponseVO.error().setMsg("同步集成平台项目异常");
             } else {

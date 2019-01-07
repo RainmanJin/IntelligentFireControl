@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.bgy.utils;
 
-import cn.com.bgy.ifc.config.api.JDBCConfig;
+import cn.com.bgy.ifc.config.api.JdbcConfig;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * @description:获取数据库连接
  * @date: 2018-12-25 11:44
  **/
-public class DBConnection {
+public class DbConnection {
 
     /**
      * 获取数据库对象
@@ -23,9 +23,9 @@ public class DBConnection {
         Connection connection =null;
         try {
         // 加载驱动
-        Class.forName(JDBCConfig.getDriver());
+        Class.forName(JdbcConfig.getDriver());
         //获取数据库连接
-        connection = DriverManager.getConnection(JDBCConfig.getUrl(), JDBCConfig.getUsername(), JDBCConfig.getPassword());
+        connection = DriverManager.getConnection(JdbcConfig.getUrl(), JdbcConfig.getUsername(), JdbcConfig.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
         }

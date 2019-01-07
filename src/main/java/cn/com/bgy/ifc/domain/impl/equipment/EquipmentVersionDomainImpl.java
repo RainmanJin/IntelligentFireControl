@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentVersionDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentVersionDomain;
@@ -80,7 +80,6 @@ public class EquipmentVersionDomainImpl implements EquipmentVersionDomain {
      * @Date 2018/12/24 10:02
      */
     @Override
-    @Transactional
     public int deleteEquipmentVersion( String str ) {
         List<Long> list = ListUtil.getListId(str);
         return equipmentVersionDao.deleteEquipmentVersion(list);
@@ -102,7 +101,7 @@ public class EquipmentVersionDomainImpl implements EquipmentVersionDomain {
                 version.setLogicRemove(false);
                 versionList.add(version);
             }
-            int totalCount = DBUtil.insertByList("equipment_version", versionList);
+            int totalCount = DbUtil.insertByList("equipment_version", versionList);
             if (totalCount != versionList.size()) {
                 return ResponseVO.error().setMsg("同步集成平台设备型号异常");
             } else {

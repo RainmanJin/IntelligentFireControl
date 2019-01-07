@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.project;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.project.*;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
@@ -92,7 +92,6 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
      * @Description 删除
      * @Date 2018/12/18 16:26
      */
-    @Transactional
     @Override
     public int deleteRegionInfo( String ids) {
         if(ids.length()>0){
@@ -147,7 +146,7 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
                 info.setLogicRemove(false);
                 infoList.add(info);
             }
-            int totalCount = DBUtil.insertByList("region_info", infoList);
+            int totalCount = DbUtil.insertByList("region_info", infoList);
             if (totalCount != infoList.size()) {
                 return ResponseVO.error().setMsg("同步集成平台区域异常");
             } else {

@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.dao.project.*;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionComputerRoomDomain;
@@ -182,7 +182,7 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                         courtList2.add(court);
                     }
                 }
-                int totalCount = DBUtil.insertByList("region_court", courtList2);
+                int totalCount = DbUtil.insertByList("region_court", courtList2);
                 if (totalCount != courtList2.size()) {
                     return ResponseVO.error().setMsg("同步集成平台苑区异常");
                 }else{
@@ -198,7 +198,7 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                         streetList2.add(street);
                     }
                 }
-                int totalCount = DBUtil.insertByList("region_street", streetList2);
+                int totalCount = DbUtil.insertByList("region_street", streetList2);
                 if (totalCount != streetList2.size()) {
                     return ResponseVO.error().setMsg("同步集成平台街道异常");
                 }else{
@@ -214,14 +214,14 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
                         buildingList2.add(building);
                     }
                 }
-                int totalCount = DBUtil.insertByList("region_building", buildingList2);
+                int totalCount = DbUtil.insertByList("region_building", buildingList2);
                 if (totalCount != buildingList2.size()) {
                     return ResponseVO.error().setMsg("同步集成平台楼栋单元异常");
                 }else{
                     externalInterfaceMsgDomain.successInterfaceMsg(orgId,buildingValue,totalCount);
                 }
             }
-            int totalCount = DBUtil.insertByList("region_computer_room", roomList);
+            int totalCount = DbUtil.insertByList("region_computer_room", roomList);
             if (totalCount != roomList.size()) {
                 return ResponseVO.error().setMsg("同步集成平台机房异常");
             } else {

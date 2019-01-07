@@ -19,13 +19,13 @@ public class CopyUtil {
      * @param: [list, dataObj]
      * @return: java.util.List
      */
-    public static List convertList(final List list,final Object dataObj){
+    public static List convertList(final List list, final Object dataObj) {
         List<Object> resultList = new ArrayList<>();
-       int size= list.size();
-       for(int i=0;i<size;i++){
-           String jsonStr = JSONObject.toJSONString(list.get(i));
-           resultList.add(JSON.parseObject(jsonStr, dataObj.getClass()));
-       }
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            String jsonStr = JSONObject.toJSONString(list.get(i));
+            resultList.add(JSON.parseObject(jsonStr, dataObj.getClass()));
+        }
         return resultList;
     }
 
@@ -36,7 +36,9 @@ public class CopyUtil {
         Set<String> emptyNames = new HashSet<String>();
         for (java.beans.PropertyDescriptor pd : pds) {
             Object srcValue = src.getPropertyValue(pd.getName());
-            if (srcValue == null) emptyNames.add(pd.getName());
+            if (srcValue == null) {
+                emptyNames.add(pd.getName());
+            }
         }
         String[] result = new String[emptyNames.size()];
         return emptyNames.toArray(result);

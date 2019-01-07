@@ -41,12 +41,12 @@ public class SignatureUtil {
 
     /**
      * @author: ZhangCheng
-     * @description:获取时间戳字符串
+     * @description:获取时间毫秒数字符串
      * @param: []
      * @return: java.lang.String
      */
     public static String timestampStr() {
-        long timestamp = new Date().getTime();
+        long timestamp = System.currentTimeMillis();
         return String.valueOf(timestamp);
     }
 

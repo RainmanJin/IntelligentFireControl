@@ -5,7 +5,7 @@ package cn.com.bgy.ifc.config.api;
  * @description:JDBC配置参数Config
  * @date: 2018-12-18 20:08
  **/
-public class JDBCConfig {
+public class JdbcConfig {
 
     private static String driver;
 
@@ -20,7 +20,7 @@ public class JDBCConfig {
     }
 
     public static void setDriver(String driver) {
-        JDBCConfig.driver = driver;
+        JdbcConfig.driver = driver;
     }
 
     public static String getUrl() {
@@ -28,7 +28,7 @@ public class JDBCConfig {
     }
 
     public static void setUrl(String url) {
-        JDBCConfig.url = url;
+        JdbcConfig.url = url;
     }
 
     public static String getUsername() {
@@ -36,7 +36,7 @@ public class JDBCConfig {
     }
 
     public static void setUsername(String username) {
-        JDBCConfig.username = username;
+        JdbcConfig.username = username;
     }
 
     public static String getPassword() {
@@ -44,6 +44,6 @@ public class JDBCConfig {
     }
 
     public static void setPassword(String password) {
-        JDBCConfig.password = password;
+        JdbcConfig.password = password;
     }
 }

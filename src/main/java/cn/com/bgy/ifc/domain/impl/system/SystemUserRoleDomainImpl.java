@@ -20,7 +20,6 @@ public class SystemUserRoleDomainImpl implements SystemUserRoleDomain {
     private SystemUserRoleDao systemUserRoleDao;
 
     @Override
-    @Transactional
     public int save(SystemUserRole systemUserRole) {
         int res=systemUserRoleDao.deleteByUserId(systemUserRole.getUserId());
         if(systemUserRole.getRoleId()==null){

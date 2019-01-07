@@ -32,7 +32,7 @@ public class RegionAndBrandVO {
     private String keyword;//关键字
 
     //特殊查询字段
-    private int state;//状态
+    private Integer state;//状态
 
     private String code;//编码
 

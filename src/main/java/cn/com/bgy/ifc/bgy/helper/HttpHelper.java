@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.bgy.helper;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
@@ -47,7 +48,7 @@ public class HttpHelper {
             response = httpClient.execute(httpGet, new BasicHttpContext());
             // 检验返回码，判断是否成功，HttpStatus.SC_OK=200
             int httpStatusCode = response.getStatusLine().getStatusCode();
-            if (httpStatusCode != 200) {
+            if (httpStatusCode != HttpStatus.SC_OK) {
                 logger.info("GET请求失败,请求校验码：" + httpStatusCode + "，请求地址：" + url);
                 return null;
             }
@@ -127,7 +128,7 @@ public class HttpHelper {
             response = httpClient.execute(httpBase, new BasicHttpContext());
             // 检验返回码，判断是否成功，HttpStatus.SC_OK=200
             int httpStatusCode = response.getStatusLine().getStatusCode();
-            if (httpStatusCode != 200) {
+            if (httpStatusCode != HttpStatus.SC_OK) {
                 logger.info(httpBase.getMethod() + "请求失败,请求校验码：" + httpStatusCode + "，请求地址：" + httpBase.getURI().getPath());
                 return null;
             }

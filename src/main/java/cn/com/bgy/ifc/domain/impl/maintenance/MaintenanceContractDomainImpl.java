@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.domain.impl.maintenance;
 
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.dao.maintenance.MaintenanceContractDao;
 import cn.com.bgy.ifc.dao.maintenance.MaintenanceContractFileDao;
@@ -171,10 +171,10 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
                 }
                 contractList.add(contract);
             }
-            int totalCount = DBUtil.insertByList("maintenance_contract", contractList);
+            int totalCount = DbUtil.insertByList("maintenance_contract", contractList);
             int fileCount = 0;
             if (fileList.size() > 0) {
-                fileCount = DBUtil.insertByList("maintenance_contract_file", fileList);
+                fileCount = DbUtil.insertByList("maintenance_contract_file", fileList);
             }
             //判断合同和文件信息是否同时写入成功
             if (totalCount == contractList.size() && fileCount == fileList.size()) {

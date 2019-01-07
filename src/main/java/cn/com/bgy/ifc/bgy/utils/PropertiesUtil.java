@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.bgy.utils;
 
-import cn.com.bgy.ifc.config.api.JDBCConfig;
+import cn.com.bgy.ifc.config.api.JdbcConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,10 +28,10 @@ public class PropertiesUtil {
 
     @Bean
     public int initProperties() {
-        JDBCConfig.setDriver(driver);
-        JDBCConfig.setUrl(url);
-        JDBCConfig.setUsername(username);
-        JDBCConfig.setPassword(password);
+        JdbcConfig.setDriver(driver);
+        JdbcConfig.setUrl(url);
+        JdbcConfig.setUsername(username);
+        JdbcConfig.setPassword(password);
         return 0;
     }
 

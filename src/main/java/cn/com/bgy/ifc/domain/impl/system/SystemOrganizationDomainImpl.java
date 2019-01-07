@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.dao.system.SystemOrganizationDao;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
@@ -9,9 +9,6 @@ import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.BgyOrgVo;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +64,7 @@ public class SystemOrganizationDomainImpl implements SystemOrganizationDomain {
                 sysOrg.setLogicRemove(false);
                 orgList.add(sysOrg);
             }
-            int totalCount = DBUtil.insertByList("system_organization", orgList);
+            int totalCount = DbUtil.insertByList("system_organization", orgList);
             if (totalCount != orgList.size()) {
                 return ResponseVO.error().setMsg("同步集成平台机构异常");
             } else {

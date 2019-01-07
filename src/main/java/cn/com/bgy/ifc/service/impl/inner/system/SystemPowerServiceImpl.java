@@ -73,13 +73,14 @@ public class SystemPowerServiceImpl implements SystemPowerService {
 
     @Override
     public List<SelectVo> getPowerConfig() {
-        List<SelectVo> selectVos=new ArrayList<>();
+        List<SelectVo> selectVos = new ArrayList<>();
         List<SystemPower> list = systemPowerDao.queryListByWhere(null);
-        for(SystemPower systemPower:list){
-            SelectVo selectVo=new SelectVo();
-            if(systemPower.getSystemMenu()==null)
+        for (SystemPower systemPower : list) {
+            SelectVo selectVo = new SelectVo();
+            if (systemPower.getSystemMenu() == null){
                 continue;
-            String name="["+systemPower.getSystemMenu().getName()+"]"+systemPower.getDisplayName();
+            }
+            String name = "[" + systemPower.getSystemMenu().getName() + "]" + systemPower.getDisplayName();
             selectVo.setValue(String.valueOf(systemPower.getId()));
             selectVo.setName(name);
             selectVos.add(selectVo);

@@ -53,8 +53,6 @@ public class DepartmentDomainImpl implements DepartmentDomain {
         return departmentDao.findById(id);
     }
 
-
-    @Transactional
     @Override
     public int insert(Department department) {
         if(department.getParentId()==null){

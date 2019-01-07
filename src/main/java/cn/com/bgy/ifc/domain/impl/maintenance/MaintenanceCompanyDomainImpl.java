@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.maintenance;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.dao.maintenance.MaintenanceCompanyDao;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
@@ -102,7 +102,7 @@ public class MaintenanceCompanyDomainImpl implements MaintenanceCompanyDomain {
                 company.setLogicRemove(false);
                 companyList.add(company);
             }
-            int totalCount = DBUtil.insertByList("maintenance_company", list);
+            int totalCount = DbUtil.insertByList("maintenance_company", list);
             if (totalCount != companyList.size()) {
             return ResponseVO.error().setMsg("同步集成平台维保公司异常");
         } else {

@@ -2,13 +2,12 @@ package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.dao.system.AccountDao;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.system.AccountVo;
 import cn.com.bgy.ifc.entity.vo.system.BgyUserVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -137,7 +136,7 @@ public class AccountDomainImpl implements AccountDomain {
                 account.setRegistTime(createTime);
                 accountList.add(account);
             }
-            int totalCount = DBUtil.insertByList("account", accountList);
+            int totalCount = DbUtil.insertByList("account", accountList);
             if (totalCount != accountList.size()) {
                 return ResponseVO.error().setMsg("同步集成平台用户异常");
             } else {

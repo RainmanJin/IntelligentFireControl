@@ -1,21 +1,12 @@
 package cn.com.bgy.ifc.bgy.utils;
 
-import cn.com.bgy.ifc.config.api.JDBCConfig;
-import cn.com.bgy.ifc.entity.po.project.RegionCourt;
-import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * @author: ZhangCheng
@@ -26,9 +17,9 @@ import java.util.function.Predicate;
  * @date: 2018-12-18 17:26
  **/
 
-public class DBUtil {
+public class DbUtil {
 
-    private static Logger logger = LoggerFactory.getLogger(DBUtil.class);
+    private static Logger logger = LoggerFactory.getLogger(DbUtil.class);
 
     /**
      * 添加实体list数据
@@ -90,7 +81,7 @@ public class DBUtil {
         PreparedStatement preparedStatement = null;
         try {
             //获取数据库连接
-            connection = DBConnection.getConnection();
+            connection = DbConnection.getConnection();
 
             Map<String, Object> valueMap = data.get(0);
             // 获取数据库插入的Map的键值对的值

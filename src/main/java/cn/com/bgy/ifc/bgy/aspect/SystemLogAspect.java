@@ -63,7 +63,7 @@ public class SystemLogAspect {
             //注解上的描述
             systemOperationLog.setOperatorDescribe(systemLogSave.description());
             //判断是否登录
-            if (systemLogSave.login().getValue() == LoginState.IS_LOGIN.getValue()) {
+            if (systemLogSave.login().getValue().equals(LoginState.IS_LOGIN.getValue())) {
                 Account user = (Account) SecurityUtils.getSubject().getSession().getAttribute("user");
                 if (user != null) {
                     systemOperationLog.setUserId(user.getId());

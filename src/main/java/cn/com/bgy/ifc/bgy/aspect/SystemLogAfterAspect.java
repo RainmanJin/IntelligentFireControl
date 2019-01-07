@@ -73,7 +73,7 @@ public class SystemLogAfterAspect {
                 }
             } else {
                 //判断是否登录
-                if (systemLogAfterSave.login().getValue() == LoginState.IS_LOGIN.getValue()) {
+                if (systemLogAfterSave.login().getValue().equals( LoginState.IS_LOGIN.getValue())) {
                     HttpServletRequest request = attributes.getRequest();
                     getLog(systemOperationLog,request);
                 }

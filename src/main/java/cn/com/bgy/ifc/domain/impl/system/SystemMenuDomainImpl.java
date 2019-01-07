@@ -1,16 +1,13 @@
 package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.bgy.utils.DBAgent;
+import cn.com.bgy.ifc.bgy.utils.DbAgent;
 import cn.com.bgy.ifc.dao.system.SystemMenuDao;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemMenu;
-import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.SystemMenuVo;
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -63,9 +60,9 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
         int nowPage=page.getPageNum();
         int recordCount=allMenu.size();
         int pageSize=page.getPageSize();
-        PageInfo pageInfo= DBAgent.getPages(recordCount, pageSize, nowPage);
+        PageInfo pageInfo= DbAgent.getPages(recordCount, pageSize, nowPage);
         //分页结果集
-        List<SystemMenuVo> newList=DBAgent.memoryPaging(resultMenu,pageInfo);
+        List<SystemMenuVo> newList= DbAgent.memoryPaging(resultMenu,pageInfo);
         pageInfo.setList(newList);
         return pageInfo;
     }

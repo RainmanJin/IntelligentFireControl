@@ -25,7 +25,7 @@ public class TreeUtil {
         for(int i=0;i<size;i++){
             DepartmentVo vo=list.get(i);
             // 根据传入的某个父节点ID,遍历该父节点的所有子节点
-            if(vo.getParentId()==parentId){
+            if(vo.getParentId().equals(parentId)){
                 recursionFn(list, vo);
                 treeList.add(vo);
             }
@@ -67,7 +67,7 @@ public class TreeUtil {
         Iterator<DepartmentVo> it = list.iterator();
         while (it.hasNext()) {
             DepartmentVo n = (DepartmentVo) it.next();
-            if (n.getParentId() == t.getId()) {
+            if (n.getParentId().equals(t.getId())) {
                 tList.add(n);
             }
         }

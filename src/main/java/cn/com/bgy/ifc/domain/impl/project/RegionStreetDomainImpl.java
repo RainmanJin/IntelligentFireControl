@@ -81,7 +81,6 @@ public class RegionStreetDomainImpl implements RegionStreetDomain {
      * @Description 删除
      * @Date 2018/12/19 15:32
      */
-    @Transactional
     @Override
     public int deleteRegionStreet( List<Long> list ) {
         if(list.size()>0){

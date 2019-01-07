@@ -48,7 +48,6 @@ public class SystemRoleDomainImpl  implements SystemRoleDomain {
      * @Description 添加系统角色
      * @Date 2018/12/17 14:39
      */
-    @Transactional
     @Override
     public int insert(SystemRole record) {
         record.setLogicRemove(true);

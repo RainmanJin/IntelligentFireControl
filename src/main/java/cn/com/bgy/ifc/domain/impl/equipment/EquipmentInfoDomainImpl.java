@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.utils.DBUtil;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
@@ -67,7 +67,7 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
                 info.setLogicRemove(false);
                 infoList.add(info);
             }
-            int totalCount = DBUtil.insertByList("equipment_info", infoList);
+            int totalCount = DbUtil.insertByList("equipment_info", infoList);
             if (totalCount != infoList.size()) {
                 return ResponseVO.error().setMsg("同步集成平台设备信息异常");
             } else {
