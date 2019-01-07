@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc;
+package cn.com.bgy.ifc.common;
 
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;
