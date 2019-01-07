@@ -1,16 +1,8 @@
 package cn.com.bgy.ifc.bgy.task;
 
-import cn.com.bgy.ifc.domain.interfaces.repair.RepairOrderDomain;
-import cn.com.bgy.ifc.entity.po.repair.RepairOrder;
 import cn.com.bgy.ifc.service.interfaces.inner.repair.RepairOrderService;
-import org.apache.activemq.ActiveMQConnection;
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
-
-import javax.jms.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class MQComsumer {
@@ -19,7 +11,7 @@ public class MQComsumer {
     private RepairOrderService repairOrderService;
 
 
-    @JmsListener(destination = "test")
+   /* @JmsListener(destination = "test")
     public void getQueue(String info){
         System.out.println("接收到mq消息："+info);
         //开始业务处理
@@ -27,7 +19,7 @@ public class MQComsumer {
         RepairOrder repairOrder=repairOrderService.queryRepairOrderByExtendId(extendId);
         repairOrderService.updateRepairOrder(repairOrder);
 
-    }
+    }*/
     /*    private static final String USERNAME = ActiveMQConnection.DEFAULT_USER;
 
         private static final String PASSWORD = ActiveMQConnection.DEFAULT_PASSWORD;

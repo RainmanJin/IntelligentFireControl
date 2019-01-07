@@ -157,17 +157,17 @@
             <scope>provided</scope>
         </dependency>
         <!--mq消息队列-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-all</artifactId>
             <version>5.15.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-pool -->
+        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.activemq/activemq-pool &ndash;&gt;
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-pool</artifactId>
             <version>5.15.8</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
