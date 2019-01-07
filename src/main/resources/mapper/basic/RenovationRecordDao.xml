@@ -223,7 +223,7 @@
                 description= #{description,jdbcType=LONGVARCHAR},
             </if>
             <if test="remark != null">
-                remark= #{remark,jdbcType=LONGVARCHAR},
+                remark= #{remark,jdbcType=LONGVARCHAR}
             </if>
         </set>
         WHERE id=#{id,jdbcType=BIGINT}
