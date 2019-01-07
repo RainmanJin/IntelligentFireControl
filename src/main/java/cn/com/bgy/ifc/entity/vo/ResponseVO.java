@@ -15,6 +15,11 @@ public class ResponseVO<T> implements Serializable {
      * 业务报错
      */
     public static final String ERROR = "001";
+
+    /**
+     * Service异常
+     */
+    public static final String SERVICE="002";
     /**
      * 程序异常
      */

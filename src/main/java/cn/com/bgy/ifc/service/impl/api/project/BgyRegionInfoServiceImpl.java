@@ -5,6 +5,7 @@ import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.constant.LoginState;
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
+import cn.com.bgy.ifc.bgy.utils.ExceptionUtil;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.bgy.utils.SignatureUtil;
 import cn.com.bgy.ifc.bgy.utils.TimeUtil;
@@ -62,12 +63,11 @@ public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
                     return obtainBgyRegionInfo(pageNo, pageSize, config, orgId);
                 }
             } else {
-                logger.info("获取集成平台接口配置数据失败！");
                 return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
             }
         } catch (Exception e) {
-            logger.error("获取集成平台区域列表接口请求异常：" + e);
-            return ResponseVO.error().setMsg("获取集成平台区域列表接口请求异常！");
+            logger.error("获取集成平台区域列表接口请求异常：" ,e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取集成平台区域列表接口请求异常！",e));
         }
     }
 

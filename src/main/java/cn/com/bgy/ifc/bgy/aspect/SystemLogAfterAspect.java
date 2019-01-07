@@ -82,6 +82,12 @@ public class SystemLogAfterAspect {
         }
     }
 
+    /**
+     * 获取用户登录信息
+     * @param systemOperationLog
+     * @param request
+     * @return
+     */
     private SystemOperationLog getLog(SystemOperationLog systemOperationLog,HttpServletRequest request){
         Account user = (Account) SecurityUtils.getSubject().getSession().getAttribute("user");
         if (user != null) {

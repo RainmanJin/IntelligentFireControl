@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.bgy.exception;
 
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
+import cn.com.bgy.ifc.bgy.utils.ExceptionUtil;
 import cn.com.bgy.ifc.entity.po.system.SystemOperationLog;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOperationLogService;
@@ -46,19 +47,31 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Service异常
+     * @param serviceException
+     * @return
+     */
+    @ExceptionHandler(ServiceException.class)
+    public ResponseVO<Object> serviceException(ServiceException serviceException) {
+        return logAndResult(ResponseVO.SERVICE, "服务器发生异常，请联系管理员！", serviceException);
+    }
+
+    /**
      * @author: ZhangCheng
      * @description:异常处理
      * @param: [errCode, errMsg, e]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     private ResponseVO<Object> logAndResult(String errCode, String errMsg, Exception e) {
-        StackTraceElement stackTraceElement = e.getStackTrace()[0];
         String message = "系统出现异常,异常信息：";
         //业务异常
         if (errCode == ResponseVO.ERROR) {
             message = "系统出现业务异常,异常信息：";
         }
-        String exString = message + e.getMessage() + "，详细信息：" + stackTraceElement + "，异常行数:" + stackTraceElement.getLineNumber();
+        if(errCode==ResponseVO.SERVICE){
+            message = "系统出现Service异常,异常信息：";
+        }
+        String exString = ExceptionUtil.getExceptionMsg(message,e);
         SystemOperationLog systemOperationLog = new SystemOperationLog();
         systemOperationLog.setLogType(SystemLogType.ERROR_LOG.getValue());
         systemOperationLog.setOperatorDescribe("系统异常");

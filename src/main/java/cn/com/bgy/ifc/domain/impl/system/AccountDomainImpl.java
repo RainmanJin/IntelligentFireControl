@@ -22,6 +22,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * @author zhangcheng
+ */
 @Service
 public class AccountDomainImpl implements AccountDomain {
     @Resource
@@ -120,20 +124,7 @@ public class AccountDomainImpl implements AccountDomain {
             List<Account> accountList = new ArrayList<>();
             Date createTime = new Date();
             for (BgyUserVo userVo : list) {
-                Account account = new Account();
-                //改为第三方用户ID
-                account.setThirdUserId(userVo.getId());
-                account.setSex(userVo.getSex());
-                account.setOrganizationId(orgId);
-                account.setDepartmentId(0L);
-                account.setTelephone(userVo.getTelephone());
-                account.setUserName(userVo.getUserName());
-                account.setPassword(userVo.getPassword());
-                account.setJobNumber(userVo.getJobNum());
-                account.setIsDisable(userVo.getIsDisable());
-                account.setIdentityNumber(userVo.getCreditNo());
-                account.setRemark(userVo.getRemark());
-                account.setRegistTime(createTime);
+                Account account = getAccountByVo(userVo, orgId, createTime);
                 accountList.add(account);
             }
             int totalCount = DbUtil.insertByList("account", accountList);
@@ -161,20 +152,7 @@ public class AccountDomainImpl implements AccountDomain {
         int deleteCount = 0;
         Date createTime = new Date();
         for (BgyUserVo userVo : list) {
-            Account account = new Account();
-            //改为第三方用户ID
-            account.setThirdUserId(userVo.getId());
-            account.setSex(userVo.getSex());
-            account.setOrganizationId(orgId);
-            account.setDepartmentId(0L);
-            account.setTelephone(userVo.getTelephone());
-            account.setUserName(userVo.getUserName());
-            account.setPassword(userVo.getPassword());
-            account.setJobNumber(userVo.getJobNum());
-            account.setIsDisable(userVo.getIsDisable());
-            account.setIdentityNumber(userVo.getCreditNo());
-            account.setRemark(userVo.getRemark());
-            account.setRegistTime(createTime);
+            Account account = getAccountByVo(userVo, orgId, createTime);
             int operType = userVo.getOperType();
             //新增
             if (operType == addType) {
@@ -206,20 +184,37 @@ public class AccountDomainImpl implements AccountDomain {
             externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
             return ResponseVO.success().setMsg("同步集成平台用户总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
+    }
 
+    private Account getAccountByVo(BgyUserVo userVo, Long orgId, Date createTime) {
+        Account account = new Account();
+        //改为第三方用户ID
+        account.setThirdUserId(userVo.getId());
+        account.setSex(userVo.getSex());
+        account.setOrganizationId(orgId);
+        account.setDepartmentId(0L);
+        account.setTelephone(userVo.getTelephone());
+        account.setUserName(userVo.getUserName());
+        account.setPassword(userVo.getPassword());
+        account.setJobNumber(userVo.getJobNum());
+        account.setIsDisable(userVo.getIsDisable());
+        account.setIdentityNumber(userVo.getCreditNo());
+        account.setRemark(userVo.getRemark());
+        account.setRegistTime(createTime);
+        return account;
     }
 
     /**
-     * @author chenlie
-     * 批量更新用户状态
      * @param idslist
      * @param isDisable
      * @return
+     * @author chenlie
+     * 批量更新用户状态
      */
     @Override
-    public int updateIsDisable(List<Long>idslist,int isDisable){
+    public int updateIsDisable(List<Long> idslist, int isDisable) {
 
-       return accountDao.updateIsDisable(idslist, isDisable);
+        return accountDao.updateIsDisable(idslist, isDisable);
 
     }
 

@@ -62,11 +62,10 @@ public class BgyOrgServiceImpl implements BgyOrgService {
                     return obtainBgyOrg(pageNo, pageSize, config);
                 }
             } else {
-                logger.info("获取集成平台接口配置数据失败！");
                 return ResponseVO.error().setMsg("获取集成平台接口配置数据失败！");
             }
         } catch (Exception e) {
-            logger.error("获取集成平台机构列表接口请求异常：" + e);
+            logger.error("获取集成平台机构列表接口请求异常：" , e);
             return ResponseVO.error().setMsg("获取集成平台机构列表接口请求异常！");
         }
     }
