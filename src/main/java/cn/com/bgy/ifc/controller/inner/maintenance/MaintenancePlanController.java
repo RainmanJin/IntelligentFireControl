@@ -86,6 +86,7 @@ public class MaintenancePlanController extends BaseController{
         CopyUtil.copyProperties(vo, po);
         int count = domain.insert(po);
         if (count == 1) {
+        	domain.saveOrders(po);
             return ResponseVO.success().setMsg("添加成功！");
         }
         return ResponseVO.error().setMsg("添加失败！");

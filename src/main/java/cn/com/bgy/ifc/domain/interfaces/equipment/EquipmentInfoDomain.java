@@ -34,6 +34,8 @@ public interface EquipmentInfoDomain {
     ResponseVO<Object> alterBgyEquipmentInfo(List<BgyEquipmentVo> list, Long orgId);
 
     PageInfo queryListEquipmentInfo( Page<Object> page, RegionAndBrandVO regionAndBrandVO);
+    //查询所有设备
+    List<Map<String,Object>> queryAllInfo(RegionAndBrandVO vo);
 
     int addEquipmentInfo( EquipmentInfo equipmentInfo );
 

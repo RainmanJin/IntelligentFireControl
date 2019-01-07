@@ -179,8 +179,8 @@
             <if test="regionId != null">
                 region_id=#{regionId},
             </if>
-            <if test="name != null">
-                name=#{name},
+            <if test="companyName != null">
+                name=#{companyName},
             </if>
             <if test="telephone != null">
                 telephone=#{telephone},

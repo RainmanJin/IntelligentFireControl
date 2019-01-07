@@ -32,16 +32,20 @@ public class MaintenancePeriodicVo {
 	private Integer cycleDay;
 	// 维保结束时间
 	private Date endTime;
+	// 维保开始时间
+	private Date startTime;
+	// 新增修改时间
+	private Date createTime;
 	// 维保总次数
 	private Integer sum;
 	// 是否逻辑删除
 	private Boolean logicRemove;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getOrganizationName() {
+	public String getOrganizationName() {
 		return organizationName;
 	}
 
@@ -57,16 +61,32 @@ public class MaintenancePeriodicVo {
 		this.regionName = regionName;
 	}
 
-	public String getprojectName() {
+	public String getEquipmentName() {
+		return equipmentName;
+	}
+
+	public String getProjectName() {
 		return projectName;
 	}
 
-	public void setprojectName(String projectName) {
+	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
 
-	public String getEquipmentName() {
-		return equipmentName;
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 	public void setEquipmentName(String equipmentName) {
@@ -82,94 +102,94 @@ public class MaintenancePeriodicVo {
 	}
 
 	public void setId(Long id) {
-        this.id = id;
-    }
+		this.id = id;
+	}
 
-    public Long getOrganizationId() {
-        return organizationId;
-    }
+	public Long getOrganizationId() {
+		return organizationId;
+	}
 
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
-    }
+	public void setOrganizationId(Long organizationId) {
+		this.organizationId = organizationId;
+	}
 
-    public Long getRegionId() {
-        return regionId;
-    }
+	public Long getRegionId() {
+		return regionId;
+	}
 
-    public void setRegionId(Long regionId) {
-        this.regionId = regionId;
-    }
+	public void setRegionId(Long regionId) {
+		this.regionId = regionId;
+	}
 
-    public Long getProjectId() {
-        return projectId;
-    }
+	public Long getProjectId() {
+		return projectId;
+	}
 
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
 
-    public Long getEquipmentId() {
-        return equipmentId;
-    }
+	public Long getEquipmentId() {
+		return equipmentId;
+	}
 
-    public void setEquipmentId(Long equipmentId) {
-        this.equipmentId = equipmentId;
-    }
+	public void setEquipmentId(Long equipmentId) {
+		this.equipmentId = equipmentId;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    public Long getCompanyId() {
-        return companyId;
-    }
+	public Long getCompanyId() {
+		return companyId;
+	}
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
 
-    public Integer getCycleType() {
-        return cycleType;
-    }
+	public Integer getCycleType() {
+		return cycleType;
+	}
 
-    public void setCycleType(Integer cycleType) {
-        this.cycleType = cycleType;
-    }
+	public void setCycleType(Integer cycleType) {
+		this.cycleType = cycleType;
+	}
 
-    public Integer getCycleDay() {
-        return cycleDay;
-    }
+	public Integer getCycleDay() {
+		return cycleDay;
+	}
 
-    public void setCycleDay(Integer cycleDay) {
-        this.cycleDay = cycleDay;
-    }
+	public void setCycleDay(Integer cycleDay) {
+		this.cycleDay = cycleDay;
+	}
 
-    public Date getEndTime() {
-        return endTime;
-    }
+	public Date getEndTime() {
+		return endTime;
+	}
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
 
-    public Integer getSum() {
-        return sum;
-    }
+	public Integer getSum() {
+		return sum;
+	}
 
-    public void setSum(Integer sum) {
-        this.sum = sum;
-    }
+	public void setSum(Integer sum) {
+		this.sum = sum;
+	}
 
-    public Boolean getLogicRemove() {
-        return logicRemove;
-    }
+	public Boolean getLogicRemove() {
+		return logicRemove;
+	}
 
-    public void setLogicRemove(Boolean logicRemove) {
-        this.logicRemove = logicRemove;
-    }
+	public void setLogicRemove(Boolean logicRemove) {
+		this.logicRemove = logicRemove;
+	}
 }

@@ -25,6 +25,8 @@ public class MaintenancePeriodic {
 	private Long equipmentId;
 	// 设备名称
 	private String equipmentName;
+	//关键字查询
+	private String keyword;
 	// 维保内容
 	private String content;
 	// 维保公司ID
@@ -37,6 +39,10 @@ public class MaintenancePeriodic {
 	private Integer cycleDay;
 	// 维保结束时间
 	private Date endTime;
+	// 维保开始时间
+	private Date startTime;
+	// 新增修改时间
+	private Date createTime;
 	// 维保总次数
 	private Integer sum;
 	// 是否逻辑删除
@@ -50,8 +56,40 @@ public class MaintenancePeriodic {
 		this.id = id;
 	}
 
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	public Long getOrganizationId() {
 		return organizationId;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 	public void setOrganizationId(Long organizationId) {
@@ -74,13 +112,6 @@ public class MaintenancePeriodic {
 		this.regionName = regionName;
 	}
 
-	public String getprojectName() {
-		return projectName;
-	}
-
-	public void setprojectName(String projectName) {
-		this.projectName = projectName;
-	}
 
 	public String getEquipmentName() {
 		return equipmentName;

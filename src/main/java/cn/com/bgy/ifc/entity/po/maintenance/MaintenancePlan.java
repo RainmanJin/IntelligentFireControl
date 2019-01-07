@@ -1,6 +1,9 @@
 package cn.com.bgy.ifc.entity.po.maintenance;
 
 import java.util.Date;
+import java.util.List;
+
+import org.apache.poi.ss.formula.functions.T;
 /**
  * 2018年12月25日14:34:44
  * lbj
@@ -41,6 +44,8 @@ private Long id;
     private Date beginTime;
     //结束日期
     private Date endTime;
+    //工单
+    private List<MaintenanceOrder> ordes ;
     //是否逻辑删除
     private Boolean logicRemove;
     public Long getId() {
@@ -150,6 +155,14 @@ private Long id;
 
 	public Date getEndDate() {
 		return endDate;
+	}
+
+	public List<MaintenanceOrder> getOrdes() {
+		return ordes;
+	}
+
+	public void setOrdes(List<MaintenanceOrder> ordes) {
+		this.ordes = ordes;
 	}
 
 	public void setEndDate(Date endDate) {

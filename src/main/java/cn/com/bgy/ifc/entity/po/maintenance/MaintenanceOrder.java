@@ -35,7 +35,7 @@ public class MaintenanceOrder {
     private Date createTime;
     //是否逻辑删除
     private Boolean logicRemove;
-    //是否是维保周期任务工单0 是    1 不是
+    //是否是维保周期任务工单1 是    0 不是
     private Boolean cycle;
 
     public Long getId() {

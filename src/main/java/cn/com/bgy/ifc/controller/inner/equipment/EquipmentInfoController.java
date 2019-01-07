@@ -1,13 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.equipment;
 
-import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
-import cn.com.bgy.ifc.controller.inner.common.BaseController;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
-import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
-import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentInfoService;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +9,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Map;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
+
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
+import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
+import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentInfoService;
 
 /**
  * @Author huxin
@@ -28,6 +31,8 @@ public class EquipmentInfoController extends BaseController {
 
     @Autowired
     private EquipmentInfoService equipmentInfoService;
+    @Autowired
+    private EquipmentInfoDomain domain;
 
     /**
      * @Author huxin
@@ -99,5 +104,15 @@ public class EquipmentInfoController extends BaseController {
         Map<String,Object> map = equipmentInfoService.queryEquipmentInfoById(id);
         return ResponseVO.success().setData(map);
     }
-
+    
+    /**
+     * 设备下拉框初始化
+     * @return
+     */
+    @GetMapping("queryEquipmentInfoList")
+    @ResponseBody
+    public ResponseVO<Object> queryMaintenanceCompanyList(RegionAndBrandVO vo) {
+    	
+        return ResponseVO.success().setData(domain.queryAllInfo(vo));
+    }
 }

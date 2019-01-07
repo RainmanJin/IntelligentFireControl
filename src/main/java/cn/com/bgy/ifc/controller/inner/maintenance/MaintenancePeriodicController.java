@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.maintenance;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenancePeriodicDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenancePeriodicVo;
 /**
@@ -68,6 +70,12 @@ public class MaintenancePeriodicController extends BaseController {
 
         MaintenancePeriodic po = new MaintenancePeriodic();
         //默认是false删除后设为true
+        Account user= this.getUser();
+        //默认登录人的机构
+        vo.setOrganizationId(user.getOrganizationId());
+        //当前系统时间为新建时间
+        vo.setCreateTime(new Date());
+        //默认是false删除后设为true
         vo.setLogicRemove(false);
         CopyUtil.copyProperties(vo, po);
         int count = domain.insert(po);
@@ -86,6 +94,8 @@ public class MaintenancePeriodicController extends BaseController {
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenancePeriodic po, String token){
         int resout = 1;
+      //当前系统时间为新建时间
+        po.setCreateTime(new Date());
         int count = domain.update(po);
         if (count == resout) {
             return ResponseVO.success().setMsg("修改成功");
@@ -116,9 +126,11 @@ public class MaintenancePeriodicController extends BaseController {
     @PostMapping("delete")
     @SystemLogAfterSave(description = "维保周期性计划删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
+    public ResponseVO<Object> deleteRegionComputerRoom( String ids, String token){
+    	ids = ids.replace("[", "") ;
+    	ids = ids.replace("]", "") ;
     	List<Long> list = new ArrayList<>();
-    	String[]str = arr.split(",");
+    	String[]str = ids.split(",");
     	int count  ;
     	   if(str.length>0){
                for (int i = 0; i <str.length ; i++) {

@@ -42,6 +42,22 @@
 		#{cycle,jdbcType=BIT}, #{sign,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
 		)
 	</insert>
+	<insert id="insertSelectiveByMap"
+		parameterType="java.util.List">
+		insert into maintenance_order (id, plan_id, device_id,
+		organization_id, order_state, create_time, logic_remove,
+		cycle
+		)
+		<trim prefix="values " suffix="" suffixOverrides=",">
+			<foreach collection="list" item="item" index="index" separator=";">
+    			(#{item.id,jdbcType=BIGINT}, #{item.planId,jdbcType=BIGINT},
+				#{item.deviceId,jdbcType=BIGINT},#{item.organizationId,jdbcType=BIGINT}
+				#{item.orderState,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP},
+				#{item.logicRemove,jdbcType=BIT},#{item.cycle,jdbcType=BIT}
+				),
+    		</foreach>
+		</trim>
+	</insert>
 	<insert id="insertSelective"
 		parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder">
 		insert into maintenance_order

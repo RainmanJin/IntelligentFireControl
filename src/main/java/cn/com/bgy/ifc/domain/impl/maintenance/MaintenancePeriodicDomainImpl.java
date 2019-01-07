@@ -41,6 +41,30 @@ public class MaintenancePeriodicDomainImpl implements MaintenancePeriodicDomain 
 
 	@Override
 	public int insert(MaintenancePeriodic t) {
+		double num =0.0;
+		double days = 0.0;
+		int times = 0;
+		//计算维保时间总天数
+		if(t.getStartTime()!=null&&t.getEndTime()!=null) {
+			days=(t.getEndTime().getTime()-t.getStartTime().getTime())/(24*60*60*1000);
+		}
+		//通过总天数和维保周期得出总次数
+		if(t.getCycleType()!=null) {
+			if(t.getCycleType() == 1) {
+				num=days/30;
+			}else if(t.getCycleType() == 2) {
+				num=days/91;
+			}else if(t.getCycleType() == 3) {
+				num=days/182;
+			}else if(t.getCycleType() == 4) {
+				num=days/365;
+			}
+			else if(t.getCycleType() == 5&&t.getCycleDay()!=null) {
+				num=days/t.getCycleDay();
+			}
+		}
+		times = (int) Math.floor(num);
+		t.setSum(times);
 		return dao.insert(t);
 	}
 
@@ -51,6 +75,30 @@ public class MaintenancePeriodicDomainImpl implements MaintenancePeriodicDomain 
 
 	@Override
 	public int update(MaintenancePeriodic t) {
+		double num =0.0;
+		double days = 0.0;
+		int times = 0;
+		//计算维保时间总天数
+		if(t.getStartTime()!=null&&t.getEndTime()!=null) {
+			days=(t.getEndTime().getTime()-t.getStartTime().getTime())/(24*60*60*1000);
+		}
+		//通过总天数和维保周期得出总次数
+		if(t.getCycleType()!=null) {
+			if(t.getCycleType() == 1) {
+				num=days/30;
+			}else if(t.getCycleType() == 2) {
+				num=days/91;
+			}else if(t.getCycleType() == 3) {
+				num=days/182;
+			}else if(t.getCycleType() == 4) {
+				num=days/365;
+			}
+			else if(t.getCycleType() == 5&&t.getCycleDay()!=null) {
+				num=days/t.getCycleDay();
+			}
+		}
+		times = (int) Math.floor(num);
+		t.setSum(times);
 		return dao.update(t);
 	}
 

@@ -14,19 +14,23 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="company_id" jdbcType="BIGINT" property="companyId" />
     <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
     <result column="cycle_type" jdbcType="INTEGER" property="cycleType" />
     <result column="cycle_day" jdbcType="INTEGER" property="cycleDay" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="sum" jdbcType="INTEGER" property="sum" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic">
-    insert into maintenance_periodic (id, organization_id, region_id, 
+    insert into maintenance_periodic (id,start_time,create_time, organization_id, region_id, 
       project_id, equipment_id, content, 
       company_id, cycle_type, cycle_day, 
       end_time, sum, logic_remove
       )
-    values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{regionId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
+     #{organizationId,jdbcType=BIGINT}, #{regionId,jdbcType=BIGINT}, 
       #{projectId,jdbcType=BIGINT}, #{equipmentId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
       #{companyId,jdbcType=BIGINT}, #{cycleType,jdbcType=INTEGER}, #{cycleDay,jdbcType=INTEGER}, 
       #{endTime,jdbcType=TIMESTAMP}, #{sum,jdbcType=INTEGER}, #{logicRemove,jdbcType=BIT}
@@ -63,6 +67,12 @@
         cycle_day,
       </if>
       <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="createTime != null">
+        end_time,
+      </if>
+      <if test="startTime != null">
         end_time,
       </if>
       <if test="sum != null">
@@ -102,6 +112,12 @@
       </if>
       <if test="endTime != null">
         #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="sum != null">
         #{sum,jdbcType=INTEGER},
@@ -205,7 +221,13 @@
         cycle_day=#{cycleDay,jdbcType=INTEGER},
       </if>
       <if test="endTime != null">
-        endTime=#{endTime,jdbcType=TIMESTAMP},
+        end_time=#{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        start_time=#{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="sum != null">
         sum=#{sum,jdbcType=INTEGER},
@@ -230,47 +252,4 @@
       #{id}
     </foreach>
   </update>
-    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic">
-        UPDATE maintenance_company
-         <set>
-       <if test="id != null">
-         id=#{id,jdbcType=BIGINT},
-      </if>
-      <if test="organizationId != null">
-        organization_id= #{organizationId,jdbcType=BIGINT},
-      </if>
-      <if test="regionId != null">
-        region_id=#{regionId,jdbcType=BIGINT},
-      </if>
-      <if test="projectId != null">
-        project_id=#{projectId,jdbcType=BIGINT},
-      </if>
-      <if test="equipmentId != null">
-        equipment_id=#{equipmentId,jdbcType=BIGINT},
-      </if>
-      <if test="content != null">
-        content=#{content,jdbcType=VARCHAR},
-      </if>
-      <if test="companyId != null">
-        company_id=#{companyId,jdbcType=BIGINT},
-      </if>
-      <if test="cycleType != null">
-        cycle_type=#{cycleType,jdbcType=INTEGER},
-      </if>
-      <if test="cycleDay != null">
-        cycle_day=#{cycleDay,jdbcType=INTEGER},
-      </if>
-      <if test="endTime != null">
-        endTime=#{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="sum != null">
-        sum=#{sum,jdbcType=INTEGER},
-      </if>
-      <if test="logicRemove != null">
-        logic_remove=#{logicRemove,jdbcType=BIT},
-      </if>
-    </set>
-        WHERE id
-        = #{id}
-    </update>
 </mapper>
