@@ -9,6 +9,8 @@ import java.util.Date;
 public class ExtinguisherConfig {
     //ID
     private Long id;
+    //装修备案ID
+    private Long recordId;
     //灭火器类型
     private Integer type;
     //购买时间
@@ -107,5 +109,13 @@ public class ExtinguisherConfig {
 
     public void setLogicRemove( Boolean logicRemove ) {
         this.logicRemove = logicRemove;
+    }
+
+    public Long getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId( Long recordId ) {
+        this.recordId = recordId;
     }
 }

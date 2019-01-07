@@ -9,8 +9,8 @@ import java.util.Date;
 public class RenovationJunk {
     //ID
     private Long id;
-    //装修备案表ID
-    private Long recordid;
+    //装修备案ID
+    private Long recordId;
     //验收/检查人
     private String checkPerson;
     //垃圾清理情况
@@ -33,12 +33,12 @@ public class RenovationJunk {
         this.id = id;
     }
 
-    public Long getRecordid() {
-        return recordid;
+    public Long getRecordId() {
+        return recordId;
     }
 
-    public void setRecordid( Long recordid ) {
-        this.recordid = recordid;
+    public void setRecordId( Long recordId ) {
+        this.recordId = recordId;
     }
 
     public String getCheckPerson() {

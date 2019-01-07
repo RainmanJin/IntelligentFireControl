@@ -3,7 +3,7 @@
 <mapper namespace="cn.com.bgy.ifc.dao.firepatrol.FacilityProtectionDao">
   <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.FacilityProtection">
     <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="recordId" jdbcType="BIGINT" property="recordid" />
+    <result column="record_id" jdbcType="BIGINT" property="recordId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="check_person" jdbcType="VARCHAR" property="checkPerson" />
@@ -15,11 +15,11 @@
   </resultMap>
 
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FacilityProtection">
-    insert into fire_facility_protection (id, recordId, name, 
+    insert into fire_facility_protection (id, record_id, name,
       state, check_person, create_time, 
       logic_remove, description, check_status, 
       remark)
-    values (#{id,jdbcType=BIGINT}, #{recordid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{recordId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
       #{state,jdbcType=INTEGER}, #{checkPerson,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{logicRemove,jdbcType=BIT}, #{description,jdbcType=LONGVARCHAR}, #{checkStatus,jdbcType=LONGVARCHAR}, 
       #{remark,jdbcType=LONGVARCHAR})
@@ -30,8 +30,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="recordid != null">
-        recordId,
+      <if test="recordId != null">
+          record_id,
       </if>
       <if test="name != null">
         name,
@@ -62,8 +62,8 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="recordid != null">
-        #{recordid,jdbcType=BIGINT},
+      <if test="recordId != null">
+        #{recordId,jdbcType=BIGINT},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},

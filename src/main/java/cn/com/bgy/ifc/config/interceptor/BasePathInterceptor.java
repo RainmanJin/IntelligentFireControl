@@ -4,8 +4,6 @@ import cn.com.bgy.ifc.bgy.utils.StringUtil;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import com.alibaba.fastjson.JSON;
-import org.apache.shiro.util.PermissionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +16,7 @@ public class BasePathInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
-        String []  allowDomain= {"http://192.168.0.112:8080","http://47.99.100.79:8080","http://192.168.0.109:8080","http://192.168.0.108:8080","http://127.0.0.1:8080","http://192.168.0.111:8080"};
+        String []  allowDomain= {"http://192.168.0.112:8080","http://47.99.100.79:8080","http://192.168.0.200:8080","http://192.168.0.108:8080","http://127.0.0.1:8080","http://192.168.0.111:8080"};
         Set<String> allowedOrigins= new HashSet<>(Arrays.asList(allowDomain));
         String originHeader=request.getHeader("Origin");
         if (allowedOrigins.contains(originHeader)) {

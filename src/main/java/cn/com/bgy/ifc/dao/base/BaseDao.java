@@ -1,6 +1,5 @@
 package cn.com.bgy.ifc.dao.base;
 
-import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

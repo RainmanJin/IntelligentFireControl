@@ -10,10 +10,6 @@ import java.util.Date;
 public class RenovationRecord {
     //id
     private Long id;
-    //装修垃圾清理表ID
-    private Long junkId;
-    //灭火器配置表ID
-    private Long configId;
     //地址
     private String address;
     //建筑面积
@@ -60,21 +56,6 @@ public class RenovationRecord {
         this.id = id;
     }
 
-    public Long getJunkId() {
-        return junkId;
-    }
-
-    public void setJunkId( Long junkId ) {
-        this.junkId = junkId;
-    }
-
-    public Long getConfigId() {
-        return configId;
-    }
-
-    public void setConfigId( Long configId ) {
-        this.configId = configId;
-    }
 
     public String getAddress() {
         return address;

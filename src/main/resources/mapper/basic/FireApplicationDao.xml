@@ -3,7 +3,7 @@
 <mapper namespace="cn.com.bgy.ifc.dao.firepatrol.FireApplicationDao">
   <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.FireApplication">
     <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="recordId" jdbcType="BIGINT" property="recordid" />
+    <result column="record_id" jdbcType="BIGINT" property="recordId" />
     <result column="fire_location" jdbcType="VARCHAR" property="fireLocation" />
     <result column="ignition_time" jdbcType="TIMESTAMP" property="ignitionTime" />
     <result column="firing_range" jdbcType="VARCHAR" property="firingRange" />
@@ -25,7 +25,7 @@
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireApplication">
-    insert into fire_application (id, recordId, fire_location, 
+    insert into fire_application (id, record_id, fire_location,
       ignition_time, firing_range, guardian, 
       projects, ignition_plan, measures, 
       fire_permit, approval_department, approval_result, 
@@ -33,7 +33,7 @@
       logic_remove, measure_situation, protection_situation, 
       implementatio_situation, clean_up, 
       remark)
-    values (#{id,jdbcType=BIGINT}, #{recordid,jdbcType=BIGINT}, #{fireLocation,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{recordId,jdbcType=BIGINT}, #{fireLocation,jdbcType=VARCHAR},
       #{ignitionTime,jdbcType=TIMESTAMP}, #{firingRange,jdbcType=VARCHAR}, #{guardian,jdbcType=VARCHAR}, 
       #{projects,jdbcType=VARCHAR}, #{ignitionPlan,jdbcType=VARCHAR}, #{measures,jdbcType=VARCHAR}, 
       #{firePermit,jdbcType=BIT}, #{approvalDepartment,jdbcType=VARCHAR}, #{approvalResult,jdbcType=VARCHAR}, 
@@ -48,7 +48,7 @@
       <if test="id != null">
         id,
       </if>
-      <if test="recordid != null">
+      <if test="record_id != null">
         recordId,
       </if>
       <if test="fireLocation != null">
@@ -113,8 +113,8 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="recordid != null">
-        #{recordid,jdbcType=BIGINT},
+      <if test="recordId != null">
+        #{recordId,jdbcType=BIGINT},
       </if>
       <if test="fireLocation != null">
         #{fireLocation,jdbcType=VARCHAR},

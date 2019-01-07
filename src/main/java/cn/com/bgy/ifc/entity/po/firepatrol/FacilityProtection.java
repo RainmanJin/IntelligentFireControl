@@ -10,7 +10,7 @@ public class FacilityProtection {
     //ID
     private Long id;
     //装修备案ID
-    private Long recordid;
+    private Long recordId;
     //设施名称
     private String name;
     //设施状况 0：未损坏 1：损坏
@@ -36,12 +36,12 @@ public class FacilityProtection {
         this.id = id;
     }
 
-    public Long getRecordid() {
-        return recordid;
+    public Long getRecordId() {
+        return recordId;
     }
 
-    public void setRecordid(Long recordid) {
-        this.recordid = recordid;
+    public void setRecordId( Long recordId ) {
+        this.recordId = recordId;
     }
 
     public String getName() {
@@ -82,5 +82,29 @@ public class FacilityProtection {
 
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription( String description ) {
+        this.description = description;
+    }
+
+    public String getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus( String checkStatus ) {
+        this.checkStatus = checkStatus;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark( String remark ) {
+        this.remark = remark;
     }
 }
