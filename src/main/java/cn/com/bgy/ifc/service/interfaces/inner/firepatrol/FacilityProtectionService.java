@@ -4,7 +4,6 @@ import cn.com.bgy.ifc.entity.po.firepatrol.FacilityProtection;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -21,7 +20,7 @@ public interface FacilityProtectionService {
 
     int updateFacilityProtection( FacilityProtection facilityProtection );
 
-    PageInfo listFacilityProtection( Page<Object> page, String keyword, Long recordId, Date startTime, Date endTime );
+    PageInfo listFacilityProtection( Page<Object> page, String keyword, Long recordId,Integer state);
 
     Map<String,Object> getFacilityProtectionFindById( Long id );
 

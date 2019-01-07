@@ -1,7 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
-import cn.com.bgy.ifc.entity.po.firepatrol.ExtinguisherConfig;
 import cn.com.bgy.ifc.entity.po.firepatrol.FacilityProtection;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.firepatrol.FacilityProtectionService;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -73,8 +71,8 @@ public class FacilityProtectionController extends BaseController {
      * @Date 2019/1/7 16:25
      */
     @GetMapping("list")
-    public ResponseVO<PageInfo> listFacilityProtection( Page<Object> page, String keyword, Long recordId, Date startTime, Date endTime){
-        PageInfo pageInfo = facilityProtectionService.listFacilityProtection(page,keyword,recordId,startTime,endTime);
+    public ResponseVO<PageInfo> listFacilityProtection( Page<Object> page, String keyword, Long recordId,Integer state){
+        PageInfo pageInfo = facilityProtectionService.listFacilityProtection(page,keyword,recordId,state);
         return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**

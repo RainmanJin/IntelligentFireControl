@@ -91,4 +91,63 @@
       </if>
     </trim>
   </insert>
+    <update id="deleteBatch" parameterType="java.util.List">
+        UPDATE   fire_facility_protection set logic_remove =1  where id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FacilityProtection">
+         UPDATE   fire_facility_protection
+         <set>
+             <if test="name != null">
+                 name= #{name,jdbcType=VARCHAR},
+             </if>
+             <if test="state != null">
+                 state=  #{state,jdbcType=INTEGER},
+             </if>
+             <if test="checkPerson != null">
+                 check_person= #{checkPerson,jdbcType=VARCHAR},
+             </if>
+             <if test="createTime != null">
+                 create_time=  #{createTime,jdbcType=TIMESTAMP},
+             </if>
+             <if test="description != null">
+                 description=#{description,jdbcType=LONGVARCHAR},
+             </if>
+             <if test="checkStatus != null">
+                 check_status= #{checkStatus,jdbcType=LONGVARCHAR},
+             </if>
+             <if test="remark != null">
+                 remark = #{remark,jdbcType=LONGVARCHAR}
+             </if>
+         </set>
+    </update>
+    <select id="listFacilityProtection" parameterType="java.util.Map" resultType="java.util.Map">
+           SELECT
+            id,record_id AS recordId,`name`,description,state,check_person AS checkPerson,
+            check_status,remark,create_time AS createTime
+          FROM fire_facility_protection
+          <where>
+              <if test="recordId != null and recordId!= '' ">
+                  AND record_id = #{recordId,jdbcType=BIGINT}
+              </if>
+              <if test="state != null and state!= '' ">
+                  AND state =  #{state,jdbcType=INTEGER}
+              </if>
+              <if test="keyword!='' and keyword!=null">
+                  AND (name LIKE concat('%',#{keyword},'%')
+                  OR description LIKE concat('%',#{keyword},'%'))
+                  )
+              </if>
+              AND logic_remove=0
+          </where>
+    </select>
+    <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
+          SELECT
+            id,record_id AS recordId,`name`,description,state,check_person AS checkPerson,
+            check_status,remark,create_time AS createTime
+          FROM fire_facility_protection
+          WHERE logic_remove = 0 AND id=#{id,jdbcType=BIGINT}
+    </select>
 </mapper>

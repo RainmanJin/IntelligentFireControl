@@ -99,11 +99,11 @@
                 create_time =  #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="clearDescription != null">
-                clear_description = #{clearDescription,jdbcType=LONGVARCHAR},
+                clear_description = #{clearDescription,jdbcType=LONGVARCHAR}
             </if>
         </set>
     </update>
-    <select id="listRenovationJunk">
+    <select id="listRenovationJunk" parameterType="java.util.Map" resultType="java.util.Map">
         SELECT
             id,record_id AS recordId,check_person AS checkPerson,check_person_tel AS checkPersonTel,
             check_result AS checkResult,clear_description AS clearDescription,create_time AS createTime,
@@ -120,7 +120,7 @@
             AND logic_remove=0
         </where>
     </select>
-    <select id="findById">
+    <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
         SELECT
             id,record_id AS recordId,check_person AS checkPerson,check_person_tel AS checkPersonTel,
             check_result AS checkResult,clear_description AS clearDescription,create_time AS createTime,

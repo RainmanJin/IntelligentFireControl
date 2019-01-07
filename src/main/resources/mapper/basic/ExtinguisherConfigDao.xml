@@ -129,12 +129,12 @@
                  create_time = #{createTime,jdbcType=TIMESTAMP},
              </if>
              <if test="other != null">
-                 other = #{other,jdbcType=LONGVARCHAR},
+                 other = #{other,jdbcType=LONGVARCHAR}
              </if>
          </set>
         WHERE id=#{id,jdbcType=BIGINT}
     </update>
-    <select id="listExtinguisherConfig" parameterType="java.util.Map">
+    <select id="listExtinguisherConfig" parameterType="java.util.Map" resultType="java.util.Map">
         SELECT
             id,record_id AS recordId,type,`buying _time` AS `buyingTime`,
             setting_position AS settingPosition,number,person,`condition`,create_time AS createTime
@@ -155,7 +155,7 @@
             AND logic_remove=0
         </where>
     </select>
-    <select id="findById" parameterType="java.lang.Long">
+    <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
         SELECT
             id,record_id AS recordId,type,`buying _time` AS `buyingTime`,
             setting_position AS settingPosition,number,person,`condition`,other,create_time AS createTime
