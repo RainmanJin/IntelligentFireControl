@@ -1,7 +1,6 @@
 package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.bgy.utils.DbAgent;
 import cn.com.bgy.ifc.dao.system.SystemMenuDao;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemMenuDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemMenu;
