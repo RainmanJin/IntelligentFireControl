@@ -95,4 +95,19 @@ public class Department {
     public void setParentName(String parentName) {
         this.parentName = parentName;
     }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", name='" + name + '\'' +
+                ", parentName='" + parentName + '\'' +
+                ", state=" + state +
+                ", organizationId=" + organizationId +
+                ", keyWords='" + keyWords + '\'' +
+                ", createTime=" + createTime +
+                ", logicRemove=" + logicRemove +
+                '}';
+    }
 }

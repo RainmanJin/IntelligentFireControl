@@ -103,9 +103,10 @@ public class ResponseUtil {
             JSONObject jsonObject = response.getJSONObject(dataKey);
             if (jsonObject != null) {
                 List<Object> objList = jsonObject.getJSONArray(listKey);
-                if (objList.size() > 0) {
-                    for (Object object : objList) {
-                        String jsonStr = JSONObject.toJSONString(object);
+                int size = objList.size();
+                if (size > 0) {
+                    for (int i = 0; i < size; i++) {
+                        String jsonStr = JSONObject.toJSONString(objList.get(i));
                         //JSON转换为object
                         dataList.add(JSON.parseObject(jsonStr, dataObj.getClass()));
                     }
@@ -119,7 +120,7 @@ public class ResponseUtil {
      * @author: ZhangCheng
      * @description:转换ListMap
      * @param: [response, dataKey, listKey]
-     * @return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     * @return: java.util.List<java.util.Map   <   java.lang.String   ,   java.lang.Object>>
      */
     public static List<Map<String, Object>> getResultListMap(JSONObject response, String dataKey, String listKey) {
         List<Map<String, Object>> mapList = new ArrayList<>();
@@ -128,9 +129,10 @@ public class ResponseUtil {
             JSONObject jsonObject = response.getJSONObject(dataKey);
             if (jsonObject != null) {
                 List<Object> objList = jsonObject.getJSONArray(listKey);
-                if (objList.size() > 0) {
-                    for (Object object : objList) {
-                        String jsonStr = JSONObject.toJSONString(object);
+                int size = objList.size();
+                if (size > 0) {
+                    for (int i = 0; i < size; i++) {
+                        String jsonStr = JSONObject.toJSONString(objList.get(i));
                         Map<String, Object> params = JSONObject.parseObject(jsonStr, new TypeReference<Map<String, Object>>() {
                         });
                         mapList.add(params);

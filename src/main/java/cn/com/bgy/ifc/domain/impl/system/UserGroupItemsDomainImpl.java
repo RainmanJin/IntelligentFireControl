@@ -4,12 +4,15 @@ import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.dao.system.AccountDao;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
+import cn.com.bgy.ifc.domain.impl.equipment.EquipmentTypeDomainImpl;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.UserGroupItemsDomain;
 import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.BgyPermissionVo;
 import cn.com.bgy.ifc.entity.vo.system.BgyUserPermissionVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +24,7 @@ import java.util.Map;
 
 @Service
 public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
-
-    @Resource
-    private AccountDao accountDao;
+    private static Logger logger = LoggerFactory.getLogger(UserGroupItemsDomainImpl.class);
 
     @Resource
     private UserGroupItemsDao userGroupItemsDao;
@@ -114,6 +115,7 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
                 return ResponseVO.error().setMsg("暂无集成平台用户权限数据同步");
             }
         } catch (Exception e) {
+            logger.error("同步集成平台用户权限doMain异常:",e);
             return ResponseVO.error().setMsg("同步集成平台用户权限异常");
         }
     }

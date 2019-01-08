@@ -75,7 +75,7 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
                 return ResponseVO.success().setMsg("同步集成平台设备信息总条数：" + totalCount + "，新增条数：" + totalCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
             }
         } catch (Exception e) {
-            logger.error("同步集成平台设备信息doMain异常:" + e);
+            logger.error("同步集成平台设备信息doMain异常:", e);
             return ResponseVO.error().setMsg("同步集成平台设备信息异常");
         }
     }

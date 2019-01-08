@@ -13,7 +13,7 @@ import java.util.*;
  * @description:1. ArrayList的底层保存数据还是采用数组Array的方式。
  * *                 所以，遍历访问数组的数据，最快的方式是采用数组的索引，相当于从内存中直接读取数据。
  * *                 因此，使用size效率最高。但是，在多线程时需要考虑并发操作的问题。 2.Map遍历，key,value
- * *                 EntrySet更优。
+ * *                 EntrySet更优。如果是JDK8，使用Map.foreach方法。
  * @date: 2018-12-18 17:26
  **/
 
@@ -24,17 +24,15 @@ public class DbUtil {
     /**
      * 添加实体list数据
      *
-     * @param tableName
-     *            插入的数据库的表名
-     * @param list
-     *            插入的实体list数据
+     * @param tableName 插入的数据库的表名
+     * @param list      插入的实体list数据
      * @return 影响的行数
      * @throws Exception
      */
     @SuppressWarnings("rawtypes")
-    public static int insertByList(String tableName, List list)  throws Exception{
-        int size=list.size();
-        List<Map<String, Object>> datas=new ArrayList<>();
+    public static int insertByList(String tableName, List list) throws Exception {
+        int size = list.size();
+        List<Map<String, Object>> datas = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             Map<String, Object> valueMap = EntityUtil.entityToMap(list.get(i));
             datas.add(valueMap);
@@ -48,8 +46,8 @@ public class DbUtil {
      * @param: [tableName, list]
      * @return: int
      */
-    public static int insertListByPage(String tableName,List list,int addSize) throws Exception{
-        int listSize=list.size();
+    public static int insertListByPage(String tableName, List list, int addSize) throws Exception {
+        int listSize = list.size();
         int sumCount = 0;
         int cycleTimes = listSize % addSize > 0 ? (listSize / addSize) + 1 : listSize / addSize;
         for (int i = 0; i < cycleTimes; i++) {
@@ -63,7 +61,6 @@ public class DbUtil {
         }
         return sumCount;
     }
-
 
 
     /**
@@ -131,7 +128,7 @@ public class DbUtil {
             if (connection != null) {
                 connection.rollback();
             }
-            logger.error("JDBC批量添加数据异常:"+e);
+            logger.error("JDBC批量添加数据异常:" + e);
         } finally {
             if (preparedStatement != null) {
                 preparedStatement.close();

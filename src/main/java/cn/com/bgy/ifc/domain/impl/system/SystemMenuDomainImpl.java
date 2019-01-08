@@ -30,6 +30,7 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
      * @Param []
      * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
      */
+    @Override
     public PageInfo<SystemMenuVo> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord){
         List<SystemMenu> allMenu= systemMenuDao.queryAllSystemMenuInfo(keyWord);
         List<SystemMenu> rootMenu=new ArrayList<>();

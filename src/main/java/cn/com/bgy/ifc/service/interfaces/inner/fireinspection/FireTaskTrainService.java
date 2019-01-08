@@ -13,5 +13,11 @@ import com.github.pagehelper.PageInfo;
  **/
 public interface FireTaskTrainService extends BaseService<FireTaskTrain> {
 
+    /**
+     * 分页查询
+     * @param page
+     * @param fireTaskTrainVo
+     * @return
+     */
     PageInfo<FireTaskTrain> queryListByPage(Page<FireTaskTrain> page, FireTaskTrainVo fireTaskTrainVo);
 }

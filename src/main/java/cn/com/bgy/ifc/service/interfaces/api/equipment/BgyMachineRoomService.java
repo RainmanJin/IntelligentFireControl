@@ -12,12 +12,32 @@ import java.util.Date;
  **/
 public interface BgyMachineRoomService {
 
-    //碧桂园集成平台机房信息同步
+    /**
+     * 碧桂园集成平台机房信息同步
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     ResponseVO<Object> baseObtainBgyMachineRoom(int pageNo, int pageSize);
 
-    //获取集成平台机房信息（全量）
+    /**
+     * 获取集成平台机房信息（全量）
+     * @param pageNo
+     * @param pageSize
+     * @param config
+     * @return
+     * @throws Exception
+     */
     ResponseVO<Object> obtainBgyMachineRoom(int pageNo, int pageSize, ExternalInterfaceConfig config)throws Exception;
 
-    //获取集成平台机房信息（增量）
+    /**
+     * 获取集成平台机房信息（增量）
+     * @param pageNo
+     * @param pageSize
+     * @param config
+     * @param createTime
+     * @return
+     * @throws Exception
+     */
     ResponseVO<Object> obtainBgyMachineRoomIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime)throws Exception;
 }
