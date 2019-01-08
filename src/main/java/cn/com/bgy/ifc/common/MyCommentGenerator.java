@@ -29,12 +29,9 @@ import java.util.Properties;
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
 /**
- * 描述：
- * @since 1.9.10
- * @version 1.9.10
- * @作者：niexiaohui
- * @创建时间：2016年11月22日
- * @修改记录：
+ * @description:自动生成entity带中文注释
+ * @auther: chenlie
+ * @date: 2019/1/8 9:55
  */
 @Service
 public class MyCommentGenerator implements  CommentGenerator {

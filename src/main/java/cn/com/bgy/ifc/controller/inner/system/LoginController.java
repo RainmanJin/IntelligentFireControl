@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Map;
 
 @RestController
@@ -80,9 +80,8 @@ public class LoginController {
        // response.setHeader("Authorization",session.getId());
         ByteArrayOutputStream out=new ByteArrayOutputStream();
         ImageIO.write((RenderedImage) map.get("codePic"), "png",out);
-        BASE64Encoder encoder=new BASE64Encoder();
-        String imageBase64=encoder.encode(out.toByteArray());
-        return "data:image/png;base64,"+imageBase64;
+        byte[] imageBase64=Base64.getEncoder().encode(out.toByteArray());
+        return "data:image/png;base64,"+new String(imageBase64);
     }
 
     /**
