@@ -4,7 +4,9 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.bgy.utils.excel.ExcelUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
+import cn.com.bgy.ifc.entity.model.OrgTestModel;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -153,5 +158,17 @@ public class SystemOrganizationController extends BaseController {
     public ResponseVO<Object> getOrgAdmin(Long orgId) {
         List<SelectVo> list = systemOrganizationService.getOrgAdmin("orgAdmin", orgId);
         return ResponseVO.success().setData(list);
+    }
+
+    @GetMapping("excel")
+    public void getExcel(HttpServletRequest request,HttpServletResponse response){
+        List<SystemOrganization> list=systemOrganizationService.queryList(null);
+        List<OrgTestModel> modelList=new ArrayList();
+        for(SystemOrganization org:list){
+            OrgTestModel model=new OrgTestModel();
+            CopyUtil.copyProperties(org,model);
+            modelList.add(model);
+        }
+        ExcelUtil.exportExcel("机构管理",modelList,request,response);
     }
 }

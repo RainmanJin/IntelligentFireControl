@@ -14,7 +14,7 @@ public class BgyOrgVo extends BgyBaseVo {
     private String code;
 
     /**
-     * 区域名称
+     * 公司名称
      */
     private String name;
 

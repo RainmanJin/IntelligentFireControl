@@ -11,8 +11,6 @@ public interface SystemRoleDao extends BaseDao<SystemRole> {
 
     List<SystemRole> queryAllList(SystemRoleVo systemRoleVo);
 
-    List<SystemRole> queryListByParam(SystemRole record);
-
     /**
      * YanXiaoLu
      * 根据当前用户查询父级部门名称（前端下拉展示）

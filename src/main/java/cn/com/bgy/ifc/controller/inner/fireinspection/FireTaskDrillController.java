@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.fireinspection;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.fireinspection.FireTaskDrill;
 import cn.com.bgy.ifc.entity.po.fireinspection.FireTaskTrain;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
@@ -29,7 +30,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/fireInspection/fireTaskDrill")
-public class FireTaskDrillController {
+public class FireTaskDrillController extends BaseController {
 
     @Autowired
     private FireTaskDrillService fireTaskDrillService;

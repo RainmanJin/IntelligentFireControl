@@ -77,7 +77,6 @@ public class InterfaceAccountController extends BaseController {
     }
 
     @GetMapping("findById")
-    @SystemLogAfterSave(description = "通过id查询接口用户")
     public ResponseVO<Object> findById(Long id) {
         if (id == null) {
             return ResponseVO.error().setMsg("id不能为空");
@@ -97,7 +96,6 @@ public class InterfaceAccountController extends BaseController {
      * 分页查询
      */
     @GetMapping("searchPage")
-    @SystemLogAfterSave(description = "分页查询接口用户")
     public ResponseVO<Object> searchPage(Page<InterfaceAccount> page, InterfaceAccount interfaceAccount) {
         PageInfo<InterfaceAccount> pageInfo = interfaceAccountDomain.searchByWhere(page, interfaceAccount);
         return ResponseVO.success().setData(pageInfo);

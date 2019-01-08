@@ -1,5 +1,7 @@
 package cn.com.bgy.ifc.entity.vo.fireinspection;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -14,6 +16,8 @@ public class FireTaskTrainVo {
     /**
      * 消防培训任务名称
      */
+    @NotBlank(message="消防培训任务名称不能为空！")
+    @Size(max=50,message="消防培训任务名称长度不能超过50字符！")
     private String name;
 
     /**
@@ -58,6 +62,9 @@ public class FireTaskTrainVo {
 
     private Date createTime;
 
+    /**
+     * 培训内容
+     */
     private String content;
 
 

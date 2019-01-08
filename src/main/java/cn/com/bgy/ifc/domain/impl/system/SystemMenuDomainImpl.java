@@ -102,7 +102,7 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
         Comparator<SystemMenu> comparator = new Comparator<SystemMenu>() {
             @Override
             public int compare(SystemMenu o1, SystemMenu o2) {
-                if(o1.getSortIndex() != o2.getSortIndex()){
+                if( !o1.getSortIndex().equals(o2.getSortIndex())){
                     return o1.getSortIndex() - o2.getSortIndex();
                 }
                 return 0;
