@@ -122,6 +122,7 @@
                  remark = #{remark,jdbcType=LONGVARCHAR}
              </if>
          </set>
+         WHERE logic_remove = 0 AND id=#{id,jdbcType=BIGINT}
     </update>
     <select id="listFacilityProtection" parameterType="java.util.Map" resultType="java.util.Map">
            SELECT
@@ -138,7 +139,6 @@
               <if test="keyword!='' and keyword!=null">
                   AND (name LIKE concat('%',#{keyword},'%')
                   OR description LIKE concat('%',#{keyword},'%'))
-                  )
               </if>
               AND logic_remove=0
           </where>
@@ -149,5 +149,18 @@
             check_status,remark,create_time AS createTime
           FROM fire_facility_protection
           WHERE logic_remove = 0 AND id=#{id,jdbcType=BIGINT}
+    </select>
+    <update id="deleteByRecordId" parameterType="java.util.List">
+        UPDATE   fire_facility_protection set logic_remove =1  where record_id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <select id="queryByRecordId" parameterType="java.lang.Long" resultType="cn.com.bgy.ifc.entity.po.firepatrol.FacilityProtection">
+         SELECT
+            id,record_id AS recordId,`name`,description,state,check_person AS checkPerson,
+            check_status,remark,create_time AS createTime
+          FROM fire_facility_protection
+          WHERE logic_remove = 0 AND record_id=#{id,jdbcType=BIGINT}
     </select>
 </mapper>

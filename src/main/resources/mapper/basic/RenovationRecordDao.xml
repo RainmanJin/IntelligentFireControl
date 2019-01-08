@@ -226,7 +226,7 @@
                 remark= #{remark,jdbcType=LONGVARCHAR}
             </if>
         </set>
-        WHERE id=#{id,jdbcType=BIGINT}
+        WHERE logic_remove = 0 AND id=#{id,jdbcType=BIGINT}
     </update>
     <select id="queryRenovationRecordList" parameterType="java.util.Map" resultType="java.util.Map">
             SELECT

@@ -175,4 +175,115 @@
       </if>
     </trim>
   </insert>
+    <update id="deleteBatch" parameterType="java.util.List">
+        UPDATE   fire_application set logic_remove =1  where id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireApplication">
+        UPDATE   fire_application
+        <set>
+            <if test="fireLocation != null">
+                fire_location= #{fireLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="ignitionTime != null">
+                ignition_time =   #{ignitionTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="firingRange != null">
+                firing_range=  #{firingRange,jdbcType=VARCHAR},
+            </if>
+            <if test="guardian != null">
+                guardian=  #{guardian,jdbcType=VARCHAR},
+            </if>
+            <if test="projects != null">
+                projects= #{projects,jdbcType=VARCHAR},
+            </if>
+            <if test="ignitionPlan != null">
+                ignition_plan= #{ignitionPlan,jdbcType=VARCHAR},
+            </if>
+            <if test="measures != null">
+                measures= #{measures,jdbcType=VARCHAR},
+            </if>
+            <if test="firePermit != null">
+                fire_permit=  #{firePermit,jdbcType=BIT},
+            </if>
+            <if test="approvalDepartment != null">
+                approval_department= #{approvalDepartment,jdbcType=VARCHAR},
+            </if>
+            <if test="approvalResult != null">
+                approval_result=  #{approvalResult,jdbcType=VARCHAR},
+            </if>
+            <if test="custodian != null">
+                custodian= #{custodian,jdbcType=VARCHAR},
+            </if>
+            <if test="personLiable != null">
+                person_liable= #{personLiable,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time=  #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="measureSituation != null">
+                measure_situation=  #{measureSituation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="protectionSituation != null">
+                protection_situation= #{protectionSituation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="implementatioSituation != null">
+                implementatio_situation=  #{implementatioSituation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="cleanUp != null">
+                clean_up= #{cleanUp,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="remark != null">
+                remark= #{remark,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        WHERE logic_remove = 0 AND id=#{id,jdbcType=BIGINT}
+    </update>
+    <select id="listFireApplication" parameterType="java.util.Map" resultType="java.util.Map">
+            SELECT
+                id,record_id AS recordId,fire_location AS fireLocation,ignition_time AS ignitionTime,
+                firing_range AS firingRange,guardian,projects,fire_permit AS firePermit,
+                approval_department AS approvalDepartment
+            FROM fire_application
+          <where>
+              <if test="recordId != null and recordId!= '' ">
+                  AND record_id = #{recordId,jdbcType=BIGINT}
+              </if>
+              <if test="keyword!='' and keyword!=null">
+                  AND (fire_location LIKE concat('%',#{keyword},'%')
+                  OR approval_department LIKE concat('%',#{keyword},'%')
+                  OR guardian LIKE concat('%',#{keyword},'%')
+                  OR projects LIKE concat('%',#{keyword},'%'))
+              </if>
+              AND logic_remove = 0
+          </where>
+    </select>
+    <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
+          SELECT
+                id,record_id AS recordId,fire_location AS fireLocation,ignition_time AS ignitionTime,
+                firing_range AS firingRange,guardian,projects,ignition_plan AS ignitionPlan,measures,
+                fire_permit AS firePermit,approval_department AS approvalDepartment,approval_result AS approvalResult,
+                measure_situation AS measureSituation,protection_situation AS protectionSituation,clean_up AS cleanUp,
+                remark,person_liable AS personLiable,create_time AS createTime
+          FROM fire_application
+           WHERE logic_remove = 0 AND id=#{id,jdbcType=BIGINT}
+    </select>
+    <update id="deleteByRecordId" parameterType="java.util.List">
+        UPDATE   fire_application set logic_remove =1  where record_id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <select id="queryByRecordId" parameterType="java.lang.Long" resultType="cn.com.bgy.ifc.entity.po.firepatrol.FireApplication">
+        SELECT
+                id,record_id AS recordId,fire_location AS fireLocation,ignition_time AS ignitionTime,
+                firing_range AS firingRange,guardian,projects,ignition_plan AS ignitionPlan,measures,
+                fire_permit AS firePermit,approval_department AS approvalDepartment,approval_result AS approvalResult,
+                measure_situation AS measureSituation,protection_situation AS protectionSituation,clean_up AS cleanUp,
+                remark,person_liable AS personLiable,create_time AS createTime
+        FROM fire_application
+        WHERE logic_remove = 0 AND record_id=#{id,jdbcType=BIGINT}
+    </select>
 </mapper>

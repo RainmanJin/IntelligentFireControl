@@ -10,4 +10,8 @@ public interface ExtinguisherConfigDao extends BaseDao<ExtinguisherConfig> {
 
     //查询灭火器配置情况列表
     List<Map<String,Object>> listExtinguisherConfig( Map<String,Object> map );
+    //根据备案ID删除
+    int deleteByRecordId( List<Long> list );
+    //根据备案ID查询
+    ExtinguisherConfig queryByRecordId( Long recordId );
 }

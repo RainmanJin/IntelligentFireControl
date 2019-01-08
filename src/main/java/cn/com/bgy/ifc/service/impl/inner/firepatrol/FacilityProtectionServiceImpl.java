@@ -33,6 +33,11 @@ public class FacilityProtectionServiceImpl implements FacilityProtectionService 
     @Override
     public int addFacilityProtection( FacilityProtection facilityProtection ) {
         if(facilityProtection.getRecordId()!=null || facilityProtection.getRecordId()>0){
+            FacilityProtection f = facilityProtectionDao.queryByRecordId(facilityProtection.getRecordId());
+            if(f.getRecordId()!=null || f.getRecordId()>0){
+                return 2;
+            }
+            facilityProtection.setCreateTime(new Date());
             return facilityProtectionDao.insertSelective(facilityProtection);
         }
         return 0;

@@ -132,7 +132,7 @@
                  other = #{other,jdbcType=LONGVARCHAR}
              </if>
          </set>
-        WHERE id=#{id,jdbcType=BIGINT}
+        WHERE logic_remove = 0 AND id=#{id,jdbcType=BIGINT}
     </update>
     <select id="listExtinguisherConfig" parameterType="java.util.Map" resultType="java.util.Map">
         SELECT
@@ -161,5 +161,18 @@
             setting_position AS settingPosition,number,person,`condition`,other,create_time AS createTime
         FROM fire_extinguisher_config
         WHERE  logic_remove=0 AND id=#{id,jdbcType=BIGINT}
+    </select>
+    <update id="deleteByRecordId" parameterType="java.util.List">
+        UPDATE   fire_extinguisher_config set logic_remove =1  where record_id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <select id="queryByRecordId" parameterType="java.lang.Long" resultType="cn.com.bgy.ifc.entity.po.firepatrol.ExtinguisherConfig">
+        SELECT
+            id,record_id AS recordId,type,`buying _time` AS `buyingTime`,
+            setting_position AS settingPosition,number,person,`condition`,other,create_time AS createTime
+        FROM fire_extinguisher_config
+        WHERE  logic_remove=0 AND record_id=#{id,jdbcType=BIGINT}
     </select>
 </mapper>

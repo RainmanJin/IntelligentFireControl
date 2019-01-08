@@ -34,6 +34,11 @@ public class RenovationJunkServiceImpl implements RenovationJunkService {
     @Override
     public int addRenovationJunk( RenovationJunk renovationJunk ) {
         if(renovationJunk.getRecordId()!=null || renovationJunk.getRecordId()>0){
+            RenovationJunk  r = renovationJunkDao.queryByRecordId(renovationJunk.getRecordId());
+            if(r.getRecordId()!=null || r.getRecordId()>0){
+                return 2;
+            }
+            renovationJunk.setCreateTime(new Date());
             return renovationJunkDao.insertSelective(renovationJunk);
         }
         return 0;
