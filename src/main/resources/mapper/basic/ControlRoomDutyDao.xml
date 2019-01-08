@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.firepatrol.ControlRoomDutyDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="duty_date" jdbcType="DATE" property="dutyDate" />
+    <result column="duty_type" jdbcType="VARCHAR" property="dutyType" />
+    <result column="room_name" jdbcType="VARCHAR" property="roomName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
+    insert into control_room_duty (id, user_id, user_type, 
+      start_time, end_time, duty_date, 
+      duty_type, room_name, address, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{userType,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{dutyDate,jdbcType=DATE}, 
+      #{dutyType,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
+    insert into control_room_duty
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="dutyDate != null">
+        duty_date,
+      </if>
+      <if test="dutyType != null">
+        duty_type,
+      </if>
+      <if test="roomName != null">
+        room_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dutyDate != null">
+        #{dutyDate,jdbcType=DATE},
+      </if>
+      <if test="dutyType != null">
+        #{dutyType,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null">
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="deleteBatch" parameterType="java.util.List">
+    UPDATE control_room_duty SET logic_remove =1 WHERE id IN
+    <foreach collection="list" index="index" item="id" open="(" separator=","
+             close=")">
+      #{id}
+    </foreach>
+  </update>
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
+  update  control_room_duty
+   <set>
+     <trim suffixOverrides="," >
+       user_id =#{userId,jdbcType=BIGINT},
+       user_type =#{userType,jdbcType=INTEGER},
+       start_time =#{startTime,jdbcType=TIMESTAMP},
+       end_time =#{endTime,jdbcType=TIMESTAMP},
+       duty_date =#{dutyDate,jdbcType=DATE},
+       duty_type =#{dutyType,jdbcType=VARCHAR},
+       room_name =#{roomName,jdbcType=VARCHAR},
+       address =#{address,jdbcType=VARCHAR},
+       create_time=#{createTime,jdbcType=TIMESTAMP}
+     </trim>
+   </set>
+  </update>
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
+    update  control_room_duty
+    <set>
+      <trim suffixOverrides="," >
+        <if test="userId != null">
+          user_id =#{userId,jdbcType=BIGINT},
+        </if>
+        <if test="userType != null">
+          user_type =#{userType,jdbcType=INTEGER},
+        </if>
+        <if test="startTime != null">
+          start_time =#{startTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="endTime != null">
+          end_time =#{endTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="dutyDate != null">
+          duty_date =#{dutyDate,jdbcType=DATE},
+        </if>
+        <if test="dutyType != null">
+          duty_type =#{dutyType,jdbcType=VARCHAR},
+        </if>
+        <if test="roomName != null">
+          room_name =#{roomName,jdbcType=VARCHAR},
+        </if>
+        <if test="address != null">
+          address =#{address,jdbcType=VARCHAR},
+        </if>
+        <if test="createTime != null">
+          create_time=#{createTime,jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+    </set>
+  </update>
+<select id="findById" resultType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
+  select id,
+        user_id as userId,
+        user_type as userType,
+        start_time as startTime,
+        end_time as endTime,
+        duty_date as dutyDate,
+        duty_type as dutyType,
+        room_name as roomName,
+        address as address,
+        create_time as createTime
+      from control_room_duty
+      where id=#{id}
+</select>
+
+  <select id="queryListByParam" resultType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
+       select id,
+        user_id as userId,
+        user_type as userType,
+        start_time as startTime,
+        end_time as endTime,
+        duty_date as dutyDate,
+        duty_type as dutyType,
+        room_name as roomName,
+        address as address,
+        create_time as createTime
+      from control_room_duty
+    <where>
+    <trim prefixOverrides="and" >
+      <if test="id !=null">
+        and id=#{id}
+      </if>
+      <if test="userId != null">
+       and  user_id =#{userId,jdbcType=BIGINT}
+      </if>
+      <if test="userType != null">
+        and user_type =#{userType,jdbcType=INTEGER}
+      </if>
+      <if test="startTime != null">
+        and start_time =#{startTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null">
+        and end_time =#{endTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="dutyDate != null">
+        and duty_date =#{dutyDate,jdbcType=DATE}
+      </if>
+      <if test="dutyType != null">
+       and  duty_type =#{dutyType,jdbcType=VARCHAR}
+      </if>
+      <if test="roomName != null">
+       and  room_name =#{roomName,jdbcType=VARCHAR}
+      </if>
+      <if test="address != null">
+       and address =#{address,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null">
+       and create_time=#{createTime,jdbcType=TIMESTAMP}
+      </if>
+    </trim>
+      </where>
+
+  </select>
+
+
+  <select id="queryListByMap" resultType="java.util.Map" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
+    select id,
+    user_id as userId,
+    user_type as userType,
+    start_time as startTime,
+    end_time as endTime,
+    duty_date as dutyDate,
+    duty_type as dutyType,
+    room_name as roomName,
+    address as address,
+    create_time as createTime
+    from control_room_duty
+    <where>
+      <trim prefixOverrides="and" >
+        <if test="id !=null">
+          and id=#{id}
+        </if>
+        <if test="userId != null">
+          and  user_id =#{userId,jdbcType=BIGINT}
+        </if>
+        <if test="userType != null">
+          and user_type =#{userType,jdbcType=INTEGER}
+        </if>
+        <if test="startTime != null">
+          and start_time =#{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime != null">
+          and end_time =#{endTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="dutyDate != null">
+          and duty_date =#{dutyDate,jdbcType=DATE}
+        </if>
+        <if test="dutyType != null">
+          and  duty_type =#{dutyType,jdbcType=VARCHAR}
+        </if>
+        <if test="roomName != null">
+          and  room_name =#{roomName,jdbcType=VARCHAR}
+        </if>
+        <if test="address != null">
+          and address =#{address,jdbcType=VARCHAR}
+        </if>
+        <if test="createTime != null">
+          and create_time=#{createTime,jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+    </where>
+
+  </select>
+
+</mapper>

@@ -108,7 +108,7 @@ public class RegionAndBrandVO {
         this.keyword = keyword;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 

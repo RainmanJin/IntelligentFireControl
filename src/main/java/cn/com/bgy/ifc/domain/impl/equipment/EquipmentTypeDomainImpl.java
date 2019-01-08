@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.domain.impl.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentTypeDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentTypeDomain;

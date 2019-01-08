@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.dao.system.AccountDao;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;

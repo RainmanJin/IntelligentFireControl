@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.firepatrol.FireAccidentDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="fill_person" jdbcType="VARCHAR" property="fillPerson" />
+    <result column="fill_time" jdbcType="TIMESTAMP" property="fillTime" />
+    <result column="catch_fire_time" jdbcType="TIMESTAMP" property="catchFireTime" />
+    <result column="fire_location" jdbcType="VARCHAR" property="fireLocation" />
+    <result column="direct_economic_loss" jdbcType="DECIMAL" property="directEconomicLoss" />
+    <result column="indirect_economic_losses" jdbcType="DECIMAL" property="indirectEconomicLosses" />
+    <result column="death_toll" jdbcType="INTEGER" property="deathToll" />
+    <result column="minor_wound" jdbcType="INTEGER" property="minorWound" />
+    <result column="serious_injury" jdbcType="INTEGER" property="seriousInjury" />
+    <result column="custodian" jdbcType="VARCHAR" property="custodian" />
+    <result column="person_liable" jdbcType="VARCHAR" property="personLiable" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+    <result column="fire_situation" jdbcType="LONGVARCHAR" property="fireSituation" />
+    <result column="fire_cause" jdbcType="LONGVARCHAR" property="fireCause" />
+    <result column="burn_down_property" jdbcType="LONGVARCHAR" property="burnDownProperty" />
+    <result column="burn_down_buildings" jdbcType="LONGVARCHAR" property="burnDownBuildings" />
+    <result column="processing" jdbcType="LONGVARCHAR" property="processing" />
+    <result column="other" jdbcType="LONGVARCHAR" property="other" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident">
+    insert into fire_accident (id, fill_person, fill_time, 
+      catch_fire_time, fire_location, direct_economic_loss, 
+      indirect_economic_losses, death_toll, minor_wound, 
+      serious_injury, custodian, person_liable, 
+      create_time, logic_remove, fire_situation, 
+      fire_cause, burn_down_property, burn_down_buildings, 
+      processing, other)
+    values (#{id,jdbcType=BIGINT}, #{fillPerson,jdbcType=VARCHAR}, #{fillTime,jdbcType=TIMESTAMP}, 
+      #{catchFireTime,jdbcType=TIMESTAMP}, #{fireLocation,jdbcType=VARCHAR}, #{directEconomicLoss,jdbcType=DECIMAL}, 
+      #{indirectEconomicLosses,jdbcType=DECIMAL}, #{deathToll,jdbcType=INTEGER}, #{minorWound,jdbcType=INTEGER}, 
+      #{seriousInjury,jdbcType=INTEGER}, #{custodian,jdbcType=VARCHAR}, #{personLiable,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, #{fireSituation,jdbcType=LONGVARCHAR}, 
+      #{fireCause,jdbcType=LONGVARCHAR}, #{burnDownProperty,jdbcType=LONGVARCHAR}, #{burnDownBuildings,jdbcType=LONGVARCHAR}, 
+      #{processing,jdbcType=LONGVARCHAR}, #{other,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident">
+    insert into fire_accident
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fillPerson != null">
+        fill_person,
+      </if>
+      <if test="fillTime != null">
+        fill_time,
+      </if>
+      <if test="catchFireTime != null">
+        catch_fire_time,
+      </if>
+      <if test="fireLocation != null">
+        fire_location,
+      </if>
+      <if test="directEconomicLoss != null">
+        direct_economic_loss,
+      </if>
+      <if test="indirectEconomicLosses != null">
+        indirect_economic_losses,
+      </if>
+      <if test="deathToll != null">
+        death_toll,
+      </if>
+      <if test="minorWound != null">
+        minor_wound,
+      </if>
+      <if test="seriousInjury != null">
+        serious_injury,
+      </if>
+      <if test="custodian != null">
+        custodian,
+      </if>
+      <if test="personLiable != null">
+        person_liable,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+      <if test="fireSituation != null">
+        fire_situation,
+      </if>
+      <if test="fireCause != null">
+        fire_cause,
+      </if>
+      <if test="burnDownProperty != null">
+        burn_down_property,
+      </if>
+      <if test="burnDownBuildings != null">
+        burn_down_buildings,
+      </if>
+      <if test="processing != null">
+        processing,
+      </if>
+      <if test="other != null">
+        other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fillPerson != null">
+        #{fillPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="fillTime != null">
+        #{fillTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="catchFireTime != null">
+        #{catchFireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fireLocation != null">
+        #{fireLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="directEconomicLoss != null">
+        #{directEconomicLoss,jdbcType=DECIMAL},
+      </if>
+      <if test="indirectEconomicLosses != null">
+        #{indirectEconomicLosses,jdbcType=DECIMAL},
+      </if>
+      <if test="deathToll != null">
+        #{deathToll,jdbcType=INTEGER},
+      </if>
+      <if test="minorWound != null">
+        #{minorWound,jdbcType=INTEGER},
+      </if>
+      <if test="seriousInjury != null">
+        #{seriousInjury,jdbcType=INTEGER},
+      </if>
+      <if test="custodian != null">
+        #{custodian,jdbcType=VARCHAR},
+      </if>
+      <if test="personLiable != null">
+        #{personLiable,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="fireSituation != null">
+        #{fireSituation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fireCause != null">
+        #{fireCause,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="burnDownProperty != null">
+        #{burnDownProperty,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="burnDownBuildings != null">
+        #{burnDownBuildings,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="processing != null">
+        #{processing,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="other != null">
+        #{other,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="deleteBatch" parameterType="java.util.List">
+    UPDATE fire_accident SET logic_remove =1 WHERE id IN
+    <foreach collection="list" index="index" item="id" open="(" separator=","
+             close=")">
+      #{id}
+    </foreach>
+  </update>
+
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident">
+    update  fire_accident set
+            fill_person =#{fillPerson,jdbcType=VARCHAR},
+            fill_time =#{fillTime,jdbcType=TIMESTAMP},
+            catch_fire_time=#{catchFireTime,jdbcType=TIMESTAMP},
+            fire_location =#{fireLocation,jdbcType=VARCHAR},
+            direct_economic_loss =#{directEconomicLoss,jdbcType=DECIMAL},
+            indirect_economic_losses =#{indirectEconomicLosses,jdbcType=DECIMAL},
+            death_toll =#{deathToll,jdbcType=INTEGER},
+            minor_wound =#{minorWound,jdbcType=INTEGER},
+            serious_injury = #{seriousInjury,jdbcType=INTEGER},
+            custodian =#{custodian,jdbcType=VARCHAR},
+            person_liable =#{personLiable,jdbcType=VARCHAR},
+            create_time =#{createTime,jdbcType=TIMESTAMP},
+            logic_remove =#{logicRemove,jdbcType=BIT},
+            fire_situation =#{fireSituation,jdbcType=LONGVARCHAR},
+            fire_cause =#{fireCause,jdbcType=LONGVARCHAR},
+            burn_down_property =#{burnDownProperty,jdbcType=LONGVARCHAR},
+            burn_down_buildings =#{burnDownBuildings,jdbcType=LONGVARCHAR},
+            processing =#{processing,jdbcType=LONGVARCHAR},
+            other =#{other,jdbcType=LONGVARCHAR}
+      where id=#{id}
+  </update>
+
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident">
+    update  fire_accident
+          <set>
+            <trim suffixOverrides=",">
+            <if test="fillPerson != null">
+              fill_person =#{fillPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="fillTime != null">
+              fill_time =#{fillTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="catchFireTime != null">
+              catch_fire_time=#{catchFireTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fireLocation != null">
+              fire_location =#{fireLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="directEconomicLoss != null">
+              direct_economic_loss =#{directEconomicLoss,jdbcType=DECIMAL},
+            </if>
+            <if test="indirectEconomicLosses != null">
+              indirect_economic_losses =#{indirectEconomicLosses,jdbcType=DECIMAL},
+            </if>
+            <if test="deathToll != null">
+              death_toll =#{deathToll,jdbcType=INTEGER},
+            </if>
+            <if test="minorWound != null">
+              minor_wound =#{minorWound,jdbcType=INTEGER},
+            </if>
+            <if test="seriousInjury != null">
+              serious_injury = #{seriousInjury,jdbcType=INTEGER},
+            </if>
+            <if test="custodian != null">
+              custodian =#{custodian,jdbcType=VARCHAR},
+            </if>
+            <if test="personLiable != null">
+              person_liable =#{personLiable,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+              create_time =#{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logicRemove != null">
+              logic_remove =#{logicRemove,jdbcType=BIT},
+            </if>
+            <if test="fireSituation != null">
+              fire_situation =#{fireSituation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="fireCause != null">
+              fire_cause =#{fireCause,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="burnDownProperty != null">
+              burn_down_property =#{burnDownProperty,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="burnDownBuildings != null">
+              burn_down_buildings =#{burnDownBuildings,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="processing != null">
+              processing =#{processing,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="other != null">
+              other =#{other,jdbcType=LONGVARCHAR}
+            </if>
+            </trim>
+          </set>
+
+      where id=#{id}
+  </update>
+  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident">
+      select
+          id,
+          fill_person as fillPerson ,
+          fill_time as fillTime,
+          catch_fire_time as catchFireTime,
+          fire_location as fireLocation,
+          direct_economic_loss as drectEconomicLoss,
+          indirect_economic_losses as indirectEconomicLossess,
+          death_toll as deathToll,
+          minor_wound as minorWound,
+          serious_injury as seriousInjury,
+          custodian ,
+          person_liable as personLiable,
+          create_time as createTime,
+          logic_remove as logicRemove,
+          fire_situation as fireSituation,
+          fire_cause as fireCause,
+          burn_down_property as burnDownProperty,
+          burn_down_buildings as burnDownBuildings,
+          processing as processing,
+          other
+      from fire_accident
+      where id=#{id}
+  </select>
+
+
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident" resultType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident">
+  select
+  id,
+  fill_person as fillPerson ,
+  fill_time as fillTime,
+  catch_fire_time as catchFireTime,
+  fire_location as fireLocation,
+  direct_economic_loss as drectEconomicLoss,
+  indirect_economic_losses as indirectEconomicLossess,
+  death_toll as deathToll,
+  minor_wound as minorWound,
+  serious_injury as seriousInjury,
+  custodian ,
+  person_liable as personLiable,
+  create_time as createTime,
+  logic_remove as logicRemove,
+  fire_situation as fireSituation,
+  fire_cause as fireCause,
+  burn_down_property as burnDownProperty,
+  burn_down_buildings as burnDownBuildings,
+  processing as processing,
+  other
+  from fire_accident
+  <where>
+    <trim  prefixOverrides="and">
+      <if test="id !=null">
+        and id=#{id}
+      </if>
+      <if test="fillPerson != null">
+        and fill_person =#{fillPerson,jdbcType=VARCHAR}
+      </if>
+      <if test="fillTime != null">
+        and fill_time =#{fillTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="catchFireTime != null">
+        and catch_fire_time=#{catchFireTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="fireLocation != null">
+        and fire_location =#{fireLocation,jdbcType=VARCHAR}
+      </if>
+      <if test="directEconomicLoss != null">
+        and direct_economic_loss =#{directEconomicLoss,jdbcType=DECIMAL}
+      </if>
+      <if test="indirectEconomicLosses != null">
+        and indirect_economic_losses =#{indirectEconomicLosses,jdbcType=DECIMAL}
+      </if>
+      <if test="deathToll != null">
+        and death_toll =#{deathToll,jdbcType=INTEGER}
+      </if>
+      <if test="minorWound != null">
+        and minor_wound =#{minorWound,jdbcType=INTEGER}
+      </if>
+      <if test="seriousInjury != null">
+        and serious_injury = #{seriousInjury,jdbcType=INTEGER}
+      </if>
+      <if test="custodian != null">
+        and custodian =#{custodian,jdbcType=VARCHAR}
+      </if>
+      <if test="personLiable != null">
+        and  person_liable =#{personLiable,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null">
+        and create_time =#{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="logicRemove != null">
+        and logic_remove =#{logicRemove,jdbcType=BIT}
+      </if>
+      <if test="fireSituation != null">
+        and fire_situation =#{fireSituation,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="fireCause != null">
+        and fire_cause =#{fireCause,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="burnDownProperty != null">
+        and burn_down_property =#{burnDownProperty,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="burnDownBuildings != null">
+        and burn_down_buildings =#{burnDownBuildings,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="processing != null">
+        and  processing =#{processing,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="other != null">
+        and  other =#{other,jdbcType=LONGVARCHAR}
+      </if>
+    </trim>
+  </where>
+</select>
+
+  <select id="queryListByMap" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident">
+    select
+    id,
+    fill_person as fillPerson ,
+    fill_time as fillTime,
+    catch_fire_time as catchFireTime,
+    fire_location as fireLocation,
+    direct_economic_loss as drectEconomicLoss,
+    indirect_economic_losses as indirectEconomicLossess,
+    death_toll as deathToll,
+    minor_wound as minorWound,
+    serious_injury as seriousInjury,
+    custodian ,
+    person_liable as personLiable,
+    create_time as createTime,
+    logic_remove as logicRemove,
+    fire_situation as fireSituation,
+    fire_cause as fireCause,
+    burn_down_property as burnDownProperty,
+    burn_down_buildings as burnDownBuildings,
+    processing as processing,
+    other
+    from fire_accident
+    <where>
+      <trim  prefixOverrides="and">
+        <if test="id !=null">
+          and id=#{id}
+        </if>
+        <if test="fillPerson != null">
+          and fill_person =#{fillPerson,jdbcType=VARCHAR}
+        </if>
+        <if test="fillTime != null">
+          and fill_time =#{fillTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="catchFireTime != null">
+          and catch_fire_time=#{catchFireTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="fireLocation != null">
+          and fire_location =#{fireLocation,jdbcType=VARCHAR}
+        </if>
+        <if test="directEconomicLoss != null">
+          and direct_economic_loss =#{directEconomicLoss,jdbcType=DECIMAL}
+        </if>
+        <if test="indirectEconomicLosses != null">
+          and indirect_economic_losses =#{indirectEconomicLosses,jdbcType=DECIMAL}
+        </if>
+        <if test="deathToll != null">
+          and death_toll =#{deathToll,jdbcType=INTEGER}
+        </if>
+        <if test="minorWound != null">
+          and minor_wound =#{minorWound,jdbcType=INTEGER}
+        </if>
+        <if test="seriousInjury != null">
+          and serious_injury = #{seriousInjury,jdbcType=INTEGER}
+        </if>
+        <if test="custodian != null">
+          and custodian =#{custodian,jdbcType=VARCHAR}
+        </if>
+        <if test="personLiable != null">
+          and  person_liable =#{personLiable,jdbcType=VARCHAR}
+        </if>
+        <if test="createTime != null">
+          and create_time =#{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="logicRemove != null">
+          and logic_remove =#{logicRemove,jdbcType=BIT}
+        </if>
+        <if test="fireSituation != null">
+          and fire_situation =#{fireSituation,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="fireCause != null">
+          and fire_cause =#{fireCause,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="burnDownProperty != null">
+          and burn_down_property =#{burnDownProperty,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="burnDownBuildings != null">
+          and burn_down_buildings =#{burnDownBuildings,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="processing != null">
+          and  processing =#{processing,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="other != null">
+          and  other =#{other,jdbcType=LONGVARCHAR}
+        </if>
+      </trim>
+    </where>
+  </select>
+</mapper>

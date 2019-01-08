@@ -150,7 +150,7 @@
 		mo.organization_id as organization_id,-- 机构表Id，用于区分平台
 		so.`name` as organization_name,-- 机构名称
 		mo.plan_id as plan_id,-- 维保计划表Id
-		mp.plan_name as plai_name,-- 计划名称
+		mp.plan_name as plan_name,-- 计划名称
 		mo.remark as remark,-- 备注信息
 		mo.sign as sign,-- 维保签字信息
 		mo.staff_info as staff_info-- 维保人员电话备注信息

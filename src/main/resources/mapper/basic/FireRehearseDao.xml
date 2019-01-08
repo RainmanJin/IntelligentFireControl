@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.firepatrol.FireRehearseDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="rehearse_start_time" jdbcType="TIMESTAMP" property="rehearseStartTime" />
+    <result column="rehearse_end_time" jdbcType="TIMESTAMP" property="rehearseEndTime" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="command_people" jdbcType="VARCHAR" property="commandPeople" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="people_num" jdbcType="INTEGER" property="peopleNum" />
+    <result column="car_num" jdbcType="INTEGER" property="carNum" />
+    <result column="rehearse_cost" jdbcType="DECIMAL" property="rehearseCost" />
+    <result column="effect" jdbcType="VARCHAR" property="effect" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="property_name" jdbcType="VARCHAR" property="propertyName" />
+    <result column="advertise_start_time" jdbcType="TIMESTAMP" property="advertiseStartTime" />
+    <result column="advertise_end_time" jdbcType="TIMESTAMP" property="advertiseEndTime" />
+    <result column="advertise_type" jdbcType="INTEGER" property="advertiseType" />
+    <result column="advertise_scope" jdbcType="VARCHAR" property="advertiseScope" />
+    <result column="advertise_cost" jdbcType="DECIMAL" property="advertiseCost" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse">
+    insert into fire_rehearse (id, rehearse_start_time, rehearse_end_time, 
+      location, content, command_people, 
+      department, people_num, car_num, 
+      rehearse_cost, effect, project_id, 
+      property_name, advertise_start_time, advertise_end_time, 
+      advertise_type, advertise_scope, advertise_cost, 
+      logic_remove, create_time)
+    values (#{id,jdbcType=BIGINT}, #{rehearseStartTime,jdbcType=TIMESTAMP}, #{rehearseEndTime,jdbcType=TIMESTAMP}, 
+      #{location,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{commandPeople,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, #{peopleNum,jdbcType=INTEGER}, #{carNum,jdbcType=INTEGER}, 
+      #{rehearseCost,jdbcType=DECIMAL}, #{effect,jdbcType=VARCHAR}, #{projectId,jdbcType=BIGINT}, 
+      #{propertyName,jdbcType=VARCHAR}, #{advertiseStartTime,jdbcType=TIMESTAMP}, #{advertiseEndTime,jdbcType=TIMESTAMP}, 
+      #{advertiseType,jdbcType=INTEGER}, #{advertiseScope,jdbcType=VARCHAR}, #{advertiseCost,jdbcType=DECIMAL}, 
+      #{logicRemove,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse">
+    insert into fire_rehearse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="rehearseStartTime != null">
+        rehearse_start_time,
+      </if>
+      <if test="rehearseEndTime != null">
+        rehearse_end_time,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="commandPeople != null">
+        command_people,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="peopleNum != null">
+        people_num,
+      </if>
+      <if test="carNum != null">
+        car_num,
+      </if>
+      <if test="rehearseCost != null">
+        rehearse_cost,
+      </if>
+      <if test="effect != null">
+        effect,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="propertyName != null">
+        property_name,
+      </if>
+      <if test="advertiseStartTime != null">
+        advertise_start_time,
+      </if>
+      <if test="advertiseEndTime != null">
+        advertise_end_time,
+      </if>
+      <if test="advertiseType != null">
+        advertise_type,
+      </if>
+      <if test="advertiseScope != null">
+        advertise_scope,
+      </if>
+      <if test="advertiseCost != null">
+        advertise_cost,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="rehearseStartTime != null">
+        #{rehearseStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rehearseEndTime != null">
+        #{rehearseEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="commandPeople != null">
+        #{commandPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="peopleNum != null">
+        #{peopleNum,jdbcType=INTEGER},
+      </if>
+      <if test="carNum != null">
+        #{carNum,jdbcType=INTEGER},
+      </if>
+      <if test="rehearseCost != null">
+        #{rehearseCost,jdbcType=DECIMAL},
+      </if>
+      <if test="effect != null">
+        #{effect,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="propertyName != null">
+        #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="advertiseStartTime != null">
+        #{advertiseStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertiseEndTime != null">
+        #{advertiseEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertiseType != null">
+        #{advertiseType,jdbcType=INTEGER},
+      </if>
+      <if test="advertiseScope != null">
+        #{advertiseScope,jdbcType=VARCHAR},
+      </if>
+      <if test="advertiseCost != null">
+        #{advertiseCost,jdbcType=DECIMAL},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse">
+     update  fire_rehearse
+           <set>
+             rehearse_start_time =#{rehearseStartTime,jdbcType=TIMESTAMP},
+             rehearse_end_time =#{rehearseEndTime,jdbcType=TIMESTAMP},
+             location =#{location,jdbcType=VARCHAR},
+             content =#{content,jdbcType=VARCHAR},
+             command_people =#{commandPeople,jdbcType=VARCHAR},
+             department =#{department,jdbcType=VARCHAR},
+             people_num =#{peopleNum,jdbcType=INTEGER},
+             car_num = #{carNum,jdbcType=INTEGER},
+             rehearse_cost =#{rehearseCost,jdbcType=DECIMAL},
+             effect = #{effect,jdbcType=VARCHAR},
+             project_id =#{projectId,jdbcType=BIGINT},
+             property_name = #{propertyName,jdbcType=VARCHAR},
+             advertise_start_time =#{advertiseStartTime,jdbcType=TIMESTAMP},
+             advertise_end_time =#{advertiseEndTime,jdbcType=TIMESTAMP},
+             advertise_type =#{advertiseType,jdbcType=INTEGER},
+             advertise_scope =#{advertiseScope,jdbcType=VARCHAR},
+             advertise_cost=#{advertiseCost,jdbcType=DECIMAL}
+           </set>
+     where id=#{id}
+  </update>
+
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse">
+    update  fire_rehearse
+
+    <set>
+      <trim suffixOverrides=",">
+        <if test="rehearseStartTime != null">
+          rehearse_start_time =#{rehearseStartTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="rehearseEndTime != null">
+          rehearse_end_time =#{rehearseEndTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="location != null">
+          location =#{location,jdbcType=VARCHAR},
+        </if>
+        <if test="content != null">
+          content =#{content,jdbcType=VARCHAR},
+        </if>
+        <if test="commandPeople != null">
+          command_people =#{commandPeople,jdbcType=VARCHAR},
+        </if>
+        <if test="department != null">
+          department =#{department,jdbcType=VARCHAR},
+        </if>
+        <if test="peopleNum != null">
+          people_num =#{peopleNum,jdbcType=INTEGER},
+        </if>
+        <if test="carNum != null">
+          car_num = #{carNum,jdbcType=INTEGER},
+        </if>
+        <if test="rehearseCost != null">
+          rehearse_cost =#{rehearseCost,jdbcType=DECIMAL},
+        </if>
+        <if test="effect != null">
+          effect = #{effect,jdbcType=VARCHAR},
+        </if>
+        <if test="projectId != null">
+          project_id =#{projectId,jdbcType=BIGINT},
+        </if>
+        <if test="propertyName != null">
+          property_name = #{propertyName,jdbcType=VARCHAR},
+        </if>
+        <if test="advertiseStartTime != null">
+          advertise_start_time =#{advertiseStartTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="advertiseEndTime != null">
+          advertise_end_time =#{advertiseEndTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="advertiseType != null">
+          advertise_type =#{advertiseType,jdbcType=INTEGER},
+        </if>
+        <if test="advertiseScope != null">
+          advertise_scope =#{advertiseScope,jdbcType=VARCHAR},
+        </if>
+        <if test="advertiseCost != null">
+          advertise_cost=#{advertiseCost,jdbcType=DECIMAL}
+        </if>
+      </trim>
+    </set>
+    where id=#{id}
+  </update>
+  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse">
+    select  id,
+      rehearse_start_time as rehearseStartTime,
+      rehearse_end_time as rehearseEndTime,
+      location,
+      content,
+      command_people as commandPeople,
+      department,
+      people_num as peopleNum,
+      car_num as carNum,
+      rehearse_cost as rehearseCost,
+      effect,
+      project_id as projectId,
+      property_name as propertyName,
+      advertise_start_time as advertiseStartTime,
+      advertise_end_time as advertiseEndTime,
+      advertise_type as advertiseType,
+      advertise_scope as advertiseScope,
+      advertise_cost  as advertiseCost
+    from fire_rehearse
+
+    where id=#{id}
+
+  </select>
+
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse" resultType="cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse">
+    select  id,
+      rehearse_start_time as rehearseStartTime,
+      rehearse_end_time as rehearseEndTime,
+      location,
+      content,
+      command_people as commandPeople,
+      department,
+      people_num as peopleNum,
+      car_num as carNum,
+      rehearse_cost as rehearseCost,
+      effect,
+      project_id as projectId,
+      property_name as propertyName,
+      advertise_start_time as advertiseStartTime,
+      advertise_end_time as advertiseEndTime,
+      advertise_type as advertiseType,
+      advertise_scope as advertiseScope,
+      advertise_cost  as advertiseCost
+    from fire_rehearse
+
+    <where>
+      <trim prefixOverrides="and">
+        <if test="id !=null">
+          and id=#{id}
+        </if>
+        <if test="rehearseStartTime != null">
+          and  rehearse_start_time =#{rehearseStartTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="rehearseEndTime != null">
+          and rehearse_end_time =#{rehearseEndTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="location != null">
+          and  location =#{location,jdbcType=VARCHAR}
+        </if>
+        <if test="content != null">
+          and  content =#{content,jdbcType=VARCHAR}
+        </if>
+        <if test="commandPeople != null">
+          and  command_people =#{commandPeople,jdbcType=VARCHAR}
+        </if>
+        <if test="department != null">
+          and  department =#{department,jdbcType=VARCHAR}
+        </if>
+        <if test="peopleNum != null">
+          and  people_num =#{peopleNum,jdbcType=INTEGER}
+        </if>
+        <if test="carNum != null">
+          and  car_num = #{carNum,jdbcType=INTEGER}
+        </if>
+        <if test="rehearseCost != null">
+          and  rehearse_cost =#{rehearseCost,jdbcType=DECIMAL}
+        </if>
+        <if test="effect != null">
+          and  effect = #{effect,jdbcType=VARCHAR}
+        </if>
+        <if test="projectId != null">
+          and  project_id =#{projectId,jdbcType=BIGINT}
+        </if>
+        <if test="propertyName != null">
+          and property_name = #{propertyName,jdbcType=VARCHAR}
+        </if>
+        <if test="advertiseStartTime != null">
+          and  advertise_start_time =#{advertiseStartTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="advertiseEndTime != null">
+          and advertise_end_time =#{advertiseEndTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="advertiseType != null">
+          and advertise_type =#{advertiseType,jdbcType=INTEGER}
+        </if>
+        <if test="advertiseScope != null">
+          and advertise_scope =#{advertiseScope,jdbcType=VARCHAR}
+        </if>
+        <if test="advertiseCost != null">
+          and  advertise_cost=#{advertiseCost,jdbcType=DECIMAL}
+        </if>
+      </trim>
+    </where>
+
+  </select>
+
+  <select id="queryListByMap" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse">
+    select  id,
+      rehearse_start_time as rehearseStartTime,
+      rehearse_end_time as rehearseEndTime,
+      location,
+      content,
+      command_people as commandPeople,
+      department,
+      people_num as peopleNum,
+      car_num as carNum,
+      rehearse_cost as rehearseCost,
+      effect,
+      project_id as projectId,
+      property_name as propertyName,
+      advertise_start_time as advertiseStartTime,
+      advertise_end_time as advertiseEndTime,
+      advertise_type as advertiseType,
+      advertise_scope as advertiseScope,
+      advertise_cost  as advertiseCost
+    from fire_rehearse
+
+    <where>
+      <trim prefixOverrides="and">
+        <if test="id !=null">
+          and id=#{id}
+        </if>
+        <if test="rehearseStartTime != null">
+          and  rehearse_start_time =#{rehearseStartTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="rehearseEndTime != null">
+          and rehearse_end_time =#{rehearseEndTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="location != null">
+          and  location =#{location,jdbcType=VARCHAR}
+        </if>
+        <if test="content != null">
+          and  content =#{content,jdbcType=VARCHAR}
+        </if>
+        <if test="commandPeople != null">
+          and  command_people =#{commandPeople,jdbcType=VARCHAR}
+        </if>
+        <if test="department != null">
+          and  department =#{department,jdbcType=VARCHAR}
+        </if>
+        <if test="peopleNum != null">
+          and  people_num =#{peopleNum,jdbcType=INTEGER}
+        </if>
+        <if test="carNum != null">
+          and  car_num = #{carNum,jdbcType=INTEGER}
+        </if>
+        <if test="rehearseCost != null">
+          and  rehearse_cost =#{rehearseCost,jdbcType=DECIMAL}
+        </if>
+        <if test="effect != null">
+          and  effect = #{effect,jdbcType=VARCHAR}
+        </if>
+        <if test="projectId != null">
+          and  project_id =#{projectId,jdbcType=BIGINT}
+        </if>
+        <if test="propertyName != null">
+          and property_name = #{propertyName,jdbcType=VARCHAR}
+        </if>
+        <if test="advertiseStartTime != null">
+         and  advertise_start_time =#{advertiseStartTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="advertiseEndTime != null">
+          and advertise_end_time =#{advertiseEndTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="advertiseType != null">
+          and advertise_type =#{advertiseType,jdbcType=INTEGER}
+        </if>
+        <if test="advertiseScope != null">
+          and advertise_scope =#{advertiseScope,jdbcType=VARCHAR}
+        </if>
+        <if test="advertiseCost != null">
+          and  advertise_cost=#{advertiseCost,jdbcType=DECIMAL}
+        </if>
+      </trim>
+    </where>
+  </select>
+
+  <update id="deleteBatch" parameterType="java.util.List">
+    UPDATE fire_rehearse SET logic_remove =1 WHERE id IN
+    <foreach close=")" collection="list" index="index" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+  </update>
+
+</mapper>
