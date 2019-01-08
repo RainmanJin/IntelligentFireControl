@@ -21,7 +21,7 @@ import java.util.Map;
  * @Description 装修垃圾清理情况
  **/
 @RestController
-@RequestMapping("/firepatrol/RenovationJunk")
+@RequestMapping("/firepatrol/renovationJunk")
 public class RenovationJunkController extends BaseController {
 
     @Autowired

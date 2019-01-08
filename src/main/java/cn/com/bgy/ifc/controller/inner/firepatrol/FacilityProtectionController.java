@@ -21,7 +21,7 @@ import java.util.Map;
  * @Description 消防设施保护情况
  **/
 @RestController
-@RequestMapping("/firepatrol/FacilityProtection")
+@RequestMapping("/firepatrol/facilityProtection")
 public class FacilityProtectionController extends BaseController {
 
     @Autowired

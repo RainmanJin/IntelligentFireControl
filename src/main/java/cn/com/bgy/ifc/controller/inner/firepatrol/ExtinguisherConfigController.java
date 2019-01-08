@@ -22,7 +22,7 @@ import java.util.Map;
  * @Description 灭火器配置情况
  **/
 @RestController
-@RequestMapping("/firepatrol/ExtinguisherConfig")
+@RequestMapping("/firepatrol/extinguisherConfig")
 public class ExtinguisherConfigController extends BaseController {
 
     @Autowired

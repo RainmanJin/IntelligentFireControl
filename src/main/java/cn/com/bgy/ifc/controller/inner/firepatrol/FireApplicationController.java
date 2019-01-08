@@ -21,7 +21,7 @@ import java.util.Map;
  * @Description  动火证申请情况
  **/
 @RestController
-@RequestMapping("/firepatrol/FireApplication")
+@RequestMapping("/firepatrol/fireApplication")
 public class FireApplicationController extends BaseController {
 
     @Autowired
