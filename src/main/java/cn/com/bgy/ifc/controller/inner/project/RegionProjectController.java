@@ -35,7 +35,7 @@ public class RegionProjectController extends BaseController {
     @GetMapping("query")
     @ResponseBody
     public ResponseVO<PageInfo> queryListRegionProject( Page<Object> page,Long regionId , String keyword){
-            PageInfo pageInfo = regionProjectDomain.queryListRegionProjec(page, regionId,keyword);
+            PageInfo pageInfo = regionProjectDomain.queryListRegionProject(page, regionId,keyword);
             return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**
@@ -48,7 +48,7 @@ public class RegionProjectController extends BaseController {
     @ResponseBody
     public ResponseVO<Object> updateRegionProject( RegionProject regionProject){
 
-        int count = regionProjectDomain.updateRegionProjec(regionProject);
+        int count = regionProjectDomain.updateRegionProject(regionProject);
         if (count == 1) {
             return ResponseVO.success().setMsg("修改成功");
         }
@@ -63,7 +63,7 @@ public class RegionProjectController extends BaseController {
     @SystemLogAfterSave(description = "项目信息删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionProject( String ids){
-        int count = regionProjectDomain.deleteRegionProjec(ids);
+        int count = regionProjectDomain.deleteRegionProject(ids);
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }

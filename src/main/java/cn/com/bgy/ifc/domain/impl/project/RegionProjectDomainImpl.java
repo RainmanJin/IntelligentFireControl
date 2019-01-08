@@ -54,7 +54,7 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
      * @Date 2018/12/18 17:31
      */
     @Override
-    public PageInfo queryListRegionProjec(Page page,Long id , String keyword) {
+    public PageInfo queryListRegionProject(Page page,Long id , String keyword) {
         Map<String,Object> map = new HashMap<>();
         map.put("regionId",id);
         map.put("keyword",keyword);
@@ -82,7 +82,7 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
      */
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public int updateRegionProjec(RegionProject record) {
+    public int updateRegionProject(RegionProject record) {
         if(record.getId()!=null){
             Map<String,Object> map  = new HashMap<>();
             map.put("regionId",record.getRegionId());
@@ -109,7 +109,7 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
      * @Date 2018/12/18 17:31
      */
     @Override
-    public int deleteRegionProjec(String str) {
+    public int deleteRegionProject(String str) {
         List<Long> list = ListUtil.getListId(str);
 
         if(list.size()>0){
