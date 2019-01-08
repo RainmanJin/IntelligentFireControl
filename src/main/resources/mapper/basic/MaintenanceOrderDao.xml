@@ -5,13 +5,22 @@
 		type="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder">
 		<result column="id" jdbcType="BIGINT" property="id" />
 		<result column="plan_id" jdbcType="BIGINT" property="planId" />
+		<result column="periodic_id" jdbcType="BIGINT" property="periodicId" />
 		<result column="plan_name" jdbcType="VARCHAR" property="planName" />
+		<result column="project_id" jdbcType="BIGINT" property="projectId" />
+    	<result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    	<result column="region_id" jdbcType="BIGINT" property="regionId" />
+    	<result column="region_name" jdbcType="VARCHAR" property="regionName" />
 		<result column="device_id" jdbcType="BIGINT" property="deviceId" />
 		<result column="device_name" jdbcType="VARCHAR" property="deviceName" />
 		<result column="organization_id" jdbcType="BIGINT" property="organizationId" />
 		<result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+		<result column="project_type" jdbcType="BIGINT" property="projectType" />
 		<result column="staff_info" jdbcType="VARCHAR" property="staffInfo" />
+		<result column="keyword" jdbcType="VARCHAR" property="keyword" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
 		<result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+		<result column="plan_date" jdbcType="TIMESTAMP" property="planDate" />
 		<result column="order_state" jdbcType="INTEGER" property="orderState" />
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="logic_remove" jdbcType="BIT" property="logicRemove" />
@@ -42,19 +51,23 @@
 		#{cycle,jdbcType=BIT}, #{sign,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
 		)
 	</insert>
+	<insert id=" "
+		parameterType="java.util.List">
+		insert into maintenance_order ( plan_id, device_id,organization_id, order_state, create_time, logic_remove,cycle)
+		<trim prefix="values " suffix="" suffixOverrides=",">
+			<foreach collection="list" item="item" index="index" separator="">
+    			(#{item.planId,jdbcType=BIGINT},#{item.deviceId,jdbcType=BIGINT},#{item.organizationId,jdbcType=BIGINT},
+				#{item.orderState,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.logicRemove,jdbcType=BIT},#{item.cycle,jdbcType=BIT}),
+    		</foreach>
+		</trim>
+	</insert>
 	<insert id="insertSelectiveByMap"
 		parameterType="java.util.List">
-		insert into maintenance_order (id, plan_id, device_id,
-		organization_id, order_state, create_time, logic_remove,
-		cycle
-		)
+		insert into maintenance_order ( periodic_id, device_id,organization_id, order_state, create_time, logic_remove,cycle)
 		<trim prefix="values " suffix="" suffixOverrides=",">
-			<foreach collection="list" item="item" index="index" separator=";">
-    			(#{item.id,jdbcType=BIGINT}, #{item.planId,jdbcType=BIGINT},
-				#{item.deviceId,jdbcType=BIGINT},#{item.organizationId,jdbcType=BIGINT}
-				#{item.orderState,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP},
-				#{item.logicRemove,jdbcType=BIT},#{item.cycle,jdbcType=BIT}
-				),
+			<foreach collection="list" item="item" index="index" separator="">
+    			(#{item.periodicId,jdbcType=BIGINT},#{item.deviceId,jdbcType=BIGINT},#{item.organizationId,jdbcType=BIGINT},
+				#{item.orderState,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.logicRemove,jdbcType=BIT},#{item.cycle,jdbcType=BIT}),
     		</foreach>
 		</trim>
 	</insert>
@@ -139,25 +152,40 @@
 		</trim>
 	</insert>
 	<sql id="Mysql">
-		select mo.id as id,-- 集成平台Id
-		mo.create_time as create_time,-- 创建时间
+		select DISTINCT mo.id as id,-- 集成平台Id
 		mo.cycle as cycle,-- 是否是维保周期任务工单:0 是 1 不是
-		mo.device_id as device_id,-- 消防设备信息表Id
-		ei.`name` as device_name, -- 设备信息名称
+		
+		mo.remark as remark,-- 备注信息
+		mo.sign as sign,-- 维保签字信息
+		mo.staff_info as staff_info,-- 维保人员电话备注信息
 		mo.handle_time as handle_time,-- 维保处理时间
 		mo.logic_remove as logic_remove,-- 是否逻辑删除
 		mo.order_state as order_state,-- 工单状态
 		mo.organization_id as organization_id,-- 机构表Id，用于区分平台
-		so.`name` as organization_name,-- 机构名称
-		mo.plan_id as plan_id,-- 维保计划表Id
-		mp.plan_name as plan_name,-- 计划名称
-		mo.remark as remark,-- 备注信息
-		mo.sign as sign,-- 维保签字信息
-		mo.staff_info as staff_info-- 维保人员电话备注信息
+		case when mp.cycle_type is null then mpj.project_type
+		else mp.cycle_type 
+		end as project_type ,-- 保养类型
+		ei.`name` as device_name, -- 设备信息名称
+	  ei.description  address,-- 设备地址
+		case when mc.`name` is null then mcj.`name`
+		else mc.`name` 
+		end as company_name ,-- 维保公司名称
+		case when  mp.start_time is null then mpj.begin_date
+		else mp.start_time 
+		end as plan_date  -- 计划时间
+
 		FROM maintenance_order mo
-		left join maintenance_plan mp on mp.id = mo.plan_id
+		left join maintenance_periodic mp on mp.id = mo.plan_id
 		left join system_organization so on so.id = mo.organization_id
 		left join equipment_info ei on ei.id = mo.device_id
+		left join region_info ri on ri.id = mp.region_id
+		left join region_project rp on rp.id = mp.project_id
+		left join maintenance_company mc on mc.id = mp.company_id
+
+		left join maintenance_plan mpj on mpj.id = mo.plan_id
+		left join region_info rij on ri.id = mp.region_id
+		left join region_project rpj on rp.id = mp.project_id
+		left join maintenance_company mcj on mcj.id = mpj.company_id
 	</sql>
 	 <!--分頁查詢-->
   <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram" resultMap="BaseResultMap">

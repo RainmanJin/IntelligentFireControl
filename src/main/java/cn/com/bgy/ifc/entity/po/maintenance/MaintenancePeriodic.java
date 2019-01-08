@@ -8,6 +8,11 @@ import java.util.Date;
  *
  */
 public class MaintenancePeriodic {
+	public static final int CYCLETYPE_ONE=1;
+	public static final int CYCLETYPE_TOW=2;
+	public  static final int CYCLETYPE_TREE=3;
+	public static final int CYCLETYPE_FOUL=4;
+	public  static final int CYCLETYPE_FIVE=5;
 	private Long id;
 	// 组织机构Id
 	private Long organizationId;

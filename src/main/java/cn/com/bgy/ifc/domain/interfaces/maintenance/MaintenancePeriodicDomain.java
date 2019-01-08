@@ -19,4 +19,5 @@ public interface MaintenancePeriodicDomain extends BaseDomain<MaintenancePeriodi
 	 * @return
 	 */
 	 PageInfo<MaintenancePeriodic> queryListByPage(Page<MaintenancePeriodic> page, MaintenancePeriodic maintenancePeriodic);
+	 int saveOrders(MaintenancePeriodic m);
 }

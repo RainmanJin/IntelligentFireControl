@@ -23,7 +23,7 @@
     <result column="sum" jdbcType="INTEGER" property="sum" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic" useGeneratedKeys="true" keyProperty="id">
     insert into maintenance_periodic (id,start_time,create_time, organization_id, region_id, 
       project_id, equipment_id, content, 
       company_id, cycle_type, cycle_day, 
@@ -70,10 +70,10 @@
         end_time,
       </if>
       <if test="createTime != null">
-        end_time,
+        create_time,
       </if>
       <if test="startTime != null">
-        end_time,
+        start_time,
       </if>
       <if test="sum != null">
         sum,

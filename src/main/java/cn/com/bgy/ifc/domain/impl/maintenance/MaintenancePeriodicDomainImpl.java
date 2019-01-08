@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.domain.impl.maintenance;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +14,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import cn.com.bgy.ifc.dao.maintenance.MaintenanceOrderDao;
 import cn.com.bgy.ifc.dao.maintenance.MaintenancePeriodicDao;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenancePeriodicDomain;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic;
 /**
  * @Author lvbingjian
@@ -23,6 +28,8 @@ import cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic;
 public class MaintenancePeriodicDomainImpl implements MaintenancePeriodicDomain {
 	@Resource
 	private MaintenancePeriodicDao dao;
+	@Resource
+	private MaintenanceOrderDao orderDao;
 
 	@Override
 	public List<MaintenancePeriodic> queryListByParam(MaintenancePeriodic t) {
@@ -50,16 +57,16 @@ public class MaintenancePeriodicDomainImpl implements MaintenancePeriodicDomain 
 		}
 		//通过总天数和维保周期得出总次数
 		if(t.getCycleType()!=null) {
-			if(t.getCycleType() == 1) {
+			if(t.getCycleType() == MaintenancePeriodic.CYCLETYPE_ONE) {
 				num=days/30;
-			}else if(t.getCycleType() == 2) {
+			}else if(t.getCycleType() == MaintenancePeriodic.CYCLETYPE_TOW) {
 				num=days/91;
-			}else if(t.getCycleType() == 3) {
+			}else if(t.getCycleType() == MaintenancePeriodic.CYCLETYPE_TREE) {
 				num=days/182;
-			}else if(t.getCycleType() == 4) {
+			}else if(t.getCycleType() == MaintenancePeriodic.CYCLETYPE_FOUL) {
 				num=days/365;
 			}
-			else if(t.getCycleType() == 5&&t.getCycleDay()!=null) {
+			else if(t.getCycleType() == MaintenancePeriodic.CYCLETYPE_FIVE&&t.getCycleDay()!=null) {
 				num=days/t.getCycleDay();
 			}
 		}
@@ -84,16 +91,16 @@ public class MaintenancePeriodicDomainImpl implements MaintenancePeriodicDomain 
 		}
 		//通过总天数和维保周期得出总次数
 		if(t.getCycleType()!=null) {
-			if(t.getCycleType() == 1) {
+			if(t.getCycleType() == MaintenancePeriodic.CYCLETYPE_ONE) {
 				num=days/30;
-			}else if(t.getCycleType() == 2) {
+			}else if(t.getCycleType() == MaintenancePeriodic.CYCLETYPE_TOW) {
 				num=days/91;
-			}else if(t.getCycleType() == 3) {
+			}else if(t.getCycleType() == MaintenancePeriodic.CYCLETYPE_TREE) {
 				num=days/182;
-			}else if(t.getCycleType() == 4) {
+			}else if(t.getCycleType() == MaintenancePeriodic.CYCLETYPE_FOUL) {
 				num=days/365;
 			}
-			else if(t.getCycleType() == 5&&t.getCycleDay()!=null) {
+			else if(t.getCycleType() == MaintenancePeriodic.CYCLETYPE_FIVE&&t.getCycleDay()!=null) {
 				num=days/t.getCycleDay();
 			}
 		}
@@ -119,6 +126,35 @@ public class MaintenancePeriodicDomainImpl implements MaintenancePeriodicDomain 
 		List<MaintenancePeriodic>list = dao.queryListByParam(maintenancePeriodic);
 		PageInfo<MaintenancePeriodic>info = new PageInfo<>(list);
 		return info;
+	}
+
+	@Override
+	public int saveOrders(MaintenancePeriodic m) {
+		List<Map<String,Object>>list = new ArrayList<Map<String,Object>>();
+		if(m.getEquipmentId()!=null&&m.getSum()>0) {
+			for (int i = 0; i < m.getSum(); i++) {
+				//创建工单
+				Map<String,Object> map = new HashMap<String,Object>();
+				MaintenanceOrder or = new MaintenanceOrder();
+				//工单名称
+				map.put("periodicId", m.getId());
+				map.put("id", Long.valueOf(i+""));
+				//维保设备
+				map.put("deviceId", m.getEquipmentId());
+				//机构ID
+				map.put("organizationId", m.getOrganizationId());
+				//工单状态
+				map.put("orderState", 1);
+				//创建时间
+				map.put("createTime", new Date());
+				//是否逻辑删除
+				map.put("logicRemove", false);
+				//是否周期任务
+				map.put("cycle", false);
+				list.add(map);
+			}
+		}
+		return orderDao.insertSelectiveByMap(list);
 	}
 
 }

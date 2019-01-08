@@ -80,7 +80,12 @@ public class MaintenancePeriodicController extends BaseController {
         CopyUtil.copyProperties(vo, po);
         int count = domain.insert(po);
         if (count == 1) {
-            return ResponseVO.success().setMsg("添加成功！");
+        	int num = domain.saveOrders(po);
+        	if(num==po.getSum()) {
+        		return ResponseVO.success().setMsg("添加成功！");
+        	}else {
+        		return ResponseVO.error().setMsg("添加失败,维保工单新增失败！");
+        	}
         }
         return ResponseVO.error().setMsg("添加失败！");
     }

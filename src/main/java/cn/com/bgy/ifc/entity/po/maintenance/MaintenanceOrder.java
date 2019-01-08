@@ -11,12 +11,24 @@ public class MaintenanceOrder {
     private Long id;
     //维保计划ID
     private Long planId;
+    //周期性计划ID
+    private Long periodicId;
     //维保计划名称
     private String planName;
     //维保设备信息ID
     private Long deviceId;
     //维保设备信息名称
     private String deviceName;
+    //所属区域IC
+    private Long regionId;
+    //所属区域名称
+    private String regionName;
+    //项目IC
+    private Long projectId;
+    //项目名称
+    private String projectName;
+    //项目名称
+    private String projectType;
     //机构id
     private Long organizationId;
     //机构名称
@@ -25,10 +37,20 @@ public class MaintenanceOrder {
     private String staffInfo;
     //备注信息
     private String remark;
+    //备注信息
+    private String keyword;
+    //地址
+    private String address;
     //维保签字信息
     private String sign;
     //维保处理时间
     private Date handleTime;
+    //计划开始日期
+    private Date beginTime;
+    //计划日期
+    private Date planDate;
+    //计划结束时间
+    private Date endTime;
     //工单状态
     private Integer orderState;
     //创建时间
@@ -50,8 +72,72 @@ public class MaintenanceOrder {
 		this.organizationName = organizationName;
 	}
 
+	public Date getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(Date beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
 	public String getPlanName() {
 		return planName;
+	}
+
+	public Long getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(Long regionId) {
+		this.regionId = regionId;
+	}
+
+	public String getRegionName() {
+		return regionName;
+	}
+
+	public String getProjectType() {
+		return projectType;
+	}
+
+	public void setProjectType(String projectType) {
+		this.projectType = projectType;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+
+	public Long getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 
 	public void setPlanName(String planName) {
