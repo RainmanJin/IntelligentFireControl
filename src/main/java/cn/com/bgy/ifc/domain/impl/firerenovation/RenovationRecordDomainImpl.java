@@ -49,11 +49,11 @@ public class RenovationRecordDomainImpl implements RenovationRecordDomain {
         renovationRecord.setCreateTime(new Date());
         renovationRecord.setLogicRemove(false);
         int count = renovationRecordDao.insertSelective(renovationRecord);
-        if(count ==0){
+        if(count ==1){
             Long id = renovationRecord.getId();
             if(id != null||id>0){
                 //添加备案信息与区域项目的关联信息
-                regionByRecord.setId(id);
+                regionByRecord.setRecordId(id);
                 int rel =regionByRecordDao.insertSelective(regionByRecord);
                 if(rel!=1){
                     return 0;

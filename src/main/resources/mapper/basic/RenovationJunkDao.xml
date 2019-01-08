@@ -107,7 +107,7 @@
     <select id="listRenovationJunk" parameterType="java.util.Map" resultType="java.util.Map">
         SELECT
             id,record_id AS recordId,check_person AS checkPerson,check_person_tel AS checkPersonTel,
-            check_result AS checkResult,clear_description AS clearDescription,create_time AS createTime,
+            check_result AS checkResult,clear_description AS clearDescription,create_time AS createTime
         FROM fire_renovation_junk
         <where>
             <if test="recordId != null and recordId!= '' ">
@@ -124,7 +124,7 @@
     <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
         SELECT
             id,record_id AS recordId,check_person AS checkPerson,check_person_tel AS checkPersonTel,
-            check_result AS checkResult,clear_description AS clearDescription,create_time AS createTime,
+            check_result AS checkResult,clear_description AS clearDescription,create_time AS createTime
         FROM fire_renovation_junk
         WHERE logic_remove = 0 AND id=#{id,jdbcType=BIGINT}
     </select>
@@ -137,7 +137,7 @@
     <select id="queryByRecordId" parameterType="java.lang.Long" resultType="cn.com.bgy.ifc.entity.po.firepatrol.RenovationJunk">
          SELECT
             id,record_id AS recordId,check_person AS checkPerson,check_person_tel AS checkPersonTel,
-            check_result AS checkResult,clear_description AS clearDescription,create_time AS createTime,
+            check_result AS checkResult,clear_description AS clearDescription,create_time AS createTime
         FROM fire_renovation_junk
         WHERE logic_remove = 0 AND record_id=#{id,jdbcType=BIGINT}
     </select>

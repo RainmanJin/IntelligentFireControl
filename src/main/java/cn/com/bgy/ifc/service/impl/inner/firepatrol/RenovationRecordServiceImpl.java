@@ -77,7 +77,7 @@ public class RenovationRecordServiceImpl implements RenovationRecordService {
         Map<String,Object> map = new HashMap<>();
         map.put("id",regionByRecord.getRecordId());
         map.put("keyword",keyword);
-        map.put("regionId",regionByRecord.getRecordId());
+        map.put("regionId",regionByRecord.getRegionId());
         map.put("projectId",regionByRecord.getProjectId());
         map.put("courtId",regionByRecord.getCourtId());
         List<Map<String,Object>> list = renovationRecordDao.queryRenovationRecordList(map);

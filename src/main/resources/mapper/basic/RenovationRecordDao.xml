@@ -231,7 +231,7 @@
     <select id="queryRenovationRecordList" parameterType="java.util.Map" resultType="java.util.Map">
             SELECT
                 rr.id,
-                CONCAt(br.region_name,br.project_name,br.court_name,br.street_name,br.buildingName) as region,
+                CONCAt(br.region_name,br.project_name,br.court_name,br.street_name,br.building_name) as region,
                 rr.address AS address,rr.acreage AS nature,rr.property_owner as propertyOwner,rr.proposer AS proposer,
                 rr.decoration_method AS decorationMethod,rr.`is_fire` AS isFire,rr.is_fire_facilities AS isFacilities,
                 rr.create_time AS createTime
@@ -242,22 +242,21 @@
                     AND rr.id = #{id,jdbcType=BIGINT}
                 </if>
                 <if test="regionId != null and regionId!= '' ">
-                    AND rb.region_id= #{regionId,jdbcType=BIGINT}
+                    AND br.region_id= #{regionId,jdbcType=BIGINT}
                 </if>
                 <if test="projectId != null and projectId != '' ">
-                    AND rb.project_id= #{ projectId,jdbcType=BIGINT}
+                    AND br.project_id= #{ projectId,jdbcType=BIGINT}
                 </if>
                 <if test="courtId != null and courtId != '' ">
-                    AND rb.court_id= #{ courtId,jdbcType=BIGINT}
+                    AND br.court_id= #{ courtId,jdbcType=BIGINT}
                 </if>
                 <if test="streetId != null and streetId != '' ">
-                    AND rb.street_id= #{ streetId,jdbcType=BIGINT}
+                    AND br.street_id= #{ streetId,jdbcType=BIGINT}
                 </if>
                 <if test="keyword!='' and keyword!=null">
                     AND (rr.address LIKE concat('%',#{keyword},'%')
                     OR rr.property_owner LIKE concat('%',#{keyword},'%')
                     OR rr.proposer like concat('%',#{keyword},'%'))
-)
                 </if>
                 AND rr.logic_remove=0
             </where>

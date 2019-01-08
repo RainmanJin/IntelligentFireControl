@@ -52,7 +52,7 @@ public class RegionByRecord {
     //楼栋单元ID
     private Long buildingId;
     //楼栋单元名
-    private long buildingName;
+    private String buildingName;
     /**
      * 
      * @return id 
@@ -213,11 +213,11 @@ public class RegionByRecord {
         this.buildingId = buildingId;
     }
 
-    public long getBuildingName() {
+    public String getBuildingName() {
         return buildingName;
     }
 
-    public void setBuildingName( long buildingName ) {
+    public void setBuildingName( String buildingName ) {
         this.buildingName = buildingName;
     }
 }
