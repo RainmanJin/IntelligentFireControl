@@ -75,7 +75,7 @@ public class MaintenanceCompanyDomainImpl implements MaintenanceCompanyDomain {
     @Override
     public int deleteMaintenanceCompanys(String str) {
         List<Long> list = new ArrayList<>();
-        String arr[] = str.split(",");
+        String [] arr= str.split(",");
         if(arr.length>0){
             for (int i = 0; i <arr.length ; i++) {
                 list.add(Long.valueOf(arr[i]));

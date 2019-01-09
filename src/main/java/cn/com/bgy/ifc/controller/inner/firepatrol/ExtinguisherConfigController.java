@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.firepatrol.ExtinguisherConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -21,7 +22,7 @@ import java.util.Map;
  * @Description 灭火器配置情况
  **/
 @RestController
-@RequestMapping("/firepatrol/ExtinguisherConfig")
+@RequestMapping("/firepatrol/extinguisherConfig")
 public class ExtinguisherConfigController extends BaseController {
 
     @Autowired
@@ -33,10 +34,13 @@ public class ExtinguisherConfigController extends BaseController {
      * @Date 2019/1/7 16:14
      */
     @PostMapping("add")
+    @SystemLogAfterSave(description = "灭火器配置情况添加")
     public ResponseVO<Object> addExtinguisherConfig( ExtinguisherConfig extinguisherConfig){
         int count = extinguisherConfigService.addExtinguisherConfig(extinguisherConfig);
         if(count==1){
             return ResponseVO.addSuccess();
+        }else if(count==2){
+            return ResponseVO.addError().setMsg("添加失败，已经存在数据！！");
         }
         return ResponseVO.addError();
     }
@@ -46,6 +50,7 @@ public class ExtinguisherConfigController extends BaseController {
      * @Date 2019/1/7 16:19
      */
     @PostMapping("delete")
+    @SystemLogAfterSave(description = "灭火器配置情况删除")
     public  ResponseVO<Object> deleteExtinguisherConfig(String ids){
         int count =extinguisherConfigService.deleteExtinguisherConfig(ids);
         if(count>=1){
@@ -59,6 +64,7 @@ public class ExtinguisherConfigController extends BaseController {
      * @Date 2019/1/7 16:22
      */
     @PostMapping("update")
+    @SystemLogAfterSave(description = "灭火器配置情况修改")
     public ResponseVO<Object> updateExtinguisherConfig(ExtinguisherConfig extinguisherConfig){
         int count = extinguisherConfigService.updateExtinguisherConfig(extinguisherConfig);
         if(count==1){

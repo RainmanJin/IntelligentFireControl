@@ -17,13 +17,13 @@ import java.util.Map;
 
 public interface RegionProjectDomain {
 
-    PageInfo queryListRegionProjec(Page page,Long id , String keyword);
+    PageInfo queryListRegionProject(Page page,Long id , String keyword);
 
     int insert(RegionProject record);
 
-    int updateRegionProjec(RegionProject record);
+    int updateRegionProject(RegionProject record);
 
-    int deleteRegionProjec(String str);
+    int deleteRegionProject(String str);
 
     List<Map<String, Object>> queryRegionProjectNameBySuperId(Long id);
 

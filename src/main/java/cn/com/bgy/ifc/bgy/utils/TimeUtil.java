@@ -11,7 +11,9 @@ import java.util.Date;
  **/
 public class TimeUtil {
 
-    // 时间格式 yyyy-MM-dd HH:mm:ss
+    /**
+     * 时间格式 yyyy-MM-dd HH:mm:ss
+     */
     private static final DateTimeFormatter LONG_DATETIME_FORMATTER = TimeFormat.LONG_DATE_PATTERN_LINE.dateTimeFormatter;
 
     private TimeUtil() {

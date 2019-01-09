@@ -48,10 +48,14 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
 
     @Resource
     private MaintenanceContractFileDao maintenanceContractFileDao;
-    //区域dao
+    /**
+     * 区域dao
+     */
     @Resource
     private RegionInfoDao regionInfoDao;
-    //项目
+    /**
+     * 项目
+     */
     @Resource
     private RegionProjectDao regionProjectDao;
 
@@ -117,7 +121,7 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
     @Override
     public int deleteMaintenanceContracts(String str) {
         List<Long> list = new ArrayList<>();
-        String arr[] = str.split(",");
+        String [] arr= str.split(",");
         if (arr.length > 0) {
             for (int i = 0; i < arr.length; i++) {
                 list.add(Long.valueOf(arr[i]));

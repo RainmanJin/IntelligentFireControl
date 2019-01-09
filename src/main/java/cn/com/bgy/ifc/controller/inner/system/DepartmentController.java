@@ -63,7 +63,7 @@ public class DepartmentController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.util.List<cn.com.bgy.ifc.entity.vo.basic.DepartmentVo>>
      */
     @GetMapping("queryTree")
-    public ResponseVO<List<DepartmentVo>> queryTree(String token) {
+    public ResponseVO<List<DepartmentVo>> queryTree() {
         List<Department> list = departmentDomain.queryAllList();
         List<DepartmentVo> functionList = new ArrayList<DepartmentVo>();
         for (Department department : list) {

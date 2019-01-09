@@ -12,16 +12,16 @@ import java.util.List;
  **/
 public class ExternalConstant {
 
-    /*
+    /**
      * 集成平台操作类型
-     * */
+     */
     public enum OperationType {
         //新增
-        ADD(1,"新增"),
+        ADD(1, "新增"),
         //删除
-        DELETE(2,"删除"),
+        DELETE(2, "删除"),
         //修改
-        UPDATE(3,"修改");
+        UPDATE(3, "修改");
 
         private Integer value;
 
@@ -45,15 +45,15 @@ public class ExternalConstant {
      * @author: ZhangCheng
      * @description:碧桂园集成平台使用状态
      * @param:
-     * @return: 
+     * @return:
      */
     public enum StatusType {
         //正常
-        ADD(0,"正常"),
+        ADD(0, "正常"),
         //禁用
-        PROHIBIT(1,"禁用"),
+        PROHIBIT(1, "禁用"),
         //删除
-        DELETE(2,"删除");
+        DELETE(2, "删除");
 
         private Integer value;
 
@@ -73,12 +73,12 @@ public class ExternalConstant {
         }
     }
 
-    /*
+    /**
      * 平台接口枚举
-     * */
+     */
     public enum PlatformValue {
         //碧桂园集成平台接口
-        INTEGERATED_PLATFORM(1,"碧桂园集成平台接口");
+        INTEGERATED_PLATFORM(1, "碧桂园集成平台接口");
 
         private Integer value;
 
@@ -115,10 +115,10 @@ public class ExternalConstant {
         }
     }
 
-    /*
+    /**
      * 平台内部功能接口
      * 0获取账号信息，1区域信息，2项目信息，3品牌信息，4规格信息，5设备类型，6机房信息，7设备信息
-     * */
+     */
     public enum MsgTypeValue {
         //集成平台获取用户信息
         BGY_ACCOUNT_OBTAIN(0, "账号信息"),
@@ -153,7 +153,11 @@ public class ExternalConstant {
         //楼栋单元building
         BGY_BUILDING_OBTAIN(15, "楼栋单元"),
         //维保工单
-        BGY_WORK_ORDER_OBTAIN(16, "维保工单");
+        BGY_WORK_ORDER_OBTAIN(16, "维保工单"),
+        //消防培训
+        BGY_FIRE_TRAIN_OBTAIN(17, "消防培训"),
+        //消防演练
+        BGY_FIRE_DRILL_OBTAIN(18, "消防演练");
 
         private Integer value;
         private String name;

@@ -68,6 +68,11 @@ public class SystemOrganizationServiceImpl implements SystemOrganizationService 
     }
 
     @Override
+    public List<SystemOrganization> queryList(String keywords) {
+        return systemOrganizationDao.queryListByPage(keywords);
+    }
+
+    @Override
     public PageInfo<SystemOrganization> queryListByPage(Page page, String keywords) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<SystemOrganization> list = systemOrganizationDao.queryListByPage(keywords);

@@ -2,9 +2,9 @@ package cn.com.bgy.ifc.controller.inner.firepatrol;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
-import cn.com.bgy.ifc.entity.po.firepatrol.RenovationJunk;
+import cn.com.bgy.ifc.entity.po.firepatrol.FireApplication;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.service.interfaces.inner.firepatrol.RenovationJunkService;
+import cn.com.bgy.ifc.service.interfaces.inner.firepatrol.FireApplicationService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +17,25 @@ import java.util.Map;
 
 /**
  * @Author huxin
- * @Date 2019/1/7 18:02
- * @Description 装修垃圾清理情况
+ * @Date 2019/1/8 9:18
+ * @Description  动火证申请情况
  **/
 @RestController
-@RequestMapping("/firepatrol/renovationJunk")
-public class RenovationJunkController extends BaseController {
+@RequestMapping("/firepatrol/fireApplication")
+public class FireApplicationController extends BaseController {
 
     @Autowired
-
-    private RenovationJunkService renovationJunkService;
+    private FireApplicationService fireApplicationService;
 
     /**
      * @Author huxin
-     * @Description 增加装修垃圾清理情况
+     * @Description 增加动火证申请情况
      * @Date 2019/1/7 16:14
      */
     @PostMapping("add")
-    @SystemLogAfterSave(description = "装修垃圾清理情况添加")
-    public ResponseVO<Object> addRenovationJunk( RenovationJunk renovationJunk){
-        int count = renovationJunkService.addRenovationJunk(renovationJunk);
+    @SystemLogAfterSave(description = "动火证申请情况添加")
+    public ResponseVO<Object> addFireApplication( FireApplication renovationJunk){
+        int count = fireApplicationService.addFireApplication(renovationJunk);
         if(count==1){
             return ResponseVO.addSuccess();
         }else if(count==2){
@@ -46,13 +45,13 @@ public class RenovationJunkController extends BaseController {
     }
     /**
      * @Author huxin
-     * @Description 删除装修垃圾清理情况(含批量)
+     * @Description 删除动火证申请情况(含批量)
      * @Date 2019/1/7 16:19
      */
     @PostMapping("delete")
-    @SystemLogAfterSave(description = "装修垃圾清理情况删除")
-    public  ResponseVO<Object> deleteaddRenovationJunk(String ids){
-        int count =renovationJunkService.deleteaddRenovationJunk(ids);
+    @SystemLogAfterSave(description = "动火证申请情况删除")
+    public  ResponseVO<Object> deleteFireApplication(String ids){
+        int count =fireApplicationService.deleteFireApplication(ids);
         if(count>=1){
             return ResponseVO.deleteSuccess();
         }
@@ -60,13 +59,13 @@ public class RenovationJunkController extends BaseController {
     }
     /**
      * @Author huxin
-     * @Description 修改装修垃圾清理情况
+     * @Description 修改动火证申请情况
      * @Date 2019/1/7 16:22
      */
     @PostMapping("update")
-    @SystemLogAfterSave(description = "装修垃圾清理情况修改")
-    public ResponseVO<Object> updateRenovationJunk( RenovationJunk renovationJunk){
-        int count = renovationJunkService.updateRenovationJunk(renovationJunk);
+    @SystemLogAfterSave(description = "动火证申请情况修改")
+    public ResponseVO<Object> updateFireApplication( FireApplication renovationJunk){
+        int count = fireApplicationService.updateFireApplication(renovationJunk);
         if(count==1){
             return ResponseVO.editSuccess();
         }
@@ -74,22 +73,22 @@ public class RenovationJunkController extends BaseController {
     }
     /**
      * @Author huxin
-     * @Description 查询装修垃圾清理情况列表
+     * @Description 查询动火证申请情况列表
      * @Date 2019/1/7 16:25
      */
     @GetMapping("list")
-    public ResponseVO<PageInfo> listRenovationJunk( Page<Object> page, String keyword, Long recordId){
-        PageInfo pageInfo = renovationJunkService.listRenovationJunk(page,keyword,recordId);
+    public ResponseVO<PageInfo> listFireApplication( Page<Object> page, String keyword, Long recordId){
+        PageInfo pageInfo = fireApplicationService.listFireApplication(page,keyword,recordId);
         return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**
      * @Author huxin
-     * @Description 根据ID查询装修垃圾清理情况明细
+     * @Description 根据ID查询动火证申请情况明细
      * @Date 2019/1/7 16:27
      */
     @GetMapping("find")
-    public ResponseVO<Object> getRenovationJunkFindById(Long id){
-        Map<String,Object> map = renovationJunkService.getRenovationJunkFindById(id);
+    public ResponseVO<Object> getFireApplicationById(Long id){
+        Map<String,Object> map = fireApplicationService.getFireApplicationById(id);
         return ResponseVO.<Object>success().setData(map);
     }
 }

@@ -22,7 +22,7 @@ import java.util.Map;
  * @Description 装修备案
  **/
 @RestController
-@RequestMapping("/firepatrol/RenovationRecord")
+@RequestMapping("/firepatrol/renovationRecord")
 public class RenovationRecordController extends BaseController {
 
     @Autowired

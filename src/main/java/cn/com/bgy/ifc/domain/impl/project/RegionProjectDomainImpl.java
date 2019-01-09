@@ -111,7 +111,7 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
      * @Date 2018/12/18 17:31
      */
     @Override
-    public int deleteRegionProjec(String str) {
+    public int deleteRegionProject(String str) {
         List<Long> list = ListUtil.getListId(str);
 
         if (list.size() > 0) {
@@ -165,7 +165,7 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
                 return ResponseVO.success().setMsg("同步集成平台项目总条数：" + totalCount + "，新增条数：" + totalCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
             }
         } catch (Exception e) {
-            logger.error("同步集成平台项目doMain异常:" + e);
+            logger.error("同步集成平台项目doMain异常:", e);
             return ResponseVO.error().setMsg("同步集成平台项目异常");
         }
     }

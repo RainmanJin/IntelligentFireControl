@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.firepatrol.FacilityProtection;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -20,7 +21,7 @@ import java.util.Map;
  * @Description 消防设施保护情况
  **/
 @RestController
-@RequestMapping("/firepatrol/FacilityProtection")
+@RequestMapping("/firepatrol/facilityProtection")
 public class FacilityProtectionController extends BaseController {
 
     @Autowired
@@ -32,10 +33,13 @@ public class FacilityProtectionController extends BaseController {
      * @Date 2019/1/7 16:14
      */
     @PostMapping("add")
+    @SystemLogAfterSave(description = "消防设施保护情况添加")
     public ResponseVO<Object> addFacilityProtection( FacilityProtection facilityProtection){
         int count = facilityProtectionService.addFacilityProtection(facilityProtection);
         if(count==1){
             return ResponseVO.addSuccess();
+        }else if(count==2){
+            return ResponseVO.addError().setMsg("添加失败，已经存在数据！！");
         }
         return ResponseVO.addError();
     }
@@ -45,6 +49,7 @@ public class FacilityProtectionController extends BaseController {
      * @Date 2019/1/7 16:19
      */
     @PostMapping("delete")
+    @SystemLogAfterSave(description = "消防设施保护情况删除")
     public  ResponseVO<Object> deleteFacilityProtection(String ids){
         int count =facilityProtectionService.deleteFacilityProtection(ids);
         if(count>=1){
@@ -58,6 +63,7 @@ public class FacilityProtectionController extends BaseController {
      * @Date 2019/1/7 16:22
      */
     @PostMapping("update")
+    @SystemLogAfterSave(description = "消防设施保护情况修改")
     public ResponseVO<Object> updateFacilityProtection( FacilityProtection facilityProtection){
         int count = facilityProtectionService.updateFacilityProtection(facilityProtection);
         if(count==1){

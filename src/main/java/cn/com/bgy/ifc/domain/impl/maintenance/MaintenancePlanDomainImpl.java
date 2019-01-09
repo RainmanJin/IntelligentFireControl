@@ -19,6 +19,7 @@ import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
 import cn.com.bgy.ifc.dao.maintenance.MaintenancePlanDao;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenancePlanDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenancePlan;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 /**
@@ -108,13 +109,13 @@ public class MaintenancePlanDomainImpl implements MaintenancePlanDomain {
 			days=(t.getEndDate().getTime()-t.getBeginDate().getTime())/(24*60*60*1000);  
 		}
 		if(ids!=null&&t.getProjectType()!=null) {
-			if(t.getProjectType() == 1) {
+			if(t.getProjectType() == MaintenancePeriodic.CYCLETYPE_ONE) {
 				num=days/15;
-			}else if(t.getProjectType() == 2) {
+			}else if(t.getProjectType() == MaintenancePeriodic.CYCLETYPE_TOW) {
 				num=days/91;
-			}else if(t.getProjectType() == 3) {
+			}else if(t.getProjectType() == MaintenancePeriodic.CYCLETYPE_TREE) {
 				num=days/182;
-			}else if(t.getProjectType() == 4) {
+			}else if(t.getProjectType() == MaintenancePeriodic.CYCLETYPE_FOUL) {
 				num=days/365;
 			}
 		}

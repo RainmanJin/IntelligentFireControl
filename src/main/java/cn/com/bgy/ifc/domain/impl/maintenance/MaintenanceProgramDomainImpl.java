@@ -13,7 +13,11 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * @author 
+ * @author lvbingjian
+ *
+ */
 @Service
 public class MaintenanceProgramDomainImpl implements MaintenanceProgramDomain {
     @Resource
@@ -53,7 +57,7 @@ public class MaintenanceProgramDomainImpl implements MaintenanceProgramDomain {
     @Override
     public int deleteMaintenancePrograms(String str) {
         List<Long> list = new ArrayList<>();
-        String arr[] = str.split(",");
+        String []arr = str.split(",");
         if(arr.length>0){
             for (int i = 0; i <arr.length ; i++) {
                 list.add(Long.valueOf(arr[i]));

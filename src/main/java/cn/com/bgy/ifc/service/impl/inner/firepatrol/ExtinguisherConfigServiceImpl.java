@@ -34,6 +34,11 @@ public class ExtinguisherConfigServiceImpl implements ExtinguisherConfigService 
     @Override
     public int addExtinguisherConfig( ExtinguisherConfig extinguisherConfig ) {
         if(extinguisherConfig.getRecordId() != null && extinguisherConfig.getRecordId()>0){
+            ExtinguisherConfig e =  extinguisherConfigDao.queryByRecordId(extinguisherConfig.getRecordId());
+            if(e.getRecordId() != null && e.getRecordId()>0){
+                return 2;
+            }
+            extinguisherConfig.setCreateTime(new Date());
             return extinguisherConfigDao.insert(extinguisherConfig);
         }
         return 0;

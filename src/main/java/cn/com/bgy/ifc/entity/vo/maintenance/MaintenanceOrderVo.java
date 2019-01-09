@@ -15,6 +15,8 @@ public class MaintenanceOrderVo {
     private String planName;
     //维保设备信息ID
     private Long deviceId;
+    //周期性计划ID
+    private Long periodicId;
     //维保设备信息名称
     private String deviceName;
     //机构id

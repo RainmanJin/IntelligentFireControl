@@ -15,6 +15,14 @@ import java.util.List;
  **/
 public interface SystemOrganizationService extends BaseService<SystemOrganization> {
 
+    List<SystemOrganization> queryList(String keywords);
+
+    /**
+     * 机构分页查询
+     * @param page
+     * @param keywords
+     * @return
+     */
     PageInfo<SystemOrganization>  queryListByPage(Page page, String keywords);
 
     /**
