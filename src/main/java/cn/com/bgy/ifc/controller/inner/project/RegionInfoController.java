@@ -108,4 +108,19 @@ public class RegionInfoController extends BaseController {
         Map<String,Object> map  = regionInfoDomain.findById(id);
         return ResponseVO.<Object>success().setData(map);
     }
+
+    /**
+     * @description:按A-Z首字母顺序查询区域
+     * @param: [page, keyword]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo>
+     * @auther: chenlie
+     * @date: 2019/1/8 15:00
+     */
+    @GetMapping("queryByCodeSort")
+    public ResponseVO<Object> queryByCodeSort( Page<Object> page, String keyword){
+
+        Account user=this.getUser();
+        List<Map<String,Object>> list= regionInfoDomain.queryByCodeSort(user);
+        return ResponseVO.success().setData(list);
+    }
 }

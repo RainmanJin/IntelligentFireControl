@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.domain.impl.project;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.bgy.utils.StringUtil;
 import cn.com.bgy.ifc.dao.project.*;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionInfoDomain;
@@ -223,5 +224,36 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
             return (Map<String, Object>) regionInfoDao.findById(id);
         }
         return null;
+    }
+    /**
+     * @description:按字母顺序查询区域
+     * @param: [user]
+     * @return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     * @auther: chenlie
+     * @date: 2019/1/8 15:47
+     */
+    @Override
+    public List<Map<String, Object>> queryByCodeSort(Account user) {
+
+        List<RegionInfo> allList= this.findByOrgId(user.getOrganizationId());
+        List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+        for (int i = 65; i < 91; i++) {
+
+                List<RegionInfo> result = new ArrayList<RegionInfo>();
+                char alphabet = (char) i;
+                String alphabets = new Character(alphabet).toString();
+                Map<String, Object> map1 = new HashMap<String, Object>();
+                map1.put("key",alphabets);
+                for (RegionInfo department : allList) {
+                    System.out.println(StringUtil.getFirstSpell(department.getName()));
+                    if (StringUtil.getFirstSpell(department.getName()).equals(alphabets)) {
+                        result.add(department);
+                    }
+                }
+                map1.put("data", result);
+                resultList.add(map1);
+            }
+
+        return resultList;
     }
 }

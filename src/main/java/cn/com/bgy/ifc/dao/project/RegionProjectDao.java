@@ -14,6 +14,14 @@ public interface RegionProjectDao extends BaseDao<RegionProject> {
 
     //根据父级ID查询所有项目名
     List<Map<String,Object>> queryRegionProjectNameBySuperId( Long id);
+    /**
+     * @description:根据区域id获取区域项目
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/8 16:04
+     */
+    List<RegionProject> queryRegionProjectByRegionId(Long regionId);
 
 
 }

@@ -107,4 +107,19 @@ public class RegionProjectController extends BaseController {
         Map<String,Object> map  = regionProjectDomain.findById(id);
         return ResponseVO.<Object>success().setData(map);
     }
+    /**
+     * @description:按A-Z首字母顺序查询区域项目
+     * @param: [id]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @auther: chenlie
+     * @date: 2019/1/8 15:51
+     */
+    @GetMapping("queryProjectByCodeSort")
+    @ResponseBody
+    public ResponseVO<Object> queryProjectByCodeSort(Long id){
+
+        List<Map<String,Object>> list= regionProjectDomain.queryByCodeSort(id);
+
+        return ResponseVO.<Object>success().setData(list);
+    }
 }

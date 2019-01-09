@@ -14,4 +14,12 @@ public interface UserGroupDao extends BaseDao<UserGroup> {
      * @return
      */
     List<Map<String,Object>> queryListMapByParam(UserGroup t);
+    /**
+     * @description:根据分组id删除
+     * @param: groupId
+     * @return: int
+     * @auther: chenlie
+     * @date: 2019/1/8 16:52
+     */
+    int deleteByGroupId(Long groupId);
 }

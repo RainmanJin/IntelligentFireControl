@@ -152,4 +152,26 @@
       AND i.logic_remove = 0
       AND p.logic_remove = 0
   </select>
+
+  <select id="queryRegionProjectByRegionId" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.project.RegionProject">
+    SELECT
+    p.id as id,
+    p.name as name,
+    p.organization_id as organizationId,
+    p.region_id as regionId,
+    p.code as code,
+    p.longitude as longitude,
+    p.latitude as latitude,
+    p.ascription as ascription,
+    p.create_time as createTime
+    from region_project p
+    LEFT JOIN region_info i on p.region_id = i.id
+    <where>
+        AND p.region_id= #{regionId,jdbcType=BIGINT}
+      AND i.logic_remove = 0
+      AND p.logic_remove = 0
+    </where>
+  </select>
+
+
 </mapper>

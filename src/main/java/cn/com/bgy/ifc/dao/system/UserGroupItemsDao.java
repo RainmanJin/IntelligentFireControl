@@ -15,4 +15,13 @@ public interface UserGroupItemsDao extends BaseDao<UserGroupItems> {
     //根据用户ID查询返回项目ID
     List<Long> queryProjectIdByUserId(Long userId);
 
+    /**
+     * @description:根据分组id删除
+     * @param: groupId
+     * @return: int
+     * @auther: chenlie
+     * @date: 2019/1/8 16:52
+     */
+    int deleteByGroupId(Long groupId);
+
 }

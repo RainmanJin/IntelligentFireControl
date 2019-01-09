@@ -54,7 +54,7 @@ public class RepairOrderController extends BaseController {
      * @Description 根据工单Id查询详细信息
      * @Date 2018/12/26 10:39
      */
-    @PostMapping("queryById")
+    @GetMapping("queryById")
     @ResponseBody
     public ResponseVO<Object> queryRepairOrderById(Long id) {
         Map<String, Object> map = repaicOrderService.queryRepairOrderById(id);

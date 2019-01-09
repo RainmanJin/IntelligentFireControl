@@ -70,5 +70,30 @@ public interface UserGroupDomain extends BaseDomain<UserGroup> {
 
    
 
-    public PageInfo<Map<String,Object>> searchByPage(Page<Map<String,Object>> page, GroupsVo groupsVo);
+     PageInfo<Map<String,Object>> searchByPage(Page<Map<String,Object>> page, GroupsVo groupsVo);
+    /**
+     * @description:用户分组分配区域
+     * @param: 
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/8 16:32
+     */
+    void distributionRegion(Long groupId, List<Long> list);
+    /**
+     * @description:用户分组分配用户
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/8 16:32
+     */
+    void distributionAccount(Long groupId, List<Long> list);
+
+    /**
+     * @description:用户分组分配项目
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/8 16:32
+     */
+    void distributionProject(Long groupId, List<Long> list);
 }

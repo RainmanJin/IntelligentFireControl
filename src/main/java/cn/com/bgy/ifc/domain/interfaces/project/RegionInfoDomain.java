@@ -48,4 +48,6 @@ public interface RegionInfoDomain {
     ResponseVO<Object> alterBgyRegionInfo(List<BgyRegionInfoVo> list, Long orgId);
 
     Map<String,Object> findById( Long id );
+
+    List<Map<String, Object>> queryByCodeSort(Account user);
 }

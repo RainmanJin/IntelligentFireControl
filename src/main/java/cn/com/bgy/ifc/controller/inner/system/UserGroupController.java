@@ -1,6 +1,8 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.dao.system.GroupsDao;
 import cn.com.bgy.ifc.domain.interfaces.system.GroupsDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.UserGroupDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.UserGroupItemsDomain;
@@ -28,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/sys/group")
+@RequestMapping("/system/userGroup")
 public class UserGroupController {
 
     @Autowired
@@ -38,11 +40,7 @@ public class UserGroupController {
     @Autowired
     private UserGroupItemsDomain userGroupItemsDomain;
 
-    @GetMapping("/groupPage")
-    public String userPage(){
 
-        return "/basic/groupPage";
-    }
     @PostMapping("add")
     @ResponseBody
     public   ResponseVO<Object>  add(@Validated GroupsVo groupsVo, BindingResult error){
@@ -73,14 +71,15 @@ public class UserGroupController {
 
 
     /**
-     * 根据用户id删除用户组
-     * @param id
-     * @return
+     * @description:根据id删除系统用户分组
+     * @param: [id]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @auther: chenlie
+     * @date: 2019/1/8 18:07
      */
     @PostMapping("deleteById")
     @ResponseBody
     public ResponseVO<Object> deleteById(Long id){
-
             Groups groups= groupsDomain.findById(id);
             if(groups==null) {
                 ResponseVO.error().setMsg("请求数据不存在，请刷新重试！");
@@ -89,6 +88,118 @@ public class UserGroupController {
             list.add(id);
           int res= groupsDomain.deleteBatch(list);
         return ResponseVO.success().setMsg("数据删除成功！");
+    }
+
+
+    /**
+     * @description:用户分组分配区域
+     * @param: [groupId, regionIds]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @auther: chenlie
+     * @date: 2019/1/8 16:37
+     */
+    @PostMapping("distributionRegion")
+    @ResponseBody
+    public ResponseVO<Object> distributionRegion(Long groupId,String regionIds){
+
+        List<Long> list=new ArrayList<>();
+        if (regionIds !=null && !regionIds.isEmpty()) {
+             list = ListUtil.getListId(regionIds);
+        }
+        try {
+            userGroupDomain.distributionRegion( groupId, list);
+        }catch (Exception e){
+            ResponseVO.error().setMsg("操作失败！");
+        }
+        return ResponseVO.success().setMsg("数据删除成功！");
+    }
+    /**
+     * @description:用户分组分配用户
+     * @param: [groupId, accountIds]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @auther: chenlie
+     * @date: 2019/1/8 16:37
+     */
+    @PostMapping("distributionAccount")
+    @ResponseBody
+    public ResponseVO<Object> distributionAccount(Long groupId,String accountIds){
+
+        List<Long> list=new ArrayList<>();
+        if (accountIds !=null && !accountIds.isEmpty()) {
+            list = ListUtil.getListId(accountIds);
+        }
+        try {
+            userGroupDomain.distributionAccount( groupId, list);
+        }catch (Exception e){
+            ResponseVO.error().setMsg("操作失败！");
+        }
+        return ResponseVO.success().setMsg("数据删除成功！");
+    }
+
+    /**
+     * @description:用户分组分配项目
+     * @param: [groupId, accountIds]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @auther: chenlie
+     * @date: 2019/1/8 16:36
+     */
+    @PostMapping("distributionProject")
+    @ResponseBody
+    public ResponseVO<Object> distributionProject(Long groupId,String accountIds){
+
+        List<Long> list=new ArrayList<>();
+        if (accountIds !=null && !accountIds.isEmpty()) {
+            list = ListUtil.getListId(accountIds);
+        }
+        try {
+            userGroupDomain.distributionAccount( groupId, list);
+        }catch (Exception e){
+            ResponseVO.error().setMsg("操作失败！");
+        }
+        return ResponseVO.success().setMsg("数据删除成功！");
+    }
+    /**
+     * @description:分页查询系统用户分组
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/8 18:07
+     */
+    @GetMapping("searchGroupsByPage")
+    @ResponseBody
+    public   ResponseVO<Object>  searchGroupsByPage(Page<Groups> page,String keyWords){
+        PageInfo<Groups> list =groupsDomain.queryListByPage(page,keyWords);
+
+        return  ResponseVO.success().setData(list);
+    }
+    /**
+     * @description:添加用户分组
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/8 18:06
+     */
+    @GetMapping("addGroups")
+    @ResponseBody
+    public   ResponseVO<Object>  addGroups(Groups groups){
+        int res =groupsDomain.insert(groups);
+        return  ResponseVO.addSuccess();
+    }
+
+    /**
+     * @description:添加用户分组
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/8 18:06
+     */
+    @GetMapping("editGroups")
+    @ResponseBody
+    public   ResponseVO<Object> editGroups (Groups groups){
+        Groups query= groupsDomain.findById(groups.getId());
+        CopyUtil.copyProperties(groups,query);
+        groupsDomain.update(query);
+        return  ResponseVO.editSuccess();
     }
 
 }

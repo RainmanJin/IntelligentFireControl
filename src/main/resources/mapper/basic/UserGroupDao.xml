@@ -49,18 +49,35 @@
                           groups g on g.id=ug.group_id
                   <trim prefix=" where " prefixOverrides=" and ">
                     <if test="id != null">
-                      ug.id=#{id,jdbcType=BIGINT}
+                     and  ug.id=#{id,jdbcType=BIGINT}
                     </if>
                     <if test="groupId != null">
-                      ug.groupId= #{groupId,jdbcType=BIGINT}
+                      and ug.groupId= #{groupId,jdbcType=BIGINT}
                     </if>
                     <if test="userId != null">
-                      ug.userId= #{userId,jdbcType=BIGINT}
+                      and ug.userId= #{userId,jdbcType=BIGINT}
                     </if>
                   </trim>
 
   </select>
 
+  <delete id="deleteByGroupId" parameterType="long">
+    delete from user_group where group_id=#{groupId}
+  </delete>
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.UserGroup" resultMap="BaseResultMap">
+    select id, group_id, user_id
+    <trim prefix=" where " prefixOverrides=" and ">
+      <if test="id != null">
+        and id=#{id,jdbcType=BIGINT}
+      </if>
+      <if test="groupId != null">
+        and group_id= #{groupId,jdbcType=BIGINT}
+      </if>
+      <if test="userId != null">
+        and user_id= #{userId,jdbcType=BIGINT}
+      </if>
+    </trim>
+  </select>
 
 
 </mapper>

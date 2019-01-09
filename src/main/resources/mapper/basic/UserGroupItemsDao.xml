@@ -89,4 +89,7 @@
     <delete id="deleteById" parameterType="Long">
        DELETE FROM user_group_items WHERE id = #{id}
   </delete>
+    <delete id="deleteByGroupId" parameterType="long">
+      DELETE FROM user_group_items WHERE group_id=#{groupId}
+  </delete>
 </mapper>

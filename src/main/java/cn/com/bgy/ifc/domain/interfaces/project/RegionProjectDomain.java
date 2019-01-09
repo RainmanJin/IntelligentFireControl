@@ -47,4 +47,16 @@ public interface RegionProjectDomain {
 
 
     Map<String,Object> findById( Long id );
+
+    List<Map<String, Object>> queryByCodeSort(Long id);
+
+    /**
+     * @description:根据区域id获取区域项目
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/8 16:04
+     */
+    List<RegionProject> queryRegionProjectByRegionId(Long regionId);
+
 }

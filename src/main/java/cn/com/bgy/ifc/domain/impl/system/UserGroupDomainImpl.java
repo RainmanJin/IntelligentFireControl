@@ -1,14 +1,18 @@
 package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.dao.system.GroupsDao;
 import cn.com.bgy.ifc.dao.system.UserGroupDao;
+import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.system.UserGroupDomain;
 import cn.com.bgy.ifc.entity.po.system.UserGroup;
+import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
 import cn.com.bgy.ifc.entity.vo.system.GroupsVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,6 +22,11 @@ import java.util.Map;
 public class UserGroupDomainImpl implements UserGroupDomain {
     @Resource
     private UserGroupDao userGroupDao;
+    @Resource
+    private GroupsDao groupsDao;
+
+    @Resource
+    private UserGroupItemsDao userGroupItemsDao;
 
     @Override
     public List<UserGroup> queryListByParam(UserGroup t) {
@@ -68,5 +77,23 @@ public class UserGroupDomainImpl implements UserGroupDomain {
         List<Map<String, Object>> list = userGroupDao.queryListMapByParam(userGroup);
         PageInfo<Map<String,Object>> pageInfo=new PageInfo<>(list);
         return pageInfo;
+    }
+
+    @Override
+    @Transactional
+    public void distributionRegion(Long groupId, List<Long> list) {
+         groupsDao.findById(groupId);
+    }
+
+    @Override
+    @Transactional
+    public void distributionAccount(Long groupId, List<Long> list) {
+
+    }
+
+    @Override
+    @Transactional
+    public void distributionProject(Long groupId, List<Long> list) {
+
     }
 }

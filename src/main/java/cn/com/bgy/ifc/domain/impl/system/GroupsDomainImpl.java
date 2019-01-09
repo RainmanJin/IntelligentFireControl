@@ -3,6 +3,9 @@ package cn.com.bgy.ifc.domain.impl.system;
 import cn.com.bgy.ifc.dao.system.GroupsDao;
 import cn.com.bgy.ifc.domain.interfaces.system.GroupsDomain;
 import cn.com.bgy.ifc.entity.po.system.Groups;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +50,13 @@ public class GroupsDomainImpl implements GroupsDomain {
     @Override
     public int updateSelective(Groups t) {
         return groupsDao.updateSelective(t);
+    }
+
+    @Override
+    public PageInfo<Groups> queryListByPage(Page<Groups> page, String keyWords) {
+        PageHelper.startPage(page.getPageNum(),page.getPageSize());
+        List<Groups> list=groupsDao.queryListByParam(null);
+        return new PageInfo<Groups>(list);
     }
 
 

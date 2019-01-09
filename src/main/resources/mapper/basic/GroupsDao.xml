@@ -7,13 +7,13 @@
     <result column="type" jdbcType="INTEGER" property="type" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.Groups">
-    insert into group (id, name, type,logic_remove
+    insert into groups (id, name, type,logic_remove
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},#{logicRemove,jdbcType=BIT}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.Groups">
-    insert into group
+    insert into groups
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -49,5 +49,30 @@
       #{item}
     </foreach>
   </update>
+
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.Groups" resultMap="BaseResultMap">
+    select  id, name, type,logic_remove
+      from groups
+      <where>
+        <trim prefixOverrides="and" >
+          <if test="id != null">
+            and id=#{id}
+          </if>
+          <if test="name != null">
+            and name=#{name}
+          </if>
+          <if test="type != null">
+            and type=#{type}
+          </if>
+          <if test="logicRemove !=null">
+            and logic_remove=#{logicRemove}
+          </if>
+          <if test="keyWords !=null and keyWords !=''">
+            and (name likeCONCAT('%',#{keyWords},'%')
+          </if>
+        </trim>
+      </where>
+
+  </select>
 
 </mapper>

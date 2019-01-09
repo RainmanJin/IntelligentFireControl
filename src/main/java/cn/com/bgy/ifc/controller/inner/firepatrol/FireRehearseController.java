@@ -3,8 +3,9 @@ package cn.com.bgy.ifc.controller.inner.firepatrol;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
-import cn.com.bgy.ifc.domain.interfaces.firepatrol.FireAccidentDomain;
-import cn.com.bgy.ifc.entity.po.firepatrol.FireAccident;
+import cn.com.bgy.ifc.domain.interfaces.firepatrol.FireRehearseDomain;
+import cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse;
+import cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -13,40 +14,39 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/firepatrol/fireAccident")
-public class FireAccidentController extends BaseController {
+@RequestMapping("/firepatrol/fireRehearse")
+public class FireRehearseController extends BaseController {
     @Autowired
-    private FireAccidentDomain fireAccidentDomain;
+    private FireRehearseDomain fireRehearseDomain;
 
     /**
-     * @description:分页查询火灾事故情况
-     * @param: [page, fireAccident]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.firepatrol.FireAccident>>
+     * @description:分页查询消防演练及宣传情况
+     * @param: [page, fireRehearse]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse>>
      * @auther: chenlie
      * @date: 2019/1/7 17:24
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<FireAccident>> queryListByPage(Page<FireAccident> page, FireAccident fireAccident) {
+    public ResponseVO<PageInfo<FireRehearse>> queryListByPage(Page<FireRehearse> page, FireRehearse fireRehearse) {
 
-        PageInfo<FireAccident> pageInfo = fireAccidentDomain.queryListByPage(page, fireAccident);
-        return ResponseVO.<PageInfo<FireAccident>>success().setData(pageInfo);
+        PageInfo<FireRehearse> pageInfo = fireRehearseDomain.queryListByPage(page, fireRehearse);
+        return ResponseVO.<PageInfo<FireRehearse>>success().setData(pageInfo);
     }
     /**
-     * @description:根据id查询火灾事故情况
+     * @description:根据id查询消防演练及宣传情况
      * @param: [id]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<cn.com.bgy.ifc.entity.po.firepatrol.FireAccident>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse>
      * @auther: chenlie
      * @date: 2019/1/8 10:44
      */
     @GetMapping("findById")
-    public ResponseVO<FireAccident> findById(Long id) {
+    public ResponseVO<FireRehearse> findById(Long id) {
 
-        FireAccident fireAccident= fireAccidentDomain.findById(id);
-        return ResponseVO.<FireAccident>success().setData(fireAccident);
+        FireRehearse fireRehearse= fireRehearseDomain.findById(id);
+        return ResponseVO.<FireRehearse>success().setData(fireRehearse);
     }
 
 
@@ -54,7 +54,7 @@ public class FireAccidentController extends BaseController {
     /**
      * @description:批量逻辑删除
      * @param: [id]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<cn.com.bgy.ifc.entity.po.firepatrol.FireAccident>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse>
      * @auther: chenlie
      * @date: 2019/1/8 10:44
      */
@@ -64,7 +64,7 @@ public class FireAccidentController extends BaseController {
             return ResponseVO.error().setMsg("参数异常");
         }
         List<Long> list= ListUtil.getListId(ids);
-        int res= fireAccidentDomain.deleteBatch(list);
+        int res= fireRehearseDomain.deleteBatch(list);
         if(res>0){
             return ResponseVO.success();
         } else{
@@ -73,18 +73,18 @@ public class FireAccidentController extends BaseController {
     }
 
     /**
-     * @description:修改火灾事故情况
-     * @param: [fireAccident]
+     * @description:修改
+     * @param: [fireRehearse]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      * @auther: chenlie
      * @date: 2019/1/8 11:28
      */
     @GetMapping("editData")
-    public ResponseVO<Object> editData(FireAccident fireAccident) {
+    public ResponseVO<Object> editData(FireRehearse fireRehearse) {
 
-        FireAccident  query =fireAccidentDomain.findById(fireAccident.getId());
-        CopyUtil.copyProperties(fireAccident,query);
-        int res= fireAccidentDomain.update(query);
+        FireRehearse  query =fireRehearseDomain.findById(fireRehearse.getId());
+        CopyUtil.copyProperties(fireRehearse,query);
+        int res= fireRehearseDomain.update(query);
         if(res>0){
             return ResponseVO.success();
         } else{
@@ -94,16 +94,16 @@ public class FireAccidentController extends BaseController {
 
 
     /**
-     * @description:新增火灾事故情况
-     * @param: [fireAccident]
+     * @description:新增
+     * @param: [fireRehearse]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      * @auther: chenlie
      * @date: 2019/1/8 11:28
      */
     @GetMapping("createData")
-    public ResponseVO<Object> createData(FireAccident fireAccident) {
+    public ResponseVO<Object> createData(FireRehearse fireRehearse) {
 
-        int res= fireAccidentDomain.insert(fireAccident);
+        int res= fireRehearseDomain.insert(fireRehearse);
         if(res>0){
             return ResponseVO.success();
         } else{

@@ -10,6 +10,10 @@ public class Groups {
 
     private Boolean logicRemove;
 
+
+
+    private String keyWords;
+
     public Boolean getLogicRemove() {
         return logicRemove;
     }
@@ -40,5 +44,13 @@ public class Groups {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
     }
 }

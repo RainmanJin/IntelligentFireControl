@@ -3,9 +3,11 @@ package cn.com.bgy.ifc.domain.impl.project;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.bgy.utils.StringUtil;
 import cn.com.bgy.ifc.dao.project.*;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionProjectDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
+import cn.com.bgy.ifc.entity.po.project.RegionInfo;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.BgyProjectVo;
@@ -54,12 +56,12 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
      * @Date 2018/12/18 17:31
      */
     @Override
-    public PageInfo queryListRegionProjec(Page page,Long id , String keyword) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("regionId",id);
-        map.put("keyword",keyword);
+    public PageInfo queryListRegionProjec(Page page, Long id, String keyword) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("regionId", id);
+        map.put("keyword", keyword);
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Map<String,Object>> list = regionProjectDao.queryListRegionProject(map);
+        List<Map<String, Object>> list = regionProjectDao.queryListRegionProject(map);
         return new PageInfo(list);
     }
 
@@ -83,10 +85,10 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public int updateRegionProjec(RegionProject record) {
-        if(record.getId()!=null){
-            Map<String,Object> map  = new HashMap<>();
-            map.put("regionId",record.getRegionId());
-            map.put("projectId",record.getId());
+        if (record.getId() != null) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("regionId", record.getRegionId());
+            map.put("projectId", record.getId());
             //修改机房
             regionComputerRoomDao.updateFindByAddressId(map);
             //修改楼栋单元
@@ -112,11 +114,12 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
     public int deleteRegionProjec(String str) {
         List<Long> list = ListUtil.getListId(str);
 
-        if(list.size()>0){
+        if (list.size() > 0) {
             return regionProjectDao.deleteRegionProject(list);
         }
         return 0;
     }
+
     /**
      * @Author huxin
      * @Description 根据父级id查询所有项目名
@@ -124,7 +127,7 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
      */
     @Override
     public List<Map<String, Object>> queryRegionProjectNameBySuperId(Long id) {
-         return regionProjectDao.queryRegionProjectNameBySuperId(id);
+        return regionProjectDao.queryRegionProjectNameBySuperId(id);
     }
 
     /**
@@ -145,10 +148,10 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
                 project.setRegionId(bgyProjectVo.getAreaId());
                 project.setCode(bgyProjectVo.getCode());
                 project.setName(bgyProjectVo.getName());
-                String locationStr=bgyProjectVo.getLocationStr();
-                if(locationStr.contains(",")){
-                    project.setLongitude(locationStr.substring(0,locationStr.indexOf(",")));
-                    project.setLatitude(locationStr.substring(locationStr.indexOf(",")+1,locationStr.length()));
+                String locationStr = bgyProjectVo.getLocationStr();
+                if (locationStr.contains(",")) {
+                    project.setLongitude(locationStr.substring(0, locationStr.indexOf(",")));
+                    project.setLatitude(locationStr.substring(locationStr.indexOf(",") + 1, locationStr.length()));
                 }
                 project.setCreateTime(createTime);
                 project.setLogicRemove(false);
@@ -190,10 +193,10 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
             project.setRegionId(bgyProjectVo.getAreaId());
             project.setCode(bgyProjectVo.getCode());
             project.setName(bgyProjectVo.getName());
-            String locationStr=bgyProjectVo.getLocationStr();
-            if(locationStr.contains(",")){
-                project.setLongitude(locationStr.substring(0,locationStr.indexOf(",")));
-                project.setLatitude(locationStr.substring(locationStr.indexOf(",")+1,locationStr.length()));
+            String locationStr = bgyProjectVo.getLocationStr();
+            if (locationStr.contains(",")) {
+                project.setLongitude(locationStr.substring(0, locationStr.indexOf(",")));
+                project.setLatitude(locationStr.substring(locationStr.indexOf(",") + 1, locationStr.length()));
             }
             project.setCreateTime(createTime);
             project.setLogicRemove(false);
@@ -229,17 +232,52 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
             return ResponseVO.success().setMsg("同步集成平台项目增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
     }
+
     /**
      * @Author huxin
      * @Description根据id查询当前项目信息
      * @Date 2019/1/2 9:31
      */
     @Override
-    public Map<String, Object> findById( Long id ) {
-        if(id != null || id>0){
+    public Map<String, Object> findById(Long id) {
+        if (id != null || id > 0) {
             return (Map<String, Object>) regionProjectDao.findById(id);
         }
         return null;
+    }
+
+    /**
+     * @description:根据区域id获取区域项目
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/8 16:04
+     */
+    @Override
+    public  List<RegionProject> queryRegionProjectByRegionId(Long regionId){
+        return regionProjectDao.queryRegionProjectByRegionId(regionId);
+    }
+    @Override
+    public List<Map<String, Object>> queryByCodeSort(Long id) {
+        List<RegionProject> allList = this.queryRegionProjectByRegionId(id);
+        List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+        for (int i = 65; i < 91; i++) {
+
+            List<RegionProject> result = new ArrayList<RegionProject>();
+            char alphabet = (char) i;
+            String alphabets = new Character(alphabet).toString();
+            Map<String, Object> map1 = new HashMap<String, Object>();
+            map1.put("key", alphabets);
+            for (RegionProject regionProject : allList) {
+                System.out.println(StringUtil.getFirstSpell(regionProject.getName()));
+                if (StringUtil.getFirstSpell(regionProject.getName()).equals(alphabets)) {
+                    result.add(regionProject);
+                }
+            }
+            map1.put("data", result);
+            resultList.add(map1);
+        }
+        return resultList;
     }
 
 
