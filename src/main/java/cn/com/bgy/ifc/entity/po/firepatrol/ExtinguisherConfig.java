@@ -22,7 +22,7 @@ public class ExtinguisherConfig {
     //检查维修单位（人员）
     private String person;
     //检修情况
-    private String condition;
+    private String situation;
     //其他
     private String other;
     //创建、修改时间
@@ -79,12 +79,12 @@ public class ExtinguisherConfig {
         this.person = person;
     }
 
-    public String getCondition() {
-        return condition;
+    public String getSituation() {
+        return situation;
     }
 
-    public void setCondition( String condition ) {
-        this.condition = condition;
+    public void setSituation( String situation ) {
+        this.situation = situation;
     }
 
     public String getOther() {

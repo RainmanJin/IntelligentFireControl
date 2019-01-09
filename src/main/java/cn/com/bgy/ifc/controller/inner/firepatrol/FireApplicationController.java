@@ -34,8 +34,8 @@ public class FireApplicationController extends BaseController {
      */
     @PostMapping("add")
     @SystemLogAfterSave(description = "动火证申请情况添加")
-    public ResponseVO<Object> addFireApplication( FireApplication renovationJunk){
-        int count = fireApplicationService.addFireApplication(renovationJunk);
+    public ResponseVO<Object> addFireApplication( FireApplication fireApplication){
+        int count = fireApplicationService.addFireApplication(fireApplication);
         if(count==1){
             return ResponseVO.addSuccess();
         }else if(count==2){
@@ -64,8 +64,8 @@ public class FireApplicationController extends BaseController {
      */
     @PostMapping("update")
     @SystemLogAfterSave(description = "动火证申请情况修改")
-    public ResponseVO<Object> updateFireApplication( FireApplication renovationJunk){
-        int count = fireApplicationService.updateFireApplication(renovationJunk);
+    public ResponseVO<Object> updateFireApplication( FireApplication fireApplication){
+        int count = fireApplicationService.updateFireApplication(fireApplication);
         if(count==1){
             return ResponseVO.editSuccess();
         }

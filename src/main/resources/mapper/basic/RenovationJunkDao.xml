@@ -90,7 +90,7 @@
                 check_person=  #{checkPerson,jdbcType=VARCHAR},
             </if>
             <if test="checkPersonTel != null">
-                check_person_tel  #{checkPersonTel,jdbcType=VARCHAR},
+                check_person_tel = #{checkPersonTel,jdbcType=VARCHAR},
             </if>
             <if test="checkResult != null">
                 check_result= #{checkResult,jdbcType=VARCHAR},

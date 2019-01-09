@@ -34,11 +34,13 @@ public class FacilityProtectionServiceImpl implements FacilityProtectionService 
     public int addFacilityProtection( FacilityProtection facilityProtection ) {
         if(facilityProtection.getRecordId()!=null || facilityProtection.getRecordId()>0){
             FacilityProtection f = facilityProtectionDao.queryByRecordId(facilityProtection.getRecordId());
-            if(f.getRecordId()!=null || f.getRecordId()>0){
-                return 2;
+            if(null==f){
+                facilityProtection.setCreateTime(new Date());
+                facilityProtection.setLogicRemove(false);
+                return facilityProtectionDao.insertSelective(facilityProtection);
+
             }
-            facilityProtection.setCreateTime(new Date());
-            return facilityProtectionDao.insertSelective(facilityProtection);
+            return 2;
         }
         return 0;
     }

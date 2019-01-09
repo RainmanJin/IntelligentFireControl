@@ -34,12 +34,14 @@ public class FireApplicationServiceImpl implements FireApplicationService {
     @Override
     public int addFireApplication( FireApplication fireApplication ) {
         if(fireApplication.getRecordId()!=null || fireApplication.getRecordId()>0){
-            FireApplication f = fireApplicationDao.queryByRecordId(fireApplication.getRecordId());
-            if(f.getRecordId()!=null || f.getRecordId()>0){
-                return 2;
+            FireApplication  f = fireApplicationDao.queryByRecordId(fireApplication.getRecordId());
+            if(null==f){
+                fireApplication.setCreateTime(new Date());
+                fireApplication.setLogicRemove(false);
+                return fireApplicationDao.insertSelective(fireApplication);
             }
-            fireApplication.setCreateTime(new Date());
-            return fireApplicationDao.insertSelective(fireApplication);
+            return 2;
+
         }
         return 0;
     }
