@@ -7,6 +7,7 @@ import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.impl.equipment.EquipmentTypeDomainImpl;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.UserGroupItemsDomain;
+import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.BgyPermissionVo;
@@ -24,7 +25,11 @@ import java.util.Map;
 
 @Service
 public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
+
     private static Logger logger = LoggerFactory.getLogger(UserGroupItemsDomainImpl.class);
+
+    @Resource
+    private AccountDao accountDao;
 
     @Resource
     private UserGroupItemsDao userGroupItemsDao;
@@ -76,6 +81,7 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
     @Override
     public ResponseVO<Object> saveBgyPermissionList(List<BgyUserPermissionVo> list, Long orgId) {
         try {
+            List<Account> accountList=accountDao.queryThirdList(orgId);
             List<UserGroupItems> groupList = new ArrayList<>();
             for (BgyUserPermissionVo bgyUserPermissionVo : list) {
                 List<BgyPermissionVo> permission = bgyUserPermissionVo.getPermission();

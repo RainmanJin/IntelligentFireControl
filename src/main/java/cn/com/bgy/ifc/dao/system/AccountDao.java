@@ -17,13 +17,6 @@ public interface AccountDao extends BaseDao<Account> {
     List<Account> searchByWhere(Account account);
 
     /**
-     * 根据Id查找用户
-     * @param id
-     * @return
-     */
-    Account findById(Long id);
-
-    /**
      *
      * @param thirdUserId
      * @return
@@ -43,13 +36,6 @@ public interface AccountDao extends BaseDao<Account> {
      * @return
      */
     int updateById(Account account);
-
-    /**
-     * 更新用户
-     * @param account
-     * @return
-     */
-    int updateSelective(Account account);
 
     /**
      * 根据第三方ID更新数据

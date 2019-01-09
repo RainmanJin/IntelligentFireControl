@@ -24,11 +24,31 @@ public class ExternalInterfaceConfigDomainImpl implements ExternalInterfaceConfi
     @Resource
     private ExternalInterfaceConfigDao externalInterfaceConfigDao;
 
-
+    /**
+     * @author: ZhangCheng
+     * @description:查询集成平台接口信息
+     * @param: []
+     * @return: java.util.List<cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig>
+     */
     @Override
     public List<ExternalInterfaceConfig> queryIntegrationConfig() {
-        ExternalInterfaceConfig record=new ExternalInterfaceConfig();
+        ExternalInterfaceConfig record = new ExternalInterfaceConfig();
         record.setPlatformValue(ExternalConstant.PlatformValue.INTEGERATED_PLATFORM.getValue());
+        record.setState(SystemConstant.EnableState.ENABLE.getValue());
+        record.setLogicRemove(false);
+        return externalInterfaceConfigDao.queryListByParam(record);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:查询物联网设备接口信息
+     * @param: []
+     * @return: java.util.List<cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig>
+     */
+    @Override
+    public List<ExternalInterfaceConfig> queryInternetThingConfig() {
+        ExternalInterfaceConfig record = new ExternalInterfaceConfig();
+        record.setPlatformValue(ExternalConstant.PlatformValue.INTERNET_THING_EQUIPMENT.getValue());
         record.setState(SystemConstant.EnableState.ENABLE.getValue());
         record.setLogicRemove(false);
         return externalInterfaceConfigDao.queryListByParam(record);

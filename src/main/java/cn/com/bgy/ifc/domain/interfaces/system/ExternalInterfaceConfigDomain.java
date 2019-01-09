@@ -19,6 +19,11 @@ public interface ExternalInterfaceConfigDomain {
      */
     List<ExternalInterfaceConfig> queryIntegrationConfig();
 
+    /**
+     * 查询物联网设备接口信息
+     * @return
+     */
+    List<ExternalInterfaceConfig> queryInternetThingConfig();
 
     int insertSelective(ExternalInterfaceConfig record);
 }
