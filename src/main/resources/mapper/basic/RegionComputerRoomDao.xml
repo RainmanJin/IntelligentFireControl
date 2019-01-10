@@ -150,11 +150,11 @@
         cr.region_id as regionId,i.`name` as regionName,
         cr.project_id as projectId,p.`name` as projectName
         FROM region_computer_room cr
-        INNER JOIN region_info i on cr.region_id = i.id
-        INNER JOIN region_project p ON cr.project_id = p.id AND p.region_id = i.id
-        LEFT JOIN region_court c on cr.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id
-        LEFT JOIN region_street s on cr.street_id = s.id AND s.region_id =i.id AND s.project_id = p.id AND s.court_id = c.id
-        LEFT JOIN region_building b on cr.building_id = b.id AND b.region_id = i.id AND b.project_id =p.id AND b.court_id = c.id AND b.street_id =s.id
+        INNER JOIN region_info i on cr.region_id = i.id AND i.logic_remove = 0
+        INNER JOIN region_project p ON cr.project_id = p.id AND p.region_id = i.id  AND p.logic_remove = 0
+        LEFT JOIN region_court c on cr.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id AND c.logic_remove = 0
+        LEFT JOIN region_street s on cr.street_id = s.id AND s.region_id =i.id AND s.project_id = p.id AND s.court_id = c.id AND s.logic_remove = 0
+        LEFT JOIN region_building b on cr.building_id = b.id AND b.region_id = i.id AND b.project_id =p.id AND b.court_id = c.id AND b.street_id =s.id  AND b.logic_remove = 0
         <where>
             <if test="regionId != null and regionId!= '' ">
                 AND cr.region_id= #{regionId,jdbcType=BIGINT}
@@ -171,11 +171,7 @@
             <if test="keyword!='' and keyword!=null">
                 AND (cr.name LIKE concat('%',#{keyword},'%'))
             </if>
-            AND i.logic_remove = 0
-            AND p.logic_remove = 0
-            AND c.logic_remove = 0
-            AND s.logic_remove = 0
-            AND b.logic_remove = 0
+
             AND cr.logic_remove = 0
         </where>
     </select>
@@ -183,7 +179,7 @@
         UPDATE region_computer_room
         <set>
             <if test="regionId != null and projectId != null and courtId != null">
-                region_id =#{regionId},project_id =#{projectId},court_id= #{ projectId},
+                region_id =#{regionId},project_id =#{projectId},court_id= #{courtId},
             </if>
             <if test="streetId != null">
                 street_id= #{ streetId},
@@ -227,19 +223,14 @@
         cr.street_id as streetId,s.name as streetName,
         cr.building_id as buildingId,b.name as buildingName
         FROM region_computer_room cr
-        LEFT JOIN region_info i on cr.region_id = i.id
-        INNER JOIN region_project p ON cr.project_id = p.id AND p.region_id = i.id
-        LEFT JOIN region_court c on cr.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id
-        LEFT JOIN region_street s on cr.street_id = s.id AND s.region_id =i.id AND s.project_id = p.id AND s.court_id = c.id
-        LEFT JOIN region_building b on cr.building_id = b.id AND b.region_id = i.id AND b.project_id =p.id AND b.court_id = c.id AND b.street_id =s.id
+        INNER JOIN region_info i on cr.region_id = i.id AND i.logic_remove = 0
+        INNER JOIN region_project p ON cr.project_id = p.id AND p.region_id = i.id  AND p.logic_remove = 0
+        LEFT JOIN region_court c on cr.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id AND c.logic_remove = 0
+        LEFT JOIN region_street s on cr.street_id = s.id AND s.region_id =i.id AND s.project_id = p.id AND s.court_id = c.id AND s.logic_remove = 0
+        LEFT JOIN region_building b on cr.building_id = b.id AND b.region_id = i.id AND b.project_id =p.id AND b.court_id = c.id AND b.street_id =s.id  AND b.logic_remove = 0
         WHERE
          cr.id= #{id,jdbcType=BIGINT}
           AND cr.logic_remove = 0
-          AND i.logic_remove = 0
-          AND p.logic_remove = 0
-          AND c.logic_remove = 0
-          AND s.logic_remove = 0
-          AND b.logic_remove = 0
     </select>
     <update id="updateFindByAddressId" parameterType="java.util.Map">
         UPDATE region_computer_room

@@ -34,7 +34,7 @@ public class RegionStreetController extends BaseController {
      */
     @GetMapping("query")
     @ResponseBody
-    public ResponseVO<PageInfo> queryListRegionStreet( Page<Object> page, RegionStreetVo regionStreetVo, String token){
+    public ResponseVO<PageInfo> queryListRegionStreet( Page<Object> page, RegionStreetVo regionStreetVo){
         PageInfo pageInfo = regionStreetService.queryListRegionStreet(page,regionStreetVo);
         return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
@@ -46,7 +46,7 @@ public class RegionStreetController extends BaseController {
     @PostMapping("update")
     @SystemLogAfterSave(description = "街道信息修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionStreet( RegionStreet regionStreet, String token){
+    public ResponseVO<Object> updateRegionStreet( RegionStreet regionStreet){
 
         int count = regionStreetService.updateRegionStreet(regionStreet);
         if (count == 1) {

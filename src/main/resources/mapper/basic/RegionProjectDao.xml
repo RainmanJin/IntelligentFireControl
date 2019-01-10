@@ -96,7 +96,7 @@
     p.longitude as longitude,p.latitude as latitude,
     p.ascription as ascription,p.create_time as createTime
     from region_project p
-    LEFT JOIN region_info i on p.region_id = i.id
+    LEFT JOIN region_info i on p.region_id = i.id AND i.logic_remove = 0
     <where>
     <if test="regionId != null and regionId!= '' ">
       AND p.region_id= #{regionId,jdbcType=BIGINT}
@@ -106,7 +106,6 @@
       OR p.name LIKE concat('%',#{keyword},'%')
       OR p.ascription like concat('%',#{keyword},'%'))
     </if>
-      AND i.logic_remove = 0
       AND p.logic_remove = 0
     </where>
   </select>
@@ -146,10 +145,9 @@
     p.longitude as longitude,p.latitude as latitude,
     p.ascription as ascription
     from region_project p
-    LEFT JOIN region_info i on p.region_id = i.id
+    LEFT JOIN region_info i on p.region_id = i.id AND i.logic_remove = 0
       WHERE
       p.id= #{id,jdbcType=BIGINT}
-      AND i.logic_remove = 0
       AND p.logic_remove = 0
   </select>
 
@@ -165,10 +163,9 @@
     p.ascription as ascription,
     p.create_time as createTime
     from region_project p
-    LEFT JOIN region_info i on p.region_id = i.id
+    LEFT JOIN region_info i on p.region_id = i.id AND i.logic_remove = 0
     <where>
         AND p.region_id= #{regionId,jdbcType=BIGINT}
-      AND i.logic_remove = 0
       AND p.logic_remove = 0
     </where>
   </select>
