@@ -84,7 +84,7 @@
         responsible_person_tel,
       </if>
       <if test="isFire != null">
-        "is_fire",
+        is_fire,
       </if>
       <if test="isFireFacilities != null">
         is_fire_facilities,
@@ -231,7 +231,7 @@
     <select id="queryRenovationRecordList" parameterType="java.util.Map" resultType="java.util.Map">
             SELECT
                 rr.id,
-                CONCAt(br.region_name,br.project_name,br.court_name,br.street_name,br.building_name) as region,
+                CONCAT(br.region_name,br.project_name,br.court_name,br.street_name,br.building_name) as region,
                 rr.address AS address,rr.acreage AS nature,rr.property_owner as propertyOwner,rr.proposer AS proposer,
                 rr.decoration_method AS decorationMethod,rr.`is_fire` AS isFire,rr.is_fire_facilities AS isFacilities,
                 rr.create_time AS createTime

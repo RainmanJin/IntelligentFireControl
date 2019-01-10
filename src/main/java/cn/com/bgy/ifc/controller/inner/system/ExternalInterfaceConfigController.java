@@ -81,6 +81,28 @@ public class ExternalInterfaceConfigController extends BaseController {
 
     /**
      * @author: ZhangCheng
+     * @description:添加接入接口配置
+     * @param: [externalInterfaceConfigVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("add")
+    @SystemLogAfterSave(description = "添加接入接口配置")
+    public ResponseVO<Object> add(@Validated ExternalInterfaceConfigVo externalInterfaceConfigVo, BindingResult error) {
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
+        }
+        ExternalInterfaceConfig config = new ExternalInterfaceConfig();
+        CopyUtil.copyProperties(externalInterfaceConfigVo, config);
+        int result=externalInterfaceConfigService.insertSelective(config);
+        if (result == 1) {
+            return ResponseVO.addSuccess();
+        } else {
+            return ResponseVO.addError();
+        }
+    }
+
+    /**
+     * @author: ZhangCheng
      * @description:修改接入接口配置
      * @param: [externalInterfaceConfigVo, error]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>

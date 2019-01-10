@@ -127,7 +127,7 @@
     <select id="listFacilityProtection" parameterType="java.util.Map" resultType="java.util.Map">
            SELECT
             id,record_id AS recordId,`name`,description,state,check_person AS checkPerson,
-            check_status,remark,create_time AS createTime
+            check_status AS checkStatus,remark,create_time AS createTime
           FROM fire_facility_protection
           <where>
               <if test="recordId != null and recordId!= '' ">

@@ -37,7 +37,7 @@ public class RegionCourtServiceImpl implements RegionCourtService {
      */
     @Override
     public PageInfo queryListRegionCourt( Page page, RegionCourtVo record ) {
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Map<String,Object>> list=  regionCourtDomain.queryListRegionCourt(record);
         return  new PageInfo(list);
     }

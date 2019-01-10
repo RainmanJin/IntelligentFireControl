@@ -5,24 +5,24 @@
     <result column="id" jdbcType="BIGINT" property="id" />
       <result column="record_id" jdbcType="BIGINT" property="recordId" />
     <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="buying _time" jdbcType="TIMESTAMP" property="buyingTime" />
+    <result column="buying_time" jdbcType="TIMESTAMP" property="buyingTime" />
     <result column="setting_position" jdbcType="VARCHAR" property="settingPosition" />
     <result column="number" jdbcType="INTEGER" property="number" />
     <result column="person" jdbcType="VARCHAR" property="person" />
-    <result column="condition" jdbcType="VARCHAR" property="condition" />
+    <result column="situation" jdbcType="VARCHAR" property="situation" />
     <result column="other" jdbcType="LONGVARCHAR" property="other" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
 
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ExtinguisherConfig">
-    insert into fire_extinguisher_config (id,record_id, type, "buying _time",
+    insert into fire_extinguisher_config (id,record_id, type,buying_time,
       setting_position, number, person, 
-      condition, create_time, logic_remove, 
+      situation, create_time, logic_remove,
       other)
     values (#{id,jdbcType=BIGINT}, #{recordId,jdbcType=BIGINT},#{type,jdbcType=INTEGER}, #{buyingTime,jdbcType=TIMESTAMP},
       #{settingPosition,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, #{person,jdbcType=VARCHAR}, 
-      #{condition,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, 
+      #{situation,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT},
       #{other,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ExtinguisherConfig">
@@ -38,7 +38,7 @@
         type,
       </if>
       <if test="buyingTime != null">
-        "buying _time",
+        buying_time,
       </if>
       <if test="settingPosition != null">
         setting_position,
@@ -49,8 +49,8 @@
       <if test="person != null">
         person,
       </if>
-      <if test="condition != null">
-        condition,
+      <if test="situation != null">
+          situation,
       </if>
       <if test="createTime != null">
         create_time,
@@ -84,8 +84,8 @@
       <if test="person != null">
         #{person,jdbcType=VARCHAR},
       </if>
-      <if test="condition != null">
-        #{condition,jdbcType=VARCHAR},
+      <if test="situation != null">
+        #{situation,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -122,8 +122,8 @@
              <if test="person != null">
                  person = #{person,jdbcType=VARCHAR},
              </if>
-             <if test="condition != null">
-                 condition =  #{condition,jdbcType=VARCHAR},
+             <if test="situation != null">
+                 situation = #{situation,jdbcType=VARCHAR},
              </if>
              <if test="createTime != null">
                  create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -136,8 +136,8 @@
     </update>
     <select id="listExtinguisherConfig" parameterType="java.util.Map" resultType="java.util.Map">
         SELECT
-            id,record_id AS recordId,type,`buying _time` AS `buyingTime`,
-            setting_position AS settingPosition,number,person,`condition`,create_time AS createTime
+            id,record_id AS recordId,type,`buying_time` AS `buyingTime`,
+            setting_position AS settingPosition,number,person,`situation`,create_time AS createTime
         FROM fire_extinguisher_config
         <where>
             <if test="recordId != null and recordId!= '' ">
@@ -149,7 +149,7 @@
             <if test="keyword!='' and keyword!=null">
                 AND (setting_position LIKE concat('%',#{keyword},'%')
                 OR person LIKE concat('%',#{keyword},'%')
-                OR condition like concat('%',#{keyword},'%'))
+                OR situation like concat('%',#{keyword},'%'))
                 )
             </if>
             AND logic_remove=0
@@ -157,8 +157,8 @@
     </select>
     <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
         SELECT
-            id,record_id AS recordId,type,`buying _time` AS `buyingTime`,
-            setting_position AS settingPosition,number,person,`condition`,other,create_time AS createTime
+            id,record_id AS recordId,type,`buying_time` AS `buyingTime`,
+            setting_position AS settingPosition,number,person,`situation`,other,create_time AS createTime
         FROM fire_extinguisher_config
         WHERE  logic_remove=0 AND id=#{id,jdbcType=BIGINT}
     </select>
@@ -170,8 +170,8 @@
     </update>
     <select id="queryByRecordId" parameterType="java.lang.Long" resultType="cn.com.bgy.ifc.entity.po.firepatrol.ExtinguisherConfig">
         SELECT
-            id,record_id AS recordId,type,`buying _time` AS `buyingTime`,
-            setting_position AS settingPosition,number,person,`condition`,other,create_time AS createTime
+            id,record_id AS recordId,type,`buying_time` AS `buyingTime`,
+            setting_position AS settingPosition,number,person,`situation`,other,create_time AS createTime
         FROM fire_extinguisher_config
         WHERE  logic_remove=0 AND record_id=#{id,jdbcType=BIGINT}
     </select>

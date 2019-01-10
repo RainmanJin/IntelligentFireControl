@@ -48,8 +48,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="record_id != null">
-        recordId,
+      <if test="recordId != null">
+        record_id,
       </if>
       <if test="fireLocation != null">
         fire_location,

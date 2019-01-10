@@ -35,11 +35,12 @@ public class RenovationJunkServiceImpl implements RenovationJunkService {
     public int addRenovationJunk( RenovationJunk renovationJunk ) {
         if(renovationJunk.getRecordId()!=null || renovationJunk.getRecordId()>0){
             RenovationJunk  r = renovationJunkDao.queryByRecordId(renovationJunk.getRecordId());
-            if(r.getRecordId()!=null || r.getRecordId()>0){
-                return 2;
+            if(null==r){
+                renovationJunk.setCreateTime(new Date());
+                renovationJunk.setLogicRemove(false);
+                return renovationJunkDao.insertSelective(renovationJunk);
             }
-            renovationJunk.setCreateTime(new Date());
-            return renovationJunkDao.insertSelective(renovationJunk);
+            return 2;
         }
         return 0;
     }

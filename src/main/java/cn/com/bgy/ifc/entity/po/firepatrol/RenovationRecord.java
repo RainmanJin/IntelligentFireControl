@@ -169,20 +169,20 @@ public class RenovationRecord {
         this.remark = remark;
     }
 
-    public Boolean getFire() {
+    public Boolean getIsFire() {
         return isFire;
     }
 
-    public void setFire( Boolean fire ) {
-        isFire = fire;
+    public void setIsFire( Boolean isFire ) {
+        this.isFire = isFire;
     }
 
-    public Boolean getFireFacilities() {
+    public Boolean getIsFireFacilities() {
         return isFireFacilities;
     }
 
-    public void setFireFacilities( Boolean fireFacilities ) {
-        isFireFacilities = fireFacilities;
+    public void setIsFireFacilities( Boolean isFireFacilities ) {
+        this.isFireFacilities = isFireFacilities;
     }
 
     public Date getCreateTime() {

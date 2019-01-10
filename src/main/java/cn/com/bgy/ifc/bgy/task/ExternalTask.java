@@ -1,11 +1,11 @@
 package cn.com.bgy.ifc.bgy.task;
 
-import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyMachineRoomService;
-import cn.com.bgy.ifc.service.interfaces.api.system.UserApiService;
 import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyEquipmentService;
+import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyMachineRoomService;
 import cn.com.bgy.ifc.service.interfaces.api.project.BgyOrgService;
 import cn.com.bgy.ifc.service.interfaces.api.project.BgyProjectService;
 import cn.com.bgy.ifc.service.interfaces.api.project.BgyRegionInfoService;
+import cn.com.bgy.ifc.service.interfaces.api.system.UserApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class ExternalTask {
-
 
     @Autowired
     private BgyOrgService bgyOrgService;
@@ -43,9 +42,9 @@ public class ExternalTask {
      * @param: []
      * @return: void
      */
-    @Scheduled(cron="0 00 01 * * ? ")
-    public void obtainBgyOrg(){
-        bgyOrgService.baseObtainBgyOrg(1,50);
+    @Scheduled(cron = "0 00 01 * * ? ")
+    public void obtainBgyOrg() {
+        bgyOrgService.baseObtainBgyOrg(1, 50);
     }
 
     /**
@@ -54,20 +53,20 @@ public class ExternalTask {
      * @param: []
      * @return: void
      */
-    @Scheduled(cron="0 10 01 * * ? ")
-    public void obtainUser(){
-        userApiService.baseObtainBgyUser(1,1000);
+    @Scheduled(cron = "0 10 01 * * ? ")
+    public void obtainUser() {
+        userApiService.baseObtainBgyUser(1, 1000);
     }
-    
+
     /**
      * @author: ZhangCheng
      * @description:同步集成平台用户权限(每天1点20分开始同步)
      * @param: []
      * @return: void
      */
-    @Scheduled(cron="0 20 01 * * ? ")
-    public void obtainUserPermission(){
-        userApiService.baseObtainBgyUserPermission(1,500);
+    @Scheduled(cron = "0 20 01 * * ? ")
+    public void obtainUserPermission() {
+        userApiService.baseObtainBgyUserPermission(1, 500);
     }
 
     /**
@@ -76,20 +75,20 @@ public class ExternalTask {
      * @param: []
      * @return: void
      */
-    @Scheduled(cron="0 30 01 * * ? ")
-    public void obtainBgyRegionInfo(){
-        bgyRegionInfoService.baseObtainBgyRegionInfo(1,100,1);
+    @Scheduled(cron = "0 30 01 * * ? ")
+    public void obtainBgyRegionInfo() {
+        bgyRegionInfoService.baseObtainBgyRegionInfo(1, 100, 1);
     }
-    
+
     /**
      * @author: ZhangCheng
      * @description:同步集成平台项目(每天1点40分开始同步)
      * @param: []
      * @return: void
      */
-    @Scheduled(cron="0 40 01 * * ? ")
-    public void obtainBgyProject(){
-        bgyProjectService.baseObtainBgyProject(1,500);
+    @Scheduled(cron = "0 40 01 * * ? ")
+    public void obtainBgyProject() {
+        bgyProjectService.baseObtainBgyProject(1, 500);
     }
 
     /**
@@ -98,19 +97,19 @@ public class ExternalTask {
      * @param: []
      * @return: void
      */
-    @Scheduled(cron="0 50 01 * * ? ")
-    public void obtainBgyEquipmentInfo(){
-        bgyEquipmentService.baseObtainBgyEquipmentInfo(1,2000);
+    @Scheduled(cron = "0 50 01 * * ? ")
+    public void obtainBgyEquipmentInfo() {
+        bgyEquipmentService.baseObtainBgyEquipmentInfo(1, 2000);
     }
-    
+
     /**
      * @author: ZhangCheng
      * @description:同步集成平台设备类型(每天2点开始同步)
      * @param: []
      * @return: void
      */
-    @Scheduled(cron="0 00 02 * * ? ")
-    public void obtainBgyEquipmentType(){
+    @Scheduled(cron = "0 00 02 * * ? ")
+    public void obtainBgyEquipmentType() {
         bgyEquipmentService.baseObtainBgyEquipmentType(1, 100);
     }
 
@@ -120,9 +119,9 @@ public class ExternalTask {
      * @param: []
      * @return: void
      */
-    @Scheduled(cron="0 10 02 * * ? ")
-    public void obtainBgyEquipmentVersion(){
-        bgyEquipmentService.baseObtainBgyEquipmentVersion(1,500);
+    @Scheduled(cron = "0 10 02 * * ? ")
+    public void obtainBgyEquipmentVersion() {
+        bgyEquipmentService.baseObtainBgyEquipmentVersion(1, 500);
     }
 
     /**
@@ -131,9 +130,9 @@ public class ExternalTask {
      * @param: []
      * @return: void
      */
-    @Scheduled(cron="0 20 02 * * ? ")
-    public void obtainBgyEquipmentBrand(){
-        bgyEquipmentService.baseObtainBgyEquipmentBrand(1,500);
+    @Scheduled(cron = "0 20 02 * * ? ")
+    public void obtainBgyEquipmentBrand() {
+        bgyEquipmentService.baseObtainBgyEquipmentBrand(1, 500);
     }
 
     /**
@@ -142,8 +141,8 @@ public class ExternalTask {
      * @param: []
      * @return: void
      */
-    @Scheduled(cron="0 30 02 * * ? ")
-    public void obtainBgyMachineRoom(){
+    @Scheduled(cron = "0 30 02 * * ? ")
+    public void obtainBgyMachineRoom() {
         bgyMachineRoomService.baseObtainBgyMachineRoom(1, 1000);
     }
 }

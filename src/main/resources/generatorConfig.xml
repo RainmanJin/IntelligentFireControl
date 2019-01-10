@@ -17,14 +17,14 @@
                         userId="root"
                         password="root" />
 
-       <javaModelGenerator targetPackage="cn.com.bgy.ifc.entity.po.firepatrol" targetProject="src/main/java" />
+       <javaModelGenerator targetPackage="cn.com.bgy.ifc.entity.po.equipment" targetProject="src/main/java" />
 
         <sqlMapGenerator targetPackage="mapper/basic" targetProject="src/main/resources"  />
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.bgy.ifc.dao.firepatrol" targetProject="src/main/java" />
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.bgy.ifc.dao.equipment" targetProject="src/main/java" />
 
 
-       <table tableName="fire_brigade"  domainObjectName="FireBrigade" mapperName="FireBrigadeDao"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+       <table tableName="equipment_state"  domainObjectName="EquipmentState" mapperName="EquipmentStateDao"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"/>
 <!--
         <table tableName="tj_dept"  domainObjectName="DeptBo" mapperName="DeptDao" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
