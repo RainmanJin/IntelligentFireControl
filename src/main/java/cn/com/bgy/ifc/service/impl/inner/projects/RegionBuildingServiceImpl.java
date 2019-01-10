@@ -38,7 +38,7 @@ public class RegionBuildingServiceImpl implements RegionBuildingService {
 
     @Override
     public PageInfo queryListRegionBuilding( Page page, RegionAndBrandVO regionAndBrandVO ) {
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Map<String,Object>> list=  regionBuildingDomain.queryListRegionBuilding(regionAndBrandVO);
         return  new PageInfo(list);
     }
