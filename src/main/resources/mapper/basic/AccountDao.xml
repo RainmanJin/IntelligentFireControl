@@ -164,12 +164,14 @@
       t1.user_name as userName,
       t1.telephone,
       t1.job_number  as jobNumber,
+      t1.password,
+      d.name as departmentName,
       t1.sex,
       t1.identity_number  as identityNumber,
       t1.is_disable as isDisable,
       t1.current_time as currentTime,
       t1.regist_time as registTime
-      from account t1 where id=#{id,jdbcType=BIGINT}
+      from account t1 left join  department d on d.id=t1.department_id where t1.id=#{id,jdbcType=BIGINT}
   </select>
 
   <select id="findByThirdId" parameterType="long" resultMap="BaseResultMap">

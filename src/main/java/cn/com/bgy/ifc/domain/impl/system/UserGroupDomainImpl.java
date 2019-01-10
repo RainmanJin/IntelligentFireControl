@@ -82,6 +82,11 @@ public class UserGroupDomainImpl implements UserGroupDomain {
     @Override
     @Transactional
     public void distributionRegion(Long groupId, List<Long> list) {
+        //查询组对应的区域
+
+
+
+
          groupsDao.findById(groupId);
     }
 

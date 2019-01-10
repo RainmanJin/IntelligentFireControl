@@ -1,13 +1,14 @@
 package cn.com.bgy.ifc.entity.vo.system;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class AccountVo {
 	private Long id;
 
 	private Long organizationId;
-	@NotBlank(message="部门名称不能为空！")
+	@NotNull(message="部门名称不能为空！")
 	private Long departmentId;
 	@NotBlank(message="用户名称为空！")
 	private String telephone;
@@ -21,7 +22,7 @@ public class AccountVo {
 	private String passwordSalt;
 	@NotBlank(message="身份证号不能为空！")
 	private String identityNumber;
-	@NotBlank(message="性别不能为空！")
+	@NotNull(message="性别不能为空！")
 	private Integer sex;
 
 	private Date registTime;

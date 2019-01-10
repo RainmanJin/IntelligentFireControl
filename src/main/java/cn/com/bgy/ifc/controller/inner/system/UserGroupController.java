@@ -6,6 +6,8 @@ import cn.com.bgy.ifc.dao.system.GroupsDao;
 import cn.com.bgy.ifc.domain.interfaces.system.GroupsDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.UserGroupDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.UserGroupItemsDomain;
+import cn.com.bgy.ifc.entity.po.project.Project;
+import cn.com.bgy.ifc.entity.po.project.RegionInfo;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.Groups;
 import cn.com.bgy.ifc.entity.po.system.UserGroup;
@@ -111,7 +113,7 @@ public class UserGroupController {
         }catch (Exception e){
             ResponseVO.error().setMsg("操作失败！");
         }
-        return ResponseVO.success().setMsg("数据删除成功！");
+        return ResponseVO.success();
     }
     /**
      * @description:用户分组分配用户
@@ -167,8 +169,8 @@ public class UserGroupController {
      */
     @GetMapping("searchGroupsByPage")
     @ResponseBody
-    public   ResponseVO<Object>  searchGroupsByPage(Page<Groups> page,String keyWords){
-        PageInfo<Groups> list =groupsDomain.queryListByPage(page,keyWords);
+    public   ResponseVO<Object>  searchGroupsByPage(Page<Groups> page,Groups groups){
+        PageInfo<Groups> list =groupsDomain.queryListByPage(page,groups);
 
         return  ResponseVO.success().setData(list);
     }
@@ -202,4 +204,30 @@ public class UserGroupController {
         return  ResponseVO.editSuccess();
     }
 
+
+
+    /**
+     * @description:查询用户分组
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/8 18:06
+     */
+    @GetMapping("findGroupsById")
+    @ResponseBody
+    public   ResponseVO<Object> findGroupsById (Integer type,Long id){
+        Groups query= groupsDomain.findById(id);
+        if (type.intValue()==1) {
+            List<RegionInfo> listRegionInfo = userGroupItemsDomain.findRegionInfoByGroupId(id);
+            return  ResponseVO.success().setData(listRegionInfo);
+        }
+        else if (type.intValue()==2) {
+            List<Project> listProject = userGroupItemsDomain.findProjectInfoByGroupId(id);
+            return  ResponseVO.success().setData(listProject);
+        }else{
+            return ResponseVO.error().setMsg("请选择正确的类型");
+        }
+
+
+    }
 }

@@ -67,5 +67,5 @@ public interface GroupsDomain extends BaseDomain<Groups> {
     public int updateSelective(Groups t);
 
 
-    PageInfo<Groups> queryListByPage(Page<Groups> page, String keyWords);
+    PageInfo<Groups> queryListByPage(Page<Groups> page,Groups groups);
 }

@@ -1,7 +1,9 @@
 package cn.com.bgy.ifc.controller.inner.repair;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
+import cn.com.bgy.ifc.domain.interfaces.repair.RepairOrderDomain;
 import cn.com.bgy.ifc.entity.po.repair.RepairOrder;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.repair.RepairOrderService;
@@ -24,6 +26,8 @@ public class RepairOrderController extends BaseController {
 
     @Autowired
     private RepairOrderService repaicOrderService;
+    @Autowired
+    private RepairOrderDomain repairOrderDomain;
 
     /**
      * @Author huxin
@@ -54,11 +58,11 @@ public class RepairOrderController extends BaseController {
      * @Description 根据工单Id查询详细信息
      * @Date 2018/12/26 10:39
      */
-    @GetMapping("queryById")
+    @GetMapping("findById")
     @ResponseBody
-    public ResponseVO<Object> queryRepairOrderById(Long id) {
-        Map<String, Object> map = repaicOrderService.queryRepairOrderById(id);
-        return ResponseVO.<Object>success().setData(map);
+    public ResponseVO<Object> findById(Long id) {
+        Map<String, Object> query = repaicOrderService.queryRepairOrderById(id);
+        return ResponseVO.<Object>success().setData(query);
     }
 
     /**
@@ -69,11 +73,16 @@ public class RepairOrderController extends BaseController {
     @PostMapping("editData")
     @ResponseBody
     public ResponseVO<Object> updateRepairOrder(RepairOrder repairOrder) {
-        int count = repaicOrderService.updateRepairOrder(repairOrder);
-        if (count > 0) {
-            return ResponseVO.success().setMsg("添加成功");
+        RepairOrder query= repairOrderDomain.findById(repairOrder.getId());
+        CopyUtil.copyProperties(repairOrder,query);
+        if(query.getState()!=-1){
+            ResponseVO.editError();
         }
-        return ResponseVO.error().setMsg("添加失败！");
+        int count = repaicOrderService.updateRepairOrder(query);
+        if (count > 0) {
+            return ResponseVO.editSuccess();
+        }
+        return ResponseVO.editError();
     }
 
     /**

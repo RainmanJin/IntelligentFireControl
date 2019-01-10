@@ -5,9 +5,11 @@
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="region_id" jdbcType="BIGINT" property="regionId"/>
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.Groups">
-    insert into groups (id, name, type,logic_remove
+    insert into groups (id, name, type,logic_remove,region_id
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},#{logicRemove,jdbcType=BIT}
       )
@@ -27,6 +29,9 @@
       <if test="logicRemove !=null">
         logic_remove
       </if>
+      <if test="regionId !=null">
+        region_id
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -41,6 +46,9 @@
       <if test="logicRemove !=null">
         #{logicRemove,jdbcType=BIT}
       </if>
+      <if test="regionId !=null">
+        #{regionId,jdbcType=BIGINT}
+      </if>
     </trim>
   </insert>
   <update id="deleteBatch" parameterType="java.util.List" >
@@ -51,24 +59,27 @@
   </update>
 
   <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.Groups" resultMap="BaseResultMap">
-    select  id, name, type,logic_remove
-      from groups
+    select  g.id, g.name, g.type,g.logic_remove,g.region_id
+      from groups g left join region_info r on  r.id=g.region_id
       <where>
         <trim prefixOverrides="and" >
           <if test="id != null">
-            and id=#{id}
+            and g.id=#{id}
           </if>
           <if test="name != null">
-            and name=#{name}
+            and g.name=#{name}
           </if>
           <if test="type != null">
-            and type=#{type}
+            and g.type=#{type}
           </if>
           <if test="logicRemove !=null">
-            and logic_remove=#{logicRemove}
+            and g.logic_remove=#{logicRemove}
           </if>
           <if test="keyWords !=null and keyWords !=''">
-            and (name likeCONCAT('%',#{keyWords},'%')
+            and (
+            g.name like CONCAT('%',#{keyWords},'%')
+            or  r.name like CONCAT('%',#{keyWords},'%')
+            )
           </if>
         </trim>
       </where>

@@ -118,9 +118,36 @@ public class AccountController extends BaseController {
         account.setDepartmentId(accountVo.getDepartmentId());
         account.setTelephone(accountVo.getTelephone());
         account.setUserName(accountVo.getUserName());
-        account.setUserName(accountVo.getUserName());
-        accountDomain.update(account);
+        account.setSex(accountVo.getSex());
+        account.setRemark(accountVo.getRemark());
+        account.setJobNumber(accountVo.getJobNumber());
+        account.setIdentityNumber(accountVo.getIdentityNumber());
+        accountDomain.updateSelective(account);
         return ResponseVO.success();
+
+    }
+
+    /**
+     * 根据用户id更新用户状态
+     * @param
+     * @return
+     */
+    @PostMapping("updatePassword")
+    @SystemLogAfterSave(description = "初始用户密码")
+    @ResponseBody
+    public ResponseVO<Object> updatePassword(String oldPassword,String newPassword,Long id){
+        Account account =accountDomain.findById(id);
+        if (oldPassword.equals(account.getPassword())){
+            account.setPassword(newPassword);
+            int res=accountDomain.initalingPassword(account);
+            if(res>0){
+                return ResponseVO.success().setMsg("更新成功！");
+            }else{
+                return ResponseVO.error().setMsg("更新失败");
+            }
+        }else{
+            return ResponseVO.error().setMsg("原始密码不正确！");
+        }
 
     }
 }

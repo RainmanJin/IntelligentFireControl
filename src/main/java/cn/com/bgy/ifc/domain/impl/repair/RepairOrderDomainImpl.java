@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -32,18 +34,51 @@ public class RepairOrderDomainImpl implements RepairOrderDomain {
     public int launchRepair( RepairOrder repairOrder ) {
 
         if(repairOrder.getEquipmentId()!=null||repairOrder.getEquipmentId()>0){
-            //根据设备id查询机房ID
-            Long roomId = equipmentInfoDao.queryRoomIdByEquipmentId(repairOrder.getEquipmentId());
-            if(roomId!=null || roomId>0){
-                repairOrder.setComputerRoomId(roomId);
                 repairOrder.setCreateTime(new Date());
-                repairOrder.setState(0);
-                repairOrder.setPush(false);
+                repairOrder.setState(-1);
                 repairOrder.setLogicRemove(false);
                 return  repairOrderDao.insert(repairOrder);
             }
             return 0;
-        }
-        return 0;
+    }
+
+    @Override
+    public List<RepairOrder> queryListByParam(RepairOrder repairOrder) {
+        return repairOrderDao.queryListByParam(repairOrder);
+    }
+
+    @Override
+    public List<RepairOrder> queryListByMap(Map<String, Object> map) {
+        return repairOrderDao.queryListByMap(map);
+    }
+
+    @Override
+    public RepairOrder findById(Long id) {
+        return repairOrderDao.findById(id);
+    }
+
+    @Override
+    public int insert(RepairOrder repairOrder) {
+        return repairOrderDao.insert(repairOrder);
+    }
+
+    @Override
+    public int insertSelective(RepairOrder repairOrder) {
+        return repairOrderDao.insertSelective(repairOrder);
+    }
+
+    @Override
+    public int update(RepairOrder repairOrder) {
+        return repairOrderDao.update(repairOrder);
+    }
+
+    @Override
+    public int updateSelective(RepairOrder repairOrder) {
+        return updateSelective(repairOrder);
+    }
+
+    @Override
+    public int deleteBatch(List<Long> ids) {
+        return repairOrderDao.deleteBatch(ids);
     }
 }

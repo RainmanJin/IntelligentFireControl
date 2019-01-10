@@ -3,7 +3,7 @@ package cn.com.bgy.ifc.entity.po.equipment;
 import java.io.Serializable;
 import java.util.Date;
 
-public class EquipmentInfo {
+public class EquipmentInfo extends RegionAndBrand {
     /**
      * 系统自增ID
      */

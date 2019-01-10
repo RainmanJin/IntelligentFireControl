@@ -92,4 +92,34 @@
     <delete id="deleteByGroupId" parameterType="long">
       DELETE FROM user_group_items WHERE group_id=#{groupId}
   </delete>
+    <select id="findRegionInfoByGroupId" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.project.RegionInfo">
+      select id,
+      organization_id as organizationId ,
+      code,
+      name,
+      create_time as createTime,
+      logic_remove as logicRemove
+
+      from region_info  where logic_remove=0
+    </select>
+    <select id="findProjectInfoByGroupId" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.project.RegionInfo">
+
+
+
+
+      id,
+      organization_id as organizationId,
+      region_id as regionId,
+      code,
+      name,
+      longitude,
+      latitude,
+      ascription,
+      create_time as createTime,
+      logic_remove as logicRemove
+
+      from region_project  where logic_remove=0
+    </select>
+
+
 </mapper>

@@ -4,12 +4,11 @@
   <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.repair.RepairOrder">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
-    <result column="computer_room_id" jdbcType="BIGINT" property="computerRoomId" />
     <result column="equipment_id" jdbcType="BIGINT" property="equipmentId" />
     <result column="mcid" jdbcType="INTEGER" property="mcid" />
     <result column="repair_person" jdbcType="VARCHAR" property="repairPerson" />
     <result column="repair_person_call" jdbcType="VARCHAR" property="repairPersonCall" />
-    <result column="repair_person_time" jdbcType="TIMESTAMP" property="repairPersonTime" />
+    <result column="repair_time" jdbcType="TIMESTAMP" property="repairTime" />
     <result column="is_urgent" jdbcType="BIT" property="isUrgent" />
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="process_person" jdbcType="VARCHAR" property="processPerson" />
@@ -25,17 +24,17 @@
   </resultMap>
 
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.repair.RepairOrder">
-    insert into repair_order (id, organization_id, computer_room_id, 
+    insert into repair_order (id, organization_id, 
       equipment_id, mcid, repair_person, 
-      repair_person_call, repair_person_time, is_urgent, 
+      repair_person_call, repair_time, is_urgent, 
       state, process_person, process_time,
       maintaindetail, repair_reason,
       process_remark, order_no, extend_id,
       create_time, is_push
       logic_remove )
-    values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, #{computerRoomId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT},  
       #{equipmentId,jdbcType=BIGINT}, #{mcid,jdbcType=INTEGER}, #{repairPerson,jdbcType=VARCHAR}, 
-      #{repairPersonCall,jdbcType=VARCHAR}, #{repairPersonTime,jdbcType=TIMESTAMP}, #{isUrgent,jdbcType=BIT}, 
+      #{repairPersonCall,jdbcType=VARCHAR}, #{repairTime,jdbcType=TIMESTAMP}, #{isUrgent,jdbcType=BIT}, 
       #{state,jdbcType=INTEGER}, #{processPerson,jdbcType=VARCHAR}, #{processTime,jdbcType=TIMESTAMP},
       #{maintaindetail,jdbcType=LONGVARCHAR}, #{repairReason,jdbcType=LONGVARCHAR},
       #{processRemark,jdbcType=LONGVARCHAR},#{orderNo,jdbcType=VARCHAR},
@@ -66,8 +65,8 @@
       <if test="repairPersonCall != null">
         repair_person_call,
       </if>
-      <if test="repairPersonTime != null">
-        repair_person_time,
+      <if test="repairTime != null">
+        repair_time,
       </if>
       <if test="isUrgent != null">
         is_urgent,
@@ -115,7 +114,7 @@
         #{organizationId,jdbcType=BIGINT},
       </if>
       <if test="computerRoomId != null">
-        #{computerRoomId,jdbcType=BIGINT},
+        
       </if>
       <if test="equipmentId != null">
         #{equipmentId,jdbcType=BIGINT},
@@ -129,8 +128,8 @@
       <if test="repairPersonCall != null">
         #{repairPersonCall,jdbcType=VARCHAR},
       </if>
-      <if test="repairPersonTime != null">
-        #{repairPersonTime,jdbcType=TIMESTAMP},
+      <if test="repairTime != null">
+        #{repairTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isUrgent != null">
         #{isUrgent,jdbcType=BIT},
@@ -183,6 +182,7 @@
     o.repair_time as repairTime,
     o.is_urgent as isUrgent,
     o.state as state,
+    o.mcid,
     o.process_time as processTime,
     o.process_person as processPerson,
     o.process_remark as processRemark,
@@ -192,7 +192,7 @@
     o.is_push  as isPush
     FROM repair_order o
     LEFT JOIN equipment_info v ON o.equipment_id = v.id
-    LEFT JOIN region_computer_room rr ON o.computer_room_id = rr.id
+    LEFT JOIN region_computer_room rr ON v.machine_room_id = rr.id
     LEFT JOIN region_info ri ON rr.region_id = ri.id
     LEFT JOIN region_project rp ON rr.project_id = rp.id
     LEFT JOIN region_court rc ON rr.court_id = rc.id
@@ -260,6 +260,7 @@
     o.repair_reason as repairReason,
     o.repair_time as repairTime,
     o.is_urgent as isUrgent,
+    o.mcid,
     o.state as state,
     o.process_time as processTime,
     o.process_person as processPerson,
@@ -267,10 +268,16 @@
     o.order_no as orderNo,
     o.extend_id as extendId,
     o.create_time  as createTime,
-    o.is_push  as isPush
+    o.is_push  as isPush,
+    v.id as equipmentId,
+    ri.id as regionId,
+    rp.id as projectId,
+    rc.id as courtId,
+    rs.id as streetId,
+    rb.id as buildingId
     FROM repair_order o
     LEFT JOIN equipment_info v ON o.equipment_id = v.id
-    LEFT JOIN region_computer_room rr ON o.computer_room_id = rr.id
+    LEFT JOIN region_computer_room rr ON v.machine_room_id = rr.id
     LEFT JOIN region_info ri ON rr.region_id = ri.id
     LEFT JOIN region_project rp ON rr.project_id = rp.id
     LEFT JOIN region_court rc ON rr.court_id = rc.id
@@ -280,12 +287,12 @@
     LEFT JOIN equipment_brand eb ON v.brand_id = eb.id
     LEFT JOIN equipment_version ev ON v.version_id = ev.id
     where
-    o.id=#{id}
+    o.id=#{id} and o.logic_remove=0
   </select>
   <select id="queryRepairOrderByExtendId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-   SELECT id, organization_id, computer_room_id,
+   SELECT id, organization_id,
       equipment_id, mcid, repair_person,
-      repair_person_call, repair_person_time, is_urgent,
+      repair_person_call, repair_time, is_urgent,
       state, process_person, process_time,
       maintaindetail, repair_reason,
       process_remark, order_no, extend_id,
@@ -319,7 +326,7 @@
         AND state =0
   </select>
   <update id="updateRepairOrder" parameterType="cn.com.bgy.ifc.entity.po.repair.RepairOrder">
-    UPDATE equipment_info
+    UPDATE repair_order
     <set>
       <if test="mcid != null">
         mcid =#{mcid,jdbcType=INTEGER},
@@ -330,23 +337,59 @@
       <if test="repairPerson != null">
         repair_person=#{repairPerson,jdbcType=VARCHAR},
       </if>
-      <if test="repair_person_time != null">
-        repair_person_time=#{repairPersonTime,jdbcType=TIMESTAMP},
+      <if test="repairReason != null">
+        repair_reason=#{repairReason,jdbcType=VARCHAR},
       </if>
-      <if test="is_urgent != null">
+      <if test="repairTime != null">
+        repair_time=#{repairTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUrgent != null">
         is_urgent=#{isUrgent,jdbcType=BIT},
       </if>
       <if test="state != null">
         state=#{state,jdbcType=BIGINT},
       </if>
-      <if test="state != null">
-        state=#{state,jdbcType=BIGINT},
+      <if test="isPush != null">
+        is_push=#{isPush},
       </if>
-      <if test="create_time != null">
+      <if test="createTime != null">
         create_time=#{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processRemark != null">
+        process_remark=#{processRemark},
+      </if>
+      <if test="equipmentId != null">
+        equipment_id=#{equipmentId},
       </if>
     </set>
     WHERE id
     = #{id}
   </update>
+
+
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+   SELECT id,
+      organization_id,
+      equipment_id,
+      mcid,
+      repair_person,
+      repair_person_call,
+      repair_time,
+      is_urgent,
+      state,
+      process_person,
+      process_time,
+      maintaindetail,
+      repair_reason,
+      process_remark,
+      order_no,
+      extend_id,
+      create_time,
+      is_push
+      logic_remove
+    FROM repair_order WHERE
+        id =#{id}
+    AND logic_remove = 0
+  </select>
+
 </mapper>

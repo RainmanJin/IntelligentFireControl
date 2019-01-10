@@ -72,13 +72,7 @@ public class RepairOrderServiceImpl implements RepairOrderService {
      */
     @Override
     public int updateRepairOrder( RepairOrder repairOrder ) {
-
-        //根据id查询订单是否可以修改
-       int count =  repairOrderDao.queryRepairOrderIsUpdate(repairOrder.getId());
-       if(count>0){
            return repairOrderDao.updateRepairOrder(repairOrder);
-       }
-        return 0;
     }
     /**
      * @Author huxin

@@ -53,9 +53,10 @@ public class GroupsDomainImpl implements GroupsDomain {
     }
 
     @Override
-    public PageInfo<Groups> queryListByPage(Page<Groups> page, String keyWords) {
+    public PageInfo<Groups> queryListByPage(Page<Groups> page,Groups groups) {
         PageHelper.startPage(page.getPageNum(),page.getPageSize());
-        List<Groups> list=groupsDao.queryListByParam(null);
+
+        List<Groups> list=groupsDao.queryListByParam(groups);
         return new PageInfo<Groups>(list);
     }
 

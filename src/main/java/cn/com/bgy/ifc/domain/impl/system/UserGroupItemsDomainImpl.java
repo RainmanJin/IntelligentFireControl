@@ -7,6 +7,8 @@ import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.impl.equipment.EquipmentTypeDomainImpl;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.UserGroupItemsDomain;
+import cn.com.bgy.ifc.entity.po.project.Project;
+import cn.com.bgy.ifc.entity.po.project.RegionInfo;
 import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.BgyPermissionVo;
@@ -211,6 +213,16 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
                 externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
                 return ResponseVO.success().setMsg("同步集成平台用户总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
             }
+    }
+
+    @Override
+    public List<RegionInfo> findRegionInfoByGroupId(Long id) {
+        return userGroupItemsDao.findRegionInfoByGroupId(id);
+    }
+
+    @Override
+    public List<Project> findProjectInfoByGroupId(Long id) {
+        return userGroupItemsDao.findProjectInfoByGroupId(id);
     }
 
 }

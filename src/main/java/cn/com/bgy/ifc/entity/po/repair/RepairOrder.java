@@ -11,8 +11,6 @@ public class RepairOrder {
     private Long id;
     //平台id
     private Long organizationId;
-    //机房ID
-    private Long computerRoomId;
     //设备ID
     private Long equipmentId;
     //  报修1类型ID
@@ -23,6 +21,7 @@ public class RepairOrder {
     private String repairPersonCall;
     //报修内容
     private String maintaindetail;
+
     //报修时间
     private Date repairTime;
     //是否紧急   0：不紧急 1表示紧急
@@ -62,14 +61,6 @@ public class RepairOrder {
 
     public void setOrganizationId( Long organizationId ) {
         this.organizationId = organizationId;
-    }
-
-    public Long getComputerRoomId() {
-        return computerRoomId;
-    }
-
-    public void setComputerRoomId( Long computerRoomId ) {
-        this.computerRoomId = computerRoomId;
     }
 
     public Long getEquipmentId() {
@@ -192,14 +183,20 @@ public class RepairOrder {
         this.createTime = createTime;
     }
 
-    public Boolean getPush() {
+   /* public Boolean getIsPush() {
         return isPush;
     }
 
-    public void setPush( Boolean push ) {
+    public void setIsPush( Boolean push ) {
+        isPush = push;
+    }*/
+   public Boolean getPush() {
+       return isPush;
+   }
+
+    public void setPush(Boolean push) {
         isPush = push;
     }
-
     public Boolean getLogicRemove() {
         return logicRemove;
     }

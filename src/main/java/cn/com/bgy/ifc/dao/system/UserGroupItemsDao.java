@@ -1,6 +1,8 @@
 package cn.com.bgy.ifc.dao.system;
 
 import cn.com.bgy.ifc.dao.base.BaseDao;
+import cn.com.bgy.ifc.entity.po.project.Project;
+import cn.com.bgy.ifc.entity.po.project.RegionInfo;
 import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
 
 import java.util.List;
@@ -23,5 +25,20 @@ public interface UserGroupItemsDao extends BaseDao<UserGroupItems> {
      * @date: 2019/1/8 16:52
      */
     int deleteByGroupId(Long groupId);
-
+    /**
+     * @description:通过groupId获取区域
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/10 9:21
+     */
+    List<RegionInfo> findRegionInfoByGroupId(Long id);
+    /**
+     * @description:通过groupId获取项目
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/10 9:21
+     */
+    List<Project> findProjectInfoByGroupId(Long id);
 }

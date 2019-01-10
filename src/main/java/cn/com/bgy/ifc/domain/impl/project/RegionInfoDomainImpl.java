@@ -245,7 +245,6 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
                 Map<String, Object> map1 = new HashMap<String, Object>();
                 map1.put("key",alphabets);
                 for (RegionInfo department : allList) {
-                    System.out.println(StringUtil.getFirstSpell(department.getName()));
                     if (StringUtil.getFirstSpell(department.getName()).equals(alphabets)) {
                         result.add(department);
                     }
