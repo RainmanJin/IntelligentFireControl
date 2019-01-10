@@ -1,10 +1,5 @@
 package cn.com.bgy.ifc.bgy.constant;
 
-import cn.com.bgy.ifc.entity.vo.common.SelectVo;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author: ZhangCheng
  * @description:系统日志类型常量
@@ -40,20 +35,4 @@ public enum SystemLogType {
         return name;
     }
 
-    /**
-     * @author: ZhangCheng
-     * @description:枚举中的属性转换为下拉列表List
-     * @param: []
-     * @return: java.util.List<cn.com.bgy.ifc.entity.vo.basic.SelectVo>
-     */
-    public static List<SelectVo> getSelectList() {
-        List<SelectVo> list = new ArrayList<>();
-        for (SystemLogType systemLogType : SystemLogType.values()) {
-            SelectVo selectVo = new SelectVo();
-            selectVo.setValue(String.valueOf(systemLogType.getValue()));
-            selectVo.setName(systemLogType.getName());
-            list.add(selectVo);
-        }
-        return list;
-    }
 }

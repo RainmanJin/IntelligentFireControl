@@ -30,10 +30,6 @@ public class EquipmentType implements Serializable {
     private Integer status;
     //逻辑删除
     private Boolean logicRemove;
-    /**
-     * equipment_type
-     */
-    private static final long serialVersionUID = 1L;
 
     /**
      * 系统自增Id

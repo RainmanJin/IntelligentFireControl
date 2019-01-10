@@ -83,34 +83,43 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
     @Override
     public ResponseVO<Object> saveBgyPermissionList(List<BgyUserPermissionVo> list, Long orgId) {
         try {
-            List<Account> accountList=accountDao.queryThirdList(orgId);
+            List<Account> accountList = accountDao.queryThirdList(orgId);
             List<UserGroupItems> groupList = new ArrayList<>();
             for (BgyUserPermissionVo bgyUserPermissionVo : list) {
-                List<BgyPermissionVo> permission = bgyUserPermissionVo.getPermission();
-                UserGroupItems group = new UserGroupItems();
-                group.setUserId(bgyUserPermissionVo.getId());
-                int voSize = permission.size();
-                int count=0;
-                if (voSize > 0) {
-                    for (int i = 0; i < voSize; i++) {
-                        int type = permission.get(i).getType();
-                        //区域
-                        if (type == 2) {
-                            group.setRegionId(permission.get(i).getBdId());
-                            count++;
-                        }
-                        //项目
-                        if (type == 3) {
-                            group.setProjectId(permission.get(i).getBdId());
-                            count++;
-                        }
+                Long accountId = 0L;
+                for (Account account : accountList) {
+                    if (bgyUserPermissionVo.getId().equals(account.getThirdUserId())) {
+                        accountId = account.getId();
+                        break;
                     }
                 }
-                if(count>0){
-                    groupList.add(group);
+                if (accountId > 0) {
+                    List<BgyPermissionVo> permission = bgyUserPermissionVo.getPermission();
+                    UserGroupItems group = new UserGroupItems();
+                    group.setUserId(accountId);
+                    int voSize = permission.size();
+                    int count = 0;
+                    if (voSize > 0) {
+                        for (int i = 0; i < voSize; i++) {
+                            int type = permission.get(i).getType();
+                            //区域
+                            if (type == 2) {
+                                group.setRegionId(permission.get(i).getBdId());
+                                count++;
+                            }
+                            //项目
+                            if (type == 3) {
+                                group.setProjectId(permission.get(i).getBdId());
+                                count++;
+                            }
+                        }
+                    }
+                    if (count > 0) {
+                        groupList.add(group);
+                    }
                 }
             }
-           int groupSize = groupList.size();
+            int groupSize = groupList.size();
             if (groupSize > 0) {
                 int sumCount = DbUtil.insertByList("user_group_items", groupList);
                 if (sumCount != groupList.size()) {
@@ -123,7 +132,7 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
                 return ResponseVO.error().setMsg("暂无集成平台用户权限数据同步");
             }
         } catch (Exception e) {
-            logger.error("同步集成平台用户权限doMain异常:",e);
+            logger.error("同步集成平台用户权限doMain异常:", e);
             return ResponseVO.error().setMsg("同步集成平台用户权限异常");
         }
     }
@@ -131,15 +140,24 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
     @Transactional(rollbackFor = {RuntimeException.class})
     @Override
     public ResponseVO<Object> alterBgyPermissionList(List<BgyUserPermissionVo> list, Long orgId) {
-            int addType = ExternalConstant.OperationType.ADD.getValue();
-            int updateType = ExternalConstant.OperationType.UPDATE.getValue();
-            int deleteType = ExternalConstant.OperationType.DELETE.getValue();
-            int addCount = 0;
-            int updateCount = 0;
-            int deleteCount = 0;
-            int totalCount = list.size();
-            for (BgyUserPermissionVo bgyUserPermissionVo : list) {
-                List<BgyPermissionVo> permission = bgyUserPermissionVo.getPermission();
+        int addType = ExternalConstant.OperationType.ADD.getValue();
+        int updateType = ExternalConstant.OperationType.UPDATE.getValue();
+        int deleteType = ExternalConstant.OperationType.DELETE.getValue();
+        int addCount = 0;
+        int updateCount = 0;
+        int deleteCount = 0;
+        int totalCount = list.size();
+        List<Account> accountList = accountDao.queryThirdList(orgId);
+        for (BgyUserPermissionVo bgyUserPermissionVo : list) {
+            List<BgyPermissionVo> permission = bgyUserPermissionVo.getPermission();
+            Long accountId = 0L;
+            for (Account account : accountList) {
+                if (bgyUserPermissionVo.getId().equals(account.getThirdUserId())) {
+                    accountId = account.getId();
+                    break;
+                }
+            }
+            if (accountId > 0) {
                 Long userId = bgyUserPermissionVo.getId();
                 UserGroupItems myItems = userGroupItemsDao.findByUserId(userId);
                 UserGroupItems group = new UserGroupItems();
@@ -187,7 +205,6 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
                             addCount++;
                         }
                     }
-
                 }
                 //修改
                 if (operType == updateType) {
@@ -212,13 +229,14 @@ public class UserGroupItemsDomainImpl implements UserGroupItemsDomain {
                     }
                 }
             }
-            if (addCount + updateCount + deleteCount != totalCount) {
-                throw new RuntimeException("批量同步用户权限增量数据失败!");
-            } else {
-                int msgType = ExternalConstant.MsgTypeValue.BGY_PERMISSION_OBTAIN.getValue();
-                externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
-                return ResponseVO.success().setMsg("同步集成平台用户总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
-            }
+        }
+        if (addCount + updateCount + deleteCount != totalCount) {
+            throw new RuntimeException("批量同步用户权限增量数据失败!");
+        } else {
+            int msgType = ExternalConstant.MsgTypeValue.BGY_PERMISSION_OBTAIN.getValue();
+            externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
+            return ResponseVO.success().setMsg("同步集成平台用户总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
+        }
     }
 
     @Override

@@ -80,6 +80,35 @@ public class EquipmentInfo extends RegionAndBrand {
 
     private Boolean logicRemove;
 
+    /**
+     * 物联设备状态信息ID
+     */
+    private Long equipmentStateId;
+
+    /**
+     * OneNet平台设备ID
+     */
+    private String platformDeviceId;
+
+    /**
+     * 三方设备ID，如：序列号，IMEI号，MAC地址等
+     */
+    private String thirdDeviceId;
+
+    /**
+     * 上级设备ID
+     */
+    private Long superiorId;
+    /**
+     * 区号
+     */
+    private Integer partitionNum;
+
+    /**
+     * 位号
+     */
+    private Integer positionNum;
+
     public Long getId() {
         return id;
     }
@@ -206,5 +235,53 @@ public class EquipmentInfo extends RegionAndBrand {
 
     public void setLogicRemove( Boolean logicRemove ) {
         this.logicRemove = logicRemove;
+    }
+
+    public Long getSuperiorId() {
+        return superiorId;
+    }
+
+    public void setSuperiorId(Long superiorId) {
+        this.superiorId = superiorId;
+    }
+
+    public Integer getPartitionNum() {
+        return partitionNum;
+    }
+
+    public void setPartitionNum(Integer partitionNum) {
+        this.partitionNum = partitionNum;
+    }
+
+    public Integer getPositionNum() {
+        return positionNum;
+    }
+
+    public void setPositionNum(Integer positionNum) {
+        this.positionNum = positionNum;
+    }
+
+    public String getPlatformDeviceId() {
+        return platformDeviceId;
+    }
+
+    public void setPlatformDeviceId(String platformDeviceId) {
+        this.platformDeviceId = platformDeviceId;
+    }
+
+    public String getThirdDeviceId() {
+        return thirdDeviceId;
+    }
+
+    public void setThirdDeviceId(String thirdDeviceId) {
+        this.thirdDeviceId = thirdDeviceId;
+    }
+
+    public Long getEquipmentStateId() {
+        return equipmentStateId;
+    }
+
+    public void setEquipmentStateId(Long equipmentStateId) {
+        this.equipmentStateId = equipmentStateId;
     }
 }

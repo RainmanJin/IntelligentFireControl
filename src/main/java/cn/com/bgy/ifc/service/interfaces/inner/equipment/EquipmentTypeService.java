@@ -15,18 +15,19 @@ import java.util.Map;
 
 public interface EquipmentTypeService {
 
-    PageInfo<Object> queryListEquipmentType(Page page,String keyword);
+    PageInfo<Object> queryListEquipmentType(Page page, String keyword);
 
-    int addEquipmentType( EquipmentType equipmentType );
+    int addEquipmentType(EquipmentType equipmentType);
 
-    int updateEquipmentType( EquipmentType equipmentType );
+    int updateEquipmentType(EquipmentType equipmentType);
 
-    int deleteEquipmentType( String str );
+    int deleteEquipmentType(String str);
 
+    List<Map<String, Object>> queryEquipmentTypeBySuperId(Long id);
 
-    List<Map<String,Object>> queryEquipmentTypeBySuperId( Long id );
+    Map<String, Object> findById(Long id);
 
-    Map<String,Object> findById( Long id );
+    List<Map<String, Object>> queryAllEquipmentType();
 
-    List<Map<String,Object>> queryAllEquipmentType();
+    List<EquipmentType>  queryAllList();
 }

@@ -46,22 +46,6 @@ public interface AccountDomain extends BaseDomain<Account> {
     int deleteById(Long id);
 
     /**
-     * 根据id查找用户
-     *
-     * @param id
-     * @return
-     */
-    Account findById(Long id);
-
-    /**
-     * 根据id更新用户
-     *
-     * @param account
-     * @return
-     */
-    int update(Account account);
-
-    /**
      * 根据电话称查询用户对象
      *
      * @param telephone

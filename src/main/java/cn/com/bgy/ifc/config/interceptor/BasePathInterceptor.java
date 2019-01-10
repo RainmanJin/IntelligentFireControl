@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BasePathInterceptor extends HandlerInterceptorAdapter {
+
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 

@@ -18,4 +18,11 @@ public interface EquipmentTypeDao extends BaseDao<EquipmentType> {
     Long queryBySuperIdRtrueSuperId( Long id );
 
     List<Map<String,Object>> queryAllEquipmentType();
+
+    /**
+     * 查询所有设备类型
+     * @param equipmentType
+     * @return
+     */
+    List<EquipmentType>  queryAllList(EquipmentType equipmentType);
 }

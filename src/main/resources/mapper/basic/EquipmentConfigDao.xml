@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.equipment.EquipmentConfigDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="value_type" jdbcType="INTEGER" property="valueType"/>
+        <result column="value_unit_type" jdbcType="INTEGER" property="valueUnitType"/>
+        <result column="value_threshold_max" jdbcType="REAL" property="valueThresholdMax"/>
+        <result column="value_threshold_min" jdbcType="REAL" property="valueThresholdMin"/>
+        <result column="heartbeat_interval" jdbcType="INTEGER" property="heartbeatInterval"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig">
+    insert into equipment_config (id, type, value_type, 
+      value_unit_type, value_threshold_max, value_threshold_min, 
+      heartbeat_interval)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{valueType,jdbcType=INTEGER}, 
+      #{valueUnitType,jdbcType=INTEGER}, #{valueThresholdMax,jdbcType=REAL}, #{valueThresholdMin,jdbcType=REAL}, 
+      #{heartbeatInterval,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig">
+        insert into equipment_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="valueType != null">
+                value_type,
+            </if>
+            <if test="valueUnitType != null">
+                value_unit_type,
+            </if>
+            <if test="valueThresholdMax != null">
+                value_threshold_max,
+            </if>
+            <if test="valueThresholdMin != null">
+                value_threshold_min,
+            </if>
+            <if test="heartbeatInterval != null">
+                heartbeat_interval,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="valueType != null">
+                #{valueType,jdbcType=INTEGER},
+            </if>
+            <if test="valueUnitType != null">
+                #{valueUnitType,jdbcType=INTEGER},
+            </if>
+            <if test="valueThresholdMax != null">
+                #{valueThresholdMax,jdbcType=REAL},
+            </if>
+            <if test="valueThresholdMin != null">
+                #{valueThresholdMin,jdbcType=REAL},
+            </if>
+            <if test="heartbeatInterval != null">
+                #{heartbeatInterval,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig">
+        UPDATE equipment_config
+        <set>
+            type= #{type,jdbcType=INTEGER},
+            value_type= #{valueType,jdbcType=INTEGER},
+            value_unit_type=#{valueUnitType,jdbcType=INTEGER},
+            value_threshold_max=#{valueThresholdMax,jdbcType=REAL},
+            value_threshold_min=#{valueThresholdMin,jdbcType=REAL},
+            heartbeat_interval=#{heartbeatInterval,jdbcType=INTEGER}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig">
+        UPDATE equipment_config
+        <set>
+            <if test="type != null">
+                type= #{type,jdbcType=INTEGER},
+            </if>
+            <if test="valueType != null">
+                value_type= #{valueType,jdbcType=INTEGER},
+            </if>
+            <if test="valueUnitType != null">
+                value_unit_type=#{valueUnitType,jdbcType=INTEGER},
+            </if>
+            <if test="valueThresholdMax != null">
+                value_threshold_max=#{valueThresholdMax,jdbcType=REAL},
+            </if>
+            <if test="valueThresholdMin != null">
+                value_threshold_min=#{valueThresholdMin,jdbcType=REAL},
+            </if>
+            <if test="heartbeatInterval != null">
+                heartbeat_interval=#{heartbeatInterval,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteBatch" parameterType="java.util.List">
+        <![CDATA[
+       DELETE FROM equipment_config WHERE id IN
+    	]]>
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

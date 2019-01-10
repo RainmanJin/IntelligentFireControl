@@ -2,7 +2,6 @@ package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
-import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
@@ -39,12 +38,12 @@ public class ExternalInterfaceConfigController extends BaseController {
      * @author: ZhangCheng
      * @description:分页查询外部接口配置
      * @param: [page, platformValue]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo   <   cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo       <       cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig>>
      */
     @GetMapping("queryPage")
     public ResponseVO<PageInfo<ExternalInterfaceConfig>> searchPage(Page<ExternalInterfaceConfig> page, Integer platformValue) {
         Long orgId = this.getUser().getOrganizationId();
-        PageInfo<ExternalInterfaceConfig> pageInfo = externalInterfaceConfigService.queryListByPage(page, platformValue,orgId);
+        PageInfo<ExternalInterfaceConfig> pageInfo = externalInterfaceConfigService.queryListByPage(page, platformValue, orgId);
         return ResponseVO.<PageInfo<ExternalInterfaceConfig>>success().setData(pageInfo);
     }
 
@@ -93,7 +92,7 @@ public class ExternalInterfaceConfigController extends BaseController {
         }
         ExternalInterfaceConfig config = new ExternalInterfaceConfig();
         CopyUtil.copyProperties(externalInterfaceConfigVo, config);
-        int result=externalInterfaceConfigService.insertSelective(config);
+        int result = externalInterfaceConfigService.insertSelective(config);
         if (result == 1) {
             return ResponseVO.addSuccess();
         } else {

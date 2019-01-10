@@ -12,8 +12,6 @@ public interface SystemRoleDomain extends BaseDomain<SystemRole> {
 
     List<SystemRole> queryAllList(SystemRoleVo record);
 
-    SystemRole findById(Long id);
-
     /**
      * 根据用户id查询系统角色（下拉展示）
      * @param userId

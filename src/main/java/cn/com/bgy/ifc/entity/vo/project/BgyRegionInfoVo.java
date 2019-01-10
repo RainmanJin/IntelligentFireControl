@@ -44,22 +44,6 @@ public class BgyRegionInfoVo extends BgyBaseVo {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 集成平台Id
-     * @return id 集成平台Id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * 集成平台Id
-     * @param id 集成平台Id
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
      * 机构表Id，用于区分平台
      * @return organization_id 机构表Id，用于区分平台
      */

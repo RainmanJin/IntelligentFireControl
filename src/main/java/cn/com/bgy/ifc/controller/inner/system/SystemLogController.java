@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
+import cn.com.bgy.ifc.bgy.utils.EnumUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.system.SystemOperationLog;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -42,12 +43,12 @@ public class SystemLogController extends BaseController {
     /**
      * @author: ZhangCheng
      * @description:获取日志类型枚举
-     * @param: [token]
+     * @param:
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @GetMapping("getLogType")
     public ResponseVO<Object> getLogType() {
-        List<SelectVo> list = SystemLogType.getSelectList();
+        List<SelectVo> list = EnumUtil.getSelectList(SystemLogType.class);
         return ResponseVO.success().setData(list);
     }
 }

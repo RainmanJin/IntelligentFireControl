@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.equipment.EquipmentTypeDao">
     <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentType">
-        <result column="id" jdbcType="BIGINT" property="id" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentType">
@@ -72,19 +72,19 @@
     <select id="queryListEquipmentType" resultType="java.util.Map" parameterType="java.util.Map">
         SELECT
         t.id as id,t.`name` as name,t.parent_id as parentId ,e.`name` as parentName,t.`status` as `status`
-      FROM (SELECT id,`name`,parent_id,`status`,logic_remove FROM equipment_type) as t
-      LEFT JOIN equipment_type e ON t.parent_id = e.id
+        FROM (SELECT id,`name`,parent_id,`status`,logic_remove FROM equipment_type) as t
+        LEFT JOIN equipment_type e ON t.parent_id = e.id
 
         <where>
             <if test="keyword != null and keyword !='' ">
                 AND (t.`name` LIKE concat('%',#{keyword},'%') OR e.`name` LIKE concat('%',#{keyword},'%'))
             </if>
-            AND  t.logic_remove = 0
+            AND t.logic_remove = 0
         </where>
 
     </select>
     <update id="deleteEquipmentType" parameterType="java.util.List">
-        UPDATE   equipment_type set logic_remove =1  where id IN
+        UPDATE equipment_type set logic_remove =1 where id IN
         <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
@@ -108,5 +108,21 @@
 
     <select id="queryAllEquipmentType" resultType="java.util.Map">
         SELECT id,name FROM equipment_type WHERE logic_remove=0
+    </select>
+
+    <select id="queryAllList" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentType"
+            resultMap="BaseResultMap">
+        SELECT
+        id, name, parent_id,
+        status,logic_remove
+        FROM equipment_type
+        <where>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="logicRemove != null and logicRemove != ''">
+                AND logic_remove = #{logicRemove}
+            </if>
+        </where>
     </select>
 </mapper>

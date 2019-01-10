@@ -18,6 +18,12 @@
         <result column="api_code" jdbcType="VARCHAR" property="apiCode"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
         <result column="description" jdbcType="LONGVARCHAR" property="description"/>
+        <result column="equipment_state_id" jdbcType="BIGINT" property="equipmentStateId"/>
+        <result column="platform_device_id" jdbcType="VARCHAR" property="platformDeviceId"/>
+        <result column="third_device_id" jdbcType="VARCHAR" property="thirdDeviceId"/>
+        <result column="superior_id" jdbcType="BIGINT" property="superiorId"/>
+        <result column="partition_num" jdbcType="INTEGER" property="partitionNum"/>
+        <result column="position_num" jdbcType="INTEGER" property="positionNum"/>
     </resultMap>
     <sql id="Blob_Column_List">
     description
@@ -85,6 +91,24 @@
             <if test="logicRemove != null">
                 logic_remove,
             </if>
+            <if test="equipmentStateId != null">
+                equipment_state_id,
+            </if>
+            <if test="platformDeviceId != null">
+                platform_device_id,
+            </if>
+            <if test="thirdDeviceId != null">
+                third_device_id,
+            </if>
+            <if test="superiorId != null">
+                superior_id,
+            </if>
+            <if test="partitionNum != null">
+                partition_num,
+            </if>
+            <if test="positionNum != null">
+                position_num,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -135,6 +159,24 @@
             <if test="logicRemove != null">
                 #{logicRemove,jdbcType=BIT},
             </if>
+            <if test="equipmentStateId != null">
+                #{equipmentStateId,jdbcType=BIGINT},
+            </if>
+            <if test="platformDeviceId != null">
+                #{platformDeviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="thirdDeviceId != null">
+                #{thirdDeviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="superiorId != null">
+                #{superiorId,jdbcType=BIGINT},
+            </if>
+            <if test="partitionNum != null">
+                #{partitionNum,jdbcType=INTEGER},
+            </if>
+            <if test="positionNum != null">
+               #{positionNum,jdbcType=INTEGER},
+            </if>
         </trim>
     </insert>
     <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
@@ -183,6 +225,24 @@
                 description= #{description,jdbcType=LONGVARCHAR},
             </if>
             <if test="logicRemove != null">logic_remove =#{logicRemove},</if>
+            <if test="equipmentStateId != null">
+                equipment_state_id= #{equipmentStateId,jdbcType=BIGINT},
+            </if>
+            <if test="platformDeviceId != null">
+                platform_device_id=#{platformDeviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="thirdDeviceId != null">
+                third_device_id= #{thirdDeviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="superiorId != null">
+                superior_id=#{superiorId,jdbcType=BIGINT},
+            </if>
+            <if test="partitionNum != null">
+                partition_num=#{partitionNum,jdbcType=INTEGER},
+            </if>
+            <if test="positionNum != null">
+                position_num=#{positionNum,jdbcType=INTEGER},
+            </if>
         </set>
         WHERE id
         = #{id}

@@ -88,4 +88,12 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
         return equipmentTypeDao.queryAllEquipmentType();
     }
 
+    @Override
+    public List<EquipmentType> queryAllList() {
+        EquipmentType equipmentType=new EquipmentType();
+        equipmentType.setStatus(1);
+        equipmentType.setLogicRemove(false);
+        return equipmentTypeDao.queryAllList(equipmentType);
+    }
+
 }
