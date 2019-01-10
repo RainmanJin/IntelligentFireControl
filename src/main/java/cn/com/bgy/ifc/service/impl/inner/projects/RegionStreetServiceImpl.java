@@ -37,7 +37,7 @@ public class RegionStreetServiceImpl implements RegionStreetService {
      */
     @Override
     public PageInfo queryListRegionStreet( Page page, RegionStreetVo record ) {
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Map<String,Object>> list=  regionStreetDomain.queryListRegionStreet(record);
         return  new PageInfo(list);
     }

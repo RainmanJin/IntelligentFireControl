@@ -50,7 +50,7 @@ public class EquipmentVersionDomainImpl implements EquipmentVersionDomain {
         Map<String,Object> map = new HashMap<>();
         map.put("brandID",brandID);
         map.put("keyword",keyword);
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Map<String,Object>> list = equipmentVersionDao.queryListEquipmentVersion(map);
         return new PageInfo(list);
     }

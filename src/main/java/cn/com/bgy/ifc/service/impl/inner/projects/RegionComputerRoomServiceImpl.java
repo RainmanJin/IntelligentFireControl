@@ -47,7 +47,7 @@ public class RegionComputerRoomServiceImpl implements RegionComputerRoomService 
 //        record.setRegionId(userGroupItems.getRegionId());
 //        record.setProjectId(userGroupItems.getProjectId());
 
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Map<String,Object>> list=  regionComputerRoomDomain.queryListRegionComputerRoom(record);
         return  new PageInfo(list);
 

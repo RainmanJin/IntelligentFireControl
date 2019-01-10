@@ -46,7 +46,7 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
      */
     @Override
     public PageInfo queryListEquipmentBrand(Page page, String keyword) {
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
         Map<String, Object> map = new HashMap<>();
         map.put("keyword", keyword);
         List<Map<String, Object>> list = equipmentBrandDao.queryListEquipmentBrand(map);
