@@ -202,7 +202,7 @@
         rc.id as courtId,
         rs.id as streetId,
         rb.id as buildingId,
-        CONCAT(ri.`name`,rp.`name`,rc.`name`,rs.`name`,rb.`name`) as address,
+        CONCAT(IFNULL(ri.`name`,''),IFNULL(rp.`name`,''),IFNULL(rc.`name`,''),IFNULL(rs.`name`,''),IFNULL(rb.`name`,'')) as address,
         ei.`name` as name,
         ei.input_code as inputCode,
         et.id as typeId,et.`name` as typeName,

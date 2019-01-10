@@ -146,7 +146,7 @@
     <select id="queryListRegionComputerRoom" parameterType="cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO" resultType="java.util.Map">
         SELECT
         cr.id as id,cr.organization_id as organizationId,cr.`name` as name,
-        cr.code as code,CONCAT(c.name,s.name,b.name) as description,cr.create_time as createTime,
+        cr.code as code,CONCAT(IFNULL(c.name,''),IFNULL(s.name,''),IFNULL(b.name,'')) as description,cr.create_time as createTime,
         cr.region_id as regionId,i.`name` as regionName,
         cr.project_id as projectId,p.`name` as projectName
         FROM region_computer_room cr

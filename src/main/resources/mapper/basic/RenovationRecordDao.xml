@@ -231,7 +231,7 @@
     <select id="queryRenovationRecordList" parameterType="java.util.Map" resultType="java.util.Map">
             SELECT
                 rr.id,
-                CONCAT(br.region_name,br.project_name,br.court_name,br.street_name,br.building_name) as region,
+                CONCAT(IFNULL(br.region_name,''),IFNULL(br.project_name,''),IFNULL(br.court_name,''),IFNULL(br.street_name,''),IFNULL(br.building_name,'')) as region,
                 rr.address AS address,rr.acreage AS nature,rr.property_owner as propertyOwner,rr.proposer AS proposer,
                 rr.decoration_method AS decorationMethod,rr.`is_fire` AS isFire,rr.is_fire_facilities AS isFacilities,
                 rr.create_time AS createTime
