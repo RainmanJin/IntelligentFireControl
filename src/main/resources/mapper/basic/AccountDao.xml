@@ -251,43 +251,6 @@
       </if>
       <if test="registTimeEnd != null">
         <![CDATA[
-        <where>
-            <if test="telephone != null">
-                and t1.telephone= #{telephone,jdbcType=VARCHAR}
-            </if>
-            <if test="jobNumber != null">
-                and t1.job_number #{jobNumber,jdbcType=VARCHAR}
-            </if>
-            <if test="userName != null">
-                and t1.user_name #{userName,jdbcType=VARCHAR}
-            </if>
-            <if test="organizationId != null ">
-                and t1.organization_id=#{organizationId}
-            </if>
-            <if test="departmentId != null ">
-                and t1.department_id=#{departmentId}
-            </if>
-            <if test="sex != null ">
-                and t1.sex=#{sex}
-            </if>
-            <if test="currentTime != null ">
-                and t1.current_time=#{currentTime}
-            </if>
-            <if test="lastTime != null ">
-                and t1.last_time=#{lastTime}
-            </if>
-            <if test="keyWords != null and '' != keyWords">
-                AND (t1.user_name like CONCAT('%',#{keyWords},'%')
-                OR t1.job_number like CONCAT('%',#{keyWords},'%')
-                OR t1.identity_number like CONCAT('%',#{keyWords},'%')
-                OR t3.name like CONCAT('%',#{keyWords},'%')
-                )
-            </if>
-            <if test="registTimeStart != null">
-                <![CDATA[ and regist_time>=#{registTimeStart,jdbcType=TIMESTAMP} ]]>
-            </if>
-            <if test="registTimeEnd != null">
-                <![CDATA[
          and  regist_time<=#{registTimeEnd,jdbcType=TIMESTAMP}
         ]]>
       </if>
