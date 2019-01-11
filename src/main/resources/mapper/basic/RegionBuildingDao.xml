@@ -93,7 +93,7 @@
     b.street_id as streetId,s.`name` as streetName,
     b.create_time as createTime
     from region_building b
-    LEFT JOIN region_info i on b.region_id = i.idAND i.logic_remove = 0
+    LEFT JOIN region_info i on b.region_id = i.id AND i.logic_remove = 0
     LEFT JOIN region_project p on b.project_id = p.id AND p.region_id = i.id AND p.logic_remove = 0
     LEFT JOIN region_court c on b.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id  AND c.logic_remove = 0
     LEFT JOIN region_street s on b.street_id = s.id AND s.region_id =i.id AND s.project_id = p.id AND s.court_id = c.id  AND s.logic_remove = 0
@@ -159,7 +159,7 @@
     b.court_id as courtId,c.`name` as courtName,
     b.street_id as streetId,s.`name` as streetName
     from region_building b
-    LEFT JOIN region_info i on b.region_id = i.idAND i.logic_remove = 0
+    LEFT JOIN region_info i on b.region_id = i.id AND i.logic_remove = 0
     LEFT JOIN region_project p on b.project_id = p.id AND p.region_id = i.id AND p.logic_remove = 0
     LEFT JOIN region_court c on b.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id  AND c.logic_remove = 0
     LEFT JOIN region_street s on b.street_id = s.id AND s.region_id =i.id AND s.project_id = p.id AND s.court_id = c.id  AND s.logic_remove = 0
