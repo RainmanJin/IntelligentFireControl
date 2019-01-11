@@ -82,7 +82,11 @@ public class EquipmentVersionDomainImpl implements EquipmentVersionDomain {
     @Override
     public int deleteEquipmentVersion( String str ) {
         List<Long> list = ListUtil.getListId(str);
-        return equipmentVersionDao.deleteEquipmentVersion(list);
+        if(list.size()>0){
+            return equipmentVersionDao.deleteEquipmentVersion(list);
+        }
+        return 0;
+
     }
 
 

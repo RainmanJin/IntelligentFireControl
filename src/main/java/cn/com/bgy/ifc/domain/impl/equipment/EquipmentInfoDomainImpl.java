@@ -178,7 +178,11 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
 
     public int deleteEquipmentInfo(String str) {
         List<Long> list = ListUtil.getListId(str);
-        return equipmentInfoDao.deleteEquipmentInfo(list);
+        if(list.size()>0){
+            return equipmentInfoDao.deleteEquipmentInfo(list);
+        }
+        return 0;
+
     }
 
     /**

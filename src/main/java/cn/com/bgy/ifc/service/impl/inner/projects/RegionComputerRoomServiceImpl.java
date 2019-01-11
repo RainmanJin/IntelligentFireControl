@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.service.impl.inner.projects;
 
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.project.RegionComputerRoomDao;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionComputerRoomDomain;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -77,12 +77,9 @@ public class RegionComputerRoomServiceImpl implements RegionComputerRoomService 
      */
     @Override
     public int deleteRegionComputerRoom( String str ) {
-        List<Long> list = new ArrayList<>();
-        String arr[] = str.split(",");
-        if(arr.length>0){
-            for (int i = 0; i <arr.length ; i++) {
-                list.add(Long.valueOf(arr[i]));
-            }
+        List<Long> list = ListUtil.getListId(str);
+
+        if(list.size()>0){
             return regionComputerRoomDomain.deleteRegionComputerRoom(list);
         }
         return 0;

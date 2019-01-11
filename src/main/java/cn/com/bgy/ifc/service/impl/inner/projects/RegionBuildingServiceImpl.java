@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.service.impl.inner.projects;
 
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.project.RegionBuildingDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionBuildingDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -71,12 +71,9 @@ public class RegionBuildingServiceImpl implements RegionBuildingService {
     @Override
     public int deleteRegionBuilding( String str ) {
 
-        List<Long> list = new ArrayList<>();
-        String arr[] = str.split(",");
-        if(arr.length>0){
-            for (int i = 0; i <arr.length ; i++) {
-                list.add(Long.valueOf(arr[i]));
-            }
+        List<Long> list = ListUtil.getListId(str);
+
+        if(list.size()>0){
             return regionBuildingDomain.deleteRegionStreet(list);
         }
         return 0;

@@ -171,7 +171,11 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
     @Override
     public int deleteEquipmentType( String str ) {
         List<Long> list  = ListUtil.getListId(str);
-        return equipmentTypeDao.deleteEquipmentType(list);
+        if(list.size()>0){
+            return equipmentTypeDao.deleteEquipmentType(list);
+        }
+        return 0;
+
     }
     /**
      * @Author huxin
