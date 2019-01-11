@@ -79,7 +79,7 @@
         </foreach>
     </update>
     <select id="queryAllEquipmentBrand" resultType="java.util.Map">
-        SELECT id,name FROM equipment_brand WHERE `status` in(0,1)
+        SELECT id,name FROM equipment_brand WHERE `status` =0
     </select>
     <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
         SELECT id,name,description FROM equipment_brand

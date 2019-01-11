@@ -107,7 +107,7 @@
     </select>
 
     <select id="queryAllEquipmentType" resultType="java.util.Map">
-        SELECT id,name FROM equipment_type WHERE logic_remove=0
+        SELECT id,name FROM equipment_type WHERE logic_remove=0  AND status=1
     </select>
 
     <select id="queryAllList" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentType"

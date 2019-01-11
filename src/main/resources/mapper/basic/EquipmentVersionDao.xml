@@ -108,7 +108,8 @@
         </foreach>
     </update>
     <select id="queryEquipmentVersionByBrandId" parameterType="java.lang.Long" resultType="java.util.Map">
-        SELECT id,name,brand_id FROM equipment_version WHERE logic_remove = 0 AND brand_id=#{id,jdbcType=BIGINT}
+        SELECT id,name,brand_id FROM equipment_version WHERE logic_remove = 0
+        AND status = 1  AND brand_id=#{id,jdbcType=BIGINT}
     </select>
 
     <select id="queryEquipmentVersionIdByBrandId" parameterType="java.util.List" resultType="java.util.List">
