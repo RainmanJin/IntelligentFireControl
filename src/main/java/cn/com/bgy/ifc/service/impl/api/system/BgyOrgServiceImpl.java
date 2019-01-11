@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.service.impl.api.project;
+package cn.com.bgy.ifc.service.impl.api.system;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
@@ -16,7 +16,7 @@ import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.HttpVo;
 import cn.com.bgy.ifc.entity.vo.project.BgyOrgVo;
-import cn.com.bgy.ifc.service.interfaces.api.project.BgyOrgService;
+import cn.com.bgy.ifc.service.interfaces.api.system.BgyOrgService;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

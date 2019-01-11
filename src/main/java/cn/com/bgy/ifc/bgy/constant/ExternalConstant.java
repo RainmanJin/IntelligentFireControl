@@ -80,7 +80,7 @@ public class ExternalConstant {
         //碧桂园集成平台接口
         INTEGERATED_PLATFORM(1, "碧桂园集成平台接口"),
         //物联网设备接口
-        INTERNET_THING_EQUIPMENT(2,"物联网设备接口");
+        INTERNET_THING_EQUIPMENT(2,"中联永安设备接口");
 
         private Integer value;
 

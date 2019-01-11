@@ -68,6 +68,34 @@
         </trim>
     </insert>
 
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig"
+            resultMap="BaseResultMap">
+        SELECT
+        id, type, value_type,
+        value_unit_type, value_threshold_max, value_threshold_min,
+        heartbeat_interval
+        FROM equipment_config
+        <where>
+            <if test="type != null and type != ''">
+                AND type = #{type}
+            </if>
+            <if test="valueType != null and valueType != ''">
+                AND value_type = #{valueType}
+            </if>
+            <if test="valueUnitType != null and valueUnitType != ''">
+                AND value_unit_type = #{valueUnitType}
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+        id, type, value_type,
+        value_unit_type, value_threshold_max, value_threshold_min,
+        heartbeat_interval
+        FROM equipment_config  WHERE id = #{id}
+    </select>
+
     <update id="update" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig">
         UPDATE equipment_config
         <set>

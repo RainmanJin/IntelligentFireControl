@@ -20,6 +20,7 @@ import cn.com.bgy.ifc.entity.vo.system.BgyUserPermissionVo;
 import cn.com.bgy.ifc.entity.vo.system.BgyUserVo;
 import cn.com.bgy.ifc.service.interfaces.api.system.UserApiService;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +72,8 @@ public class UserApiServiceImpl implements UserApiService {
             if (response != null) {
                 //data作为key获取JSONObject
                 // statusCode
-                String statusCode = response.getString("statusCode");
-                if (!"200".equals(statusCode)) {
+                Integer statusCode=response.getInteger("statusCode");
+                if (HttpStatus.SC_OK!=statusCode) {
                     String info = response.getString("info");
                     return ResponseVO.error().setMsg(info);
                 }

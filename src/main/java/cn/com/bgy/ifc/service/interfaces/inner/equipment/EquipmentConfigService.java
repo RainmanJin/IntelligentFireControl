@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig;
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.base.BaseService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -12,5 +13,25 @@ import com.github.pagehelper.PageInfo;
  **/
 public interface EquipmentConfigService extends BaseService<EquipmentConfig> {
 
+    /**
+     * 设备配置信息分页查询
+     * @param page
+     * @param equipmentConfig
+     * @return
+     */
     PageInfo<EquipmentConfig> queryListByPage(Page page, EquipmentConfig equipmentConfig);
+
+    /**
+     * 设备配置信息编辑
+     * @param equipmentConfig
+     * @return
+     */
+    ResponseVO<Object> createEquipmentConfig(EquipmentConfig equipmentConfig);
+
+    /**
+     * 设备配置信息编辑
+     * @param equipmentConfig
+     * @return
+     */
+    ResponseVO<Object> editEquipmentConfig(EquipmentConfig equipmentConfig);
 }

@@ -83,12 +83,7 @@ public class EquipmentConfigController {
         }
         EquipmentConfig equipmentConfig = new EquipmentConfig();
         CopyUtil.copyProperties(equipmentConfigVo, equipmentConfig);
-        int result = equipmentConfigService.insertSelective(equipmentConfig);
-        if (result == 1) {
-            return ResponseVO.addSuccess();
-        } else {
-            return ResponseVO.addError();
-        }
+        return equipmentConfigService.createEquipmentConfig(equipmentConfig);
     }
 
     /**
@@ -158,7 +153,7 @@ public class EquipmentConfigController {
      */
     @PostMapping("deleteData")
     @SystemLogAfterSave(description = "删除设备配置信息")
-    public ResponseVO<Object> deleteBatch(String ids) {
+    public ResponseVO<Object> deleteData(String ids) {
         if (ids.length() == 0) {
             return ResponseVO.deleteError();
         }

@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.bgy.task;
 
 import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyEquipmentService;
 import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyMachineRoomService;
-import cn.com.bgy.ifc.service.interfaces.api.project.BgyOrgService;
+import cn.com.bgy.ifc.service.interfaces.api.system.BgyOrgService;
 import cn.com.bgy.ifc.service.interfaces.api.project.BgyProjectService;
 import cn.com.bgy.ifc.service.interfaces.api.project.BgyRegionInfoService;
 import cn.com.bgy.ifc.service.interfaces.api.system.UserApiService;
