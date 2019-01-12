@@ -2,27 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.equipment.EquipmentStateDao">
     <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
-        <result column="id" jdbcType="BIGINT" property="id"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="type" jdbcType="INTEGER" property="type"/>
-        <result column="status" jdbcType="INTEGER" property="status"/>
-        <result column="status_desc" jdbcType="VARCHAR" property="statusDesc"/>
-        <result column="partition_num" jdbcType="INTEGER" property="partitionNum"/>
-        <result column="position_num" jdbcType="INTEGER" property="positionNum"/>
-        <result column="superior_id" jdbcType="INTEGER" property="superiorId"/>
-        <result column="online" jdbcType="BIT" property="online"/>
-        <result column="online_time_out" jdbcType="INTEGER" property="onlineTimeOut"/>
-        <result column="platform_device_id" jdbcType="VARCHAR" property="platformDeviceId"/>
-        <result column="third_device_id" jdbcType="VARCHAR" property="thirdDeviceId"/>
-        <result column="value_threshold_max" jdbcType="REAL" property="valueThresholdMax"/>
-        <result column="value_threshold_min" jdbcType="REAL" property="valueThresholdMin"/>
-        <result column="cap" jdbcType="BIT" property="cap"/>
-        <result column="tilt" jdbcType="BIT" property="tilt"/>
-        <result column="battery" jdbcType="INTEGER" property="battery"/>
-        <result column="hit" jdbcType="BIT" property="hit"/>
-        <result column="water_pressure" jdbcType="REAL" property="waterPressure"/>
-        <result column="valve" jdbcType="BIT" property="valve"/>
-        <result column="flow" jdbcType="REAL" property="flow"/>
+        <result column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="status_desc" jdbcType="VARCHAR" property="statusDesc" />
+        <result column="partition_num" jdbcType="INTEGER" property="partitionNum" />
+        <result column="position_num" jdbcType="INTEGER" property="positionNum" />
+        <result column="superior_id" jdbcType="INTEGER" property="superiorId" />
+        <result column="online" jdbcType="BIT" property="online" />
+        <result column="online_time_out" jdbcType="INTEGER" property="onlineTimeOut" />
+        <result column="platform_device_id" jdbcType="VARCHAR" property="platformDeviceId" />
+        <result column="third_device_id" jdbcType="VARCHAR" property="thirdDeviceId" />
+        <result column="value_threshold_max" jdbcType="REAL" property="valueThresholdMax" />
+        <result column="value_threshold_min" jdbcType="REAL" property="valueThresholdMin" />
+        <result column="cap" jdbcType="BIT" property="cap" />
+        <result column="tilt" jdbcType="BIT" property="tilt" />
+        <result column="battery" jdbcType="INTEGER" property="battery" />
+        <result column="hit" jdbcType="BIT" property="hit" />
+        <result column="water_pressure" jdbcType="REAL" property="waterPressure" />
+        <result column="valve" jdbcType="BIT" property="valve" />
+        <result column="flow" jdbcType="REAL" property="flow" />
+        <association property="equipmentType" column="type" javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentType">
+            <id  column="equi_id" property="id"/>
+            <result  column="equi_name" property="name"/>
+        </association>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
     insert into equipment_state (id, name, type, 
@@ -173,6 +177,27 @@
             </if>
         </trim>
     </insert>
+
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState"
+            resultMap="BaseResultMap">
+        SELECT
+        s.id AS id, s.name, s.type,
+        s.status, s.status_desc, s.partition_num,
+        s.position_num, s.superior_id, s.online,
+        s.online_time_out, s.platform_device_id, s.third_device_id,
+        s.value_threshold_max, s.value_threshold_min, s.cap,
+        s.tilt, s.battery, s.hit, s.water_pressure,
+        s.valve, s.flow,
+        e.id AS equi_id,
+        e.name AS equi_name
+        FROM equipment_state s
+        LEFT JOIN equipment_type e ON e.id=s.type
+        <where>
+            <if test="type != null and type != ''">
+                AND type = #{type}
+            </if>
+        </where>
+    </select>
     <update id="update" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
         UPDATE equipment_state
         <set>
@@ -271,7 +296,7 @@
         <![CDATA[
        DELETE FROM equipment_state WHERE id IN
     	]]>
-        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+        <foreach close=")" collection="list" index="index" item="id" open="(" separator=",">
             #{id}
         </foreach>
     </delete>

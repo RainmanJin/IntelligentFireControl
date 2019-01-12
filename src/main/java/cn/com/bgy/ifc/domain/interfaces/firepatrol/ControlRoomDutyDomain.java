@@ -6,17 +6,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 public interface ControlRoomDutyDomain extends BaseDomain<ControlRoomDuty> {
-    /**
-     *
-     * @mbg.generated 2019-01-07
-     */
-    int insert(ControlRoomDuty record);
-
-    /**
-     *
-     * @mbg.generated 2019-01-07
-     */
-    int insertSelective(ControlRoomDuty record);
 
     /**
      * 分页查询消防监控室值班情况

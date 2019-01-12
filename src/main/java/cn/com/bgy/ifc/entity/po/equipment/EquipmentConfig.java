@@ -37,6 +37,16 @@ public class EquipmentConfig {
     private Integer heartbeatInterval;
 
     /**
+     * 设备类型
+     */
+    private EquipmentType equipmentType;
+
+    /**
+     * 模拟量单位
+     */
+    private AnalogueUnit analogueUnit;
+
+    /**
      * 
      * @return id 
      */
@@ -146,5 +156,21 @@ public class EquipmentConfig {
      */
     public void setHeartbeatInterval(Integer heartbeatInterval) {
         this.heartbeatInterval = heartbeatInterval;
+    }
+
+    public EquipmentType getEquipmentType() {
+        return equipmentType;
+    }
+
+    public void setEquipmentType(EquipmentType equipmentType) {
+        this.equipmentType = equipmentType;
+    }
+
+    public AnalogueUnit getAnalogueUnit() {
+        return analogueUnit;
+    }
+
+    public void setAnalogueUnit(AnalogueUnit analogueUnit) {
+        this.analogueUnit = analogueUnit;
     }
 }

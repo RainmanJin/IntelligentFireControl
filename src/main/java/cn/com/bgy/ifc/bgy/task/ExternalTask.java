@@ -38,17 +38,6 @@ public class ExternalTask {
 
     /**
      * @author: ZhangCheng
-     * @description:1.同步集成平台机构(每天1点开始同步)
-     * @param: []
-     * @return: void
-     */
-    @Scheduled(cron = "0 00 01 * * ? ")
-    public void obtainBgyOrg() {
-        bgyOrgService.baseObtainBgyOrg(1, 50);
-    }
-
-    /**
-     * @author: ZhangCheng
      * @description:2.同步集成平台用户(每天1点10分开始同步)
      * @param: []
      * @return: void

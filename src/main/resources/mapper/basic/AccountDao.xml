@@ -155,6 +155,9 @@
       <if test="remark != null">
         #{remark,jdbcType=LONGVARCHAR},
       </if>
+      <if test="thirdUserId != null">
+        #{thirdUserId,jdbcType=BIGINT},
+      </if>
     </trim>
   </insert>
 

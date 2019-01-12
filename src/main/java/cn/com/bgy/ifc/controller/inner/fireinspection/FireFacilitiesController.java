@@ -9,11 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -31,7 +27,7 @@ import cn.com.bgy.ifc.entity.vo.fireinspection.FireFacilitiesVo;
  * 消防设施表  码表维护
  * 2019年1月3日
  */
-@Controller
+@RestController
 @RequestMapping("/fireinspection/fireFacilities")
 public class FireFacilitiesController extends BaseController{
 	@Autowired
@@ -42,7 +38,6 @@ public class FireFacilitiesController extends BaseController{
      * @return
      */
     @GetMapping("queryPageData")
-    @ResponseBody
     public ResponseVO<Object> queryPageList(Page<FireFacilities> page, FireFacilities po) {
     	//获取当前登录人做角色数据权限过滤
     	//Account user=this.getUser();
@@ -54,7 +49,6 @@ public class FireFacilitiesController extends BaseController{
      * @return
      */
     @GetMapping("queryAllData")
-    @ResponseBody
     public ResponseVO<Object> queryAllList() {
         return ResponseVO.success().setData(domain.queryListByParam(null));
     }
@@ -65,18 +59,17 @@ public class FireFacilitiesController extends BaseController{
      */
     @PostMapping("createData")
     @SystemLogAfterSave(description = "消防设施表  码表新增")
-    @ResponseBody
     public ResponseVO<Object> add(@Validated FireFacilitiesVo vo, BindingResult error, String token) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
 
-        FireFacilities FireFacilities = new FireFacilities();
+        FireFacilities fireFacilities = new FireFacilities();
         //默认是false删除后设为true
         vo.setLogicRemove(false);
-        CopyUtil.copyProperties(vo, FireFacilities);
-        int count = domain.insert(FireFacilities);
+        CopyUtil.copyProperties(vo, fireFacilities);
+        int count = domain.insert(fireFacilities);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功！");
         }
@@ -88,9 +81,7 @@ public class FireFacilitiesController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("editData")
-    @RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
     @SystemLogAfterSave(description = "消防设施表  码表修改")
-    @ResponseBody
     public ResponseVO<Object> updateRegionStreet(FireFacilities po, String token){
         int resout = 1;
         int count = domain.update(po);
@@ -122,8 +113,7 @@ public class FireFacilitiesController extends BaseController{
      */
     @PostMapping("deleteData")
     @SystemLogAfterSave(description = "消防设施表  码表删除")
-    @ResponseBody
-    public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
+    public ResponseVO<Object> deleteRegionComputerRoom( String arr){
     	String []ids = arr.split(",");
     	List<Long>list = new ArrayList<Long>();
     	int count;

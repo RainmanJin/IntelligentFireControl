@@ -1,8 +1,10 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
+import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.EntityUtil;
 import cn.com.bgy.ifc.bgy.utils.ExceptionUtil;
+import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentConfigDao;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -147,6 +150,48 @@ public class EquipmentConfigServiceImpl implements EquipmentConfigService {
         } catch (Exception e) {
             logger.error("获取中联永安设备配置接口请求异常：", e);
             return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备配置接口请求异常！", e));
+        }
+    }
+
+    @Override
+    public ResponseVO<Object> synchroEquipmentConfig(int pageNum, int pageSize) {
+        try {
+            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
+            if (list.size() != 0) {
+                ExternalInterfaceConfig config = list.get(0);
+                String baseUrl=config.getUrl() + "/device/configs";
+                String url = baseUrl + "?page="+pageNum+"&size"+pageSize;
+                JSONObject response = HttpHelper.httpGet(url,null);
+                System.out.println("===="+response);
+                if (response != null) {
+                    List<Map<String, Object>> configList=new ArrayList();
+                    System.out.println("xxxx"+configList);
+                    ResponseUtil.getResultListMap(configList,response, "data", "list");
+                    // 总页数
+                    int pageCount = ResponseUtil.getPages(response,"pages");
+                    if(pageCount>1){
+                        ResponseUtil.getListMapByPage(pageNum,pageSize,pageCount,baseUrl,configList,"data", "list");
+                    }
+                    int totalCount = configList.size();
+                    if (totalCount > 0) {
+                        int result= DbUtil.replaceAll("equipment_config",configList);
+                        if(result==totalCount){
+                            return ResponseVO.success().setMsg("设备配置数据同步成功！");
+                        } else {
+                            return ResponseVO.error().setMsg("设备配置数据同步失败！");
+                        }
+                    } else {
+                        return ResponseVO.success().setMsg("暂无中联永安设备配置数据同步！");
+                    }
+                } else {
+                    return ResponseVO.error().setMsg("获取中联永安设备配置信息列表失败!");
+                }
+            } else {
+                return ResponseVO.error().setMsg("获取中联永安接口配置信息失败！");
+            }
+        } catch (Exception e) {
+            logger.error("获取中联永安设备配置列表接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备配置列表接口请求异常！", e));
         }
     }
 }

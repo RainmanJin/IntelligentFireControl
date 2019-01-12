@@ -9,6 +9,14 @@
         <result column="value_threshold_max" jdbcType="REAL" property="valueThresholdMax"/>
         <result column="value_threshold_min" jdbcType="REAL" property="valueThresholdMin"/>
         <result column="heartbeat_interval" jdbcType="INTEGER" property="heartbeatInterval"/>
+        <association property="analogueUnit" column="value_unit_type" javaType="cn.com.bgy.ifc.entity.po.equipment.AnalogueUnit">
+            <id  column="unit_id" property="id"/>
+            <result  column="unit_name" property="name"/>
+        </association>
+        <association property="equipmentType" column="type" javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentType">
+            <id  column="equi_id" property="id"/>
+            <result  column="equi_name" property="name"/>
+        </association>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig">
     insert into equipment_config (id, type, value_type, 
@@ -68,13 +76,39 @@
         </trim>
     </insert>
 
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig"
-            resultMap="BaseResultMap">
-        SELECT
+    <insert id="replaceConfigList" parameterType="java.util.List">
+        REPLACE into equipment_config (
         id, type, value_type,
         value_unit_type, value_threshold_max, value_threshold_min,
         heartbeat_interval
-        FROM equipment_config
+        )
+        values
+        <foreach collection="list" item ="item" separator=",">
+            (
+            #{item.id},
+            #{item.type},
+            #{item.valueType},
+            #{item.valueUnitType},
+            #{item.valueThresholdMax},
+            #{item.valueThresholdMin},
+            #{item.heartbeatInterval}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig"
+            resultMap="BaseResultMap">
+        SELECT
+        c.id AS id, c.type, c.value_type,
+        c.value_unit_type, c.value_threshold_max,c.value_threshold_min,
+        c.heartbeat_interval,
+        e.id AS equi_id,
+        e.name AS equi_name,
+        u.id AS unit_id,
+        u.name AS unit_name
+        FROM equipment_config c
+        LEFT JOIN equipment_type e ON e.id=c.type
+        LEFT JOIN analogue_unit u ON u.id=c.value_unit_type
         <where>
             <if test="type != null and type != ''">
                 AND type = #{type}

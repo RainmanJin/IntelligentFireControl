@@ -107,6 +107,11 @@ public class EquipmentState {
     private Float flow;
 
     /**
+     * 设备类型
+     */
+    private EquipmentType equipmentType;
+
+    /**
      * 
      * @return id 
      */
@@ -440,5 +445,13 @@ public class EquipmentState {
      */
     public void setFlow(Float flow) {
         this.flow = flow;
+    }
+
+    public EquipmentType getEquipmentType() {
+        return equipmentType;
+    }
+
+    public void setEquipmentType(EquipmentType equipmentType) {
+        this.equipmentType = equipmentType;
     }
 }

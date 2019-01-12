@@ -18,6 +18,7 @@ public class Account {
      * 部门id
      */
     private Long departmentId;
+
     private String departmentName;
 
     /**

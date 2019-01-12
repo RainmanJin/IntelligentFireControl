@@ -12,15 +12,8 @@ public interface DepartmentDomain extends BaseDomain<Department> {
 
     PageInfo<Department> queryListByPage(Page<Department> page, Department department);
 
-    List<Department> queryListByParam(Department department);
-
     List<Department> queryAllList();
 
-    Department findById(Long id);
-
-    int insert(Department department);
-
-    int update(Department department);
     /**
      * YanXiaoLu
      * 根据当前用户查询父级部门名称（前端下拉展示）

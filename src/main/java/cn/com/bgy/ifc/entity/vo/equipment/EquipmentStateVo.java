@@ -2,27 +2,30 @@ package cn.com.bgy.ifc.entity.vo.equipment;
 
 /**
  * @author: ZhangCheng
- * @description:中联永安接口平台设备实体VO
- * @date: 2019-01-08 18:13
+ * @description:
+ * @date: 2019-01-12 15:24
  **/
-public class ZlEquipmentVo {
+public class EquipmentStateVo {
 
     private Long id;
+
     /**
      * 设备名称
      */
     private String name;
+
     /**
-     * 类型
+     * 设备类型
      */
     private Integer type;
+
     /**
-     * 状态
+     * 设备状态
      */
     private Integer status;
 
     /**
-     * 状态描述
+     * 设备状态描述
      */
     private String statusDesc;
 

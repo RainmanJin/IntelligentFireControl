@@ -3,24 +3,25 @@ package cn.com.bgy.ifc.domain.impl.system;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.DbUtil;
+import cn.com.bgy.ifc.bgy.utils.ExceptionUtil;
 import cn.com.bgy.ifc.dao.system.AccountDao;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
+import cn.com.bgy.ifc.entity.po.synchro.BgyAccount;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.BgyUserVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -28,6 +29,8 @@ import java.util.Map;
  */
 @Service
 public class AccountDomainImpl implements AccountDomain {
+
+    private static Logger logger = LoggerFactory.getLogger(SystemOrganizationDomainImpl.class);
     @Resource
     private AccountDao accountDao;
 
@@ -121,10 +124,24 @@ public class AccountDomainImpl implements AccountDomain {
     @Override
     public ResponseVO<Object> saveBgyAccountList(List<BgyUserVo> list, Long orgId) {
         try {
-            List<Account> accountList = new ArrayList<>();
+            List<BgyAccount> accountList = new ArrayList<>();
             Date createTime = new Date();
             for (BgyUserVo userVo : list) {
-                Account account = getAccountByVo(userVo, orgId, createTime);
+                BgyAccount account = new BgyAccount();
+                //改为第三方用户ID
+                account.setThirdUserId(userVo.getId());
+                account.setSex(userVo.getSex());
+                account.setOrganizationId(orgId);
+                account.setDepartmentId(0L);
+                account.setTelephone(userVo.getTelephone());
+                account.setUserName(userVo.getUserName());
+                account.setPassword(userVo.getPassword());
+                account.setJobNumber(userVo.getJobNum());
+                account.setIsDisable(userVo.getIsDisable());
+                account.setIdentityNumber(userVo.getCreditNo());
+                account.setRemark(userVo.getRemark());
+                account.setRegistTime(createTime);
+                account.getId();
                 accountList.add(account);
             }
             int totalCount = DbUtil.insertByList("account", accountList);
@@ -135,7 +152,8 @@ public class AccountDomainImpl implements AccountDomain {
                 return ResponseVO.success().setMsg("同步集成平台用户总条数：" + totalCount + "，新增条数：" + totalCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
             }
         } catch (Exception e) {
-            return ResponseVO.error().setMsg("同步集成平台用户异常");
+            logger.error("同步集成平台用户异常",e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("同步集成平台用户异常",e));
         }
     }
 

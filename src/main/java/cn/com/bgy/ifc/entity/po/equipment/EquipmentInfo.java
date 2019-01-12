@@ -141,30 +141,6 @@ public class EquipmentInfo extends RegionAndBrand {
         this.machineRoomId = machineRoomId;
     }
 
-    public Long getVersionId() {
-        return versionId;
-    }
-
-    public void setVersionId( Long versionId ) {
-        this.versionId = versionId;
-    }
-
-    public Long getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId( Long brandId ) {
-        this.brandId = brandId;
-    }
-
-    public Long getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId( Long typeId ) {
-        this.typeId = typeId;
-    }
-
     public Integer getKeepYears() {
         return keepYears;
     }
