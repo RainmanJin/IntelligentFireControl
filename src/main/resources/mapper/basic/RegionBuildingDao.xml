@@ -124,7 +124,7 @@
     UPDATE region_building
     <set>
       <if test="regionId != null and projectId != null and courtId != null and streetId != null">
-        region_id =#{regionId},project_id =#{projectId},court_id= #{ projectId},street_id= #{ streetId},
+        region_id =#{regionId},project_id =#{projectId},court_id= #{ courtId},street_id= #{ streetId},
       </if>
       <if test="name != null">name =#{name},</if>
       <if test="createTime != null">create_Time =#{createTime}</if>

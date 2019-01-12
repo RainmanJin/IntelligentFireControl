@@ -14,7 +14,7 @@
     values (#{id,jdbcType=BIGINT}, #{recordContent,jdbcType=VARCHAR}, #{equipmentTypeId,jdbcType=BIGINT}, 
       #{logicRemove,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RecordContent">
+  <insert id="insertSelective"  keyProperty="id" useGeneratedKeys="true" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RecordContent">
     insert into record_content
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
