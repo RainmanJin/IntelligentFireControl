@@ -34,4 +34,12 @@ public interface EquipmentConfigService extends BaseService<EquipmentConfig> {
      * @return
      */
     ResponseVO<Object> editEquipmentConfig(EquipmentConfig equipmentConfig);
+
+    /**
+     * 设备配置信息重新同步
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ResponseVO<Object> synchroEquipmentConfig(int pageNum, int pageSize);
 }

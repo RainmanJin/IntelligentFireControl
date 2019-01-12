@@ -12,12 +12,6 @@ import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
  */
 public interface MaintenanceContractDao extends BaseDao<MaintenanceContract> {
 
-	/** 维保合同列表查询 */
-	/**
-	 * 
-	 */
-	List<MaintenanceContract> queryListByParam(MaintenanceContract record);
-
 	/** 批量删除 */
 	/**
 	 * 

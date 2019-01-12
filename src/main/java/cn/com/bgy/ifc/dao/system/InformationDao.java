@@ -6,18 +6,11 @@ import cn.com.bgy.ifc.entity.po.system.Information;
 import java.util.List;
 
 public interface InformationDao extends BaseDao<Information> {
-    Information findById(Long id);
-
-    int insert(Information information);
-
-    int deleteById(Long id);
     /**
      * 逻辑删除通知公告（批量）
      * @param list
      */
     void  deleteInformation(List<Long> list);
-
-    int update(Information information);
 
     List<Information> searchByWhere(Information information);
 }

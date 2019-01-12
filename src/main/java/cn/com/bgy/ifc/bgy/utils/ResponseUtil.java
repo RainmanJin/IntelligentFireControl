@@ -27,17 +27,44 @@ public class ResponseUtil {
      * @return
      */
     public static int getPageCount(JSONObject response, int pageSize) {
+        return getPageCountBase(response,pageSize,"totalSize");
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:获取数据页数
+     * @param: [response, pageSize, totalKey]
+     * @return: int
+     */
+    public static int getPageCountBase(JSONObject response, int pageSize,String totalKey){
         Integer recordCount = null;
         if (response != null) {
             JSONObject jsonObject = response.getJSONObject("data");
             if (jsonObject != null) {
-                recordCount = jsonObject.getInteger("totalSize");
+                recordCount = jsonObject.getInteger(totalKey);
             }
         }
         int pageCount = 0;
         // 总页数
         if (recordCount != null) {
             pageCount = recordCount % pageSize > 0 ? recordCount / pageSize + 1 : recordCount / pageSize;
+        }
+        return pageCount;
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:获取返回的总页数
+     * @param: [response, pageKey]
+     * @return: int
+     */
+    public static int getPages(JSONObject response,String pageKey){
+        Integer pageCount = 1;
+        if (response != null) {
+            JSONObject jsonObject = response.getJSONObject("data");
+            if (jsonObject != null) {
+                pageCount = jsonObject.getInteger(pageKey);
+            }
         }
         return pageCount;
     }
@@ -122,8 +149,7 @@ public class ResponseUtil {
      * @param: [response, dataKey, listKey]
      * @return: java.util.List<java.util.Map   <   java.lang.String   ,   java.lang.Object>>
      */
-    public static List<Map<String, Object>> getResultListMap(JSONObject response, String dataKey, String listKey) {
-        List<Map<String, Object>> mapList = new ArrayList<>();
+    public static List<Map<String, Object>> getResultListMap(List<Map<String, Object>> mapList,JSONObject response, String dataKey, String listKey) {
         if (response != null) {
             //data作为key获取JSONObject
             JSONObject jsonObject = response.getJSONObject(dataKey);
@@ -141,6 +167,24 @@ public class ResponseUtil {
             }
         }
         return mapList;
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:
+     * @param: [pageNum, pageSize, pageCount, baseUrl, mList, dataKey, listKey]
+     * @return: java.util.List
+     */
+    public static List getListMapByPage(int pageNum, int pageSize, int pageCount, String baseUrl, List mList, String dataKey, String listKey) throws Exception {
+        int startPage = pageNum + 1;
+        int newPage = pageNum + 1;
+        for (int i = startPage; i <= pageCount; i++) {
+            String url = baseUrl + "?page="+newPage+"&size"+pageSize;
+            JSONObject newResponse = HttpHelper.httpGet(url,null);
+            getResultListMap(mList,newResponse, dataKey, listKey);
+            newPage++;
+        }
+        return mList;
     }
 
     /**

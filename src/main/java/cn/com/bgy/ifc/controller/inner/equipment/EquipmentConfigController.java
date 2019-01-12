@@ -111,6 +111,17 @@ public class EquipmentConfigController {
 
     /**
      * @author: ZhangCheng
+     * @description:同步设备配置信息列表
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("synchroData")
+    public ResponseVO<Object> synchroData(){
+        return equipmentConfigService.synchroEquipmentConfig(1,100);
+    }
+
+    /**
+     * @author: ZhangCheng
      * @description:获取模拟量类型枚举
      * @param:
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>

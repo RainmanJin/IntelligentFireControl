@@ -10,11 +10,9 @@ import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.AccountVo;
+import cn.com.bgy.ifc.service.interfaces.api.system.UserApiService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +32,10 @@ public class AccountController extends BaseController {
     @Autowired
     private AccountDomain accountDomain;
 
+    @Autowired
+    private UserApiService userApiService;
+
     @PostMapping("add")
-    @ResponseBody
     public   ResponseVO<Object>  add(Page<Account> page,@Validated AccountVo accountVo, BindingResult error){
             Account account= new Account();
             CopyUtil.copyProperties(accountVo,account);
@@ -48,7 +48,6 @@ public class AccountController extends BaseController {
 
     }
     @GetMapping("searchPage")
-    @ResponseBody
     public ResponseVO<Object> searchPage(Page<Account> page, Account account){ Account user = this.getUser();
         PageInfo<Account> pageInfo=accountDomain.searchByPage(page,account);
 
@@ -57,7 +56,6 @@ public class AccountController extends BaseController {
 
 
     @GetMapping("findById")
-    @ResponseBody
     public ResponseVO<Object> findById(Long id){
           Account user=accountDomain.findById(id);
         return ResponseVO.success().setData(user);
@@ -69,8 +67,6 @@ public class AccountController extends BaseController {
      */
     @PostMapping("updateIsDisable")
     @SystemLogAfterSave(description = "更新用户状态")
-   // @RequiresRoles(value = {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_ADMIN,SystemConstant.SYSTEM_ROLES_AREA_ADMIN,SystemConstant.SYSTEM_ROLES_PROJECT_ADMIN},logical = Logical.OR)
-    @ResponseBody
     public ResponseVO<Object> updateIsDisable(String ids,Integer isDisable ){
           List<Long>idslist=  ListUtil.getListId(ids);
           int res=accountDomain.updateIsDisable(idslist,isDisable);
@@ -87,8 +83,6 @@ public class AccountController extends BaseController {
      */
     @PostMapping("initalingPassword")
     @SystemLogAfterSave(description = "初始用户密码")
-     //@RequiresRoles(value = {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_ADMIN,SystemConstant.SYSTEM_ROLES_AREA_ADMIN,SystemConstant.SYSTEM_ROLES_PROJECT_ADMIN},logical = Logical.OR)
-    @ResponseBody
     public ResponseVO<Object> initalingPassword(Account account ){
         account.setPassword(SignatureUtil.getBgyMd5(SystemConstant.INITAL_PASSWORD));
         int res=accountDomain.initalingPassword(account);
@@ -105,14 +99,12 @@ public class AccountController extends BaseController {
      * @return
      */
     @PostMapping("findUserPowerByPage")
-    @ResponseBody
     public ResponseVO<Object> findUserPowerByPage(Page<Account> page,Account account){
 
         PageInfo<Account> pageInfo= accountDomain.findUserPowerByPage(page, account);
         return ResponseVO.success().setData(pageInfo);
     }
     @PostMapping("editData")
-    @ResponseBody
     public   ResponseVO<Object>  editData(@Validated AccountVo accountVo, BindingResult error){
         Account account= accountDomain.findById(accountVo.getId());
         account.setDepartmentId(accountVo.getDepartmentId());
@@ -134,7 +126,6 @@ public class AccountController extends BaseController {
      */
     @PostMapping("updatePassword")
     @SystemLogAfterSave(description = "初始用户密码")
-    @ResponseBody
     public ResponseVO<Object> updatePassword(String oldPassword,String newPassword,Long id){
         Account account =accountDomain.findById(id);
         if (oldPassword.equals(account.getPassword())){
@@ -149,5 +140,16 @@ public class AccountController extends BaseController {
             return ResponseVO.error().setMsg("原始密码不正确！");
         }
 
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:同步集成平台用户数据
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("synchroData")
+    public ResponseVO<Object> synchroData(){
+       return  userApiService.baseObtainBgyUser(1,1000);
     }
 }
