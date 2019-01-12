@@ -7,6 +7,8 @@ public class UserGroup {
 
     private Long userId;
 
+    private String keyWords;
+
     public Long getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class UserGroup {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
     }
 }

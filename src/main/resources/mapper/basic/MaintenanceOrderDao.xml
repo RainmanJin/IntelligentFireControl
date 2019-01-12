@@ -140,29 +140,27 @@
 		</trim>
 	</insert>
 	<sql id="Mysql">
-		select DISTINCT mo.id as id,-- 集成平台Id
-		mo.cycle as cycle,-- 是否是维保周期任务工单:0 是 1 不是
-		
-		mo.remark as remark,-- 备注信息
-		mo.sign as sign,-- 维保签字信息
-		mo.staff_info as staff_info,-- 维保人员电话备注信息
-		mo.handle_time as handle_time,-- 维保处理时间
-		mo.logic_remove as logic_remove,-- 是否逻辑删除
-		mo.order_state as order_state,-- 工单状态
-		mo.organization_id as organization_id,-- 机构表Id，用于区分平台
-		case when mp.cycle_type is null then mpj.project_type
-		else mp.cycle_type 
-		end as project_type ,-- 保养类型
-		ei.`name` as device_name, -- 设备信息名称
-	    CONCAT(IFNULL(ri.name,''),IFNULL(rp.name,''),IFNULL(rc.name,''),IFNULL(rs.name,''),IFNULL(rb.name,'')) AS address,
-		case when mc.`name` is null then mcj.`name`
-		else mc.`name` 
-		end as company_name ,-- 维保公司名称
-		case when  mp.start_time is null then mpj.begin_date
-		else mp.start_time 
-		end as plan_date  -- 计划时间
+		select DISTINCT mo.id as id,
+				mo.cycle as cycle,
 
-		FROM maintenance_order mo
+				mo.remark as remark,
+				mo.sign as sign,
+				mo.staff_info as staff_info,
+				mo.handle_time as handle_time,
+				mo.logic_remove as logic_remove,
+				mo.order_state as order_state,
+				mo.organization_id as organization_id,
+				case when mp.cycle_type is null then mpj.project_type
+				else mp.cycle_type
+				end as project_type ,
+				ei.`name` as device_name,
+				CONCAT(IFNULL(ri.name,''),IFNULL(rp.name,''),IFNULL(rc.name,''),IFNULL(rs.name,''),IFNULL(rb.name,'')) AS address,
+				case when mc.`name` is null then mcj.`name`
+				else mc.`name`
+				end as company_name ,
+				case when  mp.start_time is null then mpj.begin_date
+				else mp.start_time
+				end as plan_date
 		FROM maintenance_order mo
 		left join maintenance_periodic mp on mp.id = mo.plan_id
 		left join system_organization so on so.id = mo.organization_id

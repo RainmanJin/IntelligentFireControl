@@ -38,13 +38,23 @@
     </trim>
   </insert>
   <select id="queryListMapByParam" parameterType="cn.com.bgy.ifc.entity.po.system.UserGroup" resultType="java.util.Map" >
-          select a.organization_id, a.department_id,
-                  a.telephone, a.job_number, a.user_name,
-                  a.password, a.password_salt, a.identity_number,
-                  a.sex, a.regist_time, a.is_disable,
-                  a.current_ip, a.current_time, a.last_ip,
-                  a.last_time, a.user_type, a.remark,
-                  g.name,g.type
+          select a.organization_id as organizationId,
+                  a.department_id  as departmentId,
+                  a.telephone,
+                  a.job_number  as jobNumber,
+                  a.user_name as userName,
+                  a.identity_number as identity_number,
+                  a.sex,
+                  a.regist_time  as registTime,
+                  a.is_disable as isDisable,
+                  a.current_ip as currentIp,
+                  a.current_time as currentTime,
+                  a.last_ip as lastIp,
+                  a.last_time,
+                  a.user_type,
+                  a.remark,
+                  g.name,
+                  g.type
             from user_group ug LEFT JOIN account a on ug.user_id=a.id LEFT JOIN
                           groups g on g.id=ug.group_id
                   <trim prefix=" where " prefixOverrides=" and ">

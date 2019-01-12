@@ -13,7 +13,7 @@ import java.util.Map;
 
 public interface UserGroupDomain extends BaseDomain<UserGroup> {
 
-     PageInfo<Map<String,Object>> searchByPage(Page<Map<String,Object>> page, GroupsVo groupsVo);
+     PageInfo<Map<String,Object>> searchByPage(Page<Map<String,Object>> page, UserGroup userGroup);
     /**
      * @description:用户分组分配区域
      * @param: 

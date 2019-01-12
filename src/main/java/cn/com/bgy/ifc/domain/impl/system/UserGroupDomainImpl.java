@@ -73,9 +73,7 @@ public class UserGroupDomainImpl implements UserGroupDomain {
     }
 
     @Override
-    public PageInfo<Map<String,Object>> searchByPage(Page<Map<String,Object>> page, GroupsVo groupsVo){
-        UserGroup userGroup=new UserGroup();
-        CopyUtil.copyProperties(groupsVo,userGroup);
+    public PageInfo<Map<String,Object>> searchByPage(Page<Map<String,Object>> page, UserGroup userGroup){
         PageHelper.startPage(page.getPageNum(),page.getPageSize());
         List<Map<String, Object>> list = userGroupDao.queryListMapByParam(userGroup);
         PageInfo<Map<String,Object>> pageInfo=new PageInfo<>(list);
