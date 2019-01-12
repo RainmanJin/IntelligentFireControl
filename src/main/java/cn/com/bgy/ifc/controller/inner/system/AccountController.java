@@ -38,8 +38,8 @@ public class AccountController extends BaseController {
     @ResponseBody
     public   ResponseVO<Object>  add(Page<Account> page,@Validated AccountVo accountVo, BindingResult error){
             Account account= new Account();
-            account.setOrganizationId(this.getUser().getOrganizationId());
             CopyUtil.copyProperties(accountVo,account);
+            account.setOrganizationId(this.getUser().getOrganizationId());
             account.setPassword(SignatureUtil.getBgyMd5(SystemConstant.INITAL_PASSWORD));
             account.setRegistTime(new Date());
             account.setIsDisable(SystemConstant.EnableState.ENABLE.getValue());
