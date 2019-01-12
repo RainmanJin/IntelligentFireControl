@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.firepatrol.RecordContentDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.RecordContent">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="record_content" jdbcType="VARCHAR" property="recordContent" />
+    <result column="equipment_type_id" jdbcType="BIGINT" property="equipmentTypeId" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RecordContent">
+    insert into record_content (id, record_content, equipment_type_id, 
+      logic_remove, create_time)
+    values (#{id,jdbcType=BIGINT}, #{recordContent,jdbcType=VARCHAR}, #{equipmentTypeId,jdbcType=BIGINT}, 
+      #{logicRemove,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RecordContent">
+    insert into record_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="recordContent != null">
+        record_content,
+      </if>
+      <if test="equipmentTypeId != null">
+        equipment_type_id,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="recordContent != null">
+        #{recordContent,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentTypeId != null">
+        #{equipmentTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
