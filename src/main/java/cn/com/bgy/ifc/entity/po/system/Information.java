@@ -20,7 +20,6 @@ public class Information  implements Serializable {
     private Long orgId;
 
 
-
     /**
      * 1，通知 2，公告
      */
@@ -49,7 +48,7 @@ public class Information  implements Serializable {
     /**
      * 部门名称
      */
-    private String  departmentName;
+    private String departmentName;
 
     public String getDepartmentName() {
         return departmentName;
@@ -63,6 +62,8 @@ public class Information  implements Serializable {
      * 用户表id
      */
     private Long uId;
+
+    private String userName;
 
     /**
      * 新增修改时间
@@ -79,7 +80,7 @@ public class Information  implements Serializable {
      */
     private String content;
     /**
-     *关键字
+     * 关键字
      */
     private String keyWords;
 
@@ -98,6 +99,7 @@ public class Information  implements Serializable {
 
     /**
      * 系统公告表id
+     *
      * @return id 系统公告表id
      */
     public Long getId() {
@@ -106,6 +108,7 @@ public class Information  implements Serializable {
 
     /**
      * 系统公告表id
+     *
      * @param id 系统公告表id
      */
     public void setId(Long id) {
@@ -114,6 +117,7 @@ public class Information  implements Serializable {
 
     /**
      * 机构表id (用于区分平台)
+     *
      * @return org_id 机构表id (用于区分平台)
      */
     public Long getOrgId() {
@@ -122,6 +126,7 @@ public class Information  implements Serializable {
 
     /**
      * 机构表id (用于区分平台)
+     *
      * @param orgId 机构表id (用于区分平台)
      */
     public void setOrgId(Long orgId) {
@@ -130,6 +135,7 @@ public class Information  implements Serializable {
 
     /**
      * 1，通知 2，公告
+     *
      * @return type_id 1，通知 2，公告
      */
     public Long getTypeId() {
@@ -138,6 +144,7 @@ public class Information  implements Serializable {
 
     /**
      * 1，通知 2，公告
+     *
      * @param typeId 1，通知 2，公告
      */
     public void setTypeId(Long typeId) {
@@ -146,6 +153,7 @@ public class Information  implements Serializable {
 
     /**
      * 标题
+     *
      * @return title 标题
      */
     public String getTitle() {
@@ -154,6 +162,7 @@ public class Information  implements Serializable {
 
     /**
      * 标题
+     *
      * @param title 标题
      */
     public void setTitle(String title) {
@@ -162,6 +171,7 @@ public class Information  implements Serializable {
 
     /**
      * 署名
+     *
      * @return signature 署名
      */
     public String getSignature() {
@@ -170,6 +180,7 @@ public class Information  implements Serializable {
 
     /**
      * 署名
+     *
      * @param signature 署名
      */
     public void setSignature(String signature) {
@@ -178,6 +189,7 @@ public class Information  implements Serializable {
 
     /**
      * 落款日期
+     *
      * @return date_line 落款日期
      */
     public Date getDateLine() {
@@ -186,6 +198,7 @@ public class Information  implements Serializable {
 
     /**
      * 落款日期
+     *
      * @param dateLine 落款日期
      */
     public void setDateLine(Date dateLine) {
@@ -194,6 +207,7 @@ public class Information  implements Serializable {
 
     /**
      * 部门id(为0时全部可以查看，具体值时为所有人)
+     *
      * @return d_id 部门id(为0时全部可以查看，具体值时为所有人)
      */
     public Long getdId() {
@@ -202,6 +216,7 @@ public class Information  implements Serializable {
 
     /**
      * 部门id(为0时全部可以查看，具体值时为所有人)
+     *
      * @param dId 部门id(为0时全部可以查看，具体值时为所有人)
      */
     public void setdId(Long dId) {
@@ -210,6 +225,7 @@ public class Information  implements Serializable {
 
     /**
      * 用户表id
+     *
      * @return u_id 用户表id
      */
     public Long getuId() {
@@ -218,6 +234,7 @@ public class Information  implements Serializable {
 
     /**
      * 用户表id
+     *
      * @param uId 用户表id
      */
     public void setuId(Long uId) {
@@ -226,6 +243,7 @@ public class Information  implements Serializable {
 
     /**
      * 新增修改时间
+     *
      * @return create_time 新增修改时间
      */
     public Date getCreateTime() {
@@ -234,6 +252,7 @@ public class Information  implements Serializable {
 
     /**
      * 新增修改时间
+     *
      * @param createTime 新增修改时间
      */
     public void setCreateTime(Date createTime) {
@@ -242,6 +261,7 @@ public class Information  implements Serializable {
 
     /**
      * 是否逻辑删除
+     *
      * @return logic_remove 是否逻辑删除
      */
     public Boolean getLogicRemove() {
@@ -250,6 +270,7 @@ public class Information  implements Serializable {
 
     /**
      * 是否逻辑删除
+     *
      * @param logicRemove 是否逻辑删除
      */
     public void setLogicRemove(Boolean logicRemove) {
@@ -258,6 +279,7 @@ public class Information  implements Serializable {
 
     /**
      * 内容
+     *
      * @return content 内容
      */
     public String getContent() {
@@ -266,9 +288,18 @@ public class Information  implements Serializable {
 
     /**
      * 内容
+     *
      * @param content 内容
      */
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

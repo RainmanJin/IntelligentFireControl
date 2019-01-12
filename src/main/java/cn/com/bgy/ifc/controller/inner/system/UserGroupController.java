@@ -62,12 +62,8 @@ public class UserGroupController {
     }
     @GetMapping("searchPage")
     @ResponseBody
-    public ResponseVO<Object> searchPage(Page<Map<String,Object>> page, @Validated GroupsVo groupsVo, BindingResult error){
-        /*Subject subject = SecurityUtils.getSubject();
-        Account user = (Account) subject.getPreviousPrincipals();*/
-        Groups groups= new Groups();
-        CopyUtil.copyProperties(groupsVo,groups);
-        PageInfo<Map<String,Object>> pageInfo=userGroupDomain.searchByPage(page, groupsVo);
+    public ResponseVO<Object> searchPage(Page<Map<String,Object>> page,UserGroup userGroup){
+        PageInfo<Map<String,Object>> pageInfo=userGroupDomain.searchByPage(page, userGroup);
         return ResponseVO.success().setData(pageInfo);
     }
 
