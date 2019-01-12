@@ -1,10 +1,5 @@
 package cn.com.bgy.ifc.bgy.constant;
 
-import cn.com.bgy.ifc.entity.vo.common.SelectVo;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author: ZhangCheng
  * @description:外部平台常量
@@ -80,7 +75,7 @@ public class ExternalConstant {
         //碧桂园集成平台接口
         INTEGERATED_PLATFORM(1, "碧桂园集成平台接口"),
         //物联网设备接口
-        INTERNET_THING_EQUIPMENT(2,"中联永安设备接口");
+        INTERNET_THING_EQUIPMENT(2, "中联永安设备接口");
 
         private Integer value;
 
@@ -99,22 +94,6 @@ public class ExternalConstant {
             return name;
         }
 
-        /**
-         * @author: ZhangCheng
-         * @description:枚举中的属性转换为下拉列表List
-         * @param: []
-         * @return: java.util.List<cn.com.bgy.ifc.entity.vo.basic.SelectVo>
-         */
-        public static List<SelectVo> getSelectList() {
-            List<SelectVo> list = new ArrayList<>();
-            for (PlatformValue platformValue : PlatformValue.values()) {
-                SelectVo selectVo = new SelectVo();
-                selectVo.setValue(String.valueOf(platformValue.getValue()));
-                selectVo.setName(platformValue.getName());
-                list.add(selectVo);
-            }
-            return list;
-        }
     }
 
     /**
@@ -177,22 +156,6 @@ public class ExternalConstant {
             return name;
         }
 
-        /**
-         * @author: ZhangCheng
-         * @description:枚举中的属性转换为下拉列表List
-         * @param: []
-         * @return: java.util.List<cn.com.bgy.ifc.entity.vo.basic.SelectVo>
-         */
-        public static List<SelectVo> getSelectList() {
-            List<SelectVo> list = new ArrayList<>();
-            for (MsgTypeValue msgTypeValue : MsgTypeValue.values()) {
-                SelectVo selectVo = new SelectVo();
-                selectVo.setValue(String.valueOf(msgTypeValue.getValue()));
-                selectVo.setName(msgTypeValue.getName());
-                list.add(selectVo);
-            }
-            return list;
-        }
     }
 
 }

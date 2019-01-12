@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -82,72 +81,72 @@ public class EquipmentConfigServiceImpl implements EquipmentConfigService {
     @Override
     public ResponseVO<Object> createEquipmentConfig(EquipmentConfig equipmentConfig) {
         try {
-            List<ExternalInterfaceConfig> list=externalInterfaceConfigDomain.queryInternetThingConfig();
-            if(list.size() != 0){
-                ExternalInterfaceConfig config=list.get(0);
-                String url = config.getUrl()+"/device/configs";
+            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
+            if (list.size() != 0) {
+                ExternalInterfaceConfig config = list.get(0);
+                String url = config.getUrl() + "/device/configs";
                 Map<String, Object> data = EntityUtil.entityToMap(equipmentConfig);
                 JSONObject response = HttpHelper.httpPost(url, data, null);
                 if (response != null) {
                     //data作为key获取JSONObject
-                    Integer statusCode=response.getInteger("code");
-                    if (HttpStatus.SC_OK==statusCode) {
+                    Integer statusCode = response.getInteger("code");
+                    if (HttpStatus.SC_OK == statusCode) {
                         JSONObject jsonObject = response.getJSONObject("data");
-                        Long id=jsonObject.getLong("id");
+                        Long id = jsonObject.getLong("id");
                         equipmentConfig.setId(id);
-                        int result=equipmentConfigDao.insertSelective(equipmentConfig);
+                        int result = equipmentConfigDao.insertSelective(equipmentConfig);
                         if (result == 1) {
                             return ResponseVO.addSuccess();
                         } else {
                             return ResponseVO.addError();
                         }
-                    }else{
-                        return ResponseVO.error().setMsg("中联永安创建设备配置信息失败!错误码："+statusCode);
+                    } else {
+                        return ResponseVO.error().setMsg("中联永安创建设备配置信息失败!错误码：" + statusCode);
                     }
                 } else {
                     return ResponseVO.error().setMsg("中联永安创建设备配置信息失败!");
                 }
-            }else{
+            } else {
                 return ResponseVO.error().setMsg("获取中联永安设备接口配置数据失败！");
             }
         } catch (Exception e) {
-            logger.error("获取中联永安设备配置接口请求异常：" , e);
-            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备配置接口请求异常！",e));
+            logger.error("获取中联永安设备配置接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备配置接口请求异常！", e));
         }
     }
 
     @Override
     public ResponseVO<Object> editEquipmentConfig(EquipmentConfig equipmentConfig) {
         try {
-            List<ExternalInterfaceConfig> list=externalInterfaceConfigDomain.queryInternetThingConfig();
-            if(list.size() != 0){
-                ExternalInterfaceConfig config=list.get(0);
-                Long id=equipmentConfig.getId();
-                String url = config.getUrl()+"/device/configs?id="+id;
+            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
+            if (list.size() != 0) {
+                ExternalInterfaceConfig config = list.get(0);
+                Long id = equipmentConfig.getId();
+                String url = config.getUrl() + "/device/configs?id=" + id;
                 Map<String, Object> data = EntityUtil.entityToMap(equipmentConfig);
                 JSONObject response = HttpHelper.httpPut(url, data, null);
                 if (response != null) {
                     //data作为key获取JSONObject
-                    Integer statusCode=response.getInteger("code");
-                    if (HttpStatus.SC_OK==statusCode) {
-                        int result=equipmentConfigDao.update(equipmentConfig);
+                    Integer statusCode = response.getInteger("code");
+                    if (HttpStatus.SC_OK == statusCode) {
+                        int result = equipmentConfigDao.update(equipmentConfig);
                         if (result == 1) {
                             return ResponseVO.addSuccess();
                         } else {
                             return ResponseVO.addError();
                         }
-                    }else{
-                        return ResponseVO.error().setMsg("中联永安修改设备配置信息失败!错误码："+statusCode);
+                    } else {
+                        return ResponseVO.error().setMsg("中联永安修改设备配置信息失败!错误码：" + statusCode);
                     }
                 } else {
                     return ResponseVO.error().setMsg("中联永安修改设备配置信息失败!");
                 }
-            }else{
+            } else {
                 return ResponseVO.error().setMsg("获取中联永安设备接口配置数据失败！");
             }
         } catch (Exception e) {
-            logger.error("获取中联永安设备配置接口请求异常：" , e);
-            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备配置接口请求异常！",e));
+            logger.error("获取中联永安设备配置接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备配置接口请求异常！", e));
         }
     }
 }

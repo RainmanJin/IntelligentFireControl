@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.system;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.EnumUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
@@ -151,7 +152,7 @@ public class ExternalInterfaceConfigController extends BaseController {
      */
     @GetMapping("getPlatform")
     public ResponseVO<Object> getPlatform() {
-        List<SelectVo> list = ExternalConstant.PlatformValue.getSelectList();
+        List<SelectVo> list = EnumUtil.getSelectList(ExternalConstant.PlatformValue.class);
         return ResponseVO.success().setData(list);
     }
 
