@@ -1,30 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.firepatrol.RecordTableDao">
+<mapper namespace="cn.com.bgy.ifc.dao.equipment.RecordTableDao">
   <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.RecordTable">
     <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="record_content" jdbcType="VARCHAR" property="recordContent" />
-    <result column="equipment_type_id" jdbcType="BIGINT" property="equipmentTypeId" />
+    <result column="equipment_id" jdbcType="BIGINT" property="equipmentId" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="situation" jdbcType="INTEGER" property="situation" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="record_person" jdbcType="VARCHAR" property="recordPerson" />
+    <result column="approver" jdbcType="VARCHAR" property="approver" />
+    <result column="approval_result" jdbcType="VARCHAR" property="approvalResult" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RecordTable">
-    insert into record_content (id, record_content, equipment_type_id, 
+    insert into record_table (id, equipment_id, order_id, 
+      situation, description, type, 
+      record_person, approver, approval_result, 
       logic_remove, create_time)
-    values (#{id,jdbcType=BIGINT}, #{recordContent,jdbcType=VARCHAR}, #{equipmentTypeId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{equipmentId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, 
+      #{situation,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{recordPerson,jdbcType=VARCHAR}, #{approver,jdbcType=VARCHAR}, #{approvalResult,jdbcType=VARCHAR}, 
       #{logicRemove,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RecordTable">
-    insert into record_content
+    insert into record_table
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="recordContent != null">
-        record_content,
+      <if test="equipmentId != null">
+        equipment_id,
       </if>
-      <if test="equipmentTypeId != null">
-        equipment_type_id,
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="situation != null">
+        situation,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="recordPerson != null">
+        record_person,
+      </if>
+      <if test="approver != null">
+        approver,
+      </if>
+      <if test="approvalResult != null">
+        approval_result,
       </if>
       <if test="logicRemove != null">
         logic_remove,
@@ -37,11 +65,29 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="recordContent != null">
-        #{recordContent,jdbcType=VARCHAR},
+      <if test="equipmentId != null">
+        #{equipmentId,jdbcType=BIGINT},
       </if>
-      <if test="equipmentTypeId != null">
-        #{equipmentTypeId,jdbcType=BIGINT},
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="situation != null">
+        #{situation,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="recordPerson != null">
+        #{recordPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="approver != null">
+        #{approver,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalResult != null">
+        #{approvalResult,jdbcType=VARCHAR},
       </if>
       <if test="logicRemove != null">
         #{logicRemove,jdbcType=BIT},
