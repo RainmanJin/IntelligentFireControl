@@ -209,8 +209,11 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>cn.com.bgy.ifc.IfcApplication</mainClass>
+                    <fork>false</fork>
                     <!-- 不指定单元测试 -->
                   <!--  <skipTests>true</skipTests>-->
+                  <!-- spring-boot:run 中文乱码解决 -->
+                  <!--<jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>-->
                 </configuration>
 
             </plugin>

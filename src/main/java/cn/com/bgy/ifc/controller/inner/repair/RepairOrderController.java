@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -38,6 +39,11 @@ public class RepairOrderController extends BaseController {
     @SystemLogAfterSave(description = "发起招修，添加订单")
     @ResponseBody
     public ResponseVO<Object> launchRepair(RepairOrder repairOrder) {
+        repairOrder.setCreateTime(new Date());
+        repairOrder.setState(-1);
+        repairOrder.setLogicRemove(false);
+        repairOrder.setOrganizationId(this.getUser().getOrganizationId());
+        repairOrder.setRepairTime(new Date());
         return repaicOrderService.launchRepair(repairOrder);
     }
 

@@ -15,7 +15,7 @@ public interface MaintenancePeriodicDomain extends BaseDomain<MaintenancePeriodi
 	/**
 	 * 分页查询
 	 * @param page
-	 * @param 查询条件
+	 * @param
 	 * @return
 	 */
 	 PageInfo<MaintenancePeriodic> queryListByPage(Page<MaintenancePeriodic> page, MaintenancePeriodic maintenancePeriodic);

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.BgyMaintenanceWorkOrderVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
@@ -14,8 +13,6 @@ import com.github.pagehelper.PageInfo;
 
 import cn.com.bgy.ifc.dao.maintenance.MaintenanceOrderDao;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceOrderDomain;
-import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany;
-import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder;
 
 import javax.annotation.Resource;
@@ -29,20 +26,20 @@ import javax.annotation.Resource;
 public class MaintenanceOrderDomainImpl implements MaintenanceOrderDomain {
 
 	@Resource
-	private MaintenanceOrderDao dao;
+	private MaintenanceOrderDao maintenanceOrderDao;
 	/**
 	 * 通过ID查询
 	 */
 	@Override
 	public MaintenanceOrder findById(Long id) {
-		return dao.findById(id);
+		return maintenanceOrderDao.findById(id);
 	}
 	/**
 	 * 添加
 	 */
 	@Override
 	public int insert(MaintenanceOrder t) {
-		return dao.insert(t);
+		return maintenanceOrderDao.insert(t);
 	}
 
 	/**
@@ -50,14 +47,14 @@ public class MaintenanceOrderDomainImpl implements MaintenanceOrderDomain {
 	 */
 	@Override
 	public int update(MaintenanceOrder t) {
-		return dao.update(t);
+		return maintenanceOrderDao.update(t);
 	}
 	/**
 	 * 批量删除
 	 */
 	@Override
 	public int deleteBatch(List<Long> ids) {
-		return dao.deleteBatch(ids);
+		return maintenanceOrderDao.deleteBatch(ids);
 	}
 	/**
 	 * 分页查询
@@ -66,7 +63,7 @@ public class MaintenanceOrderDomainImpl implements MaintenanceOrderDomain {
 	public PageInfo<MaintenanceOrder> queryListByPage(Page<MaintenanceOrder> page,
 			MaintenanceOrder maintenanceOrder) {
 		page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-		List<MaintenanceOrder> list = dao.queryListByParam(maintenanceOrder);
+		List<MaintenanceOrder> list = maintenanceOrderDao.queryListByParam(maintenanceOrder);
 		PageInfo<MaintenanceOrder> pageInfo = new PageInfo<>(list);
 		return pageInfo;
 	}
@@ -98,7 +95,7 @@ public class MaintenanceOrderDomainImpl implements MaintenanceOrderDomain {
 	 */
 	@Override
 	public List<MaintenanceOrder> queryListByParam(MaintenanceOrder t) {
-		return dao.queryListByParam(t);
+		return maintenanceOrderDao.queryListByParam(t);
 	}
 
 	@Override

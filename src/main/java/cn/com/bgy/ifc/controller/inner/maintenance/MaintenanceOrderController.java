@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.controller.inner.maintenance;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -47,7 +48,7 @@ public class MaintenanceOrderController extends BaseController{
 	/**
      * 分页查询
      *
-     * @param vo
+     * @param 
      * @return
      */
     @GetMapping("queryPageList")
@@ -81,9 +82,9 @@ public class MaintenanceOrderController extends BaseController{
         }
 
         MaintenanceOrder po = new MaintenanceOrder();
-        //默认是false删除后设为true
-        vo.setLogicRemove(false);
         CopyUtil.copyProperties(vo, po);
+        po.setLogicRemove(false);
+        po.setCreateTime(new Date());
         int count = domain.insert(po);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功！");

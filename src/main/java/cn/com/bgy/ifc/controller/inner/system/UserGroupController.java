@@ -147,11 +147,11 @@ public class UserGroupController {
      */
     @PostMapping("distributionProject")
     @ResponseBody
-    public ResponseVO<Object> distributionProject(Long groupId,String accountIds){
+    public ResponseVO<Object> distributionProject(Long groupId,String projectIds){
 
         List<Long> list=new ArrayList<>();
-        if (accountIds !=null && !accountIds.isEmpty()) {
-            list = ListUtil.getListId(accountIds);
+        if (projectIds !=null && !projectIds.isEmpty()) {
+            list = ListUtil.getListId(projectIds);
         }
         try {
             userGroupDomain.distributionAccount( groupId, list);
@@ -219,15 +219,15 @@ public class UserGroupController {
         Groups query= groupsDomain.findById(id);
         if (type.intValue()==1) {
             List<RegionInfo> listRegionInfo = userGroupItemsDomain.findRegionInfoByGroupId(id);
-            return  ResponseVO.success().setData(listRegionInfo);
+            query.setListRegionInfo(listRegionInfo);
         }
         else if (type.intValue()==2) {
             List<Project> listProject = userGroupItemsDomain.findProjectInfoByGroupId(id);
-            return  ResponseVO.success().setData(listProject);
+            query.setListProject(listProject);
         }else{
             return ResponseVO.error().setMsg("请选择正确的类型");
         }
-
+        return  ResponseVO.success().setData(query);
 
     }
 }

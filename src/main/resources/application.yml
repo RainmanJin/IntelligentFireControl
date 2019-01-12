@@ -19,16 +19,21 @@ spring:
 spring:
   datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        initialSize: 20
+        initialSize: 10
         max-active: 100
         max-idle: 200
-        min-idle: 200
+        min-idle: 10
+        validation_query: SELECT 1
         test-while-idle: true
+        test_on_borrow: false
+        test_on_return: false
         time-between-eviction-runs-millis: 60000
         min-evictable-idle-time-millis: 300000
+        max-wait: 60000
         jdbc-url: jdbc:mysql://47.99.100.79:3306/intelligent_fire_control?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC&rewriteBatchedStatements=true
         username: root
         password: root
+
   secondary:
            max-idle: 10
            max-wait: 10000

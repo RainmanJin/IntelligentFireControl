@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.project.Project;
 import cn.com.bgy.ifc.entity.po.project.RegionInfo;
 import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -41,4 +42,13 @@ public interface UserGroupItemsDao extends BaseDao<UserGroupItems> {
      * @date: 2019/1/10 9:21
      */
     List<Project> findProjectInfoByGroupId(Long id);
+
+    /**
+     * @description:删除分组下所有用户数据
+     * @param:
+     * @return:
+     * @auther: chenlie
+     * @date: 2019/1/10 10:38
+     */
+    int deleteByGroupIdAndUserId(@Param("groupId") Long groupId, @Param("list") List<Long> list);
 }

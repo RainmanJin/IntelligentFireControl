@@ -27,23 +27,23 @@ import cn.com.bgy.ifc.entity.po.maintenance.MaintenancePeriodic;
 @Service
 public class MaintenancePeriodicDomainImpl implements MaintenancePeriodicDomain {
 	@Resource
-	private MaintenancePeriodicDao dao;
+	private MaintenancePeriodicDao maintenancePeriodicDao;
 	@Resource
-	private MaintenanceOrderDao orderDao;
+	private MaintenanceOrderDao maintenanceOrderDao;
 
 	@Override
 	public List<MaintenancePeriodic> queryListByParam(MaintenancePeriodic t) {
-		return dao.queryListByParam(t);
+		return maintenancePeriodicDao.queryListByParam(t);
 	}
 
 	@Override
 	public List<MaintenancePeriodic> queryListByMap(Map<String, Object> map) {
-		return dao.queryListByMap(map);
+		return maintenancePeriodicDao.queryListByMap(map);
 	}
 
 	@Override
 	public MaintenancePeriodic findById(Long id) {
-		return dao.findById(id);
+		return maintenancePeriodicDao.findById(id);
 	}
 
 	@Override
@@ -72,12 +72,12 @@ public class MaintenancePeriodicDomainImpl implements MaintenancePeriodicDomain 
 		}
 		times = (int) Math.floor(num);
 		t.setSum(times);
-		return dao.insert(t);
+		return maintenancePeriodicDao.insert(t);
 	}
 
 	@Override
 	public int insertSelective(MaintenancePeriodic t) {
-		return dao.insertSelective(t);
+		return maintenancePeriodicDao.insertSelective(t);
 	}
 
 	@Override
@@ -106,24 +106,24 @@ public class MaintenancePeriodicDomainImpl implements MaintenancePeriodicDomain 
 		}
 		times = (int) Math.floor(num);
 		t.setSum(times);
-		return dao.update(t);
+		return maintenancePeriodicDao.update(t);
 	}
 
 	@Override
 	public int updateSelective(MaintenancePeriodic t) {
-		return dao.updateSelective(t);
+		return maintenancePeriodicDao.updateSelective(t);
 	}
 
 	@Override
 	public int deleteBatch(List<Long> ids) {
-		return dao.deleteBatch(ids);
+		return maintenancePeriodicDao.deleteBatch(ids);
 	}
 
 	@Override
 	public PageInfo<MaintenancePeriodic> queryListByPage(Page<MaintenancePeriodic> page,
 			MaintenancePeriodic maintenancePeriodic) {
 		page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-		List<MaintenancePeriodic>list = dao.queryListByParam(maintenancePeriodic);
+		List<MaintenancePeriodic>list = maintenancePeriodicDao.queryListByParam(maintenancePeriodic);
 		PageInfo<MaintenancePeriodic>info = new PageInfo<>(list);
 		return info;
 	}
@@ -154,7 +154,7 @@ public class MaintenancePeriodicDomainImpl implements MaintenancePeriodicDomain 
 				list.add(map);
 			}
 		}
-		return orderDao.insertSelectiveByMap(list);
+		return maintenanceOrderDao.insertSelectiveByMap(list);
 	}
 
 }

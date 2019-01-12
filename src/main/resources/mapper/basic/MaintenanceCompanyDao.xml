@@ -108,7 +108,7 @@
       and MC.id=#{id,jdbcType=BIGINT}
     </if>
     <if test="regionId != null">
-      and mc.ri.id = #{regionId,jdbcType=BIGINT}
+      and ri.id = #{regionId,jdbcType=BIGINT}
     </if>
 
     <if test="keyword != null">

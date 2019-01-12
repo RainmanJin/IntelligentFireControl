@@ -5,6 +5,8 @@ import java.util.Map;
 
 import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder;
+import org.apache.ibatis.annotations.Param;
+
 /**
  * 维保工单
  * @author lvbingjian
@@ -17,5 +19,5 @@ public interface MaintenanceOrderDao extends BaseDao<MaintenanceOrder>{
 	 * @param list
 	 * @return
 	 */
-	int insertSelectiveByMap(List<Map<String,Object>> list);
+	int insertSelectiveByMap(@Param("list") List<Map<String,Object>> list);
 }

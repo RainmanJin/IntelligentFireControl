@@ -32,14 +32,7 @@ public class RepairOrderDomainImpl implements RepairOrderDomain {
      */
     @Override
     public int launchRepair( RepairOrder repairOrder ) {
-
-        if(repairOrder.getEquipmentId()!=null||repairOrder.getEquipmentId()>0){
-                repairOrder.setCreateTime(new Date());
-                repairOrder.setState(-1);
-                repairOrder.setLogicRemove(false);
-                return  repairOrderDao.insert(repairOrder);
-            }
-            return 0;
+        return  repairOrderDao.insert(repairOrder);
     }
 
     @Override

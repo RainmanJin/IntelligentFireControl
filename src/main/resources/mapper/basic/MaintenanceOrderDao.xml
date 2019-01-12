@@ -51,25 +51,13 @@
 		#{cycle,jdbcType=BIT}, #{sign,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
 		)
 	</insert>
-	<insert id=" "
-		parameterType="java.util.List">
-		insert into maintenance_order ( plan_id, device_id,organization_id, order_state, create_time, logic_remove,cycle)
-		<trim prefix="values " suffix="" suffixOverrides=",">
-			<foreach collection="list" item="item" index="index" separator="">
-    			(#{item.planId,jdbcType=BIGINT},#{item.deviceId,jdbcType=BIGINT},#{item.organizationId,jdbcType=BIGINT},
-				#{item.orderState,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.logicRemove,jdbcType=BIT},#{item.cycle,jdbcType=BIT}),
-    		</foreach>
-		</trim>
-	</insert>
-	<insert id="insertSelectiveByMap"
-		parameterType="java.util.List">
+	<insert id="insertSelectiveByMap" parameterType="java.util.List">
 		insert into maintenance_order ( periodic_id, device_id,organization_id, order_state, create_time, logic_remove,cycle)
-		<trim prefix="values " suffix="" suffixOverrides=",">
-			<foreach collection="list" item="item" index="index" separator="">
+		    values
+			<foreach collection="list" item="item" index="index" separator=",">
     			(#{item.periodicId,jdbcType=BIGINT},#{item.deviceId,jdbcType=BIGINT},#{item.organizationId,jdbcType=BIGINT},
-				#{item.orderState,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.logicRemove,jdbcType=BIT},#{item.cycle,jdbcType=BIT}),
+				#{item.orderState,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.logicRemove,jdbcType=BIT},#{item.cycle,jdbcType=BIT})
     		</foreach>
-		</trim>
 	</insert>
 	<insert id="insertSelective"
 		parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder">
@@ -166,7 +154,7 @@
 		else mp.cycle_type 
 		end as project_type ,-- 保养类型
 		ei.`name` as device_name, -- 设备信息名称
-	  ei.description  address,-- 设备地址
+	    CONCAT(IFNULL(ri.name,''),IFNULL(rp.name,''),IFNULL(rc.name,''),IFNULL(rs.name,''),IFNULL(rb.name,'')) AS address,
 		case when mc.`name` is null then mcj.`name`
 		else mc.`name` 
 		end as company_name ,-- 维保公司名称
@@ -175,11 +163,16 @@
 		end as plan_date  -- 计划时间
 
 		FROM maintenance_order mo
+		FROM maintenance_order mo
 		left join maintenance_periodic mp on mp.id = mo.plan_id
 		left join system_organization so on so.id = mo.organization_id
 		left join equipment_info ei on ei.id = mo.device_id
+        LEFT JOIN region_computer_room rr ON ei.machine_room_id = rr.id
 		left join region_info ri on ri.id = mp.region_id
 		left join region_project rp on rp.id = mp.project_id
+		LEFT JOIN region_court rc ON rr.court_id = rc.id
+        LEFT JOIN region_street rs ON rr.street_id = rs.id
+        LEFT JOIN region_building rb ON rr.building_id = rb.id
 		left join maintenance_company mc on mc.id = mp.company_id
 
 		left join maintenance_plan mpj on mpj.id = mo.plan_id

@@ -30,7 +30,7 @@
       state, process_person, process_time,
       maintaindetail, repair_reason,
       process_remark, order_no, extend_id,
-      create_time, is_push
+      create_time, is_push,
       logic_remove )
     values (#{id,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT},  
       #{equipmentId,jdbcType=BIGINT}, #{mcid,jdbcType=INTEGER}, #{repairPerson,jdbcType=VARCHAR}, 
@@ -175,7 +175,7 @@
   <select id="queryListRepairOrder" resultType="java.util.Map" parameterType="java.util.Map">
     SELECT o.id as id,
     v.`name` as equipmentName,
-    CONCAT(ri.name,rp.name,rc.name,rs.name,rb.name) AS address,
+    CONCAT(IFNULL(ri.name,''),IFNULL(rp.name,''),IFNULL(rc.name,''),IFNULL(rs.name,''),IFNULL(rb.name,'')) AS address,
     o.maintaindetail as maintaindetail,
     o.repair_person as repairPerson,
     o.repair_reason as repairReason,

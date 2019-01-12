@@ -69,15 +69,15 @@ public class MaintenancePeriodicController extends BaseController {
         }
 
         MaintenancePeriodic po = new MaintenancePeriodic();
-        //默认是false删除后设为true
+
+        CopyUtil.copyProperties(vo, po);
         Account user= this.getUser();
         //默认登录人的机构
-        vo.setOrganizationId(user.getOrganizationId());
+        po.setOrganizationId(user.getOrganizationId());
         //当前系统时间为新建时间
-        vo.setCreateTime(new Date());
+        po.setCreateTime(new Date());
         //默认是false删除后设为true
-        vo.setLogicRemove(false);
-        CopyUtil.copyProperties(vo, po);
+        po.setLogicRemove(false);
         int count = domain.insert(po);
         if (count == 1) {
         	int num = domain.saveOrders(po);
