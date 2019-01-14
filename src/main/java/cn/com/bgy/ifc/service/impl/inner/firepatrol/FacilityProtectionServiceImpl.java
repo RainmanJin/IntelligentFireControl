@@ -32,13 +32,12 @@ public class FacilityProtectionServiceImpl implements FacilityProtectionService 
      */
     @Override
     public int addFacilityProtection( FacilityProtection facilityProtection ) {
-        if(facilityProtection.getRecordId()!=null || facilityProtection.getRecordId()>0){
+        if(facilityProtection.getRecordId()!=null && facilityProtection.getRecordId()>0){
             FacilityProtection f = facilityProtectionDao.queryByRecordId(facilityProtection.getRecordId());
             if(null==f){
                 facilityProtection.setCreateTime(new Date());
                 facilityProtection.setLogicRemove(false);
                 return facilityProtectionDao.insertSelective(facilityProtection);
-
             }
             return 2;
         }
@@ -65,7 +64,7 @@ public class FacilityProtectionServiceImpl implements FacilityProtectionService 
      */
     @Override
     public int updateFacilityProtection( FacilityProtection facilityProtection ) {
-        if(facilityProtection.getId()!=null || facilityProtection.getId()>0){
+        if(facilityProtection.getId()!=null && facilityProtection.getId()>0){
             facilityProtection.setCreateTime(new Date());
             return facilityProtectionDao.updateSelective(facilityProtection);
         }
@@ -93,7 +92,7 @@ public class FacilityProtectionServiceImpl implements FacilityProtectionService 
      */
     @Override
     public Map<String, Object> getFacilityProtectionFindById( Long id ) {
-        if(id!=null||id>0){
+        if(id!=null && id>0){
             return (Map<String, Object>) facilityProtectionDao.findById(id);
         }
         return null;

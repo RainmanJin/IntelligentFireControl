@@ -30,6 +30,7 @@ import java.util.*;
  * @Description 区域信息
  * @Date 2018/12/18 15:19
  */
+@SuppressWarnings("ALL")
 @Service
 public class RegionInfoDomainImpl implements RegionInfoDomain {
 

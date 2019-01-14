@@ -20,6 +20,7 @@ import java.util.Map;
  * @Date 2019/1/7 16:17
  * @Description 灭火器配置情况
  **/
+
 @Service
 public class ExtinguisherConfigServiceImpl implements ExtinguisherConfigService {
 
@@ -31,6 +32,7 @@ public class ExtinguisherConfigServiceImpl implements ExtinguisherConfigService 
      * @Description 添加灭火器配置情况
      * @Date 2019/1/7 16:41
      */
+
     @Override
     public int addExtinguisherConfig( ExtinguisherConfig extinguisherConfig ) {
         if(extinguisherConfig.getRecordId() != null && extinguisherConfig.getRecordId()>0){
@@ -50,6 +52,8 @@ public class ExtinguisherConfigServiceImpl implements ExtinguisherConfigService 
      * @Description 删除灭火器配置情况（含批量）
      * @Date 2019/1/7 16:42
      */
+
+
     @Override
     public int deleteExtinguisherConfig( String ids ) {
         List<Long> list = ListUtil.getListId(ids);
@@ -65,7 +69,7 @@ public class ExtinguisherConfigServiceImpl implements ExtinguisherConfigService 
      */
     @Override
     public int updateExtinguisherConfig( ExtinguisherConfig extinguisherConfig ) {
-        if(extinguisherConfig.getId()!=null || extinguisherConfig.getId()>0){
+        if(extinguisherConfig.getId()!=null && extinguisherConfig.getId()>0){
             extinguisherConfig.setCreateTime(new Date());
             return extinguisherConfigDao.updateSelective(extinguisherConfig);
         }
@@ -94,9 +98,11 @@ public class ExtinguisherConfigServiceImpl implements ExtinguisherConfigService 
      */
     @Override
     public Map<String, Object> getExtinguisherConfigFindById( Long id ) {
-        if(id != null || id>0){
+        if(id != null && id>0){
             return (Map<String, Object>) extinguisherConfigDao.findById(id);
         }
+
+
         return null;
     }
 }

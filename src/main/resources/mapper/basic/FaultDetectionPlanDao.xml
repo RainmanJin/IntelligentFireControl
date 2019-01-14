@@ -111,7 +111,7 @@
           AND (p.plan_name LIKE concat('%',#{keyword},'%')
           OR c.record_content LIKE concat('%',#{keyword},'%'))
         </if>
-        AND logic_remove = 0
+        AND p.logic_remove = 0
       </where>
   </select>
   <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
@@ -122,6 +122,6 @@
     FROM fault_detection_plan p
     LEFT JOIN record_by_content bc ON p.record_id=bc.record_id
     LEFT JOIN record_content c ON bc.content_id = c.id AND c.logic_remove=0
-    WHERE id =#{id,jdbcType=BIGINT}   AND logic_remove = 0
+    WHERE p.id =#{id,jdbcType=BIGINT}   AND p.logic_remove = 0
   </select>
 </mapper>

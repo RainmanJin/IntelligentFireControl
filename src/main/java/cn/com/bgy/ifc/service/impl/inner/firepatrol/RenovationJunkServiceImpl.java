@@ -33,7 +33,7 @@ public class RenovationJunkServiceImpl implements RenovationJunkService {
      */
     @Override
     public int addRenovationJunk( RenovationJunk renovationJunk ) {
-        if(renovationJunk.getRecordId()!=null || renovationJunk.getRecordId()>0){
+        if(renovationJunk.getRecordId()!=null && renovationJunk.getRecordId()>0){
             RenovationJunk  r = renovationJunkDao.queryByRecordId(renovationJunk.getRecordId());
             if(null==r){
                 renovationJunk.setCreateTime(new Date());
@@ -64,7 +64,7 @@ public class RenovationJunkServiceImpl implements RenovationJunkService {
      */
     @Override
     public int updateRenovationJunk( RenovationJunk renovationJunk ) {
-        if(renovationJunk.getId()!=null || renovationJunk.getId()>0){
+        if(renovationJunk.getId()!=null && renovationJunk.getId()>0){
             renovationJunk.setCreateTime(new Date());
             return renovationJunkDao.updateSelective(renovationJunk);
         }
@@ -91,7 +91,7 @@ public class RenovationJunkServiceImpl implements RenovationJunkService {
      */
     @Override
     public Map<String, Object> getRenovationJunkFindById( Long id ) {
-        if(id!=null||id>0){
+        if(id!=null && id>0){
             return (Map<String, Object>) renovationJunkDao.findById(id);
         }
         return null;

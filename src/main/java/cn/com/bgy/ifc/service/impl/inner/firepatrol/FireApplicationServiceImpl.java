@@ -33,7 +33,7 @@ public class FireApplicationServiceImpl implements FireApplicationService {
      */
     @Override
     public int addFireApplication( FireApplication fireApplication ) {
-        if(fireApplication.getRecordId()!=null || fireApplication.getRecordId()>0){
+        if(fireApplication.getRecordId()!=null && fireApplication.getRecordId()>0){
             FireApplication  f = fireApplicationDao.queryByRecordId(fireApplication.getRecordId());
             if(null==f){
                 fireApplication.setCreateTime(new Date());
@@ -65,7 +65,7 @@ public class FireApplicationServiceImpl implements FireApplicationService {
      */
     @Override
     public int updateFireApplication( FireApplication renovationJunk ) {
-        if(renovationJunk.getId() !=null||renovationJunk.getId()>0){
+        if(renovationJunk.getId() !=null && renovationJunk.getId()>0){
             renovationJunk.setCreateTime(new Date());
             return fireApplicationDao.updateSelective(renovationJunk);
         }
@@ -92,7 +92,7 @@ public class FireApplicationServiceImpl implements FireApplicationService {
      */
     @Override
     public Map<String, Object> getFireApplicationById( Long id ) {
-        if(id!=null||id>0){
+        if(id!=null && id>0){
             return (Map<String, Object>) fireApplicationDao.findById(id);
         }
         return null;

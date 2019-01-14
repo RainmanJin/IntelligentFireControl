@@ -1,11 +1,10 @@
 package cn.com.bgy.ifc.domain.impl.firepatrol;
 
-import cn.com.bgy.ifc.dao.equipment.EquipmentTypeDao;
+import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
 import cn.com.bgy.ifc.dao.firepatrol.RecordByContentDao;
 import cn.com.bgy.ifc.dao.firepatrol.RecordContentDao;
 import cn.com.bgy.ifc.dao.firepatrol.RecordTableDao;
 import cn.com.bgy.ifc.domain.interfaces.firepatrol.FaultDetectionDomain;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 import cn.com.bgy.ifc.entity.po.firepatrol.RecordByContent;
 import cn.com.bgy.ifc.entity.po.firepatrol.RecordContent;
 import cn.com.bgy.ifc.entity.po.firepatrol.RecordTable;
@@ -14,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -33,7 +33,7 @@ public class FaultDetectionDomainImpl implements FaultDetectionDomain {
     private RecordByContentDao recordByContentDao;
 
     @Resource
-    private EquipmentTypeDao equipmentTypeDao;
+    private EquipmentInfoDao equipmentInfoDao;
 
     /**
      * @Author huxin
@@ -53,17 +53,21 @@ public class FaultDetectionDomainImpl implements FaultDetectionDomain {
             //添加记录内容
             RecordContent con = new RecordContent();
             //根据设备ID查询设备类型ID
-            EquipmentType type = equipmentTypeDao.findById(recordTable.getEquipmentId());
-            con.setEquipmentTypeId(type.getId());
-            con.setLogicRemove(false);
-            con.setCreateTime(time);
-            recordContentDao.insertSelective(con);
-            //添加记录关联记录内容表数据
-            RecordByContent recordByContent = new RecordByContent();
-            recordByContent.setRecordId(recordTable.getId());
-            recordByContent.setContentId(con.getId());
-            recordByContentDao.insertSelective(recordByContent);
-            return count;
+            Map<String,Object> map = equipmentInfoDao.queryEquipmentInfoById(recordTable.getEquipmentId());
+            if(map.get("typeId")!=null){
+                con.setEquipmentTypeId((Long) map.get("typeId"));
+                con.setLogicRemove(false);
+                con.setCreateTime(time);
+                recordContentDao.insertSelective(con);
+                //添加记录关联记录内容表数据
+                RecordByContent recordByContent = new RecordByContent();
+                recordByContent.setRecordId(recordTable.getId());
+                recordByContent.setContentId(con.getId());
+                recordByContentDao.insertSelective(recordByContent);
+                return count;
+            }
+
+            return 0;
         }
         return 0;
     }
