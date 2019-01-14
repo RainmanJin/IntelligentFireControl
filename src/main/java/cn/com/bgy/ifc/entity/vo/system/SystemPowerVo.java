@@ -14,15 +14,15 @@ public class SystemPowerVo {
 	/**
 	 *权限名称
 	 */
-	@NotBlank(message="权限名称不能为空")
-	@Size(max=50,message="权限名称长度不正确")
+	@NotBlank(message="权限名称不能为空！")
+	@Size(max=50,message="权限名称长度不能超过50字符！")
 	private String name;
 
 	/**
 	 *权限展示名称
 	 */
-	@NotBlank(message="权限展示名称不能为空")
-	@Size(max=50,message="权限展示名称长度不正确")
+	@NotBlank(message="权限展示名称不能为空！")
+	@Size(max=50,message="权限展示名称长度不能超过50字符！")
 	private String displayName;
 
 	/**
@@ -33,7 +33,7 @@ public class SystemPowerVo {
 	/**
 	 *所属模块Id
 	 */
-	@NotNull(message="所属模块不能为空")
+	@NotNull(message="所属模块不能为空！")
 	private Long moduleId;
 
 	/**

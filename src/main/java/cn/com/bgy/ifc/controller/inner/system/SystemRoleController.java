@@ -47,7 +47,7 @@ public class SystemRoleController  {
      * @param
      * @return
      */
-    @GetMapping("queryPage")
+    @GetMapping("queryPageData")
     public ResponseVO<PageInfo<SystemRole>> queryList(Page<SystemRole> page, SystemRoleVo systemRoleVo) {
         PageInfo<SystemRole> pageInfo = systemRoleService.queryListByPage(page, systemRoleVo);
         return ResponseVO.<PageInfo<SystemRole>>success().setData(pageInfo);
@@ -73,9 +73,9 @@ public class SystemRoleController  {
      * @param: [systemRoleVo, error]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("edit")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "系统角色修改")
-    public ResponseVO<Object> edit(@Validated SystemRoleVo systemRoleVo, BindingResult error) {
+    public ResponseVO<Object> editData(@Validated SystemRoleVo systemRoleVo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -115,9 +115,9 @@ public class SystemRoleController  {
      * @param: [ids]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("deleteBatch")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "系统角色删除")
-    public ResponseVO<Object> deleteBatch(String ids) {
+    public ResponseVO<Object> deleteData(String ids) {
         List<Long> list = ListUtil.getListId(ids);
         int deleteCount = systemRoleService.deleteBatch(list);
         if (deleteCount == list.size()) {

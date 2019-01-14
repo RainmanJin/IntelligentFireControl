@@ -1,5 +1,7 @@
 package cn.com.bgy.ifc.entity.po.equipment;
 
+import java.util.Date;
+
 public class EquipmentState {
     /**
      * 
@@ -37,6 +39,11 @@ public class EquipmentState {
     private Integer positionNum;
 
     /**
+     * 状态变换时间
+     */
+    private Date statusChangedTime;
+
+    /**
      * 上级设备ID
      */
     private Integer superiorId;
@@ -45,6 +52,11 @@ public class EquipmentState {
      * 是否在线
      */
     private Boolean online;
+
+    /**
+     * 最近在线时间
+     */
+    private Date lastOnlineTime;
 
     /**
      * 在线超时心跳时间，单位：秒
@@ -70,6 +82,11 @@ public class EquipmentState {
      * 模拟量下限
      */
     private Float valueThresholdMin;
+
+    /**
+     * 最后一次模拟量值
+     */
+    private Float lastValue;
 
     /**
      * 消火栓：盖帽打开
@@ -453,5 +470,29 @@ public class EquipmentState {
 
     public void setEquipmentType(EquipmentType equipmentType) {
         this.equipmentType = equipmentType;
+    }
+
+    public Date getStatusChangedTime() {
+        return statusChangedTime;
+    }
+
+    public void setStatusChangedTime(Date statusChangedTime) {
+        this.statusChangedTime = statusChangedTime;
+    }
+
+    public Date getLastOnlineTime() {
+        return lastOnlineTime;
+    }
+
+    public void setLastOnlineTime(Date lastOnlineTime) {
+        this.lastOnlineTime = lastOnlineTime;
+    }
+
+    public Float getLastValue() {
+        return lastValue;
+    }
+
+    public void setLastValue(Float lastValue) {
+        this.lastValue = lastValue;
     }
 }

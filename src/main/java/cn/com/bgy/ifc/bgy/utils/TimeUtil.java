@@ -66,6 +66,19 @@ public class TimeUtil {
 
     /**
      * @author: ZhangCheng
+     * @description:时间毫秒数转换为Date
+     * @param: [timestamp]
+     * @return: java.util.Date
+     */
+    public static Date formatDateOfTimestamp(Long timestamp) {
+        Instant instant = Instant.ofEpochMilli(timestamp);
+        ZoneId zone = ZoneId.systemDefault();
+        ZonedDateTime zdt=LocalDateTime.ofInstant(instant, zone).atZone(zone);
+        return Date.from(zdt.toInstant());
+    }
+
+    /**
+     * @author: ZhangCheng
      * @description:时间字符串转换，格式yyyy-MM-dd HH:mm:ss
      * @param: [date]
      * @return: java.lang.String

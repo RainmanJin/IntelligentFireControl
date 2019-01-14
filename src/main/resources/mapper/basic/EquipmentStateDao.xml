@@ -2,30 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.equipment.EquipmentStateDao">
     <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
-        <result column="id" jdbcType="BIGINT" property="id" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="type" jdbcType="INTEGER" property="type" />
-        <result column="status" jdbcType="INTEGER" property="status" />
-        <result column="status_desc" jdbcType="VARCHAR" property="statusDesc" />
-        <result column="partition_num" jdbcType="INTEGER" property="partitionNum" />
-        <result column="position_num" jdbcType="INTEGER" property="positionNum" />
-        <result column="superior_id" jdbcType="INTEGER" property="superiorId" />
-        <result column="online" jdbcType="BIT" property="online" />
-        <result column="online_time_out" jdbcType="INTEGER" property="onlineTimeOut" />
-        <result column="platform_device_id" jdbcType="VARCHAR" property="platformDeviceId" />
-        <result column="third_device_id" jdbcType="VARCHAR" property="thirdDeviceId" />
-        <result column="value_threshold_max" jdbcType="REAL" property="valueThresholdMax" />
-        <result column="value_threshold_min" jdbcType="REAL" property="valueThresholdMin" />
-        <result column="cap" jdbcType="BIT" property="cap" />
-        <result column="tilt" jdbcType="BIT" property="tilt" />
-        <result column="battery" jdbcType="INTEGER" property="battery" />
-        <result column="hit" jdbcType="BIT" property="hit" />
-        <result column="water_pressure" jdbcType="REAL" property="waterPressure" />
-        <result column="valve" jdbcType="BIT" property="valve" />
-        <result column="flow" jdbcType="REAL" property="flow" />
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="status_desc" jdbcType="VARCHAR" property="statusDesc"/>
+        <result column="partition_num" jdbcType="INTEGER" property="partitionNum"/>
+        <result column="position_num" jdbcType="INTEGER" property="positionNum"/>
+        <result column="status_changed_time" jdbcType="TIMESTAMP" property="statusChangedTime"/>
+        <result column="superior_id" jdbcType="INTEGER" property="superiorId"/>
+        <result column="online" jdbcType="BIT" property="online"/>
+        <result column="last_online_time" jdbcType="TIMESTAMP" property="lastOnlineTime"/>
+        <result column="online_time_out" jdbcType="INTEGER" property="onlineTimeOut"/>
+        <result column="platform_device_id" jdbcType="VARCHAR" property="platformDeviceId"/>
+        <result column="third_device_id" jdbcType="VARCHAR" property="thirdDeviceId"/>
+        <result column="value_threshold_max" jdbcType="REAL" property="valueThresholdMax"/>
+        <result column="value_threshold_min" jdbcType="REAL" property="valueThresholdMin"/>
+        <result column="last_value" jdbcType="REAL" property="lastValue"/>
+        <result column="cap" jdbcType="BIT" property="cap"/>
+        <result column="tilt" jdbcType="BIT" property="tilt"/>
+        <result column="battery" jdbcType="INTEGER" property="battery"/>
+        <result column="hit" jdbcType="BIT" property="hit"/>
+        <result column="water_pressure" jdbcType="REAL" property="waterPressure"/>
+        <result column="valve" jdbcType="BIT" property="valve"/>
+        <result column="flow" jdbcType="REAL" property="flow"/>
         <association property="equipmentType" column="type" javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentType">
-            <id  column="equi_id" property="id"/>
-            <result  column="equi_name" property="name"/>
+            <id column="equi_id" property="id"/>
+            <result column="equi_name" property="name"/>
         </association>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
@@ -35,14 +38,14 @@
       online_time_out, platform_device_id, third_device_id, 
       value_threshold_max, value_threshold_min, cap, 
       tilt, battery, hit, water_pressure, 
-      valve, flow)
+      valve, flow,status_changed_time,last_online_time,last_value)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{statusDesc,jdbcType=VARCHAR}, #{partitionNum,jdbcType=INTEGER}, 
       #{positionNum,jdbcType=INTEGER}, #{superiorId,jdbcType=INTEGER}, #{online,jdbcType=BIT}, 
       #{onlineTimeOut,jdbcType=INTEGER}, #{platformDeviceId,jdbcType=VARCHAR}, #{thirdDeviceId,jdbcType=VARCHAR}, 
       #{valueThresholdMax,jdbcType=REAL}, #{valueThresholdMin,jdbcType=REAL}, #{cap,jdbcType=BIT}, 
       #{tilt,jdbcType=BIT}, #{battery,jdbcType=INTEGER}, #{hit,jdbcType=BIT}, #{waterPressure,jdbcType=REAL}, 
-      #{valve,jdbcType=BIT}, #{flow,jdbcType=REAL})
+      #{valve,jdbcType=BIT}, #{flow,jdbcType=REAL}, #{statusChangedTime,jdbcType=TIMESTAMP}, #{lastOnlineTime,jdbcType=TIMESTAMP},#{lastValue,jdbcType=REAL})
   </insert>
     <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
         insert into equipment_state
@@ -110,6 +113,15 @@
             <if test="flow != null">
                 flow,
             </if>
+            <if test="statusChangedTime != null">
+                status_changed_time,
+            </if>
+            <if test="lastOnlineTime != null">
+                last_online_time,
+            </if>
+            <if test="lastValue != null">
+                last_value,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -175,10 +187,19 @@
             <if test="flow != null">
                 #{flow,jdbcType=REAL},
             </if>
+            <if test="statusChangedTime != null">
+                #{statusChangedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastOnlineTime != null">
+                #{lastOnlineTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastValue != null">
+                #{lastValue,jdbcType=REAL},
+            </if>
         </trim>
     </insert>
 
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState"
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.equipment.EquipmentStateVo"
             resultMap="BaseResultMap">
         SELECT
         s.id AS id, s.name, s.type,
@@ -187,40 +208,52 @@
         s.online_time_out, s.platform_device_id, s.third_device_id,
         s.value_threshold_max, s.value_threshold_min, s.cap,
         s.tilt, s.battery, s.hit, s.water_pressure,
-        s.valve, s.flow,
+        s.valve, s.flow,status_changed_time,last_online_time,last_value,
         e.id AS equi_id,
         e.name AS equi_name
         FROM equipment_state s
         LEFT JOIN equipment_type e ON e.id=s.type
         <where>
-            <if test="type != null and type != ''">
-                AND type = #{type}
+            <if test="equipType != null and equipType != ''">
+                AND s.type = #{equipType}
+            </if>
+            <if test="online != null and online != ''">
+                AND s.online = #{online}
+            </if>
+            <if test="status != null and status != ''">
+                AND s.status = #{status}
+            </if>
+            <if test="keyword!='' and keyword!=null">
+                AND (s.status_desc LIKE  concat('%',#{keyword},'%') )
             </if>
         </where>
     </select>
     <update id="update" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
         UPDATE equipment_state
         <set>
-                name=#{name,jdbcType=VARCHAR},
-                type=#{type,jdbcType=INTEGER},
-                status= #{status,jdbcType=INTEGER},
-                status_desc=#{statusDesc,jdbcType=VARCHAR},
-                partition_num=#{partitionNum,jdbcType=INTEGER},
-                position_num=#{positionNum,jdbcType=INTEGER},
-                superior_id=#{superiorId,jdbcType=INTEGER},
-                online=#{online,jdbcType=BIT},
-                online_time_out=#{onlineTimeOut,jdbcType=INTEGER},
-                platform_device_id=#{platformDeviceId,jdbcType=VARCHAR},
-                third_device_id=#{thirdDeviceId,jdbcType=VARCHAR},
-                value_threshold_max=#{valueThresholdMax,jdbcType=REAL},
-                value_threshold_min= #{valueThresholdMin,jdbcType=REAL},
-                cap= #{cap,jdbcType=BIT},
-                tilt=#{tilt,jdbcType=BIT},
-                battery=#{battery,jdbcType=INTEGER},
-                hit=#{hit,jdbcType=BIT},
-                water_pressure= #{waterPressure,jdbcType=REAL},
-                valve=#{valve,jdbcType=BIT},
-                flow= #{flow,jdbcType=REAL}
+            name=#{name,jdbcType=VARCHAR},
+            type=#{type,jdbcType=INTEGER},
+            status= #{status,jdbcType=INTEGER},
+            status_desc=#{statusDesc,jdbcType=VARCHAR},
+            partition_num=#{partitionNum,jdbcType=INTEGER},
+            position_num=#{positionNum,jdbcType=INTEGER},
+            superior_id=#{superiorId,jdbcType=INTEGER},
+            online=#{online,jdbcType=BIT},
+            online_time_out=#{onlineTimeOut,jdbcType=INTEGER},
+            platform_device_id=#{platformDeviceId,jdbcType=VARCHAR},
+            third_device_id=#{thirdDeviceId,jdbcType=VARCHAR},
+            value_threshold_max=#{valueThresholdMax,jdbcType=REAL},
+            value_threshold_min= #{valueThresholdMin,jdbcType=REAL},
+            cap= #{cap,jdbcType=BIT},
+            tilt=#{tilt,jdbcType=BIT},
+            battery=#{battery,jdbcType=INTEGER},
+            hit=#{hit,jdbcType=BIT},
+            water_pressure= #{waterPressure,jdbcType=REAL},
+            valve=#{valve,jdbcType=BIT},
+            flow= #{flow,jdbcType=REAL},
+            status_changed_time= #{statusChangedTime,jdbcType=TIMESTAMP},
+            last_online_time= #{lastOnlineTime,jdbcType=TIMESTAMP},
+            lastValue= #{lastValue,jdbcType=REAL},
         </set>
         WHERE id = #{id}
     </update>
@@ -287,6 +320,15 @@
             </if>
             <if test="flow != null">
                 flow= #{flow,jdbcType=REAL},
+            </if>
+            <if test="lastOnlineTime != null">
+                last_online_time= #{lastOnlineTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="statusChangedTime != null">
+                status_changed_time= #{statusChangedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastValue != null">
+                lastValue= #{lastValue,jdbcType=REAL},
             </if>
         </set>
         WHERE id = #{id}

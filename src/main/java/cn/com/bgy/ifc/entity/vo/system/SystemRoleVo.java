@@ -25,6 +25,7 @@ public class SystemRoleVo {
 	/**
 	 * 角色标示
 	 */
+	@Size(max=50,message="角色编码长度不能超过50字符！")
 	private String value;
 	/*
 	 * 状态：0 启用 	1 禁用

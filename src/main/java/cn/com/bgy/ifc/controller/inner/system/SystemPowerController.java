@@ -34,7 +34,7 @@ public class SystemPowerController {
      * @param: [page, systemPowerVo]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.system.SystemPower>>
      */
-    @GetMapping("queryPage")
+    @GetMapping("queryPageData")
     public ResponseVO<PageInfo<SystemPower>> queryList(Page<SystemPower> page, String keywords) {
             PageInfo<SystemPower> pageInfo = systemPowerService.queryListByPage(page, keywords);
             return ResponseVO.<PageInfo<SystemPower>>success().setData(pageInfo);
@@ -58,9 +58,9 @@ public class SystemPowerController {
      * @param: [systemPowerVo, error]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "添加系统权限")
-    public ResponseVO<Object> add(@Validated SystemPowerVo systemPowerVo, BindingResult error) {
+    public ResponseVO<Object> createData(@Validated SystemPowerVo systemPowerVo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -81,9 +81,9 @@ public class SystemPowerController {
      * @param: [systemPowerVo, error]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("edit")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "修改系统权限")
-    public ResponseVO<Object> edit(@Validated SystemPowerVo systemPowerVo, BindingResult error) {
+    public ResponseVO<Object> editData(@Validated SystemPowerVo systemPowerVo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());

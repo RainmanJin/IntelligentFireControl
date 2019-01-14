@@ -2,20 +2,15 @@ package cn.com.bgy.ifc.controller.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.EquipmentConstant;
-import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.EnumUtil;
-import cn.com.bgy.ifc.bgy.utils.ListUtil;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
-import cn.com.bgy.ifc.entity.vo.equipment.EquipmentConfigVo;
+import cn.com.bgy.ifc.entity.vo.equipment.EquipmentStateVo;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentStateService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,8 +37,8 @@ public class EquipmentStateController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.equipment.EquipmentState>>
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<EquipmentState>> searchPage(Page<EquipmentState> page, EquipmentState equipmentState) {
-        PageInfo<EquipmentState> pageInfo = equipmentStateService.queryListByPage(page, equipmentState);
+    public ResponseVO<PageInfo<EquipmentState>> searchPage(Page<EquipmentState> page, EquipmentStateVo equipmentStateVo) {
+        PageInfo<EquipmentState> pageInfo = equipmentStateService.queryListByPage(page, equipmentStateVo);
         return ResponseVO.<PageInfo<EquipmentState>>success().setData(pageInfo);
     }
 
@@ -78,7 +73,7 @@ public class EquipmentStateController {
      */
     @GetMapping("getStateEnum")
     public ResponseVO<Object> getStateEnum() {
-        List<SelectVo> list = EnumUtil.getSelectList(EquipmentConstant.stateEnum.class);
+        List<SelectVo> list = EnumUtil.getSelectList(EquipmentConstant.StateEnum.class);
         return ResponseVO.success().setData(list);
     }
 
@@ -94,13 +89,7 @@ public class EquipmentStateController {
         if (ids.length() == 0) {
             return ResponseVO.deleteError();
         }
-        List<Long> list = ListUtil.getListId(ids);
-        int resultCount = equipmentStateService.deleteBatch(list);
-        if (resultCount == list.size()) {
-            return ResponseVO.deleteSuccess();
-        } else {
-            return ResponseVO.deleteError();
-        }
+        return equipmentStateService.deleteEquipmentState(ids);
     }
 
 

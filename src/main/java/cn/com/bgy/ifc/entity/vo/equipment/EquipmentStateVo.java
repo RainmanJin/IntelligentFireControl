@@ -109,6 +109,16 @@ public class EquipmentStateVo {
      */
     private Float flow;
 
+    /**
+     * 设备类型查询
+     */
+    private Integer equipType;
+
+    /**
+     * 关键字
+     */
+    private String keyword;
+
     public Long getId() {
         return id;
     }
@@ -275,5 +285,21 @@ public class EquipmentStateVo {
 
     public void setFlow(Float flow) {
         this.flow = flow;
+    }
+
+    public Integer getEquipType() {
+        return equipType;
+    }
+
+    public void setEquipType(Integer equipType) {
+        this.equipType = equipType;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

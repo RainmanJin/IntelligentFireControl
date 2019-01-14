@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.bgy.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.base.Joiner;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -13,6 +14,14 @@ import java.util.List;
  **/
 public class ListUtil {
 
+    public static void main(String[] args) {
+        String id = "[a,b,c,d]";
+        String[] arrayIds = id.split(",");
+        String ids =  Joiner.on(",").join(arrayIds);
+        //Joiner.on(",")
+        System.out.println(ids);
+    }
+
     /**
      * @author: ZhangCheng
      * @description:将ID字符串转换为List<Long></>
@@ -23,6 +32,16 @@ public class ListUtil {
         //获取的id为批量时截取
         List<Long> list= JSON.parseArray(ids,Long.class);
         return list;
+    }
+
+    public static String getIdStr(List list){
+        StringBuilder ids = new StringBuilder();
+        int size=list.size();
+        for(int i=0;i<size;i++){
+            ids.append(i == 0 ? "" : ",");
+            ids.append(list.get(i));
+        }
+        return ids.toString();
     }
 
     /**

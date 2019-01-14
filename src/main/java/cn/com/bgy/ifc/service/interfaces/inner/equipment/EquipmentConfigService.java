@@ -42,4 +42,11 @@ public interface EquipmentConfigService extends BaseService<EquipmentConfig> {
      * @return
      */
     ResponseVO<Object> synchroEquipmentConfig(int pageNum, int pageSize);
+
+    /**
+     * 设备配置信息删除
+     * @param ids
+     * @return
+     */
+    ResponseVO<Object> deleteEquipmentConfig(String ids);
 }

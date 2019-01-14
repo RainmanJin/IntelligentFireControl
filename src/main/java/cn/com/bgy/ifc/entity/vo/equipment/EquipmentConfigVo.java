@@ -1,5 +1,7 @@
 package cn.com.bgy.ifc.entity.vo.equipment;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author: ZhangCheng
  * @description:设备配置
@@ -15,6 +17,7 @@ public class EquipmentConfigVo {
     /**
      * 设备类型
      */
+    @NotNull(message="设备类型不能为空！")
     private Integer type;
 
     /**

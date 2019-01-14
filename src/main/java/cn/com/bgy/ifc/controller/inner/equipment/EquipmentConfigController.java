@@ -4,7 +4,6 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.EquipmentConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.EnumUtil;
-import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.entity.po.equipment.AnalogueUnit;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
@@ -14,6 +13,7 @@ import cn.com.bgy.ifc.entity.vo.equipment.EquipmentConfigVo;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.AnalogueUnitService;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentConfigService;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentTypeService;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class EquipmentConfigController {
      * @author: ZhangCheng
      * @description:分页查询设备配置信息
      * @param: [page, equipmentConfig]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo < cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo   <   cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig>>
      */
     @GetMapping("queryPageData")
     public ResponseVO<PageInfo<EquipmentConfig>> searchPage(Page<EquipmentConfig> page, EquipmentConfig equipmentConfig) {
@@ -101,12 +101,7 @@ public class EquipmentConfigController {
         }
         EquipmentConfig equipmentConfig = new EquipmentConfig();
         CopyUtil.copyProperties(equipmentConfigVo, equipmentConfig);
-        int result = equipmentConfigService.updateSelective(equipmentConfig);
-        if (result == 1) {
-            return ResponseVO.editSuccess();
-        } else {
-            return ResponseVO.editError();
-        }
+        return equipmentConfigService.editEquipmentConfig(equipmentConfig);
     }
 
     /**
@@ -116,8 +111,8 @@ public class EquipmentConfigController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @GetMapping("synchroData")
-    public ResponseVO<Object> synchroData(){
-        return equipmentConfigService.synchroEquipmentConfig(1,100);
+    public ResponseVO<Object> synchroData() {
+        return equipmentConfigService.synchroEquipmentConfig(1, 100);
     }
 
     /**
@@ -128,7 +123,7 @@ public class EquipmentConfigController {
      */
     @GetMapping("getQuantityType")
     public ResponseVO<Object> getQuantityType() {
-        List<SelectVo> list = EnumUtil.getSelectList(EquipmentConstant.analogQuantityType.class);
+        List<SelectVo> list = EnumUtil.getSelectList(EquipmentConstant.AnalogQuantityType.class);
         return ResponseVO.success().setData(list);
     }
 
@@ -151,8 +146,8 @@ public class EquipmentConfigController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @GetMapping("getEquipmentType")
-    public ResponseVO<Object> getEquipmentType(){
-        List<EquipmentType> list=equipmentTypeService.queryAllList();
+    public ResponseVO<Object> getEquipmentType() {
+        List<EquipmentType> list = equipmentTypeService.queryAllList();
         return ResponseVO.success().setData(list);
     }
 
@@ -165,16 +160,10 @@ public class EquipmentConfigController {
     @PostMapping("deleteData")
     @SystemLogAfterSave(description = "删除设备配置信息")
     public ResponseVO<Object> deleteData(String ids) {
-        if (ids.length() == 0) {
+       if (ids.length() == 0) {
             return ResponseVO.deleteError();
         }
-        List<Long> list = ListUtil.getListId(ids);
-        int resultCount = equipmentConfigService.deleteBatch(list);
-        if (resultCount == list.size()) {
-            return ResponseVO.deleteSuccess();
-        } else {
-            return ResponseVO.deleteError();
-        }
+        return equipmentConfigService.deleteEquipmentConfig(ids);
     }
 
 }

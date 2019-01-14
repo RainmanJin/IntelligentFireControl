@@ -118,7 +118,6 @@ public class DbUtil {
                 String key = iterator.next();
                 keys[i] = key;
                 columnSql.append(i == 0 ? "" : ",");
-                //驼峰命名转下划线,根据数据库命名可自行更改
                 columnSql.append(key);
 
                 unknownMarkSql.append(i == 0 ? "" : ",");
