@@ -8,11 +8,9 @@ import cn.com.bgy.ifc.domain.interfaces.project.RegionCourtDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionCourt;
 import cn.com.bgy.ifc.entity.vo.project.RegionCourtVo;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +24,6 @@ public class RegionCourtDomainImpl implements RegionCourtDomain {
     @Resource
     private RegionCourtDao regionCourtDao;
 
-    @Resource
-    private RegionStreetDao regionStreetDao;
-
-    @Resource
-    private RegionBuildingDao regionBuildingDao;
-
-    @Resource
-    private RegionComputerRoomDao regionComputerRoomDao;
 
     /**
      * @Author huxin
@@ -61,20 +51,8 @@ public class RegionCourtDomainImpl implements RegionCourtDomain {
      * @Date 2018/12/19 15:18
      */
     @Override
-    @Transactional(rollbackFor = {Exception.class})
     public int updateRegionCourt( RegionCourt record ) {
-        if(record.getId()!=null){
-            Map<String,Object> map  = new HashMap<>();
-            map.put("regionId",record.getRegionId());
-            map.put("projectId",record.getId());
-            map.put("courtId",record.getId());
-            //修改机房
-            regionComputerRoomDao.updateFindByAddressId(map);
-            //修改楼栋单元
-            regionBuildingDao.updateFindByAddressId(map);
-            //修改街道
-            regionStreetDao.updateFindByAddressId(map);
-
+        if(record.getId()!=null && record.getId()>0){
             record.setCreateTime(new Date());
             return regionCourtDao.updateRegionCourt(record);
         }

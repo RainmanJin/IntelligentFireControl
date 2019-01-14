@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.firepatrol.RecordTable;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -20,7 +21,7 @@ import java.util.Map;
  * @Description 设施故障检测内容
  **/
 @RestController
-@RequestMapping("/firepatrol/FaultDetection")
+@RequestMapping("/firepatrol/faultDetection")
 public class FaultDetectionController extends BaseController {
 
     @Autowired
@@ -32,6 +33,7 @@ public class FaultDetectionController extends BaseController {
      * @Date 2019/1/12 10:57
      */
     @PostMapping("createData")
+    @SystemLogAfterSave(description = "消防设施故障检测添加")
     public ResponseVO<Object> addFaultDetection( RecordTable recordTable,String recordContent ){
         int count = faultDetectionService.addFaultDetection(recordTable,recordContent);
         if(count==1){
@@ -45,6 +47,7 @@ public class FaultDetectionController extends BaseController {
      * @Date 2019/1/12 10:57
      */
     @PostMapping("editData")
+    @SystemLogAfterSave(description = "消防设施故障检测修改")
     public ResponseVO<Object> editFaultDetection(RecordTable recordTable){
         int count = faultDetectionService.editFaultDetection(recordTable);
         if(count==1){
@@ -59,6 +62,7 @@ public class FaultDetectionController extends BaseController {
      * @Date 2019/1/12 11:00
      */
     @PostMapping("deleteData")
+    @SystemLogAfterSave(description = "消防设施故障检测删除")
     public ResponseVO<Object> deleteFaultDetection(String ids){
         int count = faultDetectionService.deleteFaultDetection(ids);
         if(count==1){

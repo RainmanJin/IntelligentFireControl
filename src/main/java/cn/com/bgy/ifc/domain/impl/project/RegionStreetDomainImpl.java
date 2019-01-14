@@ -1,17 +1,13 @@
 package cn.com.bgy.ifc.domain.impl.project;
 
-import cn.com.bgy.ifc.dao.project.RegionBuildingDao;
-import cn.com.bgy.ifc.dao.project.RegionComputerRoomDao;
 import cn.com.bgy.ifc.dao.project.RegionStreetDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionStreetDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionStreet;
 import cn.com.bgy.ifc.entity.vo.project.RegionStreetVo;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +22,6 @@ public class RegionStreetDomainImpl implements RegionStreetDomain {
     @Resource
     private RegionStreetDao regionStreetDao;
 
-    @Resource
-    private RegionBuildingDao regionBuildingDao;
-
-    @Resource
-    private RegionComputerRoomDao regionComputerRoomDao;
     /**
      * @Author huxin
      * @Description 查
@@ -58,18 +49,8 @@ public class RegionStreetDomainImpl implements RegionStreetDomain {
      * @Date 2018/12/19 15:18
      */
     @Override
-    @Transactional(rollbackFor = {Exception.class})
     public int updateRegionStreet( RegionStreet record ) {
-        if(record.getId()!=null){
-            Map<String,Object> map  = new HashMap<>();
-            map.put("regionId",record.getRegionId());
-            map.put("projectId",record.getProjectId());
-            map.put("courtId",record.getCourtId());
-            map.put("streetId",record.getId());
-            //修改机房
-            regionComputerRoomDao.updateFindByAddressId(map);
-            //修改街道信息
-            regionBuildingDao.updateFindByAddressId(map);
+        if(record.getId()!=null && record.getId()>0){
             return regionStreetDao.updateRegionStreet(record);
         }
 

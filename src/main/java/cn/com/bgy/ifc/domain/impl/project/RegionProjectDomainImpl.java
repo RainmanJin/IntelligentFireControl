@@ -7,7 +7,6 @@ import cn.com.bgy.ifc.bgy.utils.StringUtil;
 import cn.com.bgy.ifc.dao.project.*;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionProjectDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
-import cn.com.bgy.ifc.entity.po.project.RegionInfo;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.BgyProjectVo;
@@ -38,17 +37,6 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
     @Resource
     private RegionProjectDao regionProjectDao;
 
-    @Resource
-    private RegionCourtDao regionCourtDao;
-
-    @Resource
-    private RegionStreetDao regionStreetDao;
-
-    @Resource
-    private RegionBuildingDao regionBuildingDao;
-
-    @Resource
-    private RegionComputerRoomDao regionComputerRoomDao;
 
     /**
      * @Author huxin
@@ -85,18 +73,7 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public int updateRegionProject(RegionProject record) {
-        if (record.getId() != null) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("regionId", record.getRegionId());
-            map.put("projectId", record.getId());
-            //修改机房
-            regionComputerRoomDao.updateFindByAddressId(map);
-            //修改楼栋单元
-            regionBuildingDao.updateFindByAddressId(map);
-            //修改街道
-            regionStreetDao.updateFindByAddressId(map);
-            //修改苑区
-            regionCourtDao.updateFindByAddressId(map);
+        if (record.getId() != null && record.getId()>0) {
             record.setCreateTime(new Date());
             return regionProjectDao.updateSelective(record);
         }

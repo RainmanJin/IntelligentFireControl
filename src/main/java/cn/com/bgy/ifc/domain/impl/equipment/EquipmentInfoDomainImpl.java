@@ -192,8 +192,11 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
      */
     @Override
     public Map<String, Object> queryEquipmentInfoById(Long id) {
+        if(id!=null&& id>0){
+            return equipmentInfoDao.queryEquipmentInfoById(id);
+        }
+        return null;
 
-        return equipmentInfoDao.queryEquipmentInfoById(id);
     }
 
     @Override

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.firepatrol.FaultDetectionPlanDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.FaultDetectionPlan">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="record_id" jdbcType="BIGINT" property="recordId" />
+    <result column="plan_name" jdbcType="VARCHAR" property="planName" />
+    <result column="plan_type" jdbcType="INTEGER" property="planType" />
+    <result column="plan_status" jdbcType="VARCHAR" property="planStatus" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FaultDetectionPlan">
+    insert into fault_detection_plan (id, record_id, plan_name, 
+      plan_type, plan_status, logic_remove, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{recordId,jdbcType=BIGINT}, #{planName,jdbcType=VARCHAR}, 
+      #{planType,jdbcType=INTEGER}, #{planStatus,jdbcType=VARCHAR}, #{logicRemove,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FaultDetectionPlan">
+    insert into fault_detection_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="planName != null">
+        plan_name,
+      </if>
+      <if test="planType != null">
+        plan_type,
+      </if>
+      <if test="planStatus != null">
+        plan_status,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="recordId != null">
+        #{recordId,jdbcType=BIGINT},
+      </if>
+      <if test="planName != null">
+        #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="planType != null">
+        #{planType,jdbcType=INTEGER},
+      </if>
+      <if test="planStatus != null">
+        #{planStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FaultDetectionPlan">
+    UPDATE   fault_detection_plan
+    <if test="recordId != null">
+      record_id= #{recordId,jdbcType=BIGINT},
+    </if>
+    <if test="planName != null">
+      plan_name= #{planName,jdbcType=VARCHAR},
+    </if>
+    <if test="planType != null">
+      plan_type= #{planType,jdbcType=INTEGER},
+    </if>
+    <if test="planStatus != null">
+      plan_status = #{planStatus,jdbcType=VARCHAR},
+    </if>
+    <if test="createTime != null">
+      create_time= #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    WHERE id =#{id,jdbcType=BIGINT}
+  </update>
+  <update id="deleteBatch" parameterType="java.util.List">
+    UPDATE   fault_detection_plan set logic_remove =1  where record_id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id,jdbcType=BIGINT}
+    </foreach>
+  </update>
+  <select id="listFaultDetectionPlan" parameterType="java.util.Map" resultType="java.util.Map">
+    SELECT
+      p.id AS id,p.plan_name AS planName,p.plan_type AS planType,
+      c.record_content AS recordContent,p.plan_status AS planStatus,
+      p.create_time AS createTime
+    FROM fault_detection_plan p
+    LEFT JOIN record_by_content bc ON p.record_id=bc.record_id
+    LEFT JOIN record_content c ON bc.content_id = c.id AND c.logic_remove=0
+      <where>
+        <if test="planType != null and planType!= '' ">
+          AND p.plan_type= #{equipmentTypeId,jdbcType=BIGINT}
+        </if>
+        <if test="planStatus != null and planStatus != '' ">
+          AND p.plan_status=  #{planStatus,jdbcType=INTEGER}
+        </if>
+        <if test="keyword!='' and keyword!=null">
+          AND (p.plan_name LIKE concat('%',#{keyword},'%')
+          OR c.record_content LIKE concat('%',#{keyword},'%'))
+        </if>
+        AND logic_remove = 0
+      </where>
+  </select>
+  <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
+    SELECT
+      p.id AS id,p.plan_name AS planName,p.plan_type AS planType,
+      c.record_content AS recordContent,p.plan_status AS planStatus,
+      p.create_time AS createTime
+    FROM fault_detection_plan p
+    LEFT JOIN record_by_content bc ON p.record_id=bc.record_id
+    LEFT JOIN record_content c ON bc.content_id = c.id AND c.logic_remove=0
+    WHERE id =#{id,jdbcType=BIGINT}   AND logic_remove = 0
+  </select>
+</mapper>

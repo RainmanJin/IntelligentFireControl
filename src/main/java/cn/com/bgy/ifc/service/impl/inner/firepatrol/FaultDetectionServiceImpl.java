@@ -6,6 +6,7 @@ import cn.com.bgy.ifc.domain.interfaces.firepatrol.FaultDetectionDomain;
 import cn.com.bgy.ifc.entity.po.firepatrol.RecordTable;
 import cn.com.bgy.ifc.service.interfaces.inner.firepatrol.FaultDetectionService;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,6 +76,7 @@ public class FaultDetectionServiceImpl implements FaultDetectionService {
      */
     @Override
     public PageInfo listFaultDetection( Page<Object> page, String keyword, Long equipmentTypeId, Integer situation ) {
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
         Map<String,Object> map = new HashMap<>();
         map.put("keyword",keyword);
         map.put("equipmentTypeId",equipmentTypeId);

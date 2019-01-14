@@ -133,7 +133,8 @@
   <!-- 查询设施巡检列表-->
   <select id="listFaultDetection" parameterType="java.util.Map" resultType="java.util.Map">
     SELECT
-    r.id AS id,type.sName,type.tName,type.oNAme,i.`name` AS equipmentName,r.situation AS situation,
+    r.id AS id,type.sName AS sName,type.tName AS tName,type.oNAme AS oNAme,
+    i.`name` AS equipmentName,r.situation AS situation,
     r.description  AS description,r.record_person AS repairPerson,
     r.approver AS approver,r.approval_result AS approvalResult,
     o.state as state, r.create_time AS createTime
@@ -149,8 +150,8 @@
     ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0) AS type ON type.sParenId = i.type_id
     LEFT JOIN repair_order o ON r.order_id = o.id AND o.logic_remove=0
       <where>
-        <if test="equipmentId != null and equipmentId!= '' ">
-          AND r.equipment_id= #{regionId,jdbcType=BIGINT}
+        <if test="equipmentTypeId != null and equipmentTypeId!= '' ">
+          AND type.sId= #{equipmentTypeId,jdbcType=BIGINT}
         </if>
         <if test="situation != null and situation != '' ">
           AND r.situation=  #{situation,jdbcType=INTEGER}
@@ -164,7 +165,7 @@
         AND r.logic_remove = 0 AND r.type = 3
       </where>
   </select>
-  <select id="" parameterType="java.util.Map" resultType="java.util.Map">
+  <select id="findById" parameterType="java.util.Map" resultType="java.util.Map">
     SELECT
           r.id AS id,i.`name` AS equipmentName,r.situation AS situation,
           r.description  AS description,r.record_person AS repairPerson,
@@ -173,6 +174,6 @@
       FROM record_table r
       LEFT JOIN equipment_info i ON r.equipment_id = i.id AND i.logic_remove=0
       LEFT JOIN repair_order o ON r.order_id = o.id AND o.logic_remove=0
-      WHERE WHERE id=#{id,jdbcType=BIGINT}
+      WHERE id=#{id,jdbcType=BIGINT}
   </select>
 </mapper>

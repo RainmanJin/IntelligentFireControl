@@ -5,13 +5,13 @@ import cn.com.bgy.ifc.entity.po.equipment.EquipmentThingType;
 public interface EquipmentThingTypeDao {
     /**
      *
-     * @mbg.generated 2019-01-12
+     * @mbg.generated 2019-01-14
      */
     int insert(EquipmentThingType record);
 
     /**
      *
-     * @mbg.generated 2019-01-12
+     * @mbg.generated 2019-01-14
      */
     int insertSelective(EquipmentThingType record);
 }

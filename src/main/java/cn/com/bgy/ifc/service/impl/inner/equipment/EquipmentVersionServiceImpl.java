@@ -52,7 +52,10 @@ public class EquipmentVersionServiceImpl implements EquipmentVersionService {
      */
     @Override
     public int updateEquipmentVersion( EquipmentVersion record ) {
-        return equipmentVersionDomain.updateEquipmentVersion(record);
+        if(record.getId()!=null && record.getId()>0 ){
+            return equipmentVersionDomain.updateEquipmentVersion(record);
+        }
+        return 0;
     }
     /**
      * @Author huxin

@@ -37,17 +37,6 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
     @Resource
     private RegionComputerRoomDao regionComputerRoomDao;
 
-    @Resource
-    private RegionProjectDao regionProjectDao;
-
-    @Resource
-    private RegionCourtDao regionCourtDao;
-
-    @Resource
-    private RegionStreetDao regionStreetDao;
-
-    @Resource
-    private RegionBuildingDao regionBuildingDao;
 
 
     @Autowired
@@ -340,6 +329,9 @@ public class RegionComputerRoomDomainImpl implements RegionComputerRoomDomain {
      */
     @Override
     public int deleteRegionComputerRoom( List<Long> list ) {
-        return regionComputerRoomDao.deleteRegionComputerRoom(list);
+        if(list.size()>0){
+            return regionComputerRoomDao.deleteRegionComputerRoom(list);
+        }
+        return 0;
     }
 }
