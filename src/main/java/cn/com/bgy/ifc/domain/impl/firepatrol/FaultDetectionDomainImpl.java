@@ -50,12 +50,14 @@ public class FaultDetectionDomainImpl implements FaultDetectionDomain {
         recordTable.setCreateTime(time);
         int count = recordTableDao.insertSelective(recordTable);
         if(count==1){
-            //添加记录内容
-            RecordContent con = new RecordContent();
-            //根据设备ID查询设备类型ID
+
+            //根据设备ID查询设备信息
             Map<String,Object> map = equipmentInfoDao.queryEquipmentInfoById(recordTable.getEquipmentId());
-            if(map.get("typeId")!=null){
-                con.setEquipmentTypeId((Long) map.get("typeId"));
+            if(map.get("id")!=null){
+                //添加记录内容
+                RecordContent con = new RecordContent();
+                con.setEquipmentTypeId((Long) map.get("id"));
+                con.setRecordContent(recordContent);
                 con.setLogicRemove(false);
                 con.setCreateTime(time);
                 recordContentDao.insertSelective(con);
