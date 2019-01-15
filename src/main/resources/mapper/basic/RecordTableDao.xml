@@ -119,7 +119,7 @@
         approval_result=  #{approvalResult,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP}
+        create_time= #{createTime,jdbcType=TIMESTAMP}
       </if>
     </set>
     WHERE id=#{id,jdbcType=BIGINT}
@@ -134,20 +134,28 @@
   <select id="listFaultDetection" parameterType="java.util.Map" resultType="java.util.Map">
     SELECT
     r.id AS id,type.sName AS sName,type.tName AS tName,type.oNAme AS oNAme,
-    i.`name` AS equipmentName,r.situation AS situation,
-    r.description  AS description,r.record_person AS repairPerson,
+    CONCAT(IFNULL(ri.`name`,''),IFNULL(rp.`name`,''),IFNULL(rc.`name`,''),IFNULL(rs.`name`,''),IFNULL(rb.`name`,'')) as address,
+    ei.`name` AS equipmentName,r.situation AS situation,b.record_content AS recordContent,
+    r.description  AS description,r.record_person AS recordPerson,
     r.approver AS approver,r.approval_result AS approvalResult,
     o.state as state, r.create_time AS createTime
     FROM record_table r
     LEFT JOIN record_by_content bc ON r.id = bc.record_id
-    LEFT JOIN record_content b ON bc.content_id=b.id
-    LEFT JOIN equipment_info i ON r.equipment_id = i.id AND i.logic_remove=0
+    LEFT JOIN record_content b ON bc.content_id=b.id AND b.logic_remove=0
+    LEFT JOIN equipment_info ei ON r.equipment_id = ei.id AND ei.logic_remove=0
+    INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id AND rr.logic_remove = 0
+    INNER JOIN region_info ri ON rr.region_id = ri.id   AND ri.logic_remove = 0
+    INNER JOIN region_project rp ON rr.project_id = rp.id AND rp.region_id = ri.id  AND rp.logic_remove = 0
+    LEFT JOIN region_court rc ON rr.court_id = rc.id AND rc.region_id = ri.id AND rc.project_id = rp.id AND rc.logic_remove = 0
+    LEFT JOIN region_street rs ON rr.street_id = rs.id AND rs.region_id = ri.id AND rs.project_id = rp.id AND rs.court_id = rc.id  AND rs.logic_remove = 0
+    LEFT JOIN region_building rb ON rr.building_id = rb.id AND rb.region_id = ri.id AND rb.project_id = rp.id
+    AND rb.court_id = rc.id AND rb.street_id = rs.id  AND rb.logic_remove = 0
     left JOIN (SELECT sId,sName,sParenId, tId,tName,tParenId,e1.id AS oId,e1.name AS oNAme,e1.parent_id AS oParenId
     FROM	(
     SELECT sId,sName,sParenId,e.id AS tId,e.name AS tName,e.parent_id AS tParenId FROM (
     SELECT id AS sId,`name` AS sName,parent_id AS sParenId FROM equipment_type WHERE logic_remove=0
     ) AS s INNER JOIN equipment_type e ON s.sParenId = e.id WHERE e.logic_remove=0
-    ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0) AS type ON type.sParenId = i.type_id
+    ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0) AS type ON type.sParenId = ei.type_id
     LEFT JOIN repair_order o ON r.order_id = o.id AND o.logic_remove=0
       <where>
         <if test="equipmentTypeId != null and equipmentTypeId!= '' ">
@@ -167,13 +175,22 @@
   </select>
   <select id="findById" parameterType="java.util.Map" resultType="java.util.Map">
     SELECT
-          r.id AS id,i.`name` AS equipmentName,r.situation AS situation,
-          r.description  AS description,r.record_person AS repairPerson,
-          r.approver AS approver,r.approval_result AS approvalResult,
-          r.create_time AS createTime
-      FROM record_table r
-      LEFT JOIN equipment_info i ON r.equipment_id = i.id AND i.logic_remove=0
-      LEFT JOIN repair_order o ON r.order_id = o.id AND o.logic_remove=0
-      WHERE r.id=#{id,jdbcType=BIGINT}
+    r.id AS id,i.`name` AS equipmentName,r.situation AS situation,
+    r.description  AS description,r.record_person AS recordPerson,
+    r.approver AS approver,r.approval_result AS approvalResult,
+    b.record_content AS recordContent,r.create_time AS createTime
+    FROM record_table r
+    LEFT JOIN record_by_content bc ON r.id = bc.record_id
+    LEFT JOIN record_content b ON bc.content_id=b.id AND b.logic_remove=0
+    LEFT JOIN equipment_info i ON r.equipment_id = i.id AND i.logic_remove=0
+    WHERE r.id=#{id,jdbcType=BIGINT}
+  </select>
+  <select id="dropDownDataFindByEquipmentId" parameterType="java.util.Map" resultType="java.util.Map">
+    SELECT
+        r.id AS id,b.record_content AS recordContent
+    FROM record_table r
+    LEFT JOIN record_by_content bc ON r.id = bc.record_id
+    LEFT JOIN record_content b ON bc.content_id=b.id
+    WHERE r.type =#{type,jdbcType=INTEGER} AND equipment_id=#{equipmentId,jdbcType=BIGINT}
   </select>
 </mapper>

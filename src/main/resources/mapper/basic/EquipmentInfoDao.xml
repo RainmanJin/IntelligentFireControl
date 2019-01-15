@@ -347,4 +347,22 @@
      <select id="queryRoomIdByEquipmentId" parameterType="java.lang.Long" resultType="java.lang.Long">
          SELECT machine_room_id FROM equipment_info  WHERE id = #{id} and  logic_remove = 0
      </select>
+    <select id="ListByCourtId" parameterType="java.util.Map" resultType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
+         SELECT
+         ei.id as id,ei.`name` as name
+         FROM equipment_info ei
+         INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id AND rr.logic_remove = 0
+         INNER JOIN region_info ri ON rr.region_id = ri.id   AND ri.logic_remove = 0
+         INNER JOIN region_project rp ON rr.project_id = rp.id AND rp.region_id = ri.id  AND rp.logic_remove = 0
+         LEFT JOIN region_court rc ON rr.court_id = rc.id AND rc.region_id = ri.id AND rc.project_id = rp.id AND rc.logic_remove = 0
+         <where>
+             <if test="projectId != null">
+                 AND   rp.id =  #{projectId,jdbcType=BIGINT}
+             </if>
+             <if test="courtId != null">
+                 AND   rc.id =  #{courtId,jdbcType=BIGINT}
+             </if>
+             AND ei.logic_remove = 0
+         </where>
+    </select>
  </mapper>

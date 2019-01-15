@@ -51,4 +51,27 @@
       </if>
     </trim>
   </insert>
+  <select id="queryContentByRecordId" parameterType="java.lang.Long" resultType="cn.com.bgy.ifc.entity.po.firepatrol.RecordContent">
+    SELECT
+          c.id AS id,c.record_content AS recordContent,
+          c.equipment_type_id AS equipmentTypeId
+    FROM record_content c
+    LEFT JOIN record_by_content bc ON c.id=bc.content_id
+    WHERE bc.record_id = #{recordId,jdbcType=BIGINT} AND c.logic_remove = 0
+  </select>
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RecordContent">
+    UPDATE record_content
+    <set>
+      <if test="recordContent != null">
+        record_content= #{recordContent,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentTypeId != null">
+        equipment_type_id= #{equipmentTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time= #{createTime,jdbcType=TIMESTAMP}
+      </if>
+    </set>
+    WHERE id=#{id,jdbcType=BIGINT} AND logic_remove=0
+  </update>
 </mapper>

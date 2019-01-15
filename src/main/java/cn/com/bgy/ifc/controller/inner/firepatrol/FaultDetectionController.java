@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,8 +49,8 @@ public class FaultDetectionController extends BaseController {
      */
     @PostMapping("editData")
     @SystemLogAfterSave(description = "消防设施故障检测修改")
-    public ResponseVO<Object> editFaultDetection(RecordTable recordTable){
-        int count = faultDetectionService.editFaultDetection(recordTable);
+    public ResponseVO<Object> editFaultDetection(RecordTable recordTable,String recordContent){
+        int count = faultDetectionService.editFaultDetection(recordTable,recordContent);
         if(count==1){
             return ResponseVO.<Object>editSuccess();
         }
@@ -90,5 +91,17 @@ public class FaultDetectionController extends BaseController {
     public ResponseVO<Object> getFaultDetectionFindByID( Long id){
         Map<String,Object> map = faultDetectionService.getFaultDetectionFindByID(id);
         return ResponseVO.<Object>success().setData(map);
+    }
+    /*
+     * @Author  huxin
+     * @Description 根据设备ID获取故障检测内容下拉列表       
+     * @param   [equipmentId]
+     * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @Date 2019/1/15 14:26
+     */
+    @GetMapping("dropDownData")
+    public ResponseVO<Object> dropDownDataFindByEquipmentId(Long equipmentId){
+        List<RecordTable> list = faultDetectionService.dropDownDataFindByEquipmentId(equipmentId);
+        return ResponseVO.<Object>success().setData(list);
     }
 }

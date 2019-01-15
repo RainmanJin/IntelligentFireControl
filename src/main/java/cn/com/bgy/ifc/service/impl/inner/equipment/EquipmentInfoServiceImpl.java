@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
 
+import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
@@ -10,6 +11,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,6 +28,8 @@ public class EquipmentInfoServiceImpl implements EquipmentInfoService {
 
     @Autowired
     private EquipmentInfoDomain equipmentInfoDomain;
+    @Resource
+    private EquipmentInfoDao equipmentInfoDao;
     /**
      * @Author huxin
      * @Description 差
@@ -70,5 +76,22 @@ public class EquipmentInfoServiceImpl implements EquipmentInfoService {
     @Override
     public Map<String, Object> queryEquipmentInfoById( Long id ) {
         return equipmentInfoDomain.queryEquipmentInfoById(id);
+    }
+    /*
+     * @Author  huxin
+     * @Description 根据项目ID，苑区ID查询设备下拉框
+     * @param   [projectId, courtId]
+     * @retrue  java.util.List<cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo>
+     * @Date 2019/1/15 11:49
+     **/
+    @Override
+    public List<EquipmentInfo> ListByCourtId(Long projectId, Long courtId ) {
+        if(projectId!=null && projectId>0 || courtId!=null && courtId>0){
+            Map<String,Object> map = new HashMap<>();
+            map.put("projectId",projectId);
+            map.put("courtId",courtId);
+            return equipmentInfoDao.ListByCourtId(map);
+        }
+        return null;
     }
 }

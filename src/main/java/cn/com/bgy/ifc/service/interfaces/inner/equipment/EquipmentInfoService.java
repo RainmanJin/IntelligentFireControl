@@ -1,13 +1,12 @@
 package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
-import java.util.List;
-import java.util.Map;
-
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
-import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -26,4 +25,6 @@ public interface EquipmentInfoService {
     int deleteEquipmentInfo(String str);
 
     Map<String,Object> queryEquipmentInfoById( Long id );
+    //根据项目ID,苑区ID查询设备下拉框
+    List<EquipmentInfo> ListByCourtId( Long projectId,Long courtId );
 }

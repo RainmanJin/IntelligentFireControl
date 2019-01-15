@@ -1,17 +1,5 @@
 package cn.com.bgy.ifc.controller.inner.equipment;
 
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
-
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
@@ -19,6 +7,16 @@ import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentInfoService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 /**
  * @Author huxin
@@ -114,5 +112,17 @@ public class EquipmentInfoController extends BaseController {
     public ResponseVO<Object> queryMaintenanceCompanyList(RegionAndBrandVO vo) {
     	
         return ResponseVO.success().setData(domain.queryAllInfo(vo));
+    }
+    /*
+     * @Author  huxin
+     * @Description 根据项目ID，苑区ID查询设备下拉框
+     * @param   [projectId, courtId]
+     * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @Date 2019/1/15 11:49
+     */
+    @GetMapping("dropDownData")
+    @ResponseBody
+    public ResponseVO<Object> ListByCourtId(Long projectId,Long courtId){
+        return ResponseVO.success().setData(equipmentInfoService.ListByCourtId(projectId,courtId));
     }
 }

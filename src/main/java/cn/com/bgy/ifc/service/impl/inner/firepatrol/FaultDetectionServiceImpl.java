@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,12 +48,9 @@ public class FaultDetectionServiceImpl implements FaultDetectionService {
      * @Date 2019/1/12 11:30
      */
     @Override
-    public int editFaultDetection( RecordTable recordTable ) {
-        if(recordTable.getId()!=null && recordTable.getId()>0){
-            recordTable.setCreateTime(new Date());
-            return recordTableDao.updateSelective(recordTable);
-        }
-        return 0;
+    public int editFaultDetection( RecordTable recordTable ,String recordContent) {
+        return faultDetectionDomain.editFaultDetection(recordTable,recordContent);
+
     }
     /**
      * @Author huxin
@@ -93,6 +89,24 @@ public class FaultDetectionServiceImpl implements FaultDetectionService {
     public Map<String, Object> getFaultDetectionFindByID( Long id ) {
         if(id != null && id>0){
             return (Map<String, Object>) recordTableDao.findById(id);
+        }
+        return null;
+    }
+    /*
+     * @Author  huxin
+     * @Description 根据设备ID获取故障检测内容下拉列表
+     * @param   [equipmentId]
+     * @retrue  java.util.List<cn.com.bgy.ifc.entity.po.firepatrol.RecordTable>
+     * @Date 2019/1/15 14:25
+     */
+    @Override
+    public List<RecordTable> dropDownDataFindByEquipmentId( Long equipmentId ) {
+        if(equipmentId != null && equipmentId>0){
+            Map<String,Object> map= new HashMap<>();
+            //故障检测类型的记录内容
+            map.put("type",3);
+            map.put("equipmentId",equipmentId);
+            return recordTableDao.dropDownDataFindByEquipmentId(equipmentId);
         }
         return null;
     }
