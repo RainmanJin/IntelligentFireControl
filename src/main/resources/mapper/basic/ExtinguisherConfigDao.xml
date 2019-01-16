@@ -150,7 +150,6 @@
                 AND (setting_position LIKE concat('%',#{keyword},'%')
                 OR person LIKE concat('%',#{keyword},'%')
                 OR situation like concat('%',#{keyword},'%'))
-                )
             </if>
             AND logic_remove=0
         </where>

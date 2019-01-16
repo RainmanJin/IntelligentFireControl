@@ -15,44 +15,31 @@ public class RegionByRecord {
      */
     private Long regionId;
 
-    /**
-     * 区域名
-     */
-    private String regionName;
+
 
     /**
      * 项目ID
      */
     private Long projectId;
 
-    /**
-     * 项目名
-     */
-    private String projectName;
+
 
     /**
      * 苑区ID
      */
     private Long courtId;
 
-    /**
-     * 苑区名
-     */
-    private String courtName;
+
 
     /**
      * 街道ID
      */
     private Long streetId;
 
-    /**
-     * 街道名
-     */
-    private String streetName;
+
     //楼栋单元ID
     private Long buildingId;
-    //楼栋单元名
-    private String buildingName;
+
     /**
      * 
      * @return id 
@@ -93,21 +80,7 @@ public class RegionByRecord {
         this.regionId = regionId;
     }
 
-    /**
-     * 区域名
-     * @return region_name 区域名
-     */
-    public String getRegionName() {
-        return regionName;
-    }
 
-    /**
-     * 区域名
-     * @param regionName 区域名
-     */
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
-    }
 
     /**
      * 项目ID
@@ -125,21 +98,8 @@ public class RegionByRecord {
         this.projectId = projectId;
     }
 
-    /**
-     * 项目名
-     * @return project_name 项目名
-     */
-    public String getProjectName() {
-        return projectName;
-    }
 
-    /**
-     * 项目名
-     * @param projectName 项目名
-     */
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
+
 
     /**
      * 苑区ID
@@ -157,21 +117,7 @@ public class RegionByRecord {
         this.courtId = courtId;
     }
 
-    /**
-     * 苑区名
-     * @return court_name 苑区名
-     */
-    public String getCourtName() {
-        return courtName;
-    }
 
-    /**
-     * 苑区名
-     * @param courtName 苑区名
-     */
-    public void setCourtName(String courtName) {
-        this.courtName = courtName;
-    }
 
     /**
      * 街道ID
@@ -189,21 +135,9 @@ public class RegionByRecord {
         this.streetId = streetId;
     }
 
-    /**
-     * 
-     * @return street_name 
-     */
-    public String getStreetName() {
-        return streetName;
-    }
 
-    /**
-     * 
-     * @param streetName 
-     */
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
+
+
 
     public Long getBuildingId() {
         return buildingId;
@@ -213,11 +147,4 @@ public class RegionByRecord {
         this.buildingId = buildingId;
     }
 
-    public String getBuildingName() {
-        return buildingName;
-    }
-
-    public void setBuildingName( String buildingName ) {
-        this.buildingName = buildingName;
-    }
 }

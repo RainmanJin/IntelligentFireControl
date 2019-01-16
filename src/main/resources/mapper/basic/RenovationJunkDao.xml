@@ -116,7 +116,6 @@
             <if test="keyword!='' and keyword!=null">
                 AND (check_person LIKE concat('%',#{keyword},'%')
                 OR check_result LIKE concat('%',#{keyword},'%'))
-                )
             </if>
             AND logic_remove=0
         </where>

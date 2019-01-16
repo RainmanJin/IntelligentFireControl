@@ -9,9 +9,9 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RecordContent">
-    insert into record_content (id, record_content, equipment_type_id, 
+    insert into record_content (id, record_content, equipment_type_id,
       logic_remove, create_time)
-    values (#{id,jdbcType=BIGINT}, #{recordContent,jdbcType=VARCHAR}, #{equipmentTypeId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{recordContent,jdbcType=VARCHAR}, #{equipmentTypeId,jdbcType=BIGINT},
       #{logicRemove,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective"  keyProperty="id" useGeneratedKeys="true" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RecordContent">

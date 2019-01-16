@@ -66,7 +66,7 @@ public class FaultDetectionController extends BaseController {
     @SystemLogAfterSave(description = "消防设施故障检测删除")
     public ResponseVO<Object> deleteFaultDetection(String ids){
         int count = faultDetectionService.deleteFaultDetection(ids);
-        if(count==1){
+        if(count>=1){
             return ResponseVO.<Object>deleteSuccess();
         }
         return ResponseVO.<Object>deleteError();

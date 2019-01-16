@@ -9,4 +9,6 @@ import java.util.Map;
 public interface FaultDetectionPlanDao extends BaseDao<FaultDetectionPlan> {
     //查询消防设施设备故障检测计划列表
     List<Map<String,Object>> listFaultDetectionPlan( Map<String,Object> map );
+    //根据计划ID查询返回相关信息
+    List<FaultDetectionPlan> getListRecordIdFindById(List<Long> list);
 }

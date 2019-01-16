@@ -34,8 +34,8 @@ public class FaultDetectionPlanController extends BaseController {
      */
     @PostMapping("createData")
     @SystemLogAfterSave(description = "消防设施故障检测计划列表添加")
-    public ResponseVO<Object> addFaultDetectionPlan( FaultDetectionPlan faultDetectionPlan ){
-        int count = faultDetectionPlanService.addFaultDetection(faultDetectionPlan);
+    public ResponseVO<Object> addFaultDetectionPlan( FaultDetectionPlan faultDetectionPlan,Long equipmentId,Long recordContentId){
+        int count = faultDetectionPlanService.addFaultDetection(faultDetectionPlan,equipmentId,recordContentId);
         if(count==1){
             return ResponseVO.<Object>addSuccess();
         }
@@ -65,7 +65,7 @@ public class FaultDetectionPlanController extends BaseController {
     @SystemLogAfterSave(description = "消防设施故障检测计划列表删除")
     public ResponseVO<Object> deleteFaultDetectionPlan(String ids){
         int count = faultDetectionPlanService.deleteFaultDetectionPlan(ids);
-        if(count==1){
+        if(count>=1){
             return ResponseVO.<Object>deleteSuccess();
         }
         return ResponseVO.<Object>deleteError();

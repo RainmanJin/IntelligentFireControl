@@ -2,11 +2,13 @@ package cn.com.bgy.ifc.service.impl.inner.firepatrol;
 
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.dao.firepatrol.FaultDetectionPlanDao;
+import cn.com.bgy.ifc.domain.interfaces.firepatrol.FaultDetectionPlanDomain;
 import cn.com.bgy.ifc.entity.po.firepatrol.FaultDetectionPlan;
 import cn.com.bgy.ifc.service.interfaces.inner.firepatrol.FaultDetectionPlanService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,6 +25,9 @@ import java.util.Map;
 @Service
 public class FaultDetectionPlanServiceImpl implements FaultDetectionPlanService {
 
+    @Autowired
+    private FaultDetectionPlanDomain faultDetectionPlanDomain;
+
     @Resource
     private FaultDetectionPlanDao faultDetectionPlanDao;
 
@@ -32,10 +37,10 @@ public class FaultDetectionPlanServiceImpl implements FaultDetectionPlanService 
      * @Date 2019/1/14 11:24
      */
     @Override
-    public int addFaultDetection( FaultDetectionPlan faultDetectionPlan ) {
-        faultDetectionPlan.setLogicRemove(false);
-        faultDetectionPlan.setCreateTime(new Date());
-        return faultDetectionPlanDao.insertSelective(faultDetectionPlan);
+    public int addFaultDetection( FaultDetectionPlan faultDetectionPlan ,Long equipmentId,Long recordContentId) {
+
+        return faultDetectionPlanDomain.addFaultDetection(faultDetectionPlan,equipmentId,recordContentId);
+
     }
     /*
      * @Author huxin
@@ -59,9 +64,9 @@ public class FaultDetectionPlanServiceImpl implements FaultDetectionPlanService 
     public int deleteFaultDetectionPlan( String ids ) {
         List<Long> list = ListUtil.getListId(ids);
         if(list.size()>0){
-            return faultDetectionPlanDao.deleteBatch(list);
+            return faultDetectionPlanDomain.deleteFaultDetectionPlan(list);
         }
-        return 0;
+       return 0;
     }
     /*
      * @Author huxin

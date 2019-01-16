@@ -106,7 +106,7 @@ public class FaultDetectionServiceImpl implements FaultDetectionService {
             //故障检测类型的记录内容
             map.put("type",3);
             map.put("equipmentId",equipmentId);
-            return recordTableDao.dropDownDataFindByEquipmentId(equipmentId);
+            return recordTableDao.dropDownDataFindByEquipmentId(map);
         }
         return null;
     }

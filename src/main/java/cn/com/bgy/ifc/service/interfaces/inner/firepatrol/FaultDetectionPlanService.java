@@ -14,7 +14,7 @@ import java.util.Map;
 
 public interface FaultDetectionPlanService {
     //添加消防设施设备故障检测计划
-    int addFaultDetection( FaultDetectionPlan faultDetectionPlan );
+    int addFaultDetection( FaultDetectionPlan faultDetectionPlan ,Long equipmentId,Long recordContentId);
     //修改消防设施设备故障检测计划
     int editFaultDetectionPlan( FaultDetectionPlan faultDetectionPlan );
     //删除消防设施设备故障检测计划（含批量）

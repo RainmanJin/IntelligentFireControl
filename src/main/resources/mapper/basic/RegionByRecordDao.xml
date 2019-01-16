@@ -5,25 +5,17 @@
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="record_id" jdbcType="BIGINT" property="recordId" />
     <result column="region_id" jdbcType="BIGINT" property="regionId" />
-    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
     <result column="project_id" jdbcType="BIGINT" property="projectId" />
-    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
     <result column="court_id" jdbcType="BIGINT" property="courtId" />
-    <result column="court_name" jdbcType="VARCHAR" property="courtName" />
     <result column="street_id" jdbcType="BIGINT" property="streetId" />
-    <result column="street_name" jdbcType="VARCHAR" property="streetName" />
-      <result column="building_id" jdbcType="BIGINT" property="buildingId" />
-      <result column="building_name" jdbcType="VARCHAR" property="buildingName" />
+    <result column="building_id" jdbcType="BIGINT" property="buildingId" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RegionByRecord">
     insert into region_by_record (id, record_id, region_id,
-      region_name, project_id, project_name, 
-      court_id, court_name, street_id, 
-      street_name,building_id,building_name)
+       project_id, court_id, street_id, building_id)
     values (#{id,jdbcType=BIGINT}, #{recordId,jdbcType=BIGINT}, #{regionId,jdbcType=BIGINT},
-      #{regionName,jdbcType=VARCHAR}, #{projectId,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, 
-      #{courtId,jdbcType=BIGINT}, #{courtName,jdbcType=VARCHAR}, #{streetId,jdbcType=BIGINT}, 
-      #{streetName,jdbcType=VARCHAR}, #{buildingId,jdbcType=BIGINT}, #{buildingName,jdbcType=VARCHAR})
+      #{projectId,jdbcType=BIGINT}, #{courtId,jdbcType=BIGINT},#{streetId,jdbcType=BIGINT},
+       #{buildingId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RegionByRecord">
     insert into region_by_record
@@ -37,32 +29,17 @@
       <if test="regionId != null">
         region_id,
       </if>
-      <if test="regionName != null">
-        region_name,
-      </if>
       <if test="projectId != null">
         project_id,
-      </if>
-      <if test="projectName != null">
-        project_name,
       </if>
       <if test="courtId != null">
         court_id,
       </if>
-      <if test="courtName != null">
-        court_name,
-      </if>
       <if test="streetId != null">
         street_id,
       </if>
-      <if test="streetName != null">
-        street_name,
-      </if>
         <if test="buildingId != null">
             building_id,
-        </if>
-        <if test="buildingName != null">
-            building_name,
         </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -75,32 +52,17 @@
       <if test="regionId != null">
         #{regionId,jdbcType=BIGINT},
       </if>
-      <if test="regionName != null">
-        #{regionName,jdbcType=VARCHAR},
-      </if>
       <if test="projectId != null">
         #{projectId,jdbcType=BIGINT},
-      </if>
-      <if test="projectName != null">
-        #{projectName,jdbcType=VARCHAR},
       </if>
       <if test="courtId != null">
         #{courtId,jdbcType=BIGINT},
       </if>
-      <if test="courtName != null">
-        #{courtName,jdbcType=VARCHAR},
-      </if>
       <if test="streetId != null">
         #{streetId,jdbcType=BIGINT},
       </if>
-      <if test="streetName != null">
-        #{streetName,jdbcType=VARCHAR},
-      </if>
         <if test="buildingId != null">
             #{buildingId,jdbcType=BIGINT},
-        </if>
-        <if test="buildingName != null">
-            #{buildingName,jdbcType=VARCHAR},
         </if>
     </trim>
   </insert>

@@ -161,9 +161,10 @@
         <if test="equipmentTypeId != null and equipmentTypeId!= '' ">
           AND type.sId= #{equipmentTypeId,jdbcType=BIGINT}
         </if>
-        <if test="situation != null and situation != '' ">
-          AND r.situation=  #{situation,jdbcType=INTEGER}
+        <if test="situation != null">
+          AND r.situation=  #{situation}
         </if>
+
         <if test="keyword!='' and keyword!=null">
           AND (r.description LIKE concat('%',#{keyword},'%')
           OR r.record_person LIKE concat('%',#{keyword},'%')
@@ -187,10 +188,11 @@
   </select>
   <select id="dropDownDataFindByEquipmentId" parameterType="java.util.Map" resultType="java.util.Map">
     SELECT
-        r.id AS id,b.record_content AS recordContent
+        b.id AS id,b.record_content AS recordContent
     FROM record_table r
     LEFT JOIN record_by_content bc ON r.id = bc.record_id
     LEFT JOIN record_content b ON bc.content_id=b.id
-    WHERE r.type =#{type,jdbcType=INTEGER} AND equipment_id=#{equipmentId,jdbcType=BIGINT}
+    WHERE r.type =#{type,jdbcType=INTEGER} AND b.equipment_type_id=#{equipmentId,jdbcType=BIGINT}
+    GROUP BY b.id
   </select>
 </mapper>

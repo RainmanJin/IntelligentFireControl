@@ -30,7 +30,7 @@ public class FaultDetectionPlan implements Serializable {
      * 计划执行状态  0：未开始  1：执行中  2：已完成
  
      */
-    private String planStatus;
+    private Integer planStatus;
 
     /**
      * 是否逻辑删除  0:存在  1：删除
@@ -120,7 +120,7 @@ public class FaultDetectionPlan implements Serializable {
      * @return plan_status 计划执行状态  0：未开始  1：执行中  2：已完成
  
      */
-    public String getPlanStatus() {
+    public Integer getPlanStatus() {
         return planStatus;
     }
 
@@ -128,9 +128,9 @@ public class FaultDetectionPlan implements Serializable {
      * 计划执行状态  0：未开始  1：执行中  2：已完成
  
      * @param planStatus 计划执行状态  0：未开始  1：执行中  2：已完成
- 
+
      */
-    public void setPlanStatus(String planStatus) {
+    public void setPlanStatus( Integer planStatus ) {
         this.planStatus = planStatus;
     }
 

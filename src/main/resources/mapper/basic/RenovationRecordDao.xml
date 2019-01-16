@@ -231,12 +231,19 @@
     <select id="queryRenovationRecordList" parameterType="java.util.Map" resultType="java.util.Map">
             SELECT
                 rr.id,
-                CONCAT(IFNULL(br.region_name,''),IFNULL(br.project_name,''),IFNULL(br.court_name,''),IFNULL(br.street_name,''),IFNULL(br.building_name,'')) as region,
+                CONCAT(IFNULL(ri.`name`,''),IFNULL(rp.`name`,''),IFNULL(rc.`name`,''),IFNULL(rs.`name`,''),IFNULL(rb.`name`,'')) as region,
                 rr.address AS address,rr.acreage AS nature,rr.property_owner as propertyOwner,rr.proposer AS proposer,
-                rr.decoration_method AS decorationMethod,rr.`is_fire` AS isFire,rr.is_fire_facilities AS isFacilities,
+                rr.decoration_method AS decorationMethod,rr.`is_fire` AS isFire,rr.is_fire_facilities AS isFireFacilities,
                 rr.create_time AS createTime
             FROM fire_renovation_record rr
             LEFT JOIN region_by_record br ON rr.id = br.record_id
+            INNER JOIN region_info ri ON br.region_id = ri.id   AND ri.logic_remove = 0
+            INNER JOIN region_project rp ON br.project_id = rp.id AND rp.region_id = ri.id  AND rp.logic_remove = 0
+            LEFT JOIN region_court rc ON br.court_id = rc.id AND rc.region_id = ri.id AND rc.project_id = rp.id AND rc.logic_remove = 0
+            LEFT JOIN region_street rs ON br.street_id = rs.id AND rs.region_id = ri.id AND rs.project_id = rp.id AND rs.court_id = rc.id
+            AND rs.logic_remove = 0
+            LEFT JOIN region_building rb ON br.building_id = rb.id AND rb.region_id = ri.id AND rb.project_id = rp.id
+            AND rb.court_id = rc.id AND rb.street_id = rs.id  AND rb.logic_remove = 0
             <where>
                 <if test="id != null and id!= '' ">
                     AND rr.id = #{id,jdbcType=BIGINT}
@@ -266,7 +273,7 @@
             id,address,nature,property_owner AS propertyOwner,property_owner_tel AS propertyOwnerTel,
             proposer,proposer_tel AS proposerTel,decoration_method AS decorationMethod,start_time AS  startTime,
             end_time AS endTime,description,responsible_person AS responsiblePerson,responsible_person_tel AS responsibleTel,
-            remark,`is_fire` AS isFire,is_fire_facilities AS isFacilities,create_time AS createTime
+            remark,`is_fire` AS isFire,is_fire_facilities AS isFireFacilities,create_time AS createTime
         FROM fire_renovation_record
         WHERE logic_remove=0 AND id=#{id,jdbcType=BIGINT}
     </select>
