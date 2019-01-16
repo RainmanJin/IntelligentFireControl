@@ -27,8 +27,14 @@ public class SystemMenuVo {
 
     private String remark;
 
+    /**
+     * 一级菜单
+     */
     private String oneLabelName;
 
+    /**
+     * 二级菜单
+     */
     private String twoLabelName;
 
     /**

@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.system;
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.utils.EnumUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
 import cn.com.bgy.ifc.entity.po.system.SystemOperationLog;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
@@ -38,6 +39,12 @@ public class SystemLogController extends BaseController {
     public ResponseVO<PageInfo<SystemOperationLog>> queryPage(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo) {
         PageInfo<SystemOperationLog> pageInfo = systemOperationLogService.queryListByParam(page, systemOperationLogVo);
         return ResponseVO.<PageInfo<SystemOperationLog>>success().setData(pageInfo);
+    }
+
+    @GetMapping("findById")
+    public ResponseVO<Object> findById(Long id) {
+        SystemOperationLog equipmentState = systemOperationLogService.findById(id);
+        return ResponseVO.success().setData(equipmentState);
     }
 
     /**

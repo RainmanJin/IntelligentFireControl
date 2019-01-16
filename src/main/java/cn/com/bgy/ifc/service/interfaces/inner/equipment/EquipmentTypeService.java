@@ -1,6 +1,9 @@
 package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
+import cn.com.bgy.ifc.entity.po.system.SystemPower;
+import cn.com.bgy.ifc.entity.vo.equipment.EquipmentTypeVo;
+import cn.com.bgy.ifc.service.interfaces.inner.base.BaseService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -13,21 +16,15 @@ import java.util.Map;
  * @Description 设备类型service
  **/
 
-public interface EquipmentTypeService {
+public interface EquipmentTypeService  extends  BaseService<EquipmentType> {
+
+    PageInfo<EquipmentType> queryListByPage(Page<EquipmentType> page, EquipmentTypeVo equipmentTypeVo);
 
     PageInfo<Object> queryListEquipmentType(Page page, String keyword);
 
-    int addEquipmentType(EquipmentType equipmentType);
-
-    int updateEquipmentType(EquipmentType equipmentType);
-
-    int deleteEquipmentType(String str);
-
     List<Map<String, Object>> queryEquipmentTypeBySuperId(Long id);
 
-    Map<String, Object> findById(Long id);
-
-    List<Map<String, Object>> queryAllEquipmentType();
+    List<EquipmentType> queryAllEquipmentType();
 
     List<EquipmentType>  queryAllList();
 }

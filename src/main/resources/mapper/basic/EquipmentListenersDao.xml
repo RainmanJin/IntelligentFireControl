@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.equipment.EquipmentListenersDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentListeners">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentListeners">
+    insert into equipment_listeners (id, name, url
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentListeners">
+        insert into equipment_listeners
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="queryListByPage" parameterType="string" resultMap="BaseResultMap">
+        SELECT
+        id, name, url
+        FROM equipment_listeners
+        <where>
+            <if test="keyword!='' and keyword!=null">
+                AND (name LIKE concat('%',#{keyword},'%') OR url LIKE concat('%',#{keyword},'%') )
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+        id, name, url
+        FROM equipment_listeners  WHERE id = #{id}
+    </select>
+
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentListeners">
+        UPDATE equipment_listeners
+        <set>
+            name=#{name,jdbcType=VARCHAR},
+            url=#{url,jdbcType=VARCHAR},
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentListeners">
+        UPDATE equipment_listeners
+        <set>
+            <if test="name != null">
+                name=#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url=#{url,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+</mapper>

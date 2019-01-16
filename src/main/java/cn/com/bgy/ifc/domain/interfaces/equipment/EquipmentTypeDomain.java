@@ -34,11 +34,5 @@ public interface EquipmentTypeDomain {
 
     PageInfo queryListEquipmentType( Page page ,String keyword);
 
-    int addEquipmentType( EquipmentType equipmentType );
-
-    int updateEquipmentType( EquipmentType equipmentType );
-
-    int deleteEquipmentType( String str );
-    List<EquipmentType> queryAll();
     List<Map<String,Object>> queryEquipmentTypeBySuperId( Long id );
 }

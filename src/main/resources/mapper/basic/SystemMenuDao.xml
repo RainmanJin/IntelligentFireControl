@@ -108,13 +108,9 @@
         FROM
         system_menu m LEFT JOIN system_power p on m.power_id=p.id
         WHERE m.logic_remove=0
-        <if test="keyWord !=null and keyWord !='' ">
-            and (
-            m.name like concat(concat('%',#{keyWord}),'%')
-            )
-
+        <if test="keyWord!='' and keyWord!=null">
+            AND (m.name LIKE  concat('%',#{keyWord},'%') )
         </if>
-
         and
         m.power_id IN (
         SELECT

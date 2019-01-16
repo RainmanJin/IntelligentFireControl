@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.constant.LoginState;
+import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.*;
 import cn.com.bgy.ifc.dao.equipment.EquipmentStateDao;
@@ -33,7 +36,7 @@ import java.util.Map;
 @Service
 public class EquipmentStateServiceImpl implements EquipmentStateService {
 
-    private static Logger logger = LoggerFactory.getLogger(EquipmentConfigServiceImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(EquipmentStateServiceImpl.class);
 
     @Resource
     private EquipmentStateDao equipmentStateDao;
@@ -79,6 +82,7 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
         return pageInfo;
     }
 
+    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步物联设备信息",login= LoginState.NOT_LOGIN)
     @Override
     public ResponseVO<Object> synchroEquipmentState(int pageNum, int pageSize) {
         try {

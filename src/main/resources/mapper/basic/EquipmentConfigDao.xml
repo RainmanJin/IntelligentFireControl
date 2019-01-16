@@ -107,7 +107,7 @@
         u.id AS unit_id,
         u.name AS unit_name
         FROM equipment_config c
-        LEFT JOIN equipment_type e ON e.id=c.type
+        LEFT JOIN equipment_type e ON e.thing_code=c.type
         LEFT JOIN analogue_unit u ON u.id=c.value_unit_type
         <where>
             <if test="type != null and type != ''">

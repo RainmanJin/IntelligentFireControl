@@ -11,7 +11,7 @@ import com.github.pagehelper.PageInfo;
  * @description:中联永安物联接口设备配置
  * @date: 2019-01-10 14:14
  **/
-public interface EquipmentConfigService extends BaseService<EquipmentConfig> {
+public interface EquipmentConfigService {
 
     /**
      * 设备配置信息分页查询
@@ -20,6 +20,13 @@ public interface EquipmentConfigService extends BaseService<EquipmentConfig> {
      * @return
      */
     PageInfo<EquipmentConfig> queryListByPage(Page page, EquipmentConfig equipmentConfig);
+
+    /**
+     * 设备配置信息ID查询
+     * @param id
+     * @return
+     */
+    EquipmentConfig findById(Long id);
 
     /**
      * 设备配置信息编辑

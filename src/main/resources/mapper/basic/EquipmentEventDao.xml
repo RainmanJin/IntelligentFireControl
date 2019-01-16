@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.equipment.EquipmentEventDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="device_id" jdbcType="BIGINT" property="deviceId" />
+    <result column="first_time" jdbcType="TIMESTAMP" property="firstTime" />
+    <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="report_count" jdbcType="INTEGER" property="reportCount" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
+    insert into equipment_event (id, status, type, 
+      device_id, first_time, last_time, 
+      description, report_count)
+    values (#{id,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{deviceId,jdbcType=BIGINT}, #{firstTime,jdbcType=TIMESTAMP}, #{lastTime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR}, #{reportCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
+    insert into equipment_event
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="firstTime != null">
+        first_time,
+      </if>
+      <if test="lastTime != null">
+        last_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="reportCount != null">
+        report_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="firstTime != null">
+        #{firstTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="reportCount != null">
+        #{reportCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.equipment.EquipmentEventVo"
+          resultMap="BaseResultMap">
+    SELECT
+    id,
+    status,
+    type,
+    device_id,
+    first_time,
+    last_time,
+    description,
+    report_count
+    FROM equipment_event
+    <where>
+      <if test="type != null and type != ''">
+        AND type = #{type}
+      </if>
+      <if test="status != null and status != ''or status == 0">
+        AND status = #{status}
+      </if>
+      <if test="keyword!='' and keyword!=null">
+        AND (description LIKE  concat('%',#{keyword},'%') )
+      </if>
+    </where>
+  </select>
+
+  <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+        id, type, value_type,
+        value_unit_type, value_threshold_max, value_threshold_min,
+        heartbeat_interval
+        FROM equipment_event  WHERE id = #{id}
+    </select>
+
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
+    UPDATE equipment_event
+    <set>
+        status= #{status,jdbcType=INTEGER},
+        type= #{type,jdbcType=INTEGER},
+        device_id=#{deviceId,jdbcType=BIGINT},
+        first_time=#{firstTime,jdbcType=TIMESTAMP},
+        last_time=#{lastTime,jdbcType=TIMESTAMP},
+        description=#{description,jdbcType=VARCHAR},
+        report_count= #{reportCount,jdbcType=INTEGER},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
+    UPDATE equipment_event
+    <set>
+      <if test="status != null">
+        status= #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type= #{type,jdbcType=INTEGER},
+      </if>
+      <if test="deviceId != null">
+        device_id=#{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="firstTime != null">
+        first_time=#{firstTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null">
+        last_time=#{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description=#{description,jdbcType=VARCHAR},
+      </if>
+      <if test="reportCount != null">
+        report_count= #{reportCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <delete id="deleteBatch" parameterType="java.util.List">
+    <![CDATA[
+       DELETE FROM equipment_event WHERE id IN
+    	]]>
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+</mapper>

@@ -49,4 +49,9 @@ public class SystemOperationLogServiceImpl implements SystemOperationLogService 
         systemOperationLog.setLogicRemove(false);
         return systemOperationLogDao.insertSelective(systemOperationLog);
     }
+
+    @Override
+    public SystemOperationLog findById(Long id) {
+        return systemOperationLogDao.findById(id);
+    }
 }

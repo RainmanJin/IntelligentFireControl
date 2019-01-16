@@ -8,18 +8,17 @@ import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ExceptionUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.bgy.utils.ResponseUtil;
-import cn.com.bgy.ifc.dao.equipment.EquipmentConfigDao;
+import cn.com.bgy.ifc.dao.equipment.EquipmentListenersDao;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceConfigDomain;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentListeners;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentConfigService;
-import com.alibaba.fastjson.JSON;
+import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentListenersService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.google.common.base.Joiner;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,47 +33,42 @@ import java.util.Map;
 
 /**
  * @author: ZhangCheng
- * @description:中联永安物联接口设备配置
- * @date: 2019-01-10 14:16
+ * @description:
+ * @date: 2019-01-16 15:30
  **/
 @Service
-public class EquipmentConfigServiceImpl implements EquipmentConfigService {
+public class EquipmentListenersServiceImpl implements EquipmentListenersService {
 
-    private static Logger logger = LoggerFactory.getLogger(EquipmentConfigServiceImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(EquipmentListenersServiceImpl.class);
 
     @Resource
-    private EquipmentConfigDao equipmentConfigDao;
+    private EquipmentListenersDao equipmentListenersDao;
 
     @Autowired
     private ExternalInterfaceConfigDomain externalInterfaceConfigDomain;
 
     @Override
-    public EquipmentConfig findById(Long id) {
-        return equipmentConfigDao.findById(id);
-    }
-
-    @Override
-    public PageInfo<EquipmentConfig> queryListByPage(Page page, EquipmentConfig equipmentConfig) {
+    public PageInfo<EquipmentListeners> queryListByPage(Page page, String keyword) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<EquipmentConfig> list = equipmentConfigDao.queryListByParam(equipmentConfig);
-        PageInfo<EquipmentConfig> pageInfo = new PageInfo<>(list);
+        List<EquipmentListeners> list = equipmentListenersDao.queryListByPage(keyword);
+        PageInfo<EquipmentListeners> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 
     @Override
-    public ResponseVO<Object> createEquipmentConfig(EquipmentConfig equipmentConfig) {
+    public EquipmentListeners findById(Long id) {
+        return equipmentListenersDao.findById(id);
+    }
+
+    @Override
+    public ResponseVO<Object> createEquipmentListeners(EquipmentListeners equipmentListeners) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
             if (list.size() != 0) {
                 ExternalInterfaceConfig config = list.get(0);
-                String url = config.getUrl() + "/device/configs";
+                String url = config.getUrl() + "/event/listeners";
                 Map<String, Object> data = new HashMap<>();
-                data.put("type", equipmentConfig.getType());
-                data.put("valueType", equipmentConfig.getValueType());
-                data.put("valueThresholdMax", equipmentConfig.getValueThresholdMax());
-                data.put("valueThresholdMin", equipmentConfig.getValueThresholdMin());
-                data.put("valueUnitType", equipmentConfig.getValueUnitType());
-                data.put("heartbeatInterval", equipmentConfig.getHeartbeatInterval());
+                data.put("url", equipmentListeners.getUrl());
                 JSONObject response = HttpHelper.httpPost(url, data, null);
                 if (response != null) {
                     //data作为key获取JSONObject
@@ -83,8 +77,8 @@ public class EquipmentConfigServiceImpl implements EquipmentConfigService {
                     if (HttpStatus.SC_OK == statusCode) {
                         JSONObject jsonObject = response.getJSONObject("data");
                         Long id = jsonObject.getLong("id");
-                        equipmentConfig.setId(id);
-                        int result = equipmentConfigDao.insertSelective(equipmentConfig);
+                        equipmentListeners.setId(id);
+                        int result = equipmentListenersDao.insertSelective(equipmentListeners);
                         if (result == 1) {
                             return ResponseVO.addSuccess();
                         } else {
@@ -94,39 +88,34 @@ public class EquipmentConfigServiceImpl implements EquipmentConfigService {
                         return ResponseVO.error().setMsg("添加失败!错误信息：" + message);
                     }
                 } else {
-                    return ResponseVO.error().setMsg("中联永安创建设备配置信息失败!");
+                    return ResponseVO.error().setMsg("中联永安创建事件监听信息失败!");
                 }
             } else {
                 return ResponseVO.error().setMsg("获取中联永安设备接口配置数据失败！");
             }
         } catch (Exception e) {
-            logger.error("获取中联永安设备配置接口请求异常：", e);
-            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备配置接口请求异常！", e));
+            logger.error("获取中联永安事件监听接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安事件监听接口请求异常！", e));
         }
     }
 
     @Override
-    public ResponseVO<Object> editEquipmentConfig(EquipmentConfig equipmentConfig) {
+    public ResponseVO<Object> editEquipmentListeners(EquipmentListeners equipmentListeners) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
             if (list.size() != 0) {
                 ExternalInterfaceConfig config = list.get(0);
-                Long id = equipmentConfig.getId();
-                String url = config.getUrl() + "/device/configs/" + id;
+                Long id = equipmentListeners.getId();
+                String url = config.getUrl() + "/event/listeners/" + id;
                 Map<String, Object> data = new HashMap<>();
-                data.put("type", equipmentConfig.getType());
-                data.put("valueType", equipmentConfig.getValueType());
-                data.put("valueThresholdMax", equipmentConfig.getValueThresholdMax());
-                data.put("valueThresholdMin", equipmentConfig.getValueThresholdMin());
-                data.put("valueUnitType", equipmentConfig.getValueUnitType());
-                data.put("heartbeatInterval", equipmentConfig.getHeartbeatInterval());
+                data.put("url", equipmentListeners.getUrl());
                 JSONObject response = HttpHelper.httpPut(url, data, null);
                 if (response != null) {
                     //data作为key获取JSONObject
                     Integer statusCode = response.getInteger("code");
                     String message = response.getString("message");
                     if (HttpStatus.SC_OK == statusCode) {
-                        int result = equipmentConfigDao.updateSelective(equipmentConfig);
+                        int result = equipmentListenersDao.updateSelective(equipmentListeners);
                         if (result == 1) {
                             return ResponseVO.addSuccess();
                         } else {
@@ -136,25 +125,25 @@ public class EquipmentConfigServiceImpl implements EquipmentConfigService {
                         return ResponseVO.error().setMsg("修改失败!错误信息：" + message);
                     }
                 } else {
-                    return ResponseVO.error().setMsg("中联永安修改设备配置信息失败!");
+                    return ResponseVO.error().setMsg("中联永安修改事件监听信息失败!");
                 }
             } else {
                 return ResponseVO.error().setMsg("获取中联永安设备接口配置数据失败！");
             }
         } catch (Exception e) {
-            logger.error("获取中联永安设备配置接口请求异常：", e);
-            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备配置接口请求异常！", e));
+            logger.error("获取中联永安事件监听接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安事件监听接口请求异常！", e));
         }
     }
 
-    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步物联设备默认值配置",login= LoginState.NOT_LOGIN)
+    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步物联设备事件监听配置",login= LoginState.NOT_LOGIN)
     @Override
-    public ResponseVO<Object> synchroEquipmentConfig(int pageNum, int pageSize) {
+    public ResponseVO<Object> synchroEquipmentListeners(int pageNum, int pageSize) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
             if (list.size() != 0) {
                 ExternalInterfaceConfig config = list.get(0);
-                String baseUrl = config.getUrl() + "/device/configs";
+                String baseUrl = config.getUrl() + "/event/listeners";
                 String url = baseUrl + "?page=" + pageNum + "&size" + pageSize;
                 JSONObject response = HttpHelper.httpGet(url, null);
                 if (response != null) {
@@ -167,29 +156,29 @@ public class EquipmentConfigServiceImpl implements EquipmentConfigService {
                     }
                     int totalCount = configList.size();
                     if (totalCount > 0) {
-                        int result = DbUtil.replaceAll("equipment_config", configList);
+                        int result = DbUtil.replaceAll("equipment_listeners", configList);
                         if (result == totalCount) {
-                            return ResponseVO.success().setMsg("设备配置数据同步成功！");
+                            return ResponseVO.success().setMsg("设备事件监听数据同步成功！");
                         } else {
-                            return ResponseVO.error().setMsg("设备配置数据同步失败！");
+                            return ResponseVO.error().setMsg("设备事件监听数据同步失败！");
                         }
                     } else {
-                        return ResponseVO.success().setMsg("暂无中联永安设备配置数据同步！");
+                        return ResponseVO.success().setMsg("暂无中联永安事件监听数据同步！");
                     }
                 } else {
-                    return ResponseVO.error().setMsg("获取中联永安设备配置信息列表失败!");
+                    return ResponseVO.error().setMsg("获取中联永安事件监听信息列表失败!");
                 }
             } else {
                 return ResponseVO.error().setMsg("获取中联永安接口配置信息失败！");
             }
         } catch (Exception e) {
-            logger.error("获取中联永安设备配置列表接口请求异常：", e);
-            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备配置列表接口请求异常！", e));
+            logger.error("获取中联永安事件监听接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安事件监听接口请求异常！", e));
         }
     }
 
     @Override
-    public ResponseVO<Object> deleteEquipmentConfig(String ids) {
+    public ResponseVO<Object> deleteEquipmentListeners(String ids) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
             if (list.size() != 0) {
@@ -198,9 +187,9 @@ public class EquipmentConfigServiceImpl implements EquipmentConfigService {
                 String url = "";
                 if(idList.size()>1){
                     String newIds = ListUtil.getIdStr(idList);
-                    url = config.getUrl() + "/device/configs?ids=" + newIds;
+                    url = config.getUrl() + "/event/listeners?ids=" + newIds;
                 }else{
-                    url = config.getUrl() + "/device/configs/" + idList.get(0);
+                    url = config.getUrl() + "/event/listeners/" + idList.get(0);
                 }
                 JSONObject response = HttpHelper.httpDelete(url, null);
                 if (response != null) {
@@ -208,7 +197,7 @@ public class EquipmentConfigServiceImpl implements EquipmentConfigService {
                     Integer statusCode = response.getInteger("code");
                     String message = response.getString("message");
                     if (HttpStatus.SC_OK == statusCode) {
-                        int result = equipmentConfigDao.deleteBatch(idList);
+                        int result = equipmentListenersDao.deleteBatch(idList);
                         if (result == idList.size()) {
                             return ResponseVO.deleteSuccess();
                         } else {
@@ -218,14 +207,14 @@ public class EquipmentConfigServiceImpl implements EquipmentConfigService {
                         return ResponseVO.error().setMsg("刪除失败!错误信息：" + message);
                     }
                 } else {
-                    return ResponseVO.error().setMsg("中联永安刪除设备配置信息失败!");
+                    return ResponseVO.error().setMsg("中联永安刪除事件监听信息失败!");
                 }
             } else {
                 return ResponseVO.error().setMsg("获取中联永安接口配置信息失败！");
             }
         } catch (Exception e) {
-            logger.error("删除中联永安设备配置信息接口请求异常：", e);
-            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("删除中联永安设备配置信息接口请求异常！", e));
+            logger.error("删除中联永安事件监听信息接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("删除中联永安事件监听信息接口请求异常！", e));
         }
     }
 }

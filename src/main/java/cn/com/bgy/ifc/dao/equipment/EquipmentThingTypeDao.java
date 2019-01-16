@@ -1,17 +1,8 @@
 package cn.com.bgy.ifc.dao.equipment;
 
+import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentThingType;
 
-public interface EquipmentThingTypeDao {
-    /**
-     *
-     * @mbg.generated 2019-01-14
-     */
-    int insert(EquipmentThingType record);
+public interface EquipmentThingTypeDao extends BaseDao<EquipmentThingType> {
 
-    /**
-     *
-     * @mbg.generated 2019-01-14
-     */
-    int insertSelective(EquipmentThingType record);
 }

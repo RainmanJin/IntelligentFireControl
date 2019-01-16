@@ -97,10 +97,10 @@ public class ExternalTask {
      * @param: []
      * @return: void
      */
-    @Scheduled(cron = "0 00 02 * * ? ")
+    /*@Scheduled(cron = "0 00 02 * * ? ")
     public void obtainBgyEquipmentType() {
         bgyEquipmentService.baseObtainBgyEquipmentType(1, 100);
-    }
+    }*/
 
     /**
      * @author: ZhangCheng

@@ -20,6 +20,11 @@ public class EquipmentType implements Serializable {
     private String name;
 
     /**
+     * 物联网设备编码
+     */
+    private Integer thingCode;
+
+    /**
      * 父级ID
      */
     private Long parentId;
@@ -28,9 +33,21 @@ public class EquipmentType implements Serializable {
      * 状态(0:无效;1:有效)
      */
     private Integer status;
-    //逻辑删除
+
+    /**
+     * 逻辑删除
+     */
     private Boolean logicRemove;
 
+    /**
+     * 上级名称
+     */
+    private String parentName;
+
+    /**
+     * 物联设备类型
+     */
+    private EquipmentThingType equipmentThingType;
     /**
      * 系统自增Id
      * @return id 系统自增Id
@@ -101,5 +118,29 @@ public class EquipmentType implements Serializable {
 
     public void setLogicRemove( Boolean logicRemove ) {
         this.logicRemove = logicRemove;
+    }
+
+    public Integer getThingCode() {
+        return thingCode;
+    }
+
+    public void setThingCode(Integer thingCode) {
+        this.thingCode = thingCode;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public EquipmentThingType getEquipmentThingType() {
+        return equipmentThingType;
+    }
+
+    public void setEquipmentThingType(EquipmentThingType equipmentThingType) {
+        this.equipmentThingType = equipmentThingType;
     }
 }

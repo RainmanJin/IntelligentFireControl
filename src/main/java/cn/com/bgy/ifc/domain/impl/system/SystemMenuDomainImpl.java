@@ -24,40 +24,65 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
     SystemMenuDao systemMenuDao;
 
     /**
-     * @Author huxin
-     * @Description 分页查询所有菜单信息
-     * @Date 2018/12/5 10:04
-     * @Param []
-     * @return cn.com.bgy.ifc.entity.po.basic.SystemMenu
+     * 判断菜单的父节点是否存在
+     * @param allMenu
+     * @param parentId
+     * @return false 不存在 true 存在
      */
+    private boolean hasParentMenu(List<SystemMenu> allMenu,Long parentId){
+        boolean bool=false;
+        for (SystemMenu all : allMenu) {
+            if(parentId.equals(all.getId())){
+                bool=true;
+                break;
+            }
+        }
+        return bool;
+    }
+
+   /**
+    * @author: ZhangCheng
+    * @description:系统菜单转换
+    * @param: [page, keyWord]
+    * @return: com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.vo.system.SystemMenuVo>
+    */
     @Override
     public PageInfo<SystemMenuVo> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord){
         List<SystemMenu> allMenu= systemMenuDao.queryAllSystemMenuInfo(keyWord);
-        List<SystemMenu> rootMenu=new ArrayList<>();
         List<SystemMenuVo> resultMenu=new ArrayList<>();
-        for (SystemMenu nav : allMenu) {
-            if(nav.getParentId()==null||nav.getParentId().equals("")){//父节点是空的，为根节点。
-                nav.setPowerName("["+nav.getName()+"]");
-                rootMenu.add(nav);
-            }
-        }
-        for (SystemMenu nav : rootMenu) {
-            SystemMenuVo vo=new SystemMenuVo();
-            CopyUtil.copyProperties(nav,vo);
-            vo.setOneLabelName(nav.getName());
-            resultMenu.add(vo);
-            for (SystemMenu twonav : allMenu) {
-                if(twonav.getParentId()!=null &&twonav.getParentId().longValue()==nav.getId().longValue()){
-                        twonav.setPowerName(nav.getPowerName()+"["+twonav.getPowerName()+"]");
-                        vo=new SystemMenuVo();
-                        CopyUtil.copyProperties(twonav,vo);
-                        vo.setTwoLabelName(twonav.getName());
+        for (SystemMenu all : allMenu) {
+            //表示该节点为父节点
+            if(all.getParentId()==null||all.getParentId().equals("")){
+                SystemMenuVo systemMenuVo=new SystemMenuVo();
+                CopyUtil.copyProperties(all, systemMenuVo);
+                systemMenuVo.setOneLabelName(all.getName());
+                systemMenuVo.setPowerName("["+all.getName()+"]");
+                resultMenu.add(systemMenuVo);
+                //获取该节点的所有子节点
+                for (SystemMenu twoNav : allMenu) {
+                    if (twoNav.getParentId() != null && twoNav.getParentId().longValue() == all.getId().longValue()) {
+                        SystemMenuVo vo = new SystemMenuVo();
+                        CopyUtil.copyProperties(twoNav, vo);
+                        vo.setPowerName("["+all.getName()+"]" + "[" + twoNav.getPowerName() + "]");
+                        vo.setTwoLabelName(twoNav.getName());
                         resultMenu.add(vo);
+                    }
                 }
-
+            }
+            //如果为子节点,且该节点的父节点不存在
+            if (all.getParentId() != null){
+                boolean bool=hasParentMenu(allMenu,all.getParentId());
+                //且子节点的父节点 未查询到结果集中 或者已删除
+                if(!bool){
+                    SystemMenuVo systemMenuVo=new SystemMenuVo();
+                    CopyUtil.copyProperties(all, systemMenuVo);
+                    systemMenuVo.setPowerName("[" + all.getPowerName() + "]");
+                    systemMenuVo.setTwoLabelName(all.getName());
+                    resultMenu.add(systemMenuVo);
+                }
             }
         }
-
+        //根据查询出所有数据进行分页
         int nowPage=page.getPageNum();
         int recordCount=allMenu.size();
         int pageSize=page.getPageSize();

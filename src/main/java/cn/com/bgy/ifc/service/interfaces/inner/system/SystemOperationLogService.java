@@ -12,7 +12,25 @@ import com.github.pagehelper.PageInfo;
  **/
 public interface SystemOperationLogService {
 
+     /**
+      *
+      * @param page
+      * @param systemOperationLogVo
+      * @return
+      */
      PageInfo<SystemOperationLog> queryListByParam(Page<SystemOperationLog> page, SystemOperationLogVo systemOperationLogVo);
 
+     /**
+      *
+      * @param systemOperationLog
+      * @return
+      */
      int insertSystemLogInfo(SystemOperationLog systemOperationLog);
+
+     /**
+      *
+      * @param id
+      * @return
+      */
+     SystemOperationLog findById(Long id);
 }

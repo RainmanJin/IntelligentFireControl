@@ -143,42 +143,6 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
 
     /**
      * @Author huxin
-     * @Description 增
-     * @Date 2018/12/23 16:03
-     */
-    @Override
-
-    public int addEquipmentType( EquipmentType equipmentType ) {
-        equipmentType.setStatus(1);
-        equipmentType.setLogicRemove(false);
-        return equipmentTypeDao.insert(equipmentType);
-    }
-    /*
-     * @Author huxin
-     * @Description 改
-     * @Date 2018/12/23 16:04
-     */
-    @Override
-
-    public int updateEquipmentType( EquipmentType equipmentType ) {
-        return equipmentTypeDao.updateSelective(equipmentType);
-    }
-    /**
-     * @Author huxin
-     * @Description 删除
-     * @Date 2018/12/23 16:04
-     */
-    @Override
-    public int deleteEquipmentType( String str ) {
-        List<Long> list  = ListUtil.getListId(str);
-        if(list.size()>0){
-            return equipmentTypeDao.deleteEquipmentType(list);
-        }
-        return 0;
-
-    }
-    /**
-     * @Author huxin
      * @Description 根据父级id查询所有子节点
      * @Date 2018/12/24 16:38
      */
@@ -194,9 +158,4 @@ public class EquipmentTypeDomainImpl implements EquipmentTypeDomain {
         }
         return null;
     }
-
-	@Override
-	public List<EquipmentType> queryAll() {
-		return equipmentTypeDao.queryListByParam(null);
-	}
 }

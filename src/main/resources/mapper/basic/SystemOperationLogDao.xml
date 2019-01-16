@@ -107,4 +107,11 @@
         </where>
     </select>
 
+    <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+        id,ip,create_time,logic_remove,log_type,operator_content,
+        operator_describe,user_id,user_name
+        FROM system_operation_log  WHERE id = #{id}
+    </select>
+
 </mapper>

@@ -13,7 +13,6 @@ import cn.com.bgy.ifc.entity.vo.equipment.EquipmentConfigVo;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.AnalogueUnitService;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentConfigService;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentTypeService;
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

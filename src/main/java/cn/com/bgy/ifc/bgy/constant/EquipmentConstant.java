@@ -137,7 +137,33 @@ public class EquipmentConstant {
         }
     }
 
+    /**
+     * 事件状态
+     */
     public enum EventType{
+        //正常
+        NORMAL(1, "正常"),
+        //故障
+        FAULT(2, "故障"),
+        //预警
+        EARLY_WARNING(3, "预警"),
+        //报警
+        CALL_POLICE(4, "报警");
 
+        private Integer value;
+        private String name;
+
+        private EventType(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 }
