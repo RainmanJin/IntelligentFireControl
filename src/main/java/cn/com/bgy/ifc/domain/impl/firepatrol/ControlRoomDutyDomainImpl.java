@@ -9,6 +9,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -76,7 +77,7 @@ public class ControlRoomDutyDomainImpl  implements ControlRoomDutyDomain {
      */
     @Override
     public int insertSelective(ControlRoomDuty record) {
-
+        record.setCreateTime(new Date());
         return controlRoomDutyDao.insertSelective(record);
     }
 

@@ -9,7 +9,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.imageio.stream.IIOByteBuffer;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +61,8 @@ public class FireRehearseDomainImpl implements FireRehearseDomain {
      */
     @Override
     public int insert(FireRehearse record) {
+        record.setLogicRemove(false);
+        record.setCreateTime(new Date());
         return fireRehearseDao.insert(record);
     }
     /**
@@ -72,6 +74,8 @@ public class FireRehearseDomainImpl implements FireRehearseDomain {
      */
     @Override
     public int insertSelective(FireRehearse record) {
+        record.setLogicRemove(false);
+        record.setCreateTime(new Date());
         return fireRehearseDao.insertSelective(record);
     }
 
@@ -84,6 +88,7 @@ public class FireRehearseDomainImpl implements FireRehearseDomain {
      */
     @Override
     public int update(FireRehearse fireRehearse) {
+        fireRehearse.setCreateTime(new Date());
         return fireRehearseDao.update(fireRehearse);
     }
 
@@ -96,6 +101,7 @@ public class FireRehearseDomainImpl implements FireRehearseDomain {
      */
     @Override
     public int updateSelective(FireRehearse fireRehearse) {
+        fireRehearse.setCreateTime(new Date());
         return fireRehearseDao.updateSelective(fireRehearse);
     }
 

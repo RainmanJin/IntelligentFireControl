@@ -9,6 +9,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +64,8 @@ public class FireBrigadeDomainImpl implements FireBrigadeDomain {
      */
     @Override
     public int insert(FireBrigade record) {
-
+        record.setLogicRemove(false);
+        record.setCreateTime(new Date());
         return fireBrigadeDao.insert(record);
     }
     /**
@@ -75,7 +77,8 @@ public class FireBrigadeDomainImpl implements FireBrigadeDomain {
      */
     @Override
     public int insertSelective(FireBrigade record) {
-
+        record.setLogicRemove(false);
+        record.setCreateTime(new Date());
         return fireBrigadeDao.insertSelective(record);
     }
 
@@ -88,7 +91,7 @@ public class FireBrigadeDomainImpl implements FireBrigadeDomain {
      */
     @Override
     public int update(FireBrigade fireBrigade) {
-
+        fireBrigade.setCreateTime(new Date());
         return fireBrigadeDao.update(fireBrigade);
     }
     /**
@@ -100,7 +103,7 @@ public class FireBrigadeDomainImpl implements FireBrigadeDomain {
      */
     @Override
     public int updateSelective(FireBrigade fireBrigade) {
-
+        fireBrigade.setCreateTime(new Date());
         return fireBrigadeDao.updateSelective(fireBrigade);
     }
     /**

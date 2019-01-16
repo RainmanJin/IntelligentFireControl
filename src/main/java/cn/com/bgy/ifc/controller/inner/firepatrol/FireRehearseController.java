@@ -5,12 +5,12 @@ import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.firepatrol.FireRehearseDomain;
 import cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse;
-import cn.com.bgy.ifc.entity.po.firepatrol.FireRehearse;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,7 +58,7 @@ public class FireRehearseController extends BaseController {
      * @auther: chenlie
      * @date: 2019/1/8 10:44
      */
-    @GetMapping("deleteData")
+    @PostMapping("deleteData")
     public ResponseVO<Object> deleteData(String ids) {
         if(ids==null|| ids.isEmpty() ){
             return ResponseVO.error().setMsg("参数异常");
@@ -66,7 +66,7 @@ public class FireRehearseController extends BaseController {
         List<Long> list= ListUtil.getListId(ids);
         int res= fireRehearseDomain.deleteBatch(list);
         if(res>0){
-            return ResponseVO.success();
+            return ResponseVO.deleteSuccess();
         } else{
             return ResponseVO.deleteError();
         }
@@ -79,14 +79,14 @@ public class FireRehearseController extends BaseController {
      * @auther: chenlie
      * @date: 2019/1/8 11:28
      */
-    @GetMapping("editData")
+    @PostMapping("editData")
     public ResponseVO<Object> editData(FireRehearse fireRehearse) {
 
         FireRehearse  query =fireRehearseDomain.findById(fireRehearse.getId());
         CopyUtil.copyProperties(fireRehearse,query);
         int res= fireRehearseDomain.update(query);
         if(res>0){
-            return ResponseVO.success();
+            return ResponseVO.editSuccess();
         } else{
             return ResponseVO.editError();
         }
@@ -100,14 +100,14 @@ public class FireRehearseController extends BaseController {
      * @auther: chenlie
      * @date: 2019/1/8 11:28
      */
-    @GetMapping("createData")
+    @PostMapping("createData")
     public ResponseVO<Object> createData(FireRehearse fireRehearse) {
 
         int res= fireRehearseDomain.insert(fireRehearse);
         if(res>0){
-            return ResponseVO.success();
+            return ResponseVO.addSuccess();
         } else{
-            return ResponseVO.editError();
+            return ResponseVO.addError();
         }
     }
 }

@@ -9,6 +9,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +66,8 @@ public class ControlRoomUserDomainImpl implements ControlRoomUserDomain {
      */
     @Override
     public int insert(ControlRoomUser record) {
-
+        record.setCreateTime(new Date());
+        record.setLogicRemove(false);
         return controlRoomUserDao.insert(record);
     }
     /**
@@ -77,7 +79,8 @@ public class ControlRoomUserDomainImpl implements ControlRoomUserDomain {
      */
     @Override
     public int insertSelective(ControlRoomUser record) {
-
+        record.setCreateTime(new Date());
+        record.setLogicRemove(false);
         return controlRoomUserDao.insertSelective(record);
     }
     /**
@@ -89,7 +92,7 @@ public class ControlRoomUserDomainImpl implements ControlRoomUserDomain {
      */
     @Override
     public int update(ControlRoomUser controlRoomUser) {
-
+        controlRoomUser.setCreateTime(new Date());
         return controlRoomUserDao.update(controlRoomUser);
     }
     /**
@@ -101,7 +104,7 @@ public class ControlRoomUserDomainImpl implements ControlRoomUserDomain {
      */
     @Override
     public int updateSelective(ControlRoomUser controlRoomUser) {
-
+        controlRoomUser.setCreateTime(new Date());
         return controlRoomUserDao.updateSelective(controlRoomUser);
     }
     /**

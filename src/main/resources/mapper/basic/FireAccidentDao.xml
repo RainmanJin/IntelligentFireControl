@@ -33,8 +33,8 @@
       fire_cause, burn_down_property, burn_down_buildings, 
       processing, other)
     values (#{id,jdbcType=BIGINT}, #{fillPerson,jdbcType=VARCHAR}, #{fillTime,jdbcType=TIMESTAMP}, 
-      #{catchFireTime,jdbcType=TIMESTAMP}, #{fireLocation,jdbcType=VARCHAR}, #{directEconomicLoss,jdbcType=DECIMAL}, 
-      #{indirectEconomicLosses,jdbcType=DECIMAL}, #{deathToll,jdbcType=INTEGER}, #{minorWound,jdbcType=INTEGER}, 
+      #{catchFireTime,jdbcType=TIMESTAMP}, #{fireLocation,jdbcType=VARCHAR}, #{directEconomicLoss},
+      #{indirectEconomicLosses}, #{deathToll,jdbcType=INTEGER}, #{minorWound,jdbcType=INTEGER},
       #{seriousInjury,jdbcType=INTEGER}, #{custodian,jdbcType=VARCHAR}, #{personLiable,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, #{fireSituation,jdbcType=LONGVARCHAR}, 
       #{fireCause,jdbcType=LONGVARCHAR}, #{burnDownProperty,jdbcType=LONGVARCHAR}, #{burnDownBuildings,jdbcType=LONGVARCHAR}, 
@@ -121,10 +121,10 @@
         #{fireLocation,jdbcType=VARCHAR},
       </if>
       <if test="directEconomicLoss != null">
-        #{directEconomicLoss,jdbcType=DECIMAL},
+        #{directEconomicLoss},
       </if>
       <if test="indirectEconomicLosses != null">
-        #{indirectEconomicLosses,jdbcType=DECIMAL},
+        #{indirectEconomicLosses},
       </if>
       <if test="deathToll != null">
         #{deathToll,jdbcType=INTEGER},
@@ -181,8 +181,8 @@
             fill_time =#{fillTime,jdbcType=TIMESTAMP},
             catch_fire_time=#{catchFireTime,jdbcType=TIMESTAMP},
             fire_location =#{fireLocation,jdbcType=VARCHAR},
-            direct_economic_loss =#{directEconomicLoss,jdbcType=DECIMAL},
-            indirect_economic_losses =#{indirectEconomicLosses,jdbcType=DECIMAL},
+            direct_economic_loss =#{directEconomicLoss},
+            indirect_economic_losses =#{indirectEconomicLosses},
             death_toll =#{deathToll,jdbcType=INTEGER},
             minor_wound =#{minorWound,jdbcType=INTEGER},
             serious_injury = #{seriousInjury,jdbcType=INTEGER},
@@ -265,9 +265,9 @@
 
       where id=#{id}
   </update>
-  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident">
+  <select id="findById" parameterType="long" resultMap="BaseResultMap">
       select
-          id,
+         <!-- id,
           fill_person as fillPerson ,
           fill_time as fillTime,
           catch_fire_time as catchFireTime,
@@ -286,34 +286,48 @@
           burn_down_property as burnDownProperty,
           burn_down_buildings as burnDownBuildings,
           processing as processing,
-          other
+          other-->
+        id, fill_person, fill_time,
+        catch_fire_time, fire_location, direct_economic_loss,
+        indirect_economic_losses, death_toll, minor_wound,
+        serious_injury, custodian, person_liable,
+        create_time, logic_remove, fire_situation,
+        fire_cause, burn_down_property, burn_down_buildings,
+        processing, other
       from fire_accident
       where id=#{id}
   </select>
 
 
-  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident" resultType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident">
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FireAccident" resultMap="BaseResultMap">
   select
-  id,
-  fill_person as fillPerson ,
-  fill_time as fillTime,
-  catch_fire_time as catchFireTime,
-  fire_location as fireLocation,
-  direct_economic_loss as drectEconomicLoss,
-  indirect_economic_losses as indirectEconomicLossess,
-  death_toll as deathToll,
-  minor_wound as minorWound,
-  serious_injury as seriousInjury,
-  custodian ,
-  person_liable as personLiable,
-  create_time as createTime,
-  logic_remove as logicRemove,
-  fire_situation as fireSituation,
-  fire_cause as fireCause,
-  burn_down_property as burnDownProperty,
-  burn_down_buildings as burnDownBuildings,
-  processing as processing,
-  other
+    <!--id,
+    fill_person as fillPerson ,
+    fill_time as fillTime,
+    catch_fire_time as catchFireTime,
+    fire_location as fireLocation,
+    direct_economic_loss as drectEconomicLoss,
+    indirect_economic_losses as indirectEconomicLossess,
+    death_toll as deathToll,
+    minor_wound as minorWound,
+    serious_injury as seriousInjury,
+    custodian ,
+    person_liable as personLiable,
+    create_time as createTime,
+    logic_remove as logicRemove,
+    fire_situation as fireSituation,
+    fire_cause as fireCause,
+    burn_down_property as burnDownProperty,
+    burn_down_buildings as burnDownBuildings,
+    processing as processing,
+    other-->
+    id, fill_person, fill_time,
+    catch_fire_time, fire_location, direct_economic_loss,
+    indirect_economic_losses, death_toll, minor_wound,
+    serious_injury, custodian, person_liable,
+    create_time, logic_remove, fire_situation,
+    fire_cause, burn_down_property, burn_down_buildings,
+    processing, other
   from fire_accident
   <where>
     <trim  prefixOverrides="and">
