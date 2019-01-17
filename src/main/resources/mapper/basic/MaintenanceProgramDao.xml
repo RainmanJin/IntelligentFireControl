@@ -117,8 +117,8 @@
   <!--分頁查詢-->
   <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram" resultMap="BaseResultMap">
     <include refid="Mysql"/>
-    <trim prefix=" where " suffix="" suffixOverrides="and">
-      mp.logic_remove=0
+       where
+          mp.logic_remove=0 and ri.logic_remove=0 and  et.logic_type=0
       <if test="id != null">
         and mp.id=#{id,jdbcType=BIGINT}
       </if>
@@ -140,8 +140,6 @@
         mp.order_by_num like  concat('%',#{keyword},'%') or 
         mp.claim like  concat('%',#{keyword},'%'))
       </if>
-
-    </trim>
   </select>
 
   <!--修改维保项目-->
