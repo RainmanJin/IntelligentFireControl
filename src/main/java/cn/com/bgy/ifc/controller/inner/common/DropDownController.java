@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.common;
 
+import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionInfoDomain;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionProjectDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
@@ -50,6 +51,8 @@ public class DropDownController extends BaseController{
     private EquipmentVersionService equipmentVersionService;
     @Autowired
     private EquipmentTypeService equipmentTypeService;
+    @Autowired
+    private MaintenanceCompanyDomain maintenanceCompanyDomain;
 
    /*
     * @Author  huxin
@@ -121,7 +124,7 @@ public class DropDownController extends BaseController{
      * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      * @Date 2019/1/15 11:49
      */
-    @GetMapping("quipmentInfoDropDownData")
+    @GetMapping("equipmentInfoDropDownData")
     public ResponseVO<Object> quipmentInfoDropDownData(Long projectId,Long courtId){
         return ResponseVO.success().setData(equipmentInfoService.ListByCourtId(projectId,courtId));
     }
@@ -160,5 +163,17 @@ public class DropDownController extends BaseController{
     public ResponseVO<Object> typeDropDownData(){
         List<EquipmentType> list =  equipmentTypeService.queryAllEquipmentType();
         return ResponseVO.success().setData(list);
+    }
+   /*
+    * @Author  huxin
+    * @Description     维保公司下拉列表
+    * @param   []
+    * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+    * @Date 2019/1/17 16:43
+    */
+    @GetMapping("maintenancecompanyDropDownData")
+    @ResponseBody
+    public ResponseVO<Object> queryAllList() {
+        return ResponseVO.success().setData(maintenanceCompanyDomain.queryListByParam(null));
     }
 }
