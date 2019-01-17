@@ -33,7 +33,7 @@ public class RenovationJunkController extends BaseController {
      * @Description 增加装修垃圾清理情况
      * @Date 2019/1/7 16:14
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "装修垃圾清理情况添加")
     public ResponseVO<Object> addRenovationJunk( RenovationJunk renovationJunk){
         int count = renovationJunkService.addRenovationJunk(renovationJunk);
@@ -49,7 +49,7 @@ public class RenovationJunkController extends BaseController {
      * @Description 删除装修垃圾清理情况(含批量)
      * @Date 2019/1/7 16:19
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "装修垃圾清理情况删除")
     public  ResponseVO<Object> deleteaddRenovationJunk(String ids){
         int count =renovationJunkService.deleteaddRenovationJunk(ids);
@@ -63,7 +63,7 @@ public class RenovationJunkController extends BaseController {
      * @Description 修改装修垃圾清理情况
      * @Date 2019/1/7 16:22
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "装修垃圾清理情况修改")
     public ResponseVO<Object> updateRenovationJunk( RenovationJunk renovationJunk){
         int count = renovationJunkService.updateRenovationJunk(renovationJunk);
@@ -77,7 +77,7 @@ public class RenovationJunkController extends BaseController {
      * @Description 查询装修垃圾清理情况列表
      * @Date 2019/1/7 16:25
      */
-    @GetMapping("list")
+    @GetMapping("queryPageData")
     public ResponseVO<PageInfo> listRenovationJunk( Page<Object> page, String keyword, Long recordId){
         PageInfo pageInfo = renovationJunkService.listRenovationJunk(page,keyword,recordId);
         return ResponseVO.<PageInfo>success().setData(pageInfo);
@@ -87,7 +87,7 @@ public class RenovationJunkController extends BaseController {
      * @Description 根据ID查询装修垃圾清理情况明细
      * @Date 2019/1/7 16:27
      */
-    @GetMapping("find")
+    @GetMapping("findById")
     public ResponseVO<Object> getRenovationJunkFindById(Long id){
         Map<String,Object> map = renovationJunkService.getRenovationJunkFindById(id);
         return ResponseVO.<Object>success().setData(map);

@@ -33,7 +33,7 @@ public class RenovationRecordController extends BaseController {
      * @Description 添加装修备案情况
      * @Date 2019/1/5 17:53
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "添加装修备案")
     public ResponseVO<Object> addRenovationRecord( RegionByRecord regionByRecord, RenovationRecord renovationRecord ){
         int count =renovationRecordService.addRenovationRecord(regionByRecord,renovationRecord);
@@ -47,7 +47,7 @@ public class RenovationRecordController extends BaseController {
      * @Description 修改装修备案情况
      * @Date 2019/1/5 17:53
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     public  ResponseVO<Object> updateRenovationRecord(RenovationRecord renovationRecord){
         int count = renovationRecordService.updateRenovationRecord(renovationRecord);
         if(count>0){
@@ -60,7 +60,7 @@ public class RenovationRecordController extends BaseController {
      * @Description 删除装修备案情况
      * @Date 2019/1/5 17:53
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     public ResponseVO<Object> deleteRenovationRecord(String ids){
        int count = renovationRecordService.deleteRenovationRecord(ids);
        if(count>0){
@@ -73,7 +73,7 @@ public class RenovationRecordController extends BaseController {
      * @Description 查询装修备案情况
      * @Date 2019/1/5 17:54
      */
-    @GetMapping("list")
+    @GetMapping("queryPageData")
     public  ResponseVO<PageInfo> queryRenovationRecordList( Page<Object> page, String keyword, RegionByRecord regionByRecord){
         PageInfo pageInfo = renovationRecordService.queryRenovationRecordList(page,keyword,regionByRecord);
         return  ResponseVO.<PageInfo>success().setData(pageInfo);
@@ -83,7 +83,7 @@ public class RenovationRecordController extends BaseController {
      * @Description 根据ID查询装备案明细
      * @Date 2019/1/5 17:54
      */
-    @GetMapping("find")
+    @GetMapping("findById")
     public ResponseVO<Object> queryRenovationRecordInfo(Long id){
         Map<String,Object> map = renovationRecordService.queryRenovationRecordInfo(id);
         return  ResponseVO.<Object>success().setData(map);

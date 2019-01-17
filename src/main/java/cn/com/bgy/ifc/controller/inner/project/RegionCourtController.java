@@ -8,7 +8,6 @@ import cn.com.bgy.ifc.entity.vo.project.RegionCourtVo;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionCourtService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,7 +19,7 @@ import java.util.Map;
  * @Date 2018/12/19 9:17
  * @Description 苑区信息
  **/
-@Controller
+@RestController
 @RequestMapping("/project/regionCourt")
 public class RegionCourtController extends BaseController {
 
@@ -32,8 +31,7 @@ public class RegionCourtController extends BaseController {
      * @Description 查询
      * @Date 2018/12/18 15:22
      */
-    @GetMapping("query")
-    @ResponseBody
+    @GetMapping("queryPageData")
     public ResponseVO<PageInfo> queryListRegionCourt( Page<Object> page, RegionCourtVo regionCourtVo){
             PageInfo pageInfo = regionCourtService.queryListRegionCourt(page, regionCourtVo);
             return ResponseVO.<PageInfo>success().setData(pageInfo);
@@ -43,9 +41,8 @@ public class RegionCourtController extends BaseController {
      * @Description 修改
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "苑区信息修改")
-    @ResponseBody
     public ResponseVO<Object> updateRegionCourt( RegionCourt regionCourt){
 
         int count =  regionCourtService.updateRegionCourt(regionCourt);
@@ -59,9 +56,8 @@ public class RegionCourtController extends BaseController {
      * @Description 删除
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "苑区信息删除")
-    @ResponseBody
     public ResponseVO<Object> deleteRegionCourt( String ids){
         int count = regionCourtService.deleteRegionCourt(ids);
         if (count > 0) {
@@ -74,9 +70,8 @@ public class RegionCourtController extends BaseController {
      * @Description 增加
      * @Date 2018/12/19 17:00
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "苑区信息添加")
-    @ResponseBody
     public ResponseVO<Object> addRegionCourt(RegionCourt regionCourt){
 
        int count =  regionCourtService.insert(regionCourt);
@@ -91,7 +86,6 @@ public class RegionCourtController extends BaseController {
      * @Date 2018/12/20 18:24
      */
     @GetMapping("queryAllName")
-    @ResponseBody
     public ResponseVO<Object> queryRegionCourtNameBySuperId(Long projectId){
         List<Map<String,Object>> list  = regionCourtService.queryRegionCourtNameBySuperId(projectId);
         return ResponseVO.<Object>success().setData(list);
@@ -101,8 +95,7 @@ public class RegionCourtController extends BaseController {
      * @Description 根据ID查询所有苑区信息
      * @Date 2019/1/2 9:44
      */
-    @GetMapping("find")
-    @ResponseBody
+    @GetMapping("findById")
     public ResponseVO<Object> findById(Long id){
         Map<String,Object> map  = regionCourtService.findById(id);
         return ResponseVO.<Object>success().setData(map);

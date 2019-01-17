@@ -32,7 +32,7 @@ public class FireApplicationController extends BaseController {
      * @Description 增加动火证申请情况
      * @Date 2019/1/7 16:14
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "动火证申请情况添加")
     public ResponseVO<Object> addFireApplication( FireApplication fireApplication){
         int count = fireApplicationService.addFireApplication(fireApplication);
@@ -48,7 +48,7 @@ public class FireApplicationController extends BaseController {
      * @Description 删除动火证申请情况(含批量)
      * @Date 2019/1/7 16:19
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "动火证申请情况删除")
     public  ResponseVO<Object> deleteFireApplication(String ids){
         int count =fireApplicationService.deleteFireApplication(ids);
@@ -62,7 +62,7 @@ public class FireApplicationController extends BaseController {
      * @Description 修改动火证申请情况
      * @Date 2019/1/7 16:22
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "动火证申请情况修改")
     public ResponseVO<Object> updateFireApplication( FireApplication fireApplication){
         int count = fireApplicationService.updateFireApplication(fireApplication);
@@ -76,7 +76,7 @@ public class FireApplicationController extends BaseController {
      * @Description 查询动火证申请情况列表
      * @Date 2019/1/7 16:25
      */
-    @GetMapping("list")
+    @GetMapping("queryPageData")
     public ResponseVO<PageInfo> listFireApplication( Page<Object> page, String keyword, Long recordId){
         PageInfo pageInfo = fireApplicationService.listFireApplication(page,keyword,recordId);
         return ResponseVO.<PageInfo>success().setData(pageInfo);
@@ -86,7 +86,7 @@ public class FireApplicationController extends BaseController {
      * @Description 根据ID查询动火证申请情况明细
      * @Date 2019/1/7 16:27
      */
-    @GetMapping("find")
+    @GetMapping("findById")
     public ResponseVO<Object> getFireApplicationById(Long id){
         Map<String,Object> map = fireApplicationService.getFireApplicationById(id);
         return ResponseVO.<Object>success().setData(map);

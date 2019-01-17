@@ -8,13 +8,11 @@ import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentVersionService
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,7 +21,7 @@ import java.util.Map;
  * @Description 设备型号
  **/
 
-@Controller
+@RestController
 @RequestMapping("/equipment/version")
 public class EquipmentVersionController extends BaseController {
 
@@ -35,8 +33,7 @@ public class EquipmentVersionController extends BaseController {
      * @Description 查
      * @Date 2018/12/21 18:13
      */
-    @GetMapping("query")
-    @ResponseBody
+    @GetMapping("queryPageData")
     public ResponseVO queryListEquipmentVersion( Page<Object> page,Integer brandId,String keyword){
         PageInfo pageInfo = equipmentVersionService.queryListEquipmentVersion(page,brandId,keyword);
         return ResponseVO.success().setData(pageInfo);
@@ -46,9 +43,8 @@ public class EquipmentVersionController extends BaseController {
      * @Description 增
      * @Date 2018/12/21 18:13
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "型号信息添加")
-    @ResponseBody
     public ResponseVO<Object> addEquipmentVersion( EquipmentVersion record){
         int count = equipmentVersionService.addEquipmentVersion(record);
         if (count > 0) {
@@ -61,9 +57,8 @@ public class EquipmentVersionController extends BaseController {
      * @Description 修改
      * @Date 2018/12/21 18:13
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "型号信息修改")
-    @ResponseBody
     public ResponseVO<Object> uopdateEquipmentVersion(EquipmentVersion record){
         int count = equipmentVersionService.updateEquipmentVersion(record);
         if (count == 1) {
@@ -76,9 +71,8 @@ public class EquipmentVersionController extends BaseController {
      * @Description 删除
      * @Date 2018/12/21 18:13
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "型号信息删除")
-    @ResponseBody
     public ResponseVO<Object>  deleteEquipmentVersion( String ids ){
         int count = equipmentVersionService.deleteEquipmentVersion(ids);
         if (count > 0) {
@@ -88,22 +82,10 @@ public class EquipmentVersionController extends BaseController {
     }
     /**
      * @Author huxin
-     * @Description 根据品牌id查询所有型号
-     * @Date 2018/12/25 9:13
-     */
-    @GetMapping("queryAllName")
-    @ResponseBody
-    public ResponseVO<Object> queryEquipmentVersionByBrandId(Long id){
-        List<Map<String,Object>> list = equipmentVersionService.queryEquipmentVersionByBrandId(id);
-        return ResponseVO.success().setData(list);
-    }
-    /**
-     * @Author huxin
      * @Description 根据ID查询型号信息
      * @Date 2019/1/2 9:44
      */
-    @GetMapping("find")
-    @ResponseBody
+    @GetMapping("findById")
     public ResponseVO<Object> findById(Long id){
         Map<String,Object> map  = equipmentVersionService.findById(id);
         return ResponseVO.<Object>success().setData(map);

@@ -86,7 +86,7 @@ public class FaultDetectionPlanController extends BaseController {
      * @Description 根据ID查询设施故障计划明细
      * @Date 2019/1/12 11:02
      */
-    @GetMapping("find")
+    @GetMapping("findById")
     public ResponseVO<Object> getFaultDetectionPlanByID( Long id){
         Map<String,Object> map = faultDetectionPlanService.getFaultDetectionPlanByID(id);
         return ResponseVO.<Object>success().setData(map);

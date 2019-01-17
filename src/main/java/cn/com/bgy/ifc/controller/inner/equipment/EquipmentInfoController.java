@@ -10,11 +10,10 @@ import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentInfoService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
@@ -23,8 +22,8 @@ import java.util.Map;
  * @Date 2018/12/21 11:04
  * @Description 设备信息
  **/
-@Controller
-@RequestMapping("/equipment/index")
+@RestController
+@RequestMapping("/equipment/equipmentInfo")
 public class EquipmentInfoController extends BaseController {
 
     @Autowired
@@ -37,8 +36,7 @@ public class EquipmentInfoController extends BaseController {
      * @Description 查询
      * @Date 2018/12/21 11:08
      */
-    @GetMapping("query")
-    @ResponseBody
+    @GetMapping("queryPageData")
     public ResponseVO<PageInfo> queryListEquipmentInfo( Page<Object> page, RegionAndBrandVO regionAndBrandVO){
         PageInfo pageInfo = equipmentInfoService.queryListEquipmentInfo(page,regionAndBrandVO);
         return  ResponseVO.<PageInfo>success().setData(pageInfo);
@@ -48,9 +46,8 @@ public class EquipmentInfoController extends BaseController {
      * @Description 增加
      * @Date 2018/12/21 11:09
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "设备信息添加")
-    @ResponseBody
     public ResponseVO<Object> addEquipmentInfo( EquipmentInfo equipmentInfo){
         int count = equipmentInfoService.addEquipmentInfo(equipmentInfo);
         if (count > 0) {
@@ -63,9 +60,8 @@ public class EquipmentInfoController extends BaseController {
      * @Description 修改
      * @Date 2018/12/21 11:10
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "设备信息修改")
-    @ResponseBody
     public ResponseVO<Object> updateEquipmentInfo(EquipmentInfo equipmentInfo){
         int count = equipmentInfoService.updateEquipmentInfo(equipmentInfo);
         if (count == 1) {
@@ -78,9 +74,8 @@ public class EquipmentInfoController extends BaseController {
      * @Description 删除
      * @Date 2018/12/21 11:10
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "设备信息删除")
-    @ResponseBody
     public ResponseVO<Object> deleteEquipmentInfo(String ids){
 
         int count = equipmentInfoService.deleteEquipmentInfo(ids);
@@ -95,8 +90,7 @@ public class EquipmentInfoController extends BaseController {
      * @Description 根据一个设备id查询设备数据
      * @Date 2018/12/24 15:52
      */
-    @GetMapping("find")
-    @ResponseBody
+    @GetMapping("findById")
     public ResponseVO<Object> queryEquipmentInfoById(Long id){
 
         Map<String,Object> map = equipmentInfoService.queryEquipmentInfoById(id);
@@ -108,21 +102,9 @@ public class EquipmentInfoController extends BaseController {
      * @return
      */
     @GetMapping("queryEquipmentInfoList")
-    @ResponseBody
     public ResponseVO<Object> queryMaintenanceCompanyList(RegionAndBrandVO vo) {
     	
         return ResponseVO.success().setData(domain.queryAllInfo(vo));
     }
-    /*
-     * @Author  huxin
-     * @Description 根据项目ID，苑区ID查询设备下拉框
-     * @param   [projectId, courtId]
-     * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
-     * @Date 2019/1/15 11:49
-     */
-    @GetMapping("dropDownData")
-    @ResponseBody
-    public ResponseVO<Object> ListByCourtId(Long projectId,Long courtId){
-        return ResponseVO.success().setData(equipmentInfoService.ListByCourtId(projectId,courtId));
-    }
+
 }

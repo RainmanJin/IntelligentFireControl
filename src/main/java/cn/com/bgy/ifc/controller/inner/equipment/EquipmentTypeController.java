@@ -5,18 +5,18 @@ import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
-import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentTypeVo;
-import cn.com.bgy.ifc.entity.vo.system.SystemOrganizationVo;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentTypeService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -145,14 +145,5 @@ public class EquipmentTypeController extends BaseController {
         return ResponseVO.<Object>success().setData(equipmentType);
     }
 
-    /**
-     * @Author huxin
-     * @Description 查询所有类型信息
-     * @Date 2019/1/5 11:02
-     */
-    @GetMapping("queryAllName")
-    public ResponseVO<Object> queryAllEquipmentType(){
-        List<EquipmentType> list =  equipmentTypeService.queryAllEquipmentType();
-        return ResponseVO.success().setData(list);
-    }
+
 }

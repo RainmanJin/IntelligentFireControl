@@ -87,7 +87,7 @@ public class FaultDetectionController extends BaseController {
      * @Description 根据ID查询设施故障明细
      * @Date 2019/1/12 11:02
      */
-    @GetMapping("find")
+    @GetMapping("findById")
     public ResponseVO<Object> getFaultDetectionFindByID( Long id){
         Map<String,Object> map = faultDetectionService.getFaultDetectionFindByID(id);
         return ResponseVO.<Object>success().setData(map);

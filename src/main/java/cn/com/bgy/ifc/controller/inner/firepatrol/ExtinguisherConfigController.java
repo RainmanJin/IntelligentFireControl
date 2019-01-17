@@ -33,7 +33,7 @@ public class ExtinguisherConfigController extends BaseController {
      * @Description 增加灭火器配置
      * @Date 2019/1/7 16:14
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "灭火器配置情况添加")
     public ResponseVO<Object> addExtinguisherConfig( ExtinguisherConfig extinguisherConfig){
         int count = extinguisherConfigService.addExtinguisherConfig(extinguisherConfig);
@@ -49,7 +49,7 @@ public class ExtinguisherConfigController extends BaseController {
      * @Description 删除灭火器配置情况(含批量)
      * @Date 2019/1/7 16:19
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "灭火器配置情况删除")
     public  ResponseVO<Object> deleteExtinguisherConfig(String ids){
         int count =extinguisherConfigService.deleteExtinguisherConfig(ids);
@@ -63,7 +63,7 @@ public class ExtinguisherConfigController extends BaseController {
      * @Description 修改灭火器配置情况
      * @Date 2019/1/7 16:22
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "灭火器配置情况修改")
     public ResponseVO<Object> updateExtinguisherConfig(ExtinguisherConfig extinguisherConfig){
         int count = extinguisherConfigService.updateExtinguisherConfig(extinguisherConfig);
@@ -77,7 +77,7 @@ public class ExtinguisherConfigController extends BaseController {
      * @Description 查询灭火器配置列表
      * @Date 2019/1/7 16:25
      */
-    @GetMapping("list")
+    @GetMapping("queryPageData")
     public ResponseVO<PageInfo> listExtinguisherConfig( Page<Object> page, String keyword, Long recordId, Date startTime, Date endTime){
         PageInfo pageInfo = extinguisherConfigService.listExtinguisherConfig(page,keyword,recordId,startTime,endTime);
         return ResponseVO.<PageInfo>success().setData(pageInfo);
@@ -87,7 +87,7 @@ public class ExtinguisherConfigController extends BaseController {
      * @Description 根据ID查询灭火器配置明细
      * @Date 2019/1/7 16:27
      */
-    @GetMapping("find")
+    @GetMapping("findById")
     public ResponseVO<Object> getExtinguisherConfigFindById(Long id){
         Map<String,Object> map = extinguisherConfigService.getExtinguisherConfigFindById(id);
         return ResponseVO.<Object>success().setData(map);

@@ -32,7 +32,7 @@ public class FacilityProtectionController extends BaseController {
      * @Description 增加消防设施保护情况
      * @Date 2019/1/7 16:14
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "消防设施保护情况添加")
     public ResponseVO<Object> addFacilityProtection( FacilityProtection facilityProtection){
         int count = facilityProtectionService.addFacilityProtection(facilityProtection);
@@ -48,7 +48,7 @@ public class FacilityProtectionController extends BaseController {
      * @Description 删除消防设施保护情况(含批量)
      * @Date 2019/1/7 16:19
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "消防设施保护情况删除")
     public  ResponseVO<Object> deleteFacilityProtection(String ids){
         int count =facilityProtectionService.deleteFacilityProtection(ids);
@@ -62,7 +62,7 @@ public class FacilityProtectionController extends BaseController {
      * @Description 修改消防设施保护情况
      * @Date 2019/1/7 16:22
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "消防设施保护情况修改")
     public ResponseVO<Object> updateFacilityProtection( FacilityProtection facilityProtection){
         int count = facilityProtectionService.updateFacilityProtection(facilityProtection);
@@ -76,7 +76,7 @@ public class FacilityProtectionController extends BaseController {
      * @Description 查询消防设施保护情况列表
      * @Date 2019/1/7 16:25
      */
-    @GetMapping("list")
+    @GetMapping("queryPageData")
     public ResponseVO<PageInfo> listFacilityProtection( Page<Object> page, String keyword, Long recordId,Integer state){
         PageInfo pageInfo = facilityProtectionService.listFacilityProtection(page,keyword,recordId,state);
         return ResponseVO.<PageInfo>success().setData(pageInfo);
@@ -86,7 +86,7 @@ public class FacilityProtectionController extends BaseController {
      * @Description 根据ID查询消防设施保护情况明细
      * @Date 2019/1/7 16:27
      */
-    @GetMapping("find")
+    @GetMapping("findById")
     public ResponseVO<Object> getFacilityProtectionFindById(Long id){
         Map<String,Object> map = facilityProtectionService.getFacilityProtectionFindById(id);
         return ResponseVO.<Object>success().setData(map);

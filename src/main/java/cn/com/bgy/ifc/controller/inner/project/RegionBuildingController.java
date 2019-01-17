@@ -8,7 +8,6 @@ import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionBuildingService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,7 +19,7 @@ import java.util.Map;
  * @Date 2018/12/19 9:17
  * @Description 楼栋信息
  **/
-@Controller
+@RestController
 @RequestMapping("/project/regionBuilding")
 public class RegionBuildingController extends BaseController {
 
@@ -32,7 +31,7 @@ public class RegionBuildingController extends BaseController {
      * @Description 查询
      * @Date 2018/12/18 15:22
      */
-    @GetMapping("query")
+    @GetMapping("queryPageData")
     @ResponseBody
     public ResponseVO<PageInfo> queryListRegionBuilding( Page<Object> page, RegionAndBrandVO regionAndBrandVO){
         PageInfo pageInfo = regionBuildingService.queryListRegionBuilding(page,regionAndBrandVO);
@@ -43,9 +42,8 @@ public class RegionBuildingController extends BaseController {
      * @Description 修改
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "楼栋单元信息修改")
-    @ResponseBody
     public ResponseVO<Object> updateRegionBuilding( RegionBuilding regionBuilding){
 
         int count = regionBuildingService.updateRegionBuilding(regionBuilding);
@@ -59,9 +57,8 @@ public class RegionBuildingController extends BaseController {
      * @Description 删除
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "街道信息删除")
-    @ResponseBody
     public ResponseVO<Object> deleteRegionBuilding( String ids){
         int count = regionBuildingService.deleteRegionBuilding(ids);
         if (count > 0) {
@@ -74,9 +71,8 @@ public class RegionBuildingController extends BaseController {
      * @Description 增加
      * @Date 2018/12/19 17:00
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "街道信息添加")
-    @ResponseBody
     public ResponseVO<Object> addRegionBuilding(RegionBuilding regionBuilding){
 
        int count =  regionBuildingService.insert(regionBuilding);
@@ -87,25 +83,14 @@ public class RegionBuildingController extends BaseController {
 
     }
 
-    /**
-     * @Author huxin
-     * @Description 根据父id查询所有楼栋信息
-     * @Date 2018/12/20 18:24
-     */
-    @GetMapping("queryAllName")
-    @ResponseBody
-    public ResponseVO<Object> queryRegionBuildingNameBySuperId(Long streetId){
-        List<Map<String,Object>> list  = regionBuildingService.queryRegionBuildingNameBySuperId(streetId);
-        return ResponseVO.<Object>success().setData(list);
-    }
+
 
     /**
      * @Author huxin
      * @Description 根据ID查询楼栋单元信息
      * @Date 2019/1/2 9:44
      */
-    @GetMapping("find")
-    @ResponseBody
+    @GetMapping("findById")
     public ResponseVO<Object> findById(Long id){
         Map<String,Object> map  = regionBuildingService.findById(id);
         return ResponseVO.<Object>success().setData(map);

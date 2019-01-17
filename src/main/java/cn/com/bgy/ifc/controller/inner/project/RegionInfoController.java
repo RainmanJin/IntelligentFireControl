@@ -33,7 +33,7 @@ public class RegionInfoController extends BaseController {
      * @Description 查询
      * @Date 2018/12/18 15:22
      */
-    @GetMapping("query")
+    @GetMapping("queryPageData")
 //    @RequiresRoles(value={SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_USER,
 //            SystemConstant.SYSTEM_ROLES_AREA_ADMIN,SystemConstant.SYSTEM_ROLES_AREA_USRE},logical = Logical.OR)
     public ResponseVO<PageInfo> queryListRegionInfo( Page<Object> page, String keyword){
@@ -46,7 +46,7 @@ public class RegionInfoController extends BaseController {
      * @Description 修改
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "区域信息修改")
     public ResponseVO<Object> updateRegionInfo( RegionInfoVo regionInfoVo){
 
@@ -61,7 +61,7 @@ public class RegionInfoController extends BaseController {
      * @Description 删除
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "区域信息删除")
     public ResponseVO<Object> deleteRegionInfo( String  ids){
         int count = regionInfoDomain.deleteRegionInfo(ids);
@@ -75,7 +75,7 @@ public class RegionInfoController extends BaseController {
      * @Description 区域信息添加
      * @Date 2018/12/19 11:44
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "区域信息添加")
     public ResponseVO<Object> insertRegionInfo(RegionInfo regionInfo){
         int count = regionInfoDomain.insert(regionInfo);
@@ -85,24 +85,13 @@ public class RegionInfoController extends BaseController {
         return ResponseVO.error().setMsg("添加失败！");
     }
 
-    /**
-     * @Author huxin
-     * @Description 查询所有区域名
-     * @Date 2018/12/20 18:24
-     */
-    @GetMapping("queryAllName")
-    @ResponseBody
-    public ResponseVO<Object> queryRegionInfoName(){
-        Account user=this.getUser();
-        List<Map<String,Object>> list  = regionInfoDomain.queryRegionInfoName(user);
-        return ResponseVO.<Object>success().setData(list);
-    }
+
     /**
      * @Author huxin
      * @Description 根据ID查询区域信息
      * @Date 2019/1/2 9:44
      */
-    @GetMapping("find")
+    @GetMapping("findById")
     @ResponseBody
     public ResponseVO<Object> findById(Long id){
         Map<String,Object> map  = regionInfoDomain.findById(id);
