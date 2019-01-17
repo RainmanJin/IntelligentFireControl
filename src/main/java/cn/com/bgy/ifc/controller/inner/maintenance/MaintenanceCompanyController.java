@@ -9,17 +9,18 @@ import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceCompany;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceCompanyVo;
-
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
 
 /**
  * lvbingjian
@@ -46,15 +47,7 @@ public class MaintenanceCompanyController extends BaseController{
         PageInfo<MaintenanceCompany> pageInfo = domain.queryListByPage(page, po);
         return ResponseVO.success().setData(pageInfo);
     }
-    /**
-     * 查询全部
-     * @return
-     */
-    @GetMapping("queryAllList")
-    @ResponseBody
-    public ResponseVO<Object> queryAllList() {
-        return ResponseVO.success().setData(domain.queryListByParam(null));
-    }
+
     /**
      * @Author lvbingjian
      * @Description 新增维保公司
