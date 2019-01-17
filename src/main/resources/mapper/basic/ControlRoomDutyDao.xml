@@ -185,7 +185,7 @@
     crd.address as address,
     crd.create_time as createTime,
     cru.name as userName
-      from control_room_duty crd left  join  control_room_user cru on crd.user_id=crd.id
+      from control_room_duty crd left  join  control_room_user cru on crd.user_id=cru.id
     <where>
     <trim prefixOverrides="and" >
       <if test="id !=null">
