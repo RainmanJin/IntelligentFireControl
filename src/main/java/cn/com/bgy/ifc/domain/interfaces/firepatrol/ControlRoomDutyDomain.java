@@ -14,5 +14,5 @@ public interface ControlRoomDutyDomain extends BaseDomain<ControlRoomDuty> {
      * @param controlRoomDuty
      * @return
      */
-    PageInfo<ControlRoomDuty> queryListByPage(Page<ControlRoomDuty> page, ControlRoomDuty controlRoomDuty);
+    PageInfo<ControlRoomDuty> queryListByPage(Page<ControlRoomDuty> page, ControlRoomDuty controlRoomDuty,String keyword);
 }

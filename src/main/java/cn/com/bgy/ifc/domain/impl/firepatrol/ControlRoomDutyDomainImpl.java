@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +65,8 @@ public class ControlRoomDutyDomainImpl  implements ControlRoomDutyDomain {
      */
     @Override
     public int insert(ControlRoomDuty record) {
-
+        record.setLogicRemove(false);
+        record.setCreateTime(new Date());
         return controlRoomDutyDao.insert(record);
     }
 
@@ -77,6 +79,7 @@ public class ControlRoomDutyDomainImpl  implements ControlRoomDutyDomain {
      */
     @Override
     public int insertSelective(ControlRoomDuty record) {
+        record.setLogicRemove(false);
         record.setCreateTime(new Date());
         return controlRoomDutyDao.insertSelective(record);
     }
@@ -90,7 +93,7 @@ public class ControlRoomDutyDomainImpl  implements ControlRoomDutyDomain {
      */
     @Override
     public int update(ControlRoomDuty controlRoomDuty) {
-
+        controlRoomDuty.setCreateTime(new Date());
         return controlRoomDutyDao.update(controlRoomDuty);
     }
     /**
@@ -102,7 +105,7 @@ public class ControlRoomDutyDomainImpl  implements ControlRoomDutyDomain {
      */
     @Override
     public int updateSelective(ControlRoomDuty controlRoomDuty) {
-
+        controlRoomDuty.setCreateTime(new Date());
         return controlRoomDutyDao.updateSelective(controlRoomDuty);
     }
     /**
@@ -125,7 +128,10 @@ public class ControlRoomDutyDomainImpl  implements ControlRoomDutyDomain {
      * @date: 2019/1/7 17:15
      */
     @Override
-    public PageInfo<ControlRoomDuty> queryListByPage(Page<ControlRoomDuty> page, ControlRoomDuty controlRoomDuty) {
+    public PageInfo<ControlRoomDuty> queryListByPage(Page<ControlRoomDuty> page, ControlRoomDuty controlRoomDuty,String keyword) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("keyword",keyword);
+        map.put("controlRoomDuty",controlRoomDuty);
 
         page=  PageHelper.startPage(page.getPageNum(),page.getPageSize());
         List<ControlRoomDuty> list=controlRoomDutyDao.queryListByParam(controlRoomDuty);

@@ -23,20 +23,20 @@ public class FireBrigadeController extends BaseController {
     private FireBrigadeDomain fireBrigadeDomain;
 
     /**
-     * @description:分页查询消防演练及宣传情况
+     * @description:分页查询义务消防队建设情况
      * @param: [page, fireBrigade]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.firepatrol.FireBrigade>>
      * @auther: chenlie
      * @date: 2019/1/7 17:24
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<FireBrigade>> queryListByPage(Page<FireBrigade> page, FireBrigade fireBrigade) {
+    public ResponseVO<PageInfo<FireBrigade>> queryListByPage(Page<FireBrigade> page, FireBrigade fireBrigade,String keyword) {
 
         PageInfo<FireBrigade> pageInfo = fireBrigadeDomain.queryListByPage(page, fireBrigade);
         return ResponseVO.<PageInfo<FireBrigade>>success().setData(pageInfo);
     }
     /**
-     * @description:根据id查询消防演练及宣传情况
+     * @description:根据id查询义务消防队建设情况
      * @param: [id]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<cn.com.bgy.ifc.entity.po.firepatrol.FireBrigade>
      * @auther: chenlie

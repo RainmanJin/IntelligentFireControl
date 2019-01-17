@@ -12,16 +12,17 @@
     <result column="room_name" jdbcType="VARCHAR" property="roomName" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
     insert into control_room_duty (id, user_id, user_type, 
       start_time, end_time, duty_date, 
       duty_type, room_name, address, 
-      create_time)
+      create_time,logic_remove)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{userType,jdbcType=INTEGER}, 
       #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{dutyDate,jdbcType=DATE}, 
       #{dutyType,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP})
+      #{createTime,jdbcType=TIMESTAMP},#{logicRemove,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
     insert into control_room_duty
@@ -56,6 +57,9 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -88,6 +92,9 @@
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
     </trim>
   </insert>
   <update id="deleteBatch" parameterType="java.util.List">
@@ -112,6 +119,7 @@
        create_time=#{createTime,jdbcType=TIMESTAMP}
      </trim>
    </set>
+    where id=#{id}
   </update>
   <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
     update  control_room_duty
@@ -146,6 +154,7 @@
         </if>
       </trim>
     </set>
+    where id=#{id}
   </update>
 <select id="findById" resultType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
   select id,
@@ -206,6 +215,7 @@
       <if test="createTime != null">
        and create_time=#{createTime,jdbcType=TIMESTAMP}
       </if>
+      and logic_remove=0
     </trim>
       </where>
 

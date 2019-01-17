@@ -119,6 +119,7 @@
           </if>
         </trim>
       </set>
+      WHERE id = #{id}
   </update>
 
   <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomUser">
@@ -135,6 +136,7 @@
         logic_remove= #{logicRemove,jdbcType=BIT}
       </trim>
     </set>
+    WHERE id = #{id}
   </update>
 
   <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomUser">

@@ -30,7 +30,7 @@ public class FireRehearseController extends BaseController {
      * @date: 2019/1/7 17:24
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<FireRehearse>> queryListByPage(Page<FireRehearse> page, FireRehearse fireRehearse) {
+    public ResponseVO<PageInfo<FireRehearse>> queryListByPage(Page<FireRehearse> page, FireRehearse fireRehearse,String keyword) {
 
         PageInfo<FireRehearse> pageInfo = fireRehearseDomain.queryListByPage(page, fireRehearse);
         return ResponseVO.<PageInfo<FireRehearse>>success().setData(pageInfo);

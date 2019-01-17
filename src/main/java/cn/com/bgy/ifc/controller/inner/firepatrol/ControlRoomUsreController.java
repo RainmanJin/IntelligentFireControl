@@ -23,20 +23,20 @@ public class ControlRoomUsreController extends BaseController {
     private ControlRoomUserDomain controlRoomUserDomain;
 
     /**
-     * @description:分页查询消防演练及宣传情况
+     * @description:分页查询监控室人员管理
      * @param: [page, controlRoomUser]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomUser>>
      * @auther: chenlie
      * @date: 2019/1/7 17:24
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<ControlRoomUser>> queryListByPage(Page<ControlRoomUser> page, ControlRoomUser controlRoomUser) {
+    public ResponseVO<PageInfo<ControlRoomUser>> queryListByPage(Page<ControlRoomUser> page, ControlRoomUser controlRoomUser,String keyword) {
 
         PageInfo<ControlRoomUser> pageInfo = controlRoomUserDomain.queryListByPage(page, controlRoomUser);
         return ResponseVO.<PageInfo<ControlRoomUser>>success().setData(pageInfo);
     }
     /**
-     * @description:根据id查询消防演练及宣传情况
+     * @description:根据id查询监控室人员管理
      * @param: [id]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomUser>
      * @auther: chenlie

@@ -104,7 +104,7 @@
     LEFT JOIN record_content c ON bc.content_id = c.id AND c.logic_remove=0
       <where>
         <if test="planType != null  ">
-          AND p.plan_type= #{equipmentTypeId,jdbcType=BIGINT}
+          AND p.plan_type= #{planType,jdbcType=BIGINT}
         </if>
         <if test="planStatus != null ">
           AND p.plan_status=  #{planStatus}

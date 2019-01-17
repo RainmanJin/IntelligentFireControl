@@ -53,6 +53,9 @@ public class ControlRoomDuty {
      */
     private Date createTime;
 
+    //逻辑删除 0:存在 1:删除
+    private Boolean logicRemove;
+
     /**
      * 主键id
      * @return id 主键id
@@ -211,5 +214,13 @@ public class ControlRoomDuty {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
+
+    public void setLogicRemove( Boolean logicRemove ) {
+        this.logicRemove = logicRemove;
     }
 }
