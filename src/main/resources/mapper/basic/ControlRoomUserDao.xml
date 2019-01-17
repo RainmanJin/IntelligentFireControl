@@ -171,7 +171,7 @@
         logic_remove as logicRemove
         from control_room_user
        <where>
-         <trim prefixOverrides="and">
+           logic_remove=0
            <if test="id !=null">
              and id=#{id}
            </if>
@@ -206,7 +206,6 @@
              or  address like  CONCAT('%',#{keyWords},'%')
              )
            </if>
-         </trim>
        </where>
 
   </select>

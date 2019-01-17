@@ -194,7 +194,7 @@
             logic_remove as logicRemove
       from fire_brigade
       <where>
-        <trim  prefixOverrides="and">
+          logic_remove=0
           <if test="id !=null">
             and  id=#{id}
           </if>
@@ -235,7 +235,6 @@
             or  principal like  CONCAT('%',#{keyWords},'%')
             )
           </if>
-        </trim>
       </where>
   </select>
 

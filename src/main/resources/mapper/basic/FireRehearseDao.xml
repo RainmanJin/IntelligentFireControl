@@ -298,7 +298,7 @@
     from fire_rehearse
 
     <where>
-      <trim prefixOverrides="and">
+        logic_remove=0
         <if test="id !=null">
           and id=#{id}
         </if>
@@ -353,7 +353,13 @@
         <if test="advertiseCost != null">
           and  advertise_cost=#{advertiseCost,jdbcType=DECIMAL}
         </if>
-      </trim>
+        <if test="keyWords !=null and keyWords !=''">
+          and (
+          content like CONCAT('%',#{keyWords},'%')
+          or  location like  CONCAT('%',#{keyWords},'%')
+          or property_name like  CONCAT('%',#{keyWords},'%')
+          )
+        </if>
     </where>
 
   </select>

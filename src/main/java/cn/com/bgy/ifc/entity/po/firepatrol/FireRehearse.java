@@ -98,6 +98,14 @@ public class FireRehearse {
      * 是否逻辑删除0未删除，1已删除
      */
     private Boolean logicRemove;
+    /**
+     * @description:
+     * @param: 
+     * @return: 查询关键字
+     * @auther: chenlie
+     * @date: 2019/1/17 11:55
+     */
+    private String keyWords;
 
     /**
      * 创建时间
@@ -422,5 +430,13 @@ public class FireRehearse {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
     }
 }
