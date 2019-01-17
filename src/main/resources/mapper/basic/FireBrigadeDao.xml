@@ -228,6 +228,13 @@
           <if test="logicRemove != null">
             and logic_remove= #{logicRemove,jdbcType=BIT}
           </if>
+          <if test="keyWords !=null and keyWords !=''">
+            and (
+            fire_brigade_name like CONCAT('%',#{keyWords},'%')
+            or  phone like  CONCAT('%',#{keyWords},'%')
+            or  principal like  CONCAT('%',#{keyWords},'%')
+            )
+          </if>
         </trim>
       </where>
   </select>

@@ -119,7 +119,9 @@
        create_time=#{createTime,jdbcType=TIMESTAMP}
      </trim>
    </set>
+
     where id=#{id}
+
   </update>
   <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
     update  control_room_duty
@@ -172,48 +174,57 @@
 </select>
 
   <select id="queryListByParam" resultType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
-       select id,
-        user_id as userId,
-        user_type as userType,
-        start_time as startTime,
-        end_time as endTime,
-        duty_date as dutyDate,
-        duty_type as dutyType,
-        room_name as roomName,
-        address as address,
-        create_time as createTime
-      from control_room_duty
+       select crd.id,
+    crd.user_id as userId,
+    crd.user_type as userType,
+    crd.start_time as startTime,
+    crd.end_time as endTime,
+    crd.duty_date as dutyDate,
+    crd.duty_type as dutyType,
+    crd.room_name as roomName,
+    crd.address as address,
+    crd.create_time as createTime,
+    cru.name as userName;
+      from control_room_duty crd left  join  control_room_user cru on crd.user_id=crd.id
     <where>
     <trim prefixOverrides="and" >
       <if test="id !=null">
-        and id=#{id}
+        and crd.id=#{id}
       </if>
       <if test="userId != null">
-       and  user_id =#{userId,jdbcType=BIGINT}
+       and  crd.user_id =#{userId,jdbcType=BIGINT}
       </if>
       <if test="userType != null">
-        and user_type =#{userType,jdbcType=INTEGER}
+        and crd.user_type =#{userType,jdbcType=INTEGER}
       </if>
       <if test="startTime != null">
-        and start_time =#{startTime,jdbcType=TIMESTAMP}
+        and crd.start_time =#{startTime,jdbcType=TIMESTAMP}
       </if>
       <if test="endTime != null">
-        and end_time =#{endTime,jdbcType=TIMESTAMP}
+        and crd.end_time =#{endTime,jdbcType=TIMESTAMP}
       </if>
       <if test="dutyDate != null">
-        and duty_date =#{dutyDate,jdbcType=DATE}
+        and crd.duty_date =#{dutyDate,jdbcType=DATE}
       </if>
       <if test="dutyType != null">
-       and  duty_type =#{dutyType,jdbcType=VARCHAR}
+       and  crd.duty_type =#{dutyType,jdbcType=VARCHAR}
       </if>
       <if test="roomName != null">
-       and  room_name =#{roomName,jdbcType=VARCHAR}
+       and  crd.room_name =#{roomName,jdbcType=VARCHAR}
       </if>
       <if test="address != null">
-       and address =#{address,jdbcType=VARCHAR}
+       and crd.address =#{address,jdbcType=VARCHAR}
       </if>
       <if test="createTime != null">
-       and create_time=#{createTime,jdbcType=TIMESTAMP}
+       and crd.create_time=#{createTime,jdbcType=TIMESTAMP}
+      </if>
+
+      <if test="keyWords !=null and keyWords !=''">
+        and (
+        crd.room_name like CONCAT('%',#{keyWords},'%')
+        or  crd.address like  CONCAT('%',#{keyWords},'%')
+        or cru.name like  CONCAT('%',#{keyWords},'%')
+        )
       </if>
       and logic_remove=0
     </trim>

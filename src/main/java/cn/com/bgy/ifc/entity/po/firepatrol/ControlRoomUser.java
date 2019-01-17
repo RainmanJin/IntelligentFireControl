@@ -48,6 +48,16 @@ public class ControlRoomUser {
      */
     private Boolean logicRemove;
 
+
+    /**
+     * @description:
+     * @param: 
+     * @return: 查询关键字
+     * @auther: chenlie
+     * @date: 2019/1/17 11:08
+     */
+    private  String keyWords;
+
     /**
      * 主键
      * @return id 主键
@@ -190,5 +200,13 @@ public class ControlRoomUser {
      */
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
+    }
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
     }
 }

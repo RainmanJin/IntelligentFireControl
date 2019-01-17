@@ -105,6 +105,11 @@ public class FireAccident {
     private String other;
 
     /**
+     * 查询关键字
+     */
+    private String keyWords;
+
+    /**
      * 
      * @return id 
      */
@@ -422,5 +427,13 @@ public class FireAccident {
      */
     public void setOther(String other) {
         this.other = other;
+    }
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
     }
 }

@@ -12,6 +12,16 @@ public class ControlRoomDuty {
      * 监控室人员id
      */
     private Long userId;
+    
+    /**
+     * @description:
+     * @param: 
+     * @return: 值班人姓名
+     * @auther: chenlie
+     * @date: 2019/1/17 11:14
+     */
+    private String userName;
+
 
     /**
      * 1负责人，0一般人员
@@ -53,8 +63,13 @@ public class ControlRoomDuty {
      */
     private Date createTime;
 
+
     //逻辑删除 0:存在 1:删除
     private Boolean logicRemove;
+
+
+    private String keyWords;
+
 
     /**
      * 主键id
@@ -216,11 +231,27 @@ public class ControlRoomDuty {
         this.createTime = createTime;
     }
 
+
     public Boolean getLogicRemove() {
         return logicRemove;
     }
 
     public void setLogicRemove( Boolean logicRemove ) {
         this.logicRemove = logicRemove;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
     }
 }

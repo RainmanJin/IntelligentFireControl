@@ -391,6 +391,12 @@
       <if test="other != null">
         and  other =#{other,jdbcType=LONGVARCHAR}
       </if>
+      <if test="keyWords !=null and keyWords !=''">
+      and (
+        fill_person like CONCAT('%',#{keyWords},'%')
+      or  fire_location like  CONCAT('%',#{keyWords},'%')
+      )
+      </if>
     </trim>
   </where>
 </select>

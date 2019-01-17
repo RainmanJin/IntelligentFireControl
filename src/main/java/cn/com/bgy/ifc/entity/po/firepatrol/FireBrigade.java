@@ -57,6 +57,24 @@ public class FireBrigade {
      * 是否逻辑删除：0未删除，1已删除
      */
     private Boolean logicRemove;
+    /**
+     * @description:
+     * @param: 
+     * @return: 查询关键字
+     * @auther: chenlie
+     * @date: 2019/1/17 11:13
+     */
+    private String keyWords;
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
+    }
+
+
 
     /**
      * 主键，自动递增

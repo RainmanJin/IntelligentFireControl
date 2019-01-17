@@ -84,7 +84,7 @@ public class ControlRoomUsreController extends BaseController {
 
         ControlRoomUser  query =controlRoomUserDomain.findById(controlRoomUser.getId());
         CopyUtil.copyProperties(controlRoomUser,query);
-        int res= controlRoomUserDomain.updateSelective(query);
+        int res= controlRoomUserDomain.update(query);
         if(res>0){
             return ResponseVO.editSuccess();
         } else{
@@ -102,7 +102,7 @@ public class ControlRoomUsreController extends BaseController {
      */
     @PostMapping("createData")
     public ResponseVO<Object> createData(ControlRoomUser controlRoomUser) {
-
+        controlRoomUser.setOrgId(this.getUser().getOrganizationId());
         int res= controlRoomUserDomain.insertSelective(controlRoomUser);
         if(res>0){
             return ResponseVO.addSuccess();
