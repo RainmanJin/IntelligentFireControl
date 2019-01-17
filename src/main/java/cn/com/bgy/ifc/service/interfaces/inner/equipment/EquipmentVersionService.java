@@ -16,7 +16,7 @@ import java.util.Map;
 public interface EquipmentVersionService  {
 
 
-    PageInfo queryListEquipmentVersion( Page page, Integer brandID, String keyword);
+    PageInfo queryListEquipmentVersion( Page page, Integer brandId, String keyword);
 
     int addEquipmentVersion(EquipmentVersion record);
 

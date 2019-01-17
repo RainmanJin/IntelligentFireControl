@@ -33,8 +33,8 @@ public class EquipmentVersionServiceImpl implements EquipmentVersionService {
      */
 
     @Override
-    public PageInfo queryListEquipmentVersion( Page page, Integer brandID, String keyword ) {
-        return equipmentVersionDomain.queryListEquipmentVersion( page, brandID, keyword);
+    public PageInfo queryListEquipmentVersion( Page page, Integer brandId, String keyword ) {
+        return equipmentVersionDomain.queryListEquipmentVersion( page, brandId, keyword);
     }
     /**
      * @Author huxin

@@ -46,9 +46,9 @@ public class EquipmentVersionDomainImpl implements EquipmentVersionDomain {
      * @Date 2018/12/24 10:01
      */
     @Override
-    public PageInfo queryListEquipmentVersion( Page page, Integer brandID, String keyword ) {
+    public PageInfo queryListEquipmentVersion( Page page, Integer brandId, String keyword ) {
         Map<String,Object> map = new HashMap<>();
-        map.put("brandID",brandID);
+        map.put("brandId",brandId);
         map.put("keyword",keyword);
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Map<String,Object>> list = equipmentVersionDao.queryListEquipmentVersion(map);
