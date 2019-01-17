@@ -154,7 +154,10 @@ public class MaintenancePeriodicDomainImpl implements MaintenancePeriodicDomain 
 				list.add(map);
 			}
 		}
-		return maintenanceOrderDao.insertSelectiveByMap(list);
+		if(list !=null && !list.isEmpty()) {
+			return maintenanceOrderDao.insertSelectiveByMap(list);
+		}
+		return 0;
 	}
 
 }

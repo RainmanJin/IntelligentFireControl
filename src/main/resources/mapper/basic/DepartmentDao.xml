@@ -78,7 +78,7 @@
 		organization_id,
 		create_time,
 		logic_remove
-		FROM department WHERE logic_remove = 0
+		FROM department WHERE logic_remove = 0 and state=1
     </select>
 <!--分页条件查询部门管理-->
     <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.Department" resultType="cn.com.bgy.ifc.entity.po.system.Department">

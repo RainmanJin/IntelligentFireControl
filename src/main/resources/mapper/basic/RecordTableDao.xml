@@ -171,7 +171,7 @@
           OR r.approver like concat('%',#{keyword},'%')
           OR r.approval_result LIKE concat('%',#{keyword},'%'))
         </if>
-        AND r.logic_remove = 0 AND r.type = 3
+        AND r.logic_remove = 0 AND r.type = #{type}
       </where>
   </select>
   <select id="findById" parameterType="java.util.Map" resultType="java.util.Map">

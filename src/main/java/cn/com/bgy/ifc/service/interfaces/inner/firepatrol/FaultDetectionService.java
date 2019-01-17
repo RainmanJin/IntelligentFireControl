@@ -21,7 +21,7 @@ public interface FaultDetectionService {
     //删除
     int deleteFaultDetection( String ids );
     //列表查询（含条件查询）
-    PageInfo listFaultDetection( Page<Object> page, String keyword, Long equipmentTypeId, Integer situation );
+    PageInfo listFaultDetection( Page<Object> page, String keyword, Long equipmentTypeId, Integer situation,Integer type );
     //根据ID查询明细
     Map<String,Object> getFaultDetectionFindByID( Long id );
     //根据设备ID获取故障检测内容下拉列表

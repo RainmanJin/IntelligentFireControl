@@ -42,8 +42,6 @@ public class FaultDetectionDomainImpl implements FaultDetectionDomain {
     @Transactional(rollbackFor = {Exception.class})
     public int addFaultDetection( RecordTable recordTable, String recordContent ) {
         Date time = new Date();
-        //3代表设施巡检类型
-        recordTable.setType(3);
         recordTable.setLogicRemove(false);
         recordTable.setCreateTime(time);
         int count = recordTableDao.insertSelective(recordTable);

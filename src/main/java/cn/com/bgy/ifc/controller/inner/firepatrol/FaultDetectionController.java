@@ -78,8 +78,8 @@ public class FaultDetectionController extends BaseController {
      * @Date 2019/1/12 10:58
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo> listFaultDetection( Page<Object> page,String keyword,Long equipmentTypeId,Integer situation ){
-        PageInfo pageInfo = faultDetectionService.listFaultDetection(page,keyword,equipmentTypeId,situation);
+    public ResponseVO<PageInfo> listFaultDetection( Page<Object> page,String keyword,Long equipmentTypeId,Integer situation,Integer type ){
+        PageInfo pageInfo = faultDetectionService.listFaultDetection(page,keyword,equipmentTypeId,situation,type);
         return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
     /**

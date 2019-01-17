@@ -118,7 +118,7 @@
   <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram" resultMap="BaseResultMap">
     <include refid="Mysql"/>
        where
-          mp.logic_remove=0 and ri.logic_remove=0 and  et.logic_type=0
+          mp.logic_remove=0 and ri.logic_remove=0 and  et.logic_remove=0
       <if test="id != null">
         and mp.id=#{id,jdbcType=BIGINT}
       </if>

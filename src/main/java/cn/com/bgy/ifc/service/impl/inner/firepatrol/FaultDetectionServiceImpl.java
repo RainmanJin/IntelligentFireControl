@@ -71,12 +71,13 @@ public class FaultDetectionServiceImpl implements FaultDetectionService {
      * @Date 2019/1/12 11:30
      */
     @Override
-    public PageInfo listFaultDetection( Page<Object> page, String keyword, Long equipmentTypeId, Integer situation ) {
+    public PageInfo listFaultDetection( Page<Object> page, String keyword, Long equipmentTypeId, Integer situation,Integer type ) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
         Map<String,Object> map = new HashMap<>();
         map.put("keyword",keyword);
         map.put("equipmentTypeId",equipmentTypeId);
         map.put("situation",situation);
+        map.put("type",type);
         List<Map<String,Object>> list = recordTableDao.listFaultDetection(map);
         return new PageInfo(list);
     }
