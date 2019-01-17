@@ -39,7 +39,7 @@ public class EquipmentConfig {
     /**
      * 设备类型
      */
-    private EquipmentType equipmentType;
+    private EquipmentThingType equipmentThingType;
 
     /**
      * 模拟量单位
@@ -158,12 +158,12 @@ public class EquipmentConfig {
         this.heartbeatInterval = heartbeatInterval;
     }
 
-    public EquipmentType getEquipmentType() {
-        return equipmentType;
+    public EquipmentThingType getEquipmentThingType() {
+        return equipmentThingType;
     }
 
-    public void setEquipmentType(EquipmentType equipmentType) {
-        this.equipmentType = equipmentType;
+    public void setEquipmentThingType(EquipmentThingType equipmentThingType) {
+        this.equipmentThingType = equipmentThingType;
     }
 
     public AnalogueUnit getAnalogueUnit() {

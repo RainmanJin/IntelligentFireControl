@@ -126,7 +126,7 @@ public class EquipmentState {
     /**
      * 设备类型
      */
-    private EquipmentType equipmentType;
+    private EquipmentThingType equipmentThingType;
 
     /**
      * 
@@ -464,12 +464,12 @@ public class EquipmentState {
         this.flow = flow;
     }
 
-    public EquipmentType getEquipmentType() {
-        return equipmentType;
+    public EquipmentThingType getEquipmentThingType() {
+        return equipmentThingType;
     }
 
-    public void setEquipmentType(EquipmentType equipmentType) {
-        this.equipmentType = equipmentType;
+    public void setEquipmentThingType(EquipmentThingType equipmentThingType) {
+        this.equipmentThingType = equipmentThingType;
     }
 
     public Date getStatusChangedTime() {

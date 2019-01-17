@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentEventVo;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -27,6 +28,13 @@ public interface EquipmentEventService {
      * @return
      */
     EquipmentEvent findById(Long id);
+
+    /**
+     * 监听数据，添加事件
+     * @param jsonObject
+     * @return
+     */
+    int insertEquipmentEvent(JSONObject jsonObject);
 
     /**
      * 设备事件添加

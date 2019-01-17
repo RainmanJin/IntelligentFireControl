@@ -5,12 +5,12 @@ import cn.com.bgy.ifc.bgy.constant.LoginState;
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.*;
-import cn.com.bgy.ifc.dao.equipment.AnalogDao;
+import cn.com.bgy.ifc.dao.equipment.EquipmentChangeDao;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceConfigDomain;
-import cn.com.bgy.ifc.entity.po.equipment.Analog;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentChange;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.service.interfaces.inner.equipment.AnalogService;
+import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentChangeService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -29,61 +29,51 @@ import java.util.Map;
 
 /**
  * @author: ZhangCheng
- * @description:
- * @date: 2019-01-15 16:29
+ * @description:设备状态变化管理
+ * @date: 2019-01-17 11:33
  **/
 @Service
-public class AnalogServiceImpl implements AnalogService {
+public class EquipmentChangeServiceImpl implements EquipmentChangeService {
 
-    private static Logger logger = LoggerFactory.getLogger(AnalogServiceImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(EquipmentChangeServiceImpl.class);
 
     @Resource
-    private AnalogDao analogDao;
+    private EquipmentChangeDao equipmentChangeDao;
 
     @Autowired
     private ExternalInterfaceConfigDomain externalInterfaceConfigDomain;
 
-
     @Override
-    public PageInfo<Analog> queryListByPage(Page page, Analog analog) {
+    public PageInfo<EquipmentChange> queryListByPage(Page page, EquipmentChange equipmentChange) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<Analog> list = analogDao.queryListByParam(analog);
-        PageInfo<Analog> pageInfo = new PageInfo<>(list);
+        List<EquipmentChange> list = equipmentChangeDao.queryListByParam(equipmentChange);
+        PageInfo<EquipmentChange> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 
     @Override
-    public Analog findById(Long id) {
-        return analogDao.findById(id);
+    public EquipmentChange findById(Long id) {
+        return equipmentChangeDao.findById(id);
     }
 
     @Override
-    public int insertAnalog(JSONObject jsonObject) {
-        Analog analog = jsonObject.toJavaObject(Analog.class);
-        if (analog != null) {
-            return analogDao.insertSelective(analog);
-        }
-        return 0;
-    }
-
-    @Override
-    public ResponseVO<Object> createAnalog(Analog analog) {
+    public ResponseVO<Object> createEquipmentChange(EquipmentChange equipmentChange) {
         return null;
     }
 
     @Override
-    public ResponseVO<Object> editAnalog(Analog analog) {
+    public ResponseVO<Object> editEquipmentChange(EquipmentChange equipmentChange) {
         return null;
     }
 
-    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步物联设备模拟量", login = LoginState.NOT_LOGIN)
+    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步设备状态变化", login = LoginState.NOT_LOGIN)
     @Override
-    public ResponseVO<Object> synchroAnalog(int pageNum, int pageSize) {
+    public ResponseVO<Object> synchroEquipmentChange(int pageNum, int pageSize) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
             if (list.size() != 0) {
                 ExternalInterfaceConfig config = list.get(0);
-                String baseUrl = config.getUrl() + "/device/values";
+                String baseUrl = config.getUrl() + "/device/statuses";
                 String url = baseUrl + "?page=" + pageNum + "&size" + pageSize;
                 JSONObject response = HttpHelper.httpGet(url, null);
                 if (response != null) {
@@ -103,8 +93,8 @@ public class AnalogServiceImpl implements AnalogService {
                             Map<String, Object> newValueMap = new HashMap<>();
                             Map<String, Object> valueMap = configList.get(i);
                             valueMap.forEach((key, value) -> {
-                                //采集时间转换
-                                if ("caputureTime".equals(key)) {
+                                //发生时间转换
+                                if ("occuredTime".equals(key)) {
                                     if (value != null) {
                                         value = TimeUtil.formatDateOfTimestamp(Long.valueOf(value.toString()));
                                     }
@@ -113,29 +103,29 @@ public class AnalogServiceImpl implements AnalogService {
                             });
                             datas.add(newValueMap);
                         }
-                        int result = DbUtil.insertAll("analog", executeName, datas);
+                        int result = DbUtil.insertAll("equipment_change", executeName, datas);
                         if (result == totalCount) {
-                            return ResponseVO.success().setMsg("设备模拟量同步成功！");
+                            return ResponseVO.success().setMsg("设备状态变化同步成功！");
                         } else {
-                            return ResponseVO.error().setMsg("设备模拟量同步失败！");
+                            return ResponseVO.error().setMsg("设备状态变化同步失败！");
                         }
                     } else {
-                        return ResponseVO.success().setMsg("暂无中联永安设备模拟量同步！");
+                        return ResponseVO.success().setMsg("暂无中联永安设备状态变化数据！");
                     }
                 } else {
-                    return ResponseVO.error().setMsg("获取中联永安设备模拟量失败!");
+                    return ResponseVO.error().setMsg("获取中联永安设备状态变化失败!");
                 }
             } else {
                 return ResponseVO.error().setMsg("获取中联永安接口配置信息失败！");
             }
         } catch (Exception e) {
-            logger.error("获取中联永安设备模拟量接口请求异常：", e);
-            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备模拟量接口请求异常！", e));
+            logger.error("获取中联永安设备状态变化接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备状态变化接口请求异常！", e));
         }
     }
 
     @Override
-    public ResponseVO<Object> deleteAnalog(String ids) {
+    public ResponseVO<Object> deleteEquipmentChange(String ids) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
             if (list.size() != 0) {
@@ -144,9 +134,9 @@ public class AnalogServiceImpl implements AnalogService {
                 String url = "";
                 if(idList.size()>1){
                     String newIds = ListUtil.getIdStr(idList);
-                    url = config.getUrl() + "/device/values?ids=" + newIds;
+                    url = config.getUrl() + "/device/statuses?ids=" + newIds;
                 }else{
-                    url = config.getUrl() + "/device/values/" + idList.get(0);
+                    url = config.getUrl() + "/device/statuses/" + idList.get(0);
                 }
                 JSONObject response = HttpHelper.httpDelete(url, null);
                 if (response != null) {
@@ -154,7 +144,7 @@ public class AnalogServiceImpl implements AnalogService {
                     Integer statusCode = response.getInteger("code");
                     String message = response.getString("message");
                     if (HttpStatus.SC_OK == statusCode) {
-                        int result = analogDao.deleteBatch(idList);
+                        int result = equipmentChangeDao.deleteBatch(idList);
                         if (result == idList.size()) {
                             return ResponseVO.deleteSuccess();
                         } else {
@@ -164,14 +154,14 @@ public class AnalogServiceImpl implements AnalogService {
                         return ResponseVO.error().setMsg("刪除失败!错误信息：" + message);
                     }
                 } else {
-                    return ResponseVO.error().setMsg("中联永安刪除模拟量数据失败!");
+                    return ResponseVO.error().setMsg("中联永安刪除设备状态变化失败!");
                 }
             } else {
                 return ResponseVO.error().setMsg("获取中联永安接口配置信息失败！");
             }
         } catch (Exception e) {
-            logger.error("删除中联永安刪除模拟量数据接口请求异常：", e);
-            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("删除中联永安刪除模拟量数据接口请求异常！", e));
+            logger.error("删除中联永安设备状态变化接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("删除中联永安设备状态变化接口请求异常！", e));
         }
     }
 }

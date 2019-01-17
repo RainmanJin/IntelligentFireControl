@@ -117,9 +117,9 @@ public class EquipmentListenersServiceImpl implements EquipmentListenersService 
                     if (HttpStatus.SC_OK == statusCode) {
                         int result = equipmentListenersDao.updateSelective(equipmentListeners);
                         if (result == 1) {
-                            return ResponseVO.addSuccess();
+                            return ResponseVO.editSuccess();
                         } else {
-                            return ResponseVO.addError();
+                            return ResponseVO.editError();
                         }
                     } else {
                         return ResponseVO.error().setMsg("修改失败!错误信息：" + message);

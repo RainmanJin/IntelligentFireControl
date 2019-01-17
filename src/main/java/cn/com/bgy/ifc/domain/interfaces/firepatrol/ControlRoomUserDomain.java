@@ -6,17 +6,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 public interface ControlRoomUserDomain extends BaseDomain<ControlRoomUser> {
-    /**
-     *
-     * @mbg.generated 2019-01-07
-     */
-    int insert(ControlRoomUser record);
-
-    /**
-     *
-     * @mbg.generated 2019-01-07
-     */
-    int insertSelective(ControlRoomUser record);
 
     /**
      * 分页查询消防控制室人员列表

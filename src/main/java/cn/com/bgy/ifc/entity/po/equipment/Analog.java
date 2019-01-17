@@ -3,9 +3,6 @@ package cn.com.bgy.ifc.entity.po.equipment;
 import java.util.Date;
 
 public class Analog {
-    /**
-     * 模拟量类型
-     */
     private Long id;
 
     /**
@@ -17,6 +14,11 @@ public class Analog {
      * 设备ID
      */
     private Long deviceId;
+
+    /**
+     * 设备名称
+     */
+    private String deviceName;
 
     /**
      * 模拟量异常类型
@@ -37,6 +39,11 @@ public class Analog {
      * 单位类型
      */
     private Integer unitType;
+
+    /**
+     * 模拟量单位类型
+     */
+    private AnalogueUnit analogueUnit;
 
     /**
      * 模拟量类型
@@ -148,5 +155,21 @@ public class Analog {
      */
     public void setUnitType(Integer unitType) {
         this.unitType = unitType;
+    }
+
+    public AnalogueUnit getAnalogueUnit() {
+        return analogueUnit;
+    }
+
+    public void setAnalogueUnit(AnalogueUnit analogueUnit) {
+        this.analogueUnit = analogueUnit;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
     }
 }

@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,16 +58,111 @@ public class EquipmentEventServiceImpl implements EquipmentEventService {
     }
 
     @Override
+    public int insertEquipmentEvent(JSONObject jsonObject) {
+        EquipmentEvent equipmentEvent=jsonObject.toJavaObject(EquipmentEvent.class);
+        if(equipmentEvent!=null){
+            Long id=equipmentEvent.getId();
+            if(id!=null) {
+                EquipmentEvent event = equipmentEventDao.findById(id);
+                if (event != null) {
+                    return equipmentEventDao.updateSelective(equipmentEvent);
+                } else {
+                    return equipmentEventDao.insertSelective(equipmentEvent);
+                }
+            }
+        }
+        return 0;
+    }
+
+    @Override
     public ResponseVO<Object> createEquipmentEvent(EquipmentEvent equipmentEvent) {
-        return null;
+        try {
+            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
+            if (list.size() != 0) {
+                ExternalInterfaceConfig config = list.get(0);
+                String url = config.getUrl() + "/event/events";
+                Map<String, Object> data = new HashMap<>();
+                data.put("deviceId", equipmentEvent.getDeviceId());
+                data.put("type", equipmentEvent.getType());
+                data.put("description", equipmentEvent.getDescription());
+                data.put("firstTime", equipmentEvent.getFirstTime().getTime());
+                data.put("lastTime", equipmentEvent.getLastTime().getTime());
+                data.put("reportCount", equipmentEvent.getReportCount());
+                data.put("status", equipmentEvent.getStatus());
+                JSONObject response = HttpHelper.httpPost(url, data, null);
+                if (response != null) {
+                    //data作为key获取JSONObject
+                    Integer statusCode = response.getInteger("code");
+                    String message = response.getString("message");
+                    if (HttpStatus.SC_OK == statusCode) {
+                        JSONObject jsonObject = response.getJSONObject("data");
+                        Long id = jsonObject.getLong("id");
+                        equipmentEvent.setId(id);
+                        int result = equipmentEventDao.insertSelective(equipmentEvent);
+                        if (result == 1) {
+                            return ResponseVO.addSuccess();
+                        } else {
+                            return ResponseVO.addError();
+                        }
+                    } else {
+                        return ResponseVO.error().setMsg("添加失败!错误信息：" + message);
+                    }
+                } else {
+                    return ResponseVO.error().setMsg("中联永安创建事件信息失败!");
+                }
+            } else {
+                return ResponseVO.error().setMsg("获取中联永安设备接口配置数据失败！");
+            }
+        } catch (Exception e) {
+            logger.error("获取中联永安事件接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安事件接口请求异常！", e));
+        }
     }
 
     @Override
     public ResponseVO<Object> editEquipmentEvent(EquipmentEvent equipmentEvent) {
-        return null;
+        try {
+            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
+            if (list.size() != 0) {
+                ExternalInterfaceConfig config = list.get(0);
+                Long id = equipmentEvent.getId();
+                String url = config.getUrl() + "/event/events/" + id;
+                Map<String, Object> data = new HashMap<>();
+                data.put("deviceId", equipmentEvent.getDeviceId());
+                data.put("type", equipmentEvent.getType());
+                data.put("description", equipmentEvent.getDescription());
+                data.put("firstTime", equipmentEvent.getFirstTime().getTime());
+                data.put("lastTime", equipmentEvent.getLastTime().getTime());
+                data.put("reportCount", equipmentEvent.getReportCount());
+                data.put("status", equipmentEvent.getStatus());
+                JSONObject response = HttpHelper.httpPut(url, data, null);
+                if (response != null) {
+                    //data作为key获取JSONObject
+                    Integer statusCode = response.getInteger("code");
+                    String message = response.getString("message");
+                    if (HttpStatus.SC_OK == statusCode) {
+                        int result = equipmentEventDao.updateSelective(equipmentEvent);
+                        if (result == 1) {
+                            return ResponseVO.editSuccess();
+                        } else {
+                            return ResponseVO.editError();
+                        }
+                    } else {
+                        return ResponseVO.error().setMsg("修改失败!错误信息：" + message);
+                    }
+                } else {
+                    return ResponseVO.error().setMsg("中联永安修改事件信息失败!");
+                }
+            } else {
+                return ResponseVO.error().setMsg("获取中联永安设备接口配置数据失败！");
+            }
+        } catch (Exception e) {
+            logger.error("获取中联永安事件信息接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安事件信息接口请求异常！", e));
+        }
     }
 
-    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步物联设备事件信息", login = LoginState.NOT_LOGIN)
+    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步物联事件信息", login = LoginState.NOT_LOGIN)
     @Override
     public ResponseVO<Object> synchroEquipmentEvent(int pageNum, int pageSize) {
         try {
@@ -111,27 +207,63 @@ public class EquipmentEventServiceImpl implements EquipmentEventService {
                         }
                         int result = DbUtil.insertAll("equipment_event", executeName, datas);
                         if (result == totalCount) {
-                            return ResponseVO.success().setMsg("设备事件信息同步成功！");
+                            return ResponseVO.success().setMsg("事件信息同步成功！");
                         } else {
-                            return ResponseVO.error().setMsg("设备事件信息同步失败！");
+                            return ResponseVO.error().setMsg("事件信息同步失败！");
                         }
                     } else {
-                        return ResponseVO.success().setMsg("暂无中联永安设备事件信息同步！");
+                        return ResponseVO.success().setMsg("暂无中联永安事件信息同步！");
                     }
                 } else {
-                    return ResponseVO.error().setMsg("获取中联永安设备事件信息失败!");
+                    return ResponseVO.error().setMsg("获取中联永安事件信息失败!");
                 }
             } else {
                 return ResponseVO.error().setMsg("获取中联永安接口配置信息失败！");
             }
         } catch (Exception e) {
-            logger.error("获取中联永安设备事件信息接口请求异常：", e);
-            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备事件信息接口请求异常！", e));
+            logger.error("获取中联永安事件信息接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安事件信息接口请求异常！", e));
         }
     }
 
     @Override
     public ResponseVO<Object> deleteEquipmentEvent(String ids) {
-        return null;
+        try {
+            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
+            if (list.size() != 0) {
+                ExternalInterfaceConfig config = list.get(0);
+                List<Long> idList = ListUtil.getListId(ids);
+                String url = "";
+                if(idList.size()>1){
+                    String newIds = ListUtil.getIdStr(idList);
+                    url = config.getUrl() + "/event/events?ids=" + newIds;
+                }else{
+                    url = config.getUrl() + "/event/events/" + idList.get(0);
+                }
+                JSONObject response = HttpHelper.httpDelete(url, null);
+                if (response != null) {
+                    //data作为key获取JSONObject
+                    Integer statusCode = response.getInteger("code");
+                    String message = response.getString("message");
+                    if (HttpStatus.SC_OK == statusCode) {
+                        int result = equipmentEventDao.deleteBatch(idList);
+                        if (result == idList.size()) {
+                            return ResponseVO.deleteSuccess();
+                        } else {
+                            return ResponseVO.deleteError();
+                        }
+                    } else {
+                        return ResponseVO.error().setMsg("刪除失败!错误信息：" + message);
+                    }
+                } else {
+                    return ResponseVO.error().setMsg("中联永安刪除事件信息失败!");
+                }
+            } else {
+                return ResponseVO.error().setMsg("获取中联永安接口配置信息失败！");
+            }
+        } catch (Exception e) {
+            logger.error("删除中联永安事件信息接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("删除中联永安事件信息接口请求异常！", e));
+        }
     }
 }

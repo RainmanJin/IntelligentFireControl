@@ -26,9 +26,9 @@
         <result column="water_pressure" jdbcType="REAL" property="waterPressure"/>
         <result column="valve" jdbcType="BIT" property="valve"/>
         <result column="flow" jdbcType="REAL" property="flow"/>
-        <association property="equipmentType" column="type" javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentType">
-            <id column="equi_id" property="id"/>
-            <result column="equi_name" property="name"/>
+        <association property="equipmentThingType" column="type" javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentThingType">
+            <id  column="equi_id" property="id"/>
+            <result  column="equi_name" property="name"/>
         </association>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
@@ -212,7 +212,7 @@
         e.id AS equi_id,
         e.name AS equi_name
         FROM equipment_state s
-        LEFT JOIN equipment_type e ON e.id=s.type
+        LEFT JOIN equipment_thing_type e ON e.value=s.type
         <where>
             <if test="equipType != null and equipType != ''">
                 AND s.type = #{equipType}
@@ -224,7 +224,7 @@
                 AND s.status = #{status}
             </if>
             <if test="keyword!='' and keyword!=null">
-                AND (s.status_desc LIKE  concat('%',#{keyword},'%') )
+                AND (s.name LIKE  concat('%',#{keyword},'%') OR e.name LIKE  concat('%',#{keyword},'%'))
             </if>
         </where>
     </select>

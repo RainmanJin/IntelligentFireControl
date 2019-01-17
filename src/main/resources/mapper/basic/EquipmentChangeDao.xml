@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.equipment.EquipmentChangeDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentChange">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="device_id" jdbcType="BIGINT" property="deviceId"/>
+        <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+        <result column="error_type" jdbcType="INTEGER" property="errorType"/>
+        <result column="occured_time" jdbcType="TIMESTAMP" property="occuredTime"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentChange">
+    insert into equipment_change (id, status, type, 
+      device_id, error_type, occured_time, 
+      description)
+    values (#{id,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{deviceId,jdbcType=BIGINT}, #{errorType,jdbcType=INTEGER}, #{occuredTime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentChange">
+        insert into equipment_change
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="deviceId != null">
+                device_id,
+            </if>
+            <if test="errorType != null">
+                error_type,
+            </if>
+            <if test="occuredTime != null">
+                occured_time,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="deviceId != null">
+                #{deviceId,jdbcType=BIGINT},
+            </if>
+            <if test="errorType != null">
+                #{errorType,jdbcType=INTEGER},
+            </if>
+            <if test="occuredTime != null">
+                #{occuredTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentChange"
+            resultMap="BaseResultMap">
+        SELECT
+        c.id AS id,
+        c.status,
+        c.type,
+        c.device_id,
+        s.name AS device_name,
+        c.error_type,
+        c.occured_time,
+        c.description
+        FROM equipment_change c
+        LEFT JOIN equipment_state s ON s.id=c.device_id
+        <where>
+            <if test="errorType != null and errorType != ''">
+                AND c.error_type = #{errorType}
+            </if>
+            <if test="type != null and type != ''">
+                AND c.type = #{type}
+            </if>
+            <if test="status != null and status != ''or status == 0">
+                AND c.status = #{status}
+            </if>
+            <if test="description!='' and description!=null">
+                AND (c.description LIKE concat('%',#{description},'%') OR s.name LIKE concat('%',#{description},'%') )
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+        id,
+        status,
+        type,
+        device_id,
+        error_type,
+        occured_time,
+        description
+        FROM equipment_change  WHERE id = #{id}
+    </select>
+
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentChange">
+        UPDATE equipment_change
+        <set>
+            status=#{status,jdbcType=INTEGER},
+            type= #{type,jdbcType=INTEGER},
+            device_id= #{deviceId,jdbcType=BIGINT},
+            error_type= #{errorType,jdbcType=INTEGER},
+            occured_time=#{occuredTime,jdbcType=TIMESTAMP},
+            description=#{description,jdbcType=VARCHAR},
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentChange">
+        UPDATE equipment_change
+        <set>
+            <if test="status != null">
+                status=#{status,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type= #{type,jdbcType=INTEGER},
+            </if>
+            <if test="deviceId != null">
+                device_id= #{deviceId,jdbcType=BIGINT},
+            </if>
+            <if test="errorType != null">
+                error_type= #{errorType,jdbcType=INTEGER},
+            </if>
+            <if test="occuredTime != null">
+                occured_time=#{occuredTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                description=#{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteBatch" parameterType="java.util.List">
+        <![CDATA[
+       DELETE FROM equipment_change WHERE id IN
+    	]]>
+        <foreach close=")" collection="list" index="index" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

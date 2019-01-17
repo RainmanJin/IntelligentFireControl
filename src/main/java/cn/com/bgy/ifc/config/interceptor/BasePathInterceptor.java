@@ -30,7 +30,7 @@ public class BasePathInterceptor extends HandlerInterceptorAdapter {
             response.setHeader("Access-Control-Allow-Credentials", "true");
         }
         Account sysUser = (Account) request.getSession().getAttribute("user");
-        if (null == sysUser && !StringUtil.contains(request.getRequestURI(),"/login") && !StringUtil.contains(request.getRequestURI(),"/getImage")) {
+        if (null == sysUser && !StringUtil.contains(request.getRequestURI(),"/login") && !StringUtil.contains(request.getRequestURI(),"/getImage")&&!StringUtil.contains(request.getRequestURI(),"/external/interface")) {
            String requestedWith = request.getHeader("X-Requested-With");
            /* if (StringUtil.isNotEmpty(requestedWith) &&  "XMLHttpRequest".equals("requestedWith")) {*/
               //如果是ajax返回指定数据

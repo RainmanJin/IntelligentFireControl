@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface ExternalInterfaceMsgDao extends BaseDao<ExternalInterfaceMsg> {
 
-    List<ExternalInterfaceMsg> queryListByParam(ExternalInterfaceMsg record);
-
 }

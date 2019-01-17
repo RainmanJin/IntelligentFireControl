@@ -18,7 +18,8 @@ import java.util.Map;
 /**
  * 重写shiro的UserFilter，实现通过OPTIONS请求
  * @author MDY
- */ public class ShiroUserFilter extends UserFilter {
+ */
+public class ShiroUserFilter extends UserFilter {
 
     public ShiroUserFilter() {
         super();

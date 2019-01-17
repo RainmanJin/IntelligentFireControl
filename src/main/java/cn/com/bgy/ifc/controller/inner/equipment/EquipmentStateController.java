@@ -2,15 +2,20 @@ package cn.com.bgy.ifc.controller.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.EquipmentConstant;
+import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.EnumUtil;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
+import cn.com.bgy.ifc.entity.vo.equipment.EquipmentConfigVo;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentStateVo;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentStateService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +42,7 @@ public class EquipmentStateController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.equipment.EquipmentState>>
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<EquipmentState>> searchPage(Page<EquipmentState> page, EquipmentStateVo equipmentStateVo) {
+    public ResponseVO<PageInfo<EquipmentState>> queryPageData(Page<EquipmentState> page, EquipmentStateVo equipmentStateVo) {
         PageInfo<EquipmentState> pageInfo = equipmentStateService.queryListByPage(page, equipmentStateVo);
         return ResponseVO.<PageInfo<EquipmentState>>success().setData(pageInfo);
     }
@@ -52,6 +57,42 @@ public class EquipmentStateController {
     public ResponseVO<Object> findById(Long id) {
         EquipmentState equipmentState = equipmentStateService.findById(id);
         return ResponseVO.success().setData(equipmentState);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:添加物联设备信息
+     * @param: [equipmentStateVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("createData")
+    @SystemLogAfterSave(description = "添加物联设备信息")
+    public ResponseVO<Object> add(@Validated EquipmentStateVo equipmentStateVo, BindingResult error) {
+        //参数校检
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
+        }
+        EquipmentState equipmentState = new EquipmentState();
+        CopyUtil.copyProperties(equipmentStateVo, equipmentState);
+        return equipmentStateService.createEquipmentState(equipmentState);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:修改物联设备信息
+     * @param: [equipmentStateVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("editData")
+    @SystemLogAfterSave(description = "修改物联设备信息")
+    public ResponseVO<Object> edit(@Validated EquipmentStateVo equipmentStateVo, BindingResult error) {
+        //做参数校检
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
+        }
+        EquipmentState equipmentState = new EquipmentState();
+        CopyUtil.copyProperties(equipmentStateVo, equipmentState);
+        return equipmentStateService.editEquipmentState(equipmentState);
     }
 
     /**
@@ -79,6 +120,18 @@ public class EquipmentStateController {
 
     /**
      * @author: ZhangCheng
+     * @description:设备状态信息查询所有
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("queryAllList")
+    public ResponseVO<Object> queryAllList() {
+        List<EquipmentState> list = equipmentStateService.queryAllList();
+        return ResponseVO.success().setData(list);
+    }
+
+    /**
+     * @author: ZhangCheng
      * @description:删除设备状态信息
      * @param: [ids]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
@@ -91,6 +144,5 @@ public class EquipmentStateController {
         }
         return equipmentStateService.deleteEquipmentState(ids);
     }
-
 
 }

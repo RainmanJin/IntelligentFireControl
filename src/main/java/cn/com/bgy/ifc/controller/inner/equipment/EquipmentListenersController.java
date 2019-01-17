@@ -2,14 +2,9 @@ package cn.com.bgy.ifc.controller.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentListeners;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.equipment.EquipmentConfigVo;
-import cn.com.bgy.ifc.entity.vo.equipment.EquipmentEventVo;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentListenersVo;
-import cn.com.bgy.ifc.entity.vo.system.SystemMenuVo;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentListenersService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -35,19 +30,19 @@ public class EquipmentListenersController {
 
     /**
      * @author: ZhangCheng
-     * @description:
+     * @description:事件监听分页查询
      * @param: [page, keyword]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.equipment.EquipmentListeners>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo < cn.com.bgy.ifc.entity.po.equipment.EquipmentListeners>>
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<EquipmentListeners>> queryPage(Page<EquipmentListeners> page,String keyword) {
-        PageInfo<EquipmentListeners> pageInfo =equipmentListenersService.queryListByPage(page, keyword);
+    public ResponseVO<PageInfo<EquipmentListeners>> queryPage(Page<EquipmentListeners> page, String keyword) {
+        PageInfo<EquipmentListeners> pageInfo = equipmentListenersService.queryListByPage(page, keyword);
         return ResponseVO.<PageInfo<EquipmentListeners>>success().setData(pageInfo);
     }
 
     /**
      * @author: ZhangCheng
-     * @description:
+     * @description:事件监听ID查询
      * @param: [id]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
@@ -59,18 +54,18 @@ public class EquipmentListenersController {
 
     /**
      * @author: ZhangCheng
-     * @description:
+     * @description:事件监听数据同步
      * @param: []
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @GetMapping("synchroData")
     public ResponseVO<Object> synchroData() {
-        return equipmentListenersService.synchroEquipmentListeners(1,100);
+        return equipmentListenersService.synchroEquipmentListeners(1, 100);
     }
 
     /**
      * @author: ZhangCheng
-     * @description:
+     * @description:添加事件监听信息
      * @param: [equipmentConfigVo, error]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
@@ -88,7 +83,7 @@ public class EquipmentListenersController {
 
     /**
      * @author: ZhangCheng
-     * @description:修改设备配置信息
+     * @description:修改事件监听信息
      * @param: [equipmentConfigVo, error]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */

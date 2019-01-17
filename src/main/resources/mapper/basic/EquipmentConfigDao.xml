@@ -13,7 +13,7 @@
             <id  column="unit_id" property="id"/>
             <result  column="unit_name" property="name"/>
         </association>
-        <association property="equipmentType" column="type" javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentType">
+        <association property="equipmentThingType" column="type" javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentThingType">
             <id  column="equi_id" property="id"/>
             <result  column="equi_name" property="name"/>
         </association>
@@ -107,17 +107,17 @@
         u.id AS unit_id,
         u.name AS unit_name
         FROM equipment_config c
-        LEFT JOIN equipment_type e ON e.thing_code=c.type
+        LEFT JOIN equipment_thing_type e ON e.value=c.type
         LEFT JOIN analogue_unit u ON u.id=c.value_unit_type
         <where>
             <if test="type != null and type != ''">
-                AND type = #{type}
+                AND c.type = #{type}
             </if>
             <if test="valueType != null and valueType != ''">
-                AND value_type = #{valueType}
+                AND c.value_type = #{valueType}
             </if>
             <if test="valueUnitType != null and valueUnitType != ''">
-                AND value_unit_type = #{valueUnitType}
+                AND c.value_unit_type = #{valueUnitType}
             </if>
         </where>
     </select>

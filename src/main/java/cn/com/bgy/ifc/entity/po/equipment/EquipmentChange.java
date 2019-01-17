@@ -2,19 +2,19 @@ package cn.com.bgy.ifc.entity.po.equipment;
 
 import java.util.Date;
 
-public class EquipmentEvent {
+public class EquipmentChange {
     /**
      * 
      */
     private Long id;
 
     /**
-     * 事件状态
+     * 设备原始状态值
      */
     private Integer status;
 
     /**
-     * 事件类型
+     * 设备状态记录类型
      */
     private Integer type;
 
@@ -29,24 +29,19 @@ public class EquipmentEvent {
     private String deviceName;
 
     /**
-     * 第一次产生时间
+     * 对应的设备状态
      */
-    private Date firstTime;
+    private Integer errorType;
 
     /**
-     * 最近一次产生时间
+     * 发生时间
      */
-    private Date lastTime;
+    private Date occuredTime;
 
     /**
      * 状态描述
      */
     private String description;
-
-    /**
-     * 上报次数
-     */
-    private Integer reportCount;
 
     /**
      * 
@@ -65,32 +60,32 @@ public class EquipmentEvent {
     }
 
     /**
-     * 事件状态
-     * @return status 事件状态
+     * 设备原始状态值
+     * @return status 设备原始状态值
      */
     public Integer getStatus() {
         return status;
     }
 
     /**
-     * 事件状态
-     * @param status 事件状态
+     * 设备原始状态值
+     * @param status 设备原始状态值
      */
     public void setStatus(Integer status) {
         this.status = status;
     }
 
     /**
-     * 事件类型
-     * @return type 事件类型
+     * 设备状态记录类型
+     * @return type 设备状态记录类型
      */
     public Integer getType() {
         return type;
     }
 
     /**
-     * 事件类型
-     * @param type 事件类型
+     * 设备状态记录类型
+     * @param type 设备状态记录类型
      */
     public void setType(Integer type) {
         this.type = type;
@@ -113,35 +108,35 @@ public class EquipmentEvent {
     }
 
     /**
-     * 第一次产生时间
-     * @return first_time 第一次产生时间
+     * 对应的设备状态
+     * @return error_type 对应的设备状态
      */
-    public Date getFirstTime() {
-        return firstTime;
+    public Integer getErrorType() {
+        return errorType;
     }
 
     /**
-     * 第一次产生时间
-     * @param firstTime 第一次产生时间
+     * 对应的设备状态
+     * @param errorType 对应的设备状态
      */
-    public void setFirstTime(Date firstTime) {
-        this.firstTime = firstTime;
+    public void setErrorType(Integer errorType) {
+        this.errorType = errorType;
     }
 
     /**
-     * 最近一次产生时间
-     * @return last_time 最近一次产生时间
+     * 发生时间
+     * @return occured_time 发生时间
      */
-    public Date getLastTime() {
-        return lastTime;
+    public Date getOccuredTime() {
+        return occuredTime;
     }
 
     /**
-     * 最近一次产生时间
-     * @param lastTime 最近一次产生时间
+     * 发生时间
+     * @param occuredTime 发生时间
      */
-    public void setLastTime(Date lastTime) {
-        this.lastTime = lastTime;
+    public void setOccuredTime(Date occuredTime) {
+        this.occuredTime = occuredTime;
     }
 
     /**
@@ -158,22 +153,6 @@ public class EquipmentEvent {
      */
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    /**
-     * 上报次数
-     * @return report_count 上报次数
-     */
-    public Integer getReportCount() {
-        return reportCount;
-    }
-
-    /**
-     * 上报次数
-     * @param reportCount 上报次数
-     */
-    public void setReportCount(Integer reportCount) {
-        this.reportCount = reportCount;
     }
 
     public String getDeviceName() {

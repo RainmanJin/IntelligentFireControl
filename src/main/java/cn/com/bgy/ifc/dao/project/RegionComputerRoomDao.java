@@ -9,12 +9,6 @@ import java.util.Map;
 
 public interface RegionComputerRoomDao extends BaseDao<RegionComputerRoom> {
 
-    int insert(RegionComputerRoom record);
-
-    int insertSelective(RegionComputerRoom record);
-
-    int updateSelective(RegionComputerRoom record);
-
     List<Map<String,Object>> queryListRegionComputerRoom( RegionAndBrandVO record);
 
     int updateRegionComputerRoom(RegionComputerRoom record);

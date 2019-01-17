@@ -1,9 +1,8 @@
 package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.Analog;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.service.interfaces.inner.base.BaseService;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -15,6 +14,7 @@ import com.github.pagehelper.PageInfo;
 public interface AnalogService {
     /**
      * 设备模拟量分页查询
+     *
      * @param page
      * @param analog
      * @return
@@ -23,13 +23,23 @@ public interface AnalogService {
 
     /**
      * 模拟量ID查询
+     *
      * @param id
      * @return
      */
     Analog findById(Long id);
 
     /**
+     * 监听数据，添加模拟量
+     *
+     * @param jsonObject
+     * @return
+     */
+    int insertAnalog(JSONObject jsonObject);
+
+    /**
      * 设备模拟量编辑
+     *
      * @param analog
      * @return
      */
@@ -37,6 +47,7 @@ public interface AnalogService {
 
     /**
      * 设备模拟量编辑
+     *
      * @param analog
      * @return
      */
@@ -44,6 +55,7 @@ public interface AnalogService {
 
     /**
      * 设备模拟量重新同步
+     *
      * @param pageNum
      * @param pageSize
      * @return
@@ -52,6 +64,7 @@ public interface AnalogService {
 
     /**
      * 设备模拟量删除
+     *
      * @param ids
      * @return
      */

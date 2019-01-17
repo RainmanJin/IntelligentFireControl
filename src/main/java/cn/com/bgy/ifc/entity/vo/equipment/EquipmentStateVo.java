@@ -1,5 +1,9 @@
 package cn.com.bgy.ifc.entity.vo.equipment;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * @author: ZhangCheng
  * @description:
@@ -12,11 +16,14 @@ public class EquipmentStateVo {
     /**
      * 设备名称
      */
+    @NotBlank(message="设备名称不能为空！")
+    @Size(max=100,message="设备名称长度不能超过100字符！")
     private String name;
 
     /**
      * 设备类型
      */
+    @NotNull(message="设备类型不能为空！")
     private Integer type;
 
     /**

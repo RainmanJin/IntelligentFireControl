@@ -40,7 +40,6 @@ public class BaseController {
 
         @Override
         public void setAsText(String text) throws IllegalArgumentException {
-
             Date date = null;
             try {
                 if (text != null && !text.isEmpty()) {

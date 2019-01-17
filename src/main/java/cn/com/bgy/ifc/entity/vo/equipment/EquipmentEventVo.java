@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.entity.vo.equipment;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -14,36 +17,44 @@ public class EquipmentEventVo {
     /**
      * 事件状态
      */
+    @NotNull(message="事件状态不能为空！")
     private Integer status;
 
     /**
      * 事件类型
      */
+    @NotNull(message="事件类型不能为空！")
     private Integer type;
 
     /**
      * 设备ID
      */
+    @NotNull(message="设备编号不能为空！")
     private Long deviceId;
 
     /**
      * 第一次产生时间
      */
+    @NotNull(message="第一次产生时间不能为空！")
     private Date firstTime;
 
     /**
      * 最近一次产生时间
      */
+    @NotNull(message="最近一次产生时间不能为空！")
     private Date lastTime;
 
     /**
      * 状态描述
      */
+    @NotBlank(message="状态描述不能为空！")
+    @Size(max=100,message="状态描述长度不能超过100字符！")
     private String description;
 
     /**
      * 上报次数
      */
+    @NotNull(message="上报次数不能为空！")
     private Integer reportCount;
 
     /**

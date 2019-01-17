@@ -11,14 +11,6 @@ public interface SystemPowerDomain extends BaseDomain<SystemPower> {
 
     PageInfo<SystemPower> queryListByPage(Page<SystemPower> page, SystemPower record);
 
-    List<SystemPower> queryListByParam(SystemPower record);
-
-    int insert(SystemPower record);
-
-    SystemPower findById(Long id);
-
-    int update(SystemPower record);
-
     int deleteById(Long id);
 
     List<SystemPower> queryListByUserId(Long userId);
