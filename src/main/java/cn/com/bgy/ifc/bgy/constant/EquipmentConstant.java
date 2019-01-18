@@ -9,7 +9,7 @@ public class EquipmentConstant {
     /**
      * 设备状态
      */
-    public enum StateEnum{
+    public enum StateEnum {
         //正常
         NORMAL(1, "正常"),
         //故障
@@ -17,7 +17,7 @@ public class EquipmentConstant {
         //预警
         EARLY_WARNING(3, "预警"),
         //报警
-        CALL_POLICE(4, "报警");
+        CALL_POLICE(4, "告警");
 
         private Integer value;
         private String name;
@@ -39,7 +39,7 @@ public class EquipmentConstant {
     /**
      * 模拟量记录类型
      */
-    public enum AnalogQuantityType{
+    public enum AnalogQuantityType {
         //模拟量记录类型：默认:10000
         DEFAULT_TYPE(10000, "默认:10000"),
         //模拟量记录类型：市政消火栓:10001
@@ -74,17 +74,17 @@ public class EquipmentConstant {
     /**
      * 模拟量异常类型
      */
-    public enum AnalogAbnormalType{
+    public enum AnalogAbnormalType {
         //正常
-        NORMAL(0,"正常"),
+        NORMAL(0, "正常"),
         //高报警门限
-        ALARM_THRESHOLD_MAX(1,"高报警门限"),
+        ALARM_THRESHOLD_MAX(1, "高报警门限"),
         //低报警门限
-        ALARM_THRESHOLD_MIN(2,"低报警门限"),
+        ALARM_THRESHOLD_MIN(2, "低报警门限"),
         //高故障门限
-        FAULT_THRESHOLD_MAX(3,"高故障门限"),
+        FAULT_THRESHOLD_MAX(3, "高故障门限"),
         //低故障门限
-        FAULT_THRESHOLD_MIN(4,"低故障门限");
+        FAULT_THRESHOLD_MIN(4, "低故障门限");
 
         private Integer value;
         private String name;
@@ -106,19 +106,19 @@ public class EquipmentConstant {
     /**
      * 状态记录类型
      */
-    public enum StatusRecordType{
+    public enum StatusRecordType {
         //默认状态
-        DEFAULT_STATE(0,"默认状态"),
+        DEFAULT_STATE(0, "默认状态"),
         //市政消火栓-盖帽状态
-        BLOCK_STATE(1,"市政消火栓-盖帽状态"),
+        BLOCK_STATE(1, "市政消火栓-盖帽状态"),
         //市政消火栓-倾斜状态
-        TILTING_STATE(2,"市政消火栓-倾斜状态"),
+        TILTING_STATE(2, "市政消火栓-倾斜状态"),
         //市政消火栓-震动状态
-        VIBRATION_STATE(3,"市政消火栓-震动状态"),
+        VIBRATION_STATE(3, "市政消火栓-震动状态"),
         //市政消火栓-阀门微动状态
-        VALVE_FRETTING_STATE(4,"市政消火栓-阀门微动状态"),
+        VALVE_FRETTING_STATE(4, "市政消火栓-阀门微动状态"),
         //网络连接超时
-        CON_TIMED_OUT(5,"网络连接超时");
+        CON_TIMED_OUT(5, "网络连接超时");
 
         private Integer value;
         private String name;
@@ -138,9 +138,9 @@ public class EquipmentConstant {
     }
 
     /**
-     * 事件状态
+     * 事件类型
      */
-    public enum EventType{
+    public enum EventType {
         //正常
         NORMAL(1, "正常"),
         //故障
@@ -148,12 +148,38 @@ public class EquipmentConstant {
         //预警
         EARLY_WARNING(3, "预警"),
         //报警
-        CALL_POLICE(4, "报警");
+        CALL_POLICE(4, "告警");
 
         private Integer value;
         private String name;
 
         private EventType(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    /**
+     * 事件状态
+     */
+    public enum EventState {
+        //未处理
+        NORMAL(0, "未处理"),
+        //已处理
+        FAULT(1, "已处理");
+
+        private Integer value;
+        private String name;
+
+        private EventState(Integer value, String name) {
             this.value = value;
             this.name = name;
         }

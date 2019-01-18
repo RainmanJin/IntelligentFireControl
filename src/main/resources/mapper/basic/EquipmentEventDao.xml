@@ -6,11 +6,27 @@
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="type" jdbcType="INTEGER" property="type"/>
         <result column="device_id" jdbcType="BIGINT" property="deviceId"/>
-        <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+        <result column="device_name" jdbcType="VARCHAR" property="deviceName"/>
         <result column="first_time" jdbcType="TIMESTAMP" property="firstTime"/>
         <result column="last_time" jdbcType="TIMESTAMP" property="lastTime"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="report_count" jdbcType="INTEGER" property="reportCount"/>
+        <association property="equipmentInfo" column="device_id"
+                     javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
+            <id column="equipment_id" property="id"/>
+            <result column="equipment_name" property="name"/>
+            <result column="machine_room_id" property="machineRoomId"/>
+        </association>
+        <association property="regionComputerRoom" column="machine_room_id"
+                     javaType="cn.com.bgy.ifc.entity.po.project.RegionComputerRoom">
+            <id column="room_id" property="id"/>
+            <result column="room_name" property="name"/>
+        </association>
+        <association property="regionProject" column="project_id"
+                     javaType="cn.com.bgy.ifc.entity.po.project.RegionProject">
+            <id column="pro_id" property="id"/>
+            <result column="pro_name" property="name"/>
+        </association>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
     insert into equipment_event (id, status, type, 
@@ -99,6 +115,47 @@
             </if>
             <if test="keyword!='' and keyword!=null">
                 AND (e.description LIKE concat('%',#{keyword},'%') OR s.name LIKE concat('%',#{keyword},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="queryAlarmCount"  resultType="cn.com.bgy.ifc.entity.po.alarm.AlarmCount">
+        SELECT count(case when type=4 then type end ) AS report,
+        count(case when type=2 then type end ) AS hitch,
+        count(case when type=3 then type end ) AS hidden
+        FROM equipment_event WHERE status=0
+    </select>
+
+    <select id="queryAlarmList" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent"
+            resultMap="BaseResultMap">
+        SELECT
+        e.id AS id,
+        e.status,
+        e.type,
+        e.device_id,
+        i.name AS device_name,
+        i.id AS equipment_id,
+        i.name AS equipment_name,
+        e.first_time,
+        e.last_time,
+        e.description,
+        e.report_count,
+        i.machine_room_id,
+        r.id AS room_id,
+        r.name AS room_name,
+        r.project_id AS project_id ,
+        p.id AS pro_id,
+        p.name AS pro_name
+        FROM equipment_event e
+        LEFT JOIN equipment_info i ON i.equipment_state_id=e.device_id
+        LEFT JOIN region_computer_room r ON r.id=i.machine_room_id
+        LEFT JOIN region_project p ON p.id=r.project_id
+        <where>
+            <if test="type != null and type != ''">
+                AND e.type = #{type}
+            </if>
+            <if test="status != null and status != ''or status == 0">
+                AND e.status = #{status}
             </if>
         </where>
     </select>

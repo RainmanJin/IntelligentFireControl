@@ -301,7 +301,6 @@
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
-
       <if test="passwordSalt != null">
         password_salt = #{passwordSalt,jdbcType=VARCHAR},
       </if>
@@ -334,6 +333,9 @@
       </if>
       <if test="remark != null">
         remark= #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="thirdUserId != null">
+        third_user_id=#{thirdUserId,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -392,7 +394,7 @@
         remark= #{remark,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    WHERE thirdUserId = #{third_user_id,jdbcType=BIGINT}
+    WHERE  third_user_id= #{thirdUserId,jdbcType=BIGINT}
   </update>
   <!--根据电话号码查询用户对象-->
   <select id="findAccountByUserName" parameterType="String" resultMap="BaseResultMap">

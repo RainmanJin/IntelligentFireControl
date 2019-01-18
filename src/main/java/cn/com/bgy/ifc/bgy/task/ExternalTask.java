@@ -2,7 +2,6 @@ package cn.com.bgy.ifc.bgy.task;
 
 import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyEquipmentService;
 import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyMachineRoomService;
-import cn.com.bgy.ifc.service.interfaces.api.system.BgyOrgService;
 import cn.com.bgy.ifc.service.interfaces.api.project.BgyProjectService;
 import cn.com.bgy.ifc.service.interfaces.api.project.BgyRegionInfoService;
 import cn.com.bgy.ifc.service.interfaces.api.system.UserApiService;
@@ -17,9 +16,6 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class ExternalTask {
-
-    @Autowired
-    private BgyOrgService bgyOrgService;
 
     @Autowired
     private BgyRegionInfoService bgyRegionInfoService;
@@ -90,17 +86,6 @@ public class ExternalTask {
     public void obtainBgyEquipmentInfo() {
         bgyEquipmentService.baseObtainBgyEquipmentInfo(1, 2000);
     }
-
-    /**
-     * @author: ZhangCheng
-     * @description:同步集成平台设备类型(每天2点开始同步)
-     * @param: []
-     * @return: void
-     */
-    /*@Scheduled(cron = "0 00 02 * * ? ")
-    public void obtainBgyEquipmentType() {
-        bgyEquipmentService.baseObtainBgyEquipmentType(1, 100);
-    }*/
 
     /**
      * @author: ZhangCheng
