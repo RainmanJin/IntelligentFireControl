@@ -26,7 +26,7 @@ public class FireInspectionDay {
     /**
      * 处置结果
      */
-    private String resoult;
+    private String result;
 
     /**
      * 检查人
@@ -151,16 +151,16 @@ public class FireInspectionDay {
      * 处置结果
      * @return resoult 处置结果
      */
-    public String getResoult() {
-        return resoult;
+    public String getResult() {
+        return result;
     }
 
     /**
      * 处置结果
-     * @param resoult 处置结果
+     * @param result 处置结果
      */
-    public void setResoult(String resoult) {
-        this.resoult = resoult;
+    public void setResult(String result) {
+        this.result = result;
     }
 
     /**

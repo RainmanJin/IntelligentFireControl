@@ -6,7 +6,7 @@
     <result column="inspected_units" jdbcType="VARCHAR" property="inspectedUnits" />
     <result column="inspection_day" jdbcType="TIMESTAMP" property="inspectionDay" />
     <result column="situation" jdbcType="VARCHAR" property="situation" />
-    <result column="resoult" jdbcType="VARCHAR" property="resoult" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
     <result column="examiner" jdbcType="VARCHAR" property="examiner" />
     <result column="manager" jdbcType="VARCHAR" property="manager" />
     <result column="fire_manager" jdbcType="VARCHAR" property="fireManager" />
@@ -17,11 +17,11 @@
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDay">
     insert into fire_inspection_day (id,fire_contents, inspected_units, inspection_day, 
-      situation, resoult, examiner, 
+      situation, result, examiner, 
       manager, fire_manager, project_manager, 
       create_time, logic_remove)
     values (#{id,jdbcType=BIGINT},#{fireContents,jdbcType=VARCHAR}, #{inspectedUnits,jdbcType=VARCHAR}, #{inspectionDay,jdbcType=TIMESTAMP}, 
-      #{situation,jdbcType=VARCHAR}, #{resoult,jdbcType=VARCHAR}, #{examiner,jdbcType=VARCHAR}, 
+      #{situation,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, #{examiner,jdbcType=VARCHAR}, 
       #{manager,jdbcType=VARCHAR}, #{fireManager,jdbcType=VARCHAR}, #{projectManager,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT})
   </insert>
@@ -43,8 +43,8 @@
       <if test="situation != null">
         situation,
       </if>
-      <if test="resoult != null">
-        resoult,
+      <if test="result != null">
+        result,
       </if>
       <if test="examiner != null">
         examiner,
@@ -78,8 +78,8 @@
       <if test="situation != null">
         #{situation,jdbcType=VARCHAR},
       </if>
-      <if test="resoult != null">
-        #{resoult,jdbcType=VARCHAR},
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
       </if>
       <if test="examiner != null">
         #{examiner,jdbcType=VARCHAR},
@@ -107,7 +107,7 @@
 			fid.inspected_units,-- 被检查单位（部位）
 			fid.inspection_day,-- 检查日期
 			fid.situation,-- 检查情况
-			fid.resoult,-- 处置结果
+			fid.result,-- 处置结果
 			fid.fire_contents,-- 检查内容
 			fid.examiner,-- 检查人
 			fid.manager,-- 被检查部位、场所负责人
@@ -130,8 +130,8 @@
       <if test="situation != null">
        and fid.situation like concat('%',#{situation},'%')
       </if>
-      <if test="resoult != null">
-        and fid.resoult like concat('%',#{resoult},'%')
+      <if test="result != null">
+        and fid.result like concat('%',#{result},'%')
       </if>
       <if test="examiner != null">
         and fid.examiner like concat('%',#{examiner},'%')
@@ -166,8 +166,8 @@
       <if test="situation != null">
         fid.situation = #{inspectedUnits,jdbcType=VARCHAR},
       </if>
-      <if test="resoult != null">
-         fid.resoult = #{inspectedUnits,jdbcType=VARCHAR},
+      <if test="result != null">
+         fid.result = #{inspectedUnits,jdbcType=VARCHAR},
       </if>
       <if test="examiner != null">
          fid.examiner = #{inspectedUnits,jdbcType=VARCHAR},
