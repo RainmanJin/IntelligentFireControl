@@ -1,17 +1,8 @@
 package cn.com.bgy.ifc.dao.fireinspection;
 
+import cn.com.bgy.ifc.dao.base.BaseDao;
 import cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDetail;
 
-public interface FireInspectionDetailDao {
-    /**
-     *
-     * @mbg.generated 2019-01-18
-     */
-    int insert(FireInspectionDetail record);
+public interface FireInspectionDetailDao extends BaseDao<FireInspectionDetail> {
 
-    /**
-     *
-     * @mbg.generated 2019-01-18
-     */
-    int insertSelective(FireInspectionDetail record);
 }
