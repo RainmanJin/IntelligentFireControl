@@ -1,6 +1,8 @@
 package cn.com.bgy.ifc.controller.inner.fireinspection;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -52,13 +54,12 @@ public class FireInspectionDetailController extends BaseController{
     public ResponseVO<Object> queryAllList() {
         return ResponseVO.success().setData(domain.queryListByParam(null));
     }
-    /**
-     * @Author lvbingjian
-     * @Description 新增消防巡检明细
+    /** chenlie
+     * @Description 新增消防巡查明细
      * @Date 2018年12月30日15:12:24
      */
     @PostMapping("createData")
-    @SystemLogAfterSave(description = "消防巡检明细新增")
+    @SystemLogAfterSave(description = "防火巡查明细新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated FireInspectionDetailVo vo, BindingResult error, String token) {
         //参数校检
@@ -83,7 +84,7 @@ public class FireInspectionDetailController extends BaseController{
      */
     @PostMapping("editData")
     //@RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
-    @SystemLogAfterSave(description = "消防巡检明细修改")
+    @SystemLogAfterSave(description = "防火巡查明细修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(FireInspectionDetail po, String token){
         int resout = 1;
@@ -99,36 +100,29 @@ public class FireInspectionDetailController extends BaseController{
      * lbj
      * 2018年12月30日15:12:24
      * @param id
-     * @param token
      * @return
      */
-    @GetMapping("queryById")
+    @GetMapping("findById")
     @ResponseBody
-    public ResponseVO<FireInspectionDetail> queryById( long id, String token) {
+    public ResponseVO<FireInspectionDetail> queryById( long id) {
         FireInspectionDetail bean = domain.findById(id);
 
         return ResponseVO.<FireInspectionDetail>success().setData(bean);
     }
     /**
-     * @Author lvbingjian
+     * @Author chenlie
      * @Description 删除
      * @Date 2018年12月30日15:12:24
      */
     @PostMapping("deleteData")
-    @SystemLogAfterSave(description = "消防巡检明细删除")
+    @SystemLogAfterSave(description = "防火巡查明细删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
-    	String []ids = arr.split(",");
-    	List<Long>list = new ArrayList<Long>();
-    	int count;
-    	if(ids.length>0) {
-    		for (int i = 0; i < ids.length; i++) {
-    			list.add(Long.valueOf(ids[i]));
-			}
-    		count = domain.deleteBatch(list);
-    	}else {
-    		count = 0;
-    	}
+    public ResponseVO<Object> deleteRegionComputerRoom( String ids){
+
+    	List<Long>list = ListUtil.getListId(ids);
+
+    	int	count = domain.deleteBatch(list);
+
         if (count > 0) {
             return ResponseVO.success().setMsg("删除成功");
         }

@@ -19,20 +19,21 @@
     id, org_id, type_id, title, signature, date_line, case when d_id is null then '' else d_id  end as d_id, u_id, create_time,content
   </sql>
 
-  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="findById" parameterType="java.lang.Long" resultType="cn.com.bgy.ifc.entity.po.system.Information">
     select
-       i.id,
+       i.id as id,
        i.org_id as orgId,
        i.type_id as typeId,
-       i.title,
-       i.signature,
+       i.title as title,
+       i.signature as signature,
        i.date_line as dateLine,
        case when i.d_id is null then '' else i.d_id  end as dId,
        i.u_id as uId,
        i.create_time as createTime,
-       i.content,
-       a.user_name as userName
-    from information i  left join  account a on i.u_id=a.id
+       i.content as content,
+       a.user_name as userName,
+       t.name as departmentName
+    from information i  left join  account a  on i.u_id=a.id  left join department t on i.d_id=t.id
     where i.id = #{id,jdbcType=BIGINT}
   </select>
   <update id="deleteById" parameterType="java.lang.Long">

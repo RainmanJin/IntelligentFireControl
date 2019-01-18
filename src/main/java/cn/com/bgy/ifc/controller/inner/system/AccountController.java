@@ -107,6 +107,9 @@ public class AccountController extends BaseController {
     @PostMapping("editData")
     public   ResponseVO<Object>  editData(@Validated AccountVo accountVo, BindingResult error){
         Account account= accountDomain.findById(accountVo.getId());
+        if (account ==null) {
+            return ResponseVO.error().setMsg("未找到用户");
+        }
         account.setDepartmentId(accountVo.getDepartmentId());
         account.setTelephone(accountVo.getTelephone());
         account.setUserName(accountVo.getUserName());

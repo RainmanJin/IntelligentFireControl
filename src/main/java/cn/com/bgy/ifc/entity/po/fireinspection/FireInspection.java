@@ -4,61 +4,122 @@ import java.util.Date;
 
 public class FireInspection {
     private Long id;
-    /**区域表Id*/
+    /**
+     * 区域表Id
+     */
     private Long regionId;
+    /**
+     *
+     */
     private String regionName;
-    /**项目表Id*/
+    /**
+     * 项目表Id
+     */
     private Long projectId;
+    /**
+     *
+     */
     private String projectName;
-    /**创建时间*/
+    /**
+     * 创建时间
+     */
     private Date createTime;
-    /**消防巡检名称（区域        +项目+防火检查记录表（月/重大节日））*/
+    /**
+     * 消防巡检名称（区域+项目+防火检查记录表（月/重大节日））
+     */
     private String name;
-    /**是否逻辑删除*/
+    /**
+     * 是否逻辑删除
+     */
     private Boolean logicRemove;
-    /**检查人意见*/
+    /**
+     * 检查人意见
+     */
     private String examinerOpinion;
-    /**检查人*/
+    /**
+     * 检查人
+     */
     private String examiner;
-    /**检查人签字日期*/
+    /**
+     * 检查人签字日期
+     */
     private Date examinerDate;
-    /**被检查部门负责人意见*/
+    /**
+     * 被检查部门负责人意见
+     */
     private String managerOpinion;
-    /**被检查部门负责人签字日期*/
+    /**
+     * 被检查部门负责人签字日期
+     */
     private Date managerDate;
-    /**被检查部门负责人*/
+    /**
+     * 被检查部门负责人
+     */
     private String manager;
-    /**消防安全管理人意见*/
+    /**
+     * 消防安全管理人意见
+     */
     private String fireManagerOpinion;
-    /**消防安全管理人签字日期*/
+    /**
+     * 消防安全管理人签字日期
+     */
     private Date fireManagerDate;
-    /**消防安全管理人*/
+    /**
+     * 消防安全管理人
+     */
     private String fireManager;
-    /**项目消防安全责任人意见*/
+    /**
+     * 项目消防安全责任人意见
+     */
     private String projectManagerOpinion;
-    /**项目消防安全责任人签字日期*/
+    /**
+     * 项目消防安全责任人签字日期
+     */
     private Date projectManagerDate;
-    /**项目消防安全责任人*/
+    /**
+     * 项目消防安全责任人
+     */
     private String projectManager;
-    /**被检查单位 (部位）*/
+    /**
+     * 被检查单位 (部位）
+     */
     private String inspectedUnits;
-    /**项目消防安全责任人签字日期*/
+    /**
+     * 项目消防安全责任人签字日期
+     */
     private Date inspectionDay;
-    /**完成时间*/
+    /**
+     * 完成时间
+     */
     private Date finishTime;
-    /**耗时时间*/
+    /**
+     * @description:
+     * 耗时时间
+     */
     private String consumeTime;
-    /**查询关键字*/
-    private String keyword;
-    /***/
+    /**
+     *查询关键字
+     */
+    private String keyWords;
+    /**
+     * @description:检查内容
+     */
     private String fireContents;
-    /***/
+    /**
+     * @description:检查位置
+     */
     private String situation;
-    /***/
+    /**
+     * @description:检查结果
+     */
     private String result;
-    /**检查类型(1设施故障检测,2每日防火巡查记,3月/重大节日)*/
+    /**
+     * 检查类型(1设施故障检测,2每日防火巡查记,3月/重大节日)
+     */
     private int inspectionType;
-    /**工单状态：1草稿、2处理中、3已完成*/
+    /**
+     * 工单状态：1草稿、2处理中、3已完成
+     */
     private int status;
 
     public Long getId() {
@@ -97,12 +158,12 @@ public class FireInspection {
 		return finishTime;
 	}
 
-	public String getKeyword() {
-		return keyword;
+	public String getKeyWords() {
+		return keyWords;
 	}
 
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+	public void setKeyWords(String keyWords) {
+		this.keyWords = keyWords;
 	}
 
 	public void setFinishTime(Date finishTime) {
