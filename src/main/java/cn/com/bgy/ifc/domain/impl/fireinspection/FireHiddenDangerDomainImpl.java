@@ -16,7 +16,6 @@ import cn.com.bgy.ifc.dao.fireinspection.FireHiddenDangerDao;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.fireinspection.FireHiddenDangerDomain;
 import cn.com.bgy.ifc.entity.po.fireinspection.FireHiddenDanger;
-import cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDay;
 import cn.com.bgy.ifc.entity.po.system.Account;
 /**
  * @Author lvbingjian

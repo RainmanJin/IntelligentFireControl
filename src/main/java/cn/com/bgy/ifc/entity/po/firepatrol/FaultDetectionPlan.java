@@ -42,6 +42,8 @@ public class FaultDetectionPlan implements Serializable {
      */
     private Date createTime;
 
+    private Integer type;
+
     /**
      * ID
      * @return id ID
@@ -164,5 +166,13 @@ public class FaultDetectionPlan implements Serializable {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

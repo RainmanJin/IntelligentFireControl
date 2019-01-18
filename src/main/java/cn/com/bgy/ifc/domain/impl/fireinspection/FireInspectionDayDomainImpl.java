@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDay;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
@@ -15,8 +16,6 @@ import com.github.pagehelper.PageInfo;
 import cn.com.bgy.ifc.dao.fireinspection.FireInspectionDayDao;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.fireinspection.FireInspectionDayDomain;
-import cn.com.bgy.ifc.entity.po.fireinspection.FireInspection;
-import cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDay;
 import cn.com.bgy.ifc.entity.po.system.Account;
 @Service
 public class FireInspectionDayDomainImpl implements FireInspectionDayDomain {

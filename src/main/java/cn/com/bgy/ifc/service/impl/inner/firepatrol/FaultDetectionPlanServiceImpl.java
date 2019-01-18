@@ -80,6 +80,7 @@ public class FaultDetectionPlanServiceImpl implements FaultDetectionPlanService 
         map.put("keyword",keyword);
         map.put("planType",faultDetectionPlan.getPlanType());
         map.put("planStatus",faultDetectionPlan.getPlanStatus());
+        map.put("type",faultDetectionPlan.getType());
         List<Map<String,Object>> list = faultDetectionPlanDao.listFaultDetectionPlan(map);
         return new PageInfo(list);
     }
