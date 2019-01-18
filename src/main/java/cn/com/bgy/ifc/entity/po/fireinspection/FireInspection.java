@@ -85,7 +85,7 @@ public class FireInspection {
      */
     private String inspectedUnits;
     /**
-     * 项目消防安全责任人签字日期
+     * 检查日期
      */
     private Date inspectionDay;
     /**
@@ -106,7 +106,7 @@ public class FireInspection {
      */
     private String fireContents;
     /**
-     * @description:检查位置
+     * @description:检查情况
      */
     private String situation;
     /**
@@ -116,11 +116,11 @@ public class FireInspection {
     /**
      * 检查类型(1设施故障检测,2每日防火巡查记,3月/重大节日)
      */
-    private int inspectionType;
+    private Integer inspectionType;
     /**
      * 工单状态：1草稿、2处理中、3已完成
      */
-    private int status;
+    private Integer status;
 
     public Long getId() {
         return id;
@@ -178,19 +178,19 @@ public class FireInspection {
 		this.consumeTime = consumeTime;
 	}
 
-	public int getInspectionType() {
+	public Integer getInspectionType() {
 		return inspectionType;
 	}
 
-	public void setInspectionType(int inspectionType) {
+	public void setInspectionType(Integer inspectionType) {
 		this.inspectionType = inspectionType;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

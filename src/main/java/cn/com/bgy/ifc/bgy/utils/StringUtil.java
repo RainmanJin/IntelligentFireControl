@@ -6,6 +6,8 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
+import java.util.Random;
+
 /**
  * @Author huxin
  * @Date 2018/12/12 10:26
@@ -73,4 +75,22 @@ public class StringUtil {
         }
         return pybf.toString().replaceAll("\\W", "").trim().substring(0,1);
     }
+
+   public static String randomString(int length){
+       String str="QWERTYUIOPASDFGHJKLZXCVBNM";
+       //由Random生成随机数
+       Random random=new Random();
+       StringBuffer sb=new StringBuffer();
+       //长度为几就循环几次
+       for(int i=0; i<length; ++i){
+           //产生0-61的数字
+           int number=random.nextInt(26);
+           //将产生的数字通过length次承载到sb中
+           sb.append(str.charAt(number));
+       }
+       //将承载的字符转换成字符串
+       return sb.toString();
+    }
+
+
 }

@@ -92,7 +92,7 @@ public class AccountDomainImpl implements AccountDomain {
 
     @Override
     public int updateSelective(Account account) {
-        return 0;
+        return accountDao.updateSelective(account);
     }
 
     @Override

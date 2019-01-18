@@ -42,7 +42,7 @@ public class FireInspectionController extends BaseController{
      *
      * @return
      */
-    @GetMapping("queryPageList")
+    @GetMapping("queryPageData")
     @ResponseBody
     public ResponseVO<Object> queryPageList(Page<FireInspection> page, FireInspection po) {
     	//获取当前登录人做角色数据权限过滤
@@ -54,7 +54,7 @@ public class FireInspectionController extends BaseController{
      * 查询全部
      * @return
      */
-    @GetMapping("queryAllList")
+    @GetMapping("queryAllData")
     @ResponseBody
     public ResponseVO<Object> queryAllList() {
         return ResponseVO.success().setData(domain.queryListByParam(null));
@@ -64,7 +64,7 @@ public class FireInspectionController extends BaseController{
      * @Description 新增消防巡检主表单
      * @Date 2018年12月20日09:48:38
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "消防巡检主表单新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated FireInspectionVo vo, BindingResult error, String token) {
@@ -88,7 +88,7 @@ public class FireInspectionController extends BaseController{
      * @Description 修改
      * @Date 2018年12月20日09:48:38
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
     @SystemLogAfterSave(description = "消防巡检主表单修改")
     @ResponseBody
@@ -106,12 +106,11 @@ public class FireInspectionController extends BaseController{
      * lbj
      * 2018年12月20日
      * @param id
-     * @param token
      * @return
      */
-    @GetMapping("queryById")
+    @GetMapping("findById")
     @ResponseBody
-    public ResponseVO<FireInspection> queryById( long id, String token) {
+    public ResponseVO<FireInspection> findById( Long id) {
         FireInspection bean = domain.findById(id);
 
         return ResponseVO.<FireInspection>success().setData(bean);
@@ -121,7 +120,7 @@ public class FireInspectionController extends BaseController{
      * @Description 删除
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "消防巡检主表单删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){

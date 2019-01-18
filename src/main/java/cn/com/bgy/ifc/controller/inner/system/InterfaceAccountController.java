@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.system;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 
+import cn.com.bgy.ifc.bgy.utils.StringUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.system.InterfaceAccountDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author: YanXiaoLu
@@ -46,13 +48,15 @@ public class InterfaceAccountController extends BaseController {
         interfaceaccount.setCreateTime(new Date());
         interfaceaccount.setLogicRemove(false);
         interfaceaccount.setState(2L);
+        interfaceaccount.setApiuId(UUID.randomUUID().toString());
+        interfaceaccount.setApiSecret(StringUtil.randomString(16));
         interfaceAccountDomain.insert(interfaceaccount);
         return ResponseVO.success();
 
     }
 
     @SystemLogAfterSave(description = "修改接口用户")
-    @PostMapping("update")
+    @PostMapping("editData")
     public ResponseVO<Object> update(@Validated InterfaceAccountVo interfaceaccountVo, BindingResult error) {
 
         // 做参数校检

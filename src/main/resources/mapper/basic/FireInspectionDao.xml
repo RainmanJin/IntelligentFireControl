@@ -227,7 +227,7 @@
 			fi.project_manager_opinion as project_manager_opinion,
 			fi.inspected_units as inspected_units,
 			fi.inspection_day as inspection_day,-- 检查时间
-		  FI.finish_time AS finish_time,-- 完成时间
+		  fi.finish_time AS finish_time,-- 完成时间
 		  fi.consume_time AS consume_time,-- 耗时时间
 		  fi.inspection_type AS inspection_type,-- 检查类型
 		  fi.status AS status -- 工单状态
@@ -236,18 +236,35 @@
 	left join region_project rp on rp.id = fi.region_id 
   </sql>
   <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspection" resultMap="BaseResultMap">
-	  	select 
-		fi.id as id ,
-		fi.inspected_units as inspected_units,-- 检查部位
-		fi.examiner as examiner,-- 检查人
-	    fi.inspection_day as inspection_day,-- 检查时间
-	    FI.finish_time AS finish_time,-- 完成时间
-	    fi.consume_time AS consume_time,-- 耗时时间
-	 	fi.inspection_type AS inspection_type,-- 检查类型
-	 	concat (",",GROUP_CONCAT(cfc.`name`),",") as fire_contents,-- 检查内容
-		concat (",",GROUP_CONCAT(fid.situation),",")as situation,-- 检查情况
-		concat (",",GROUP_CONCAT(fid.result),",") as result ,-- 处置结果
-	  	fi.status AS status -- 工单状态
+	  	select
+        fi.id as id ,
+        fi.region_id as region_id,-- 区域ID
+        ri.name as region_name,-- 区域名称
+        fi.project_id as project_id,-- 项目ID
+        rp.name as project_name,-- 项目名称
+        fi.create_time as create_time,-- 创建时间
+        fi.name as name,-- 消防巡检名称
+        fi.logic_remove as logic_remove,-- 是否逻辑删除
+        fi.examiner_date as examiner_date,-- 检查人签字日期
+        fi.examiner_opinion as examiner_opinion,-- 检查人意见
+        fi.examiner as examiner,-- 检查人
+        fi.manager as manager,-- 被检查部门负责人反复
+        fi.manager_date as manager_date,
+        fi.manager_opinion as manager_opinion,
+        fi.fire_manager as fire_manager,
+        fi.fire_manager_date as fire_manager_date,
+        fi.fire_manager_opinion as fire_manager_opinion,
+        fi.project_manager as project_manager,
+        fi.project_manager_date as project_manager_date,
+        fi.project_manager_opinion as project_manager_opinion,
+        fi.inspected_units as inspected_units,
+        fi.inspection_day as inspection_day,
+        fi.finish_time AS finish_time,
+        fi.consume_time AS consume_time,
+        fi.inspection_type AS inspection_type,
+	 	cfc.`name` as fire_contents,
+		fid.situation as situation,
+		fid.result as result
 		from fire_inspection fi
 		left join region_info ri on ri.id = fi.region_id
 		left join region_project rp on rp.id = fi.region_id 
@@ -270,70 +287,17 @@
        <if test="status != null">
         and fi.status=#{status,jdbcType=INTEGER}
       </if>
-      <if test="keyword != null">
-        and (fi.name like   concat('%',#{keyword},'%')or
-        rp.name like   concat('%',#{keyword},'%')or
-        ri.name like   concat('%',#{keyword},'%')or
-        fi.inspected_units like   concat('%',#{keyword},'%')or
-        fi.examiner like   concat('%',#{keyword},'%')or
-        fi.name like   concat('%',#{keyword},'%')or
-        fi.name like   concat('%',#{keyword},'%'))
+      <if test="keyWords != null">
+        and (fi.name like   concat('%',#{keyWords},'%')or
+        rp.name like   concat('%',#{keyWords},'%')or
+        ri.name like   concat('%',#{keyWords},'%')or
+        fi.inspected_units like   concat('%',#{keyWords},'%')or
+        fi.examiner like   concat('%',#{keyWords},'%')or
+        fi.name like   concat('%',#{keyWords},'%')or
+        fi.name like   concat('%',#{keyWords},'%'))
       </if>
-      <!-- 
-      
-      <if test="createTime != null">
-        and fi.create_time=#{createTime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="name != null">
-        and fi.name like   concat('%',#{name},'%')
-      </if>
-      <if test="logicRemove != null">
-        and fi.logic_remove=#{logicRemove,jdbcType=BIT}
-      </if>
-      <if test="examinerOpinion != null">
-        and fi.examiner_opinion like   concat('%',#{examinerOpinion},'%')
-      </if>
-      <if test="examiner != null">
-        and fi.examiner like   concat('%',#{examiner},'%')
-      </if>
-      <if test="examinerDate != null">
-        and fi.examiner_date=#{examinerDate,jdbcType=TIMESTAMP}
-      </if>
-      <if test="managerOpinion != null">
-        and fi.manager_opinion like   concat('%',#{managerOpinion},'%')
-      </if>
-      <if test="managerDate != null">
-        and fi.manager_date=#{managerDate,jdbcType=TIMESTAMP}
-      </if>
-      <if test="manager != null">
-       and fi.manager  like   concat('%',#{manager},'%')
-      </if>
-      <if test="fireManagerOpinion != null">
-       and fire_manager_opinion= #{fireManagerOpinion,jdbcType=VARCHAR}
-      </if>
-      <if test="fireManagerDate != null">
-        and fi.fire_manager_date=#{fireManagerDate,jdbcType=TIMESTAMP}
-      </if>
-      <if test="fireManager != null">
-        and fi.fire_manager  like   concat('%',#{fireManager},'%')
-      </if>
-      <if test="projectManagerOpinion != null">
-        and project_manager_opinion  like   concat('%',#{projectManagerOpinion},'%')
-      </if>
-      <if test="projectManagerDate != null">
-        and fi.project_manager_date=#{projectManagerDate,jdbcType=TIMESTAMP}
-      </if>
-      <if test="inspectionDay != null">
-        and fi.inspection_date=#{inspectionDay,jdbcType=TIMESTAMP}
-      </if>
-      <if test="projectManager != null">
-       and fi.project_manager  like   concat('%',#{projectManager},'%')
-      </if>
-      <if test="inspectedUnits != null">
-        and fi.inspected_units  like   concat('%',#{inspectedUnits},'%')
-      </if> -->
     </trim>
-    GROUP BY fi.id
+
   </select>
   <!--修改维保工单-->
   <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram">

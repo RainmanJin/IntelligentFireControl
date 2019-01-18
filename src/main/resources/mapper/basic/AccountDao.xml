@@ -169,11 +169,13 @@
       t1.job_number  as jobNumber,
       t1.password,
       d.name as departmentName,
+      d.id as departmentId,
       t1.sex,
       t1.identity_number  as identityNumber,
       t1.is_disable as isDisable,
       t1.current_time as currentTime,
-      t1.regist_time as registTime
+      t1.regist_time as registTime,
+      t1.remark as remark
       from account t1 left join  department d on d.id=t1.department_id where t1.id=#{id,jdbcType=BIGINT}
   </select>
 
@@ -268,7 +270,7 @@
     job_number = #{jobNumber,jdbcType=VARCHAR},
     user_name = #{userName,jdbcType=VARCHAR},
     password_salt = #{passwordSalt,jdbcType=VARCHAR},
-    identityn_umber = #{identityNumber,jdbcType=VARCHAR},
+    identity_number = #{identityNumber,jdbcType=VARCHAR},
     sex =  #{sex,jdbcType=INTEGER},
     regist_time = #{registTime,jdbcType=TIMESTAMP},
     is_disable = #{isDisable,jdbcType=INTEGER},
@@ -304,7 +306,7 @@
         password_salt = #{passwordSalt,jdbcType=VARCHAR},
       </if>
       <if test="identityNumber != null">
-        identityn_umber = #{identityNumber,jdbcType=VARCHAR},
+        identity_number = #{identityNumber,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
         sex =  #{sex,jdbcType=INTEGER},
@@ -360,7 +362,7 @@
         password_salt = #{passwordSalt,jdbcType=VARCHAR},
       </if>
       <if test="identityNumber != null">
-        identityn_umber = #{identityNumber,jdbcType=VARCHAR},
+        identity_number = #{identityNumber,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
         sex =  #{sex,jdbcType=INTEGER},
