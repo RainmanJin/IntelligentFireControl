@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.constant.EquipmentConstant;
 import cn.com.bgy.ifc.bgy.constant.LoginState;
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
@@ -264,6 +265,25 @@ public class EquipmentEventServiceImpl implements EquipmentEventService {
         } catch (Exception e) {
             logger.error("删除中联永安事件信息接口请求异常：", e);
             return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("删除中联永安事件信息接口请求异常！", e));
+        }
+    }
+
+    @Override
+    public ResponseVO<Object> handleDataList(String ids) {
+        List<Long> idList = ListUtil.getListId(ids);
+        int count=0;
+        for (Long id:idList){
+            EquipmentEvent equipmentEvent=equipmentEventDao.findById(id);
+            equipmentEvent.setStatus(EquipmentConstant.EventState.FAULT.getValue());
+            ResponseVO<Object> response=editEquipmentEvent(equipmentEvent);
+            if(response.getCode().equals(ResponseVO.SUCCESS)){
+                count++;
+            }
+        }
+        if(count>0){
+            return ResponseVO.success().setMsg("批量处理设备告警成功，处理条数："+count);
+        }else{
+            return ResponseVO.error().setMsg("批量处理设备告警失败!");
         }
     }
 }

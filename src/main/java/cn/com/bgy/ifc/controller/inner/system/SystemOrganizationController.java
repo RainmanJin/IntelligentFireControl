@@ -11,6 +11,7 @@ import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemOrganizationVo;
+import cn.com.bgy.ifc.service.interfaces.inner.system.AccountService;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemOrganizationService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -38,6 +39,9 @@ public class SystemOrganizationController extends BaseController {
 
     @Autowired
     private SystemOrganizationService systemOrganizationService;
+
+    @Autowired
+    private AccountService accountService;
 
     /**
      * @author: ZhangCheng
@@ -156,7 +160,7 @@ public class SystemOrganizationController extends BaseController {
      */
     @GetMapping("getOrgAdmin")
     public ResponseVO<Object> getOrgAdmin(Long orgId) {
-        List<SelectVo> list = systemOrganizationService.getOrgAdmin("orgAdmin", orgId);
+        List<SelectVo> list = accountService.queryListByRole("orgAdmin", orgId);
         return ResponseVO.success().setData(list);
     }
 

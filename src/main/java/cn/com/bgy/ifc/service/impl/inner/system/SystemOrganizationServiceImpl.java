@@ -26,9 +26,6 @@ public class SystemOrganizationServiceImpl implements SystemOrganizationService 
     @Resource
     private SystemOrganizationDao systemOrganizationDao;
 
-    @Resource
-    private AccountDao accountDao;
-
     @Override
     public SystemOrganization findById(Long id) {
         return systemOrganizationDao.findById(id);
@@ -80,19 +77,4 @@ public class SystemOrganizationServiceImpl implements SystemOrganizationService 
         return pageInfo;
     }
 
-    @Override
-    public List<SelectVo> getOrgAdmin(String roleValue, Long orgId) {
-        Map<String,Object> map=new HashMap<>();
-        map.put("roleValue",roleValue);
-        map.put("organizationId",orgId);
-        List<SelectVo> selectVos=new ArrayList<>();
-        List<Account> list=accountDao.queryListByRole(map);
-        for(Account account:list){
-            SelectVo selectVo=new SelectVo();
-            selectVo.setValue(String.valueOf(account.getId()));
-            selectVo.setName(account.getUserName());
-            selectVos.add(selectVo);
-        }
-        return selectVos;
-    }
 }

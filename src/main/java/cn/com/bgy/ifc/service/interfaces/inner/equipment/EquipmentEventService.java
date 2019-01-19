@@ -64,4 +64,11 @@ public interface EquipmentEventService {
      * @return
      */
     ResponseVO<Object> deleteEquipmentEvent(String ids);
+
+    /**
+     * 批量处理设备告警
+     * @param ids
+     * @return
+     */
+    ResponseVO<Object> handleDataList(String ids);
 }

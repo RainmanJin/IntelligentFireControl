@@ -54,22 +54,8 @@ public class LoginController {
 
     @GetMapping("/index")
     public String userPage(){
-
         return "/index";
     }
-
-    /**
-     * 根据用户id获取权限菜单
-     * @param
-     * @return
-     *//*
-    @GetMapping("/findMenuByUser")
-    @ResponseBody
-    public ResponseVO findMenuByUser(Long userId){
-        Map<String, Object> menuList = systemMenuDomain.findMenuListByType(userId);
-
-     return ResponseVO.success().setData(menuList);
-    }*/
 
 
     @GetMapping("/getImage")

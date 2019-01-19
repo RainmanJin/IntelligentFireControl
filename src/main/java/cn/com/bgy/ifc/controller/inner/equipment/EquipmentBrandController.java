@@ -5,6 +5,7 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentBrand;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyEquipmentService;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentBrandService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -27,6 +28,9 @@ public class EquipmentBrandController extends BaseController {
 
     @Autowired
     private EquipmentBrandService equipmentBrandService;
+
+    @Autowired
+    private BgyEquipmentService bgyEquipmentService;
 
     /**
      * @Author huxin
@@ -92,5 +96,16 @@ public class EquipmentBrandController extends BaseController {
     public ResponseVO<Object> findById(Long id){
         Map<String,Object> map  = equipmentBrandService.findById(id);
         return ResponseVO.<Object>success().setData(map);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:同步集成平台品牌信息
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("synchroData")
+    public ResponseVO<Object> synchroData() {
+        return bgyEquipmentService.baseObtainBgyEquipmentBrand(1, 500);
     }
 }

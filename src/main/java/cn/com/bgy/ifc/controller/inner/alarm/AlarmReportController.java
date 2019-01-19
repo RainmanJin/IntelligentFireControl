@@ -66,10 +66,26 @@ public class AlarmReportController {
      * @param: [id]
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
-    @PostMapping("editData")
+    @PostMapping("handleData")
     @SystemLogAfterSave(description = "处理设备告警")
-    public ResponseVO<Object> edit(Long id) {
+    public ResponseVO<Object> handleData(Long id) {
         EquipmentEvent equipmentEvent = equipmentEventService.findById(id);
+        if(equipmentEvent==null){
+            return ResponseVO.error().setMsg("获取告警信息异常，请刷新后重试！");
+        }
+        equipmentEvent.setStatus(EquipmentConstant.EventState.FAULT.getValue());
         return equipmentEventService.editEquipmentEvent(equipmentEvent);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:批量处理设备告警
+     * @param: [ids]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("handleDataList")
+    @SystemLogAfterSave(description = "批量处理设备告警")
+    public ResponseVO<Object> handleDataList(String ids) {
+        return equipmentEventService.handleDataList(ids);
     }
 }

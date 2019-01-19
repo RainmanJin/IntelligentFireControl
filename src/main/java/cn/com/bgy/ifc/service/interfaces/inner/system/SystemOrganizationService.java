@@ -25,11 +25,4 @@ public interface SystemOrganizationService extends BaseService<SystemOrganizatio
      */
     PageInfo<SystemOrganization>  queryListByPage(Page page, String keywords);
 
-    /**
-     * 获取机构管理员
-     * @param roleValue
-     * @param orgId
-     * @return
-     */
-    List<SelectVo> getOrgAdmin(String roleValue, Long orgId);
 }
