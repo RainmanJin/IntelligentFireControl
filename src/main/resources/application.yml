@@ -23,7 +23,7 @@ spring:
         max-active: 100
         max-idle: 200
         min-idle: 10
-        validation_query: SELECT 1
+        validation-query: SELECT 1
         test-while-idle: true
         test-on-borrow: false
         test-on-return: false
@@ -33,6 +33,8 @@ spring:
         jdbc-url: jdbc:mysql://47.99.100.79:3306/intelligent_fire_control?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=CTT&rewriteBatchedStatements=true
         username: root
         password: root
+
+
 
   secondary:
            max-idle: 10
