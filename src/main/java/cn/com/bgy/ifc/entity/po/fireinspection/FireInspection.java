@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.entity.po.fireinspection;
 
 import java.util.Date;
+import java.util.List;
 
 public class FireInspection {
     private Long id;
@@ -105,6 +106,8 @@ public class FireInspection {
      * @description:检查内容
      */
     private String fireContents;
+
+    private List<FireInspectionDetail> fireInspectionDetailList;
     /**
      * @description:检查情况
      */
@@ -360,5 +363,13 @@ public class FireInspection {
 
     public void setInspectedUnits(String inspectedUnits) {
         this.inspectedUnits = inspectedUnits;
+    }
+
+    public List<FireInspectionDetail> getFireInspectionDetailList() {
+        return fireInspectionDetailList;
+    }
+
+    public void setFireInspectionDetailList(List<FireInspectionDetail> fireInspectionDetailList) {
+        this.fireInspectionDetailList = fireInspectionDetailList;
     }
 }

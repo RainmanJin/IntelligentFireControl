@@ -32,7 +32,7 @@
     <result column="situation" jdbcType="VARCHAR" property="situation" />
     <result column="result" jdbcType="VARCHAR" property="result" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspection">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspection" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
     insert into fire_inspection (id,finish_time,consume_time,inspection_type,status,
     inspection_day, region_id, project_id, 
       create_time, name, logic_remove, 
@@ -50,6 +50,9 @@
       #{fireManagerOpinion,jdbcType=VARCHAR}, #{fireManagerDate,jdbcType=TIMESTAMP}, 
       #{fireManager,jdbcType=VARCHAR}, #{projectManagerOpinion,jdbcType=VARCHAR}, #{projectManagerDate,jdbcType=TIMESTAMP}, 
       #{projectManager,jdbcType=VARCHAR}, #{inspectedUnits,jdbcType=VARCHAR})
+    <selectKey resultType="long" keyProperty="id" order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
   </insert>
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspection">
     insert into fire_inspection
@@ -203,6 +206,81 @@
      
     </trim>
   </insert>
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspection">
+    update  fire_inspection set
+    <trim  suffixOverrides=",">
+      <if test="regionId != null">
+        region_id=#{regionId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        project_id= #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time= #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        name=#{name,jdbcType=VARCHAR},
+      </if>
+      <if test="logicRemove != null">
+        logic_remove=#{logicRemove,jdbcType=BIT},
+      </if>
+      <if test="examinerOpinion != null">
+        examiner_opinion=#{examinerOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="examiner != null">
+        examiner= #{examiner,jdbcType=VARCHAR},
+      </if>
+      <if test="examinerDate != null">
+        examiner_date= #{examinerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerOpinion != null">
+        manager_opinion=#{managerOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="managerDate != null">
+        manager_date=#{managerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manager != null">
+        manager= #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="fireManagerOpinion != null">
+        fire_manager_opinion=#{fireManagerOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="fireManagerDate != null">
+        fire_manager_date=#{fireManagerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectionDay != null">
+        inspection_day=#{inspectionDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fireManager != null">
+        fire_manager=#{fireManager,jdbcType=VARCHAR},
+      </if>
+      <if test="projectManagerOpinion != null">
+        project_manager_opinion=#{projectManagerOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="projectManagerDate != null">
+        project_manager_date=#{projectManagerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectManager != null">
+        project_manager=#{projectManager,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectedUnits != null">
+        inspected_units=#{inspectedUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="finishTime != null">
+        finish_time=#{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consumeTime != null">
+        consume_time=#{consumeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionType != null">
+        inspection_type=#{inspectionType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status=#{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+    where id=#{id}
+  </update>
   <sql id="Mysql">
 	  select 
 			fi.id as id ,
@@ -262,14 +340,13 @@
         fi.finish_time AS finish_time,
         fi.consume_time AS consume_time,
         fi.inspection_type AS inspection_type,
-	 	cfc.`name` as fire_contents,
+	 	fid.fire_contents as fire_contents,
 		fid.situation as situation,
 		fid.result as result
 		from fire_inspection fi
 		left join region_info ri on ri.id = fi.region_id
 		left join region_project rp on rp.id = fi.region_id 
 		left join fire_inspection_detail fid on fid.fire_inspe_id = fi.id
-		left join c_fire_contents cfc on cfc.id = fid.fire_contents_id
   	<trim prefix=" where " suffix="" suffixOverrides="and">
       	fi.logic_remove=0
        <if test="id != null">
@@ -299,7 +376,7 @@
     </trim>
 
   </select>
-  <!--修改维保工单-->
+
   <update id="update" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceProgram">
     UPDATE fire_inspection fi
     <set> 

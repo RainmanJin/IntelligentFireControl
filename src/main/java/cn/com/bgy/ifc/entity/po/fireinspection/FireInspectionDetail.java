@@ -14,7 +14,7 @@ public class FireInspectionDetail {
     /**
      * 检查内容码表ID
      */
-    private Long fireContentsId;
+    private Long fireContents;
 
     /**
      * 是否逻辑删除
@@ -65,18 +65,18 @@ public class FireInspectionDetail {
 
     /**
      * 检查内容码表ID
-     * @return fire_contents_id 检查内容码表ID
+     * @return  检查内容码表ID
      */
-    public Long getFireContentsId() {
-        return fireContentsId;
+    public Long getFireContents() {
+        return fireContents;
     }
 
     /**
      * 检查内容码表ID
-     * @param fireContentsId 检查内容码表ID
+     * @param fireContents 检查内容码表ID
      */
-    public void setFireContentsId(Long fireContentsId) {
-        this.fireContentsId = fireContentsId;
+    public void setFireContents(Long fireContents) {
+        this.fireContents = fireContents;
     }
 
     /**

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import cn.com.bgy.ifc.dao.fireinspection.FireInspectionDetailDao;
+import cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDetail;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
@@ -25,54 +27,66 @@ import cn.com.bgy.ifc.entity.po.system.Account;
 @Service
 public class FireInspectionDomainImpl implements FireInspectionDomain {
 	@Resource
-	private FireInspectionDao dao;
+	private FireInspectionDao fireInspectionDao;
 	@Resource
-	private UserGroupItemsDao userDao;
+	private FireInspectionDetailDao fireInspectionDetailDao;
+	@Resource
+	private UserGroupItemsDao userGroupItemsDao;
 	
 	@Override
 	public List<FireInspection> queryListByParam(FireInspection t) {
-		return dao.queryListByParam(t);
+		return fireInspectionDao.queryListByParam(t);
 	}
 
 	@Override
 	public List<FireInspection> queryListByMap(Map<String, Object> map) {
-		return dao.queryListByMap(map);
+		return fireInspectionDao.queryListByMap(map);
 	}
 
 	@Override
 	public FireInspection findById(Long id) {
-		return dao.findById(id);
+		FireInspectionDetail t=new FireInspectionDetail();
+		t.setFireInspeId(id);
+		List<FireInspectionDetail> list = fireInspectionDetailDao.queryListByParam(t);
+		FireInspection fireInspection = fireInspectionDao.findById(id);
+		fireInspection.setFireInspectionDetailList(list);
+		return  fireInspection;
 	}
 
 	@Override
 	public int insert(FireInspection t) {
-		return dao.insert(t);
+		int res=fireInspectionDao.insert(t);
+		for (FireInspectionDetail fireInspectionDetail:t.getFireInspectionDetailList()){
+			fireInspectionDetail.setFireInspeId(t.getId());
+			fireInspectionDetailDao.insert(fireInspectionDetail);
+		}
+		return res;
 	}
 
 	@Override
 	public int insertSelective(FireInspection t) {
-		return dao.insertSelective(t);
+		return fireInspectionDao.insertSelective(t);
 	}
 
 	@Override
 	public int update(FireInspection t) {
-		return dao.update(t);
+		return fireInspectionDao.update(t);
 	}
 
 	@Override
 	public int updateSelective(FireInspection t) {
-		return dao.updateSelective(t);
+		return fireInspectionDao.updateSelective(t);
 	}
 
 	@Override
 	public int deleteBatch(List<Long> ids) {
-		return dao.deleteBatch(ids);
+		return fireInspectionDao.deleteBatch(ids);
 	}
 	@Override
 	public PageInfo<FireInspection> getPageList(Page<FireInspection> page, FireInspection t, Account user) {
 		if(user!=null) {
-			List<Long>regionIds = userDao.queryRegionIdByUserId(user.getId());
-			List<Long>projectIds = userDao.queryProjectIdByUserId(user.getId());
+			List<Long>regionIds = userGroupItemsDao.queryRegionIdByUserId(user.getId());
+			List<Long>projectIds = userGroupItemsDao.queryProjectIdByUserId(user.getId());
 			page = PageHelper.startPage(page.getPageNum(), page.getPages(), page.getOrderBy());
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("regionIds", regionIds);
@@ -80,7 +94,7 @@ public class FireInspectionDomainImpl implements FireInspectionDomain {
 			map.put("bean", t);
 		}
 		 page = PageHelper.startPage(page.getPageNum(), page.getPages(), page.getOrderBy());
-		 List<FireInspection>list = dao.queryListByParam(t);//dao.queryListByMap(map);
+		 List<FireInspection>list = fireInspectionDao.queryListByParam(t);
 		 PageInfo<FireInspection> info= new PageInfo<FireInspection>(list);
 		return info;
 	}

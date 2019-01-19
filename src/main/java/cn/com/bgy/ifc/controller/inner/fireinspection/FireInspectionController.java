@@ -1,16 +1,14 @@
 package cn.com.bgy.ifc.controller.inner.fireinspection;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,12 +17,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
-import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.fireinspection.FireInspectionDomain;
 import cn.com.bgy.ifc.entity.po.fireinspection.FireInspection;
-import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.fireinspection.FireInspectionVo;
 /**
@@ -36,7 +32,7 @@ import cn.com.bgy.ifc.entity.vo.fireinspection.FireInspectionVo;
 @RequestMapping("/fireinspection/fireInspection")
 public class FireInspectionController extends BaseController{
 	@Autowired
-	private FireInspectionDomain domain;
+	private FireInspectionDomain fireInspectionDomain;
 	/**
      * 分页查询
      *
@@ -47,7 +43,7 @@ public class FireInspectionController extends BaseController{
     public ResponseVO<Object> queryPageList(Page<FireInspection> page, FireInspection po) {
     	//获取当前登录人做角色数据权限过滤
 //    	Account user=this.getUser();
-        PageInfo<FireInspection> pageInfo = domain.getPageList(page, po,null);
+        PageInfo<FireInspection> pageInfo = fireInspectionDomain.getPageList(page, po,null);
         return ResponseVO.success().setData(pageInfo);
     }
     /**
@@ -57,7 +53,7 @@ public class FireInspectionController extends BaseController{
     @GetMapping("queryAllData")
     @ResponseBody
     public ResponseVO<Object> queryAllList() {
-        return ResponseVO.success().setData(domain.queryListByParam(null));
+        return ResponseVO.success().setData(fireInspectionDomain.queryListByParam(null));
     }
     /**
      * @Author lvbingjian
@@ -72,12 +68,11 @@ public class FireInspectionController extends BaseController{
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
-
-        FireInspection FireInspection = new FireInspection();
-        //默认是false删除后设为true
-        vo.setLogicRemove(false);
-        CopyUtil.copyProperties(vo, FireInspection);
-        int count = domain.insert(FireInspection);
+        FireInspection bean = new FireInspection();
+        CopyUtil.copyProperties(vo, bean);
+        bean.setLogicRemove(false);
+        bean.setCreateTime(new Date());
+        int count = fireInspectionDomain.insert(bean);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功！");
         }
@@ -89,13 +84,13 @@ public class FireInspectionController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("editData")
-    @RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
     @SystemLogAfterSave(description = "消防巡检主表单修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(FireInspection po, String token){
-        int resout = 1;
-        int count = domain.update(po);
-        if (count == resout) {
+        FireInspection bean = fireInspectionDomain.findById(po.getId());
+        CopyUtil.copyProperties(po,bean);
+        int count = fireInspectionDomain.updateSelective(bean);
+        if (count >0) {
             return ResponseVO.success().setMsg("修改成功");
         }
         return ResponseVO.error().setMsg("修改失败！");
@@ -111,7 +106,7 @@ public class FireInspectionController extends BaseController{
     @GetMapping("findById")
     @ResponseBody
     public ResponseVO<FireInspection> findById( Long id) {
-        FireInspection bean = domain.findById(id);
+        FireInspection bean = fireInspectionDomain.findById(id);
 
         return ResponseVO.<FireInspection>success().setData(bean);
     }
@@ -131,7 +126,7 @@ public class FireInspectionController extends BaseController{
     		for (int i = 0; i < ids.length; i++) {
     			list.add(Long.valueOf(ids[i]));
 			}
-    		count = domain.deleteBatch(list);
+    		count = fireInspectionDomain.deleteBatch(list);
     	}else {
     		count = 0;
     	}
