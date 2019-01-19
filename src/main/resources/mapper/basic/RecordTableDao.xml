@@ -155,7 +155,7 @@
     SELECT sId,sName,sParenId,e.id AS tId,e.name AS tName,e.parent_id AS tParenId FROM (
     SELECT id AS sId,`name` AS sName,parent_id AS sParenId FROM equipment_type WHERE logic_remove=0
     ) AS s INNER JOIN equipment_type e ON s.sParenId = e.id WHERE e.logic_remove=0
-    ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0) AS type ON type.sParenId = ei.type_id
+    ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0) AS type ON type.sId = ei.type_id
     LEFT JOIN repair_order o ON r.order_id = o.id AND o.logic_remove=0
       <where>
         <if test="equipmentTypeId != null and equipmentTypeId!= '' ">
