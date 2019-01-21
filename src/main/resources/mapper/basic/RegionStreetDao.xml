@@ -83,9 +83,9 @@
         s.court_id as courtId,c.name as courtName,
         s.create_time as createTime
         FROM region_street s
-        LEFT JOIN region_info i ON i.id = s.region_id AND i.logic_remove = 0
-        LEFT JOIN region_project p on s.project_id = p.id AND p.region_id = i.id  AND p.logic_remove = 0
-        LEFT JOIN region_court c on s.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id  AND c.logic_remove = 0
+        LEFT JOIN region_info i ON i.id = s.region_id
+        LEFT JOIN region_project p on s.project_id = p.id AND p.region_id = i.id
+        LEFT JOIN region_court c on s.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id
         <where>
             <if test="regionId != null and regionId!= '' ">
                 AND s.region_id= #{regionId,jdbcType=BIGINT}
@@ -100,6 +100,9 @@
                 AND (c.name like concat('%',#{keyword},'%')
                 OR s.name LIKE concat('%',#{keyword},'%'))
             </if>
+            AND i.logic_remove = 0
+            AND p.logic_remove = 0
+            AND c.logic_remove = 0
             AND s.logic_remove = 0
         </where>
     </select>
@@ -139,11 +142,14 @@
     s.project_id as projectId,p.name as projectName,
     s.court_id as courtId,c.name as courtName
     FROM region_street s
-    LEFT JOIN region_info i ON i.id = s.region_id AND i.logic_remove = 0
-    LEFT JOIN region_project p on s.project_id = p.id AND p.region_id = i.id  AND p.logic_remove = 0
-    LEFT JOIN region_court c on s.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id  AND c.logic_remove = 0
+    LEFT JOIN region_info i ON i.id = s.region_id
+    LEFT JOIN region_project p on s.project_id = p.id AND p.region_id = i.id
+    LEFT JOIN region_court c on s.court_id = c.id AND c.region_id = i.id AND c.project_id = p.id
     WHERE
       s.id= #{id,jdbcType=BIGINT}
+      AND i.logic_remove = 0
+      AND p.logic_remove = 0
+      AND c.logic_remove = 0
       AND s.logic_remove = 0
   </select>
     <update id="updateFindByAddressId" parameterType="java.util.Map">

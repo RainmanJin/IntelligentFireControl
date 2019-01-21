@@ -96,7 +96,7 @@
     p.longitude as longitude,p.latitude as latitude,
     p.ascription as ascription,p.create_time as createTime
     from region_project p
-    LEFT JOIN region_info i on p.region_id = i.id AND i.logic_remove = 0
+    LEFT JOIN region_info i on p.region_id = i.id
     <where>
     <if test="regionId != null and regionId!= '' ">
       AND p.region_id= #{regionId,jdbcType=BIGINT}
@@ -106,7 +106,7 @@
       OR p.name LIKE concat('%',#{keyword},'%')
       OR p.ascription like concat('%',#{keyword},'%'))
     </if>
-      AND p.logic_remove = 0
+      AND p.logic_remove = 0 AND i.logic_remove = 0
     </where>
   </select>
   <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.project.RegionProject">
@@ -145,10 +145,10 @@
     p.longitude as longitude,p.latitude as latitude,
     p.ascription as ascription
     from region_project p
-    LEFT JOIN region_info i on p.region_id = i.id AND i.logic_remove = 0
+    LEFT JOIN region_info i on p.region_id = i.id
       WHERE
       p.id= #{id,jdbcType=BIGINT}
-      AND p.logic_remove = 0
+      AND p.logic_remove = 0 AND i.logic_remove = 0
   </select>
 
   <select id="queryRegionProjectByRegionId" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.project.RegionProject">
@@ -163,10 +163,10 @@
     p.ascription as ascription,
     p.create_time as createTime
     from region_project p
-    LEFT JOIN region_info i on p.region_id = i.id AND i.logic_remove = 0
+    LEFT JOIN region_info i on p.region_id = i.id
     <where>
         AND p.region_id= #{regionId,jdbcType=BIGINT}
-      AND p.logic_remove = 0
+        AND p.logic_remove = 0 AND i.logic_remove = 0
     </where>
   </select>
 

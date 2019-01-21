@@ -147,6 +147,7 @@
          FROM equipment_type
          WHERE
          id= #{id,jdbcType=BIGINT}
+         AND logic_remove =0
     </select>
 
     <select id="queryAllEquipmentType" resultType="java.util.Map">
