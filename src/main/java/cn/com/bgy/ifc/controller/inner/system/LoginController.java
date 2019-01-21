@@ -80,21 +80,24 @@ public class LoginController {
      */
     @PostMapping ("/login")
     @SystemLogAfterSave(type = SystemLogType.LOGON_LOG,description = "系统登录",login = LoginState.NOT_LOGIN)
-    public ResponseVO<Object> login(HttpServletResponse response,HttpServletRequest request,String userName,String password,String identifyCode) {
+    public ResponseVO<Object> login(HttpServletResponse response,HttpServletRequest request,String userName,String password,String identifyCode,String currentIp) {
         //获取session中的验证码
         String code = request.getSession().getAttribute("identifyCode") == null ? "" : request.getSession().getAttribute("identifyCode").toString().toLowerCase();
         if (identifyCode == null || "".equals(identifyCode)) {
             //验证码不能为空
             return ResponseVO.error().setMsg("验证码不能为空");
         } else if (identifyCode.toLowerCase().equals(code)) {
-            UsernamePasswordToken token = new UsernamePasswordToken(userName, password.toUpperCase(),false,request.getRemoteHost());
+            UsernamePasswordToken token = new UsernamePasswordToken(userName, password.toUpperCase(),false,currentIp);
             try {
                 Subject subject = SecurityUtils.getSubject();
                 subject.login(token);
                 Account account = (Account) subject.getPrincipal();
-                account.setPassword("");
                 subject.getSession().setAttribute("user",account);
                 request.getSession().setAttribute("user", account);
+                //记录登陆ip
+                account.setCurrentIp(currentIp);
+                account.setLastIp(currentIp);
+                accountDomain.updateSelective(account);
                 return ResponseVO.success().setData(account).setMsg("登陆成功");
 
             } catch (Exception e) {
