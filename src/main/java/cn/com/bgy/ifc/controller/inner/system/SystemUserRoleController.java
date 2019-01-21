@@ -44,7 +44,7 @@ public class SystemUserRoleController extends BaseController {
             SystemUserRole systemUserRole= new SystemUserRole();
             CopyUtil.copyProperties(systemUserRoleVo,systemUserRole);
             systemUserRoleDomain.save(systemUserRole);
-            return ResponseVO.success();
+            return ResponseVO.addSuccess().setMsg("保存成功");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.exception();

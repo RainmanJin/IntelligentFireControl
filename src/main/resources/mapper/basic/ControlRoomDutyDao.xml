@@ -159,32 +159,33 @@
     where id=#{id}
   </update>
 <select id="findById" resultType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
-  select id,
-        user_id as userId,
-        user_type as userType,
-        start_time as startTime,
-        end_time as endTime,
-        duty_date as dutyDate,
-        duty_type as dutyType,
-        room_name as roomName,
-        address as address,
-        create_time as createTime
-      from control_room_duty
-      where id=#{id}
+      select crd.id,
+          crd.user_id as userId,
+          crd.user_type as userType,
+          crd.start_time as startTime,
+          crd.end_time as endTime,
+          crd.duty_date as dutyDate,
+          crd.duty_type as dutyType,
+          crd.room_name as roomName,
+          crd.address as address,
+          crd.create_time as createTime,
+          cru.name as userName
+      from control_room_duty crd left  join  control_room_user cru on crd.user_id=cru.id
+      where crd.id=#{id}
 </select>
 
   <select id="queryListByParam" resultType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomDuty">
        select crd.id,
-    crd.user_id as userId,
-    crd.user_type as userType,
-    crd.start_time as startTime,
-    crd.end_time as endTime,
-    crd.duty_date as dutyDate,
-    crd.duty_type as dutyType,
-    crd.room_name as roomName,
-    crd.address as address,
-    crd.create_time as createTime,
-    cru.name as userName
+            crd.user_id as userId,
+            crd.user_type as userType,
+            crd.start_time as startTime,
+            crd.end_time as endTime,
+            crd.duty_date as dutyDate,
+            crd.duty_type as dutyType,
+            crd.room_name as roomName,
+            crd.address as address,
+            crd.create_time as createTime,
+            cru.name as userName
       from control_room_duty crd left  join  control_room_user cru on crd.user_id=cru.id
     <where>
       crd.logic_remove=0

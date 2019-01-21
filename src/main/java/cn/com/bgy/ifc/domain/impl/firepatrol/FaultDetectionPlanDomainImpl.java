@@ -44,7 +44,11 @@ public class FaultDetectionPlanDomainImpl implements FaultDetectionPlanDomain {
         RecordTable recordTable = new RecordTable();
         //3代表设施巡检类型
         recordTable.setEquipmentId(equipmentId);
-        recordTable.setType(3);
+        if(faultDetectionPlan.getType()==2) {
+            recordTable.setType(4);
+        }else if(faultDetectionPlan.getType()==1) {
+            recordTable.setType(3);
+        }
         recordTable.setLogicRemove(false);
         recordTable.setCreateTime(time);
         //添加设施故障检测记录

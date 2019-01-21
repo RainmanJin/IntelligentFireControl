@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -84,6 +85,7 @@ public class FireAccidentController extends BaseController {
 
         FireAccident  query =fireAccidentDomain.findById(fireAccident.getId());
         CopyUtil.copyProperties(fireAccident,query);
+        query.setCreateTime(new Date());
         int res= fireAccidentDomain.update(query);
         if(res>0){
             return ResponseVO.editSuccess();
