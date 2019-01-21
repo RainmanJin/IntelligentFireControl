@@ -1,13 +1,13 @@
 package cn.com.bgy.ifc.entity.po.equipment;
 
 public class EquipmentBrand {
-
+    //ID
     private Long id;
-
+    //设备品牌名
     private String name;
-
+    //设备品牌状态 0为正常,1为禁用,2为删除
     private Integer status;
-
+    //描述
     private String description;
 
     public Long getId() {
