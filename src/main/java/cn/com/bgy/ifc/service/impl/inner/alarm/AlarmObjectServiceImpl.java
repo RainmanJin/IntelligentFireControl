@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.service.impl.inner.alarm;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.dao.alarm.AlarmObjectDao;
 import cn.com.bgy.ifc.entity.po.alarm.AlarmObject;
+import cn.com.bgy.ifc.entity.vo.alarm.AlarmObjectVo;
 import cn.com.bgy.ifc.service.interfaces.inner.alarm.AlarmObjectService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -63,9 +64,9 @@ public class AlarmObjectServiceImpl implements AlarmObjectService {
     }
 
     @Override
-    public PageInfo<AlarmObject> queryListByPage(Page<AlarmObject> page, AlarmObject alarmObject) {
+    public PageInfo<AlarmObject> queryListByPage(Page<AlarmObject> page, AlarmObjectVo alarmObjectVo) {
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<AlarmObject> list = alarmObjectDao.queryListByParam(alarmObject);
+        List<AlarmObject> list = alarmObjectDao.queryListByParam(alarmObjectVo);
         PageInfo<AlarmObject> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }

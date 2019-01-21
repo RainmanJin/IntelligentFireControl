@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.entity.vo.fireinspection;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -16,8 +17,8 @@ public class FireTaskTrainVo {
     /**
      * 消防培训任务名称
      */
-    @NotBlank(message="消防培训任务名称不能为空！")
-    @Size(max=50,message="消防培训任务名称长度不能超过50字符！")
+    @NotBlank(message = "消防培训任务名称不能为空！")
+    @Size(max = 50, message = "消防培训任务名称长度不能超过50字符！")
     private String name;
 
     /**
@@ -38,6 +39,7 @@ public class FireTaskTrainVo {
     /**
      * 培训对象
      */
+    @Size(max = 50, message = "培训对象长度不能超过50字符！")
     private String trainingObject;
 
     /**
@@ -48,6 +50,7 @@ public class FireTaskTrainVo {
     /**
      * 培训部门
      */
+    @Size(max = 50, message = "培训部门长度不能超过50字符！")
     private String department;
 
     /**
@@ -58,15 +61,36 @@ public class FireTaskTrainVo {
     /**
      * 区域ID
      */
+    @NotNull(message="所属区域不能为空！")
     private Long regionId;
-
-    private Date createTime;
 
     /**
      * 培训内容
      */
     private String content;
 
+
+    /**
+     * 任务周期
+     */
+    @NotNull(message="任务周期不能为空！")
+    private Integer planCycle;
+
+    /**
+     * 工作状态 未处理-1、处理中-2、已完成-3
+     */
+    @NotNull(message="工作状态不能为空！")
+    private Integer complete;
+
+    /**
+     * 创建、修改时间
+     */
+    private Date createTime;
+
+    /**
+     * 是否逻辑删除
+     */
+    private Boolean logicRemove;
 
     /**
      * 开始日期时间
@@ -163,14 +187,6 @@ public class FireTaskTrainVo {
         this.regionId = regionId;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     public String getContent() {
         return content;
     }
@@ -179,12 +195,36 @@ public class FireTaskTrainVo {
         this.content = content;
     }
 
-    public String getKeywords() {
-        return keywords;
+    public Integer getPlanCycle() {
+        return planCycle;
     }
 
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
+    public void setPlanCycle(Integer planCycle) {
+        this.planCycle = planCycle;
+    }
+
+    public Integer getComplete() {
+        return complete;
+    }
+
+    public void setComplete(Integer complete) {
+        this.complete = complete;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Boolean getLogicRemove() {
+        return logicRemove;
+    }
+
+    public void setLogicRemove(Boolean logicRemove) {
+        this.logicRemove = logicRemove;
     }
 
     public String getStartStr() {
@@ -201,5 +241,13 @@ public class FireTaskTrainVo {
 
     public void setEndStr(String endStr) {
         this.endStr = endStr;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 }

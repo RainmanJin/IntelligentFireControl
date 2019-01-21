@@ -207,4 +207,66 @@ public class SystemConstant {
         }
     }
 
+    /**
+     * 培训演练任务周期
+     */
+    public enum FirePlanCycle{
+        //每日
+        EVERYDAY(1, "每日"),
+        //每周
+        WEEKLY(2, "每周"),
+        //月度
+        MONTHLY(3, "月度"),
+        //季度
+        QUARTER(4, "季度"),
+        //半年
+        HALF_YEAR(5, "半年"),
+        //年度
+        YEAR(6, "年度");
+
+        private Integer value;
+        private String name;
+
+        private FirePlanCycle(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    /**
+     * 培训演练工作状态
+     */
+    public enum CompleteType{
+        //未处理
+        UNTREATED(1, "未处理"),
+        //处理中
+        IN_PROCESS(2, "处理中"),
+        //已完成
+        COMPLETED(3, "已完成");
+
+        private Integer value;
+        private String name;
+
+        private CompleteType(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
 }

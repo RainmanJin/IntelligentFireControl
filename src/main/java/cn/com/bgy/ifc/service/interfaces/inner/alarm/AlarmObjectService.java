@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.service.interfaces.inner.alarm;
 
 import cn.com.bgy.ifc.entity.po.alarm.AlarmObject;
+import cn.com.bgy.ifc.entity.vo.alarm.AlarmObjectVo;
 import cn.com.bgy.ifc.service.interfaces.inner.base.BaseService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -13,6 +14,6 @@ import com.github.pagehelper.PageInfo;
  **/
 public interface AlarmObjectService extends BaseService<AlarmObject> {
 
-    PageInfo<AlarmObject> queryListByPage(Page<AlarmObject> page, AlarmObject alarmObject);
+    PageInfo<AlarmObject> queryListByPage(Page<AlarmObject> page, AlarmObjectVo alarmObjectVo);
 
 }

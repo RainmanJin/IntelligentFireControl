@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,21 +31,27 @@ public class FireTaskDrillServiceImpl implements FireTaskDrillService {
 
     @Override
     public int insert(FireTaskDrill fireTaskDrill) {
+        fireTaskDrill.setCreateTime(new Date());
+        fireTaskDrill.setLogicRemove(false);
         return fireTaskDrillDao.insert(fireTaskDrill);
     }
 
     @Override
     public int insertSelective(FireTaskDrill fireTaskDrill) {
+        fireTaskDrill.setCreateTime(new Date());
+        fireTaskDrill.setLogicRemove(false);
         return fireTaskDrillDao.insertSelective(fireTaskDrill);
     }
 
     @Override
     public int update(FireTaskDrill fireTaskDrill) {
+        fireTaskDrill.setCreateTime(new Date());
         return fireTaskDrillDao.update(fireTaskDrill);
     }
 
     @Override
     public int updateSelective(FireTaskDrill fireTaskDrill) {
+        fireTaskDrill.setCreateTime(new Date());
         return fireTaskDrillDao.updateSelective(fireTaskDrill);
     }
 

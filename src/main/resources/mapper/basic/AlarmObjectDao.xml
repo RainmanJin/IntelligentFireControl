@@ -3,6 +3,7 @@
 <mapper namespace="cn.com.bgy.ifc.dao.alarm.AlarmObjectDao">
     <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.alarm.AlarmObject">
         <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="region_id" jdbcType="BIGINT" property="regionId"/>
         <result column="project_id" jdbcType="BIGINT" property="projectId"/>
         <result column="user_id" jdbcType="BIGINT" property="userId"/>
         <result column="alarm_mode_id" jdbcType="BIGINT" property="alarmModeId"/>
@@ -11,13 +12,33 @@
         <result column="notice_level" jdbcType="INTEGER" property="noticeLevel"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
+        <association property="regionInfo" column="region_id"
+                     javaType="cn.com.bgy.ifc.entity.po.project.RegionInfo">
+            <id column="info_id" property="id"/>
+            <result column="info_name" property="name"/>
+        </association>
+        <association property="regionProject" column="project_id"
+                     javaType="cn.com.bgy.ifc.entity.po.project.RegionProject">
+            <id column="pro_id" property="id"/>
+            <result column="pro_name" property="name"/>
+        </association>
+        <association property="account" column="user_id"
+                     javaType="cn.com.bgy.ifc.entity.po.system.Account">
+            <id column="acc_id" property="id"/>
+            <result column="user_name" property="userName"/>
+        </association>
+        <association property="alarmMode" column="alarm_mode_id"
+                     javaType="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
+            <id column="mode_id" property="id"/>
+            <result column="mode_name" property="name"/>
+        </association>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmObject">
-    insert into alarm_object (id, project_id, user_id, 
+    insert into alarm_object (id, region_id, project_id, user_id,
       alarm_mode_id, contact_way, state, 
       notice_level, create_time, logic_remove
       )
-    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT},#{regionId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
       #{alarmModeId,jdbcType=BIGINT}, #{contactWay,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER},
       #{noticeLevel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}
       )
@@ -27,6 +48,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
+            </if>
+            <if test="regionId != null">
+                region_id,
             </if>
             <if test="projectId != null">
                 project_id,
@@ -57,6 +81,9 @@
             <if test="id != null">
                 #{id,jdbcType=BIGINT},
             </if>
+            <if test="regionId != null">
+                #{regionId,jdbcType=BIGINT},
+            </if>
             <if test="projectId != null">
                 #{projectId,jdbcType=BIGINT},
             </if>
@@ -84,23 +111,59 @@
         </trim>
     </insert>
 
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmObject" resultMap="BaseResultMap">
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.alarm.AlarmObjectVo"
+            resultMap="BaseResultMap">
         SELECT
-        id, project_id, user_id,
-        alarm_mode_id, contact_way, state,
-        notice_level, create_time, logic_remove
-        FROM alarm_object
+        a.id,
+        a.region_id,
+        a.project_id,
+        a.user_id,
+        a.alarm_mode_id,
+        a.contact_way,
+        a.state,
+        a.notice_level,
+        a.create_time,
+        a.logic_remove,
+        i.id AS info_id,
+        i.name AS info_name,
+        p.id AS pro_id,
+        p.name AS pro_name,
+        u.id AS acc_id,
+        u.user_name,
+        m.id AS mode_id,
+        m.name AS mode_name
+        FROM alarm_object a
+        INNER JOIN region_info i ON i.id=a.region_id
+        INNER JOIN region_project p ON p.id=a.project_id
+        INNER JOIN account u ON u.id=a.user_id
+        LEFT JOIN alarm_mode m ON m.id=a.alarm_mode_id AND m.logic_remove = 0 AND m.state = 1
         <where>
             <if test="state != null and state != ''or state == 0">
-                AND state = #{state}
+                AND a.state = #{state}
             </if>
-            AND logic_remove = 0
+            <if test="regionId != null ">
+                AND a.region_id=#{regionId}
+            </if>
+            <if test="projectId != null ">
+                AND a.project_id=#{projectId}
+            </if>
+            <if test="noticeLevel != null ">
+                AND a.notice_level=#{noticeLevel}
+            </if>
+            <if test="alarmModeId != null ">
+                AND a.alarm_mode_id=#{alarmModeId}
+            </if>
+            <if test="keyword!='' and keyword!=null">
+                AND (p.name LIKE concat('%',#{keyword},'%') OR i.name LIKE concat('%',#{keyword},'%') OR u.user_name LIKE
+                concat('%',#{keyword},'%'))
+            </if>
+            AND a.logic_remove = 0
         </where>
     </select>
 
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
         SELECT
-        id, project_id, user_id,
+        id,region_id, project_id, user_id,
         alarm_mode_id, contact_way, state,
         notice_level, create_time, logic_remove
         FROM alarm_object  WHERE id = #{id}
@@ -109,14 +172,15 @@
     <update id="update" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmObject">
         UPDATE alarm_object
         <set>
-                project_id= #{projectId,jdbcType=BIGINT},
-                user_id=#{userId,jdbcType=BIGINT},
-                alarm_mode_id=#{alarmModeId,jdbcType=BIGINT},
-                contact_way=#{contactWay,jdbcType=VARCHAR},
-                state=#{state,jdbcType=INTEGER},
-                notice_level=#{noticeLevel,jdbcType=INTEGER},
-                create_time=#{createTime,jdbcType=TIMESTAMP},
-                logic_remove=#{logicRemove,jdbcType=BIT},
+            region_id= #{regionId,jdbcType=BIGINT},
+            project_id= #{projectId,jdbcType=BIGINT},
+            user_id=#{userId,jdbcType=BIGINT},
+            alarm_mode_id=#{alarmModeId,jdbcType=BIGINT},
+            contact_way=#{contactWay,jdbcType=VARCHAR},
+            state=#{state,jdbcType=INTEGER},
+            notice_level=#{noticeLevel,jdbcType=INTEGER},
+            create_time=#{createTime,jdbcType=TIMESTAMP},
+            logic_remove=#{logicRemove,jdbcType=BIT},
         </set>
         WHERE id = #{id}
     </update>
@@ -126,6 +190,9 @@
         <set>
             <if test="projectId != null">
                 project_id= #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="regionId != null">
+                region_id= #{regionId,jdbcType=BIGINT},
             </if>
             <if test="userId != null">
                 user_id=#{userId,jdbcType=BIGINT},

@@ -1,13 +1,17 @@
 package cn.com.bgy.ifc.controller.inner.fireinspection;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.constant.EquipmentConstant;
+import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.EnumUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.fireinspection.FireTaskDrill;
 import cn.com.bgy.ifc.entity.po.fireinspection.FireTaskTrain;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.fireinspection.FireTaskDrillVo;
 import cn.com.bgy.ifc.entity.vo.fireinspection.FireTaskTrainVo;
 import cn.com.bgy.ifc.service.interfaces.inner.fireinspection.FireTaskDrillService;
@@ -124,5 +128,29 @@ public class FireTaskDrillController extends BaseController {
         } else {
             return ResponseVO.deleteError();
         }
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:培训演练任务周期
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("getFirePlanCycle")
+    public ResponseVO<Object> getFirePlanCycle() {
+        List<SelectVo> list = EnumUtil.getSelectList(SystemConstant.FirePlanCycle.class);
+        return ResponseVO.success().setData(list);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:培训演练工作状态
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("getCompleteType")
+    public ResponseVO<Object> getCompleteType() {
+        List<SelectVo> list = EnumUtil.getSelectList(SystemConstant.CompleteType.class);
+        return ResponseVO.success().setData(list);
     }
 }

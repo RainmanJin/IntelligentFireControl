@@ -4,6 +4,8 @@
     <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.fireinspection.FireTaskDrill">
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="plan_cycle" jdbcType="INTEGER" property="planCycle"/>
+        <result column="complete" jdbcType="INTEGER" property="complete"/>
         <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
         <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
         <result column="place" jdbcType="VARCHAR" property="place"/>
@@ -11,32 +13,34 @@
         <result column="department" jdbcType="VARCHAR" property="department"/>
         <result column="dispatched_person" jdbcType="INTEGER" property="dispatchedPerson"/>
         <result column="vehicles_dispatched" jdbcType="INTEGER" property="vehiclesDispatched"/>
-        <result column="train_results" jdbcType="VARCHAR" property="trainResults"/>
         <result column="property_name" jdbcType="VARCHAR" property="propertyName"/>
         <result column="region_id" jdbcType="BIGINT" property="regionId"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
-    </resultMap>
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
-               type="cn.com.bgy.ifc.entity.po.fireinspection.FireTaskDrill">
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="train_results" jdbcType="LONGVARCHAR" property="trainResults"/>
+        <association property="regionInfo" column="region_id"
+                     javaType="cn.com.bgy.ifc.entity.po.project.RegionInfo">
+            <id column="info_id" property="id"/>
+            <result column="info_name" property="name"/>
+        </association>
     </resultMap>
     <sql id="Blob_Column_List">
-    content
+    content, train_results
   </sql>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireTaskDrill">
-    insert into fire_task_drill (id, name, start_time, 
-      end_time, place, command, 
-      department, dispatched_person, vehicles_dispatched, 
-      train_results, property_name, region_id, 
-      create_time, logic_remove, content
-      )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{place,jdbcType=VARCHAR}, #{command,jdbcType=VARCHAR}, 
-      #{department,jdbcType=VARCHAR}, #{dispatchedPerson,jdbcType=INTEGER}, #{vehiclesDispatched,jdbcType=INTEGER}, 
-      #{trainResults,jdbcType=VARCHAR}, #{propertyName,jdbcType=VARCHAR}, #{regionId,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
-      )
+    insert into fire_task_drill (id, name, plan_cycle, 
+      complete, start_time, end_time, 
+      place, command, department, 
+      dispatched_person, vehicles_dispatched, property_name, 
+      region_id, create_time, logic_remove, 
+      content, train_results)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{planCycle,jdbcType=INTEGER}, 
+      #{complete,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{place,jdbcType=VARCHAR}, #{command,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{dispatchedPerson,jdbcType=INTEGER}, #{vehiclesDispatched,jdbcType=INTEGER}, #{propertyName,jdbcType=VARCHAR}, 
+      #{regionId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, 
+      #{content,jdbcType=LONGVARCHAR}, #{trainResults,jdbcType=LONGVARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireTaskDrill">
         insert into fire_task_drill
@@ -46,6 +50,12 @@
             </if>
             <if test="name != null">
                 name,
+            </if>
+            <if test="planCycle != null">
+                plan_cycle,
+            </if>
+            <if test="complete != null">
+                complete,
             </if>
             <if test="startTime != null">
                 start_time,
@@ -68,9 +78,6 @@
             <if test="vehiclesDispatched != null">
                 vehicles_dispatched,
             </if>
-            <if test="trainResults != null">
-                train_results,
-            </if>
             <if test="propertyName != null">
                 property_name,
             </if>
@@ -86,6 +93,9 @@
             <if test="content != null">
                 content,
             </if>
+            <if test="trainResults != null">
+                train_results,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -93,6 +103,12 @@
             </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="planCycle != null">
+                #{planCycle,jdbcType=INTEGER},
+            </if>
+            <if test="complete != null">
+                #{complete,jdbcType=INTEGER},
             </if>
             <if test="startTime != null">
                 #{startTime,jdbcType=TIMESTAMP},
@@ -115,9 +131,6 @@
             <if test="vehiclesDispatched != null">
                 #{vehiclesDispatched,jdbcType=INTEGER},
             </if>
-            <if test="trainResults != null">
-                #{trainResults,jdbcType=VARCHAR},
-            </if>
             <if test="propertyName != null">
                 #{propertyName,jdbcType=VARCHAR},
             </if>
@@ -133,25 +146,30 @@
             <if test="content != null">
                 #{content,jdbcType=LONGVARCHAR},
             </if>
+            <if test="trainResults != null">
+                #{trainResults,jdbcType=LONGVARCHAR},
+            </if>
         </trim>
     </insert>
 
     <update id="update " parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireTaskDrill">
         UPDATE fire_task_drill SET
-            name= #{name,jdbcType=VARCHAR},
-            start_time= #{startTime,jdbcType=TIMESTAMP},
+            name=#{name,jdbcType=VARCHAR},
+            plan_cycle=#{planCycle,jdbcType=INTEGER},
+            complete=#{complete,jdbcType=INTEGER},
+            start_time=#{startTime,jdbcType=TIMESTAMP},
             end_time=#{endTime,jdbcType=TIMESTAMP},
-            place= #{place,jdbcType=VARCHAR},
-            command= #{command,jdbcType=VARCHAR},
-            department= #{department,jdbcType=VARCHAR},
+            place=#{place,jdbcType=VARCHAR},
+            command=#{command,jdbcType=VARCHAR},
+            department=#{department,jdbcType=VARCHAR},
             dispatched_person=#{dispatchedPerson,jdbcType=INTEGER},
             vehicles_dispatched=#{vehiclesDispatched,jdbcType=INTEGER},
-            train_results= #{trainResults,jdbcType=VARCHAR},
             property_name=#{propertyName,jdbcType=VARCHAR},
             region_id=#{regionId,jdbcType=BIGINT},
             create_time=#{createTime,jdbcType=TIMESTAMP},
             logic_remove=#{logicRemove,jdbcType=BIT},
-            content= #{content,jdbcType=LONGVARCHAR}
+            content=#{content,jdbcType=LONGVARCHAR},
+            train_results=#{trainResults,jdbcType=LONGVARCHAR},
         WHERE id
         = #{id}
     </update>
@@ -159,31 +177,34 @@
         UPDATE fire_task_drill
         <set>
             <if test="name != null">
-                name= #{name,jdbcType=VARCHAR},
+                name=#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="planCycle != null">
+                plan_cycle=#{planCycle,jdbcType=INTEGER},
+            </if>
+            <if test="complete != null">
+                complete=#{complete,jdbcType=INTEGER},
             </if>
             <if test="startTime != null">
-                start_time= #{startTime,jdbcType=TIMESTAMP},
+                start_time=#{startTime,jdbcType=TIMESTAMP},
             </if>
             <if test="endTime != null">
                 end_time=#{endTime,jdbcType=TIMESTAMP},
             </if>
             <if test="place != null">
-                place= #{place,jdbcType=VARCHAR},
+                place=#{place,jdbcType=VARCHAR},
             </if>
             <if test="command != null">
-                command= #{command,jdbcType=VARCHAR},
+                command=#{command,jdbcType=VARCHAR},
             </if>
             <if test="department != null">
-                department= #{department,jdbcType=VARCHAR},
+                department=#{department,jdbcType=VARCHAR},
             </if>
             <if test="dispatchedPerson != null">
                 dispatched_person=#{dispatchedPerson,jdbcType=INTEGER},
             </if>
             <if test="vehiclesDispatched != null">
                 vehicles_dispatched=#{vehiclesDispatched,jdbcType=INTEGER},
-            </if>
-            <if test="trainResults != null">
-                train_results= #{trainResults,jdbcType=VARCHAR},
             </if>
             <if test="propertyName != null">
                 property_name=#{propertyName,jdbcType=VARCHAR},
@@ -198,48 +219,77 @@
                 logic_remove=#{logicRemove,jdbcType=BIT},
             </if>
             <if test="content != null">
-                content= #{content,jdbcType=LONGVARCHAR},
+                content=#{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="trainResults != null">
+                train_results=#{trainResults,jdbcType=LONGVARCHAR},
             </if>
         </set>
         WHERE id
         = #{id}
     </update>
 
-    <select id="queryListByPage" parameterType="cn.com.bgy.ifc.entity.vo.fireinspection.FireTaskDrillVo" resultMap="BaseResultMap">
-		SELECT
-	  id, name, start_time,
-      end_time, place, command,
-      department, dispatched_person, vehicles_dispatched,
-      train_results, property_name, region_id,
-      create_time, logic_remove, content
-		FROM fire_task_drill
+    <select id="queryListByPage" parameterType="cn.com.bgy.ifc.entity.vo.fireinspection.FireTaskDrillVo"
+            resultMap="BaseResultMap">
+        SELECT
+        a.id,
+        a.name,
+        a.plan_cycle,
+        a.complete,
+        a.start_time,
+        a.end_time,
+        a.place,
+        a.command,
+        a.department,
+        a.dispatched_person,
+        a.vehicles_dispatched,
+        a.property_name,
+        a.region_id,
+        a.create_time,
+        a.logic_remove,
+        a.content,
+        a.train_results,
+        i.id AS info_id,
+        i.name AS info_name
+        FROM fire_task_drill a
+        INNER JOIN region_info i ON i.id=a.region_id
         <where>
+            <if test="regionId != null ">
+                AND a.region_id=#{regionId}
+            </if>
+            <if test="complete != null ">
+                AND a.complete=#{complete}
+            </if>
+            <if test="planCycle != null ">
+                AND a.plan_cycle=#{planCycle}
+            </if>
             <if test="startStr != null and startStr != ''">
-                AND start_time >=#{startStr}
+                AND a.start_time &gt;=#{startStr}
             </if>
             <if test="endStr != null and endStr != ''">
-                AND end_time &lt;= #{endStr}
+                AND a.end_time &lt;= #{endStr}
             </if>
             <if test="keywords!='' and keywords!=null">
-                AND (name LIKE concat('%',#{keywords},'%') OR place LIKE concat('%',#{keywords},'%'))
+                AND (a.name LIKE concat('%',#{keywords},'%') OR a.place LIKE concat('%',#{keywords},'%'))
             </if>
-            AND logic_remove = 0
+            AND a.logic_remove = 0
         </where>
     </select>
 
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
 		SELECT
-	  id, name, start_time,
-      end_time, place, command,
-      department, dispatched_person, vehicles_dispatched,
-      train_results, property_name, region_id,
-      create_time, logic_remove, content
+	  id, name, plan_cycle,
+      complete, start_time, end_time,
+      place, command, department,
+      dispatched_person, vehicles_dispatched, property_name,
+      region_id, create_time, logic_remove,
+      content, train_results
 		FROM fire_task_drill WHERE id = #{id}
     </select>
 
     <update id="deleteBatch" parameterType="java.util.List">
         UPDATE fire_task_drill SET logic_remove =1 WHERE id IN
-        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+        <foreach close=")" collection="list" index="index" item="id" open="(" separator=",">
             #{id}
         </foreach>
     </update>

@@ -13,6 +13,12 @@ public class AlarmObjectVo {
     private Long id;
 
     /**
+     * 所属区域ID
+     */
+    @NotNull(message="所属区域不能为空！")
+    private Long regionId;
+
+    /**
      * 所属项目ID
      */
     @NotNull(message="所属项目不能为空！")
@@ -56,6 +62,11 @@ public class AlarmObjectVo {
      * 是否逻辑删除
      */
     private Boolean logicRemove;
+
+    /**
+     * 关键字
+     */
+    private String keyword;
 
     public Long getId() {
         return id;
@@ -127,5 +138,21 @@ public class AlarmObjectVo {
 
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
+    }
+
+    public Long getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Long regionId) {
+        this.regionId = regionId;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

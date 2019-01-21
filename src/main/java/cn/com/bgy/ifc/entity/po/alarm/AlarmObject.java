@@ -1,5 +1,9 @@
 package cn.com.bgy.ifc.entity.po.alarm;
 
+import cn.com.bgy.ifc.entity.po.project.RegionInfo;
+import cn.com.bgy.ifc.entity.po.project.RegionProject;
+import cn.com.bgy.ifc.entity.po.system.Account;
+
 import java.util.Date;
 
 public class AlarmObject {
@@ -7,6 +11,11 @@ public class AlarmObject {
      * ID
      */
     private Long id;
+
+    /**
+     * 所属区域ID
+     */
+    private Long regionId;
 
     /**
      * 所属项目ID
@@ -47,6 +56,26 @@ public class AlarmObject {
      * 是否逻辑删除
      */
     private Boolean logicRemove;
+
+    /**
+     * 所属项目
+     */
+    private RegionInfo regionInfo;
+
+    /**
+     * 所属项目
+     */
+    private RegionProject regionProject;
+
+    /**
+     * 成员
+     */
+    private Account account;
+
+    /**
+     * 告警方式
+     */
+    private AlarmMode alarmMode;
 
     /**
      * ID
@@ -182,5 +211,45 @@ public class AlarmObject {
      */
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
+    }
+
+    public Long getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Long regionId) {
+        this.regionId = regionId;
+    }
+
+    public RegionInfo getRegionInfo() {
+        return regionInfo;
+    }
+
+    public void setRegionInfo(RegionInfo regionInfo) {
+        this.regionInfo = regionInfo;
+    }
+
+    public RegionProject getRegionProject() {
+        return regionProject;
+    }
+
+    public void setRegionProject(RegionProject regionProject) {
+        this.regionProject = regionProject;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public AlarmMode getAlarmMode() {
+        return alarmMode;
+    }
+
+    public void setAlarmMode(AlarmMode alarmMode) {
+        this.alarmMode = alarmMode;
     }
 }

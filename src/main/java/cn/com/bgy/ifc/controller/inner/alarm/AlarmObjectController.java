@@ -44,8 +44,8 @@ public class AlarmObjectController extends BaseController {
      * @return:
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<AlarmObject>> queryPageData(Page<AlarmObject> page, AlarmObject alarmObject) {
-        PageInfo<AlarmObject> pageInfo = alarmObjectService.queryListByPage(page, alarmObject);
+    public ResponseVO<PageInfo<AlarmObject>> queryPageData(Page<AlarmObject> page, AlarmObjectVo alarmObjectVo) {
+        PageInfo<AlarmObject> pageInfo = alarmObjectService.queryListByPage(page, alarmObjectVo);
         return ResponseVO.<PageInfo<AlarmObject>>success().setData(pageInfo);
     }
 
@@ -104,6 +104,25 @@ public class AlarmObjectController extends BaseController {
         } else {
             return ResponseVO.editError();
         }
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:告警对象启用操作
+     * @param: [id, state]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("forbidden")
+    @SystemLogAfterSave(description = "告警对象启用操作")
+    public ResponseVO<Object> forbidden(Long id,Integer state) {
+        AlarmObject alarmObject = new AlarmObject();
+        alarmObject.setId(id);
+        alarmObject.setState(state);
+        int result = alarmObjectService.updateSelective(alarmObject);
+        if (result == 1) {
+            return ResponseVO.success().setMsg("操作成功");
+        }
+        return ResponseVO.error().setMsg("操作失败！");
     }
 
     /**

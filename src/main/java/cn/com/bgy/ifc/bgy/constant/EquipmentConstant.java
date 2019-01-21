@@ -192,4 +192,32 @@ public class EquipmentConstant {
             return name;
         }
     }
+
+    /**
+     * 告警方式类型
+     */
+    public enum AlarmModeType{
+        //短信通知
+        NORMAL(1, "短信通知"),
+        //语音电话
+        FAULT(2, "语音电话"),
+        //APP通知
+        FAULTS(3, "APP通知");
+
+        private Integer value;
+        private String name;
+
+        private AlarmModeType(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
 }

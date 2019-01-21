@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,21 +30,27 @@ public class FireTaskTrainServiceImpl implements FireTaskTrainService {
 
     @Override
     public int insert(FireTaskTrain fireTaskTrain) {
+        fireTaskTrain.setCreateTime(new Date());
+        fireTaskTrain.setLogicRemove(false);
         return fireTaskTrainDao.insert(fireTaskTrain);
     }
 
     @Override
     public int insertSelective(FireTaskTrain fireTaskTrain) {
+        fireTaskTrain.setCreateTime(new Date());
+        fireTaskTrain.setLogicRemove(false);
         return fireTaskTrainDao.insertSelective(fireTaskTrain);
     }
 
     @Override
     public int update(FireTaskTrain fireTaskTrain) {
+        fireTaskTrain.setCreateTime(new Date());
         return fireTaskTrainDao.update(fireTaskTrain);
     }
 
     @Override
     public int updateSelective(FireTaskTrain fireTaskTrain) {
+        fireTaskTrain.setCreateTime(new Date());
         return fireTaskTrainDao.updateSelective(fireTaskTrain);
     }
 
