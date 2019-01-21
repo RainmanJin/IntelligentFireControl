@@ -272,11 +272,10 @@
         FROM equipment_info ei
         INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
         INNER JOIN region_info ri ON rr.region_id = ri.id
-        INNER JOIN region_project rp ON rr.project_id = rp.id AND rp.region_id = ri.id
-        LEFT JOIN region_court rc ON rr.court_id = rc.id AND rc.region_id = ri.id AND rc.project_id = rp.id
-        LEFT JOIN region_street rs ON rr.street_id = rs.id AND rs.region_id = ri.id AND rs.project_id = rp.id AND rs.court_id = rc.id
-        LEFT JOIN region_building rb ON rr.building_id = rb.id AND rb.region_id = ri.id AND rb.project_id = rp.id
-        AND rb.court_id = rc.id AND rb.street_id = rs.id
+        INNER JOIN region_project rp ON rr.project_id = rp.id
+        LEFT JOIN region_court rc ON rr.court_id = rc.id
+        LEFT JOIN region_street rs ON rr.street_id = rs.id
+        LEFT JOIN region_building rb ON rr.building_id = rb.id
         LEFT JOIN equipment_type et ON ei.type_id = et.id
         INNER JOIN equipment_brand eb ON ei.brand_id = eb.id
         LEFT JOIN equipment_version ev ON ei.version_id = ev.id
@@ -303,19 +302,17 @@
             <if test="keyword != null and keyword !='' ">
                 AND (ei.`name` LIKE concat('%',#{keyword},'%') OR  ei.input_code LIKE concat('%',#{keyword},'%'))
             </if>
-
+            AND rr.logic_remove = 0
             AND ri.logic_remove = 0
+            AND rp.logic_remove = 0
             AND et.logic_remove = 0
             AND eb.`status` in (0,1)
             AND ev.logic_remove = 0
-            AND rr.logic_remove = 0
             AND ei.logic_remove = 0
             <!--
-             AND rp.logic_remove = 0
             AND rc.logic_remove = 0
             AND rs.logic_remove = 0
             AND rb.logic_remove = 0
-
             -->
          </where>
      </select>
@@ -337,17 +334,16 @@
          ei.important as important,ei.localtion_code as localtionCode,
          ei.simple_code as simpleCode,ei.api_code as apiCode,
          ei.`status` as  `status`
-         FROM equipment_info ei
-         INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id AND rr.logic_remove = 0
-         INNER JOIN region_info ri ON rr.region_id = ri.id   AND ri.logic_remove = 0
-         INNER JOIN region_project rp ON rr.project_id = rp.id AND rp.region_id = ri.id
-         LEFT JOIN region_court rc ON rr.court_id = rc.id AND rc.region_id = ri.id AND rc.project_id = rp.id
-         LEFT JOIN region_street rs ON rr.street_id = rs.id AND rs.region_id = ri.id AND rs.project_id = rp.id AND rs.court_id = rc.id
-         LEFT JOIN region_building rb ON rr.building_id = rb.id AND rb.region_id = ri.id AND rb.project_id = rp.id
-              AND rb.court_id = rc.id AND rb.street_id = rs.id
-         LEFT JOIN equipment_type et ON ei.type_id = et.id
-         INNER JOIN equipment_brand eb ON ei.brand_id = eb.id
-         LEFT JOIN equipment_version ev ON ei.version_id = ev.id
+          FROM equipment_info ei
+        INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
+        INNER JOIN region_info ri ON rr.region_id = ri.id
+        INNER JOIN region_project rp ON rr.project_id = rp.id
+        LEFT JOIN region_court rc ON rr.court_id = rc.id
+        LEFT JOIN region_street rs ON rr.street_id = rs.id
+        LEFT JOIN region_building rb ON rr.building_id = rb.id
+        LEFT JOIN equipment_type et ON ei.type_id = et.id
+        INNER JOIN equipment_brand eb ON ei.brand_id = eb.id
+        LEFT JOIN equipment_version ev ON ei.version_id = ev.id
          WHERE ei.id =  #{id,jdbcType=BIGINT}
             AND ei.logic_remove = 0
             AND rr.logic_remove = 0
