@@ -42,6 +42,12 @@ public class EquipmentTypeVo {
      * 关键字
      */
     private String keyword;
+    //一级菜单ID
+    private Long oId;
+    //一级菜单名
+    private String oName;
+    //物联网设备名
+    private String thingName;
 
     public Long getId() {
         return id;
@@ -97,5 +103,29 @@ public class EquipmentTypeVo {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public Long getoId() {
+        return oId;
+    }
+
+    public void setoId( Long oId ) {
+        this.oId = oId;
+    }
+
+    public String getThingName() {
+        return thingName;
+    }
+
+    public void setThingName( String thingName ) {
+        this.thingName = thingName;
+    }
+
+    public String getoName() {
+        return oName;
+    }
+
+    public void setoName( String oName ) {
+        this.oName = oName;
     }
 }

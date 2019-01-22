@@ -18,7 +18,7 @@ import java.util.Map;
 
 public interface EquipmentTypeService  extends  BaseService<EquipmentType> {
 
-    PageInfo<EquipmentType> queryListByPage(Page<EquipmentType> page, EquipmentTypeVo equipmentTypeVo);
+    PageInfo<EquipmentTypeVo> queryListByPage(Page<EquipmentType> page, EquipmentTypeVo equipmentTypeVo);
 
     PageInfo<Object> queryListEquipmentType(Page page, String keyword);
 
