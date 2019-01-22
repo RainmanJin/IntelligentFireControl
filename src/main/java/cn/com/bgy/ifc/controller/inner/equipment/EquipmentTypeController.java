@@ -40,9 +40,9 @@ public class EquipmentTypeController extends BaseController {
      * @Date 2018/12/21 18:13
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<EquipmentType>> queryListEquipmentType(Page<EquipmentType> page, EquipmentTypeVo equipmentTypeVo){
-        PageInfo<EquipmentType> pageInfo = equipmentTypeService.queryListByPage(page,equipmentTypeVo);
-        return   ResponseVO.<PageInfo<EquipmentType>>success().setData(pageInfo);
+    public ResponseVO<PageInfo<EquipmentTypeVo>> queryListEquipmentType(Page<EquipmentType> page, EquipmentTypeVo equipmentTypeVo){
+        PageInfo<EquipmentTypeVo> pageInfo = equipmentTypeService.queryListByPage(page,equipmentTypeVo);
+        return   ResponseVO.<PageInfo<EquipmentTypeVo>>success().setData(pageInfo);
 
     }
     /**

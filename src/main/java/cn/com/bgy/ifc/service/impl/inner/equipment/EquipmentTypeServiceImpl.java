@@ -1,20 +1,19 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
+import cn.com.bgy.ifc.bgy.utils.DbAgent;
 import cn.com.bgy.ifc.dao.equipment.EquipmentTypeDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentTypeDomain;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentTypeVo;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentTypeService;
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,10 +32,32 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     private EquipmentTypeDao equipmentTypeDao;
 
     @Override
-    public PageInfo<EquipmentType> queryListByPage(Page<EquipmentType> page, EquipmentTypeVo equipmentTypeVo) {
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<EquipmentType> list = equipmentTypeDao.queryListByParam(equipmentTypeVo);
-        PageInfo<EquipmentType> pageInfo = new PageInfo<>(list);
+    public PageInfo<EquipmentTypeVo> queryListByPage(Page<EquipmentType> page, EquipmentTypeVo equipmentTypeVo) {
+        List<EquipmentTypeVo> allType = equipmentTypeDao.queryListByParam(equipmentTypeVo);
+        List<EquipmentTypeVo> resultType=new ArrayList<>();
+        //循环结果集
+        for(int i = 0;i<allType.size();i++){
+            //判定是否有一级类型ID
+            if(allType.get(i).getoId() != null && allType.get(i).getoId()>0 ){
+                //去掉数据本身的类型名
+                allType.get(i).setName(null);
+                //有就加入集合
+                resultType.add(allType.get(i));
+                for(int j = 0;j< allType.size();j++){
+                    if(allType.get(i).getoId()==allType.get(j).getParentId()){
+                        resultType.add(allType.get(j));
+                    }
+                }
+            }
+        }
+        //根据查询出所有数据进行分页
+        int nowPage=page.getPageNum();
+        int recordCount=allType.size();
+        int pageSize=page.getPageSize();
+        PageInfo pageInfo= DbAgent.getPages(recordCount, pageSize, nowPage);
+        //分页结果集
+        List<EquipmentTypeVo> newList= DbAgent.memoryPaging(resultType,pageInfo);
+        pageInfo.setList(newList);
         return pageInfo;
     }
 

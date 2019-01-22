@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface EquipmentTypeDao extends BaseDao<EquipmentType> {
 
-    List<EquipmentType> queryListByParam(EquipmentTypeVo equipmentTypeVo);
+    List<EquipmentTypeVo> queryListByParam(EquipmentTypeVo equipmentTypeVo);
 
     List<Map<String,Object>> queryListEquipmentType(Map<String,Object> map);
 

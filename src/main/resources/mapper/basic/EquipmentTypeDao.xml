@@ -115,24 +115,28 @@
     </select>
 
     <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.equipment.EquipmentTypeVo"
-            resultMap="BaseResultMap">
+            resultType="cn.com.bgy.ifc.entity.vo.equipment.EquipmentTypeVo">
         SELECT
-        c.id AS id,
-        c.name ,
-        c.parent_id,
-        e.name AS parent_name,
-        c.status,
-        c.logic_remove,
-        c.thing_code,
-        t.name AS thing_name
-        FROM equipment_type c
-        LEFT JOIN equipment_type e ON c.parent_id = e.id
-        LEFT JOIN equipment_thing_type t ON t.value=c.thing_code
+        ot.oId AS oId,
+        ot.oName AS oName,
+        e.parent_id as parentId,
+        e.id AS id,
+        e.name AS `name`,
+        e.status AS `status`,
+        e.logic_remove AS logicRemove,
+        e.thing_code AS thingCode,
+        t.name AS thingName
+        FROM (SELECT o.id AS oId,o.name AS oName
+        FROM equipment_type o
+        WHERE  o.logic_remove = 0 AND o.parent_id
+        IN(SELECT id	FROM equipment_type o WHERE logic_remove=0 AND parent_id = 0)) AS ot
+        RIGHT JOIN equipment_type e ON e.id = ot.oId
+        LEFT JOIN equipment_thing_type t ON t.value=e.thing_code
         <where>
             <if test="keyword != null and keyword != ''">
-                AND  (c.name LIKE  concat('%',#{keyword},'%') OR t.name LIKE  concat('%',#{keyword},'%') OR e.name LIKE  concat('%',#{keyword},'%') )
+                AND  (e.name LIKE  concat('%',#{keyword},'%') OR t.name LIKE  concat('%',#{keyword},'%'))
             </if>
-            AND c.logic_remove =0
+            AND e.logic_remove = 0
         </where>
     </select>
 
