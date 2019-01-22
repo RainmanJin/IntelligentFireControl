@@ -75,7 +75,6 @@ public class Account {
     /**
      * 登陆时间
      */
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date currentTime;
     /**
      * 最后一次登陆ip
@@ -84,7 +83,6 @@ public class Account {
     /**
      * 最后一次登陆时间
      */
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
     /**
      * 用户类型

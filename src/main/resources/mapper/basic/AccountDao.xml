@@ -28,7 +28,7 @@
       telephone, job_number, user_name,
       password, password_salt, identity_number, 
       sex, regist_time, is_disable, 
-      current_ip, current_time, last_ip, 
+      current_ip, `current_time`, last_ip,
       last_time, user_type, remark,third_user_id
       )
     values ( #{organizationId,jdbcType=BIGINT}, #{departmentId,jdbcType=BIGINT},
@@ -82,7 +82,7 @@
         current_ip,
       </if>
       <if test="currentTime != null">
-        current_time,
+        `current_time`,
       </if>
       <if test="lastIp != null">
         last_ip,
@@ -173,7 +173,7 @@
       t1.sex,
       t1.identity_number  as identityNumber,
       t1.is_disable as isDisable,
-      t1.current_time as currentTime,
+      t1.`current_time` as currentTime,
       t1.regist_time as registTime,
       t1.remark as remark
       from account t1 left join  department d on d.id=t1.department_id where t1.id=#{id,jdbcType=BIGINT}
@@ -184,7 +184,7 @@
               telephone, job_number, user_name,
               password, password_salt, identity_number,
               sex, regist_time, is_disable,
-              current_ip, current_time, last_ip,
+              current_ip, `current_time`, last_ip,
               last_time, user_type, remark,third_user_id
       FROM account WHERE third_user_id=#{thirdUserId,jdbcType=BIGINT}
   </select>
@@ -194,7 +194,7 @@
               telephone, job_number, user_name,
               password, password_salt, identity_number,
               sex, regist_time, is_disable,
-              current_ip, current_time, last_ip,
+              current_ip, `current_time`, last_ip,
               last_time, user_type, remark,third_user_id
       FROM account WHERE third_user_id IS NOT NULL AND organization_id=#{organizationId,jdbcType=BIGINT}
   </select>
@@ -209,7 +209,7 @@
     t1.sex,
     t1.identity_number  as identityNumber,
     t1.is_disable as isDisable,
-    t1.current_time as currentTime,
+    t1.`current_time` as currentTime,
     t1.regist_time as registTime
     FROM
     account t1
@@ -239,7 +239,7 @@
         and t1.sex=#{sex}
       </if>
       <if test="currentTime != null ">
-        and t1.current_time=#{currentTime}
+        and t1.`current_time`=#{currentTime}
       </if>
       <if test="lastTime != null ">
         and t1.last_time=#{lastTime}
@@ -275,7 +275,7 @@
     regist_time = #{registTime,jdbcType=TIMESTAMP},
     is_disable = #{isDisable,jdbcType=INTEGER},
     current_ip= #{currentIp,jdbcType=VARCHAR},
-    current_time= #{currentTime,jdbcType=TIMESTAMP},
+    `current_time`= #{currentTime,jdbcType=TIMESTAMP},
     last_ip= #{lastIp,jdbcType=VARCHAR},
     last_time= #{lastTime,jdbcType=TIMESTAMP},
     user_type= #{userType,jdbcType=INTEGER},
@@ -320,7 +320,7 @@
         current_ip= #{currentIp,jdbcType=VARCHAR},
       </if>
       <if test="currentTime != null">
-        current_time= #{currentTime,jdbcType=TIMESTAMP},
+        `current_time`= #{currentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lastIp != null">
         last_ip= #{lastIp,jdbcType=VARCHAR},
@@ -379,7 +379,7 @@
         current_ip= #{currentIp,jdbcType=VARCHAR},
       </if>
       <if test="currentTime != null">
-        current_time= #{currentTime,jdbcType=TIMESTAMP},
+        `current_time`= #{currentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lastIp != null">
         last_ip= #{lastIp,jdbcType=VARCHAR},
@@ -412,7 +412,7 @@
       regist_time,
       is_disable,
       current_ip,
-      current_time,
+      `current_time`,
       last_ip,
       last_time,
       user_type,
@@ -455,7 +455,7 @@
     regist_time,
     is_disable,
     current_ip,
-    current_time,
+    `current_time`,
     last_ip,
     last_time,
     user_type,
