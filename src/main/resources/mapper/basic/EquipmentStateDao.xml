@@ -26,9 +26,10 @@
         <result column="water_pressure" jdbcType="REAL" property="waterPressure"/>
         <result column="valve" jdbcType="BIT" property="valve"/>
         <result column="flow" jdbcType="REAL" property="flow"/>
-        <association property="equipmentThingType" column="type" javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentThingType">
-            <id  column="equi_id" property="id"/>
-            <result  column="equi_name" property="name"/>
+        <association property="equipmentThingType" column="type"
+                     javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentThingType">
+            <id column="equi_id" property="id"/>
+            <result column="equi_name" property="name"/>
         </association>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
@@ -224,9 +225,20 @@
                 AND s.status = #{status}
             </if>
             <if test="keyword!='' and keyword!=null">
-                AND (s.name LIKE  concat('%',#{keyword},'%') OR e.name LIKE  concat('%',#{keyword},'%'))
+                AND (s.name LIKE concat('%',#{keyword},'%') OR e.name LIKE concat('%',#{keyword},'%'))
             </if>
         </where>
+    </select>
+    <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+        id, name, type,
+      status, status_desc, partition_num,
+      position_num, superior_id, online,
+      online_time_out, platform_device_id, third_device_id,
+      value_threshold_max, value_threshold_min, cap,
+      tilt, battery, hit, water_pressure,
+      valve, flow,status_changed_time,last_online_time,last_value
+        FROM equipment_state  WHERE id = #{id}
     </select>
     <update id="update" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
         UPDATE equipment_state

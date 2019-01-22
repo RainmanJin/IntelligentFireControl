@@ -379,26 +379,33 @@
          </where>
     </select>
 
-    <select id="queryMatchEquipment">
+    <select id="queryMatchEquipment"  resultMap="BaseResultMap">
         SELECT
-        id,
-        name,
-        input_code,
-        version_id,
-        brand_id,
-        type_id,
-        keep_years,
-        in_work_time,
-        important,
-        status,
-        localtion_code,
-        simple_code,
-        api_code,
-        description,
-        logic_remove
-        FROM equipment_info
-        WHERE equipment_state_id IS NULL
-        AND third_device_id IS NOT NULL
-        OR superior_id IS NOT NULL
+        e.id,
+        e.name,
+        e.input_code,
+        e.version_id,
+        e.brand_id,
+        e.type_id,
+        e.keep_years,
+        e.in_work_time,
+        e.important,
+        e.status,
+        e.localtion_code,
+        e.simple_code,
+        e.api_code,
+        e.description,
+        e third_device_id,
+        e.superior_id,
+        e.partition_num,
+        e.position_num,
+        t.thing_code,
+		t.parent_id
+        FROM equipment_info e
+        INNER  JOIN  equipment_type t ON t.id=e.type_id AND t.logic_remove=0 AND t.status=1
+        WHERE e.equipment_state_id IS NULL
+        AND e.logic_remove=0
+        AND e.third_device_id IS NOT NULL
+        OR e.superior_id IS NOT NULL
     </select>
  </mapper>

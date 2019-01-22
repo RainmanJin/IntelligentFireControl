@@ -222,9 +222,9 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
                         EquipmentState newEquipmentState=jsonObject.toJavaObject(EquipmentState.class);
                         int result = equipmentStateDao.updateSelective(newEquipmentState);
                         if (result == 1) {
-                            return ResponseVO.addSuccess();
+                            return ResponseVO.editSuccess();
                         } else {
-                            return ResponseVO.addError();
+                            return ResponseVO.editError();
                         }
                     } else {
                         return ResponseVO.error().setMsg("修改失败!错误信息：" + message);
