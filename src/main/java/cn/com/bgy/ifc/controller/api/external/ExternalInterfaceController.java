@@ -39,15 +39,16 @@ public class ExternalInterfaceController {
         if (result != null) {
             int type = result.getInteger("type");
             JSONObject jsonObject = result.getJSONObject("data");
+            int eventType=1;
+            int analogType=2;
             //事件
-            if (type == 1) {
+            if (type == eventType) {
                 equipmentEventService.insertEquipmentEvent(jsonObject);
             }
             //模拟量
-            if (type == 2) {
+            if (type == analogType) {
                 analogService.insertAnalog(jsonObject);
             }
-            System.out.println("获取数据信息" + result);
         }
     }
 }

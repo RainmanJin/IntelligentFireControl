@@ -378,4 +378,27 @@
              AND ei.logic_remove = 0
          </where>
     </select>
+
+    <select id="queryMatchEquipment">
+        SELECT
+        id,
+        name,
+        input_code,
+        version_id,
+        brand_id,
+        type_id,
+        keep_years,
+        in_work_time,
+        important,
+        status,
+        localtion_code,
+        simple_code,
+        api_code,
+        description,
+        logic_remove
+        FROM equipment_info
+        WHERE equipment_state_id IS NULL
+        AND third_device_id IS NOT NULL
+        OR superior_id IS NOT NULL
+    </select>
  </mapper>

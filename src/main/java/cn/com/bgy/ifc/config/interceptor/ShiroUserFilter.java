@@ -27,8 +27,7 @@ public class ShiroUserFilter extends UserFilter {
 
     @Override
     public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-        //Always return true if the request's method is OPTIONSif (request instanceof HttpServletRequest) {
-        if (((HttpServletRequest) request).getMethod().toUpperCase().equals("OPTIONS")) {
+        if ("OPTIONS".equals(((HttpServletRequest) request).getMethod().toUpperCase())) {
             return true;
         }
         return super.isAccessAllowed(request, response, mappedValue);

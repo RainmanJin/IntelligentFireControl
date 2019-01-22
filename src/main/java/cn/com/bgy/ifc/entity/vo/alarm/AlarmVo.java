@@ -27,6 +27,16 @@ public class AlarmVo {
     private Integer reportCount;
 
     /**
+     * 告警值
+     */
+    private Double alarmValue;
+
+    /**
+     * 参考范围
+     */
+    private String referenceRange;
+
+    /**
      * 告警时间
      */
     private Date lastTime;
@@ -51,5 +61,91 @@ public class AlarmVo {
      */
     private String deviceName;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAlarmGrade() {
+        return alarmGrade;
+    }
+
+    public void setAlarmGrade(String alarmGrade) {
+        this.alarmGrade = alarmGrade;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getReportCount() {
+        return reportCount;
+    }
+
+    public void setReportCount(Integer reportCount) {
+        this.reportCount = reportCount;
+    }
+
+    public Double getAlarmValue() {
+        return alarmValue;
+    }
+
+    public void setAlarmValue(Double alarmValue) {
+        this.alarmValue = alarmValue;
+    }
+
+    public String getReferenceRange() {
+        return referenceRange;
+    }
+
+    public void setReferenceRange(String referenceRange) {
+        this.referenceRange = referenceRange;
+    }
+
+    public Date getLastTime() {
+        return lastTime;
+    }
+
+    public void setLastTime(Date lastTime) {
+        this.lastTime = lastTime;
+    }
+
+    public String getAlarmDuration() {
+        return alarmDuration;
+    }
+
+    public void setAlarmDuration(String alarmDuration) {
+        this.alarmDuration = alarmDuration;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getComputerRoomName() {
+        return computerRoomName;
+    }
+
+    public void setComputerRoomName(String computerRoomName) {
+        this.computerRoomName = computerRoomName;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
 }

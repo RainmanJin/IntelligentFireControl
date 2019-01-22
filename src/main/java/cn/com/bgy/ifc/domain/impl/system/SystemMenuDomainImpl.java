@@ -52,7 +52,7 @@ public class SystemMenuDomainImpl implements SystemMenuDomain {
         List<SystemMenuVo> resultMenu=new ArrayList<>();
         for (SystemMenu all : allMenu) {
             //表示该节点为父节点
-            if(all.getParentId()==null||all.getParentId().equals("")){
+            if(all.getParentId()==null||"".equals(all.getParentId())){
                 SystemMenuVo systemMenuVo=new SystemMenuVo();
                 CopyUtil.copyProperties(all, systemMenuVo);
                 systemMenuVo.setOneLabelName(all.getName());

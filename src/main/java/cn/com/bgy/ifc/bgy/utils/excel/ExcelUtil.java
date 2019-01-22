@@ -32,12 +32,6 @@ public class ExcelUtil {
     private static Logger logger = LoggerFactory.getLogger(ExcelUtil.class);
 
     public static void exportExcel(String title, List<? extends BaseRowModel> list, HttpServletRequest request, HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
-        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, client_id, uuid, Authorization");
-        response.setHeader("Access-Control-Allow-Methods", "GET,POST,PATCH,PUT,OPTIONS,DELETE,HEAD");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "content-type, x-requested-with");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
         //设置响应头编码
         response.setCharacterEncoding("UTF-8");
         //区分不同的的类型的数据

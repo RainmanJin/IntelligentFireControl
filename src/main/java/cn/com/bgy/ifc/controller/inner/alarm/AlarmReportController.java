@@ -7,6 +7,7 @@ import cn.com.bgy.ifc.entity.po.alarm.AlarmCount;
 import cn.com.bgy.ifc.entity.po.equipment.Analog;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.alarm.AlarmVo;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentEventVo;
 import cn.com.bgy.ifc.service.interfaces.inner.alarm.AlarmService;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentEventService;
@@ -42,10 +43,10 @@ public class AlarmReportController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent>>
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<EquipmentEvent>> queryPage(Page<EquipmentEvent> page) {
+    public ResponseVO<PageInfo<AlarmVo>> queryPage(Page<EquipmentEvent> page) {
         Integer type= EquipmentConstant.StateEnum.CALL_POLICE.getValue();
-        PageInfo<EquipmentEvent> pageInfo = alarmService.queryListByPage(page,type);
-        return ResponseVO.<PageInfo<EquipmentEvent>>success().setData(pageInfo);
+        PageInfo<AlarmVo> pageInfo = alarmService.queryListByPage(page,type);
+        return ResponseVO.<PageInfo<AlarmVo>>success().setData(pageInfo);
     }
 
     /**

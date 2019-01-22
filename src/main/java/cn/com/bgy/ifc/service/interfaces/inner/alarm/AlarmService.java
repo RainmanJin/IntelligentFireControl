@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.service.interfaces.inner.alarm;
 
 import cn.com.bgy.ifc.entity.po.alarm.AlarmCount;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent;
+import cn.com.bgy.ifc.entity.vo.alarm.AlarmVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -19,7 +20,7 @@ public interface AlarmService {
      * @param type
      * @return
      */
-    PageInfo<EquipmentEvent> queryListByPage(Page page, Integer type);
+    PageInfo<AlarmVo> queryListByPage(Page page, Integer type);
 
     /**
      * 告警数据统计

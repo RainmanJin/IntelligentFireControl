@@ -46,6 +46,8 @@ public interface EquipmentStateService extends BaseService<EquipmentState> {
      */
     ResponseVO<Object> createEquipmentState(EquipmentState equipmentState);
 
+    ResponseVO<Object> createEquipmentBySynchro();
+
     /**
      * 设备基础信息编辑
      * @param equipmentState

@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.alarm;
 import cn.com.bgy.ifc.bgy.constant.EquipmentConstant;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.alarm.AlarmVo;
 import cn.com.bgy.ifc.service.interfaces.inner.alarm.AlarmService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -30,9 +31,9 @@ public class AlarmHiddenController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent>>
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<EquipmentEvent>> queryPage(Page<EquipmentEvent> page) {
+    public ResponseVO<PageInfo<AlarmVo>> queryPage(Page<EquipmentEvent> page) {
         Integer type= EquipmentConstant.StateEnum.EARLY_WARNING.getValue();
-        PageInfo<EquipmentEvent> pageInfo = alarmService.queryListByPage(page,type);
-        return ResponseVO.<PageInfo<EquipmentEvent>>success().setData(pageInfo);
+        PageInfo<AlarmVo> pageInfo = alarmService.queryListByPage(page,type);
+        return ResponseVO.<PageInfo<AlarmVo>>success().setData(pageInfo);
     }
 }

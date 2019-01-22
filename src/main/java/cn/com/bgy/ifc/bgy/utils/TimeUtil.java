@@ -99,6 +99,21 @@ public class TimeUtil {
         return Date.from(zdt.toInstant());
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:计算时间差
+     * @param: [startTime, endTime]
+     * @return: java.lang.String
+     */
+    public static String timeDifference(Date startTime,Date endTime){
+        long between = endTime.getTime() - startTime.getTime();
+        long day = between / (24 * 60 * 60 * 1000);
+        long hour = (between / (60 * 60 * 1000) - day * 24);
+        long min = ((between / (60 * 1000)) - day * 24 * 60 - hour * 60);
+        String timeDifference = day + "天" + hour + "小时" + min + "分";
+        return timeDifference;
+    }
+
     public enum TimeFormat {
         /**
          * 时间格式：yyyy-MM-dd

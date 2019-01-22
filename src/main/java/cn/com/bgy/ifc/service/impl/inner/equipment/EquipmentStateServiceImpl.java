@@ -193,6 +193,11 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
     }
 
     @Override
+    public ResponseVO<Object> createEquipmentBySynchro() {
+        return null;
+    }
+
+    @Override
     public ResponseVO<Object> editEquipmentState(EquipmentState equipmentState) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
