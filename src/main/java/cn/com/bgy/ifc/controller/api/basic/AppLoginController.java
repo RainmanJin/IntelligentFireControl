@@ -3,7 +3,6 @@ package cn.com.bgy.ifc.controller.api.basic;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.LoginState;
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
-import cn.com.bgy.ifc.bgy.utils.ImageGenerationUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemMenuDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemRolePowerDomain;
@@ -13,28 +12,20 @@ import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.system.LoginService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.subject.Subject;
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.awt.image.RenderedImage;
-import java.io.IOException;
-import java.util.Base64;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/system")
-public class LoginController {
+public class AppLoginController {
 
-    private static Logger logger= LoggerFactory.getLogger(LoginController.class);
+    private static Logger logger= LoggerFactory.getLogger(AppLoginController.class);
 
     @Autowired
     LoginService loginService;
