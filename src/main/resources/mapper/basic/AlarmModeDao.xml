@@ -94,9 +94,9 @@
 
   <select id="findById" parameterType="Long" resultMap="BaseResultMap">
         SELECT
-        id,region_id, project_id, user_id,
-        alarm_mode_id, contact_way, state,
-        notice_level, create_time, logic_remove
+        id, name, alarm_type,
+        state, create_time, logic_remove,
+        alarm_content
         FROM alarm_mode  WHERE id = #{id}
     </select>
 

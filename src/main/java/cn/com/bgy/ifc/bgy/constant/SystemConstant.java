@@ -78,16 +78,6 @@ public class SystemConstant {
             return name;
         }
 
-        public static List<SelectVo> getSelectList() {
-            List<SelectVo> list = new ArrayList<>();
-            for (SystemRoles systemRoles : SystemRoles.values()) {
-                SelectVo selectVo = new SelectVo();
-                selectVo.setValue(String.valueOf(systemRoles.getValue()));
-                selectVo.setName(systemRoles.getName());
-                list.add(selectVo);
-            }
-            return list;
-        }
     }
 
     /*
@@ -118,23 +108,7 @@ public class SystemConstant {
         public String getName() {
             return name;
         }
-
-        /**
-         * @author: ZhangCheng
-         * @description:枚举中的属性转换为下拉列表List
-         * @param: []
-         * @return: java.util.List<cn.com.bgy.ifc.entity.vo.basic.SelectVo>
-         */
-        public static List<SelectVo> getSelectList() {
-            List<SelectVo> list = new ArrayList<>();
-            for (EnableState enableState : EnableState.values()) {
-                SelectVo selectVo = new SelectVo();
-                selectVo.setValue(String.valueOf(enableState.getValue()));
-                selectVo.setName(enableState.getName());
-                list.add(selectVo);
-            }
-            return list;
-        }
+        
     }
 
     public enum StatusType {

@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.system;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.EnumUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.system.Account;
@@ -175,7 +176,7 @@ public class SystemMenuController extends BaseController {
      */
     @GetMapping("getMenuType")
     public ResponseVO<Object> getMenuType() {
-        List<SelectVo> list = SystemConstant.SystemMenuType.getSelectList();
+        List<SelectVo> list = EnumUtil.getSelectList(SystemConstant.SystemMenuType.class);
         return ResponseVO.success().setData(list);
     }
 }

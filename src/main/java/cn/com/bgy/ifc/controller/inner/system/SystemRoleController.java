@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.controller.inner.system;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.EnumUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemRoleDomain;
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
@@ -134,7 +135,7 @@ public class SystemRoleController  {
      */
     @GetMapping("queryRoleType")
     public ResponseVO<Object> queryRoleType() {
-        List<SelectVo> list = SystemConstant.SystemRoles.getSelectList();
+        List<SelectVo> list = EnumUtil.getSelectList(SystemConstant.SystemRoles.class);
         return ResponseVO.success().setData(list);
     }
 
