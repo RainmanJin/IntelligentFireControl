@@ -89,11 +89,11 @@ public class LoginController {
     @SystemLogAfterSave(type = SystemLogType.LOGON_LOG,description = "系统登录",login = LoginState.NOT_LOGIN)
     public ResponseVO<Object> login(HttpServletResponse response,HttpServletRequest request,String userName,String password,String identifyCode,String currentIp) {
         //获取session中的验证码
-        String code = request.getSession().getAttribute("identifyCode") == null ? "" : request.getSession().getAttribute("identifyCode").toString().toLowerCase();
+     /*   String code = request.getSession().getAttribute("identifyCode") == null ? "" : request.getSession().getAttribute("identifyCode").toString().toLowerCase();
         if (identifyCode == null || "".equals(identifyCode)) {
             //验证码不能为空
             return ResponseVO.error().setMsg("验证码不能为空");
-        } else if (identifyCode.toLowerCase().equals(code)) {
+        } else if (identifyCode.toLowerCase().equals(code)) {*/
             UsernamePasswordToken token = new UsernamePasswordToken(userName, password.toUpperCase(),false,currentIp);
             try {
                 Subject subject = SecurityUtils.getSubject();
@@ -111,9 +111,9 @@ public class LoginController {
                 logger.error(e.getMessage());
                 return ResponseVO.error().setMsg("用户名或密码错误");
             }
-        } else {
+       /* } else {
             return ResponseVO.error().setMsg("验证码错误");
-        }
+        }*/
     }
     /**
      * @description:登出
