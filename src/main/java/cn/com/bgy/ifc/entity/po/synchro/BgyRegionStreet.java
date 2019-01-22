@@ -1,9 +1,14 @@
-package cn.com.bgy.ifc.entity.po.project;
+package cn.com.bgy.ifc.entity.po.synchro;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class RegionStreet implements Serializable {
+/**
+ * @author: ZhangCheng
+ * @description:碧桂园集成平台街道数据实体,用于数据同步
+ * @date: 2019-01-22 10:57
+ **/
+public class BgyRegionStreet {
+
     /**
      * 街道ID
      */

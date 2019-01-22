@@ -1,11 +1,16 @@
-package cn.com.bgy.ifc.entity.po.project;
+package cn.com.bgy.ifc.entity.po.synchro;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class RegionStreet implements Serializable {
+/**
+ * @author: ZhangCheng
+ * @description:碧桂园集成平台苑区数据实体,用于数据同步
+ * @date: 2019-01-22 10:57
+ **/
+public class BgyRegionCourt {
+
     /**
-     * 街道ID
+     * id
      */
     private Long id;
     /**
@@ -13,23 +18,19 @@ public class RegionStreet implements Serializable {
      */
     private Long organizationId;
     /**
-     * 区域ID
+     * 区域id
      */
     private Long regionId;
     /**
-     * 项目ID
+     * 项目id
      */
     private Long projectId;
     /**
-     * 苑区ID
-     */
-    private Long courtId;
-    /**
-     * 街道名
+     * 苑区名
      */
     private String name;
     /**
-     * 创建修改时间
+     * 创建、修改时间
      */
     private Date createTime;
     /**
@@ -67,14 +68,6 @@ public class RegionStreet implements Serializable {
 
     public void setProjectId(Long projectId) {
         this.projectId = projectId;
-    }
-
-    public Long getCourtId() {
-        return courtId;
-    }
-
-    public void setCourtId(Long courtId) {
-        this.courtId = courtId;
     }
 
     public String getName() {

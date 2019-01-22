@@ -6,9 +6,11 @@ import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
+import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyMachineRoomService;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionComputerRoomService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,8 +25,11 @@ import java.util.Map;
 @RequestMapping("/equipment/computerRoom")
 public class RegionComputerRoomController extends BaseController {
 
-    @Resource
+    @Autowired
     private RegionComputerRoomService regionComputerRoomService;
+
+    @Autowired
+    private BgyMachineRoomService bgyMachineRoomService;
 
     /**
      * @Author huxin
@@ -58,7 +63,6 @@ public class RegionComputerRoomController extends BaseController {
      */
     @PostMapping("deleteData")
     @SystemLogAfterSave(description = "机房删除")
-    @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String ids){
         int count = regionComputerRoomService.deleteRegionComputerRoom(ids);
         if (count > 0) {
@@ -92,5 +96,16 @@ public class RegionComputerRoomController extends BaseController {
     public ResponseVO<Object> findById(Long id){
         Map<String,Object> map  = regionComputerRoomService.findById(id);
         return ResponseVO.<Object>success().setData(map);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:同步机房数据
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("synchroData")
+    public ResponseVO<Object> synchroData() {
+       return bgyMachineRoomService.baseObtainBgyMachineRoom(1, 1000);
     }
 }

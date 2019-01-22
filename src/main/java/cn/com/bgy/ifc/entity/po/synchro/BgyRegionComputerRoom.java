@@ -1,35 +1,57 @@
-package cn.com.bgy.ifc.entity.po.project;
+package cn.com.bgy.ifc.entity.po.synchro;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class RegionStreet implements Serializable {
+/**
+ * @author: ZhangCheng
+ * @description:碧桂园集成平台机房数据实体,用于数据同步
+ * @date: 2019-01-22 10:53
+ **/
+public class BgyRegionComputerRoom {
+
     /**
-     * 街道ID
+     * 机房id
      */
     private Long id;
     /**
-     * 平台ID
+     * 平台id
      */
     private Long organizationId;
     /**
-     * 区域ID
+     * 区域id
      */
     private Long regionId;
     /**
-     * 项目ID
+     * 项目id
      */
     private Long projectId;
     /**
-     * 苑区ID
+     * 苑区id
      */
     private Long courtId;
     /**
-     * 街道名
+     * 街道id
+     */
+    private Long streetId;
+    /**
+     * 楼栋id
+     */
+    private Long buildingId;
+    /**
+     * 机房名称
      */
     private String name;
     /**
-     * 创建修改时间
+     * 机房编码
+     */
+    private String code;
+
+    /**
+     * 地址信息描述(苑区/街道/楼栋)，各部分可能为空
+     */
+    private String description;
+    /**
+     * 创建、修改时间
      */
     private Date createTime;
     /**
@@ -77,12 +99,44 @@ public class RegionStreet implements Serializable {
         this.courtId = courtId;
     }
 
+    public Long getStreetId() {
+        return streetId;
+    }
+
+    public void setStreetId(Long streetId) {
+        this.streetId = streetId;
+    }
+
+    public Long getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(Long buildingId) {
+        this.buildingId = buildingId;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreateTime() {

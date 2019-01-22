@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.domain.impl.equipment;
 
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
+import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.bgy.utils.TimeUtil;
@@ -8,6 +9,7 @@ import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
+import cn.com.bgy.ifc.entity.po.synchro.BgyEquipmentInfo;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.BgyEquipmentVo;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
@@ -44,10 +46,12 @@ public class EquipmentInfoDomainImpl implements EquipmentInfoDomain {
     @Override
     public ResponseVO<Object> saveBgyEquipmentInfo(List<BgyEquipmentVo> list, Long orgId) {
         try {
-            List<EquipmentInfo> infoList = new ArrayList<>();
+            List<BgyEquipmentInfo> infoList = new ArrayList<>();
             for (BgyEquipmentVo bgyEquipmentVo : list) {
                 EquipmentInfo info = screeningData(bgyEquipmentVo);
-                infoList.add(info);
+                BgyEquipmentInfo newInfo=new BgyEquipmentInfo();
+                CopyUtil.copyProperties(info,newInfo);
+                infoList.add(newInfo);
             }
             int totalCount = DbUtil.insertByList("equipment_info", infoList);
             if (totalCount != infoList.size()) {

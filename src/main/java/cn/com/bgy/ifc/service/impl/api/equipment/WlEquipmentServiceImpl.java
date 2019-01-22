@@ -26,9 +26,6 @@ public class WlEquipmentServiceImpl implements WlEquipmentService {
 
     private static Logger logger = LoggerFactory.getLogger(WlEquipmentServiceImpl.class);
 
-    @Resource
-    private EquipmentStateDao equipmentStateDao;
-
     @Autowired
     private ExternalInterfaceConfigDomain externalInterfaceConfigDomain;
 

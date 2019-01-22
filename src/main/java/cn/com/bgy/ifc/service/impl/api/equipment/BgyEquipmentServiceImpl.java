@@ -133,9 +133,9 @@ public class BgyEquipmentServiceImpl implements BgyEquipmentService {
         int pageCount = ResponseUtil.getPageCount(response, pageSize);
         List<BgyEquipmentVo> oList = new ArrayList<>();
         BgyEquipmentVo bgyEquipmentVo = new BgyEquipmentVo();
-        ResponseUtil.getResultList(oList, bgyEquipmentVo, response, "data", "equipmentList");
+        ResponseUtil.getResultList(oList, bgyEquipmentVo, response, "data", "list");
         if (pageCount != 0) {
-            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyEquipmentVo, "data", "equipmentList");
+            ResponseUtil.getIncResultByPage(pageNo, pageSize, dateTime, pageCount, config, reqUrl, oList, bgyEquipmentVo, "data", "list");
         }
         int totalCount = oList.size();
         if (totalCount > 0) {

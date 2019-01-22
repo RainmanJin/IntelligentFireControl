@@ -1,30 +1,48 @@
 package cn.com.bgy.ifc.entity.po.project;
 
-import java.io.Serializable;
 import java.util.Date;
+
 /**
  * @Author huxin
  * @Description 楼栋单元信息
  * @Date 2018/12/20 9:10
  */
 public class RegionBuilding {
-    //楼栋ID
+    /**
+     * 楼栋ID
+     */
     private Long id;
-    //集成平台ID
+    /**
+     * 集成平台ID
+     */
     private Long organizationId;
-    //区域ID
+    /**
+     * 区域ID
+     */
     private Long regionId;
-    //项目ID
+    /**
+     * 项目ID
+     */
     private Long projectId;
-    //苑区ID
+    /**
+     * 苑区ID
+     */
     private Long courtId;
-    //街道ID
+    /**
+     * 街道ID
+     */
     private Long streetId;
-    //楼栋名
+    /**
+     * 楼栋名
+     */
     private String name;
-    //创建、修改时间
+    /**
+     * 创建、修改时间
+     */
     private Date createTime;
-    //逻辑删除 0存在 1 删除
+    /**
+     * 逻辑删除
+     */
     private Boolean logicRemove;
 
     public Long getId() {
