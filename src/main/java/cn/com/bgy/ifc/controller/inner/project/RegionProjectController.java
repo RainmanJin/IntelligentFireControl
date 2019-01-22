@@ -5,10 +5,14 @@ import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionProjectDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.service.interfaces.api.project.BgyProjectService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -25,6 +29,9 @@ public class RegionProjectController extends BaseController {
     @Autowired
     private RegionProjectDomain regionProjectDomain;
 
+    @Autowired
+    private BgyProjectService bgyProjectService;
+
 
     /**
      * @Author huxin
@@ -32,7 +39,6 @@ public class RegionProjectController extends BaseController {
      * @Date 2018/12/18 17:21
      */
     @GetMapping("queryPageData")
-    @ResponseBody
     public ResponseVO<PageInfo> queryListRegionProject( Page<Object> page,Long regionId , String keyword){
             PageInfo pageInfo = regionProjectDomain.queryListRegionProject(page, regionId,keyword);
             return ResponseVO.<PageInfo>success().setData(pageInfo);
@@ -105,5 +111,16 @@ public class RegionProjectController extends BaseController {
         List<Map<String,Object>> list= regionProjectDomain.queryByCodeSort(id);
 
         return ResponseVO.<Object>success().setData(list);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:同步项目信息
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("synchroData")
+    public ResponseVO<Object> synchroData(){
+        return bgyProjectService.baseObtainBgyProject(1, 500);
     }
 }

@@ -9,6 +9,7 @@ import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionInfoDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionInfo;
+import cn.com.bgy.ifc.entity.po.synchro.BgyRegionInfo;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.BgyRegionInfoVo;
@@ -136,10 +137,10 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
     @Override
     public ResponseVO<Object> saveBgyRegionInfo(List<BgyRegionInfoVo> list, Long orgId) {
         try {
-            List<RegionInfo> infoList = new ArrayList<>();
+            List<BgyRegionInfo> infoList = new ArrayList<>();
             Date createTime = new Date();
             for (BgyRegionInfoVo bgyRegionInfoVo : list) {
-                RegionInfo info = new RegionInfo();
+                BgyRegionInfo info = new BgyRegionInfo();
                 info.setId(bgyRegionInfoVo.getId());
                 info.setOrganizationId(orgId);
                 info.setCode(bgyRegionInfoVo.getCode());

@@ -47,7 +47,7 @@ public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
 
     @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步集成平台区域数据",login = LoginState.NOT_LOGIN)
     @Override
-    public ResponseVO<Object> baseObtainBgyRegionInfo(int pageNo, int pageSize, Integer orgId) {
+    public ResponseVO<Object> baseObtainBgyRegionInfo(int pageNo, int pageSize, Long orgId) {
         try {
             List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryIntegrationConfig();
             if (list.size() != 0) {
@@ -72,7 +72,7 @@ public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
     }
 
     @Override
-    public ResponseVO<Object> obtainBgyRegionInfo(int pageNo, int pageSize, ExternalInterfaceConfig config, Integer orgId) throws Exception {
+    public ResponseVO<Object> obtainBgyRegionInfo(int pageNo, int pageSize, ExternalInterfaceConfig config, Long orgId) throws Exception {
         String reqUrl = "/api/third/base/getAreaList";
         long myOrgId = config.getOrgId();
         // 请求包结构体
@@ -102,7 +102,7 @@ public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
     }
 
     @Override
-    public ResponseVO<Object> obtainBgyRegionInfoIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime, Integer orgId) throws Exception {
+    public ResponseVO<Object> obtainBgyRegionInfoIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime, Long orgId) throws Exception {
         String reqUrl = "/api/third/base/getAreaListIncrement";
         long myOrgId = config.getOrgId();
         //格式化时间字符串
@@ -110,7 +110,7 @@ public class BgyRegionInfoServiceImpl implements BgyRegionInfoService {
         // 请求包结构体
         Map<String, Object> data = new HashMap<>();
         //机构id,默认为1
-        data.put("orgId", orgId);
+        data.put("orgId", myOrgId);
         data.put("startTime", dateTime);
         data.put("pageNo", pageNo);
         data.put("pageSize", pageSize);

@@ -62,7 +62,7 @@ public class ExternalTask {
      */
     @Scheduled(cron = "0 30 01 * * ? ")
     public void obtainBgyRegionInfo() {
-        bgyRegionInfoService.baseObtainBgyRegionInfo(1, 100, 1);
+        bgyRegionInfoService.baseObtainBgyRegionInfo(1, 100, 1L);
     }
 
     /**

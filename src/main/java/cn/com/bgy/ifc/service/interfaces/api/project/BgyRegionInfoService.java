@@ -19,7 +19,7 @@ public interface BgyRegionInfoService {
      * @param orgId
      * @return
      */
-    ResponseVO<Object> baseObtainBgyRegionInfo(int pageNo, int pageSize, Integer orgId);
+    ResponseVO<Object> baseObtainBgyRegionInfo(int pageNo, int pageSize, Long orgId);
 
     /**
      * 获取集成平台区域信息（全量）
@@ -30,7 +30,7 @@ public interface BgyRegionInfoService {
      * @return
      * @throws Exception
      */
-    ResponseVO<Object> obtainBgyRegionInfo(int pageNo, int pageSize, ExternalInterfaceConfig config, Integer orgId)throws Exception;
+    ResponseVO<Object> obtainBgyRegionInfo(int pageNo, int pageSize, ExternalInterfaceConfig config, Long orgId)throws Exception;
 
     /**
      * 获取集成平台区域信息（增量）
@@ -42,5 +42,5 @@ public interface BgyRegionInfoService {
      * @return
      * @throws Exception
      */
-    ResponseVO<Object> obtainBgyRegionInfoIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime, Integer orgId)throws Exception;
+    ResponseVO<Object> obtainBgyRegionInfoIncrement(int pageNo, int pageSize, ExternalInterfaceConfig config, Date createTime, Long orgId)throws Exception;
 }

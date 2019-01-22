@@ -97,7 +97,7 @@ public class LoginController {
                 //记录登陆ip
                 account.setCurrentIp(currentIp);
                 account.setLastIp(currentIp);
-                accountDomain.updateSelective(account);
+                //accountDomain.updateSelective(account);
                 return ResponseVO.success().setData(account).setMsg("登陆成功");
 
             } catch (Exception e) {

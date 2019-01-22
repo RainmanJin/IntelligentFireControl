@@ -8,6 +8,7 @@ import cn.com.bgy.ifc.dao.project.*;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionProjectDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
+import cn.com.bgy.ifc.entity.po.synchro.BgyRegionProject;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.BgyProjectVo;
 import com.github.pagehelper.Page;
@@ -116,10 +117,10 @@ public class RegionProjectDomainImpl implements RegionProjectDomain {
     @Override
     public ResponseVO<Object> saveBgyRegionProject(List<BgyProjectVo> list, Long orgId) {
         try {
-            List<RegionProject> infoList = new ArrayList<>();
+            List<BgyRegionProject> infoList = new ArrayList<>();
             Date createTime = new Date();
             for (BgyProjectVo bgyProjectVo : list) {
-                RegionProject project = new RegionProject();
+                BgyRegionProject project = new BgyRegionProject();
                 project.setId(bgyProjectVo.getId());
                 project.setOrganizationId(orgId);
                 project.setRegionId(bgyProjectVo.getAreaId());

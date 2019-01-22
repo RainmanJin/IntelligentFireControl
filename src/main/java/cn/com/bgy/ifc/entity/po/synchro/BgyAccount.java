@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * @author: ZhangCheng
- * @description:碧桂园集成平台用户数据
+ * @description:碧桂园集成平台用户数据,用于数据同步
  * @date: 2019-01-12 14:30
  **/
 public class BgyAccount {

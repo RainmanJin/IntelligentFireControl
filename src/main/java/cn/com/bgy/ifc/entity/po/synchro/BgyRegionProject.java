@@ -1,13 +1,13 @@
-package cn.com.bgy.ifc.entity.po.project;
+package cn.com.bgy.ifc.entity.po.synchro;
 
 import java.util.Date;
 
-public class RegionProject{
-    /**
-     * @Author huxin
-     * @Description ID
-     * @Date 2018/12/18 17:53
-     */
+/**
+ * @author: ZhangCheng
+ * @description:碧桂园集成平台项目数据,用于数据同步
+ * @date: 2019-01-22 10:07
+ **/
+public class BgyRegionProject {
     /**
      * ID
      */
@@ -89,6 +89,30 @@ public class RegionProject{
         this.name = name;
     }
 
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getAscription() {
+        return ascription;
+    }
+
+    public void setAscription(String ascription) {
+        this.ascription = ascription;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -103,29 +127,5 @@ public class RegionProject{
 
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude( String longitude ) {
-        this.longitude = longitude;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude( String latitude ) {
-        this.latitude = latitude;
-    }
-
-    public String getAscription() {
-        return ascription;
-    }
-
-    public void setAscription( String ascription ) {
-        this.ascription = ascription;
     }
 }

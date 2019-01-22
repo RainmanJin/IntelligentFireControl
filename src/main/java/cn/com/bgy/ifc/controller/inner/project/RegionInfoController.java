@@ -7,6 +7,7 @@ import cn.com.bgy.ifc.entity.po.project.RegionInfo;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.project.RegionInfoVo;
+import cn.com.bgy.ifc.service.interfaces.api.project.BgyRegionInfoService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ import java.util.Map;
 @RequestMapping("/project/regionInfo")
 public class RegionInfoController extends BaseController {
 
+    @Autowired
+    private BgyRegionInfoService bgyRegionInfoService;
 
     @Autowired
     private RegionInfoDomain regionInfoDomain;
@@ -34,8 +37,6 @@ public class RegionInfoController extends BaseController {
      * @Date 2018/12/18 15:22
      */
     @GetMapping("queryPageData")
-//    @RequiresRoles(value={SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_ADMIN,SystemConstant.SYSTEM_ROLES_ORG_USER,
-//            SystemConstant.SYSTEM_ROLES_AREA_ADMIN,SystemConstant.SYSTEM_ROLES_AREA_USRE},logical = Logical.OR)
     public ResponseVO<PageInfo> queryListRegionInfo( Page<Object> page, String keyword){
         Account user=this.getUser();
         PageInfo pageInfo = regionInfoDomain.queryListRegionInfo(page, keyword,user);
@@ -112,4 +113,18 @@ public class RegionInfoController extends BaseController {
         List<Map<String,Object>> list= regionInfoDomain.queryByCodeSort(user);
         return ResponseVO.success().setData(list);
     }
-}
+
+    /**
+     * @author: ZhangCheng
+     * @description:同步区域信息
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("synchroData")
+    public ResponseVO<Object> synchroData(){
+        Account user=this.getUser();
+        Long orgId=user.getOrganizationId();
+        return bgyRegionInfoService.baseObtainBgyRegionInfo(1, 100, orgId);
+    }
+
+    }
