@@ -3,7 +3,6 @@ package cn.com.bgy.ifc.controller.inner.maintenance;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.javassist.expr.NewArray;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,7 +36,7 @@ import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceContractFileVo;
 public class MaintenanceContractFileController extends BaseController{
 
 	@Autowired
-	private MaintenanceContractFileDomain domain;
+	private MaintenanceContractFileDomain maintenanceContractFileDomain;
 	/**
      * 分页查询
      *
@@ -48,7 +46,7 @@ public class MaintenanceContractFileController extends BaseController{
     @ResponseBody
     public ResponseVO<Object> queryPageList(Page<MaintenanceContractFile> page, MaintenanceContractFile po) {
         //关键只查询暂时默认为公司名称的模糊查询
-        PageInfo<MaintenanceContractFile> pageInfo = domain.queryListByPage(page, po);
+        PageInfo<MaintenanceContractFile> pageInfo = maintenanceContractFileDomain.queryListByPage(page, po);
         return ResponseVO.success().setData(pageInfo);
     }
     /**
@@ -58,7 +56,7 @@ public class MaintenanceContractFileController extends BaseController{
     @GetMapping("queryAllList")
     @ResponseBody
     public ResponseVO<Object> queryAllList() {
-        return ResponseVO.success().setData(domain.queryListByParam(null));
+        return ResponseVO.success().setData(maintenanceContractFileDomain.queryListByParam(null));
     }
     /**
      * @Author lvbingjian
@@ -78,7 +76,7 @@ public class MaintenanceContractFileController extends BaseController{
         //默认是false删除后设为true
         vo.setLogicRemove(false);
         CopyUtil.copyProperties(vo, MaintenanceContractFile);
-        int count = domain.insert(MaintenanceContractFile);
+        int count = maintenanceContractFileDomain.insert(MaintenanceContractFile);
         if (count == 1) {
             return ResponseVO.success().setMsg("添加成功！");
         }
@@ -95,7 +93,7 @@ public class MaintenanceContractFileController extends BaseController{
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenanceContractFile po, String token){
         int resout = 1;
-        int count = domain.update(po);
+        int count = maintenanceContractFileDomain.update(po);
         if (count == resout) {
             return ResponseVO.success().setMsg("修改成功");
         }
@@ -113,7 +111,7 @@ public class MaintenanceContractFileController extends BaseController{
     @GetMapping("queryById")
     @ResponseBody
     public ResponseVO<MaintenanceContractFile> queryById( long id, String token) {
-        MaintenanceContractFile bean = domain.findById(id);
+        MaintenanceContractFile bean = maintenanceContractFileDomain.findById(id);
 
         return ResponseVO.<MaintenanceContractFile>success().setData(bean);
     }
@@ -133,7 +131,7 @@ public class MaintenanceContractFileController extends BaseController{
     		for (int i = 0; i < ids.length; i++) {
     			list.add(Long.valueOf(ids[i]));
 			}
-    		count = domain.deleteBatch(list);
+    		count = maintenanceContractFileDomain.deleteBatch(list);
     	}else {
     		count = 0;
     	}
