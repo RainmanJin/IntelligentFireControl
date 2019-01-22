@@ -48,10 +48,26 @@ public class InterfaceAccountController extends BaseController {
         interfaceaccount.setCreateTime(new Date());
         interfaceaccount.setLogicRemove(false);
         interfaceaccount.setState(2L);
-        interfaceaccount.setApiuId(UUID.randomUUID().toString());
-        interfaceaccount.setApiSecret(StringUtil.randomString(20));
+        //interfaceaccount.setApiuId(UUID.randomUUID().toString());
+        //interfaceaccount.setApiSecret(StringUtil.randomString(20));
         interfaceAccountDomain.insert(interfaceaccount);
         return ResponseVO.success();
+
+    }
+    /**
+     * @description:获取ApiSecret
+     * @param: [interfaceaccountVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @auther: chenlie
+     * @date: 2019/1/22 17:54
+     */
+    @GetMapping("createApiSecret")
+    public ResponseVO<Object> createApiSecret() {
+
+        InterfaceAccount interfaceaccount = new InterfaceAccount();
+        interfaceaccount.setApiuId(UUID.randomUUID().toString());
+        interfaceaccount.setApiSecret(StringUtil.randomString(20));
+        return ResponseVO.success().setData(interfaceaccount);
 
     }
 

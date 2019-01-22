@@ -9,6 +9,26 @@ public class GroupsVo {
 
     private Boolean logicRemove;
 
+    private String regionIds;
+
+    private String projectIds;
+
+    public String getRegionIds() {
+        return regionIds;
+    }
+
+    public void setRegionIds(String regionIds) {
+        this.regionIds = regionIds;
+    }
+
+    public String getProjectIds() {
+        return projectIds;
+    }
+
+    public void setProjectIds(String projectIds) {
+        this.projectIds = projectIds;
+    }
+
     public Boolean getLogicRemove() {
         return logicRemove;
     }

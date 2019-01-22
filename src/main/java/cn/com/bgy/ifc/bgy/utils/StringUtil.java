@@ -75,16 +75,23 @@ public class StringUtil {
         }
         return pybf.toString().replaceAll("\\W", "").trim().substring(0,1);
     }
-
+    /**
+     * @description:产生固定长度随机字符串
+     * @param: [length]
+     * @return: java.lang.String
+     * @auther: chenlie
+     * @date: 2019/1/22 18:11
+     */
    public static String randomString(int length){
-       String str="QWERTYUIOPASDFGHJKLZXCVBNM";
+
+       String str="QWERTYUIOPASDFGHJKLZXCVBNM1234567890abcdefghijklmnopqrstuvwxyz";
        //由Random生成随机数
        Random random=new Random();
        StringBuffer sb=new StringBuffer();
        //长度为几就循环几次
        for(int i=0; i<length; ++i){
            //产生0-61的数字
-           int number=random.nextInt(26);
+           int number=random.nextInt(62);
            //将产生的数字通过length次承载到sb中
            sb.append(str.charAt(number));
        }

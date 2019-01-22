@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.controller.inner.maintenance;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.excel.ExcelUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
@@ -10,8 +11,10 @@ import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContractFile;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceContractExcelModel;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceContractVo;
 
+import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -22,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -231,30 +235,27 @@ public class MaintenanceContractController extends BaseController {
     }
     @PostMapping("importContract")
     @ResponseBody
-    public Object importContract(MultipartFile file,Long id) {
-
+    public Object singleFileUpload(MultipartFile file) {
         if (Objects.isNull(file) || file.isEmpty()) {
             return "文件为空，请重新上传";
         }
 
         try {
-            byte[] bytes = file.getBytes();
-            String pathStr="D:upload" + File.separator + UUID.randomUUID()+ file.getOriginalFilename().split(".")[file.getOriginalFilename().split(".").length-1];
-            Path path = Paths.get(pathStr);
-            //如果没有files文件夹，则创建
-            if (!Files.isWritable(path)) {
-                Files.createDirectories(Paths.get("D:upload" + File.separator));
-            }
+            List<Object> list = ExcelUtil.readExcelWithModel(file.getInputStream(), MaintenanceContractExcelModel.class, ExcelTypeEnum.XLSX);
+            for (Object obj:list){
+                MaintenanceContractExcelModel model=(MaintenanceContractExcelModel)obj;
 
-            MaintenanceContractFile t=new MaintenanceContractFile();
-            t.setContractId(id);
-            t.setCreateTime(new Date());
-            t.setDownload(false);
-            t.setFileName(file.getOriginalFilename());
-            t.setFileUrl(pathStr);
-            maintenanceContractFileDomain.insert(t);
-            //文件写入指定路径
-            Files.write(path, bytes);
+                MaintenanceContract record=new MaintenanceContract();
+               /* record.setpId();
+                record.setrId();
+                record.setContractNo(model.getContractNum());
+                record.setCompanyId();
+                record.setContactPhone(model.getTelephone());
+                record.setContractName(model.getName());
+                record.setStartDate(model.getStartDay());
+                record.setEndDate(model.getEndDay());*/
+                maintenanceContractDomain.addMaintenanceContractInfo(record);
+            }
             return "文件上传成功";
         } catch (IOException e) {
             e.printStackTrace();

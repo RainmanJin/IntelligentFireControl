@@ -12,4 +12,6 @@ import java.util.Map;
 public interface GroupsDomain extends BaseDomain<Groups> {
 
     PageInfo<Groups> queryListByPage(Page<Groups> page,Groups groups);
+
+    int insertWithRegionAndProject(Groups groups,List<Long> idList);
 }

@@ -14,6 +14,7 @@ import cn.com.bgy.ifc.service.interfaces.inner.project.RegionBuildingService;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionCourtService;
 import cn.com.bgy.ifc.service.interfaces.inner.project.RegionStreetService;
 import com.alibaba.fastjson.JSON;
+import org.apache.http.HttpRequest;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -52,7 +54,10 @@ public class UploadDownController extends BaseController{
 
     @PostMapping("upload")
     @ResponseBody
-    public Object singleFileUpload(MultipartFile file) {
+    public Object singleFileUpload(MultipartFile file, HttpServletRequest request) {
+
+        String root = request.getRealPath("/upload");
+        System.out.println("=================path="+root);
         logger.debug("传入的文件参数：{}", JSON.toJSONString(file, true));
         if (Objects.isNull(file) || file.isEmpty()) {
             logger.error("文件为空");

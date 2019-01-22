@@ -40,10 +40,11 @@
   <select id="queryListMapByParam" parameterType="cn.com.bgy.ifc.entity.po.system.UserGroup" resultType="java.util.Map" >
           select a.organization_id as organizationId,
                   a.department_id  as departmentId,
+                  d.name as departmentName,
                   a.telephone,
                   a.job_number  as jobNumber,
                   a.user_name as userName,
-                  a.identity_number as identity_number,
+                  a.identity_number as identityNumber,
                   a.sex,
                   a.regist_time  as registTime,
                   a.is_disable as isDisable,
@@ -56,7 +57,7 @@
                   g.name,
                   g.type
             from user_group ug LEFT JOIN account a on ug.user_id=a.id LEFT JOIN
-                          groups g on g.id=ug.group_id
+                          groups g on g.id=ug.group_id  left join department d on d.id=a.department_id
                   <trim prefix=" where " prefixOverrides=" and ">
                     <if test="id != null">
                      and  ug.id=#{id,jdbcType=BIGINT}
@@ -67,6 +68,19 @@
                     <if test="userId != null">
                       and ug.userId= #{userId,jdbcType=BIGINT}
                     </if>
+                      <if test="keyWords != null and keyWords !=''">
+                          and (
+                          d.name like  CONCAT('%',#{keyWords},'%')
+                          or
+                          a.telephone like  CONCAT('%',#{keyWords},'%')
+                          or
+                          a.identity_number like  CONCAT('%',#{keyWords},'%')
+                          or
+                          a.job_number like  CONCAT('%',#{keyWords},'%')
+                          or
+                          a.user_name like  CONCAT('%',#{keyWords},'%')
+                          )
+                      </if>
                   </trim>
 
   </select>

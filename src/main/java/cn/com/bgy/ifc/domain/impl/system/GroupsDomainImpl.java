@@ -1,13 +1,16 @@
 package cn.com.bgy.ifc.domain.impl.system;
 
 import cn.com.bgy.ifc.dao.system.GroupsDao;
+import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.system.GroupsDomain;
 import cn.com.bgy.ifc.entity.po.system.Groups;
+import cn.com.bgy.ifc.entity.po.system.UserGroupItems;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,6 +20,8 @@ import java.util.Map;
 public class GroupsDomainImpl implements GroupsDomain {
     @Resource
     private GroupsDao groupsDao;
+    @Resource
+    private UserGroupItemsDao userGroupItemsDao;
     @Override
     public List<Groups> queryListByParam(Groups t) {
         return groupsDao.queryListByParam(t);
@@ -58,6 +63,32 @@ public class GroupsDomainImpl implements GroupsDomain {
 
         List<Groups> list=groupsDao.queryListByParam(groups);
         return new PageInfo<Groups>(list);
+    }
+
+    @Override
+    @Transactional
+    public int insertWithRegionAndProject(Groups groups, List<Long> idList) {
+        int res=groupsDao.insert(groups);
+        if(groups.getType()==1){
+           if(idList !=null){
+               for(Long id:idList){
+                   UserGroupItems record=new UserGroupItems();
+                   record.setRegionId(id);
+                   record.setGroupId(groups.getId());
+                   userGroupItemsDao.insertSelective(record);
+               }
+           }
+        }else if(groups.getType()==2){
+            if(idList !=null){
+                for(Long id:idList){
+                    UserGroupItems record=new UserGroupItems();
+                    record.setProjectId(id);
+                    record.setGroupId(groups.getId());
+                    userGroupItemsDao.insertSelective(record);
+                }
+            }
+        }
+        return res;
     }
 
 

@@ -8,13 +8,16 @@
     <result column="region_id" jdbcType="BIGINT" property="regionId"/>
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
   </resultMap>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.Groups">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.Groups" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into groups (id, name, type,logic_remove,region_id
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},#{logicRemove,jdbcType=BIT}
       )
+      <selectKey keyColumn="id" keyProperty="id" resultType="long" order="AFTER">
+        SELECT LAST_INSERT_ID()
+      </selectKey>
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.Groups">
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.Groups" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into groups
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -50,6 +53,9 @@
         #{regionId,jdbcType=BIGINT}
       </if>
     </trim>
+    <selectKey keyColumn="id" keyProperty="id" resultType="long" order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
   </insert>
   <update id="deleteBatch" parameterType="java.util.List" >
     update groups  g  set g.logic_remove=1 where g.id in

@@ -2,26 +2,20 @@ package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
-import cn.com.bgy.ifc.dao.system.GroupsDao;
 import cn.com.bgy.ifc.domain.interfaces.system.GroupsDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.UserGroupDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.UserGroupItemsDomain;
 import cn.com.bgy.ifc.entity.po.project.Project;
 import cn.com.bgy.ifc.entity.po.project.RegionInfo;
-import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.Groups;
 import cn.com.bgy.ifc.entity.po.system.UserGroup;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.GroupsVo;
-import cn.com.bgy.ifc.entity.vo.system.UserGroupVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,17 +37,20 @@ public class UserGroupController {
     private UserGroupItemsDomain userGroupItemsDomain;
 
 
-    @PostMapping("add")
+    @PostMapping("createData")
     @ResponseBody
-    public   ResponseVO<Object>  add(@Validated GroupsVo groupsVo, BindingResult error){
+    public   ResponseVO<Object>  add(GroupsVo groupsVo, BindingResult error){
         try {
             //todo userVO 做参数校检
-            if(error.hasErrors()){
-                return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
-            }
             Groups groups= new Groups();
             CopyUtil.copyProperties(groupsVo,groups);
-            groupsDomain.insert(groups);
+            List<Long> list=null;
+            if(groupsVo.getType()==1){
+                list=ListUtil.getListId(groupsVo.getRegionIds());
+            }else if(groupsVo.getType()==2){
+                list=ListUtil.getListId(groupsVo.getProjectIds());
+            }
+            groupsDomain.insertWithRegionAndProject(groups,list);
             return ResponseVO.success();
         } catch (Exception e) {
             e.printStackTrace();
