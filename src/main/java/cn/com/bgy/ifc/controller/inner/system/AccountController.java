@@ -34,9 +34,16 @@ public class AccountController extends BaseController {
 
     @Autowired
     private UserApiService userApiService;
-
+    /**
+     * @description:新增用户
+     * @param: [page, accountVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @auther: chenlie
+     * @date: 2019/1/22 9:44
+     */
     @PostMapping("add")
     public   ResponseVO<Object>  add(Page<Account> page,@Validated AccountVo accountVo, BindingResult error){
+
             Account account= new Account();
             CopyUtil.copyProperties(accountVo,account);
             account.setOrganizationId(this.getUser().getOrganizationId());
@@ -47,6 +54,13 @@ public class AccountController extends BaseController {
             return ResponseVO.success();
 
     }
+    /**
+     * @description:
+     * @param: [page, account]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @auther: chenlie
+     * @date: 2019/1/22 9:39
+     */
     @GetMapping("searchPage")
     public ResponseVO<Object> searchPage(Page<Account> page, Account account){ Account user = this.getUser();
         PageInfo<Account> pageInfo=accountDomain.searchByPage(page,account);
@@ -54,9 +68,16 @@ public class AccountController extends BaseController {
         return ResponseVO.success().setData(pageInfo);
     }
 
-
+    /**
+     * @description:通过id获取用户
+     * @param: [id]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @auther: chenlie
+     * @date: 2019/1/22 9:38
+     */
     @GetMapping("findById")
     public ResponseVO<Object> findById(Long id){
+
           Account user=accountDomain.findById(id);
         return ResponseVO.success().setData(user);
     }

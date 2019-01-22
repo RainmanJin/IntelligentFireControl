@@ -49,7 +49,7 @@ public class InterfaceAccountController extends BaseController {
         interfaceaccount.setLogicRemove(false);
         interfaceaccount.setState(2L);
         interfaceaccount.setApiuId(UUID.randomUUID().toString());
-        interfaceaccount.setApiSecret(StringUtil.randomString(16));
+        interfaceaccount.setApiSecret(StringUtil.randomString(20));
         interfaceAccountDomain.insert(interfaceaccount);
         return ResponseVO.success();
 

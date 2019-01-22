@@ -1,4 +1,4 @@
-package cn.com.bgy.ifc.controller.inner.system;
+package cn.com.bgy.ifc.controller.api.basic;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.LoginState;
@@ -31,7 +31,7 @@ import java.util.Base64;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/system/")
+@RequestMapping("/system")
 public class LoginController {
 
     private static Logger logger= LoggerFactory.getLogger(LoginController.class);
@@ -51,50 +51,23 @@ public class LoginController {
     @Autowired
     SystemRolePowerDomain systemRolePowerDomain;
 
-
-    @GetMapping("/index")
-    public String userPage(){
-        return "/index";
-    }
-
     /**
-     * @description:
-     * @param: [request, response, session]
-     * @return: \
+     * @description:app自动登陆
+     * @param: [response, request, userName, currentIp]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      * @auther: chenlie
-     * @date: 2019/1/22 9:42
+     * @date: 2019/1/22 9:58
      */
-    @GetMapping("/getImage")
-    public String getImage(HttpServletRequest request,HttpServletResponse response,HttpSession session ) throws IOException {
+    @PostMapping ("/appLogin")
+    @SystemLogAfterSave(type = SystemLogType.LOGON_LOG,description = "app登录",login = LoginState.NOT_LOGIN)
+    public ResponseVO<Object> login(HttpServletResponse response,HttpServletRequest request,String userName,String currentIp) {
 
-        Map<String, Object> map = ImageGenerationUtil.generateCodeAndPic();
-        //验证数字
-        session.setAttribute("identifyCode",map.get("code"));
-       // response.setHeader("Authorization",session.getId());
-        ByteArrayOutputStream out=new ByteArrayOutputStream();
-        ImageIO.write((RenderedImage) map.get("codePic"), "png",out);
-        byte[] imageBase64=Base64.getEncoder().encode(out.toByteArray());
-        return "data:image/png;base64,"+new String(imageBase64);
-    }
-
-    /**
-     * 登录
-     * @param request
-     * @param userName
-     * @param password
-     * @param identifyCode
-     * @return
-     */
-    @PostMapping ("/login")
-    @SystemLogAfterSave(type = SystemLogType.LOGON_LOG,description = "系统登录",login = LoginState.NOT_LOGIN)
-    public ResponseVO<Object> login(HttpServletResponse response,HttpServletRequest request,String userName,String password,String identifyCode,String currentIp) {
         //获取session中的验证码
-        String code = request.getSession().getAttribute("identifyCode") == null ? "" : request.getSession().getAttribute("identifyCode").toString().toLowerCase();
-        if (identifyCode == null || "".equals(identifyCode)) {
-            //验证码不能为空
-            return ResponseVO.error().setMsg("验证码不能为空");
-        } else if (identifyCode.toLowerCase().equals(code)) {
-            UsernamePasswordToken token = new UsernamePasswordToken(userName, password.toUpperCase(),false,currentIp);
+            Account user=accountDomain.findAccountByUserName(userName);
+            if(user==null){
+                return ResponseVO.error().setMsg("用户不存在");
+            }
+            UsernamePasswordToken token = new UsernamePasswordToken(userName, user.getPassword().toUpperCase(),false,currentIp);
             try {
                 Subject subject = SecurityUtils.getSubject();
                 subject.login(token);
@@ -111,27 +84,6 @@ public class LoginController {
                 logger.error(e.getMessage());
                 return ResponseVO.error().setMsg("用户名或密码错误");
             }
-        } else {
-            return ResponseVO.error().setMsg("验证码错误");
-        }
-    }
-    /**
-     * @description:登出
-     * @param: []
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO
-     * @auther: chenlie
-     * @date: 2019/1/22 9:42
-     */
-    @RequiresUser
-    @RequestMapping("/logout")
-    @ResponseBody
-    public ResponseVO logout() {
-
-        Subject subject = SecurityUtils.getSubject();//取出当前验证主体
-        if (subject != null) {
-            subject.logout();//不为空，执行一次logout的操作，将session全部清空
-        }
-        return ResponseVO.success().setMsg("退出成功");
     }
 
 }
