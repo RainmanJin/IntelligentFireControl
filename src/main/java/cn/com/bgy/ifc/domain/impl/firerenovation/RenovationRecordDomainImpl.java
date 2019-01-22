@@ -100,7 +100,7 @@ public class RenovationRecordDomainImpl implements RenovationRecordDomain {
                 //根据备案ID查询是否存在动火证申请情况数据
                 FireApplication fireApplication = fireApplicationDao.queryByRecordId(renovationRecord.getId());
                 //动火证申请情况存在
-                if(fireApplication.getId()!=null ||fireApplication.getId()>0){
+                if(fireApplication != null){
                     List<Long> list =new ArrayList<>();
                     list.add(fireApplication.getId());
                     //删除
@@ -112,7 +112,7 @@ public class RenovationRecordDomainImpl implements RenovationRecordDomain {
                 //根据备案ID查询是否存在消防设施保护情况
                 FacilityProtection facilityProtection = facilityProtectionDao.queryByRecordId(renovationRecord.getId());
                 //存在
-                if(facilityProtection.getId()!=null ||facilityProtection.getId()>0){
+                if(facilityProtection != null){
                     List<Long> list =new ArrayList<>();
                     list.add(facilityProtection.getId());
                     facilityProtectionDao.deleteBatch(list);

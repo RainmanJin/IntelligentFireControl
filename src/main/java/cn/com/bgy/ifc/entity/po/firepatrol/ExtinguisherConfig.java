@@ -12,7 +12,7 @@ public class ExtinguisherConfig {
     //装修备案ID
     private Long recordId;
     //灭火器类型
-    private Integer type;
+    private String type;
     //购买时间
     private Date buyingTime;
     //设置位置
@@ -39,11 +39,11 @@ public class ExtinguisherConfig {
         this.id = id;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType( Integer type ) {
+    public void setType( String type ) {
         this.type = type;
     }
 

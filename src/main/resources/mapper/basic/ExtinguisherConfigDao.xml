@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.ExtinguisherConfig">
     <result column="id" jdbcType="BIGINT" property="id" />
       <result column="record_id" jdbcType="BIGINT" property="recordId" />
-    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="buying_time" jdbcType="TIMESTAMP" property="buyingTime" />
     <result column="setting_position" jdbcType="VARCHAR" property="settingPosition" />
     <result column="number" jdbcType="INTEGER" property="number" />
@@ -20,7 +20,7 @@
       setting_position, number, person, 
       situation, create_time, logic_remove,
       other)
-    values (#{id,jdbcType=BIGINT}, #{recordId,jdbcType=BIGINT},#{type,jdbcType=INTEGER}, #{buyingTime,jdbcType=TIMESTAMP},
+    values (#{id,jdbcType=BIGINT}, #{recordId,jdbcType=BIGINT},#{type,jdbcType=VARCHAR}, #{buyingTime,jdbcType=TIMESTAMP},
       #{settingPosition,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, #{person,jdbcType=VARCHAR}, 
       #{situation,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT},
       #{other,jdbcType=LONGVARCHAR})
@@ -70,7 +70,7 @@
             #{recordId,jdbcType=BIGINT},
         </if>
       <if test="type != null">
-        #{type,jdbcType=INTEGER},
+        #{type,jdbcType=VARCHAR},
       </if>
       <if test="buyingTime != null">
         #{buyingTime,jdbcType=TIMESTAMP},
@@ -108,7 +108,7 @@
          UPDATE   fire_extinguisher_config
          <set>
              <if test="type != null">
-                type= #{type,jdbcType=INTEGER},
+                type= #{type,jdbcType=VARCHAR},
              </if>
              <if test="buyingTime != null">
                  buying_time = #{buyingTime,jdbcType=TIMESTAMP},
