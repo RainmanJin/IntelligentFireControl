@@ -5,8 +5,10 @@ import cn.com.bgy.ifc.bgy.constant.LoginState;
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.*;
+import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
 import cn.com.bgy.ifc.dao.equipment.EquipmentStateDao;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceConfigDomain;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
@@ -40,6 +42,9 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
 
     @Resource
     private EquipmentStateDao equipmentStateDao;
+
+    @Resource
+    private EquipmentInfoDao equipmentInfoDao;
 
     @Autowired
     private ExternalInterfaceConfigDomain externalInterfaceConfigDomain;
@@ -194,7 +199,22 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
 
     @Override
     public ResponseVO<Object> createEquipmentBySynchro() {
-        return null;
+        List<EquipmentInfo> list=equipmentInfoDao.queryMatchEquipment();
+        int count=0;
+        for(EquipmentInfo info:list){
+            EquipmentState equipmentState=new EquipmentState();
+            //单条匹配成功
+            ResponseVO<Object> response=createEquipmentState(equipmentState);
+            if(response.getCode().equals(ResponseVO.SUCCESS)){
+                //info.sett
+                count++;
+            }
+        }
+        if(count>0){
+            return ResponseVO.success().setMsg("批量匹配物联设备成功，成功条数："+count);
+        }else{
+            return ResponseVO.error().setMsg("批量匹配物联设备失败!");
+        }
     }
 
     @Override

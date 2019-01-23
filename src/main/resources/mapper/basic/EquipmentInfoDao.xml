@@ -380,7 +380,7 @@
     </select>
 
     <select id="queryMatchEquipment"  resultMap="BaseResultMap">
-        SELECT
+         SELECT
         e.id,
         e.name,
         e.input_code,
@@ -395,16 +395,16 @@
         e.simple_code,
         e.api_code,
         e.description,
-        e third_device_id,
+        e.third_device_id,
         e.superior_id,
         e.partition_num,
         e.position_num,
-        t.thing_code,
-		t.parent_id
+        t.thing_code
         FROM equipment_info e
         INNER  JOIN  equipment_type t ON t.id=e.type_id AND t.logic_remove=0 AND t.status=1
+		LEFT JOIN equipment_info i ON i.id=e.superior_id
         WHERE e.equipment_state_id IS NULL
-        AND e.logic_remove=0
+        AND e.logic_remove=0 AND e.status=1
         AND e.third_device_id IS NOT NULL
         OR e.superior_id IS NOT NULL
     </select>

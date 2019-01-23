@@ -26,6 +26,9 @@
         <result column="water_pressure" jdbcType="REAL" property="waterPressure"/>
         <result column="valve" jdbcType="BIT" property="valve"/>
         <result column="flow" jdbcType="REAL" property="flow"/>
+        <result column="grade" jdbcType="INTEGER" property="grade"/>
+        <result column="alarm_threshold_max" jdbcType="REAL" property="alarmThresholdMax"/>
+        <result column="alarm_threshold_min" jdbcType="REAL" property="alarmThresholdMin"/>
         <association property="equipmentThingType" column="type"
                      javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentThingType">
             <id column="equi_id" property="id"/>
@@ -39,14 +42,15 @@
       online_time_out, platform_device_id, third_device_id, 
       value_threshold_max, value_threshold_min, cap, 
       tilt, battery, hit, water_pressure, 
-      valve, flow,status_changed_time,last_online_time,last_value)
+      valve, flow,status_changed_time,last_online_time,last_value,grade,alarm_threshold_max,alarm_threshold_min)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{statusDesc,jdbcType=VARCHAR}, #{partitionNum,jdbcType=INTEGER}, 
       #{positionNum,jdbcType=INTEGER}, #{superiorId,jdbcType=INTEGER}, #{online,jdbcType=BIT}, 
       #{onlineTimeOut,jdbcType=INTEGER}, #{platformDeviceId,jdbcType=VARCHAR}, #{thirdDeviceId,jdbcType=VARCHAR}, 
       #{valueThresholdMax,jdbcType=REAL}, #{valueThresholdMin,jdbcType=REAL}, #{cap,jdbcType=BIT}, 
       #{tilt,jdbcType=BIT}, #{battery,jdbcType=INTEGER}, #{hit,jdbcType=BIT}, #{waterPressure,jdbcType=REAL}, 
-      #{valve,jdbcType=BIT}, #{flow,jdbcType=REAL}, #{statusChangedTime,jdbcType=TIMESTAMP}, #{lastOnlineTime,jdbcType=TIMESTAMP},#{lastValue,jdbcType=REAL})
+      #{valve,jdbcType=BIT}, #{flow,jdbcType=REAL}, #{statusChangedTime,jdbcType=TIMESTAMP}, #{lastOnlineTime,jdbcType=TIMESTAMP},#{lastValue,jdbcType=REAL}
+      , #{grade,jdbcType=INTEGER}, #{alarmThresholdMax,jdbcType=REAL}, #{alarmThresholdMin,jdbcType=REAL})
   </insert>
     <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
         insert into equipment_state
@@ -123,6 +127,15 @@
             <if test="lastValue != null">
                 last_value,
             </if>
+            <if test="grade != null">
+                grade,
+            </if>
+            <if test="alarmThresholdMax != null">
+                alarm_threshold_max,
+            </if>
+            <if test="alarmThresholdMin != null">
+                alarm_threshold_min,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -197,6 +210,15 @@
             <if test="lastValue != null">
                 #{lastValue,jdbcType=REAL},
             </if>
+            <if test="grade != null">
+                #{grade,jdbcType=INTEGER},
+            </if>
+            <if test="alarmThresholdMax != null">
+                #{alarmThresholdMax,jdbcType=REAL},
+            </if>
+            <if test="alarmThresholdMin != null">
+                #{alarmThresholdMin,jdbcType=REAL},
+            </if>
         </trim>
     </insert>
 
@@ -209,7 +231,8 @@
         s.online_time_out, s.platform_device_id, s.third_device_id,
         s.value_threshold_max, s.value_threshold_min, s.cap,
         s.tilt, s.battery, s.hit, s.water_pressure,
-        s.valve, s.flow,status_changed_time,last_online_time,last_value,
+        s.valve, s.flow,s.status_changed_time,s.last_online_time,s.last_value,
+        s.grade,s.alarm_threshold_max,s.alarm_threshold_min,
         e.id AS equi_id,
         e.name AS equi_name
         FROM equipment_state s
@@ -224,6 +247,9 @@
             <if test="status != null and status != ''">
                 AND s.status = #{status}
             </if>
+            <if test="grade != null and grade != ''">
+                AND s.grade = #{grade}
+            </if>
             <if test="keyword!='' and keyword!=null">
                 AND (s.name LIKE concat('%',#{keyword},'%') OR e.name LIKE concat('%',#{keyword},'%'))
             </if>
@@ -237,7 +263,8 @@
       online_time_out, platform_device_id, third_device_id,
       value_threshold_max, value_threshold_min, cap,
       tilt, battery, hit, water_pressure,
-      valve, flow,status_changed_time,last_online_time,last_value
+      valve, flow,status_changed_time,last_online_time,last_value,
+      grade,alarm_threshold_max,alarm_threshold_min
         FROM equipment_state  WHERE id = #{id}
     </select>
     <update id="update" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
@@ -266,6 +293,9 @@
             status_changed_time= #{statusChangedTime,jdbcType=TIMESTAMP},
             last_online_time= #{lastOnlineTime,jdbcType=TIMESTAMP},
             lastValue= #{lastValue,jdbcType=REAL},
+            grade=#{grade,jdbcType=INTEGER},
+            alarm_threshold_max= #{alarmThresholdMax,jdbcType=REAL},
+            alarm_threshold_min=#{alarmThresholdMin,jdbcType=REAL},
         </set>
         WHERE id = #{id}
     </update>
@@ -341,6 +371,15 @@
             </if>
             <if test="lastValue != null">
                 lastValue= #{lastValue,jdbcType=REAL},
+            </if>
+            <if test="grade != null">
+                grade=#{grade,jdbcType=INTEGER},
+            </if>
+            <if test="alarmThresholdMax != null">
+                alarm_threshold_max= #{alarmThresholdMax,jdbcType=REAL},
+            </if>
+            <if test="alarmThresholdMin != null">
+                alarm_threshold_min=#{alarmThresholdMin,jdbcType=REAL},
             </if>
         </set>
         WHERE id = #{id}

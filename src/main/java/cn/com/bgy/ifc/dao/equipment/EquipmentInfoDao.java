@@ -12,6 +12,8 @@ public interface EquipmentInfoDao extends BaseDao<EquipmentInfo> {
 	
     List<Map<String,Object>> queryListEquipmentInfo(RegionAndBrandVO regionAndBrandVO);
 
+    List<EquipmentInfo> queryMatchEquipment();
+
     int updateEquipmentInfo( EquipmentInfo equipmentInfo);
 
     int deleteEquipmentInfo(List<Long> list);

@@ -124,6 +124,20 @@ public class EquipmentState {
     private Float flow;
 
     /**
+     *告警等级 一级-1 二级-2 三级-3
+     */
+    private Integer grade;
+    /**
+     *告警警阀值上限
+     */
+    private Float alarmThresholdMax;
+
+    /**
+     *告警警阀值下限
+     */
+    private Float alarmThresholdMin;
+
+    /**
      * 设备类型
      */
     private EquipmentThingType equipmentThingType;
@@ -494,5 +508,29 @@ public class EquipmentState {
 
     public void setLastValue(Float lastValue) {
         this.lastValue = lastValue;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    public Float getAlarmThresholdMax() {
+        return alarmThresholdMax;
+    }
+
+    public void setAlarmThresholdMax(Float alarmThresholdMax) {
+        this.alarmThresholdMax = alarmThresholdMax;
+    }
+
+    public Float getAlarmThresholdMin() {
+        return alarmThresholdMin;
+    }
+
+    public void setAlarmThresholdMin(Float alarmThresholdMin) {
+        this.alarmThresholdMin = alarmThresholdMin;
     }
 }
