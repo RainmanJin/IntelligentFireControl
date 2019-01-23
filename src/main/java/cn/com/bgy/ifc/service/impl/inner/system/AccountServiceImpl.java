@@ -25,20 +25,22 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<SelectVo> queryListByRole(String roleValue, Long orgId) {
-        Map<String,Object> map=new HashMap<>();
-        if(roleValue.length()>0){
-            map.put("roleValue",roleValue);
+        Map<String, Object> map = new HashMap<>();
+        if (roleValue!=null&&roleValue.length() > 0) {
+            map.put("roleValue", roleValue);
         }
-        if(orgId!=null){
-            map.put("organizationId",orgId);
+        if (orgId!=null&&orgId != null) {
+            map.put("organizationId", orgId);
         }
-        List<SelectVo> selectVos=new ArrayList<>();
-        List<Account> list=accountDao.queryListByRole(map);
-        for(Account account:list){
-            SelectVo selectVo=new SelectVo();
-            selectVo.setValue(String.valueOf(account.getId()));
-            selectVo.setName(account.getUserName());
-            selectVos.add(selectVo);
+        List<SelectVo> selectVos = new ArrayList<>();
+        List<Account> list = accountDao.queryListByRole(map);
+        for (Account account : list) {
+            if (null !=account) {
+                SelectVo selectVo = new SelectVo();
+                selectVo.setValue(String.valueOf(account.getId()));
+                selectVo.setName(account.getUserName());
+                selectVos.add(selectVo);
+            }
         }
         return selectVos;
     }

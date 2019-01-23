@@ -6,10 +6,11 @@
         <result column="region_id" jdbcType="BIGINT" property="regionId"/>
         <result column="project_id" jdbcType="BIGINT" property="projectId"/>
         <result column="user_id" jdbcType="BIGINT" property="userId"/>
-        <result column="alarm_mode_id" jdbcType="BIGINT" property="alarmModeId"/>
         <result column="contact_way" jdbcType="VARCHAR" property="contactWay"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
-        <result column="notice_level" jdbcType="INTEGER" property="noticeLevel"/>
+        <result column="sms_notice" jdbcType="BIT" property="smsNotice"/>
+        <result column="voice_call" jdbcType="BIT" property="voiceCall"/>
+        <result column="app_notice" jdbcType="BIT" property="appNotice"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
         <association property="regionInfo" column="region_id"
@@ -27,21 +28,15 @@
             <id column="acc_id" property="id"/>
             <result column="user_name" property="userName"/>
         </association>
-        <association property="alarmMode" column="alarm_mode_id"
-                     javaType="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
-            <id column="mode_id" property="id"/>
-            <result column="mode_name" property="name"/>
-        </association>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmObject">
-    insert into alarm_object (id, region_id, project_id, user_id,
-      alarm_mode_id, contact_way, state, 
-      notice_level, create_time, logic_remove
+    insert into alarm_object (id, region_id, project_id, user_id,contact_way, state,
+       create_time, logic_remove,sms_notice,voice_call,app_notice
       )
     values (#{id,jdbcType=BIGINT},#{regionId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
-      #{alarmModeId,jdbcType=BIGINT}, #{contactWay,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER},
-      #{noticeLevel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}
-      )
+       #{contactWay,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER},
+       #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}
+      , #{smsNotice,jdbcType=BIT}, #{voiceCall,jdbcType=BIT}, #{appNotice,jdbcType=BIT})
   </insert>
     <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmObject">
         insert into alarm_object
@@ -58,23 +53,26 @@
             <if test="userId != null">
                 user_id,
             </if>
-            <if test="alarmModeId != null">
-                alarm_mode_id,
-            </if>
             <if test="contactWay != null">
                 contact_way,
             </if>
             <if test="state != null">
                 state,
             </if>
-            <if test="noticeLevel != null">
-                notice_level,
-            </if>
             <if test="createTime != null">
                 create_time,
             </if>
             <if test="logicRemove != null">
                 logic_remove,
+            </if>
+            <if test="smsNotice != null">
+                sms_notice,
+            </if>
+            <if test="voiceCall != null">
+                voice_call,
+            </if>
+            <if test="appNotice != null">
+                app_notice,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -90,23 +88,26 @@
             <if test="userId != null">
                 #{userId,jdbcType=BIGINT},
             </if>
-            <if test="alarmModeId != null">
-                #{alarmModeId,jdbcType=BIGINT},
-            </if>
             <if test="contactWay != null">
                 #{contactWay,jdbcType=VARCHAR},
             </if>
             <if test="state != null">
                 #{state,jdbcType=INTEGER},
             </if>
-            <if test="noticeLevel != null">
-                #{noticeLevel,jdbcType=INTEGER},
-            </if>
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="logicRemove != null">
                 #{logicRemove,jdbcType=BIT},
+            </if>
+            <if test="smsNotice != null">
+                #{smsNotice,jdbcType=BIT},
+            </if>
+            <if test="voiceCall != null">
+                #{voiceCall,jdbcType=BIT},
+            </if>
+            <if test="appNotice != null">
+                #{appNotice,jdbcType=BIT},
             </if>
         </trim>
     </insert>
@@ -118,10 +119,8 @@
         a.region_id,
         a.project_id,
         a.user_id,
-        a.alarm_mode_id,
         a.contact_way,
         a.state,
-        a.notice_level,
         a.create_time,
         a.logic_remove,
         i.id AS info_id,
@@ -129,14 +128,11 @@
         p.id AS pro_id,
         p.name AS pro_name,
         u.id AS acc_id,
-        u.user_name,
-        m.id AS mode_id,
-        m.name AS mode_name
+        u.user_name
         FROM alarm_object a
         INNER JOIN region_info i ON i.id=a.region_id
         INNER JOIN region_project p ON p.id=a.project_id
         INNER JOIN account u ON u.id=a.user_id
-        LEFT JOIN alarm_mode m ON m.id=a.alarm_mode_id AND m.logic_remove = 0 AND m.state = 1
         <where>
             <if test="state != null and state != ''or state == 0">
                 AND a.state = #{state}
@@ -147,14 +143,9 @@
             <if test="projectId != null ">
                 AND a.project_id=#{projectId}
             </if>
-            <if test="noticeLevel != null ">
-                AND a.notice_level=#{noticeLevel}
-            </if>
-            <if test="alarmModeId != null ">
-                AND a.alarm_mode_id=#{alarmModeId}
-            </if>
             <if test="keyword!='' and keyword!=null">
-                AND (p.name LIKE concat('%',#{keyword},'%') OR i.name LIKE concat('%',#{keyword},'%') OR u.user_name LIKE
+                AND (p.name LIKE concat('%',#{keyword},'%') OR i.name LIKE concat('%',#{keyword},'%') OR u.user_name
+                LIKE
                 concat('%',#{keyword},'%'))
             </if>
             AND a.logic_remove = 0
@@ -163,9 +154,8 @@
 
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
         SELECT
-        id,region_id, project_id, user_id,
-        alarm_mode_id, contact_way, state,
-        notice_level, create_time, logic_remove
+        id, region_id, project_id, user_id,contact_way, state,
+       create_time, logic_remove,sms_notice,voice_call,app_notice
         FROM alarm_object  WHERE id = #{id}
     </select>
 
@@ -175,12 +165,13 @@
             region_id= #{regionId,jdbcType=BIGINT},
             project_id= #{projectId,jdbcType=BIGINT},
             user_id=#{userId,jdbcType=BIGINT},
-            alarm_mode_id=#{alarmModeId,jdbcType=BIGINT},
             contact_way=#{contactWay,jdbcType=VARCHAR},
             state=#{state,jdbcType=INTEGER},
-            notice_level=#{noticeLevel,jdbcType=INTEGER},
             create_time=#{createTime,jdbcType=TIMESTAMP},
             logic_remove=#{logicRemove,jdbcType=BIT},
+            sms_notice= #{smsNotice,jdbcType=BIT},
+            voice_call=#{voiceCall,jdbcType=BIT},
+            app_notice= #{appNotice,jdbcType=BIT},
         </set>
         WHERE id = #{id}
     </update>
@@ -197,23 +188,26 @@
             <if test="userId != null">
                 user_id=#{userId,jdbcType=BIGINT},
             </if>
-            <if test="alarmModeId != null">
-                alarm_mode_id=#{alarmModeId,jdbcType=BIGINT},
-            </if>
             <if test="contactWay != null">
                 contact_way=#{contactWay,jdbcType=VARCHAR},
             </if>
             <if test="state != null">
                 state=#{state,jdbcType=INTEGER},
             </if>
-            <if test="noticeLevel != null">
-                notice_level=#{noticeLevel,jdbcType=INTEGER},
-            </if>
             <if test="createTime != null">
                 create_time=#{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="logicRemove != null">
                 logic_remove=#{logicRemove,jdbcType=BIT},
+            </if>
+            <if test="smsNotice != null">
+                sms_notice= #{smsNotice,jdbcType=BIT},
+            </if>
+            <if test="voiceCall != null">
+                voice_call=#{voiceCall,jdbcType=BIT},
+            </if>
+            <if test="appNotice != null">
+                app_notice= #{appNotice,jdbcType=BIT},
             </if>
         </set>
         WHERE id = #{id}

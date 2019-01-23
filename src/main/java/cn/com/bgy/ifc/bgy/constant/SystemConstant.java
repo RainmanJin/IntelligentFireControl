@@ -140,18 +140,22 @@ public class SystemConstant {
     public enum SystemMenuType{
         //首页
         INDEX_MENU(1, "首页"),
+        //运行检测
+        OPERATION_DETECTION(2, "运行检测"),
+        //实时告警
+        REAL_TIME_ALARM(3, "实时告警"),
+        //系统巡检
+        SYSTEM_INSPECTION(4, "系统巡检"),
+        //报表统计
+        REPORT_FORM_MENU(5, "报表统计"),
+        //告警管理
+        ALARM_MANAGE(6, "告警管理"),
+        //召修维保管理
+        REPAIR_MAINTENANCE_MENU(7, "召修维保管理"),
+        //安全巡查监管
+        FIRE_PATROL_MENU(8, "安全巡查监管"),
         //系统管理
-        SYSTEM_MENU(2, "系统管理"),
-        //设备管理及监测equipment
-        EQUIPMENT_MENU(3, "设备管理及监测"),
-        //维保管理Maintenance
-        MAINTENANCE_MENU(4, "维保管理"),
-        //召修管理repair
-        REPAIR_MENU(5, "召修管理"),
-        //报表管理Report form
-        REPORT_FORM_MENU(6, "报表管理"),
-        //消防巡查监管Fire patrol
-        FIRE_PATROL_MENU(7, "消防巡查监管");
+        SYSTEM_MENU(9, "系统管理");
 
         private Integer value;
         private String name;

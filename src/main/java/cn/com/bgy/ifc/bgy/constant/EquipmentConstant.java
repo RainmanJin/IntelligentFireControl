@@ -198,11 +198,11 @@ public class EquipmentConstant {
      */
     public enum AlarmModeType{
         //短信通知
-        NORMAL(1, "短信通知"),
+        SMS_NOTICE(1, "短信通知"),
         //语音电话
-        FAULT(2, "语音电话"),
+        VOICE_CALL(2, "语音电话"),
         //APP通知
-        FAULTS(3, "APP通知");
+        APP_NOTICE(3, "APP通知");
 
         private Integer value;
         private String name;

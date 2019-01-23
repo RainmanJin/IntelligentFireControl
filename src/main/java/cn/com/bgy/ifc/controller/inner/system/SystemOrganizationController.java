@@ -160,7 +160,7 @@ public class SystemOrganizationController extends BaseController {
      */
     @GetMapping("getOrgAdmin")
     public ResponseVO<Object> getOrgAdmin(Long orgId) {
-        List<SelectVo> list = accountService.queryListByRole("orgAdmin", orgId);
+        List<SelectVo> list = accountService.queryListByRole(null, orgId);
         return ResponseVO.success().setData(list);
     }
 

@@ -56,7 +56,7 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
 
     @Override
     public int insert(EquipmentState equipmentState) {
-        return 0;
+        return equipmentStateDao.insert(equipmentState);
     }
 
     @Override
@@ -66,12 +66,12 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
 
     @Override
     public int update(EquipmentState equipmentState) {
-        return 0;
+        return equipmentStateDao.update(equipmentState);
     }
 
     @Override
     public int updateSelective(EquipmentState equipmentState) {
-        return 0;
+        return equipmentStateDao.updateSelective(equipmentState);
     }
 
     @Override

@@ -27,10 +27,6 @@ public class AlarmObject {
      */
     private Long userId;
 
-    /**
-     * 告警方式
-     */
-    private Long alarmModeId;
 
     /**
      * 联系方式
@@ -43,9 +39,19 @@ public class AlarmObject {
     private Integer state;
 
     /**
-     * 通知级别
+     * 短信通知
      */
-    private Integer noticeLevel;
+    private Boolean smsNotice;
+
+    /**
+     * 语音电话
+     */
+    private Boolean voiceCall;
+
+    /**
+     * APP通知
+     */
+    private Boolean appNotice;
 
     /**
      * 创建、修改时间
@@ -71,11 +77,6 @@ public class AlarmObject {
      * 成员
      */
     private Account account;
-
-    /**
-     * 告警方式
-     */
-    private AlarmMode alarmMode;
 
     /**
      * ID
@@ -125,13 +126,6 @@ public class AlarmObject {
         this.userId = userId;
     }
 
-    public Long getAlarmModeId() {
-        return alarmModeId;
-    }
-
-    public void setAlarmModeId(Long alarmModeId) {
-        this.alarmModeId = alarmModeId;
-    }
 
     /**
      * 联系方式
@@ -165,20 +159,28 @@ public class AlarmObject {
         this.state = state;
     }
 
-    /**
-     * 通知级别
-     * @return notice_level 通知级别
-     */
-    public Integer getNoticeLevel() {
-        return noticeLevel;
+    public Boolean getSmsNotice() {
+        return smsNotice;
     }
 
-    /**
-     * 通知级别
-     * @param noticeLevel 通知级别
-     */
-    public void setNoticeLevel(Integer noticeLevel) {
-        this.noticeLevel = noticeLevel;
+    public void setSmsNotice(Boolean smsNotice) {
+        this.smsNotice = smsNotice;
+    }
+
+    public Boolean getVoiceCall() {
+        return voiceCall;
+    }
+
+    public void setVoiceCall(Boolean voiceCall) {
+        this.voiceCall = voiceCall;
+    }
+
+    public Boolean getAppNotice() {
+        return appNotice;
+    }
+
+    public void setAppNotice(Boolean appNotice) {
+        this.appNotice = appNotice;
     }
 
     /**
@@ -243,13 +245,5 @@ public class AlarmObject {
 
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    public AlarmMode getAlarmMode() {
-        return alarmMode;
-    }
-
-    public void setAlarmMode(AlarmMode alarmMode) {
-        this.alarmMode = alarmMode;
     }
 }

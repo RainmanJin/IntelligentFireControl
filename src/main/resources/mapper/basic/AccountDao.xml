@@ -428,8 +428,8 @@
     a.telephone,
     a.job_number,
     a.user_name
-    FROM system_user_role s
-    LEFT JOIN account a ON s.user_id=a.id
+    FROM account a
+    LEFT JOIN system_user_role s ON s.user_id=a.id
     LEFT JOIN system_role r ON r.id=s.role_id
     <where>
       <if test="roleValue != null">

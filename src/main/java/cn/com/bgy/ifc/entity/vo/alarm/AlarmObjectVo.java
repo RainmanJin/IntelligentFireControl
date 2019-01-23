@@ -31,12 +31,6 @@ public class AlarmObjectVo {
     private Long userId;
 
     /**
-     * 告警方式
-     */
-    @NotNull(message="告警方式不能为空！")
-    private Long alarmModeId;
-
-    /**
      * 联系方式
      */
     @Size(max=50,message="联系方式长度不能超过50字符！")
@@ -48,10 +42,20 @@ public class AlarmObjectVo {
     private Integer state;
 
     /**
-     * 通知级别
+     * 短信通知
      */
-    @NotNull(message="通知级别不能为空！")
-    private Integer noticeLevel;
+    private Boolean smsNotice;
+
+    /**
+     * 语音电话
+     */
+    private Boolean voiceCall;
+
+    /**
+     * APP通知
+     */
+    private Boolean appNotice;
+
 
     /**
      * 创建、修改时间
@@ -92,14 +96,6 @@ public class AlarmObjectVo {
         this.userId = userId;
     }
 
-    public Long getAlarmModeId() {
-        return alarmModeId;
-    }
-
-    public void setAlarmModeId(Long alarmModeId) {
-        this.alarmModeId = alarmModeId;
-    }
-
     public String getContactWay() {
         return contactWay;
     }
@@ -116,12 +112,28 @@ public class AlarmObjectVo {
         this.state = state;
     }
 
-    public Integer getNoticeLevel() {
-        return noticeLevel;
+    public Boolean getSmsNotice() {
+        return smsNotice;
     }
 
-    public void setNoticeLevel(Integer noticeLevel) {
-        this.noticeLevel = noticeLevel;
+    public void setSmsNotice(Boolean smsNotice) {
+        this.smsNotice = smsNotice;
+    }
+
+    public Boolean getVoiceCall() {
+        return voiceCall;
+    }
+
+    public void setVoiceCall(Boolean voiceCall) {
+        this.voiceCall = voiceCall;
+    }
+
+    public Boolean getAppNotice() {
+        return appNotice;
+    }
+
+    public void setAppNotice(Boolean appNotice) {
+        this.appNotice = appNotice;
     }
 
     public Date getCreateTime() {
