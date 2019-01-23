@@ -135,7 +135,7 @@
         )
         )
         )
-        )
+        ) ORDER BY m.sort_index
     </select>
 
     <select id="findById" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" parameterType="java.lang.Long">
