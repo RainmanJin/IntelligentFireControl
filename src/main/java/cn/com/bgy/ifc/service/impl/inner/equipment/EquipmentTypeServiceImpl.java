@@ -38,7 +38,7 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
         //循环结果集
         for(int i = 0;i<allType.size();i++){
             //判定是否有一级类型ID
-            if(allType.get(i).getoId() != null && allType.get(i).getoId()>0 ){
+            if(allType.get(i).getoId() != null && allType.get(i).getParentId()==1 ){
                 //去掉数据本身的类型名
                 allType.get(i).setName(null);
                 //有就加入集合
