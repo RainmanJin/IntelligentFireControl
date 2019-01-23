@@ -134,4 +134,15 @@ public class ControlRoomUserDomainImpl implements ControlRoomUserDomain {
 
         return new PageInfo<ControlRoomUser>(list);
     }
+    /**
+     * @Author  huxin
+     * @Description 查询值班室人员下拉列表
+     * @param   []
+     * @retrue  java.util.List<cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomUser>
+     * @Date 2019/1/23 21:30
+     */
+    @Override
+    public List<ControlRoomUser> DropDownData() {
+        return controlRoomUserDao.DropDownData();
+    }
 }

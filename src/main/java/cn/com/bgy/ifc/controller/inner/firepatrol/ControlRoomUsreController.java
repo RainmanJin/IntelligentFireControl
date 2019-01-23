@@ -110,4 +110,16 @@ public class ControlRoomUsreController extends BaseController {
             return ResponseVO.addError();
         }
     }
+    /*
+     * @Author  huxin
+     * @Description        值班室人员下拉框
+     * @param
+     * @retrue
+     * @Date 2019/1/23 21:25
+     */
+    @GetMapping("dropDownData")
+    public ResponseVO<Object> DropDownData(){
+        List<ControlRoomUser> list=controlRoomUserDomain.DropDownData();
+        return ResponseVO.<Object>success().setData(list);
+    }
 }

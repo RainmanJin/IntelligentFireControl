@@ -5,6 +5,8 @@ import cn.com.bgy.ifc.entity.po.firepatrol.ControlRoomUser;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface ControlRoomUserDomain extends BaseDomain<ControlRoomUser> {
 
     /**
@@ -15,4 +17,6 @@ public interface ControlRoomUserDomain extends BaseDomain<ControlRoomUser> {
      * @return
      */
     PageInfo<ControlRoomUser> queryListByPage(Page<ControlRoomUser> page, ControlRoomUser controlRoomUser);
+    //查询值班室人员下拉列表
+    List<ControlRoomUser> DropDownData();
 }

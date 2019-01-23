@@ -1,6 +1,5 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
-import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.firepatrol.ControlRoomDutyDomain;
@@ -82,9 +81,8 @@ public class ControlRoomDutyController extends BaseController {
     @PostMapping("editData")
     public ResponseVO<Object> editData(ControlRoomDuty controlRoomDuty) {
 
-        ControlRoomDuty  query =controlRoomDutyDomain.findById(controlRoomDuty.getId());
-        CopyUtil.copyProperties(controlRoomDuty,query);
-        int res= controlRoomDutyDomain.updateSelective(query);
+
+        int res= controlRoomDutyDomain.updateSelective(controlRoomDuty);
         if(res>0){
             return ResponseVO.editSuccess();
         } else{

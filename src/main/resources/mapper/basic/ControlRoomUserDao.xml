@@ -253,4 +253,7 @@
         </trim>
       </where>
   </select>
+    <select id="DropDownData" resultMap="BaseResultMap">
+        SELECT id,name FROM control_room_user WHERE logic_remove = 0
+    </select>
 </mapper>

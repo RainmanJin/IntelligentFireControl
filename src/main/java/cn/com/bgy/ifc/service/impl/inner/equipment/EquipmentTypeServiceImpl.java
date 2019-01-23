@@ -44,9 +44,23 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
                 //有就加入集合
                 resultType.add(allType.get(i));
                 for(int j = 0;j< allType.size();j++){
-                    if(allType.get(i).getoId()==allType.get(j).getParentId()){
+                    if(allType.get(i).getoId().longValue()==allType.get(j).getParentId().longValue()){
                         resultType.add(allType.get(j));
                     }
+                }
+            }
+
+            if(allType.get(i).getParentId() != null&&allType.get(i).getParentId()!=1){
+                //判定二级类型的父级是否存在
+                boolean falg = false;
+                for (EquipmentTypeVo all : allType) {
+                    if(allType.get(i).getParentId().equals(all.getId())){
+                        falg=true;
+                        break;
+                    }
+                }
+                if(!falg){
+                    resultType.add(allType.get(i));
                 }
             }
         }
@@ -109,7 +123,7 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     @Override
     public int update(EquipmentType equipmentType) {
         if(equipmentType.getParentId()==null){
-            equipmentType.setParentId(0L);
+            equipmentType.setParentId(1L);
         }
         return equipmentTypeDao.update(equipmentType);
     }
@@ -117,7 +131,7 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     @Override
     public int updateSelective(EquipmentType equipmentType) {
         if(equipmentType.getParentId()==null){
-            equipmentType.setParentId(0L);
+            equipmentType.setParentId(1L);
         }
         return equipmentTypeDao.updateSelective(equipmentType);
     }
