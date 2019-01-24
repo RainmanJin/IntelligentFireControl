@@ -49,7 +49,7 @@ public class FireInspectionVo {
     /**耗时时间*/
     private String consumeTime;
     /**检查类型(1设施故障检测,2每日防火巡查记,3月/重大节日)*/
-    private int inspectionType;
+    private Integer inspectionType;
     /**工单状态：1草稿、2处理中、3已完成*/
     private int status;
     public Long getId() {
@@ -76,15 +76,15 @@ public class FireInspectionVo {
 		this.consumeTime = consumeTime;
 	}
 
-	public int getInspectionType() {
-		return inspectionType;
-	}
+    public Integer getInspectionType() {
+        return inspectionType;
+    }
 
-	public void setInspectionType(int inspectionType) {
-		this.inspectionType = inspectionType;
-	}
+    public void setInspectionType( Integer inspectionType ) {
+        this.inspectionType = inspectionType;
+    }
 
-	public int getStatus() {
+    public int getStatus() {
 		return status;
 	}
 

@@ -1,24 +1,21 @@
 package cn.com.bgy.ifc.domain.impl.fireinspection;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import cn.com.bgy.ifc.dao.fireinspection.FireInspectionDetailDao;
-import cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDetail;
-import org.springframework.stereotype.Service;
-
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-
 import cn.com.bgy.ifc.dao.fireinspection.FireInspectionDao;
+import cn.com.bgy.ifc.dao.fireinspection.FireInspectionDetailDao;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.fireinspection.FireInspectionDomain;
 import cn.com.bgy.ifc.entity.po.fireinspection.FireInspection;
+import cn.com.bgy.ifc.entity.po.fireinspection.FireInspectionDetail;
 import cn.com.bgy.ifc.entity.po.system.Account;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 /**
  * 消防巡检主表单
  * @author lvbingjian
@@ -56,9 +53,12 @@ public class FireInspectionDomainImpl implements FireInspectionDomain {
 	@Override
 	public int insert(FireInspection t) {
 		int res=fireInspectionDao.insert(t);
-		for (FireInspectionDetail fireInspectionDetail:t.getFireInspectionDetailList()){
-			fireInspectionDetail.setFireInspeId(t.getId());
-			fireInspectionDetailDao.insert(fireInspectionDetail);
+		List<FireInspectionDetail> list = t.getFireInspectionDetailList();
+		if(list!=null&&list.size()>0){
+			for (FireInspectionDetail fireInspectionDetail:list){
+				fireInspectionDetail.setFireInspeId(t.getId());
+				fireInspectionDetailDao.insert(fireInspectionDetail);
+			}
 		}
 		return res;
 	}
