@@ -25,5 +25,5 @@ public interface FaultDetectionService {
     //根据ID查询明细
     Map<String,Object> getFaultDetectionFindByID( Long id );
     //根据设备ID获取故障检测内容下拉列表
-    List<RecordTable> dropDownDataFindByEquipmentId( Long equipmentId );
+    List<RecordTable> dropDownDataFindByEquipmentId( Long equipmentId ,Integer type);
 }

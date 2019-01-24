@@ -5,14 +5,15 @@
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="record_content" jdbcType="VARCHAR" property="recordContent" />
     <result column="equipment_type_id" jdbcType="BIGINT" property="equipmentTypeId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
     <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RecordContent">
-    insert into record_content (id, record_content, equipment_type_id,
+    insert into record_content (id, record_content, equipment_type_id,type
       logic_remove, create_time)
     values (#{id,jdbcType=BIGINT}, #{recordContent,jdbcType=VARCHAR}, #{equipmentTypeId,jdbcType=BIGINT},
-      #{logicRemove,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP})
+     #{type,jdbcType=INTEGER}, #{logicRemove,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective"  keyProperty="id" useGeneratedKeys="true" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.RecordContent">
     insert into record_content
@@ -25,6 +26,9 @@
       </if>
       <if test="equipmentTypeId != null">
         equipment_type_id,
+      </if>
+      <if test="type != null">
+        type,
       </if>
       <if test="logicRemove != null">
         logic_remove,
@@ -42,6 +46,9 @@
       </if>
       <if test="equipmentTypeId != null">
         #{equipmentTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="logicRemove != null">
         #{logicRemove,jdbcType=BIT},
@@ -74,4 +81,15 @@
     </set>
     WHERE id=#{id,jdbcType=BIGINT} AND logic_remove=0
   </update>
+  <select id="dropDownDataFindByEquipmentTypeId" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT
+      id,
+      record_content,
+      equipment_type_id,
+      logic_remove,
+      type,
+      create_time
+    FROM record_content
+    WHERE equipment_type_id= #{equipmentTypeId} AND type=#{type}
+  </select>
 </mapper>

@@ -142,7 +142,7 @@
     FROM record_table r
     LEFT JOIN record_by_content bc ON r.id = bc.record_id
     LEFT JOIN record_content b ON bc.content_id=b.id
-    LEFT JOIN equipment_info ei ON r.equipment_id = ei.id
+    LEFT JOIN equipment_info ei ON r.equipment_id = ei.id AND ei.type_id = b.equipment_type_id
     INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
     INNER JOIN region_info ri ON rr.region_id = ri.id   AND ri.logic_remove = 0
     INNER JOIN region_project rp ON rr.project_id = rp.id AND rp.region_id = ri.id
@@ -212,14 +212,5 @@
     ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0) AS type ON type.sId = ei.type_id
     LEFT JOIN repair_order o ON r.order_id = o.id
     WHERE r.id=#{id,jdbcType=BIGINT}
-  </select>
-  <select id="dropDownDataFindByEquipmentId" parameterType="java.util.Map" resultType="java.util.Map">
-    SELECT
-        b.id AS id,b.record_content AS recordContent
-    FROM record_table r
-    LEFT JOIN record_by_content bc ON r.id = bc.record_id
-    LEFT JOIN record_content b ON bc.content_id=b.id
-    WHERE r.type =#{type,jdbcType=INTEGER} AND b.equipment_type_id=#{equipmentId,jdbcType=BIGINT}
-    GROUP BY b.id
   </select>
 </mapper>

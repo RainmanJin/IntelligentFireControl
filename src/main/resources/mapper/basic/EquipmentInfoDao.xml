@@ -408,4 +408,30 @@
         AND e.third_device_id IS NOT NULL
         OR e.superior_id IS NOT NULL
     </select>
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+            id,
+            name,
+            input_code,
+            machine_room_id,
+            version_id,
+            brand_id,
+            type_id,
+            keep_years,
+            in_work_time,
+            important,
+            status,
+            localtion_code,
+            simple_code,
+            api_code,
+            description,
+            logic_remove,
+            equipment_state_id,
+            platform_device_id,
+            third_device_id,
+            partition_num,
+            position_num
+        FROM equipment_info
+        WHERE id = #{id} AND logic_remove = 0
+    </select>
  </mapper>

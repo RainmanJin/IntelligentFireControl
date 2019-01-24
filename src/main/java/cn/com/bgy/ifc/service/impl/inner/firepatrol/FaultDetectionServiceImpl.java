@@ -1,8 +1,11 @@
 package cn.com.bgy.ifc.service.impl.inner.firepatrol;
 
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
+import cn.com.bgy.ifc.dao.firepatrol.RecordContentDao;
 import cn.com.bgy.ifc.dao.firepatrol.RecordTableDao;
 import cn.com.bgy.ifc.domain.interfaces.firepatrol.FaultDetectionDomain;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 import cn.com.bgy.ifc.entity.po.firepatrol.RecordTable;
 import cn.com.bgy.ifc.service.interfaces.inner.firepatrol.FaultDetectionService;
 import com.github.pagehelper.Page;
@@ -29,6 +32,12 @@ public class FaultDetectionServiceImpl implements FaultDetectionService {
 
     @Resource
     private RecordTableDao recordTableDao;
+
+    @Resource
+    private EquipmentInfoDao equipmentInfoDao;
+
+    @Resource
+    private RecordContentDao recordContentDao;
 
 
 
@@ -101,13 +110,20 @@ public class FaultDetectionServiceImpl implements FaultDetectionService {
      * @Date 2019/1/15 14:25
      */
     @Override
-    public List<RecordTable> dropDownDataFindByEquipmentId( Long equipmentId ) {
+    public List<RecordTable> dropDownDataFindByEquipmentId( Long equipmentId,Integer type ) {
         if(equipmentId != null && equipmentId>0){
-            Map<String,Object> map= new HashMap<>();
-            //故障检测类型的记录内容
-            map.put("type",3);
-            map.put("equipmentId",equipmentId);
-            return recordTableDao.dropDownDataFindByEquipmentId(map);
+            EquipmentInfo equipmentInfo= equipmentInfoDao.findById(equipmentId);
+            if(equipmentInfo==null){
+                return null;
+            }
+            Long equipmentTypeId = equipmentInfo.getTypeId();
+           if(equipmentTypeId != null && equipmentTypeId>0){
+                Map<String,Object> map  = new HashMap<>();
+                map.put("type",type);
+                map.put("equipmentTypeId",equipmentTypeId);
+               return recordContentDao.dropDownDataFindByEquipmentTypeId(map);
+           }
+            return null;
         }
         return null;
     }

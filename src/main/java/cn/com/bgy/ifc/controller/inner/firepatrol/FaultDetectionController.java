@@ -100,8 +100,8 @@ public class FaultDetectionController extends BaseController {
      * @Date 2019/1/15 14:26
      */
     @GetMapping("dropDownData")
-    public ResponseVO<Object> dropDownDataFindByEquipmentId(Long equipmentId){
-        List<RecordTable> list = faultDetectionService.dropDownDataFindByEquipmentId(equipmentId);
+    public ResponseVO<Object> dropDownDataFindByEquipmentId(Long equipmentId,Integer type){
+        List<RecordTable> list = faultDetectionService.dropDownDataFindByEquipmentId(equipmentId,type);
         return ResponseVO.<Object>success().setData(list);
     }
 }

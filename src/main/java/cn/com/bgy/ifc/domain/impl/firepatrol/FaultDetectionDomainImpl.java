@@ -1,10 +1,12 @@
 package cn.com.bgy.ifc.domain.impl.firepatrol;
 
 import cn.com.bgy.ifc.bgy.utils.StringUtil;
+import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
 import cn.com.bgy.ifc.dao.firepatrol.RecordByContentDao;
 import cn.com.bgy.ifc.dao.firepatrol.RecordContentDao;
 import cn.com.bgy.ifc.dao.firepatrol.RecordTableDao;
 import cn.com.bgy.ifc.domain.interfaces.firepatrol.FaultDetectionDomain;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 import cn.com.bgy.ifc.entity.po.firepatrol.RecordByContent;
 import cn.com.bgy.ifc.entity.po.firepatrol.RecordContent;
 import cn.com.bgy.ifc.entity.po.firepatrol.RecordTable;
@@ -31,6 +33,9 @@ public class FaultDetectionDomainImpl implements FaultDetectionDomain {
     @Resource
     private RecordByContentDao recordByContentDao;
 
+    @Resource
+    private EquipmentInfoDao equipmentInfoDao;
+
 
 
     /**
@@ -41,14 +46,20 @@ public class FaultDetectionDomainImpl implements FaultDetectionDomain {
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public int addFaultDetection( RecordTable recordTable, String recordContent ) {
-        Date time = new Date();
-        recordTable.setLogicRemove(false);
-        recordTable.setCreateTime(time);
-        int count = recordTableDao.insertSelective(recordTable);
-        if(count==1){
+        //查询设备信息
+        EquipmentInfo equipmentInfo = equipmentInfoDao.findById(recordTable.getEquipmentId());
+        Long equipmentTypeId = equipmentInfo.getTypeId();
+        //判定设备类型ID是否为空
+        if(equipmentTypeId!=null&&equipmentTypeId>0){
+            Date time = new Date();
+            recordTable.setLogicRemove(false);
+            recordTable.setCreateTime(time);
+            int count = recordTableDao.insertSelective(recordTable);
             //添加记录内容
             RecordContent con = new RecordContent();
-            con.setEquipmentTypeId(recordTable.getEquipmentId());
+            //添加设备ID
+            con.setEquipmentTypeId(equipmentTypeId);
+            con.setType(recordTable.getType());
             con.setRecordContent(recordContent);
             con.setLogicRemove(false);
             con.setCreateTime(time);

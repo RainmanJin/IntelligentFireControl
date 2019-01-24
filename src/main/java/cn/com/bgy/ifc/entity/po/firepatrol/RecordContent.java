@@ -17,6 +17,8 @@ public class RecordContent {
      * 设备类别ID
      */
     private Long equipmentTypeId;
+    //类型
+    private Integer type;
 
     /**
      * 是否逻辑删除  0:存在  1：删除
@@ -74,6 +76,14 @@ public class RecordContent {
      */
     public void setEquipmentTypeId(Long equipmentTypeId) {
         this.equipmentTypeId = equipmentTypeId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType( Integer type ) {
+        this.type = type;
     }
 
     /**
