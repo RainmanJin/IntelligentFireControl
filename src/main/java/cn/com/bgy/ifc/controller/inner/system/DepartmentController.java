@@ -6,11 +6,10 @@ import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.bgy.utils.TreeUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
-import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.DepartmentDomain;
+import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.Department;
-import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.DepartmentVo;
 import com.github.pagehelper.Page;
@@ -18,10 +17,12 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -120,9 +121,11 @@ public class DepartmentController extends BaseController {
         department.setLogicRemove(false);
         int count = departmentDomain.insert(department);
         if (count == 1) {
-            return ResponseVO.success().setMsg("添加成功！");
+            return ResponseVO.addSuccess();
+        }else if(count==2){
+            return ResponseVO.addError().setMsg("添加的部门名已经存在！！请重新输入部门名!!");
         }
-        return ResponseVO.error().setMsg("修改失败！");
+        return ResponseVO.addError();
     }
     /**
      * @author: YanXiaoLu
