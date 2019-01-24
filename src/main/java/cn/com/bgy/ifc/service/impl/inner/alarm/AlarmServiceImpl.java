@@ -35,21 +35,38 @@ public class AlarmServiceImpl implements AlarmService {
         equipmentEvent.setType(type);
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         List<EquipmentEvent> list = equipmentEventDao.queryAlarmList(equipmentEvent);
-        List<AlarmVo> alarmList=new ArrayList<>();
-        for(EquipmentEvent event:list){
-            AlarmVo alarmVo=new AlarmVo();
+        List<AlarmVo> alarmList = new ArrayList<>();
+        for (EquipmentEvent event : list) {
+            AlarmVo alarmVo = new AlarmVo();
             alarmVo.setId(event.getId());
             alarmVo.setReportCount(event.getReportCount());
             alarmVo.setDescription(event.getDescription());
-            Date firstTime=event.getFirstTime();
-            Date lastTime=event.getLastTime();
+            Date firstTime = event.getFirstTime();
+            Date lastTime = event.getLastTime();
             alarmVo.setLastTime(lastTime);
-            alarmVo.setAlarmDuration(TimeUtil.timeDifference(firstTime,lastTime));
-            if(event.getRegionProject()!=null){
-                alarmVo.setProjectName(event.getRegionProject().getName());
+            alarmVo.setAlarmDuration(TimeUtil.timeDifference(firstTime, lastTime));
+            StringBuilder stringBuilder=new StringBuilder();
+            if(event.getRegionInfo()!=null){
+                stringBuilder.append(event.getRegionInfo().getName());
             }
-            if(event.getRegionComputerRoom()!=null){
+            if (event.getRegionProject() != null) {
+                stringBuilder.append(event.getRegionProject().getName());
+            }
+            alarmVo.setProjectName(stringBuilder.toString());
+            if (event.getRegionComputerRoom() != null) {
                 alarmVo.setComputerRoomName(event.getRegionComputerRoom().getName());
+            }
+            if (event.getEquipmentState() != null) {
+                alarmVo.setAlarmValue(event.getEquipmentState().getLastValue());
+                if(event.getEquipmentState().getValueThresholdMin()!=null&&event.getEquipmentState().getValueThresholdMax()!=null){
+                    alarmVo.setReferenceRange(event.getEquipmentState().getValueThresholdMin() + "-" + event.getEquipmentState().getValueThresholdMax());
+                }
+                if(event.getEquipmentState().getAlarmThresholdMin()!=null&&event.getEquipmentState().getAlarmThresholdMax()!=null){
+                    alarmVo.setAlarmReferenceRange(event.getEquipmentState().getAlarmThresholdMin() + "-" + event.getEquipmentState().getAlarmThresholdMax());
+                }
+                if(event.getEquipmentState().getGrade()!=null){
+                    alarmVo.setAlarmGrade(event.getEquipmentState().getGrade());
+                }
             }
             alarmVo.setDeviceName(event.getDeviceName());
             alarmList.add(alarmVo);

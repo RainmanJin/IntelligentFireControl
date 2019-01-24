@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.entity.po.equipment;
 
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
+import cn.com.bgy.ifc.entity.po.project.RegionInfo;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
 
 import java.util.Date;
@@ -62,9 +63,18 @@ public class EquipmentEvent {
     private RegionComputerRoom regionComputerRoom;
 
     /**
+     * 区域信息
+     */
+    private RegionInfo regionInfo;
+    /**
      * 项目信息
      */
     private RegionProject regionProject;
+
+    /**
+     * 物联设备信息
+     */
+    private EquipmentState equipmentState;
 
     /**
      * 
@@ -224,5 +234,21 @@ public class EquipmentEvent {
 
     public void setRegionProject(RegionProject regionProject) {
         this.regionProject = regionProject;
+    }
+
+    public EquipmentState getEquipmentState() {
+        return equipmentState;
+    }
+
+    public void setEquipmentState(EquipmentState equipmentState) {
+        this.equipmentState = equipmentState;
+    }
+
+    public RegionInfo getRegionInfo() {
+        return regionInfo;
+    }
+
+    public void setRegionInfo(RegionInfo regionInfo) {
+        this.regionInfo = regionInfo;
     }
 }

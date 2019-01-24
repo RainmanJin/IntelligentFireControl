@@ -11,6 +11,17 @@
         <result column="last_time" jdbcType="TIMESTAMP" property="lastTime"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="report_count" jdbcType="INTEGER" property="reportCount"/>
+        <association property="equipmentState" column="device_id"
+                     javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
+            <id column="state_id" property="id"/>
+            <result column="state_name" property="name"/>
+            <result column="last_value" property="lastValue"/>
+            <result column="grade" property="grade"/>
+            <result column="value_threshold_max" property="valueThresholdMax"/>
+            <result column="value_threshold_min" property="valueThresholdMin"/>
+            <result column="alarm_threshold_max" property="alarmThresholdMax"/>
+            <result column="alarm_threshold_min" property="alarmThresholdMin"/>
+        </association>
         <association property="equipmentInfo" column="device_id"
                      javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
             <id column="equipment_id" property="id"/>
@@ -26,6 +37,11 @@
                      javaType="cn.com.bgy.ifc.entity.po.project.RegionProject">
             <id column="pro_id" property="id"/>
             <result column="pro_name" property="name"/>
+        </association>
+        <association property="regionInfo" column="region_id"
+                     javaType="cn.com.bgy.ifc.entity.po.project.RegionInfo">
+            <id column="info_id" property="id"/>
+            <result column="info_name" property="name"/>
         </association>
     </resultMap>
     <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
@@ -119,7 +135,7 @@
         </where>
     </select>
 
-    <select id="queryAlarmCount"  resultType="cn.com.bgy.ifc.entity.po.alarm.AlarmCount">
+    <select id="queryAlarmCount" resultType="cn.com.bgy.ifc.entity.po.alarm.AlarmCount">
         SELECT count(case when type=4 then type end ) AS report,
         count(case when type=2 then type end ) AS hitch,
         count(case when type=3 then type end ) AS hidden
@@ -145,11 +161,22 @@
         r.name AS room_name,
         r.project_id AS project_id ,
         p.id AS pro_id,
-        p.name AS pro_name
+        p.name AS pro_name,
+        s.last_value,
+        s.grade,
+        (CASE WHEN s.value_threshold_max IS NULL THEN c.value_threshold_max ELSE s.value_threshold_max END) AS value_threshold_max ,
+        (CASE WHEN s.value_threshold_min IS NULL THEN c.value_threshold_min ELSE s.value_threshold_min END) AS value_threshold_min ,
+        s.alarm_threshold_max,
+        s.alarm_threshold_min,
+        f.id AS info_id,
+        f.name AS info_name
         FROM equipment_event e
+        INNER JOIN equipment_state s ON s.id=e.device_id
+        LEFT JOIN equipment_config c ON c.type=s.type
         LEFT JOIN equipment_info i ON i.equipment_state_id=e.device_id
         LEFT JOIN region_computer_room r ON r.id=i.machine_room_id
         LEFT JOIN region_project p ON p.id=r.project_id
+        LEFT JOIN region_info f ON f.id=p.region_id
         <where>
             <if test="type != null and type != ''">
                 AND e.type = #{type}

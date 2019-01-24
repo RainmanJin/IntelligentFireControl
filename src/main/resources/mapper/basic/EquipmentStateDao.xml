@@ -250,6 +250,9 @@
             <if test="grade != null and grade != ''">
                 AND s.grade = #{grade}
             </if>
+            <if test="name!='' and name!=null">
+                AND (s.name LIKE concat('%',#{name},'%'))
+            </if>
             <if test="keyword!='' and keyword!=null">
                 AND (s.name LIKE concat('%',#{keyword},'%') OR e.name LIKE concat('%',#{keyword},'%'))
             </if>

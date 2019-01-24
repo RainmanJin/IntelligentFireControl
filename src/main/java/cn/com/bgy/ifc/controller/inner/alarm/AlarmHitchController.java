@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author: ZhangCheng
- * @description:实时告警故障列表
+ * @description:实时告警告警列表
  * @date: 2019-01-18 09:59
  **/
 @RestController

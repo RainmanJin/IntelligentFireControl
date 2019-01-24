@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -198,15 +199,56 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
     }
 
     @Override
+    public ResponseVO<Object> createEquipmentByInfo(EquipmentInfo equipmentInfo) {
+        try {
+            List<ExternalInterfaceConfig> list = externalInterfaceConfigDomain.queryInternetThingConfig();
+            if (list.size() != 0) {
+                ExternalInterfaceConfig config = list.get(0);
+                String url = config.getUrl() + "/device/devices";
+                Map<String, Object> data = new HashMap<>();
+                //data.put("type", equipmentInfo.gete);
+                data.put("name", equipmentInfo.getName());
+              /*  data.put("thirdDeviceId", equipmentState.getThirdDeviceId());
+                data.put("superiorId", equipmentState.getSuperiorId());
+                data.put("partitionNum", equipmentState.getPartitionNum());
+                data.put("positionNum", equipmentState.getPositionNum());*/
+                JSONObject response = HttpHelper.httpPost(url, data, null);
+                if (response != null) {
+                    //data作为key获取JSONObject
+                    Integer statusCode = response.getInteger("code");
+                    String message = response.getString("message");
+                    if (HttpStatus.SC_OK == statusCode) {
+                        JSONObject jsonObject = response.getJSONObject("data");
+                        EquipmentState newEquipmentState=jsonObject.toJavaObject(EquipmentState.class);
+                        int result = equipmentStateDao.insertSelective(newEquipmentState);
+                        if (result == 1) {
+                            return ResponseVO.addSuccess();
+                        } else {
+                            return ResponseVO.addError();
+                        }
+                    } else {
+                        return ResponseVO.error().setMsg("添加失败!错误信息：" + message);
+                    }
+                } else {
+                    return ResponseVO.error().setMsg("中联永安创建设备信息失败!");
+                }
+            } else {
+                return ResponseVO.error().setMsg("获取中联永安设备接口配置数据失败！");
+            }
+        } catch (Exception e) {
+            logger.error("获取中联永安设备信息接口请求异常：", e);
+            return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("获取中联永安设备信息接口请求异常！", e));
+        }
+    }
+
+    @Override
     public ResponseVO<Object> createEquipmentBySynchro() {
         List<EquipmentInfo> list=equipmentInfoDao.queryMatchEquipment();
         int count=0;
         for(EquipmentInfo info:list){
-            EquipmentState equipmentState=new EquipmentState();
             //单条匹配成功
-            ResponseVO<Object> response=createEquipmentState(equipmentState);
+            ResponseVO<Object> response=createEquipmentByInfo(info);
             if(response.getCode().equals(ResponseVO.SUCCESS)){
-                //info.sett
                 count++;
             }
         }
@@ -299,6 +341,23 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
         } catch (Exception e) {
             logger.error("删除中联永安设备状态信息接口请求异常：", e);
             return ResponseVO.error().setMsg(ExceptionUtil.getExceptionMsg("删除中联永安设备状态信息接口请求异常！", e));
+        }
+    }
+
+    @Transactional(rollbackFor = {RuntimeException.class})
+    @Override
+    public int updateStateList(List<EquipmentState> list) {
+        int count=0;
+        for(EquipmentState state:list){
+            int result=equipmentStateDao.updateSelective(state);
+            if(result==1){
+                count++;
+            }
+        }
+        if(count==list.size()){
+            return 1;
+        }else{
+            throw new RuntimeException("批量修改设备阀值数据失败!");
         }
     }
 }

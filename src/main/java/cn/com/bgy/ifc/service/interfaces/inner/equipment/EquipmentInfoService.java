@@ -27,4 +27,10 @@ public interface EquipmentInfoService {
     Map<String,Object> queryEquipmentInfoById( Long id );
     //根据项目ID,苑区ID查询设备下拉框
     List<EquipmentInfo> ListByCourtId( Long projectId,Long courtId );
+
+    /**
+     * 查询所有设备信息
+     * @return
+     */
+    List<EquipmentInfo> queryAllList();
 }

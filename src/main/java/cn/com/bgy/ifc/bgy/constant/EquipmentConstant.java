@@ -6,6 +6,35 @@ package cn.com.bgy.ifc.bgy.constant;
  * @date: 2019-01-09 11:22
  **/
 public class EquipmentConstant {
+
+    /**
+     * 运行状态（设备状态 0 停用 1 正常 2报废）
+     */
+    public enum RunState {
+        //停用
+        BLOCK_UP(0,"停用"),
+        //正常
+        NORMAL(1,"正常"),
+        //报废
+        SCRAP(2,"报废");
+        private Integer value;
+        private String name;
+
+        private RunState(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+    }
+
     /**
      * 设备状态
      */
@@ -196,7 +225,7 @@ public class EquipmentConstant {
     /**
      * 告警方式类型
      */
-    public enum AlarmModeType{
+    public enum AlarmModeType {
         //短信通知
         SMS_NOTICE(1, "短信通知"),
         //语音电话

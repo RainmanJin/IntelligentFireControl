@@ -39,7 +39,7 @@ public class EquipmentStateController {
      * @author: ZhangCheng
      * @description:分页查询设备状态信息
      * @param: [page, equipmentState]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.equipment.EquipmentState>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo < cn.com.bgy.ifc.entity.po.equipment.EquipmentState>>
      */
     @GetMapping("queryPageData")
     public ResponseVO<PageInfo<EquipmentState>> queryPageData(Page<EquipmentState> page, EquipmentStateVo equipmentStateVo) {
@@ -102,8 +102,19 @@ public class EquipmentStateController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @GetMapping("synchroData")
-    public ResponseVO<Object> synchroData(){
-        return equipmentStateService.synchroEquipmentState(1,300);
+    public ResponseVO<Object> synchroData() {
+        return equipmentStateService.synchroEquipmentState(1, 300);
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:设备配对
+     * @param: []
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("devicePairing")
+    public ResponseVO<Object> devicePairing() {
+        return equipmentStateService.createEquipmentBySynchro();
     }
 
     /**

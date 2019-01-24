@@ -24,11 +24,16 @@
         <result column="superior_id" jdbcType="BIGINT" property="superiorId"/>
         <result column="partition_num" jdbcType="INTEGER" property="partitionNum"/>
         <result column="position_num" jdbcType="INTEGER" property="positionNum"/>
+        <association property="equipmentType" column="type_id" javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentType">
+            <id  column="equip_type_id" property="id"/>
+            <result  column="equip_type_name" property="name"/>
+            <result column="thing_code"  property="thingCode"/>
+        </association>
     </resultMap>
     <sql id="Blob_Column_List">
     description
   </sql>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo">
     insert into equipment_info (id, name, input_code, 
       version_id, brand_id, type_id, 
       keep_years, in_work_time, important,
@@ -175,7 +180,7 @@
                 #{partitionNum,jdbcType=INTEGER},
             </if>
             <if test="positionNum != null">
-               #{positionNum,jdbcType=INTEGER},
+                #{positionNum,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -248,13 +253,14 @@
         = #{id}
     </update>
     <update id="deleteEquipmentInfo" parameterType="java.util.List">
-        UPDATE  equipment_info set logic_remove =1  where id IN
+        UPDATE equipment_info set logic_remove =1 where id IN
         <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </update>
 
-    <select id="queryListEquipmentInfo"  resultType="java.util.Map" parameterType="cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO">
+    <select id="queryListEquipmentInfo" resultType="java.util.Map"
+            parameterType="cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO">
         SELECT
         ei.id as id,
         ri.id as regionId,
@@ -262,13 +268,14 @@
         rc.id as courtId,
         rs.id as streetId,
         rb.id as buildingId,
-        CONCAT(IFNULL(ri.`name`,''),IFNULL(rp.`name`,''),IFNULL(rc.`name`,''),IFNULL(rs.`name`,''),IFNULL(rb.`name`,'')) as address,
+        CONCAT(IFNULL(ri.`name`,''),IFNULL(rp.`name`,''),IFNULL(rc.`name`,''),IFNULL(rs.`name`,''),IFNULL(rb.`name`,''))
+        as address,
         ei.`name` as name,
         ei.input_code as inputCode,
         et.id as typeId,et.`name` as typeName,
         eb.id as brandId,eb.`name` as brandName,
         ev.id as versionId,ev.`name` as versionName,
-        ei.`status` as  `status`
+        ei.`status` as `status`
         FROM equipment_info ei
         INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
         INNER JOIN region_info ri ON rr.region_id = ri.id
@@ -284,10 +291,10 @@
                 AND ri.id = #{regionId,jdbcType=BIGINT}
             </if>
             <if test="projectId != null and projectId !='' ">
-                AND  rp.id = #{projectId,jdbcType=BIGINT}
+                AND rp.id = #{projectId,jdbcType=BIGINT}
             </if>
             <if test="courtId != null and courtId !='' ">
-                AND  rc.id = #{courtId,jdbcType=BIGINT}
+                AND rc.id = #{courtId,jdbcType=BIGINT}
             </if>
 
             <if test="typeId != null and typeId !='' ">
@@ -399,14 +406,41 @@
         e.superior_id,
         e.partition_num,
         e.position_num,
-        t.thing_code
+        t.thing_code,
+		i.equipment_state_id AS parent_id
         FROM equipment_info e
         INNER  JOIN  equipment_type t ON t.id=e.type_id AND t.logic_remove=0 AND t.status=1
-		LEFT JOIN equipment_info i ON i.id=e.superior_id
+				INNER JOIN equipment_info i ON i.id=e.superior_id
         WHERE e.equipment_state_id IS NULL
         AND e.logic_remove=0 AND e.status=1
         AND e.third_device_id IS NOT NULL
         OR e.superior_id IS NOT NULL
+    </select>
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo"
+            resultMap="BaseResultMap">
+        SELECT
+        id,
+        name,
+        input_code,
+        version_id,
+        brand_id,
+        type_id,
+        keep_years,
+        in_work_time,
+        important,
+        status,
+        localtion_code,
+        simple_code,
+        api_code,
+        description,
+        logic_remove
+        FROM equipment_info
+        <where>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            AND logic_remove = 0
+        </where>
     </select>
     <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT

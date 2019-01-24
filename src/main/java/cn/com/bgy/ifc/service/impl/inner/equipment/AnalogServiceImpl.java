@@ -6,6 +6,7 @@ import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.*;
 import cn.com.bgy.ifc.dao.equipment.AnalogDao;
+import cn.com.bgy.ifc.domain.interfaces.equipment.AnalogDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceConfigDomain;
 import cn.com.bgy.ifc.entity.po.equipment.Analog;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
@@ -29,7 +30,7 @@ import java.util.Map;
 
 /**
  * @author: ZhangCheng
- * @description:
+ * @description:模拟量管理
  * @date: 2019-01-15 16:29
  **/
 @Service
@@ -42,6 +43,9 @@ public class AnalogServiceImpl implements AnalogService {
 
     @Autowired
     private ExternalInterfaceConfigDomain externalInterfaceConfigDomain;
+
+    @Autowired
+    private AnalogDomain analogDomain;
 
 
     @Override
@@ -61,7 +65,8 @@ public class AnalogServiceImpl implements AnalogService {
     public int insertAnalog(JSONObject jsonObject) {
         Analog analog = jsonObject.toJavaObject(Analog.class);
         if (analog != null) {
-            return analogDao.insertSelective(analog);
+            //添加设备模拟量值和模拟量管理
+            return analogDomain.insertAnalogAndState(analog);
         }
         return 0;
     }

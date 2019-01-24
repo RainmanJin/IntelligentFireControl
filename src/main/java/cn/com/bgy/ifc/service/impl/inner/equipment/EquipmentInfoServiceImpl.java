@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.service.impl.inner.equipment;
 
 
+import cn.com.bgy.ifc.bgy.constant.EquipmentConstant;
 import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
@@ -28,6 +29,7 @@ public class EquipmentInfoServiceImpl implements EquipmentInfoService {
 
     @Autowired
     private EquipmentInfoDomain equipmentInfoDomain;
+
     @Resource
     private EquipmentInfoDao equipmentInfoDao;
     /**
@@ -93,5 +95,13 @@ public class EquipmentInfoServiceImpl implements EquipmentInfoService {
             return equipmentInfoDao.ListByCourtId(map);
         }
         return null;
+    }
+
+    @Override
+    public List<EquipmentInfo> queryAllList() {
+        //获取正常且未删除所有设备
+        EquipmentInfo equipmentInfo=new EquipmentInfo();
+        equipmentInfo.setStatus(EquipmentConstant.RunState.NORMAL.getValue());
+        return equipmentInfoDao.queryListByParam(equipmentInfo);
     }
 }

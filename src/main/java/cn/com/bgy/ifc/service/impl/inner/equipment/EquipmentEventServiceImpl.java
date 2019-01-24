@@ -60,10 +60,27 @@ public class EquipmentEventServiceImpl implements EquipmentEventService {
 
     @Override
     public int insertEquipmentEvent(JSONObject jsonObject) {
-        EquipmentEvent equipmentEvent=jsonObject.toJavaObject(EquipmentEvent.class);
-        if(equipmentEvent!=null){
-            Long id=equipmentEvent.getId();
-            if(id!=null) {
+        EquipmentEvent equipmentEvent = jsonObject.toJavaObject(EquipmentEvent.class);
+        //事件状态 未处理:0 已处理:1
+        if (equipmentEvent.getStatus() != null && EquipmentConstant.EventState.NORMAL.getValue().equals(equipmentEvent.getStatus())) {
+           //事件状态
+            int type=equipmentEvent.getType();
+            //报警-火警列表
+            if(type==EquipmentConstant.StateEnum.CALL_POLICE.getValue()){
+
+            }
+            //故障
+            if(type==EquipmentConstant.StateEnum.FAULT.getValue()){
+
+            }
+            //预警
+            if(type==EquipmentConstant.StateEnum.EARLY_WARNING.getValue()){
+
+            }
+        }
+        if (equipmentEvent != null) {
+            Long id = equipmentEvent.getId();
+            if (id != null) {
                 EquipmentEvent event = equipmentEventDao.findById(id);
                 if (event != null) {
                     return equipmentEventDao.updateSelective(equipmentEvent);
@@ -235,10 +252,10 @@ public class EquipmentEventServiceImpl implements EquipmentEventService {
                 ExternalInterfaceConfig config = list.get(0);
                 List<Long> idList = ListUtil.getListId(ids);
                 String url = "";
-                if(idList.size()>1){
+                if (idList.size() > 1) {
                     String newIds = ListUtil.getIdStr(idList);
                     url = config.getUrl() + "/event/events?ids=" + newIds;
-                }else{
+                } else {
                     url = config.getUrl() + "/event/events/" + idList.get(0);
                 }
                 JSONObject response = HttpHelper.httpDelete(url, null);
@@ -271,18 +288,18 @@ public class EquipmentEventServiceImpl implements EquipmentEventService {
     @Override
     public ResponseVO<Object> handleDataList(String ids) {
         List<Long> idList = ListUtil.getListId(ids);
-        int count=0;
-        for (Long id:idList){
-            EquipmentEvent equipmentEvent=equipmentEventDao.findById(id);
+        int count = 0;
+        for (Long id : idList) {
+            EquipmentEvent equipmentEvent = equipmentEventDao.findById(id);
             equipmentEvent.setStatus(EquipmentConstant.EventState.FAULT.getValue());
-            ResponseVO<Object> response=editEquipmentEvent(equipmentEvent);
-            if(response.getCode().equals(ResponseVO.SUCCESS)){
+            ResponseVO<Object> response = editEquipmentEvent(equipmentEvent);
+            if (response.getCode().equals(ResponseVO.SUCCESS)) {
                 count++;
             }
         }
-        if(count>0){
-            return ResponseVO.success().setMsg("批量处理设备告警成功，处理条数："+count);
-        }else{
+        if (count > 0) {
+            return ResponseVO.success().setMsg("批量处理设备告警成功，处理条数：" + count);
+        } else {
             return ResponseVO.error().setMsg("批量处理设备告警失败!");
         }
     }

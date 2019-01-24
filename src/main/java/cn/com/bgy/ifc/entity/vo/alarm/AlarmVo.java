@@ -14,7 +14,7 @@ public class AlarmVo {
     /**
      * 告警等级
      */
-    private String alarmGrade;
+    private Integer alarmGrade;
 
     /**
      * 告警描述
@@ -29,12 +29,17 @@ public class AlarmVo {
     /**
      * 告警值
      */
-    private Double alarmValue;
+    private Float alarmValue;
 
     /**
-     * 参考范围
+     * 预警参考范围
      */
     private String referenceRange;
+
+    /**
+     * 告警参考范围
+     */
+    private String alarmReferenceRange;
 
     /**
      * 告警时间
@@ -69,11 +74,11 @@ public class AlarmVo {
         this.id = id;
     }
 
-    public String getAlarmGrade() {
+    public Integer getAlarmGrade() {
         return alarmGrade;
     }
 
-    public void setAlarmGrade(String alarmGrade) {
+    public void setAlarmGrade(Integer alarmGrade) {
         this.alarmGrade = alarmGrade;
     }
 
@@ -93,11 +98,11 @@ public class AlarmVo {
         this.reportCount = reportCount;
     }
 
-    public Double getAlarmValue() {
+    public Float getAlarmValue() {
         return alarmValue;
     }
 
-    public void setAlarmValue(Double alarmValue) {
+    public void setAlarmValue(Float alarmValue) {
         this.alarmValue = alarmValue;
     }
 
@@ -147,5 +152,13 @@ public class AlarmVo {
 
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
+    }
+
+    public String getAlarmReferenceRange() {
+        return alarmReferenceRange;
+    }
+
+    public void setAlarmReferenceRange(String alarmReferenceRange) {
+        this.alarmReferenceRange = alarmReferenceRange;
     }
 }
