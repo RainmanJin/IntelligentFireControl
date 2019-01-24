@@ -30,6 +30,12 @@
       <if test="id != null">
         id,
       </if>
+      <if test="regionId != null">
+          region_id,
+      </if>
+      <if test="regionName != null">
+          region_name,
+      </if>
       <if test="shortName != null">
         short_name,
       </if>
@@ -59,6 +65,12 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
+      <if test="regionId != null">
+            #{regionId,jdbcType=BIGINT},
+      </if>
+        <if test="regionName != null">
+            #{regionName,jdbcType=VARCHAR},
+        </if>
       <if test="shortName != null">
         #{shortName,jdbcType=VARCHAR}, 
       </if>
@@ -69,7 +81,7 @@
         #{organizationId,jdbcType=BIGINT},
       </if>
       <if test="companyName != null">
-        #{name,jdbcType=VARCHAR},
+        #{companyName,jdbcType=VARCHAR},
       </if>
       <if test="telephone != null">
         #{telephone,jdbcType=VARCHAR},
@@ -131,8 +143,8 @@
       <if test="organizationId != null">
         organization_id=#{organizationId},
       </if>
-      <if test="name != null">
-        name=#{name},
+      <if test="companyName != null">
+        name=#{companyName},
       </if>
       <if test="shortName != null">
         short_name=#{shortName},

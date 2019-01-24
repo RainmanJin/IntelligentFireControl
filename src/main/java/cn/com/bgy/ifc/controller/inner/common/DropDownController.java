@@ -154,14 +154,14 @@ public class DropDownController extends BaseController{
     }
     /*
      * @Author  huxin
-     * @Description 查询设备类型下拉菜单
+     * @Description 根据传递的TYPE查询设备类型下拉菜单
      * @param   []
      * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      * @Date 2019/1/17 15:13
      */
     @GetMapping("typeDropDownData")
-    public ResponseVO<Object> typeDropDownData(){
-        List<EquipmentType> list =  equipmentTypeService.queryAllEquipmentType();
+    public ResponseVO<Object> typeDropDownData(String type){
+        List<EquipmentType> list =  equipmentTypeService.queryAllEquipmentType(type);
         return ResponseVO.success().setData(list);
     }
    /*

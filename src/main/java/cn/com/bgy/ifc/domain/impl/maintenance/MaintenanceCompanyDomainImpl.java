@@ -59,7 +59,7 @@ public class MaintenanceCompanyDomainImpl implements MaintenanceCompanyDomain {
 
     @Override
     public int addMaintenanceCompanyInfo(MaintenanceCompany record) {
-        return dao.insert(record);
+        return dao.insertSelective(record);
     }
 
     @Override

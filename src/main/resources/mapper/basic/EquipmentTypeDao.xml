@@ -171,8 +171,14 @@
             <if test="status != null and status != ''">
                 AND status = #{status}
             </if>
+            <if test="parentId != null and parentId != 0">
+                  AND parent_id = #{parentId}
+            </if>
+            <if test="parentId != null and parentId == 0 ">
+                AND parent_id NOT IN(0,1)
+            </if>
                 AND logic_remove = 0
-                AND parent_id = 1
+
         </where>
     </select>
 

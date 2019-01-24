@@ -142,10 +142,18 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     }
 
     @Override
-    public List<EquipmentType> queryAllEquipmentType() {
+    public List<EquipmentType> queryAllEquipmentType(String type) {
         EquipmentType equipmentType=new EquipmentType();
         equipmentType.setStatus(SystemConstant.EnableState.ENABLE.getValue());
         equipmentType.setLogicRemove(false);
+        //查询一级所有菜单
+        if("1".equals(type)){
+            equipmentType.setParentId(1L);
+        //查询二级所有菜单
+        }else if("2".equals(type)){
+            equipmentType.setParentId(0L);
+        }
+        //查询所有
         return equipmentTypeDao.queryAllList(equipmentType);
     }
 

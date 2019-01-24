@@ -1,7 +1,6 @@
 package cn.com.bgy.ifc.entity.vo.maintenance;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class MaintenanceCompanyVo {
@@ -11,8 +10,7 @@ public class MaintenanceCompanyVo {
     private Long organizationId;
 
     private String organizationName;
-    
-    @NotNull(message="所属区域不能为空")
+
     private Long regionId;
     
     private String regionName;

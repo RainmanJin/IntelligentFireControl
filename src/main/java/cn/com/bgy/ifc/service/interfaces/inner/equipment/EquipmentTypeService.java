@@ -1,7 +1,6 @@
 package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
-import cn.com.bgy.ifc.entity.po.system.SystemPower;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentTypeVo;
 import cn.com.bgy.ifc.service.interfaces.inner.base.BaseService;
 import com.github.pagehelper.Page;
@@ -24,7 +23,7 @@ public interface EquipmentTypeService  extends  BaseService<EquipmentType> {
 
     List<Map<String, Object>> queryEquipmentTypeBySuperId(Long id);
 
-    List<EquipmentType> queryAllEquipmentType();
+    List<EquipmentType> queryAllEquipmentType(String type);
 
     List<EquipmentType>  queryAllList();
 }
