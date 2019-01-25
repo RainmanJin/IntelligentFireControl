@@ -311,7 +311,7 @@
 		  fi.status AS status -- 工单状态
 	from fire_inspection fi
 	left join region_info ri on ri.id = fi.region_id
-	left join region_project rp on rp.id = fi.region_id 
+	left join region_project rp on rp.id = fi.project_id
   </sql>
   <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.fireinspection.FireInspection" resultMap="BaseResultMap">
 	  	select
@@ -345,8 +345,8 @@
 		fid.result as result
 		from fire_inspection fi
 		left join region_info ri on ri.id = fi.region_id
-		left join region_project rp on rp.id = fi.region_id 
-		left join fire_inspection_detail fid on fid.fire_inspe_id = fi.id
+		left join region_project rp on rp.id = fi.project_id
+    left join fire_inspection_detail fid on fid.fire_inspe_id = fi.id
   	<trim prefix=" where " suffix="" suffixOverrides="and">
       	fi.logic_remove=0
        <if test="id != null">

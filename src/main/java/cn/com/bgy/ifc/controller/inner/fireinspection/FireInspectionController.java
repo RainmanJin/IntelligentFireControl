@@ -1,9 +1,15 @@
 package cn.com.bgy.ifc.controller.inner.fireinspection;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.controller.inner.common.BaseController;
+import cn.com.bgy.ifc.domain.interfaces.fireinspection.FireInspectionDomain;
+import cn.com.bgy.ifc.entity.po.fireinspection.FireInspection;
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.fireinspection.FireInspectionVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -13,16 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
-
-import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
-import cn.com.bgy.ifc.bgy.utils.CopyUtil;
-import cn.com.bgy.ifc.controller.inner.common.BaseController;
-import cn.com.bgy.ifc.domain.interfaces.fireinspection.FireInspectionDomain;
-import cn.com.bgy.ifc.entity.po.fireinspection.FireInspection;
-import cn.com.bgy.ifc.entity.vo.ResponseVO;
-import cn.com.bgy.ifc.entity.vo.fireinspection.FireInspectionVo;
+import java.util.Date;
+import java.util.List;
 /**
  * lvbingjian
  * 消防巡检主表单
@@ -63,7 +61,7 @@ public class FireInspectionController extends BaseController{
     @PostMapping("createData")
     @SystemLogAfterSave(description = "消防巡检主表单新增")
     @ResponseBody
-    public ResponseVO<Object> add(@Validated FireInspectionVo vo, BindingResult error, String token) {
+    public ResponseVO<Object> add(@Validated FireInspectionVo vo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -86,7 +84,7 @@ public class FireInspectionController extends BaseController{
     @PostMapping("editData")
     @SystemLogAfterSave(description = "消防巡检主表单修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionStreet(FireInspection po, String token){
+    public ResponseVO<Object> updateRegionStreet(FireInspection po){
         FireInspection bean = fireInspectionDomain.findById(po.getId());
         CopyUtil.copyProperties(po,bean);
         int count = fireInspectionDomain.updateSelective(bean);
@@ -118,14 +116,10 @@ public class FireInspectionController extends BaseController{
     @PostMapping("deleteData")
     @SystemLogAfterSave(description = "消防巡检主表单删除")
     @ResponseBody
-    public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
-    	String []ids = arr.split(",");
-    	List<Long>list = new ArrayList<Long>();
+    public ResponseVO<Object> deleteRegionComputerRoom( String ids){
+    	List<Long> list = ListUtil.getListId(ids);
     	int count;
-    	if(ids.length>0) {
-    		for (int i = 0; i < ids.length; i++) {
-    			list.add(Long.valueOf(ids[i]));
-			}
+    	if(list.size()>0) {
     		count = fireInspectionDomain.deleteBatch(list);
     	}else {
     		count = 0;
