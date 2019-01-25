@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.service.interfaces.inner.alarm;
 
 import cn.com.bgy.ifc.entity.po.alarm.AlarmMode;
+import cn.com.bgy.ifc.entity.vo.alarm.AlarmModeVo;
 import cn.com.bgy.ifc.service.interfaces.inner.base.BaseService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -17,10 +18,17 @@ public interface AlarmModeService extends BaseService<AlarmMode> {
     /**
      * 分页查询告警方式
      * @param page
-     * @param alarmMode
+     * @param alarmModeVo
      * @return
      */
-    PageInfo<AlarmMode> queryListByPage(Page<AlarmMode> page, AlarmMode alarmMode);
+    PageInfo<AlarmMode> queryListByPage(Page<AlarmMode> page, AlarmModeVo alarmModeVo);
+
+    /**
+     * 批量修改告警方式
+     * @param list
+     * @return
+     */
+    int updateBatch(List<AlarmMode> list);
 
     /**
      * 查询所有告警方式

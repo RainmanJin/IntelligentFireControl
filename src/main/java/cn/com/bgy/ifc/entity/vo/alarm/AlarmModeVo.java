@@ -1,8 +1,6 @@
 package cn.com.bgy.ifc.entity.vo.alarm;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -12,25 +10,43 @@ import java.util.Date;
  **/
 public class AlarmModeVo {
 
+    /**
+     * ID
+     */
     private Long id;
 
     /**
-     * 告警名称
+     * 所属区域ID
      */
-    @NotBlank(message="告警名称不能为空！")
-    @Size(max=50,message="告警名称长度不能超过50字符！")
-    private String name;
+    @NotNull(message="所属区域不能为空！")
+    private Long regionId;
 
     /**
-     * 告警类型
+     * 所属项目ID
      */
-    @NotNull(message="告警类型不能为空！")
-    private Integer alarmType;
+    @NotNull(message="所属项目不能为空！")
+    private Long projectId;
+
 
     /**
-     * 启用状态 禁用-0 启用-1
+     * 火警告警方式
      */
-    private Integer state;
+    private String fireAlarm;
+
+    /**
+     * 一级告警告警方式
+     */
+    private String oneLevelAlarm;
+
+    /**
+     * 二级告警告警方式
+     */
+    private String twoLevelAlarm;
+
+    /**
+     * 三级告警告警方式
+     */
+    private String threeLevelAlarm;
 
     /**
      * 创建、修改时间
@@ -43,9 +59,9 @@ public class AlarmModeVo {
     private Boolean logicRemove;
 
     /**
-     * 告警内容
+     * 关键字
      */
-    private String alarmContent;
+    private String keyword;
 
 
     public Long getId() {
@@ -56,28 +72,52 @@ public class AlarmModeVo {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getRegionId() {
+        return regionId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRegionId(Long regionId) {
+        this.regionId = regionId;
     }
 
-    public Integer getAlarmType() {
-        return alarmType;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setAlarmType(Integer alarmType) {
-        this.alarmType = alarmType;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
-    public Integer getState() {
-        return state;
+    public String getFireAlarm() {
+        return fireAlarm;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setFireAlarm(String fireAlarm) {
+        this.fireAlarm = fireAlarm;
+    }
+
+    public String getOneLevelAlarm() {
+        return oneLevelAlarm;
+    }
+
+    public void setOneLevelAlarm(String oneLevelAlarm) {
+        this.oneLevelAlarm = oneLevelAlarm;
+    }
+
+    public String getTwoLevelAlarm() {
+        return twoLevelAlarm;
+    }
+
+    public void setTwoLevelAlarm(String twoLevelAlarm) {
+        this.twoLevelAlarm = twoLevelAlarm;
+    }
+
+    public String getThreeLevelAlarm() {
+        return threeLevelAlarm;
+    }
+
+    public void setThreeLevelAlarm(String threeLevelAlarm) {
+        this.threeLevelAlarm = threeLevelAlarm;
     }
 
     public Date getCreateTime() {
@@ -96,11 +136,26 @@ public class AlarmModeVo {
         this.logicRemove = logicRemove;
     }
 
-    public String getAlarmContent() {
-        return alarmContent;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setAlarmContent(String alarmContent) {
-        this.alarmContent = alarmContent;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    @Override
+    public String toString() {
+        return "AlarmModeVo{" +
+                "id=" + id +
+                ", regionId=" + regionId +
+                ", projectId=" + projectId +
+                ", fireAlarm='" + fireAlarm + '\'' +
+                ", oneLevelAlarm='" + oneLevelAlarm + '\'' +
+                ", twoLevelAlarm='" + twoLevelAlarm + '\'' +
+                ", threeLevelAlarm='" + threeLevelAlarm + '\'' +
+                ", createTime=" + createTime +
+                ", logicRemove=" + logicRemove +
+                '}';
     }
 }

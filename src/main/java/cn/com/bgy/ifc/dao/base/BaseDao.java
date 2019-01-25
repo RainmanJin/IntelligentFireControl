@@ -29,6 +29,14 @@ public interface BaseDao<T> {
     List<T> queryListByMap(Map<String, Object> map);
 
     /**
+     * 根据Object参数查询
+     *
+     * @param object
+     * @return
+     */
+    List<T> queryListByObj(Object object);
+
+    /**
      * 根据ID查询
      *
      * @param id
@@ -67,6 +75,13 @@ public interface BaseDao<T> {
      * @return
      */
     int updateSelective(T t);
+
+    /**
+     * 批量修改数据
+     * @param list
+     * @return
+     */
+    int updateBatch(List<T> list);
 
     /**
      * 批量删除

@@ -1,147 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.bgy.ifc.dao.alarm.AlarmModeDao">
-  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
-    <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="alarm_type" jdbcType="INTEGER" property="alarmType" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
-    <result column="alarm_content" jdbcType="LONGVARCHAR" property="alarmContent" />
-  </resultMap>
-  <sql id="Blob_Column_List">
-    alarm_content
-  </sql>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
-    insert into alarm_mode (id, name, alarm_type, 
-      state, create_time, logic_remove, 
-      alarm_content)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{alarmType,jdbcType=INTEGER}, 
-      #{state,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, 
-      #{alarmContent,jdbcType=LONGVARCHAR})
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="region_id" jdbcType="BIGINT" property="regionId"/>
+        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
+        <result column="fire_alarm" jdbcType="VARCHAR" property="fireAlarm"/>
+        <result column="one_level_alarm" jdbcType="VARCHAR" property="oneLevelAlarm"/>
+        <result column="two_level_alarm" jdbcType="VARCHAR" property="twoLevelAlarm"/>
+        <result column="three_level_alarm" jdbcType="VARCHAR" property="threeLevelAlarm"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
+        <association column="region_id" javaType="cn.com.bgy.ifc.entity.po.project.RegionInfo" property="regionInfo">
+            <id column="info_id" property="id"/>
+            <result column="info_name" property="name"/>
+        </association>
+        <association column="project_id" javaType="cn.com.bgy.ifc.entity.po.project.RegionProject"
+                     property="regionProject">
+            <id column="pro_id" property="id"/>
+            <result column="pro_name" property="name"/>
+        </association>
+    </resultMap>
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
+    insert into alarm_mode (id, region_id, project_id, 
+      fire_alarm, one_level_alarm, two_level_alarm, 
+      three_level_alarm, create_time, logic_remove
+      )
+    values (#{id,jdbcType=BIGINT}, #{regionId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
+      #{fireAlarm,jdbcType=VARCHAR}, #{oneLevelAlarm,jdbcType=VARCHAR}, #{twoLevelAlarm,jdbcType=VARCHAR}, 
+      #{threeLevelAlarm,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
-    insert into alarm_mode
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="alarmType != null">
-        alarm_type,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="logicRemove != null">
-        logic_remove,
-      </if>
-      <if test="alarmContent != null">
-        alarm_content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="alarmType != null">
-        #{alarmType,jdbcType=INTEGER},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="logicRemove != null">
-        #{logicRemove,jdbcType=BIT},
-      </if>
-      <if test="alarmContent != null">
-        #{alarmContent,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
+        insert into alarm_mode
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="regionId != null">
+                region_id,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="fireAlarm != null">
+                fire_alarm,
+            </if>
+            <if test="oneLevelAlarm != null">
+                one_level_alarm,
+            </if>
+            <if test="twoLevelAlarm != null">
+                two_level_alarm,
+            </if>
+            <if test="threeLevelAlarm != null">
+                three_level_alarm,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="logicRemove != null">
+                logic_remove,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="regionId != null">
+                #{regionId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="fireAlarm != null">
+                #{fireAlarm,jdbcType=VARCHAR},
+            </if>
+            <if test="oneLevelAlarm != null">
+                #{oneLevelAlarm,jdbcType=VARCHAR},
+            </if>
+            <if test="twoLevelAlarm != null">
+                #{twoLevelAlarm,jdbcType=VARCHAR},
+            </if>
+            <if test="threeLevelAlarm != null">
+                #{threeLevelAlarm,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logicRemove != null">
+                #{logicRemove,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
 
-  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmMode"
-          resultMap="BaseResultMap">
-    SELECT
-    id, name, alarm_type,
-    state, create_time, logic_remove,
-    alarm_content
-    FROM alarm_mode
-    <where>
-      <if test="state != null and state != ''or state == 0">
-        AND state = #{state}
-      </if>
-      <if test="alarmType != null ">
-        AND alarm_type=#{alarmType}
-      </if>
-      <if test="name!='' and name!=null">
-        AND (name LIKE concat('%',#{name},'%') OR alarm_content LIKE concat('%',#{name},'%'))
-      </if>
-      AND logic_remove = 0
-    </where>
-  </select>
-
-  <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+    <select id="queryListByObj" parameterType="cn.com.bgy.ifc.entity.vo.alarm.AlarmModeVo" resultMap="BaseResultMap">
         SELECT
-        id, name, alarm_type,
-        state, create_time, logic_remove,
-        alarm_content
+        a.id,
+        a.region_id,
+        a.project_id,
+        a.fire_alarm,
+        a.one_level_alarm,
+        a.two_level_alarm,
+        a.three_level_alarm,
+        a.create_time,
+        a.logic_remove,
+        i.id AS info_id,
+        i.name AS info_name,
+        p.id AS pro_id,
+        p.name AS pro_name
+        FROM alarm_mode a
+        INNER JOIN region_info i ON i.id=a.region_id
+        INNER JOIN region_project p ON p.id=a.project_id
+        <where>
+            <if test="regionId != null ">
+                AND a.region_id=#{regionId}
+            </if>
+            <if test="projectId != null ">
+                AND a.project_id=#{projectId}
+            </if>
+            <if test="keyword!='' and keyword!=null">
+                AND (p.name LIKE concat('%',#{keyword},'%') OR i.name LIKE concat('%',#{keyword},'%'))
+            </if>
+            AND a.logic_remove = 0
+        </where>
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+        id, region_id, project_id,
+        fire_alarm, one_level_alarm, two_level_alarm,
+        three_level_alarm, create_time, logic_remove
         FROM alarm_mode  WHERE id = #{id}
     </select>
 
-  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
-    UPDATE alarm_mode
-    <set>
-        name=#{name,jdbcType=VARCHAR},
-        alarm_type=#{alarmType,jdbcType=INTEGER},
-        state=#{state,jdbcType=INTEGER},
-        create_time=#{createTime,jdbcType=TIMESTAMP},
-        logic_remove=#{logicRemove,jdbcType=BIT},
-        alarm_content=#{alarmContent,jdbcType=LONGVARCHAR},
-    </set>
-    WHERE id = #{id}
-  </update>
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
+        UPDATE alarm_mode
+        <set>
+            region_id=#{regionId,jdbcType=BIGINT},
+            project_id=#{projectId,jdbcType=BIGINT},
+            fire_alarm=#{fireAlarm,jdbcType=VARCHAR},
+            one_level_alarm=#{oneLevelAlarm,jdbcType=VARCHAR},
+            two_level_alarm=#{twoLevelAlarm,jdbcType=VARCHAR},
+            three_level_alarm=#{threeLevelAlarm,jdbcType=VARCHAR},
+            create_time=#{createTime,jdbcType=TIMESTAMP},
+            logic_remove=#{logicRemove,jdbcType=BIT},
+        </set>
+        WHERE id = #{id}
+    </update>
 
-  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
-    UPDATE alarm_mode
-    <set>
-      <if test="name != null">
-        name=#{name,jdbcType=VARCHAR},
-      </if>
-      <if test="alarmType != null">
-        alarm_type=#{alarmType,jdbcType=INTEGER},
-      </if>
-      <if test="state != null">
-        state=#{state,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        create_time=#{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="logicRemove != null">
-        logic_remove=#{logicRemove,jdbcType=BIT},
-      </if>
-      <if test="alarmContent != null">
-        alarm_content=#{alarmContent,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    WHERE id = #{id}
-  </update>
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.alarm.AlarmMode">
+        UPDATE alarm_mode
+        <set>
+            <if test="regionId != null">
+                region_id=#{regionId,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                project_id=#{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="fireAlarm != null">
+                fire_alarm=#{fireAlarm,jdbcType=VARCHAR},
+            </if>
+            <if test="oneLevelAlarm != null">
+                one_level_alarm=#{oneLevelAlarm,jdbcType=VARCHAR},
+            </if>
+            <if test="twoLevelAlarm != null">
+                two_level_alarm=#{twoLevelAlarm,jdbcType=VARCHAR},
+            </if>
+            <if test="threeLevelAlarm != null">
+                three_level_alarm=#{threeLevelAlarm,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time=#{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logicRemove != null">
+                logic_remove=#{logicRemove,jdbcType=BIT},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
 
-  <update id="deleteBatch" parameterType="java.util.List">
-    UPDATE alarm_mode SET logic_remove =1 WHERE id IN
-    <foreach close=")" collection="list" item="id" open="(" separator=",">
-      #{id}
-    </foreach>
-  </update>
+    <update id="deleteBatch" parameterType="java.util.List">
+        UPDATE alarm_mode SET logic_remove =1 WHERE id IN
+        <foreach close=")" collection="list" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
+    </update>
 </mapper>

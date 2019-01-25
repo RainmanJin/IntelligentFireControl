@@ -4,8 +4,12 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.EquipmentConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.EnumUtil;
+import cn.com.bgy.ifc.bgy.utils.excel.ExcelUtil;
+import cn.com.bgy.ifc.entity.model.EquipmentStateModel;
+import cn.com.bgy.ifc.entity.model.OrgTestModel;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
+import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentConfigVo;
@@ -21,6 +25,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -154,6 +161,18 @@ public class EquipmentStateController {
             return ResponseVO.deleteError();
         }
         return equipmentStateService.deleteEquipmentState(ids);
+    }
+
+    @GetMapping("getExcel")
+    public void getExcel(HttpServletRequest request, HttpServletResponse response){
+        List<EquipmentState> list=equipmentStateService.queryAllList();
+        List<EquipmentStateModel> modelList=new ArrayList();
+        for(EquipmentState state:list){
+            EquipmentStateModel model=new EquipmentStateModel();
+            CopyUtil.copyProperties(state,model);
+            modelList.add(model);
+        }
+        ExcelUtil.exportExcel("设备信息",modelList,EquipmentStateModel.class,request,response);
     }
 
 }

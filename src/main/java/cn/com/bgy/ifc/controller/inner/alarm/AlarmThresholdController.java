@@ -6,16 +6,15 @@ import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentStateVo;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentStateService;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author: ZhangCheng
@@ -70,16 +69,16 @@ public class AlarmThresholdController {
         }
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:批量修改设备告警阀值信息
+     * @param: [list]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @PostMapping("editDataList")
-    @SystemLogAfterSave(description = "批量修改物联设备告警阀值信息")
-    public ResponseVO<Object> editDataList(@RequestParam List<String> list) {
-        List<EquipmentState> newList=new ArrayList<>();
-        for(String obj:list){
-            String jsonStr = JSONObject.toJSONString(obj);
-            //JSON转换为object
-            newList.add(JSON.parseObject(jsonStr, EquipmentState.class));
-        }
-        System.out.println("======"+newList);
+    @SystemLogAfterSave(description = "批量修改设备告警阀值信息")
+    public ResponseVO<Object> editDataList(String list) {
+        List<EquipmentState> newList=JSON.parseArray(list,EquipmentState.class);
         int result=equipmentStateService.updateStateList(newList);
         if(result==1){
             return ResponseVO.editSuccess();

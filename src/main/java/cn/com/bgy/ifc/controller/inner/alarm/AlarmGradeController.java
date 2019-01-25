@@ -6,6 +6,7 @@ import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentStateVo;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentStateService;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author: ZhangCheng
@@ -65,6 +68,24 @@ public class AlarmGradeController {
             return ResponseVO.error().setMsg("告警等级不能为空！");
         }
         int result=equipmentStateService.updateSelective(equipmentState);
+        if(result==1){
+            return ResponseVO.editSuccess();
+        }else{
+            return ResponseVO.editError();
+        }
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:批量修改物联设备告警等级信息
+     * @param: [list]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("editDataList")
+    @SystemLogAfterSave(description = "批量修改设备告警等级信息")
+    public ResponseVO<Object> editDataList(String list) {
+        List<EquipmentState> newList= JSON.parseArray(list,EquipmentState.class);
+        int result=equipmentStateService.updateStateList(newList);
         if(result==1){
             return ResponseVO.editSuccess();
         }else{

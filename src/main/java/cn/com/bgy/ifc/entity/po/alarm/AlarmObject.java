@@ -64,7 +64,7 @@ public class AlarmObject {
     private Boolean logicRemove;
 
     /**
-     * 所属项目
+     * 所属区域
      */
     private RegionInfo regionInfo;
 

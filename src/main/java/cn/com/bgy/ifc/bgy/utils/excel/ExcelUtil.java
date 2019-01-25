@@ -31,7 +31,7 @@ public class ExcelUtil {
 
     private static Logger logger = LoggerFactory.getLogger(ExcelUtil.class);
 
-    public static void exportExcel(String title, List<? extends BaseRowModel> list, HttpServletRequest request, HttpServletResponse response) {
+    public static void exportExcel(String title, List<? extends BaseRowModel> list,Class<? extends BaseRowModel> clazz, HttpServletRequest request, HttpServletResponse response) {
         //设置响应头编码
         response.setCharacterEncoding("UTF-8");
         //区分不同的的类型的数据
@@ -45,7 +45,7 @@ public class ExcelUtil {
         try {
             out = response.getOutputStream();
             ExcelWriter writer = new ExcelWriter(out, ExcelTypeEnum.XLSX, true);
-            Sheet sheet1 = new Sheet(1, 0, OrgTestModel.class);
+            Sheet sheet1 = new Sheet(1, 0, clazz);
             sheet1.setSheetName("第一个sheet");
             writer.write(list, sheet1);
             writer.finish();

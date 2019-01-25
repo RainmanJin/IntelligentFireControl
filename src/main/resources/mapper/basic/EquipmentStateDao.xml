@@ -298,7 +298,7 @@
             lastValue= #{lastValue,jdbcType=REAL},
             grade=#{grade,jdbcType=INTEGER},
             alarm_threshold_max= #{alarmThresholdMax,jdbcType=REAL},
-            alarm_threshold_min=#{alarmThresholdMin,jdbcType=REAL},
+            alarm_threshold_min=#{alarmThresholdMin,jdbcType=REAL}
         </set>
         WHERE id = #{id}
     </update>
@@ -373,7 +373,7 @@
                 status_changed_time= #{statusChangedTime,jdbcType=TIMESTAMP},
             </if>
             <if test="lastValue != null">
-                lastValue= #{lastValue,jdbcType=REAL},
+                last_value= #{lastValue,jdbcType=REAL},
             </if>
             <if test="grade != null">
                 grade=#{grade,jdbcType=INTEGER},

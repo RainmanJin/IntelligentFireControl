@@ -164,7 +164,7 @@ public class SystemOrganizationController extends BaseController {
         return ResponseVO.success().setData(list);
     }
 
-    @GetMapping("excel")
+  /*  @GetMapping("excel")
     public void getExcel(HttpServletRequest request,HttpServletResponse response){
         List<SystemOrganization> list=systemOrganizationService.queryList(null);
         List<OrgTestModel> modelList=new ArrayList();
@@ -174,5 +174,5 @@ public class SystemOrganizationController extends BaseController {
             modelList.add(model);
         }
         ExcelUtil.exportExcel("机构管理",modelList,request,response);
-    }
+    }*/
 }

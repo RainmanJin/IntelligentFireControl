@@ -14,14 +14,6 @@ import java.util.List;
  **/
 public class ListUtil {
 
-    public static void main(String[] args) {
-        String id = "[a,b,c,d]";
-        String[] arrayIds = id.split(",");
-        String ids =  Joiner.on(",").join(arrayIds);
-        //Joiner.on(",")
-        System.out.println(ids);
-    }
-
     /**
      * @author: ZhangCheng
      * @description:将ID字符串转换为List<Long></>
