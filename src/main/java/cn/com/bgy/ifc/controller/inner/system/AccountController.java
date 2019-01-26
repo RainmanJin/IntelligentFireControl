@@ -28,12 +28,12 @@ import java.util.List;
 @RequestMapping("/system/account")
 public class AccountController extends BaseController {
 
-    private static Logger logger= LoggerFactory.getLogger(AccountController.class);
     @Autowired
     private AccountDomain accountDomain;
 
     @Autowired
     private UserApiService userApiService;
+
     /**
      * @description:新增用户
      * @param: [page, accountVo, error]
@@ -42,18 +42,19 @@ public class AccountController extends BaseController {
      * @date: 2019/1/22 9:44
      */
     @PostMapping("add")
-    public   ResponseVO<Object>  add(Page<Account> page,@Validated AccountVo accountVo, BindingResult error){
+    public ResponseVO<Object> add(Page<Account> page, @Validated AccountVo accountVo, BindingResult error) {
 
-            Account account= new Account();
-            CopyUtil.copyProperties(accountVo,account);
-            account.setOrganizationId(this.getUser().getOrganizationId());
-            account.setPassword(SignatureUtil.getBgyMd5(SystemConstant.INITAL_PASSWORD));
-            account.setRegistTime(new Date());
-            account.setIsDisable(SystemConstant.EnableState.ENABLE.getValue());
-            accountDomain.save(account);
-            return ResponseVO.success();
+        Account account = new Account();
+        CopyUtil.copyProperties(accountVo, account);
+        account.setOrganizationId(this.getUser().getOrganizationId());
+        account.setPassword(SignatureUtil.getBgyMd5(SystemConstant.INITAL_PASSWORD));
+        account.setRegistTime(new Date());
+        account.setIsDisable(SystemConstant.EnableState.ENABLE.getValue());
+        accountDomain.save(account);
+        return ResponseVO.success();
 
     }
+
     /**
      * @description:
      * @param: [page, account]
@@ -62,8 +63,9 @@ public class AccountController extends BaseController {
      * @date: 2019/1/22 9:39
      */
     @GetMapping("searchPage")
-    public ResponseVO<Object> searchPage(Page<Account> page, Account account){ Account user = this.getUser();
-        PageInfo<Account> pageInfo=accountDomain.searchByPage(page,account);
+    public ResponseVO<Object> searchPage(Page<Account> page, Account account) {
+        Account user = this.getUser();
+        PageInfo<Account> pageInfo = accountDomain.searchByPage(page, account);
 
         return ResponseVO.success().setData(pageInfo);
     }
@@ -76,59 +78,66 @@ public class AccountController extends BaseController {
      * @date: 2019/1/22 9:38
      */
     @GetMapping("findById")
-    public ResponseVO<Object> findById(Long id){
+    public ResponseVO<Object> findById(Long id) {
 
-          Account user=accountDomain.findById(id);
+        Account user = accountDomain.findById(id);
         return ResponseVO.success().setData(user);
     }
+
     /**
      * 根据用户id更新用户状态
+     *
      * @param ids
      * @return
      */
     @PostMapping("updateIsDisable")
     @SystemLogAfterSave(description = "更新用户状态")
-    public ResponseVO<Object> updateIsDisable(String ids,Integer isDisable ){
-          List<Long>idslist=  ListUtil.getListId(ids);
-          int res=accountDomain.updateIsDisable(idslist,isDisable);
-          if(res>0){
-              return ResponseVO.success().setMsg("操作成功！");
-          }else{
-              return ResponseVO.error().setMsg("操作失败");
-          }
+    public ResponseVO<Object> updateIsDisable(String ids, Integer isDisable) {
+        List<Long> idslist = ListUtil.getListId(ids);
+        int res = accountDomain.updateIsDisable(idslist, isDisable);
+        if (res > 0) {
+            return ResponseVO.success().setMsg("操作成功！");
+        } else {
+            return ResponseVO.error().setMsg("操作失败");
+        }
     }
+
     /**
      * 根据用户id更新用户状态
+     *
      * @param account
      * @return
      */
     @PostMapping("initalingPassword")
     @SystemLogAfterSave(description = "初始用户密码")
-    public ResponseVO<Object> initalingPassword(Account account ){
+    public ResponseVO<Object> initalingPassword(Account account) {
         account.setPassword(SignatureUtil.getBgyMd5(SystemConstant.INITAL_PASSWORD));
-        int res=accountDomain.initalingPassword(account);
-        if(res>0){
+        int res = accountDomain.initalingPassword(account);
+        if (res > 0) {
             return ResponseVO.success().setMsg("更新成功！");
-        }else{
+        } else {
             return ResponseVO.error().setMsg("更新失败");
         }
     }
+
     /**
      * 查询用户权限
+     *
      * @param page
      * @param account
      * @return
      */
     @PostMapping("findUserPowerByPage")
-    public ResponseVO<Object> findUserPowerByPage(Page<Account> page,Account account){
+    public ResponseVO<Object> findUserPowerByPage(Page<Account> page, Account account) {
 
-        PageInfo<Account> pageInfo= accountDomain.findUserPowerByPage(page, account);
+        PageInfo<Account> pageInfo = accountDomain.findUserPowerByPage(page, account);
         return ResponseVO.success().setData(pageInfo);
     }
+
     @PostMapping("editData")
-    public   ResponseVO<Object>  editData(@Validated AccountVo accountVo, BindingResult error){
-        Account account= accountDomain.findById(accountVo.getId());
-        if (account ==null) {
+    public ResponseVO<Object> editData(@Validated AccountVo accountVo, BindingResult error) {
+        Account account = accountDomain.findById(accountVo.getId());
+        if (account == null) {
             return ResponseVO.error().setMsg("未找到用户");
         }
         account.setDepartmentId(accountVo.getDepartmentId());
@@ -145,22 +154,23 @@ public class AccountController extends BaseController {
 
     /**
      * 根据用户id更新用户状态
+     *
      * @param
      * @return
      */
     @PostMapping("updatePassword")
     @SystemLogAfterSave(description = "初始用户密码")
-    public ResponseVO<Object> updatePassword(String oldPassword,String newPassword,Long id){
-        Account account =accountDomain.findById(id);
-        if (oldPassword.equals(account.getPassword())){
+    public ResponseVO<Object> updatePassword(String oldPassword, String newPassword, Long id) {
+        Account account = accountDomain.findById(id);
+        if (oldPassword.equals(account.getPassword())) {
             account.setPassword(newPassword);
-            int res=accountDomain.initalingPassword(account);
-            if(res>0){
+            int res = accountDomain.initalingPassword(account);
+            if (res > 0) {
                 return ResponseVO.success().setMsg("更新成功！");
-            }else{
+            } else {
                 return ResponseVO.error().setMsg("更新失败");
             }
-        }else{
+        } else {
             return ResponseVO.error().setMsg("原始密码不正确！");
         }
 
@@ -173,7 +183,7 @@ public class AccountController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @GetMapping("synchroData")
-    public ResponseVO<Object> synchroData(){
-       return  userApiService.baseObtainBgyUser(1,1000);
+    public ResponseVO<Object> synchroData() {
+        return userApiService.baseObtainBgyUser(1, 1000);
     }
 }

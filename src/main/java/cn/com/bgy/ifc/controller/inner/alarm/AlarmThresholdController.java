@@ -1,9 +1,11 @@
 package cn.com.bgy.ifc.controller.inner.alarm;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentSetup;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentStateVo;
+import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentSetupService;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentStateService;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
@@ -28,11 +30,14 @@ public class AlarmThresholdController {
     @Autowired
     private EquipmentStateService equipmentStateService;
 
+    @Autowired
+    private EquipmentSetupService equipmentSetupService;
+
     /**
      * @author: ZhangCheng
      * @description:分页查询设备告警阀值信息
      * @param: [page, equipmentState]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.equipment.EquipmentState>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo   <   cn.com.bgy.ifc.entity.po.equipment.EquipmentState>>
      */
     @GetMapping("queryPageData")
     public ResponseVO<PageInfo<EquipmentState>> queryPageData(Page<EquipmentState> page, EquipmentStateVo equipmentStateVo) {
@@ -60,11 +65,11 @@ public class AlarmThresholdController {
      */
     @PostMapping("editData")
     @SystemLogAfterSave(description = "修改物联设备告警阀值信息")
-    public ResponseVO<Object> edit(EquipmentState equipmentState) {
-        int result=equipmentStateService.updateSelective(equipmentState);
-        if(result==1){
+    public ResponseVO<Object> edit(EquipmentSetup equipmentSetup) {
+        int result = equipmentSetupService.updateAlarmThreshold(equipmentSetup);
+        if (result == 1) {
             return ResponseVO.editSuccess();
-        }else{
+        } else {
             return ResponseVO.editError();
         }
     }
@@ -78,11 +83,11 @@ public class AlarmThresholdController {
     @PostMapping("editDataList")
     @SystemLogAfterSave(description = "批量修改设备告警阀值信息")
     public ResponseVO<Object> editDataList(String list) {
-        List<EquipmentState> newList=JSON.parseArray(list,EquipmentState.class);
-        int result=equipmentStateService.updateStateList(newList);
-        if(result==1){
+        List<EquipmentSetup> newList = JSON.parseArray(list, EquipmentSetup.class);
+        int result = equipmentSetupService.updateAlarmThresholdList(newList);
+        if (result>0) {
             return ResponseVO.editSuccess();
-        }else{
+        } else {
             return ResponseVO.editError();
         }
     }

@@ -1,17 +1,16 @@
 package cn.com.bgy.ifc.controller.inner.alarm;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
-import cn.com.bgy.ifc.bgy.utils.CopyUtil;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentSetup;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentStateVo;
+import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentSetupService;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentStateService;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +30,14 @@ public class AlarmGradeController {
     @Autowired
     private EquipmentStateService equipmentStateService;
 
+    @Autowired
+    private EquipmentSetupService equipmentSetupService;
+
     /**
      * @author: ZhangCheng
      * @description:分页查询设备等级信息
      * @param: [page, equipmentState]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.equipment.EquipmentState>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo < cn.com.bgy.ifc.entity.po.equipment.EquipmentState>>
      */
     @GetMapping("queryPageData")
     public ResponseVO<PageInfo<EquipmentState>> queryPageData(Page<EquipmentState> page, EquipmentStateVo equipmentStateVo) {
@@ -63,14 +65,14 @@ public class AlarmGradeController {
      */
     @PostMapping("editData")
     @SystemLogAfterSave(description = "修改物联设备等级信息")
-    public ResponseVO<Object> edit(EquipmentState equipmentState) {
-        if(equipmentState.getGrade()==null){
+    public ResponseVO<Object> edit(EquipmentSetup equipmentSetup) {
+        if (equipmentSetup.getGrade() == null) {
             return ResponseVO.error().setMsg("告警等级不能为空！");
         }
-        int result=equipmentStateService.updateSelective(equipmentState);
-        if(result==1){
+        int result = equipmentSetupService.updateAlarmGrade(equipmentSetup);
+        if (result == 1) {
             return ResponseVO.editSuccess();
-        }else{
+        } else {
             return ResponseVO.editError();
         }
     }
@@ -84,11 +86,11 @@ public class AlarmGradeController {
     @PostMapping("editDataList")
     @SystemLogAfterSave(description = "批量修改设备告警等级信息")
     public ResponseVO<Object> editDataList(String list) {
-        List<EquipmentState> newList= JSON.parseArray(list,EquipmentState.class);
-        int result=equipmentStateService.updateStateList(newList);
-        if(result==1){
+        List<EquipmentSetup> newList = JSON.parseArray(list, EquipmentSetup.class);
+        int result = equipmentSetupService.updateAlarmGradeList(newList);
+        if (result == 1) {
             return ResponseVO.editSuccess();
-        }else{
+        } else {
             return ResponseVO.editError();
         }
     }

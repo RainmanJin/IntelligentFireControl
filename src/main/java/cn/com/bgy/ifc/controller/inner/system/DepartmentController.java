@@ -7,15 +7,12 @@ import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.bgy.utils.TreeUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.system.DepartmentDomain;
-import cn.com.bgy.ifc.domain.interfaces.system.SystemOrganizationDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.Department;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.system.DepartmentVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -37,31 +34,26 @@ import java.util.List;
 @RequestMapping("/system/department")
 public class DepartmentController extends BaseController {
 
-    private static Logger logger= LoggerFactory.getLogger(DepartmentController.class);
-
     @Autowired
     private DepartmentDomain departmentDomain;
-
-    @Autowired
-    private SystemOrganizationDomain systemOrganizationDomain;
 
     /**
      * @author: ZhangCheng
      * @description:查询部门信息列表(分页)
      * @param: [page, departmentVo]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.basic.Department>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo < cn.com.bgy.ifc.entity.po.basic.Department>>
      */
     @GetMapping("searchPage")
     public ResponseVO<PageInfo<Department>> queryListByPage(Page<Department> page, Department department) {
-            PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page, department);
-            return ResponseVO.<PageInfo<Department>>success().setData(pageInfo);
+        PageInfo<Department> pageInfo = departmentDomain.queryListByPage(page, department);
+        return ResponseVO.<PageInfo<Department>>success().setData(pageInfo);
     }
 
     /**
      * @author: ZhangCheng
      * @description:查询部门树
      * @param: []
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.util.List<cn.com.bgy.ifc.entity.vo.basic.DepartmentVo>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.util.List < cn.com.bgy.ifc.entity.vo.basic.DepartmentVo>>
      */
     @GetMapping("queryTree")
     public ResponseVO<List<DepartmentVo>> queryTree() {
@@ -72,7 +64,7 @@ public class DepartmentController extends BaseController {
             CopyUtil.copyProperties(department, departmentVo);
             functionList.add(departmentVo);
         }
-        List<DepartmentVo> treeList =TreeUtil.switchTree(functionList,0L);
+        List<DepartmentVo> treeList = TreeUtil.switchTree(functionList, 0L);
         return ResponseVO.<List<DepartmentVo>>success().setData(treeList);
     }
 
@@ -81,11 +73,12 @@ public class DepartmentController extends BaseController {
         List<Department> list = departmentDomain.queryAllList();
         return ResponseVO.<List<Department>>success().setData(list);
     }
+
     /**
      * @author: ZhangCheng
      * @description:上级部门查询
      * @param: []
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.util.List<cn.com.bgy.ifc.entity.po.basic.Department>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.util.List < cn.com.bgy.ifc.entity.po.basic.Department>>
      */
     @GetMapping("queryList")
     public ResponseVO<List<Department>> queryList(Department department) {
@@ -102,6 +95,7 @@ public class DepartmentController extends BaseController {
     /**
      * YanXiaoLu
      * 根据当前登录用户添加部门
+     *
      * @param departmentVo
      * @param error
      * @return
@@ -109,24 +103,19 @@ public class DepartmentController extends BaseController {
     @PostMapping("add")
     @SystemLogAfterSave(description = "部门信息添加")
     public ResponseVO<Object> add(@Validated DepartmentVo departmentVo, BindingResult error) {
-        Account user=this.getUser();
+        Account user = this.getUser();
         Department department = new Department();
         CopyUtil.copyProperties(departmentVo, department);
-        if(departmentVo.getParentId()==null){
-            department.setParentId(0L);
-        }
         department.setOrganizationId(user.getOrganizationId());
-        department.setCreateTime(new Date());
-        department.setState(1);
-        department.setLogicRemove(false);
         int count = departmentDomain.insert(department);
         if (count == 1) {
             return ResponseVO.addSuccess();
-        }else if(count==2){
+        } else if (count == 2) {
             return ResponseVO.addError().setMsg("添加的部门名已经存在！！请重新输入部门名!!");
         }
         return ResponseVO.addError();
     }
+
     /**
      * @author: YanXiaoLu
      * @description:根据登录用户查询部门（下拉框展示）
@@ -142,7 +131,6 @@ public class DepartmentController extends BaseController {
     }
 
 
-
     /**
      * @author: ZhangCheng
      * @description:部门信息修改
@@ -151,33 +139,40 @@ public class DepartmentController extends BaseController {
      */
     @PostMapping("update")
     @SystemLogAfterSave(description = "部门信息修改")
-    public ResponseVO<Object> update(@Validated DepartmentVo departmentVo, BindingResult error) {
+    public ResponseVO<Object> update(@Validated DepartmentVo departmentVo,BindingResult error) {
+        if (error.hasErrors()) {
+            return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
+        }
+        if(departmentVo.getParentId().equals(departmentVo.getId())){
+            return ResponseVO.error().setMsg("上级部门不能选择当前部门！");
+        }
         Department department = new Department();
         CopyUtil.copyProperties(departmentVo, department);
         int count = departmentDomain.update(department);
-        if (count >0) {
+        if (count > 0) {
+            return ResponseVO.editSuccess();
+        }
+        return ResponseVO.editError();
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:部门启用操作
+     * @param: [departmentVo, error]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("forbidden")
+    @SystemLogAfterSave(description = "部门启用操作")
+    public ResponseVO<Object> forbidden(DepartmentVo departmentVo) {
+        Department department = new Department();
+        CopyUtil.copyProperties(departmentVo, department);
+        int count = departmentDomain.update(department);
+        if (count > 0) {
             return ResponseVO.success().setMsg("操作成功");
         }
         return ResponseVO.error().setMsg("操作失败！");
     }
 
-    /**
-     * @author: ZhangCheng
-     * @description:部门信息修改
-     * @param: [departmentVo, error]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
-     */
-    @PostMapping("forbidden")
-    @SystemLogAfterSave(description = "部门信息修改")
-    public ResponseVO<Object> forbidden(DepartmentVo departmentVo) {
-        Department department = new Department();
-        CopyUtil.copyProperties(departmentVo, department);
-        int count = departmentDomain.update(department);
-        if (count >0) {
-            return ResponseVO.success().setMsg("操作成功");
-        }
-        return ResponseVO.error().setMsg("操作失败！");
-    }
     /**
      * @author: ZhangCheng
      * @description:部门信息删除
@@ -188,13 +183,15 @@ public class DepartmentController extends BaseController {
     @SystemLogAfterSave(description = "部门信息删除")
     public ResponseVO<Object> delete(String ids) {
         int count = departmentDomain.deleteBatch(ListUtil.getListId(ids));
-        if (count >0) {
+        if (count > 0) {
             return ResponseVO.deleteSuccess();
         }
         return ResponseVO.deleteError();
     }
+
     /**
      * 查询所有部门
+     *
      * @return
      */
     @GetMapping("getDpartmentName")

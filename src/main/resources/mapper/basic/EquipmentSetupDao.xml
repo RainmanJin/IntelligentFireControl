@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.equipment.EquipmentSetupDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentSetup">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+    <result column="alarm_threshold_max" jdbcType="REAL" property="alarmThresholdMax" />
+    <result column="alarm_threshold_min" jdbcType="REAL" property="alarmThresholdMin" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentSetup">
+    insert into equipment_setup (id, grade, alarm_threshold_max, 
+      alarm_threshold_min)
+    values (#{id,jdbcType=BIGINT}, #{grade,jdbcType=INTEGER}, #{alarmThresholdMax,jdbcType=REAL}, 
+      #{alarmThresholdMin,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentSetup">
+    insert into equipment_setup
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="alarmThresholdMax != null">
+        alarm_threshold_max,
+      </if>
+      <if test="alarmThresholdMin != null">
+        alarm_threshold_min,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="alarmThresholdMax != null">
+        #{alarmThresholdMax,jdbcType=REAL},
+      </if>
+      <if test="alarmThresholdMin != null">
+        #{alarmThresholdMin,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <insert id="replaceSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentSetup">
+    REPLACE INTO equipment_setup
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="alarmThresholdMax != null">
+        alarm_threshold_max,
+      </if>
+      <if test="alarmThresholdMin != null">
+        alarm_threshold_min,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="alarmThresholdMax != null">
+        #{alarmThresholdMax,jdbcType=REAL},
+      </if>
+      <if test="alarmThresholdMin != null">
+        #{alarmThresholdMin,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentSetup">
+    UPDATE equipment_setup
+    <set>
+        grade= #{grade,jdbcType=INTEGER},
+        alarm_threshold_max=#{alarmThresholdMax,jdbcType=REAL},
+        alarm_threshold_min=#{alarmThresholdMin,jdbcType=REAL}
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentSetup">
+    UPDATE equipment_setup
+    <set>
+      <if test="grade != null">
+        grade= #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="alarmThresholdMax != null">
+        alarm_threshold_max=#{alarmThresholdMax,jdbcType=REAL},
+      </if>
+      <if test="alarmThresholdMin != null">
+        alarm_threshold_min=#{alarmThresholdMin,jdbcType=REAL},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+        id,
+        grade,
+        alarm_threshold_max,
+        alarm_threshold_min
+        FROM equipment_setup  WHERE id = #{id}
+    </select>
+</mapper>

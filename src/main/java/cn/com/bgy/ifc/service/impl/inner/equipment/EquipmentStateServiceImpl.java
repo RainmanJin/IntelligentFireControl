@@ -169,6 +169,8 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
                 data.put("superiorId", equipmentState.getSuperiorId());
                 data.put("partitionNum", equipmentState.getPartitionNum());
                 data.put("positionNum", equipmentState.getPositionNum());
+                data.put("valueThresholdMax", equipmentState.getValueThresholdMax());
+                data.put("valueThresholdMin", equipmentState.getValueThresholdMin());
                 JSONObject response = HttpHelper.httpPost(url, data, null);
                 if (response != null) {
                     //data作为key获取JSONObject
@@ -274,6 +276,8 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
                 data.put("superiorId", equipmentState.getSuperiorId());
                 data.put("partitionNum", equipmentState.getPartitionNum());
                 data.put("positionNum", equipmentState.getPositionNum());
+                data.put("valueThresholdMax", equipmentState.getValueThresholdMax());
+                data.put("valueThresholdMin", equipmentState.getValueThresholdMin());
                 JSONObject response = HttpHelper.httpPut(url, data, null);
                 if (response != null) {
                     //data作为key获取JSONObject
@@ -344,20 +348,4 @@ public class EquipmentStateServiceImpl implements EquipmentStateService {
         }
     }
 
-    @Transactional(rollbackFor = {RuntimeException.class})
-    @Override
-    public int updateStateList(List<EquipmentState> list) {
-        int count=0;
-        for(EquipmentState state:list){
-            int result=equipmentStateDao.updateSelective(state);
-            if(result==1){
-                count++;
-            }
-        }
-        if(count==list.size()){
-            return 1;
-        }else{
-            throw new RuntimeException("批量修改设备阀值数据失败!");
-        }
-    }
 }

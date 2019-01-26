@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.service.interfaces.inner.equipment;
 
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentConfig;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentSetup;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentStateVo;
@@ -74,10 +75,4 @@ public interface EquipmentStateService extends BaseService<EquipmentState> {
      */
     ResponseVO<Object>  deleteEquipmentState(String ids);
 
-    /**
-     * 批量更改设备阀值
-     * @param list
-     * @return
-     */
-    int updateStateList(List<EquipmentState> list);
 }

@@ -126,7 +126,6 @@ public class LoginController {
     @RequestMapping("/logout")
     @ResponseBody
     public ResponseVO logout() {
-
         Subject subject = SecurityUtils.getSubject();//取出当前验证主体
         if (subject != null) {
             subject.logout();//不为空，执行一次logout的操作，将session全部清空

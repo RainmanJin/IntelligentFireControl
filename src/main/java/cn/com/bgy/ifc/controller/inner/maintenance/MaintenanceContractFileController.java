@@ -66,21 +66,21 @@ public class MaintenanceContractFileController extends BaseController{
     @PostMapping("add")
     @SystemLogAfterSave(description = "维保合同附件新增")
     @ResponseBody
-    public ResponseVO<Object> add(@Validated MaintenanceContractFileVo vo, BindingResult error, String token) {
+    public ResponseVO<Object> add(@Validated MaintenanceContractFileVo vo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
 
-        MaintenanceContractFile MaintenanceContractFile = new MaintenanceContractFile();
+        MaintenanceContractFile maintenanceContractFile = new MaintenanceContractFile();
         //默认是false删除后设为true
         vo.setLogicRemove(false);
-        CopyUtil.copyProperties(vo, MaintenanceContractFile);
-        int count = maintenanceContractFileDomain.insert(MaintenanceContractFile);
+        CopyUtil.copyProperties(vo, maintenanceContractFile);
+        int count = maintenanceContractFileDomain.insert(maintenanceContractFile);
         if (count == 1) {
-            return ResponseVO.success().setMsg("添加成功！");
+            return ResponseVO.addSuccess();
         }
-        return ResponseVO.error().setMsg("添加失败！");
+        return ResponseVO.addError();
     }
     /**
      * @Author lvbingjian
@@ -91,7 +91,7 @@ public class MaintenanceContractFileController extends BaseController{
     @RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
     @SystemLogAfterSave(description = "维保合同附件修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionStreet(MaintenanceContractFile po, String token){
+    public ResponseVO<Object> updateRegionStreet(MaintenanceContractFile po){
         int resout = 1;
         int count = maintenanceContractFileDomain.update(po);
         if (count == resout) {

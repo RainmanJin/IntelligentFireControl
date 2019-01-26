@@ -24,7 +24,7 @@ import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceOrderItemVo;
 /**
- * lvbingjian
+ * @author lvbingjian
  * 维保工单项目结果---控制层
  * 2018年12月26日15:35:25
  */
@@ -33,10 +33,11 @@ import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceOrderItemVo;
 public class MaintenanceOrderItemController extends BaseController{
 	@Autowired
 	private MaintenanceOrderItemDomain domain;
-	/**
-     * 分页查询
+
+    /**
      *
-     * @param vo
+     * @param page
+     * @param po
      * @return
      */
     @GetMapping("queryPageList")
@@ -60,23 +61,23 @@ public class MaintenanceOrderItemController extends BaseController{
      */
     @PostMapping("add")
     @SystemLogAfterSave(description = "维保工单项目新增")
-    public ResponseVO<Object> add(@Validated MaintenanceOrderItemVo vo, BindingResult error, String token) {
+    public ResponseVO<Object> add(@Validated MaintenanceOrderItemVo vo, BindingResult error) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
         }
 
-        MaintenanceOrderItem MaintenanceOrderItem = new MaintenanceOrderItem();
+        MaintenanceOrderItem maintenanceOrderItem = new MaintenanceOrderItem();
         //默认是false删除后设为true
         
         vo.setLogicRemove(false);
        
-        CopyUtil.copyProperties(vo, MaintenanceOrderItem);
-        int count = domain.insert(MaintenanceOrderItem);
+        CopyUtil.copyProperties(vo, maintenanceOrderItem);
+        int count = domain.insert(maintenanceOrderItem);
         if (count == 1) {
-            return ResponseVO.success().setMsg("添加成功！");
+            return ResponseVO.addSuccess();
         }
-        return ResponseVO.error().setMsg("添加失败！");
+        return ResponseVO.addError();
     }
     /**
      * @Author lvbingjian
@@ -84,15 +85,14 @@ public class MaintenanceOrderItemController extends BaseController{
      * @Date 2018年12月20日09:48:38
      */
     @PostMapping("update")
-    @RequiresRoles(value= {SystemConstant.SYSTEM_ROLES_ADMIN,SystemConstant.SYSTEM_ROLES_ADMIN},logical=Logical.OR)
     @SystemLogAfterSave(description = "维保工单项目修改")
-    public ResponseVO<Object> updateRegionStreet(MaintenanceOrderItem po, String token){
+    public ResponseVO<Object> updateRegionStreet(MaintenanceOrderItem po){
         int resout = 1;
         int count = domain.update(po);
         if (count == resout) {
-            return ResponseVO.success().setMsg("修改成功");
+            return ResponseVO.editSuccess();
         }
-        return ResponseVO.error().setMsg("修改失败！");
+        return ResponseVO.editError();
     }
 
     /**
@@ -100,13 +100,11 @@ public class MaintenanceOrderItemController extends BaseController{
      * lbj
      * 2018年12月20日
      * @param id
-     * @param token
      * @return
      */
     @GetMapping("queryById")
-    public ResponseVO<MaintenanceOrderItem> queryById( long id, String token) {
+    public ResponseVO<MaintenanceOrderItem> queryById(Long id) {
         MaintenanceOrderItem bean = domain.findById(id);
-
         return ResponseVO.<MaintenanceOrderItem>success().setData(bean);
     }
     /**
@@ -116,7 +114,7 @@ public class MaintenanceOrderItemController extends BaseController{
      */
     @PostMapping("delete")
     @SystemLogAfterSave(description = "维保工单项目删除")
-    public ResponseVO<Object> deleteRegionComputerRoom( String arr, String token){
+    public ResponseVO<Object> deleteRegionComputerRoom(String arr){
     	String []ids = arr.split(",");
     	List<Long>list = new ArrayList<Long>();
     	int count;

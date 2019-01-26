@@ -163,16 +163,17 @@
         p.id AS pro_id,
         p.name AS pro_name,
         s.last_value,
-        s.grade,
+        u.grade,
         (CASE WHEN s.value_threshold_max IS NULL THEN c.value_threshold_max ELSE s.value_threshold_max END) AS value_threshold_max ,
         (CASE WHEN s.value_threshold_min IS NULL THEN c.value_threshold_min ELSE s.value_threshold_min END) AS value_threshold_min ,
-        s.alarm_threshold_max,
-        s.alarm_threshold_min,
+        u.alarm_threshold_max,
+        u.alarm_threshold_min,
         f.id AS info_id,
         f.name AS info_name
         FROM equipment_event e
         INNER JOIN equipment_state s ON s.id=e.device_id
         LEFT JOIN equipment_config c ON c.type=s.type
+        LEFT JOIN equipment_setup u ON u.id=s.id
         LEFT JOIN equipment_info i ON i.equipment_state_id=e.device_id
         LEFT JOIN region_computer_room r ON r.id=i.machine_room_id
         LEFT JOIN region_project p ON p.id=r.project_id

@@ -1,12 +1,9 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
-import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
-import cn.com.bgy.ifc.bgy.utils.excel.ExcelUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
-import cn.com.bgy.ifc.entity.model.OrgTestModel;
 import cn.com.bgy.ifc.entity.po.system.SystemOrganization;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
@@ -23,9 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +41,7 @@ public class SystemOrganizationController extends BaseController {
      * @author: ZhangCheng
      * @description:机构分页查询
      * @param: [page, keywords]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo                                                               <                                                               cn.com.bgy.ifc.entity.po.system.SystemOrganization>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo                                                                                                                               <                                                                                                                               cn.com.bgy.ifc.entity.po.system.SystemOrganization>>
      */
     @GetMapping("queryPage")
     public ResponseVO<PageInfo<SystemOrganization>> searchPage(Page<SystemOrganization> page, String keywords) {
@@ -138,7 +132,7 @@ public class SystemOrganizationController extends BaseController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      */
     @PostMapping("deleteBatch")
-    @SystemLogAfterSave(type = SystemLogType.OPERATION_LOG, description = "删除机构信息")
+    @SystemLogAfterSave(description = "删除机构信息")
     public ResponseVO<Object> deleteBatch(String ids) {
         if (ids.length() == 0) {
             return ResponseVO.deleteError();
@@ -163,16 +157,4 @@ public class SystemOrganizationController extends BaseController {
         List<SelectVo> list = accountService.queryListByRole(null, orgId);
         return ResponseVO.success().setData(list);
     }
-
-  /*  @GetMapping("excel")
-    public void getExcel(HttpServletRequest request,HttpServletResponse response){
-        List<SystemOrganization> list=systemOrganizationService.queryList(null);
-        List<OrgTestModel> modelList=new ArrayList();
-        for(SystemOrganization org:list){
-            OrgTestModel model=new OrgTestModel();
-            CopyUtil.copyProperties(org,model);
-            modelList.add(model);
-        }
-        ExcelUtil.exportExcel("机构管理",modelList,request,response);
-    }*/
 }
