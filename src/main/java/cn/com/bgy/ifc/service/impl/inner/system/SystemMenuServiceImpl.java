@@ -88,4 +88,9 @@ public class SystemMenuServiceImpl implements SystemMenuService {
         }
         return selectVos;
     }
+
+    @Override
+    public List<SystemMenu> queryRolePermission(Long roleId) {
+        return systemMenuDao.queryRolePermission(roleId);
+    }
 }

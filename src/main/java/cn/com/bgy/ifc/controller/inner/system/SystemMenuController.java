@@ -144,6 +144,17 @@ public class SystemMenuController extends BaseController {
     }
 
     /**
+     * 获取角色权限配置
+     * @param roleId
+     * @return
+     */
+    @GetMapping("queryRolePermission")
+    public ResponseVO<Object> queryRolePermission(Long roleId){
+        List<SystemMenu> list=systemMenuService.queryRolePermission(roleId);
+        return ResponseVO.success().setData(list);
+    }
+
+    /**
      * @author: ZhangCheng
      * @description:获取上级菜单
      * @param: []

@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.entity.po.system;
 import java.util.List;
 
 public class SystemMenu {
+
     private Long id;
 
     private String name;
@@ -19,8 +20,23 @@ public class SystemMenu {
 
     private Long powerId;
 
+    /**
+     * 权限地址
+     */
+    private String powerUrl;
+
     private Integer type;
 
+    /**
+     * 是否选中
+     */
+    private Boolean checked;
+
+    private Boolean logicRemove;
+
+    private List<SystemMenu> children;
+
+    private String powerName;
 
     public Integer getType() {
         return type;
@@ -30,8 +46,6 @@ public class SystemMenu {
         this.type = type;
     }
 
-
-
     public String getPowerName() {
         return powerName;
     }
@@ -40,8 +54,6 @@ public class SystemMenu {
         this.powerName = powerName;
     }
 
-    private String powerName;
-
     public List<SystemMenu> getChildren() {
         return children;
     }
@@ -49,10 +61,6 @@ public class SystemMenu {
     public void setChildren(List<SystemMenu> children) {
         this.children = children;
     }
-
-    private Boolean logicRemove;
-
-    private List<SystemMenu> children;
 
     public Long getId() {
         return id;
@@ -124,5 +132,41 @@ public class SystemMenu {
 
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
+    }
+
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
+    }
+
+    public String getPowerUrl() {
+        return powerUrl;
+    }
+
+    public void setPowerUrl(String powerUrl) {
+        this.powerUrl = powerUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "SystemMenu{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", navigateUrl='" + navigateUrl + '\'' +
+                ", remark='" + remark + '\'' +
+                ", sortIndex=" + sortIndex +
+                ", parentId=" + parentId +
+                ", powerId=" + powerId +
+                ", powerUrl='" + powerUrl + '\'' +
+                ", type=" + type +
+                ", checked=" + checked +
+                ", logicRemove=" + logicRemove +
+                ", children=" + children +
+                ", powerName='" + powerName + '\'' +
+                '}';
     }
 }

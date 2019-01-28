@@ -12,17 +12,19 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Configuration
 public class ShiroConfiguration {
 
 
-    //@Qualifier代表spring里面的
 
    @Bean("shiroFilter")
     public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-
 
        /* Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
         LogoutFilter logoutFilter = new LogoutFilter();
@@ -59,7 +61,8 @@ public class ShiroConfiguration {
     public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm) {
         //这个DefaultWebSecurityManager构造函数,会对Subject，realm等进行基本的参数注入
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
-        manager.setRealm(authRealm);//往SecurityManager中注入Realm，代替原本的默认配置
+        //往SecurityManager中注入Realm，代替原本的默认配置
+        manager.setRealm(authRealm);
         return manager;
     }
     /**
@@ -69,7 +72,6 @@ public class ShiroConfiguration {
      */
     @Bean
     public SimpleCookie rememberMeCookie(){
-        //System.out.println("ShiroConfiguration.rememberMeCookie()");
         //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
         //<!-- 记住我cookie生效时间30天 ,单位秒;-->
@@ -78,34 +80,10 @@ public class ShiroConfiguration {
     }
     @Bean
     public CookieRememberMeManager rememberMeManager(){
-        //System.out.println("ShiroConfiguration.rememberMeManager()");
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
-        //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
-        //cookieRememberMeManager.setCipherKey(Base64.decode("2AvVhdsgUs0FSA3SDFAdag=="));
         return cookieRememberMeManager;
     }
-
-    /*@Bean
-    public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm) {
-        DefaultWebSecurityManager sm = new DefaultWebSecurityManager();
-        sm.setRealm(authRealm);
-        sm.setCacheManager(new MemoryConstrainedCacheManager());
-        //注入记住我管理器
-        sm.setRememberMeManager(rememberMeManager());
-        //注入自定义sessionManager
-        sm.setSessionManager(sessionManager());
-        return sm;
-    }
-    @Bean("sessionManager")
-    public SessionManager sessionManager(){
-        MySessionManager manager = new MySessionManager();
-        *//*使用了shiro自带缓存，
-		如果设置 redis为缓存需要重写CacheManager（其中需要重写Cache）
-		manager.setCacheManager(this.RedisCacheManager());*//*
-        manager.setSessionDAO(new EnterpriseCacheSessionDAO());
-        return manager;
-    }*/
 
     //自定义的Realm
     @Bean("authRealm")

@@ -38,16 +38,19 @@ public class AuthRealm extends AuthorizingRealm { //AuthenticatingRealm是抽象
         Account account = (Account) principals.fromRealm(this.getClass().getName()).iterator().next();
         Set<String> permissionSet = new HashSet<>();
         Set<String> roleNameSet = new HashSet<>();
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         for (SystemRole role : account.getRoleList()) {
             roleNameSet.add(Integer.toString(role.getType()));
         }
+        //设置角色
+        info.addRoles(roleNameSet);
+        //设置权限
         for (SystemPower power : account.getPowerList()) {
-            permissionSet.add(power.getName());
-
+            if (power.getName().length()==0) {
+                continue;
+            }
+            info.addStringPermission(power.getName());
         }
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.addStringPermissions(permissionSet);//拿到权限
-        info.addRoles(roleNameSet);//拿到角色
         return info;
     }
 
@@ -66,8 +69,9 @@ public class AuthRealm extends AuthorizingRealm { //AuthenticatingRealm是抽象
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         System.out.println("将用户，密码填充完UsernamePasswordToken之后，进行subject.login(token)之后");
-        UsernamePasswordToken userpasswordToken = (UsernamePasswordToken) token;//这边是界面的登陆数据，将数据封装成token
-        String username = userpasswordToken.getUsername();
+        //这边是界面的登陆数据，将数据封装成token
+        UsernamePasswordToken userPasswordToken = (UsernamePasswordToken) token;
+        String username = userPasswordToken.getUsername();
         Account user = userService.findAccountByUserName(username);
         List<SystemRole> roleList = systemRoleDomain.queryListByUserId(user.getId());
         List<SystemPower> powerList = systemPowerService.queryListByUserId(user.getId());

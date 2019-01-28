@@ -14,4 +14,11 @@ public interface SystemMenuDao extends BaseDao<SystemMenu> {
 
     List<SystemMenu>  queryParentMenu();
 
+    /**
+     * 根据角色ID查询菜单权限
+     * @param roleId
+     * @return
+     */
+    List<SystemMenu> queryRolePermission(@Param("roleId")Long roleId);
+
 }

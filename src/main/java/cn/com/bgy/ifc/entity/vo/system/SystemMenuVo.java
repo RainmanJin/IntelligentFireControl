@@ -52,12 +52,17 @@ public class SystemMenuVo {
      */
     private Long powerId;
 
+    /**
+     * 权限地址
+     */
+    @Size(max=50,message="权限地址长度不能超过50字符！")
+    private String powerUrl;
+
     private String powerName;
 
     private Integer type;
 
     /**
-     * @Author chenlie
      * 角色值
      */
     private String value;
@@ -175,5 +180,13 @@ public class SystemMenuVo {
 
     public void setLogicRemove(Boolean logicRemove) {
         this.logicRemove = logicRemove;
+    }
+
+    public String getPowerUrl() {
+        return powerUrl;
+    }
+
+    public void setPowerUrl(String powerUrl) {
+        this.powerUrl = powerUrl;
     }
 }

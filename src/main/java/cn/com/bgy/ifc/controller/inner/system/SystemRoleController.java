@@ -6,11 +6,13 @@ import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.EnumUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemRoleDomain;
+import cn.com.bgy.ifc.entity.po.system.SystemMenu;
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemRoleVo;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemRoleService;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +35,14 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/basic/role")
-public class SystemRoleController  {
+public class SystemRoleController {
 
     @Autowired
     private SystemRoleService systemRoleService;
 
     @Autowired
     private SystemRoleDomain systemRoleDomain;
+
     /**
      * 分页查询
      *
@@ -85,6 +88,24 @@ public class SystemRoleController  {
         CopyUtil.copyProperties(systemRoleVo, systemRole);
         int count = systemRoleService.updateSelective(systemRole);
         if (count == 1) {
+            return ResponseVO.editSuccess();
+        } else {
+            return ResponseVO.editError();
+        }
+    }
+
+    /**
+     * @author: ZhangCheng
+     * @description:修改角色权限
+     * @param: [roleId, list]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @PostMapping("editDataList")
+    @SystemLogAfterSave(description = "修改角色权限")
+    public ResponseVO<Object> editDataList(Long roleId, String list) {
+        List<SystemMenu> newList = JSON.parseArray(list, SystemMenu.class);
+        int result=systemRoleService.insertRoleMenu(roleId,newList);
+        if (result == 1) {
             return ResponseVO.editSuccess();
         } else {
             return ResponseVO.editError();
@@ -150,6 +171,7 @@ public class SystemRoleController  {
         List<SystemRole> list = systemRoleDomain.queryListByUserId(userId);
         return ResponseVO.<Object>success().setData(list);
     }
+
     /**
      * @author: chenlie
      * @description:查询系统所有角色
@@ -161,49 +183,49 @@ public class SystemRoleController  {
 
         try {
 
-        List<SystemRole> list = systemRoleDomain.queryAllList(null);
-        List<Map<String,Object>> resultList=new ArrayList<>();
+            List<SystemRole> list = systemRoleDomain.queryAllList(null);
+            List<Map<String, Object>> resultList = new ArrayList<>();
 
-        Map<String,Object> map1=new HashMap<>();
-        Map<String,Object> map2=new HashMap<>();
-        Map<String,Object> map3=new HashMap<>();
-        Map<String,Object> map4=new HashMap<>();
-        List<SystemRole> list1=new ArrayList<>();
-        List<SystemRole> list2=new ArrayList<>();
-        List<SystemRole> list3=new ArrayList<>();
-        List<SystemRole> list4=new ArrayList<>();
-        for (SystemRole role:list){
-            if (role.getType() !=null&&role.getType().longValue()==1){
-                list1.add(role);
+            Map<String, Object> map1 = new HashMap<>();
+            Map<String, Object> map2 = new HashMap<>();
+            Map<String, Object> map3 = new HashMap<>();
+            Map<String, Object> map4 = new HashMap<>();
+            List<SystemRole> list1 = new ArrayList<>();
+            List<SystemRole> list2 = new ArrayList<>();
+            List<SystemRole> list3 = new ArrayList<>();
+            List<SystemRole> list4 = new ArrayList<>();
+            for (SystemRole role : list) {
+                if (role.getType() != null && role.getType().longValue() == 1) {
+                    list1.add(role);
+                }
+                if (role.getType() != null && role.getType().longValue() == 2) {
+                    list2.add(role);
+                }
+                if (role.getType() != null && role.getType().longValue() == 3) {
+                    list3.add(role);
+                }
+                if (role.getType() != null && role.getType().longValue() == 4) {
+                    list4.add(role);
+                }
             }
-            if (role.getType() !=null&&role.getType().longValue()==2){
-                list2.add(role);
-            }
-            if (role.getType() !=null&&role.getType().longValue()==3){
-                list3.add(role);
-            }
-            if (role.getType() !=null&&role.getType().longValue()==4){
-                list4.add(role);
-            }
-        }
-        map1.put("type","platform");
-        map1.put("list",list1);
-        map1.put("name","平台级用户");
-        map2.put("list",list2);
-        map2.put("type","head");
-        map2.put("name","集团级用户");
-        map3.put("list",list3);
-        map3.put("type","area");
-        map3.put("name","区域级用户");
-        map4.put("list",list4);
-        map4.put("type","project");
-        map4.put("name","项目级用户");
-        resultList.add(map1);
-        resultList.add(map2);
-        resultList.add(map3);
-        resultList.add(map4);
+            map1.put("type", "platform");
+            map1.put("list", list1);
+            map1.put("name", "平台级用户");
+            map2.put("list", list2);
+            map2.put("type", "head");
+            map2.put("name", "集团级用户");
+            map3.put("list", list3);
+            map3.put("type", "area");
+            map3.put("name", "区域级用户");
+            map4.put("list", list4);
+            map4.put("type", "project");
+            map4.put("name", "项目级用户");
+            resultList.add(map1);
+            resultList.add(map2);
+            resultList.add(map3);
+            resultList.add(map4);
             return ResponseVO.<Object>success().setData(resultList);
-      }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

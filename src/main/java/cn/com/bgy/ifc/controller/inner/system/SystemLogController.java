@@ -1,9 +1,9 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.utils.EnumUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
 import cn.com.bgy.ifc.entity.po.system.SystemOperationLog;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
@@ -24,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/basic/systemLog")
+@RolePermission
 public class SystemLogController extends BaseController {
 
     @Autowired
@@ -41,6 +42,12 @@ public class SystemLogController extends BaseController {
         return ResponseVO.<PageInfo<SystemOperationLog>>success().setData(pageInfo);
     }
 
+    /**
+     * @author: ZhangCheng
+     * @description:系统日志ID查询
+     * @param: [id]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
     @GetMapping("findById")
     public ResponseVO<Object> findById(Long id) {
         SystemOperationLog equipmentState = systemOperationLogService.findById(id);

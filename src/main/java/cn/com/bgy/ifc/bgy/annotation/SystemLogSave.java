@@ -3,7 +3,11 @@ package cn.com.bgy.ifc.bgy.annotation;
 import cn.com.bgy.ifc.bgy.constant.LoginState;
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author: ZhangCheng
