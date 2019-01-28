@@ -221,16 +221,16 @@
         LEFT JOIN equipment_thing_type e ON e.value=s.type
         LEFT JOIN equipment_setup u ON u.id=s.id
         <where>
-            <if test="equipType != null and equipType != ''">
+            <if test="equipType != null">
                 AND s.type = #{equipType}
             </if>
-            <if test="online != null and online != ''">
+            <if test="online != null">
                 AND s.online = #{online}
             </if>
-            <if test="status != null and status != ''">
+            <if test="status != null">
                 AND s.status = #{status}
             </if>
-            <if test="grade != null and grade != ''">
+            <if test="grade != null">
                 AND u.grade = #{grade}
             </if>
             <if test="name!='' and name!=null">

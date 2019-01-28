@@ -66,7 +66,7 @@ public class MaintenancePlanController extends BaseController{
      * @Description 新增维保项目
      * @Date 2018年12月20日09:48:38
      */
-    @PostMapping("add")
+    @PostMapping("createData")
     @SystemLogAfterSave(description = "维保计划新增")
     @ResponseBody
     public ResponseVO<Object> add(@Validated MaintenancePlanVo vo, BindingResult error, String token) {
@@ -96,7 +96,7 @@ public class MaintenancePlanController extends BaseController{
      * @Description 修改
      * @Date 2018年12月20日09:48:38
      */
-    @PostMapping("update")
+    @PostMapping("editData")
     @SystemLogAfterSave(description = "维保计划修改")
     @ResponseBody
     public ResponseVO<Object> updateRegionStreet(MaintenancePlan vo, String token){
@@ -131,7 +131,7 @@ public class MaintenancePlanController extends BaseController{
      * @Description 删除
      * @Date 2018/12/18 15:22
      */
-    @PostMapping("delete")
+    @PostMapping("deleteData")
     @SystemLogAfterSave(description = "维保计划删除")
     @ResponseBody
     public ResponseVO<Object> deleteRegionComputerRoom( String ids, String token){
