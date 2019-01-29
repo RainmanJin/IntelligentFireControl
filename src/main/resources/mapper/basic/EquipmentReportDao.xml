@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.report.EquipmentReportDao">
+    <!-- 获取设备总数-->
+    <select id="getEquipmentCount" parameterType="java.util.Map" resultType="java.lang.Long">
+        SELECT
+        COUNT(ei.id)
+        FROM equipment_info ei
+        INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
+        INNER JOIN region_info ri ON rr.region_id = ri.id
+        INNER JOIN region_project rp ON rr.project_id = rp.id
+        <where>
+            <if test="projectId != null">
+                AND   ri.id =  #{regionId,jdbcType=BIGINT}
+            </if>
+            <if test="courtId != null">
+                AND   rp.id =  #{projectId,jdbcType=BIGINT}
+            </if>
+            AND ei.logic_remove = 0
+            AND rr.logic_remove = 0
+            AND ri.logic_remove = 0
+            AND rp.logic_remove = 0
+        </where>
+    </select>
+    <!-- 按一级分类获取设备总数-->
+    <select id="getEquipmentCountByOneType" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT type.tName AS typeName,COUNT(type.sId)AS count
+        FROM equipment_info ei
+        INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
+        INNER JOIN region_info ri ON rr.region_id = ri.id
+        INNER JOIN region_project rp ON rr.project_id = rp.id
+        INNER JOIN (SELECT sId,sName,sParenId, tId,tName,tParenId,e1.id AS oId,e1.name AS oNAme,e1.parent_id AS oParenId
+        FROM	(
+        SELECT sId,sName,sParenId,e.id AS tId,e.name AS tName,e.parent_id AS tParenId FROM (
+        SELECT id AS sId,`name` AS sName,parent_id AS sParenId FROM equipment_type WHERE logic_remove=0
+        ) AS s INNER JOIN equipment_type e ON s.sParenId = e.id WHERE e.logic_remove=0
+        ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0 ) AS type ON type.sId = ei.type_id
+        <where>
+            <if test="projectId != null">
+                AND   ri.id =  #{regionId,jdbcType=BIGINT}
+            </if>
+            <if test="courtId != null">
+                AND   rp.id =  #{projectId,jdbcType=BIGINT}
+            </if>
+            AND ei.logic_remove = 0
+            AND rr.logic_remove = 0
+            AND ri.logic_remove = 0
+            AND rp.logic_remove = 0
+            GROUP BY type.tName
+            ORDER BY count DESC
+        </where>
+    </select>
+    <!-- 按二级分类获取设备总数-->
+    <select id="getEquipmentCountByTwoType" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT et.`name` AS typeName,COUNT(ei.id)AS count
+        FROM equipment_info ei
+        INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
+        INNER JOIN region_info ri ON rr.region_id = ri.id
+        INNER JOIN region_project rp ON rr.project_id = rp.id
+        INNER JOIN equipment_type et ON ei.type_id = et.id AND et.parent_id NOT IN(0,1)
+        <where>
+            <if test="projectId != null">
+                AND   ri.id =  #{regionId,jdbcType=BIGINT}
+            </if>
+            <if test="courtId != null">
+                AND   rp.id =  #{projectId,jdbcType=BIGINT}
+            </if>
+            AND ei.logic_remove = 0
+            AND rr.logic_remove = 0
+            AND ri.logic_remove = 0
+            AND rp.logic_remove = 0
+            GROUP BY et.`name`
+            ORDER BY count DESC
+        </where>
+    </select>
+    <!-- 按一级分类获取对应二级分类对应二级分类设备总数-->
+    <select id="getEquipmentCountByOneTypeByTwoType" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT type.tName AS oneTypeName,type.sName AS twoTypeName,COUNT(type.sName) AS twoCount
+        FROM equipment_info ei
+        INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
+        INNER JOIN region_info ri ON rr.region_id = ri.id
+        INNER JOIN region_project rp ON rr.project_id = rp.id
+        INNER JOIN (SELECT sId,sName,sParenId, tId,tName,tParenId,e1.id AS oId,e1.name AS oNAme,e1.parent_id AS oParenId
+        FROM	(
+        SELECT sId,sName,sParenId,e.id AS tId,e.name AS tName,e.parent_id AS tParenId FROM (
+        SELECT id AS sId,`name` AS sName,parent_id AS sParenId FROM equipment_type WHERE logic_remove=0
+        ) AS s INNER JOIN equipment_type e ON s.sParenId = e.id WHERE e.logic_remove=0
+        ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0 ) AS type ON type.sId = ei.type_id
+        <where>
+            <if test="projectId != null">
+                AND   ri.id =  #{regionId,jdbcType=BIGINT}
+            </if>
+            <if test="courtId != null">
+                AND   rp.id =  #{projectId,jdbcType=BIGINT}
+            </if>
+            AND ei.logic_remove = 0
+            AND rr.logic_remove = 0
+            AND ri.logic_remove = 0
+            AND rp.logic_remove = 0
+            GROUP BY typeName,name
+            ORDER BY count DESC
+        </where>
+    </select>
+</mapper>

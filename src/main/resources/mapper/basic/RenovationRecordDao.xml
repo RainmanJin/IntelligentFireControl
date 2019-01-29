@@ -199,7 +199,7 @@
                 start_time= #{startTime,jdbcType=TIMESTAMP},
             </if>
             <if test="endTime != null">
-                endtime= #{endTime,jdbcType=TIMESTAMP},
+                end_time= #{endTime,jdbcType=TIMESTAMP},
             </if>
             <if test="responsiblePerson != null">
                 responsible_person= #{responsiblePerson,jdbcType=VARCHAR},
@@ -276,10 +276,10 @@
         SELECT
             rr.id,
             ri.`name` AS regionName,rp.`name` AS projectName,rc.`name` AS courtName,rs.`name` AS streetName,rb.`name` AS buildingName,
-            rr.address AS address,rr.acreage AS nature,rr.property_owner as propertyOwner,rr.proposer AS proposer,
-            rr.property_owner AS propertyOwner,rr.property_owner_tel AS propertyOwnerTel,
+            rr.address AS address,rr.acreage AS acreage,rr.property_owner as propertyOwner,rr.proposer AS proposer,
+            rr.property_owner AS propertyOwner,rr.property_owner_tel AS propertyOwnerTel,rr.nature AS nature,
             rr.proposer_tel AS proposerTel,rr.start_time AS  startTime,
-            rr.end_time AS endTime,rr.description,rr.responsible_person AS responsiblePerson,rr.responsible_person_tel AS responsibleTel,
+            rr.end_time AS endTime,rr.description,rr.responsible_person AS responsiblePerson,rr.responsible_person_tel AS responsiblePersonTel,
             rr.remark AS remark,
             rr.decoration_method AS decorationMethod,rr.`is_fire` AS isFire,rr.is_fire_facilities AS isFireFacilities,
             rr.create_time AS createTime

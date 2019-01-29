@@ -266,6 +266,7 @@
                 firing_range AS firingRange,guardian,projects,ignition_plan AS ignitionPlan,measures,
                 fire_permit AS firePermit,approval_department AS approvalDepartment,approval_result AS approvalResult,
                 measure_situation AS measureSituation,protection_situation AS protectionSituation,clean_up AS cleanUp,
+                protection_situation AS implementatioSituation,custodian,
                 remark,person_liable AS personLiable,create_time AS createTime
           FROM fire_application
            WHERE logic_remove = 0 AND id=#{id,jdbcType=BIGINT}
