@@ -4,7 +4,6 @@ import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.LoginState;
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
-import cn.com.bgy.ifc.domain.interfaces.system.SystemMenuDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemRolePowerDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemUserRoleDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
@@ -29,9 +28,6 @@ public class AppLoginController {
 
     @Autowired
     LoginService loginService;
-
-    @Autowired
-    SystemMenuDomain systemMenuDomain;
 
     @Autowired
     AccountDomain accountDomain;

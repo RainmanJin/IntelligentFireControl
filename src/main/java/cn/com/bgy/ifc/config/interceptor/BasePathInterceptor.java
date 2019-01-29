@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.config.interceptor;
 import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.utils.StringUtil;
 import cn.com.bgy.ifc.entity.po.system.Account;
+import cn.com.bgy.ifc.entity.po.system.SystemMenu;
 import cn.com.bgy.ifc.entity.po.system.SystemPower;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import com.alibaba.fastjson.JSON;
@@ -21,7 +22,7 @@ public class BasePathInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        String []  allowDomain= {"http://192.168.0.200:8080","http://192.168.0.104:8080","http://47.99.100.79:8080","http://127.0.0.1:8080","http://www.tgiant.cn:8080","http://www.tgiant.com:8080"};
+        String []  allowDomain= {"http://192.168.0.200:8080","http://192.168.0.104:8080","http://192.168.0.103:8080","http://47.99.100.79:8080","http://127.0.0.1:8080","http://www.tgiant.cn:8080","http://www.tgiant.com:8080"};
         Set<String> allowedOrigins= new HashSet<>(Arrays.asList(allowDomain));
         String originHeader=request.getHeader("Origin");
         if (allowedOrigins.contains(originHeader)) {
@@ -44,26 +45,20 @@ public class BasePathInterceptor extends HandlerInterceptorAdapter {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         //获取controller上的权限注解
         RolePermission rolePermission = handlerMethod.getMethod().getDeclaringClass().getAnnotation(RolePermission.class);
-        //RolePermission rolePermission = handlerMethod.getMethodAnnotation(RolePermission.class);
         if (rolePermission == null) {
             return true;
         }else{
             //判断权限拦截
             boolean hasPermission = false;
-        /*for (SystemPower power : sysUser.getPowerList()) {
-            if (power.getName().length()==0) {
-                continue;
-            }
-            if (StringUtil.contains(request.getRequestURI(),power.getName())){
-                hasPermission = true;
-                break;
-            }
-        }*/
-
-            if (StringUtil.contains(request.getRequestURI(),"systemLog")){
-                System.out.println("======="+request.getRequestURI());
-                hasPermission = true;
-                //break;
+            //获取缓存中的用户权限，判断是否拥有该权限
+            for (SystemMenu menu:sysUser.getMenuPermission()) {
+                if (menu.getPowerUrl()==null||menu.getPowerUrl().length() == 0) {
+                    continue;
+                }
+                if (StringUtil.contains(request.getRequestURI(), menu.getPowerUrl().trim())) {
+                    hasPermission = true;
+                    break;
+                }
             }
             if (!hasPermission){
                 //如果是ajax返回指定数据

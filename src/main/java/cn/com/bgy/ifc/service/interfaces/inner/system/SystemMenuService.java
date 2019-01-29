@@ -27,14 +27,6 @@ public interface SystemMenuService extends BaseService<SystemMenu> {
     PageInfo<SystemMenuVo> queryAllSystemMenuInfo(Page<SystemMenuVo> page, String keyWord);
 
     /**
-     * 通过用户和类型获取菜单树
-     * @param type
-     * @param userId
-     * @return
-     */
-    List<SystemMenu> findMenuTreeByType(int type , Long userId);
-
-    /**
      * 参数查询
      * @param systemMenu
      * @return
@@ -53,5 +45,34 @@ public interface SystemMenuService extends BaseService<SystemMenu> {
      * @return
      */
     List<SystemMenu> queryRolePermission(Long roleId);
+
+    /**
+     * 根据角色ID查询可使用顶级菜单
+     * @param roleId
+     * @return
+     */
+    List<SystemMenu> queryTopMenuByRole(Long roleId);
+
+    /**
+     * 根据角色ID查询可使用所有菜单
+     * @param roleId
+     * @return
+     */
+    List<SystemMenu> queryMenuPermissionByRole(Long roleId);
+
+    /**
+     * 根据人员角色及所属模块查询菜单树
+     * @param type
+     * @param roleId
+     * @return
+     */
+    List<SystemMenu> queryMenuTree(Integer type,Long roleId);
+
+    /**
+     * 根据菜单对象查询系统菜单
+     * @param systemMenu
+     * @return
+     */
+    List<SystemMenu> queryMenuPermission(SystemMenu systemMenu);
 
 }

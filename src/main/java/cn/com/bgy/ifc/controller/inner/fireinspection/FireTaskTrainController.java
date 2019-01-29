@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.fireinspection;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
@@ -27,6 +28,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/fireInspection/fireTaskTrain")
+@RolePermission
 public class FireTaskTrainController extends BaseController {
 
     @Autowired

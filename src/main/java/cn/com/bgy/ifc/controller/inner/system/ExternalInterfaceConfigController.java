@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
@@ -30,6 +31,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/basic/interfaceConfig")
+@RolePermission
 public class ExternalInterfaceConfigController extends BaseController {
 
     @Autowired

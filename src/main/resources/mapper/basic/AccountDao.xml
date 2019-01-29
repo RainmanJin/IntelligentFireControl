@@ -21,6 +21,12 @@
     <result column="user_type" jdbcType="INTEGER" property="userType" />
     <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
     <result column="third_user_id" jdbcType="BIGINT" property="thirdUserId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="department_name" jdbcType="VARCHAR" property="departmentName" />
+    <association column="role_id" javaType="cn.com.bgy.ifc.entity.po.system.SystemRole" property="systemRole">
+      <id column="r_id" property="id"/>
+      <result column="role_name" property="name"/>
+    </association>
   </resultMap>
 
   <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.Account">
@@ -29,14 +35,14 @@
       password, password_salt, identity_number, 
       sex, regist_time, is_disable, 
       current_ip, `current_time`, last_ip,
-      last_time, user_type, remark,third_user_id
+      last_time, user_type, remark,third_user_id,role_id
       )
     values ( #{organizationId,jdbcType=BIGINT}, #{departmentId,jdbcType=BIGINT},
       #{telephone,jdbcType=VARCHAR}, #{jobNumber,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{passwordSalt,jdbcType=VARCHAR}, #{identityNumber,jdbcType=VARCHAR}, 
       #{sex,jdbcType=INTEGER}, #{registTime,jdbcType=TIMESTAMP}, #{isDisable,jdbcType=INTEGER}, 
       #{currentIp,jdbcType=VARCHAR}, #{currentTime,jdbcType=TIMESTAMP}, #{lastIp,jdbcType=VARCHAR}, 
-      #{lastTime,jdbcType=TIMESTAMP}, #{userType,jdbcType=INTEGER}, #{remark,jdbcType=LONGVARCHAR},#{thirdUserId,jdbcType=BIGINT},
+      #{lastTime,jdbcType=TIMESTAMP}, #{userType,jdbcType=INTEGER}, #{remark,jdbcType=LONGVARCHAR},#{thirdUserId,jdbcType=BIGINT},#{roleId,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.Account">
@@ -99,6 +105,9 @@
       <if test="thirdUserId != null">
         third_user_id,
       </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -158,25 +167,68 @@
       <if test="thirdUserId != null">
         #{thirdUserId,jdbcType=BIGINT},
       </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT}
+      </if>
     </trim>
   </insert>
 
-  <select id="findById" parameterType="long" resultType="cn.com.bgy.ifc.entity.po.system.Account">
+  <select id="findById" parameterType="long" resultMap="BaseResultMap">
       select
       t1.id as id,
-      t1.user_name as userName,
+      t1.user_name,
       t1.telephone,
-      t1.job_number  as jobNumber,
-      t1.password,
-      d.name as departmentName,
-      d.id as departmentId,
+      t1.job_number,
+      d.name as department_name,
+      d.id as department_id,
       t1.sex,
-      t1.identity_number  as identityNumber,
-      t1.is_disable as isDisable,
-      t1.`current_time` as currentTime,
-      t1.regist_time as registTime,
-      t1.remark as remark
-      from account t1 left join  department d on d.id=t1.department_id where t1.id=#{id,jdbcType=BIGINT}
+      t1.identity_number,
+      t1.is_disable,
+      t1.current_time,
+      t1.regist_time,
+      t1.remark,
+      t1.role_id
+      from account t1
+      left join  department d on d.id=t1.department_id where t1.id=#{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.po.system.Account" resultMap="BaseResultMap">
+      select
+      t1.id as id,
+      t1.user_name,
+      t1.telephone,
+      t1.job_number,
+      d.name as department_name,
+      d.id as department_id,
+      t1.sex,
+      t1.identity_number,
+      t1.is_disable,
+      t1.current_time,
+      t1.regist_time,
+      t1.remark,
+      t1.role_id,
+      r.name AS role_name
+      from account t1
+      left join  department d on d.id=t1.department_id
+      left join  system_role r on t1.role_id=r.id
+    <where>
+      <if test="sex != null">
+        AND t1.sex = #{sex}
+      </if>
+      <if test="departmentId != null">
+        AND d.id = #{departmentId}
+      </if>
+      <if test="hasRole != null and hasRole==1  ">
+        AND t1.role_id is not null
+      </if>
+      <if test="hasRole != null and hasRole==0  ">
+        AND t1.role_id is null
+      </if>
+      <if test="keyWords!='' and keyWords!=null">
+        AND (t1.user_name LIKE concat('%',#{keyWords},'%') OR r.name LIKE concat('%',#{keyWords},'%')
+        OR d.name LIKE concat('%',#{keyWords},'%'))
+      </if>
+    </where>
   </select>
 
   <select id="findByThirdId" parameterType="long" resultMap="BaseResultMap">
@@ -279,7 +331,8 @@
     last_ip= #{lastIp,jdbcType=VARCHAR},
     last_time= #{lastTime,jdbcType=TIMESTAMP},
     user_type= #{userType,jdbcType=INTEGER},
-    remark= #{remark,jdbcType=LONGVARCHAR}
+    remark= #{remark,jdbcType=LONGVARCHAR},
+    role_id= #{roleId,jdbcType=BIGINT}
     where id=#{id,jdbcType=BIGINT}
 </update>
 
@@ -336,6 +389,9 @@
       </if>
       <if test="thirdUserId != null">
         third_user_id=#{thirdUserId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        role_id= #{roleId,jdbcType=BIGINT}
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -398,7 +454,7 @@
   </update>
   <!--根据电话号码查询用户对象-->
   <select id="findAccountByUserName" parameterType="String" resultMap="BaseResultMap">
-    select
+      SELECT
       id,
       organization_id,
       department_id,
@@ -416,7 +472,8 @@
       last_ip,
       last_time,
       user_type,
-      remark
+      remark,
+      role_id
     from  account where telephone = #{telephone,jdbcType=VARCHAR}
   </select>
 
@@ -470,9 +527,6 @@
       </if>
       <if test="userName != null">
         and user_name #{userName,jdbcType=VARCHAR}
-      </if>
-      <if test="powerId != null" >
-        /*and id= #{powerId,jdbcType=VARCHAR}*/
       </if>
       <if test="departmentId != null">
         and  department_id #{departmentId,jdbcType=BIGINT}

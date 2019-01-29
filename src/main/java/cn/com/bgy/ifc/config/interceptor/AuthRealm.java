@@ -3,8 +3,10 @@ package cn.com.bgy.ifc.config.interceptor;
 import cn.com.bgy.ifc.domain.interfaces.system.AccountDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.SystemRoleDomain;
 import cn.com.bgy.ifc.entity.po.system.Account;
+import cn.com.bgy.ifc.entity.po.system.SystemMenu;
 import cn.com.bgy.ifc.entity.po.system.SystemPower;
 import cn.com.bgy.ifc.entity.po.system.SystemRole;
+import cn.com.bgy.ifc.service.interfaces.inner.system.SystemMenuService;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemPowerService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -21,8 +23,9 @@ public class AuthRealm extends AuthorizingRealm { //AuthenticatingRealm是抽象
 
     @Autowired
     private AccountDomain userService;
+
     @Autowired
-    private SystemPowerService systemPowerService;
+    private SystemMenuService sytemsMenuService;
 
     @Autowired
     private SystemRoleDomain systemRoleDomain;
@@ -44,13 +47,6 @@ public class AuthRealm extends AuthorizingRealm { //AuthenticatingRealm是抽象
         }
         //设置角色
         info.addRoles(roleNameSet);
-        //设置权限
-        for (SystemPower power : account.getPowerList()) {
-            if (power.getName().length()==0) {
-                continue;
-            }
-            info.addStringPermission(power.getName());
-        }
         return info;
     }
 
@@ -74,9 +70,10 @@ public class AuthRealm extends AuthorizingRealm { //AuthenticatingRealm是抽象
         String username = userPasswordToken.getUsername();
         Account user = userService.findAccountByUserName(username);
         List<SystemRole> roleList = systemRoleDomain.queryListByUserId(user.getId());
-        List<SystemPower> powerList = systemPowerService.queryListByUserId(user.getId());
+        List<SystemMenu> menuList=sytemsMenuService.queryMenuPermissionByRole(user.getRoleId());
         user.setRoleList(roleList);
-        user.setPowerList(powerList);
+        //将用户信息直接放入缓存中
+        user.setMenuPermission(menuList);
         return new SimpleAuthenticationInfo(user, user.getPassword(), this.getClass().getName());
     }
 

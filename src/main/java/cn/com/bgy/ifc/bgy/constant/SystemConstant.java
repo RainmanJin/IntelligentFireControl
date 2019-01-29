@@ -139,30 +139,35 @@ public class SystemConstant {
      */
     public enum SystemMenuType{
         //首页
-        INDEX_MENU(1, "首页"),
+        INDEX_MENU(1, "首页",true),
         //运行检测
-        OPERATION_DETECTION(2, "运行检测"),
+        OPERATION_DETECTION(2, "运行检测",true),
         //实时告警
-        REAL_TIME_ALARM(3, "实时告警"),
+        REAL_TIME_ALARM(3, "实时告警",true),
         //系统巡检
-        SYSTEM_INSPECTION(4, "系统巡检"),
+        SYSTEM_INSPECTION(4, "系统巡检",true),
         //报表统计
-        REPORT_FORM_MENU(5, "报表统计"),
+        REPORT_FORM_MENU(5, "报表统计",true),
         //告警管理
-        ALARM_MANAGE(6, "告警管理"),
+        ALARM_MANAGE(6, "告警管理",false),
         //召修维保管理
-        REPAIR_MAINTENANCE_MENU(7, "召修维保管理"),
+        REPAIR_MAINTENANCE_MENU(7, "召修维保管理",false),
         //安全巡查监管
-        FIRE_PATROL_MENU(8, "安全巡查监管"),
+        FIRE_PATROL_MENU(8, "安全巡查监管",false),
         //系统管理
-        SYSTEM_MENU(9, "系统管理");
+        SYSTEM_MENU(9, "系统管理",false);
 
         private Integer value;
         private String name;
+        /**
+         * 判断是否为多级菜单
+         */
+        private Boolean isMultilevel;
 
-        private SystemMenuType(Integer value, String name) {
+        private SystemMenuType(Integer value, String name,Boolean isMultilevel) {
             this.value = value;
             this.name = name;
+            this.isMultilevel = isMultilevel;
         }
 
         public Integer getValue() {
@@ -171,6 +176,10 @@ public class SystemConstant {
 
         public String getName() {
             return name;
+        }
+
+        public Boolean getMultilevel() {
+            return isMultilevel;
         }
 
         public static List<SelectVo> getSelectList() {

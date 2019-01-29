@@ -10,8 +10,10 @@ public interface SystemMenuDao extends BaseDao<SystemMenu> {
 
      List<SystemMenu> queryAllSystemMenuInfo(@Param("keyWord") String keyWord);
 
-    List<SystemMenu> findMenuListByType(@Param("type") int type,@Param("userId") Long userId);
-
+    /**
+     * 查询上级菜单
+     * @return
+     */
     List<SystemMenu>  queryParentMenu();
 
     /**
@@ -20,5 +22,12 @@ public interface SystemMenuDao extends BaseDao<SystemMenu> {
      * @return
      */
     List<SystemMenu> queryRolePermission(@Param("roleId")Long roleId);
+
+    /**
+     * 查询菜单权限
+     * @param systemMenu
+     * @return
+     */
+    List<SystemMenu> queryMenuPermission(SystemMenu systemMenu);
 
 }

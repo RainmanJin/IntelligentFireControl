@@ -136,7 +136,7 @@
     </update>
     <!--通过系统角色id删除-->
     <update id="deleteById" parameterType="Long">
-       update system_role set logic_remove = true
+       update system_role set logic_remove = 1
     where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="queryListByUserId" parameterType="Long" resultMap="BaseResultMap">

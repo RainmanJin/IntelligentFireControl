@@ -100,63 +100,38 @@
     </insert>
 
     <select id="queryAllSystemMenuInfo" parameterType="java.lang.String"
-            resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
+            resultMap="BaseResultMap" >
         SELECT
-        m.id as id,
-        m.name as name,
-        m.image_url as imageUrl,
-        m.navigate_url as navigateUrl,
-        m.remark as remark,
-        m.sort_index as sortIndex,
-        m.parent_id as parentId ,
-        m.power_id as powerId,
-        p.`name` as powerName,
-        m.logic_remove as logicRemove,
-        m.type as type
-        FROM
-        system_menu m LEFT JOIN system_power p on m.power_id=p.id
-        WHERE m.logic_remove=0
-        <if test="keyWord!='' and keyWord!=null">
-            AND (m.name LIKE concat('%',#{keyWord},'%') )
-        </if>
-        and
-        m.power_id IN (
-        SELECT
-        id
-        FROM
-        system_power p
-        WHERE p.logic_remove=0 and
-        p.id IN (
-        SELECT
-        rp.power_id
-        FROM
-        system_role_power rp
-        WHERE
-        rp.role_id IN (
-        SELECT
-        ur.role_id
-        FROM
-        system_user_role ur
-        WHERE
-        ur.role_id in (
-        select id from system_role r where r.logic_remove=0
-        )
-        )
-        )
-        ) ORDER BY m.sort_index
+        id ,
+        name ,
+        image_url,
+        navigate_url ,
+        remark,
+        sort_index,
+        parent_id ,
+        power_url,
+        logic_remove,
+        type
+        FROM system_menu
+        <where>
+            <if test="keyWord!='' and keyWord!=null">
+                AND (name LIKE concat('%',#{keyWord},'%') )
+            </if>
+            AND logic_remove = 0
+        </where>
+        ORDER BY sort_index
     </select>
 
-    <select id="findById" resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu" parameterType="java.lang.Long">
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Long">
     SELECT
       id as id,
       name as name,
-      image_url as imageUrl,
-      navigate_url as navigateUrl,
-      remark as remark,
-      sort_index as sortIndex,
-      parent_id as parentId ,
-      power_id as powerId,
-      logic_remove as logicRemove,
+      image_url,
+      navigate_url,
+      remark,
+      sort_index,
+      power_url,
+      logic_remove,
       type as type
     from system_menu s where s.id = #{id}
   </select>
@@ -170,8 +145,7 @@
       remark,
       sort_index,
       parent_id ,
-      power_id,
-      logic_remove,
+      power_url,
       type
     FROM system_menu WHERE parent_id IS NULL AND logic_remove = 0
   </select>
@@ -185,8 +159,7 @@
         remark,
         sort_index,
         parent_id ,
-        power_id,
-        logic_remove,
+        power_url,
         type
         FROM system_menu
         <where>
@@ -198,6 +171,7 @@
             </if>
             AND logic_remove = 0
         </where>
+        ORDER BY sort_index
     </select>
 
     <update id="update" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
@@ -260,49 +234,30 @@
         </foreach>
     </update>
 
-    <select id="findMenuListByType" parameterType="java.util.Map"
-            resultType="cn.com.bgy.ifc.entity.po.system.SystemMenu">
-        SELECT
-        id as id,
-        name as name,
-        image_url as imageUrl,
-        navigate_url as navigateUrl,
-        remark as remark,
-        sort_index as sortIndex,
-        parent_id as parentId ,
-        power_id as powerId,
-        logic_remove as logicRemove
-        FROM
-        system_menu m
-        WHERE m.logic_remove=0
-        <if test="type !=null">
-            and type = #{type}
-        </if>
-        and
-        m.power_id IN (
-        SELECT
-        id
-        FROM
-        system_power p
-        WHERE p.logic_remove=0 and
-        p.id IN (
-        SELECT
-        rp.power_id
-        FROM
-        system_role_power rp
-        WHERE
-        rp.role_id IN (
-        SELECT
-        ur.role_id
-        FROM
-        system_user_role ur
-        WHERE
-        ur.user_id = #{userId} and ur.role_id in (
-        select id from system_role r where r.logic_remove=0
-        )
-        )
-        )
-        ) order by m.sort_index asc
+    <select id="queryMenuPermission" parameterType="cn.com.bgy.ifc.entity.po.system.SystemMenu" resultMap="BaseResultMap">
+        SELECT  m.id AS id,
+            m.name,
+            m.image_url,
+            m.navigate_url,
+            m.remark,
+            m.sort_index,
+            m.parent_id,
+            m.power_url,
+            m.type,
+            m.logic_remove
+		FROM system_role_menu rm
+		LEFT JOIN system_menu m ON m.id = rm.menu_id
+        <where>
+            <if test="type != null ">
+                AND m.type=#{type}
+            </if>
+            <if test="roleId != null ">
+                AND rm.role_id=#{roleId}
+            </if>
+            AND m.logic_remove = 0
+        </where>
+        ORDER BY
+        m.sort_index
     </select>
 
     <select id="queryRolePermission" parameterType="java.lang.Long" resultMap="BaseResultMap">

@@ -11,6 +11,7 @@ import cn.com.bgy.ifc.entity.po.system.SystemRole;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
 import cn.com.bgy.ifc.entity.vo.system.SystemRoleVo;
+import cn.com.bgy.ifc.service.interfaces.inner.system.SystemMenuService;
 import cn.com.bgy.ifc.service.interfaces.inner.system.SystemRoleService;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
@@ -39,6 +40,9 @@ public class SystemRoleController {
 
     @Autowired
     private SystemRoleService systemRoleService;
+
+    @Autowired
+    private SystemMenuService systemMenuService;
 
     @Autowired
     private SystemRoleDomain systemRoleDomain;
@@ -150,6 +154,18 @@ public class SystemRoleController {
     }
 
     /**
+     * @author: ZhangCheng
+     * @description:获取角色权限配置
+     * @param: [roleId]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     */
+    @GetMapping("queryRolePermission")
+    public ResponseVO<Object> queryRolePermission(Long roleId){
+        List<SystemMenu> list=systemMenuService.queryRolePermission(roleId);
+        return ResponseVO.success().setData(list);
+    }
+
+    /**
      * @Author huxin
      * @Description 获取角色类型
      * @Date 2018/12/15 17:39
@@ -162,30 +178,15 @@ public class SystemRoleController {
 
     /**
      * @author: chenlie
-     * @description:根据登录用户查询角色
-     * @param:
-     * @return:
-     */
-    @GetMapping("queryListByUserId")
-    public ResponseVO<Object> findParentNameByUserId(Long userId) {
-        List<SystemRole> list = systemRoleDomain.queryListByUserId(userId);
-        return ResponseVO.<Object>success().setData(list);
-    }
-
-    /**
-     * @author: chenlie
      * @description:查询系统所有角色
      * @param:
      * @return:
      */
     @GetMapping("queryAll")
     public ResponseVO<Object> queryAll() {
-
         try {
-
             List<SystemRole> list = systemRoleDomain.queryAllList(null);
             List<Map<String, Object>> resultList = new ArrayList<>();
-
             Map<String, Object> map1 = new HashMap<>();
             Map<String, Object> map2 = new HashMap<>();
             Map<String, Object> map3 = new HashMap<>();

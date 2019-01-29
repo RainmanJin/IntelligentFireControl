@@ -25,6 +25,9 @@ public class SystemMenu {
      */
     private String powerUrl;
 
+    /**
+     * 所属模块类型
+     */
     private Integer type;
 
     /**
@@ -32,8 +35,19 @@ public class SystemMenu {
      */
     private Boolean checked;
 
+    /**
+     * 角色ID
+     */
+    private Long roleId;
+
+    /**
+     * 是否删除
+     */
     private Boolean logicRemove;
 
+    /**
+     * 子级菜单
+     */
     private List<SystemMenu> children;
 
     private String powerName;
@@ -148,6 +162,14 @@ public class SystemMenu {
 
     public void setPowerUrl(String powerUrl) {
         this.powerUrl = powerUrl;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     @Override

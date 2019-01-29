@@ -43,7 +43,6 @@ public class AccountController extends BaseController {
      */
     @PostMapping("add")
     public ResponseVO<Object> add(Page<Account> page, @Validated AccountVo accountVo, BindingResult error) {
-
         Account account = new Account();
         CopyUtil.copyProperties(accountVo, account);
         account.setOrganizationId(this.getUser().getOrganizationId());
@@ -64,24 +63,8 @@ public class AccountController extends BaseController {
      */
     @GetMapping("searchPage")
     public ResponseVO<Object> searchPage(Page<Account> page, Account account) {
-        Account user = this.getUser();
         PageInfo<Account> pageInfo = accountDomain.searchByPage(page, account);
-
         return ResponseVO.success().setData(pageInfo);
-    }
-
-    /**
-     * @description:通过id获取用户
-     * @param: [id]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
-     * @auther: chenlie
-     * @date: 2019/1/22 9:38
-     */
-    @GetMapping("findById")
-    public ResponseVO<Object> findById(Long id) {
-
-        Account user = accountDomain.findById(id);
-        return ResponseVO.success().setData(user);
     }
 
     /**

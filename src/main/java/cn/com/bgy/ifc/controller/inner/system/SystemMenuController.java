@@ -1,12 +1,12 @@
 package cn.com.bgy.ifc.controller.inner.system;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.SystemConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.EnumUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
-import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.po.system.SystemMenu;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.common.SelectVo;
@@ -33,6 +33,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping(value = "/system/menu")
+@RolePermission
 public class SystemMenuController extends BaseController {
 
     @Autowired
@@ -45,25 +46,12 @@ public class SystemMenuController extends BaseController {
      * @author: ZhangCheng
      * @description:分页查询
      * @param: [page, keyWord]
-     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo < cn.com.bgy.ifc.entity.vo.system.SystemMenuVo>>
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo   <   cn.com.bgy.ifc.entity.vo.system.SystemMenuVo>>
      */
     @GetMapping("queryPage")
     public ResponseVO<PageInfo<SystemMenuVo>> queryPage(Page<SystemMenuVo> page, String keyword) {
         PageInfo<SystemMenuVo> pageInfo = systemMenuService.queryAllSystemMenuInfo(page, keyword);
         return ResponseVO.<PageInfo<SystemMenuVo>>success().setData(pageInfo);
-    }
-
-    /**
-     * @return cn.com.bgy.ifc.entity.vo.ResponseVO
-     * @Author chenlie
-     * @Description根据上级菜单获取二三级菜单
-     * @Date 2018/12/5 18:34
-     * @Param [list]
-     */
-    @GetMapping(value = "/findMenuTreeByType")
-    public ResponseVO<Object> findMenuTreeByType(int type) {
-        Account user = this.getUser();
-        return ResponseVO.success().setData(systemMenuService.findMenuTreeByType(type, user.getId()));
     }
 
     /**
@@ -141,17 +129,6 @@ public class SystemMenuController extends BaseController {
         } else {
             return ResponseVO.deleteError();
         }
-    }
-
-    /**
-     * 获取角色权限配置
-     * @param roleId
-     * @return
-     */
-    @GetMapping("queryRolePermission")
-    public ResponseVO<Object> queryRolePermission(Long roleId){
-        List<SystemMenu> list=systemMenuService.queryRolePermission(roleId);
-        return ResponseVO.success().setData(list);
     }
 
     /**

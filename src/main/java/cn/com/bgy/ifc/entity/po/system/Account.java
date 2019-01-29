@@ -65,6 +65,13 @@ public class Account {
     private Long thirdUserId;
 
     /**
+     * 角色ID
+     */
+    private Long roleId;
+
+    private SystemRole systemRole;
+
+    /**
      * 是否禁用0启用；1禁用
      */
     private Integer isDisable;
@@ -100,6 +107,11 @@ public class Account {
     private List<SystemRole> roleList;
 
     private List<SystemPower> powerList;
+
+    /**
+     * 菜单权限列表
+     */
+    private List<SystemMenu> menuPermission;
     /**
      * 权限列表字符串
      */
@@ -321,5 +333,29 @@ public class Account {
 
     public void setPowerListStr(String powerListStr) {
         this.powerListStr = powerListStr;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public SystemRole getSystemRole() {
+        return systemRole;
+    }
+
+    public void setSystemRole(SystemRole systemRole) {
+        this.systemRole = systemRole;
+    }
+
+    public List<SystemMenu> getMenuPermission() {
+        return menuPermission;
+    }
+
+    public void setMenuPermission(List<SystemMenu> menuPermission) {
+        this.menuPermission = menuPermission;
     }
 }

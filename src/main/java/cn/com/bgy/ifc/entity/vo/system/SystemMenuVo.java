@@ -11,16 +11,16 @@ public class SystemMenuVo {
     /**
      * 菜单名称
      */
-    @NotBlank(message="菜单名称不能为空！")
-    @Size(max=50,message="菜单名称长度不能超过50字符！")
+    @NotBlank(message = "菜单名称不能为空！")
+    @Size(max = 50, message = "菜单名称长度不能超过50字符！")
     private String name;
 
-    @NotBlank(message="菜单图标不能为空！")
-    @Size(max=500,message="菜单图标长度不能超过500字符！")
+    @NotBlank(message = "菜单图标不能为空！")
+    @Size(max = 500, message = "菜单图标长度不能超过500字符！")
     private String imageUrl;
 
-    @NotBlank(message="菜单地址不能为空！")
-    @Size(max=500,message="菜单地址长度不能超过500字符！")
+    @NotBlank(message = "菜单地址不能为空！")
+    @Size(max = 500, message = "菜单地址长度不能超过500字符！")
     private String navigateUrl;
 
     private String remark;
@@ -38,7 +38,7 @@ public class SystemMenuVo {
     /**
      * 顺序编号
      */
-    @NotNull(message="顺序编号不能为空！")
+    @NotNull(message = "顺序编号不能为空！")
     @Max(value = 10000, message = "顺序编号不能大于10000")
     private Integer sortIndex;
 
@@ -55,10 +55,8 @@ public class SystemMenuVo {
     /**
      * 权限地址
      */
-    @Size(max=50,message="权限地址长度不能超过50字符！")
+    @Size(max = 50, message = "权限地址长度不能超过50字符！")
     private String powerUrl;
-
-    private String powerName;
 
     private Integer type;
 
@@ -98,14 +96,6 @@ public class SystemMenuVo {
 
     public void setTwoLabelName(String twoLabelName) {
         this.twoLabelName = twoLabelName;
-    }
-
-    public String getPowerName() {
-        return powerName;
-    }
-
-    public void setPowerName(String powerName) {
-        this.powerName = powerName;
     }
 
     private Boolean logicRemove;
