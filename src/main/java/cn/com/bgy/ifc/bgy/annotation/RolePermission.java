@@ -12,6 +12,7 @@ import java.lang.annotation.Target;
  * @date: 2019-01-28 17:06
  *
  * 说明：使用方式，在Controller类上加上此注解，BasePathInterceptor上则会进行拦截
+ * 注意：使用注解的Controller中，不要写公用方法，避免被拦截
  * @Target
  **/
 @Documented

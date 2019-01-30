@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.equipment;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.constant.EquipmentConstant;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
@@ -29,6 +30,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/equipment/event")
+@RolePermission
 public class EquipmentEventController extends BaseController {
 
     @Autowired

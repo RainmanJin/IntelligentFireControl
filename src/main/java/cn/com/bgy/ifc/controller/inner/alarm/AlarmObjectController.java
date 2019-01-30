@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.alarm;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
@@ -29,6 +30,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/alarm/object")
+@RolePermission
 public class AlarmObjectController extends BaseController {
 
     @Autowired

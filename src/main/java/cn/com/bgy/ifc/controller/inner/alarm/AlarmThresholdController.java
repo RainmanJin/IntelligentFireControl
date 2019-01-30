@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.alarm;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentSetup;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
@@ -25,6 +26,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/alarm/threshold")
+@RolePermission
 public class AlarmThresholdController {
 
     @Autowired

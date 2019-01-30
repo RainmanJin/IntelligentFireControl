@@ -28,7 +28,6 @@ public class SystemController extends BaseController{
     @GetMapping("findAccountById")
     public ResponseVO<Object> findById(Long id) {
         Account account = accountService.findById(id);
-        System.out.println("======="+account);
         return ResponseVO.success().setData(account);
     }
 }
