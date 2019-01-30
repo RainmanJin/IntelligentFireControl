@@ -1,5 +1,8 @@
 package cn.com.bgy.ifc.service.interfaces.inner.report;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
+
 import java.util.Map;
 
 /**
@@ -12,5 +15,5 @@ public interface EquipmentReportService {
     //获取设备统计图表
     Map<String, Object> getEquipmentReportChart( Long regionId, Long projectId );
     //获取设备统计列表
-    void getEquipmentReportList( Long regionId, Long projectId );
+    PageInfo getEquipmentReportList( Page<Object> page, Long regionId, Long projectId );
 }

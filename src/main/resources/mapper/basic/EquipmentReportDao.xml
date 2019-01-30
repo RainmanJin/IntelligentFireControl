@@ -10,10 +10,10 @@
         INNER JOIN region_info ri ON rr.region_id = ri.id
         INNER JOIN region_project rp ON rr.project_id = rp.id
         <where>
-            <if test="projectId != null">
+            <if test="regionId != null">
                 AND   ri.id =  #{regionId,jdbcType=BIGINT}
             </if>
-            <if test="courtId != null">
+            <if test="projectId != null">
                 AND   rp.id =  #{projectId,jdbcType=BIGINT}
             </if>
             AND ei.logic_remove = 0
@@ -24,7 +24,7 @@
     </select>
     <!-- 按一级分类获取设备总数-->
     <select id="getEquipmentCountByOneType" parameterType="java.util.Map" resultType="java.util.Map">
-        SELECT type.tName AS typeName,COUNT(type.sId)AS count
+        SELECT type.tName AS name,COUNT(type.sId)AS value
         FROM equipment_info ei
         INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
         INNER JOIN region_info ri ON rr.region_id = ri.id
@@ -36,10 +36,10 @@
         ) AS s INNER JOIN equipment_type e ON s.sParenId = e.id WHERE e.logic_remove=0
         ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0 ) AS type ON type.sId = ei.type_id
         <where>
-            <if test="projectId != null">
+            <if test="regionId != null">
                 AND   ri.id =  #{regionId,jdbcType=BIGINT}
             </if>
-            <if test="courtId != null">
+            <if test="projectId != null">
                 AND   rp.id =  #{projectId,jdbcType=BIGINT}
             </if>
             AND ei.logic_remove = 0
@@ -47,22 +47,22 @@
             AND ri.logic_remove = 0
             AND rp.logic_remove = 0
             GROUP BY type.tName
-            ORDER BY count DESC
+            ORDER BY value DESC
         </where>
     </select>
     <!-- 按二级分类获取设备总数-->
     <select id="getEquipmentCountByTwoType" parameterType="java.util.Map" resultType="java.util.Map">
-        SELECT et.`name` AS typeName,COUNT(ei.id)AS count
+        SELECT et.`name` AS name,COUNT(ei.id)AS value
         FROM equipment_info ei
         INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
         INNER JOIN region_info ri ON rr.region_id = ri.id
         INNER JOIN region_project rp ON rr.project_id = rp.id
         INNER JOIN equipment_type et ON ei.type_id = et.id AND et.parent_id NOT IN(0,1)
         <where>
-            <if test="projectId != null">
+            <if test="regionId != null">
                 AND   ri.id =  #{regionId,jdbcType=BIGINT}
             </if>
-            <if test="courtId != null">
+            <if test="projectId != null">
                 AND   rp.id =  #{projectId,jdbcType=BIGINT}
             </if>
             AND ei.logic_remove = 0
@@ -70,12 +70,12 @@
             AND ri.logic_remove = 0
             AND rp.logic_remove = 0
             GROUP BY et.`name`
-            ORDER BY count DESC
+            ORDER BY value DESC
         </where>
     </select>
     <!-- 按一级分类获取对应二级分类对应二级分类设备总数-->
     <select id="getEquipmentCountByOneTypeByTwoType" parameterType="java.util.Map" resultType="java.util.Map">
-        SELECT type.tName AS oneTypeName,type.sName AS twoTypeName,COUNT(type.sName) AS twoCount
+        SELECT type.tName AS oneTypeName,type.sName AS name,COUNT(type.sName) AS value
         FROM equipment_info ei
         INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
         INNER JOIN region_info ri ON rr.region_id = ri.id
@@ -87,18 +87,18 @@
         ) AS s INNER JOIN equipment_type e ON s.sParenId = e.id WHERE e.logic_remove=0
         ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0 ) AS type ON type.sId = ei.type_id
         <where>
-            <if test="projectId != null">
+            <if test="regionId != null">
                 AND   ri.id =  #{regionId,jdbcType=BIGINT}
             </if>
-            <if test="courtId != null">
+            <if test="projectId != null">
                 AND   rp.id =  #{projectId,jdbcType=BIGINT}
             </if>
             AND ei.logic_remove = 0
             AND rr.logic_remove = 0
             AND ri.logic_remove = 0
             AND rp.logic_remove = 0
-            GROUP BY oneTypeName,twoTypeName
-            ORDER BY twoCount DESC
+            GROUP BY oneTypeName,name
+            ORDER BY value DESC
         </where>
     </select>
 </mapper>

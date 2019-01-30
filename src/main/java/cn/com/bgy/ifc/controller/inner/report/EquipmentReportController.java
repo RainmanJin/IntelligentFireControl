@@ -2,6 +2,8 @@ package cn.com.bgy.ifc.controller.inner.report;
 
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.report.EquipmentReportService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +28,8 @@ public class EquipmentReportController {
         return ResponseVO.<Object>success().setData(map);
     }
     @GetMapping("pageData")
-    public ResponseVO<Object> getEquipmentReportList(Long regionId,Long projectId){
-        equipmentReportService.getEquipmentReportList(regionId,projectId);
-        return null;
+    public ResponseVO<PageInfo> getEquipmentReportList( Page<Object> page, Long regionId, Long projectId){
+        PageInfo pageInfo= equipmentReportService.getEquipmentReportList(page,regionId,projectId);
+        return ResponseVO.<PageInfo>success().setData(pageInfo);
     }
 }
