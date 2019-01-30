@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.equipment;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
@@ -29,6 +30,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/equipment/type")
+@RolePermission
 public class EquipmentTypeController extends BaseController {
 
     @Autowired

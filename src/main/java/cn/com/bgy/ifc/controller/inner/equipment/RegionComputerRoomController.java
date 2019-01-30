@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.equipment;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
@@ -11,9 +12,11 @@ import cn.com.bgy.ifc.service.interfaces.inner.project.RegionComputerRoomService
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -23,6 +26,7 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/equipment/computerRoom")
+@RolePermission
 public class RegionComputerRoomController extends BaseController {
 
     @Autowired

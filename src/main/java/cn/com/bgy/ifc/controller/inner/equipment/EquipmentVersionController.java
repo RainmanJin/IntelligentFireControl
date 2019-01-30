@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.equipment;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentVersion;
@@ -24,6 +25,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/equipment/version")
+@RolePermission
 public class EquipmentVersionController extends BaseController {
 
     @Autowired

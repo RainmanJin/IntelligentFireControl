@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.firepatrol.RenovationJunk;
@@ -22,6 +23,7 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/firepatrol/renovationJunk")
+@RolePermission
 public class RenovationJunkController extends BaseController {
 
     @Autowired

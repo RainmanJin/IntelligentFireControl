@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.firepatrol.RecordTable;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +23,7 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/firepatrol/faultDetection")
+@RolePermission
 public class FaultDetectionController extends BaseController {
 
     @Autowired
@@ -92,16 +93,5 @@ public class FaultDetectionController extends BaseController {
         Map<String,Object> map = faultDetectionService.getFaultDetectionFindByID(id);
         return ResponseVO.<Object>success().setData(map);
     }
-    /*
-     * @Author  huxin
-     * @Description 根据设备ID获取故障检测内容下拉列表       
-     * @param   [equipmentId]
-     * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
-     * @Date 2019/1/15 14:26
-     */
-    @GetMapping("dropDownData")
-    public ResponseVO<Object> dropDownDataFindByEquipmentId(Long equipmentId,Integer type){
-        List<RecordTable> list = faultDetectionService.dropDownDataFindByEquipmentId(equipmentId,type);
-        return ResponseVO.<Object>success().setData(list);
-    }
+
 }

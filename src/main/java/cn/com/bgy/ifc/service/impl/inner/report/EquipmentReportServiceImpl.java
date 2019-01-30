@@ -62,11 +62,22 @@ public class EquipmentReportServiceImpl implements EquipmentReportService {
         List<Map<String,Object>> owList = equipmentReportDao.getEquipmentCountByOneTypeByTwoType(map);
         Map<String,Object> owMap = new TreeMap<>();
         Map<String,Object> newmap = null;
+        List<Object> list = null;
+        Set<String> set  = new HashSet<>();
         for (int i = 0; i < owList.size(); i++) {
-            newmap = new TreeMap<>();
-            owMap.put((String) owList.get(i).get("oneTypeName"),newmap.put((String) owList.get(i).get("twoTypeName"),owList.get(i).get("twoCount")));
+            set.add((String) owList.get(i).get("oneTypeName"));
         }
-
+        for (String s:set) {
+            list = new ArrayList<>();
+            for (int i = 0; i <owList.size() ; i++) {
+                if(s.equals(owList.get(i).get("oneTypeName"))){
+                    newmap = new TreeMap<>();
+                    newmap.put((String) owList.get(i).get("twoTypeName"),owList.get(i).get("twoCount"));
+                    list.add(newmap);
+                }
+            }
+            owMap.put(s,list);
+        }
         Map<String,Object> chastMap = new HashMap<>();
         chastMap.put("count",count);
         chastMap.put("oneMap",oneMap);

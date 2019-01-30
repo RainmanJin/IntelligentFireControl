@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/firepatrol/controlRoomUser")
+@RolePermission
 public class ControlRoomUsreController extends BaseController {
     @Autowired
     private ControlRoomUserDomain controlRoomUserDomain;
@@ -110,16 +112,5 @@ public class ControlRoomUsreController extends BaseController {
             return ResponseVO.addError();
         }
     }
-    /*
-     * @Author  huxin
-     * @Description        值班室人员下拉框
-     * @param
-     * @retrue
-     * @Date 2019/1/23 21:25
-     */
-    @GetMapping("dropDownData")
-    public ResponseVO<Object> DropDownData(){
-        List<ControlRoomUser> list=controlRoomUserDomain.DropDownData();
-        return ResponseVO.<Object>success().setData(list);
-    }
+
 }

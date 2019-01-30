@@ -1,10 +1,10 @@
 package cn.com.bgy.ifc.controller.inner.equipment;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyEquipmentService;
@@ -27,6 +27,7 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/equipment/equipmentInfo")
+@RolePermission
 public class EquipmentInfoController extends BaseController {
 
     @Autowired

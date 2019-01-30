@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.domain.interfaces.firepatrol.ControlRoomDutyDomain;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/firepatrol/controlRoomDuty")
+@RolePermission
 public class ControlRoomDutyController extends BaseController {
     @Autowired
     private ControlRoomDutyDomain controlRoomDutyDomain;

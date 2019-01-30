@@ -1,10 +1,13 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.firepatrol.FaultDetectionPlan;
+import cn.com.bgy.ifc.entity.po.firepatrol.RecordTable;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.inner.firepatrol.FaultDetectionPlanService;
+import cn.com.bgy.ifc.service.interfaces.inner.firepatrol.FaultDetectionService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,10 +26,13 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/firepatrol/faultDetectionPlan")
+@RolePermission
 public class FaultDetectionPlanController extends BaseController {
 
     @Autowired
     private FaultDetectionPlanService faultDetectionPlanService;
+    @Autowired
+    private FaultDetectionService faultDetectionService;
 
     /**
      * @Author huxin
@@ -90,5 +97,17 @@ public class FaultDetectionPlanController extends BaseController {
     public ResponseVO<Object> getFaultDetectionPlanByID( Long id){
         Map<String,Object> map = faultDetectionPlanService.getFaultDetectionPlanByID(id);
         return ResponseVO.<Object>success().setData(map);
+    }
+    /*
+     * @Author  huxin
+     * @Description 根据设备ID获取故障检测内容下拉列表
+     * @param   [equipmentId]
+     * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @Date 2019/1/15 14:26
+     */
+    @GetMapping("dropDownData")
+    public ResponseVO<Object> dropDownDataFindByEquipmentId(Long equipmentId,Integer type){
+        List<RecordTable> list = faultDetectionService.dropDownDataFindByEquipmentId(equipmentId,type);
+        return ResponseVO.<Object>success().setData(list);
     }
 }

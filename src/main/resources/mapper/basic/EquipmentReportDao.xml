@@ -97,8 +97,8 @@
             AND rr.logic_remove = 0
             AND ri.logic_remove = 0
             AND rp.logic_remove = 0
-            GROUP BY typeName,name
-            ORDER BY count DESC
+            GROUP BY oneTypeName,twoTypeName
+            ORDER BY twoCount DESC
         </where>
     </select>
 </mapper>

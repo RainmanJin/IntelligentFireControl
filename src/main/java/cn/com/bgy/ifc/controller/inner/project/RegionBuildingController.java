@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.project;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.project.RegionBuilding;
@@ -11,7 +12,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,6 +21,7 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/project/regionBuilding")
+@RolePermission
 public class RegionBuildingController extends BaseController {
 
     @Resource

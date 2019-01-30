@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.project;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.project.RegionStreet;
@@ -23,6 +24,7 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/project/regionStreet")
+@RolePermission
 public class RegionStreetController extends BaseController {
 
     @Resource

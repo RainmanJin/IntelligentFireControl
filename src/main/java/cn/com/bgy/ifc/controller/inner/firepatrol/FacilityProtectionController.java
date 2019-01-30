@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
 import cn.com.bgy.ifc.entity.po.firepatrol.FacilityProtection;
@@ -22,6 +23,7 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/firepatrol/facilityProtection")
+@RolePermission
 public class FacilityProtectionController extends BaseController {
 
     @Autowired

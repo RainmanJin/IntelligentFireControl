@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.firepatrol;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/firepatrol/fireRehearse")
+@RolePermission
 public class FireRehearseController extends BaseController {
     @Autowired
     private FireRehearseDomain fireRehearseDomain;
