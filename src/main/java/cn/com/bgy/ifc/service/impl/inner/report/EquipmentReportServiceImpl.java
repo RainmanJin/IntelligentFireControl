@@ -34,6 +34,11 @@ public class EquipmentReportServiceImpl implements EquipmentReportService {
         map.put("projectId",projectId);
         //获取设备总数
         Long count = equipmentReportDao.getEquipmentCount(map);
+        String counts=count.toString();
+        List<String> countList = new ArrayList<>();
+        for (int i = 0; i <counts.length() ; i++) {
+            countList.add(counts.charAt(i)+"");
+        }
 
         //获取一级设备分类的设备分类总数
         List<Map<String,Object>> oneList = equipmentReportDao.getEquipmentCountByOneType(map);
@@ -84,7 +89,7 @@ public class EquipmentReportServiceImpl implements EquipmentReportService {
         owMap.put("typeName",typeNameList);
         owMap.put("valueList", valueList);
         Map<String,Object> chastMap = new HashMap<>();
-        chastMap.put("count",count);
+        chastMap.put("countList",countList);
         chastMap.put("oneMap",oneMap);
         chastMap.put("twoMap",twoMap);
         chastMap.put("owMap",owMap);
