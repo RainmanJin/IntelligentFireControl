@@ -22,11 +22,37 @@ public class EquipmentReportController {
 
     @Autowired
     private EquipmentReportService equipmentReportService;
+    /*
+     * @Author  huxin
+     * @Description 图表数据       
+     * @param   [regionId, projectId]
+     * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @Date 2019/2/11 10:51
+     */
     @GetMapping("chartData")
     public ResponseVO<Object> getEquipmentReportChart(Long regionId,Long projectId){
         Map<String, Object> map = equipmentReportService.getEquipmentReportChart(regionId,projectId);
         return ResponseVO.<Object>success().setData(map);
     }
+    /*
+     * @Author  huxin
+     * @Description 统计数据
+     * @param   [regionId, projectId]
+     * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @Date 2019/2/11 11:09
+     */
+    @GetMapping("statistics")
+    public ResponseVO<Object> getEquipmentReportStatistics(Long regionId,Long projectId){
+        Map<String, Object> map = equipmentReportService.getEquipmentReportStatistics(regionId,projectId);
+        return ResponseVO.<Object>success().setData(map);
+    }
+    /*
+     * @Author  huxin
+     * @Description 列表数据
+     * @param   [page, regionId, projectId]
+     * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo>
+     * @Date 2019/2/11 10:51
+     */
     @GetMapping("pageData")
     public ResponseVO<PageInfo> getEquipmentReportList( Page<Object> page, Long regionId, Long projectId){
         PageInfo pageInfo= equipmentReportService.getEquipmentReportList(page,regionId,projectId);

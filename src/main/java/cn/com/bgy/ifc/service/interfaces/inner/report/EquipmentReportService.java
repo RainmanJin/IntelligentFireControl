@@ -12,8 +12,10 @@ import java.util.Map;
  **/
 
 public interface EquipmentReportService {
-    //获取设备统计图表
+    //获取设备图表数据
     Map<String, Object> getEquipmentReportChart( Long regionId, Long projectId );
-    //获取设备统计列表
+    //获取设备列表数据
     PageInfo getEquipmentReportList( Page<Object> page, Long regionId, Long projectId );
+    //获取设备统计列表数据
+    Map<String,Object> getEquipmentReportStatistics( Long regionId, Long projectId );
 }

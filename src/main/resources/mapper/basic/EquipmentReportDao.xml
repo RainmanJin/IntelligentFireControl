@@ -75,17 +75,47 @@
     </select>
     <!-- 按一级分类获取对应二级分类对应二级分类设备总数-->
     <select id="getEquipmentCountByOneTypeByTwoType" parameterType="java.util.Map" resultType="java.util.Map">
-        SELECT type.tName AS oneTypeName,type.sName AS name,COUNT(type.sName) AS value
-        FROM equipment_info ei
-        INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
-        INNER JOIN region_info ri ON rr.region_id = ri.id
-        INNER JOIN region_project rp ON rr.project_id = rp.id
-        INNER JOIN (SELECT sId,sName,sParenId, tId,tName,tParenId,e1.id AS oId,e1.name AS oNAme,e1.parent_id AS oParenId
-        FROM	(
-        SELECT sId,sName,sParenId,e.id AS tId,e.name AS tName,e.parent_id AS tParenId FROM (
-        SELECT id AS sId,`name` AS sName,parent_id AS sParenId FROM equipment_type WHERE logic_remove=0
-        ) AS s INNER JOIN equipment_type e ON s.sParenId = e.id WHERE e.logic_remove=0
-        ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0 ) AS type ON type.sId = ei.type_id
+
+        SELECT t1.oneTypeName AS oneTypeName,t1.name AS name,t1.value AS value,CONCAT(ROUND(t1.value / t2.total * 100, 2),'','%') AS ratio
+        FROM(
+            SELECT type.tName AS oneTypeName,type.sName AS name,COUNT(type.sName) AS value
+            FROM equipment_info ei
+            INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
+            INNER JOIN region_info ri ON rr.region_id = ri.id
+            INNER JOIN region_project rp ON rr.project_id = rp.id
+            INNER JOIN (SELECT sId,sName,sParenId, tId,tName,tParenId,e1.id AS oId,e1.name AS oNAme,e1.parent_id AS oParenId
+            FROM	(
+            SELECT sId,sName,sParenId,e.id AS tId,e.name AS tName,e.parent_id AS tParenId FROM (
+            SELECT id AS sId,`name` AS sName,parent_id AS sParenId FROM equipment_type WHERE logic_remove=0
+            ) AS s INNER JOIN equipment_type e ON s.sParenId = e.id WHERE e.logic_remove=0
+            ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0 ) AS type ON type.sId = ei.type_id
+            <where>
+                <if test="regionId != null">
+                    AND   ri.id =  #{regionId,jdbcType=BIGINT}
+                </if>
+                <if test="projectId != null">
+                    AND   rp.id =  #{projectId,jdbcType=BIGINT}
+                </if>
+                AND ei.logic_remove = 0
+                AND rr.logic_remove = 0
+                AND ri.logic_remove = 0
+                AND rp.logic_remove = 0
+                GROUP BY oneTypeName,name
+                ORDER BY value DESC
+            </where>
+        )	 t1,
+        (
+            SELECT COUNT(ei.id) AS total
+            FROM equipment_info ei
+            INNER JOIN region_computer_room rr ON ei.machine_room_id = rr.id
+            INNER JOIN region_info ri ON rr.region_id = ri.id
+            INNER JOIN region_project rp ON rr.project_id = rp.id
+            INNER JOIN (SELECT sId,sName,sParenId, tId,tName,tParenId,e1.id AS oId,e1.name AS oNAme,e1.parent_id AS oParenId
+            FROM	(
+            SELECT sId,sName,sParenId,e.id AS tId,e.name AS tName,e.parent_id AS tParenId FROM (
+            SELECT id AS sId,`name` AS sName,parent_id AS sParenId FROM equipment_type WHERE logic_remove=0
+            ) AS s INNER JOIN equipment_type e ON s.sParenId = e.id WHERE e.logic_remove=0
+            ) AS t INNER JOIN equipment_type e1 ON t.tParenId = e1.id WHERE e1.logic_remove=0 ) AS type ON type.sId = ei.type_id
         <where>
             <if test="regionId != null">
                 AND   ri.id =  #{regionId,jdbcType=BIGINT}
@@ -97,8 +127,7 @@
             AND rr.logic_remove = 0
             AND ri.logic_remove = 0
             AND rp.logic_remove = 0
-            GROUP BY oneTypeName,name
-            ORDER BY value DESC
         </where>
+        ) as t2
     </select>
 </mapper>

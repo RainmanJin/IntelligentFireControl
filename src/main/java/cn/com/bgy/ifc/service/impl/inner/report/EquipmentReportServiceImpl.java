@@ -98,6 +98,62 @@ public class EquipmentReportServiceImpl implements EquipmentReportService {
     }
     /*
      * @Author  huxin
+     * @Description 获取设备统计数据
+     * @param   [regionId, projectId]
+     * @retrue  java.util.Map<java.lang.String,java.lang.Object>
+     * @Date 2019/2/11 11:20
+     */
+    @Override
+    public Map<String, Object> getEquipmentReportStatistics( Long regionId, Long projectId ) {
+        Map<String,Object> map = new HashMap<>();
+        Map<String,Object> statisticsMap = new HashMap<>();
+        map.put("regionId",regionId);
+        map.put("projectId",projectId);
+        //获取一级设备分类的设备分类总数
+        List<Map<String,Object>> oneList = equipmentReportDao.getEquipmentCountByOneType(map);
+        //保留前5位数据
+//        for (int i = 0; i <oneList.size(); i++) {
+//            if(i>=5){
+//                oneList.remove(i);
+//                i--;
+//            }
+//        }
+        statisticsMap.put("oneList",oneList);
+
+
+        //按一级分类获取对应二级分类对应二级分类设备总数
+        List<Map<String,Object>> owList = equipmentReportDao.getEquipmentCountByOneTypeByTwoType(map);
+        Set<String> set  = new HashSet<>();
+        List<Map<String,Object>> twoList = new ArrayList<>();
+
+        for (int i = 0; i < owList.size(); i++) {
+            set.add((String) owList.get(i).get("oneTypeName"));
+        }
+
+        Map<String,Object> newMap;
+        List<Map<String,Object>> newList;
+        Map<String,Object> owMap;
+        for(String s: set){
+            newList = new ArrayList<>();
+            owMap = new HashMap<>();
+            for (int i = 0; i <owList.size() ; i++) {
+                newMap = new HashMap<>();
+                if(s.equals(owList.get(i).get("oneTypeName"))){
+                    newMap.put("name",owList.get(i).get("name"));
+                    newMap.put("value",owList.get(i).get("value"));
+                    newList.add(newMap);
+                }
+            }
+            owMap.put("oneTypeName",s);
+            owMap.put("oneTypeList",newList);
+            twoList.add(owMap);
+        }
+
+        statisticsMap.put("twoList",twoList);
+        return statisticsMap;
+    }
+    /*
+     * @Author  huxin
      * @Description 获取设备列表数据
      * @param   [regionId, projectId]
      * @retrue  void
@@ -108,7 +164,7 @@ public class EquipmentReportServiceImpl implements EquipmentReportService {
         Map<String,Object> map = new HashMap<>();
         map.put("regionId",regionId);
         map.put("projectId",projectId);
-        page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Map<String,Object>> owList = equipmentReportDao.getEquipmentCountByOneTypeByTwoType(map);
         return new PageInfo(owList);
     }
