@@ -1,7 +1,7 @@
 package cn.com.bgy.ifc.entity.po.equipment;
 
-import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class EquipmentInfo extends RegionAndBrand {
     /**
@@ -108,6 +108,8 @@ public class EquipmentInfo extends RegionAndBrand {
      * 位号
      */
     private Integer positionNum;
+
+    private List<EquipmentType> equipmentType;
 
     public Long getId() {
         return id;
@@ -259,5 +261,13 @@ public class EquipmentInfo extends RegionAndBrand {
 
     public void setEquipmentStateId(Long equipmentStateId) {
         this.equipmentStateId = equipmentStateId;
+    }
+
+    public List<EquipmentType> getEquipmentType() {
+        return equipmentType;
+    }
+
+    public void setEquipmentType( List<EquipmentType> equipmentType ) {
+        this.equipmentType = equipmentType;
     }
 }
