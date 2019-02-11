@@ -35,11 +35,11 @@ public class ExternalInterfaceController {
     /**
      * 用户自定义token和OneNet第三方平台配置里的token一致
      */
-    private static String token ="abcdefghijkmlnopqrstuvwxyz";
+    private static String token ="8AuJnP2fq35Uck1irba";
     /**
      * aeskey和OneNet第三方平台配置里的token一致
      */
-    private static String aeskey ="whBx2ZwAU5LOHVimPj1MPx56QRe3OsGGWRe4dr17crV";
+    //private static String aeskey ="whBx2ZwAU5LOHVimPj1MPx56QRe3OsGGWRe4dr17crV";
 
     @Autowired
     private AnalogService analogService;
@@ -57,7 +57,6 @@ public class ExternalInterfaceController {
      * @return: void
      */
     @PostMapping("deviceListen")
-    @SystemLogSave(type = SystemLogType.INTERFACE_LOG, description = "物联设备状态信息监听", login = LoginState.NOT_LOGIN)
     public void deviceListen(@RequestBody JSONObject result) {
         if (result != null) {
             int type = result.getInteger("type");
