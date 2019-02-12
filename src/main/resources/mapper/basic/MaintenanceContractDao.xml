@@ -26,7 +26,7 @@
   <sql id="Blob_Column_List">
     remark
   </sql>
-  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract">
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
     insert into maintenance_contract ( org_id, r_id,
       p_id, contract_name, contract_no, 
       company_id, master_contact, contact_phone, 
@@ -39,6 +39,9 @@
       #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{logicRemove,jdbcType=BIT}, #{remark,jdbcType=LONGVARCHAR}
       )
+      <selectKey keyColumn="id" keyProperty="id" resultType="long" order="AFTER">
+        SELECT LAST_INSERT_ID() as id
+      </selectKey>
   </insert>
   <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract">
     insert into maintenance_contract

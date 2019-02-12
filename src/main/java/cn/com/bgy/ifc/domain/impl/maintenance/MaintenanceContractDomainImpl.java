@@ -92,6 +92,7 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
      * @return
      */
     @Override
+    @Transactional
     public int addMaintenanceContractInfo(MaintenanceContract record) {
         return dao.insert(record);
     }
@@ -103,6 +104,7 @@ public class MaintenanceContractDomainImpl implements MaintenanceContractDomain 
      * @return
      */
     @Override
+    @Transactional
     public int updateMaintenanceContract(MaintenanceContract record) {
         return dao.update(record);
     }

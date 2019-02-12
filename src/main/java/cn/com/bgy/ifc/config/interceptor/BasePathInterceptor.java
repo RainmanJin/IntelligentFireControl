@@ -42,7 +42,7 @@ public class BasePathInterceptor extends HandlerInterceptorAdapter {
                return false;
         }
         //判断请求url是否有 权限注解  有则代表需要做权限校验 无则直接放行
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
+       /*HandlerMethod handlerMethod = (HandlerMethod) handler;
         //获取controller上的权限注解
         RolePermission rolePermission = handlerMethod.getMethod().getDeclaringClass().getAnnotation(RolePermission.class);
         if (rolePermission == null) {
@@ -67,7 +67,7 @@ public class BasePathInterceptor extends HandlerInterceptorAdapter {
                 response.getWriter().write(JSON.toJSONString(ResponseVO.withoutPermission()));
                 return false;
             }
-        }
+        }*/
         return true;
     }
 }

@@ -5,6 +5,7 @@ import cn.com.bgy.ifc.domain.interfaces.system.UserGroupItemsDomain;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.service.interfaces.api.equipment.BgyEquipmentService;
 import cn.com.bgy.ifc.service.interfaces.api.maintenance.BgyMaintenanceCompanyService;
+import cn.com.bgy.ifc.service.interfaces.api.maintenance.BgyMaintenanceContractService;
 import cn.com.bgy.ifc.service.interfaces.api.system.UserApiService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +26,9 @@ public class DepartmentWebTest {
     private BgyMaintenanceCompanyService bgyMaintenanceCompanyService;
 
     @Autowired
+    private BgyMaintenanceContractService bgyMaintenanceContractService;
+
+    @Autowired
     private UserApiService userApiService;
 
     @Autowired
@@ -34,8 +38,11 @@ public class DepartmentWebTest {
     public void test() {
         //String ids = "[1,2]";
        // List<Long> list = ListUtil.getListId(ids);
-        ResponseVO<Object> vo=bgyMaintenanceCompanyService.baseObtainBgyRepairCompany(1,200);
-        System.out.println("list" + vo.getMsg());
+        /*ResponseVO<Object> vo=bgyMaintenanceCompanyService.baseObtainBgyRepairCompany(1,200);
+        System.out.println("list" + vo.getMsg());*/
+        ResponseVO<Object> vo=bgyMaintenanceContractService.baseObtainBgyRepairContract(1,200);
+        System.out.println("list===================================" + vo.getMsg());
+
         // bgyEquipmentService.baseObtainBgyEquipmentInfo(1,1000);
         // bgyMachineRoomService.baseObtainBgyMachineRoom(1, 1000);
         //userApiService.baseObtainBgyUserPermission(1,500);

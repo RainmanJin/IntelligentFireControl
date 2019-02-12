@@ -36,6 +36,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
 /**
  * lvbingjian
  * 维保合同
@@ -86,7 +89,7 @@ public class MaintenanceContractController extends BaseController {
     @PostMapping("add")
     @SystemLogAfterSave(description = "维保合同新增")
     @ResponseBody
-    public ResponseVO<Object> add(@Validated MaintenanceContractVo maintenanceContractVo, BindingResult error, String token) {
+    public ResponseVO<Object> add(@Validated MaintenanceContractVo maintenanceContractVo, BindingResult error ) {
         //参数校检
         if (error.hasErrors()) {
             return ResponseVO.error().setMsg(error.getFieldError().getDefaultMessage());
@@ -116,10 +119,9 @@ public class MaintenanceContractController extends BaseController {
     @PostMapping("update")
     @SystemLogAfterSave(description = "维保合同修改")
     @ResponseBody
-    public ResponseVO<Object> updateRegionStreet(MaintenanceContract maintenanceContract, String token) {
-        int resout = 1;
+    public ResponseVO<Object> updateRegionStreet(MaintenanceContract maintenanceContract) {
         int count = maintenanceContractDomain.updateMaintenanceContract(maintenanceContract);
-        if (count == resout) {
+        if (count >0) {
             return ResponseVO.success().setMsg("修改成功");
         }
         return ResponseVO.error().setMsg("修改失败！");
@@ -194,45 +196,6 @@ public class MaintenanceContractController extends BaseController {
         return ResponseVO.success().setData(maintenanceCompanyDomain.queryListByParam(null));
     }
 
-    /**
-     * @description:合同附件上传
-     * @param: [file]
-     * @return: java.lang.Object
-     * @auther: chenlie
-     * @date: 2019/1/22 11:10
-     */
-    @PostMapping("uploadContract")
-    @ResponseBody
-    public Object uploadContract(MultipartFile file,Long id) {
-
-        if (Objects.isNull(file) || file.isEmpty()) {
-            return "文件为空，请重新上传";
-        }
-
-        try {
-            byte[] bytes = file.getBytes();
-            String pathStr="D:upload" + File.separator + UUID.randomUUID()+ file.getOriginalFilename().split(".")[file.getOriginalFilename().split(".").length-1];
-            Path path = Paths.get(pathStr);
-            //如果没有files文件夹，则创建
-            if (!Files.isWritable(path)) {
-                Files.createDirectories(Paths.get("D:upload" + File.separator));
-            }
-
-            MaintenanceContractFile t=new MaintenanceContractFile();
-            t.setContractId(id);
-            t.setCreateTime(new Date());
-            t.setDownload(false);
-            t.setFileName(file.getOriginalFilename());
-            t.setFileUrl(pathStr);
-            maintenanceContractFileDomain.insert(t);
-            //文件写入指定路径
-            Files.write(path, bytes);
-            return "文件上传成功";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "后端异常...";
-        }
-    }
     @PostMapping("importContract")
     @ResponseBody
     public Object singleFileUpload(MultipartFile file) {
@@ -254,7 +217,7 @@ public class MaintenanceContractController extends BaseController {
                 record.setContractName(model.getName());
                 record.setStartDate(model.getStartDay());
                 record.setEndDate(model.getEndDay());*/
-                maintenanceContractDomain.addMaintenanceContractInfo(record);
+                //maintenanceContractDomain.addMaintenanceContractInfo(record,MaintenanceContractFile  maintenanceContractFile);
             }
             return "文件上传成功";
         } catch (IOException e) {

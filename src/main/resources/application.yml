@@ -69,4 +69,13 @@ pagehelper:
   params: count=countSql
 
 
+#静态资源对外暴露的访问路径
+application:
+              file:
+                    staticAccessPath: /api/file/**
+                    filePath: /api/file/
+                    #文件上传目录（注意Linux和Windows上的目录结构不同）
+                    #file.uploadFolder=/root/uploadFiles/
+                    uploadFolder: d://uploadFiles/
+
 

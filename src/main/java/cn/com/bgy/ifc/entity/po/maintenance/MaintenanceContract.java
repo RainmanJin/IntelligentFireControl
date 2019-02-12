@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.entity.po.maintenance;
 
 import java.util.Date;
+import java.util.List;
 
 public class MaintenanceContract {
 	 /**合同ID*/
@@ -43,6 +44,16 @@ public class MaintenanceContract {
     private String remark;
     //查询关键字
     private String keyword;
+
+    public List<MaintenanceContractFile> fileList;
+
+    public List<MaintenanceContractFile> getFileList() {
+        return fileList;
+    }
+
+    public void setFileList(List<MaintenanceContractFile> fileList) {
+        this.fileList = fileList;
+    }
 
     public Long getId() {
         return id;

@@ -40,7 +40,7 @@ public class BgyMaintenanceContractServiceImpl implements BgyMaintenanceContract
     @Autowired
     private ExternalInterfaceMsgDomain externalInterfaceMsgDomain;
 
-    @SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步集成平台维保合同数据")
+    //@SystemLogAfterSave(type = SystemLogType.INTERFACE_LOG, description = "同步集成平台维保合同数据")
     @Override
     public ResponseVO<Object> baseObtainBgyRepairContract(int pageNo, int pageSize) {
         try {
@@ -90,7 +90,7 @@ public class BgyMaintenanceContractServiceImpl implements BgyMaintenanceContract
             //return maintenanceCompanyDomain.alterBgyRepairCompany(oList, orgId);
             return null;
         } else {
-            return ResponseVO.success().setMsg("暂无集成平台维保公司增量数据同步！");
+            return ResponseVO.success().setMsg("暂无集成平台维保合同增量数据同步！");
         }
     }
 

@@ -1,6 +1,7 @@
 package cn.com.bgy.ifc.domain.interfaces.maintenance;
 
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
+import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContractFile;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.BgyMaintenanceContractVo;
 import com.github.pagehelper.Page;

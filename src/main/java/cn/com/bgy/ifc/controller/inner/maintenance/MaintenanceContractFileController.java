@@ -1,8 +1,12 @@
 package cn.com.bgy.ifc.controller.inner.maintenance;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
+import cn.com.bgy.ifc.config.interceptor.ApplicationProperties;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,7 @@ import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractFileDomai
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContractFile;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceContractFileVo;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * lvbingjian
@@ -34,7 +39,8 @@ import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceContractFileVo;
 @Controller
 @RequestMapping("/maintenance/maintenanceContractFile")
 public class MaintenanceContractFileController extends BaseController{
-
+    @Autowired
+    private ApplicationProperties applicationProperties;
 	@Autowired
 	private MaintenanceContractFileDomain maintenanceContractFileDomain;
 	/**
@@ -116,6 +122,27 @@ public class MaintenanceContractFileController extends BaseController{
         return ResponseVO.<MaintenanceContractFile>success().setData(bean);
     }
     /**
+     * @description:通过合同id获取合同附件
+     * @param: [id, token]
+     * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContractFile>
+     * @auther: chenlie
+     * @date: 2019/2/11 17:11
+     */
+    @GetMapping("queryByContractId")
+    @ResponseBody
+    public ResponseVO<MaintenanceContractFile> queryByContractId( long contractId, String token) {
+        Map<String, Object> map=new HashMap<>();
+        map.put("contractId",contractId);
+        List<MaintenanceContractFile> list = maintenanceContractFileDomain.queryListByMap(map);
+        MaintenanceContractFile bean;
+        if(list!=null && !list.isEmpty()){
+           bean=list.get(0);
+        }else{
+            bean=new MaintenanceContractFile();
+        }
+        return ResponseVO.<MaintenanceContractFile>success().setData(bean);
+    }
+    /**
      * @Author lvbingjian
      * @Description 删除
      * @Date 2018/12/18 15:22
@@ -140,5 +167,47 @@ public class MaintenanceContractFileController extends BaseController{
         }
         return ResponseVO.error().setMsg("删除失败！");
     }
-	
+
+
+    /**
+     * @description:合同附件上传
+     * @param: [file]
+     * @return: java.lang.Object
+     * @auther: chenlie
+     * @date: 2019/1/22 11:10
+     */
+    @PostMapping("uploadContract")
+    @ResponseBody
+    public ResponseVO uploadContract(MultipartFile file, MaintenanceContractFile maintenanceContractFile) {
+
+        if (Objects.isNull(file) || file.isEmpty()) {
+            return ResponseVO.error().setMsg("文件为空，请重新上传");
+        }
+
+        try {
+            byte[] bytes = file.getBytes();
+            int length=file.getOriginalFilename().split("[.]").length;
+            String fileUrl= UUID.randomUUID()+"."+ file.getOriginalFilename().split("[.]")[length-1];
+            String pathStr= applicationProperties.file.getUploadFolder() +fileUrl;
+            Path path = Paths.get(pathStr);
+            //如果没有files文件夹，则创建
+            if (!Files.isWritable(path)) {
+                Files.createDirectories(Paths.get(applicationProperties.file.getUploadFolder()));
+            }
+            if(maintenanceContractFile==null){
+                maintenanceContractFile=new MaintenanceContractFile();
+            }
+            maintenanceContractFile.setCreateTime(new Date());
+            maintenanceContractFile.setDownload(false);
+            maintenanceContractFile.setFileName(file.getOriginalFilename());
+            maintenanceContractFile.setFileUrl(applicationProperties.file.getFilePath()+fileUrl);
+            //maintenanceContractFileDomain.insert(t);
+            //文件写入指定路径
+            Files.write(path, bytes);
+            return ResponseVO.success().setMsg("文件上传成功").setData(maintenanceContractFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseVO.error();
+        }
+    }
 }
