@@ -41,7 +41,7 @@ public class EquipmentReportController {
      * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
      * @Date 2019/2/11 11:09
      */
-    @GetMapping("statistics")
+    @GetMapping("statisticsData")
     public ResponseVO<Object> getEquipmentReportStatistics(Long regionId,Long projectId){
         Map<String, Object> map = equipmentReportService.getEquipmentReportStatistics(regionId,projectId);
         return ResponseVO.<Object>success().setData(map);

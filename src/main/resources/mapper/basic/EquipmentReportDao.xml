@@ -73,7 +73,7 @@
             ORDER BY value DESC
         </where>
     </select>
-    <!-- 按一级分类获取对应二级分类对应二级分类设备总数-->
+    <!-- 按一级分类获取对应二级分类对应二级分类设备总数及百分比-->
     <select id="getEquipmentCountByOneTypeByTwoType" parameterType="java.util.Map" resultType="java.util.Map">
 
         SELECT t1.oneTypeName AS oneTypeName,t1.name AS name,t1.value AS value,CONCAT(ROUND(t1.value / t2.total * 100, 2),'','%') AS ratio
