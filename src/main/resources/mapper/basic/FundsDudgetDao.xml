@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.firepatrol.FundsDudgetDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.FundsDudget">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="region_id" jdbcType="BIGINT" property="regionId" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="funds" jdbcType="DECIMAL" property="funds" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FundsDudget">
+    insert into funds_budget (id, region_id, project_id, 
+      year, funds, description,logic_remove
+      )
+    values (#{id,jdbcType=BIGINT}, #{regionId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
+      #{year,jdbcType=INTEGER}, #{funds,jdbcType=DECIMAL}, #{description,jdbcType=LONGVARCHAR},
+      #{logicRemove,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FundsDudget">
+    insert into funds_budget
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="regionId != null">
+        region_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="funds != null">
+        funds,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="funds != null">
+        #{funds,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="queryListByPage" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT
+        f.id AS id,f.region_id AS regionId,i.`name` AS  regionName,
+        f.project_id AS projectId,p.`name` AS projectName,
+        f.year AS year,f.description AS description,f.funds AS funds
+      FROM funds_budget f
+      LEFT JOIN region_info i ON f.region_id = i.id
+      LEFT JOIN region_project p ON f.project_id = p.id
+      <where>
+        <if test="regionId != null">
+         AND f.region_id= #{regionId,jdbcType=BIGINT}
+        </if>
+        <if test="projectId != null">
+          AND f.project_id=#{projectId,jdbcType=BIGINT}
+        </if>
+        <if test="keyword != null">
+          AND (f.description LIKE concat('%',#{keyword},'%') OR f.year LIKE concat('%',#{keyword},'%'))
+        </if>
+        AND f.logic_remove=0
+        AND i.logic_remove=0
+        AND p.logic_remove=0
+      </where>
+  </select>
+  <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
+    SELECT
+    f.id AS id,f.region_id AS regionId,i.`name` AS  regionName,
+    f.project_id AS projectId,p.`name` AS projectName,
+    f.year AS year,f.description AS description,f.funds AS funds
+    FROM funds_budget f
+    LEFT JOIN region_info i ON f.region_id = i.id
+    LEFT JOIN region_project p ON f.project_id = p.id
+    WHERE  f.logic_remove=0
+    AND i.logic_remove=0
+    AND p.logic_remove=0
+    AND f.id=#{id}
+  </select>
+  <update id="deleteBatch" parameterType="java.util.List">
+    UPDATE funds_budget set logic_remove =1 where id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.FundsDudget">
+    UPDATE funds_budget
+    <set>
+      <if test="regionId != null">
+        region_id=  #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        project_id= #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        year= #{year,jdbcType=INTEGER},
+      </if>
+      <if test="funds != null">
+        funds= #{funds,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null">
+        description= #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    WHERE id
+    = #{id}
+  </update>
+</mapper>

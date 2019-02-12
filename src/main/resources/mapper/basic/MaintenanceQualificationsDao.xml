@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.firepatrol.MaintenanceQualificationsDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.firepatrol.MaintenanceQualifications">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="region_id" jdbcType="INTEGER" property="regionId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="equipment_name" jdbcType="VARCHAR" property="equipmentName" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="qualifications" jdbcType="VARCHAR" property="qualifications" />
+    <result column="logic_remove" jdbcType="BIT" property="logicRemove" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.MaintenanceQualifications">
+    insert into maintenance_qualifications (id, region_id, project_id, 
+      equipment_name, company_name, qualifications,logic_remove
+      )
+    values (#{id,jdbcType=BIGINT}, #{regionId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{equipmentName,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{qualifications,jdbcType=VARCHAR},
+      #{logicRemove,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.MaintenanceQualifications">
+    insert into maintenance_qualifications
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="regionId != null">
+        region_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="equipmentName != null">
+        equipment_name,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="qualifications != null">
+        qualifications,
+      </if>
+      <if test="logicRemove != null">
+        logic_remove,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentName != null">
+        #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="qualifications != null">
+        #{qualifications,jdbcType=VARCHAR},
+      </if>
+      <if test="logicRemove != null">
+        #{logicRemove,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="queryListByPage" parameterType="java.util.Map" resultType="java.util.Map">
+    SELECT
+    m.id AS id,m.region_id AS regionId,i.`name` AS  regionName,
+    m.project_id AS projectId,p.`name` AS projectName,
+    m.equipment_name AS equipmentName,m.company_name AS companyName,m.qualifications AS qualifications
+    FROM maintenance_qualifications m
+    LEFT JOIN region_info i ON m.region_id = i.id
+    LEFT JOIN region_project p ON m.project_id = p.id
+    <where>
+      <if test="regionId != null">
+        AND m.region_id= #{regionId,jdbcType=BIGINT}
+      </if>
+      <if test="projectId != null">
+        AND m.project_id=#{projectId,jdbcType=BIGINT}
+      </if>
+      <if test="keyword != null">
+        AND (m.equipment_name LIKE concat('%',#{keyword},'%') OR m.company_name LIKE concat('%',#{keyword},'%'))
+      </if>
+      AND m.logic_remove=0
+      AND i.logic_remove=0
+      AND p.logic_remove=0
+    </where>
+  </select>
+  <select id="findById" parameterType="java.lang.Long" resultType="java.util.Map">
+    SELECT
+    m.id AS id,m.region_id AS regionId,i.`name` AS  regionName,
+    m.project_id AS projectId,p.`name` AS projectName,
+    m.equipment_name AS equipmentName,m.company_name AS companyName,m.qualifications AS qualifications
+    FROM maintenance_qualifications m
+    LEFT JOIN region_info i ON m.region_id = i.id
+    LEFT JOIN region_project p ON m.project_id = p.id
+    WHERE m.id=#{id}
+    AND m.logic_remove=0
+    AND i.logic_remove=0
+    AND p.logic_remove=0
+  </select>
+  <update id="deleteBatch" parameterType="java.util.List">
+    UPDATE maintenance_qualifications set logic_remove =1 where id IN
+    <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+  <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.firepatrol.MaintenanceQualifications">
+    UPDATE maintenance_qualifications
+    <set>
+      <if test="regionId != null">
+        region_id=  #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        project_id= #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentName != null">
+        equipment_name= #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name= #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="qualifications != null">
+        qualifications= #{qualifications,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE id
+    = #{id}
+  </update>
+</mapper>
