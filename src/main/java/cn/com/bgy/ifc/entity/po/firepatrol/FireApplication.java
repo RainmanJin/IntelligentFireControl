@@ -1,12 +1,13 @@
 package cn.com.bgy.ifc.entity.po.firepatrol;
 
+import java.io.Serializable;
 import java.util.Date;
 /**
  * @Author huxin
  * @Description 动火证申请情况
  * @Date 2019/1/5 16:53
  */
-public class FireApplication implements Serializable{
+public class FireApplication implements Serializable {
     //ID
     private Long id;
     //装修备案ID

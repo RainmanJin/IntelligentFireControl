@@ -1,10 +1,13 @@
 package cn.com.bgy.ifc.entity.po.equipment;
+
+import java.io.Serializable;
+
 /**
  * @Author huxin
  * @Description 设备型号
  * @Date 2018/12/21 16:16
  */
-public class EquipmentVersion implements Serializable{
+public class EquipmentVersion implements Serializable {
     //型号id
     private Long id;
     //关联品牌ID

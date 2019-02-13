@@ -1,8 +1,9 @@
 package cn.com.bgy.ifc.entity.po.project;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RegionCourt implements Serializable{
+public class RegionCourt implements Serializable {
     /**
      * id
      */

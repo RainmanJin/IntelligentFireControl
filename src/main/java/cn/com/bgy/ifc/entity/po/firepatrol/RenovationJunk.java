@@ -1,12 +1,13 @@
 package cn.com.bgy.ifc.entity.po.firepatrol;
 
+import java.io.Serializable;
 import java.util.Date;
 /**
  * @Author huxin
  * @Description 装修垃圾清理情况表
  * @Date 2019/1/5 17:11
  */
-public class RenovationJunk implements Serializable{
+public class RenovationJunk implements Serializable {
     //ID
     private Long id;
     //装修备案ID

@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.entity.po.project;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  * @Description 楼栋单元信息
  * @Date 2018/12/20 9:10
  */
-public class RegionBuilding implements Serializable{
+public class RegionBuilding implements Serializable {
     /**
      * 楼栋ID
      */

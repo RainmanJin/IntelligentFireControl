@@ -1,6 +1,8 @@
 package cn.com.bgy.ifc.entity.po.firepatrol;
 
-public class MaintenanceQualifications implements Serializable{
+import java.io.Serializable;
+
+public class MaintenanceQualifications implements Serializable {
     /**
      * 主键
      */

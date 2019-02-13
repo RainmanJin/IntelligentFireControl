@@ -1,8 +1,9 @@
 package cn.com.bgy.ifc.entity.po.firepatrol;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RecordContent implements Serializable{
+public class RecordContent implements Serializable {
     /**
      * ID
      */

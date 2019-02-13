@@ -1,12 +1,13 @@
 package cn.com.bgy.ifc.entity.po.firepatrol;
 
+import java.io.Serializable;
 import java.util.Date;
 /**
  * @Author huxin
  * @Description 灭火器配置情况
  * @Date 2019/1/5 16:46
  */
-public class ExtinguisherConfig implements Serializable{
+public class ExtinguisherConfig implements Serializable {
     //ID
     private Long id;
     //装修备案ID
