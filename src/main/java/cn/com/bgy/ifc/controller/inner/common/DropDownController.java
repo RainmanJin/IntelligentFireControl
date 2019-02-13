@@ -1,11 +1,13 @@
 package cn.com.bgy.ifc.controller.inner.common;
 
+import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionInfoDomain;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionProjectDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentType;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
+import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentBrandService;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentInfoService;
 import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentTypeService;
@@ -53,6 +55,8 @@ public class DropDownController extends BaseController{
     private EquipmentTypeService equipmentTypeService;
     @Autowired
     private MaintenanceCompanyDomain maintenanceCompanyDomain;
+    @Autowired
+    private EquipmentInfoDomain equipmentInfoDomain;
 
    /*
     * @Author  huxin
@@ -175,5 +179,17 @@ public class DropDownController extends BaseController{
     @ResponseBody
     public ResponseVO<Object> queryAllList() {
         return ResponseVO.success().setData(maintenanceCompanyDomain.queryListByParam(null));
+    }
+
+    /*
+     * @Author  huxin
+     * @Description 根据条件查询设备下拉框
+     * @param   [vo]
+     * @retrue  cn.com.bgy.ifc.entity.vo.ResponseVO<java.lang.Object>
+     * @Date 2019/2/13 15:03
+     */
+    @GetMapping("equipmentDropDownData")
+    public ResponseVO<Object> queryMaintenanceCompanyList(RegionAndBrandVO vo) {
+        return ResponseVO.success().setData(equipmentInfoDomain.queryAllInfo(vo));
     }
 }

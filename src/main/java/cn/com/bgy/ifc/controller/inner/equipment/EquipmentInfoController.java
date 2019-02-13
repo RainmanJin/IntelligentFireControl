@@ -3,7 +3,6 @@ package cn.com.bgy.ifc.controller.inner.equipment;
 import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
-import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentInfoDomain;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.task.RegionAndBrandVO;
@@ -36,8 +35,7 @@ public class EquipmentInfoController extends BaseController {
     @Autowired
     private BgyEquipmentService bgyEquipmentService;
 
-    @Autowired
-    private EquipmentInfoDomain domain;
+
 
     /**
      * @Author huxin
@@ -110,15 +108,7 @@ public class EquipmentInfoController extends BaseController {
         return ResponseVO.success().setData(map);
     }
 
-    /**
-     * 设备下拉框初始化
-     *
-     * @return
-     */
-    @GetMapping("queryEquipmentInfoList")
-    public ResponseVO<Object> queryMaintenanceCompanyList(RegionAndBrandVO vo) {
-        return ResponseVO.success().setData(domain.queryAllInfo(vo));
-    }
+
 
     /**
      * @author: ZhangCheng

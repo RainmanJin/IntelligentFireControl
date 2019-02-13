@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.maintenance;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.excel.ExcelUtil;
@@ -8,36 +9,27 @@ import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceCompanyDomain;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractDomain;
 import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceContractFileDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContract;
-import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceContractFile;
 import cn.com.bgy.ifc.entity.po.system.Account;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceContractExcelModel;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceContractVo;
-
 import com.alibaba.excel.support.ExcelTypeEnum;
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * lvbingjian
@@ -46,6 +38,7 @@ import javax.servlet.ServletResponse;
  */
 @Controller
 @RequestMapping("/maintenance/maintenanceContract")
+@RolePermission
 public class MaintenanceContractController extends BaseController {
     @Autowired
     private MaintenanceContractDomain maintenanceContractDomain;

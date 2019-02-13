@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.maintenance;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
@@ -29,6 +30,7 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/maintenance/maintenanceCompany")
+@RolePermission
 public class MaintenanceCompanyController extends BaseController{
     @Autowired
     private MaintenanceCompanyDomain domain;

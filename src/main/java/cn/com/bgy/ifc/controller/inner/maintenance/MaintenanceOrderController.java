@@ -1,24 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.maintenance;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
-
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.controller.inner.common.BaseController;
@@ -28,6 +10,21 @@ import cn.com.bgy.ifc.domain.interfaces.maintenance.MaintenanceProgramDomain;
 import cn.com.bgy.ifc.entity.po.maintenance.MaintenanceOrder;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceOrderVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * lvbingjian
@@ -36,6 +33,7 @@ import cn.com.bgy.ifc.entity.vo.maintenance.MaintenanceOrderVo;
  */
 @Controller
 @RequestMapping("/maintenance/maintenanceOrder")
+@RolePermission
 public class MaintenanceOrderController extends BaseController{
 	
 	@Resource 

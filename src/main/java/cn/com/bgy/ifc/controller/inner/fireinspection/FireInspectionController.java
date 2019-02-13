@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.controller.inner.fireinspection;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.annotation.SystemLogAfterSave;
 import cn.com.bgy.ifc.bgy.utils.CopyUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
@@ -28,6 +29,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/fireinspection/fireInspection")
+@RolePermission
 public class FireInspectionController extends BaseController{
 	@Autowired
 	private FireInspectionDomain fireInspectionDomain;
