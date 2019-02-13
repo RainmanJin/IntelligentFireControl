@@ -1,19 +1,15 @@
-package cn.com.bgy.ifc.service.interfaces.inner.report;
+package cn.com.bgy.ifc.dao.report;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
-
+import java.util.List;
 import java.util.Map;
 
 /**
- * @description:
- * @param: 
- * @return: 报表管理，告警管理
- * @auther: chenlie
- * @date: 2019/2/12 15:51
- */
+ * @Author huxin
+ * @Date 2019/1/29 15:10
+ * @Description
+ **/
 
-public interface AlarmReportService {
+public interface AlarmReportDao {
     //告警总数和火警总数
     Map<String, Object> getAlarmCount(Map<String, Object> map);
     //同比
@@ -47,8 +43,5 @@ public interface AlarmReportService {
 
     //故障趋势图
     Map<String, Object> getAlarmHitchChart(Map<String, Object> map);
-
-
-
 
 }
