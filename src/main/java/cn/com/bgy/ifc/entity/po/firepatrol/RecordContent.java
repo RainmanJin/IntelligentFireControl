@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.entity.po.firepatrol;
 
 import java.util.Date;
 
-public class RecordContent {
+public class RecordContent implements Serializable{
     /**
      * ID
      */

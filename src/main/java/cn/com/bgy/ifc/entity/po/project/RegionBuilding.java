@@ -7,7 +7,7 @@ import java.util.Date;
  * @Description 楼栋单元信息
  * @Date 2018/12/20 9:10
  */
-public class RegionBuilding {
+public class RegionBuilding implements Serializable{
     /**
      * 楼栋ID
      */

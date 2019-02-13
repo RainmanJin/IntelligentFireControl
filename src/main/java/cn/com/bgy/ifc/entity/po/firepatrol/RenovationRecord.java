@@ -1,5 +1,6 @@
 package cn.com.bgy.ifc.entity.po.firepatrol;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  * @Description 装修垃圾清理情况
  * @Date 2019/1/5 16:43
  */
-public class RenovationRecord {
+public class RenovationRecord implements Serializable {
     //id
     private Long id;
     //地址

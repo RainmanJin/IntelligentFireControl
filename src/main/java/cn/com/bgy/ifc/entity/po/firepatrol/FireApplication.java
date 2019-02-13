@@ -6,7 +6,7 @@ import java.util.Date;
  * @Description 动火证申请情况
  * @Date 2019/1/5 16:53
  */
-public class FireApplication {
+public class FireApplication implements Serializable{
     //ID
     private Long id;
     //装修备案ID

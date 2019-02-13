@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.entity.po.firepatrol;
 
-public class RecordByContent {
+public class RecordByContent implements Serializable{
     /**
      * ID
      */

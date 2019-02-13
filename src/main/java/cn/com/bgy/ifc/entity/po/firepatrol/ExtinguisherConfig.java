@@ -6,7 +6,7 @@ import java.util.Date;
  * @Description 灭火器配置情况
  * @Date 2019/1/5 16:46
  */
-public class ExtinguisherConfig {
+public class ExtinguisherConfig implements Serializable{
     //ID
     private Long id;
     //装修备案ID

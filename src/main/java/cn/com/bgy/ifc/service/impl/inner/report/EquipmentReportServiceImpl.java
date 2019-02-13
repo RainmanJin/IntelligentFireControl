@@ -47,12 +47,12 @@ public class EquipmentReportServiceImpl implements EquipmentReportService {
 
 
         //获取二级设备分类的设备分类总数
-        List<Map<String,Object>> twoList = equipmentReportDao.getEquipmentCountByTwoType(map);
+//        List<Map<String,Object>> twoList = equipmentReportDao.getEquipmentCountByTwoType(map);
         List<String> twoTypeName = new ArrayList<>();
         List<Long> twoTypeCount = new ArrayList<>();
-        for (int i = 0; i < twoList.size(); i++) {
-            twoTypeName.add((String) twoList.get(i).get("name"));
-            twoTypeCount.add((Long) twoList.get(i).get("value"));
+        for (int i = 0; i < oneList.size(); i++) {
+            twoTypeName.add((String) oneList.get(i).get("name"));
+            twoTypeCount.add((Long) oneList.get(i).get("value"));
         }
         Map<String,Object> twoMap = new HashMap<>();
         twoMap.put("twoTypeName",twoTypeName);
@@ -111,13 +111,6 @@ public class EquipmentReportServiceImpl implements EquipmentReportService {
         map.put("projectId",projectId);
         //获取一级设备分类的设备分类总数
         List<Map<String,Object>> oneList = equipmentReportDao.getEquipmentCountByOneType(map);
-        //保留前5位数据
-//        for (int i = 0; i <oneList.size(); i++) {
-//            if(i>=5){
-//                oneList.remove(i);
-//                i--;
-//            }
-//        }
         statisticsMap.put("oneList",oneList);
 
 

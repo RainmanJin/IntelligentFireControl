@@ -1,8 +1,9 @@
 package cn.com.bgy.ifc.entity.po.firepatrol;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class FundsDudget {
+public class FundsDudget implements Serializable {
     /**
      * 主键ID
      */

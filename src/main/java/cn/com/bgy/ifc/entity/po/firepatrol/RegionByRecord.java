@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.entity.po.firepatrol;
 
-public class RegionByRecord {
+public class RegionByRecord implements Serializable{
     /**
      * 
      */

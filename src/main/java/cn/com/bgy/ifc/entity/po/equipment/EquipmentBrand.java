@@ -1,6 +1,8 @@
 package cn.com.bgy.ifc.entity.po.equipment;
 
-public class EquipmentBrand {
+import java.io.Serializable;
+
+public class EquipmentBrand implements Serializable {
     //ID
     private Long id;
     //设备品牌名

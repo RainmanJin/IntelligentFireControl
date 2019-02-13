@@ -6,7 +6,7 @@ import java.util.Date;
  * @Description 消防保护措施处理情况
  * @Date 2019/1/5 16:50
  */
-public class FacilityProtection {
+public class FacilityProtection implements Serializable{
     //ID
     private Long id;
     //装修备案ID

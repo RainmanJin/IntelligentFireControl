@@ -1,9 +1,10 @@
 package cn.com.bgy.ifc.entity.po.equipment;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class EquipmentInfo extends RegionAndBrand {
+public class EquipmentInfo extends RegionAndBrand implements Serializable {
     /**
      * 系统自增ID
      */

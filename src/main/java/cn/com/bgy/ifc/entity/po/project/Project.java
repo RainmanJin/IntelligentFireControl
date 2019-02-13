@@ -2,7 +2,7 @@ package cn.com.bgy.ifc.entity.po.project;
 
 import java.util.Date;
 
-public class Project {
+public class Project implements Serializable{
     private Long id;
 
     private String name;

@@ -1,6 +1,6 @@
 package cn.com.bgy.ifc.entity.po.firepatrol;
 
-public class MaintenanceQualifications {
+public class MaintenanceQualifications implements Serializable{
     /**
      * 主键
      */
