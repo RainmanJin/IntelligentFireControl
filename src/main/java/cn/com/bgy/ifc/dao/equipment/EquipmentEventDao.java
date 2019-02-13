@@ -16,18 +16,4 @@ public interface EquipmentEventDao extends BaseDao<EquipmentEvent> {
      */
     List<EquipmentEvent> queryListByParam(EquipmentEventVo equipmentEventVo);
 
-
-    /**
-     * 查询设备事件告警列表
-     * @param equipmentEvent
-     * @return
-     */
-    List<EquipmentEvent> queryAlarmList(EquipmentEvent equipmentEvent);
-
-    /**
-     * 查询告警统计
-     * @return
-     */
-    AlarmCount queryAlarmCount();
-
 }

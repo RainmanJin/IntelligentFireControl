@@ -32,7 +32,7 @@ public class AlarmHitchController {
      */
     @GetMapping("queryPageData")
     public ResponseVO<PageInfo<AlarmVo>> queryPage(Page<EquipmentEvent> page) {
-        Integer type = EquipmentConstant.StateEnum.FAULT.getValue();
+        Integer type = EquipmentConstant.AlarmEnum.GIVE_ALARM.getValue();
         PageInfo<AlarmVo> pageInfo = alarmService.queryListByPage(page, type);
         return ResponseVO.<PageInfo<AlarmVo>>success().setData(pageInfo);
     }

@@ -6,9 +6,13 @@ import cn.com.bgy.ifc.bgy.constant.LoginState;
 import cn.com.bgy.ifc.bgy.constant.SystemLogType;
 import cn.com.bgy.ifc.bgy.helper.HttpHelper;
 import cn.com.bgy.ifc.bgy.utils.*;
+import cn.com.bgy.ifc.dao.alarm.RealTimeAlarmDao;
 import cn.com.bgy.ifc.dao.equipment.EquipmentEventDao;
+import cn.com.bgy.ifc.dao.equipment.EquipmentInfoDao;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceConfigDomain;
+import cn.com.bgy.ifc.entity.po.alarm.RealTimeAlarm;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceConfig;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.equipment.EquipmentEventVo;
@@ -42,6 +46,12 @@ public class EquipmentEventServiceImpl implements EquipmentEventService {
     @Resource
     private EquipmentEventDao equipmentEventDao;
 
+    @Resource
+    private EquipmentInfoDao equipmentInfoDao;
+
+    @Resource
+    private RealTimeAlarmDao realTimeAlarmDao;
+
     @Autowired
     private ExternalInterfaceConfigDomain externalInterfaceConfigDomain;
 
@@ -61,30 +71,23 @@ public class EquipmentEventServiceImpl implements EquipmentEventService {
     @Override
     public int insertEquipmentEvent(JSONObject jsonObject) {
         EquipmentEvent equipmentEvent = jsonObject.toJavaObject(EquipmentEvent.class);
-        //事件状态 未处理:0 已处理:1
-        if (equipmentEvent.getStatus() != null && EquipmentConstant.EventState.NORMAL.getValue().equals(equipmentEvent.getStatus())) {
-           //事件状态
-            int type=equipmentEvent.getType();
-            //报警-火警列表
-            if(type==EquipmentConstant.StateEnum.CALL_POLICE.getValue()){
-
-            }
-            //故障
-            if(type==EquipmentConstant.StateEnum.FAULT.getValue()){
-
-            }
-            //预警
-            if(type==EquipmentConstant.StateEnum.EARLY_WARNING.getValue()){
-
-            }
-        }
         if (equipmentEvent != null) {
             Long id = equipmentEvent.getId();
             if (id != null) {
                 EquipmentEvent event = equipmentEventDao.findById(id);
                 if (event != null) {
+                    RealTimeAlarm realTimeAlarm = realTimeAlarmDao.findByEventId(id);
+                    if (realTimeAlarm != null) {
+                        realTimeAlarmDao.updateSelective(objectSlicing(realTimeAlarm, equipmentEvent));
+                    }
                     return equipmentEventDao.updateSelective(equipmentEvent);
                 } else {
+                    EquipmentInfo equipmentInfo = equipmentInfoDao.findByStateId(equipmentEvent.getDeviceId());
+                    if (equipmentInfo != null) {
+                        RealTimeAlarm realTimeAlarm = new RealTimeAlarm();
+                        realTimeAlarm.setDeviceId(equipmentInfo.getId());
+                        realTimeAlarmDao.insertSelective(objectSlicing(realTimeAlarm, equipmentEvent));
+                    }
                     return equipmentEventDao.insertSelective(equipmentEvent);
                 }
             }
@@ -285,22 +288,14 @@ public class EquipmentEventServiceImpl implements EquipmentEventService {
         }
     }
 
-    @Override
-    public ResponseVO<Object> handleDataList(String ids) {
-        List<Long> idList = ListUtil.getListId(ids);
-        int count = 0;
-        for (Long id : idList) {
-            EquipmentEvent equipmentEvent = equipmentEventDao.findById(id);
-            equipmentEvent.setStatus(EquipmentConstant.EventState.FAULT.getValue());
-            ResponseVO<Object> response = editEquipmentEvent(equipmentEvent);
-            if (response.getCode().equals(ResponseVO.SUCCESS)) {
-                count++;
-            }
-        }
-        if (count > 0) {
-            return ResponseVO.success().setMsg("批量处理设备告警成功，处理条数：" + count);
-        } else {
-            return ResponseVO.error().setMsg("批量处理设备告警失败!");
-        }
+    private RealTimeAlarm objectSlicing(RealTimeAlarm realTimeAlarm, EquipmentEvent equipmentEvent) {
+        realTimeAlarm.setStatus(equipmentEvent.getStatus());
+        realTimeAlarm.setType(equipmentEvent.getType());
+        realTimeAlarm.setDescription(equipmentEvent.getDescription());
+        realTimeAlarm.setEventId(equipmentEvent.getId());
+        realTimeAlarm.setReportCount(equipmentEvent.getReportCount());
+        realTimeAlarm.setFirstTime(equipmentEvent.getFirstTime());
+        realTimeAlarm.setLastTime(equipmentEvent.getLastTime());
+        return realTimeAlarm;
     }
 }

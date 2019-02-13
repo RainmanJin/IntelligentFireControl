@@ -4,6 +4,7 @@ import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.bgy.utils.StringUtil;
+import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.dao.project.*;
 import cn.com.bgy.ifc.dao.system.UserGroupItemsDao;
 import cn.com.bgy.ifc.domain.interfaces.project.RegionInfoDomain;
@@ -214,8 +215,12 @@ public class RegionInfoDomainImpl implements RegionInfoDomain {
         if (addCount + updateCount + deleteCount != totalCount) {
             throw new RuntimeException("批量同步区域增量数据失败!");
         } else {
+            Date updateTime = new Date();
+            if (list.get(totalCount - 1).getOperTime() != null) {
+                updateTime = TimeUtil.parseStrToDateTime(list.get(totalCount - 1).getOperTime());
+            }
             int msgType = ExternalConstant.MsgTypeValue.BGY_REGION_OBTAIN.getValue();
-            externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
+            externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount,updateTime);
             return ResponseVO.success().setMsg("同步集成平台区域增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
     }

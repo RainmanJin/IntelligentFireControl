@@ -1,15 +1,20 @@
 package cn.com.bgy.ifc.service.impl.inner.alarm;
 
 import cn.com.bgy.ifc.bgy.constant.EquipmentConstant;
+import cn.com.bgy.ifc.bgy.utils.ListUtil;
 import cn.com.bgy.ifc.bgy.utils.TimeUtil;
-import cn.com.bgy.ifc.dao.equipment.EquipmentEventDao;
+import cn.com.bgy.ifc.dao.alarm.RealTimeAlarmDao;
 import cn.com.bgy.ifc.entity.po.alarm.AlarmCount;
+import cn.com.bgy.ifc.entity.po.alarm.RealTimeAlarm;
 import cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent;
+import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.alarm.AlarmVo;
 import cn.com.bgy.ifc.service.interfaces.inner.alarm.AlarmService;
+import cn.com.bgy.ifc.service.interfaces.inner.equipment.EquipmentEventService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,49 +31,52 @@ import java.util.List;
 public class AlarmServiceImpl implements AlarmService {
 
     @Resource
-    private EquipmentEventDao equipmentEventDao;
+    private RealTimeAlarmDao realTimeAlarmDao;
+
+    @Autowired
+    private EquipmentEventService equipmentEventService;
 
     @Override
     public PageInfo<AlarmVo> queryListByPage(Page page, Integer type) {
-        EquipmentEvent equipmentEvent = new EquipmentEvent();
-        equipmentEvent.setStatus(EquipmentConstant.EventState.NORMAL.getValue());
-        equipmentEvent.setType(type);
+        RealTimeAlarm realTimeAlarm = new RealTimeAlarm();
+        realTimeAlarm.setStatus(EquipmentConstant.EventState.NORMAL.getValue());
+        realTimeAlarm.setType(type);
         page = PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        List<EquipmentEvent> list = equipmentEventDao.queryAlarmList(equipmentEvent);
+        List<RealTimeAlarm> list = realTimeAlarmDao.queryAlarmList(realTimeAlarm);
         List<AlarmVo> alarmList = new ArrayList<>();
-        for (EquipmentEvent event : list) {
+        for (RealTimeAlarm alarm : list) {
             AlarmVo alarmVo = new AlarmVo();
-            alarmVo.setId(event.getId());
-            alarmVo.setReportCount(event.getReportCount());
-            alarmVo.setDescription(event.getDescription());
-            Date firstTime = event.getFirstTime();
-            Date lastTime = event.getLastTime();
+            alarmVo.setId(alarm.getId());
+            alarmVo.setReportCount(alarm.getReportCount());
+            alarmVo.setDescription(alarm.getDescription());
+            Date firstTime = alarm.getFirstTime();
+            Date lastTime = alarm.getLastTime();
             alarmVo.setLastTime(lastTime);
             alarmVo.setAlarmDuration(TimeUtil.timeDifference(firstTime, lastTime));
             StringBuilder stringBuilder=new StringBuilder();
-            if(event.getRegionInfo()!=null){
-                stringBuilder.append(event.getRegionInfo().getName());
+            if(alarm.getRegionInfo()!=null){
+                stringBuilder.append(alarm.getRegionInfo().getName());
             }
-            if (event.getRegionProject() != null) {
-                stringBuilder.append(event.getRegionProject().getName());
+            if (alarm.getRegionProject() != null) {
+                stringBuilder.append(alarm.getRegionProject().getName());
             }
             alarmVo.setProjectName(stringBuilder.toString());
-            if (event.getRegionComputerRoom() != null) {
-                alarmVo.setComputerRoomName(event.getRegionComputerRoom().getName());
+            if (alarm.getRegionComputerRoom() != null) {
+                alarmVo.setComputerRoomName(alarm.getRegionComputerRoom().getName());
             }
-            if (event.getEquipmentState() != null) {
-                alarmVo.setAlarmValue(event.getEquipmentState().getLastValue());
-                if(event.getEquipmentState().getValueThresholdMin()!=null&&event.getEquipmentState().getValueThresholdMax()!=null){
-                    alarmVo.setReferenceRange(event.getEquipmentState().getValueThresholdMin() + "-" + event.getEquipmentState().getValueThresholdMax());
+            if (alarm.getEquipmentState() != null) {
+                if(alarm.getEquipmentState().getValueThresholdMin()!=null&&alarm.getEquipmentState().getValueThresholdMax()!=null){
+                    alarmVo.setReferenceRange(alarm.getEquipmentState().getValueThresholdMin() + "-" + alarm.getEquipmentState().getValueThresholdMax());
                 }
-                if(event.getEquipmentState().getAlarmThresholdMin()!=null&&event.getEquipmentState().getAlarmThresholdMax()!=null){
-                    alarmVo.setAlarmReferenceRange(event.getEquipmentState().getAlarmThresholdMin() + "-" + event.getEquipmentState().getAlarmThresholdMax());
+                if(alarm.getEquipmentState().getAlarmThresholdMin()!=null&&alarm.getEquipmentState().getAlarmThresholdMax()!=null){
+                    alarmVo.setAlarmReferenceRange(alarm.getEquipmentState().getAlarmThresholdMin() + "-" + alarm.getEquipmentState().getAlarmThresholdMax());
                 }
-                if(event.getEquipmentState().getGrade()!=null){
-                    alarmVo.setAlarmGrade(event.getEquipmentState().getGrade());
+                if(alarm.getEquipmentState().getGrade()!=null){
+                    alarmVo.setAlarmGrade(alarm.getEquipmentState().getGrade());
                 }
             }
-            alarmVo.setDeviceName(event.getDeviceName());
+            alarmVo.setAlarmValue(alarm.getAlarmValue());
+            alarmVo.setDeviceName(alarm.getEquipmentInfo().getName());
             alarmList.add(alarmVo);
         }
         PageInfo<AlarmVo> pageInfo = new PageInfo<>(alarmList);
@@ -77,6 +85,67 @@ public class AlarmServiceImpl implements AlarmService {
 
     @Override
     public AlarmCount queryAlarmCount() {
-        return equipmentEventDao.queryAlarmCount();
+        return realTimeAlarmDao.queryAlarmCount();
+    }
+
+    @Override
+    public ResponseVO<Object> editAlarm(Long id) {
+        RealTimeAlarm realTimeAlarm =realTimeAlarmDao.findById(id);
+        int status=EquipmentConstant.EventState.FAULT.getValue();
+        //修改为已处理
+        realTimeAlarm.setStatus(status);
+        if(realTimeAlarm.getEventId()!=null){
+            EquipmentEvent equipmentEvent = equipmentEventService.findById(realTimeAlarm.getEventId());
+            if(equipmentEvent==null){
+                return ResponseVO.error().setMsg("获取告警信息异常，请刷新后重试！");
+            }
+            equipmentEvent.setStatus(status);
+            ResponseVO<Object> response = equipmentEventService.editEquipmentEvent(equipmentEvent);
+            if (response.getCode().equals(ResponseVO.SUCCESS)) {
+                realTimeAlarmDao.updateSelective(realTimeAlarm);
+                return ResponseVO.success().setMsg("处理设备告警成功!");
+            }else{
+                return ResponseVO.error().setMsg("处理设备告警失败!");
+            }
+        }
+        int result=realTimeAlarmDao.updateSelective(realTimeAlarm);
+        if (result == 1) {
+            return ResponseVO.success().setMsg("处理设备告警成功!");
+        } else {
+            return ResponseVO.error().setMsg("处理设备告警失败!");
+        }
+    }
+
+    @Override
+    public ResponseVO<Object> handleDataList(String ids) {
+        List<Long> idList = ListUtil.getListId(ids);
+        int count = 0;
+        for (Long id : idList) {
+            RealTimeAlarm realTimeAlarm =realTimeAlarmDao.findById(id);
+            int status=EquipmentConstant.EventState.FAULT.getValue();
+            //修改为已处理
+            realTimeAlarm.setStatus(status);
+            if(realTimeAlarm.getEventId()!=null){
+                EquipmentEvent equipmentEvent = equipmentEventService.findById(realTimeAlarm.getEventId());
+                if(equipmentEvent!=null){
+                    equipmentEvent.setStatus(status);
+                    ResponseVO<Object> response = equipmentEventService.editEquipmentEvent(equipmentEvent);
+                    if (response.getCode().equals(ResponseVO.SUCCESS)) {
+                        realTimeAlarmDao.updateSelective(realTimeAlarm);
+                        count++;
+                    }
+                }
+            }else{
+                int result=realTimeAlarmDao.updateSelective(realTimeAlarm);
+                if (result == 1) {
+                    count++;
+                }
+            }
+        }
+        if (count > 0) {
+            return ResponseVO.success().setMsg("批量处理设备告警成功，处理条数：" + count);
+        } else {
+            return ResponseVO.error().setMsg("批量处理设备告警失败!");
+        }
     }
 }

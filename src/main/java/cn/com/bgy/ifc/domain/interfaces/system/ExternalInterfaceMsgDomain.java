@@ -2,6 +2,7 @@ package cn.com.bgy.ifc.domain.interfaces.system;
 
 import cn.com.bgy.ifc.entity.po.system.ExternalInterfaceMsg;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,5 +60,5 @@ public interface ExternalInterfaceMsgDomain {
      * @param deleteCount
      * @return
      */
-    int alterInterfaceMsg(Long orgId,Integer msgType,Integer totalCount,Integer addCount,Integer updateCount,Integer deleteCount);
+    int alterInterfaceMsg(Long orgId, Integer msgType, Integer totalCount, Integer addCount, Integer updateCount, Integer deleteCount, Date updateTime);
 }

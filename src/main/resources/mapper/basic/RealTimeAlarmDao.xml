@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.bgy.ifc.dao.equipment.EquipmentEventDao">
-    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
+<mapper namespace="cn.com.bgy.ifc.dao.alarm.RealTimeAlarmDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.alarm.RealTimeAlarm">
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="type" jdbcType="INTEGER" property="type"/>
         <result column="device_id" jdbcType="BIGINT" property="deviceId"/>
-        <result column="device_name" jdbcType="VARCHAR" property="deviceName"/>
         <result column="first_time" jdbcType="TIMESTAMP" property="firstTime"/>
         <result column="last_time" jdbcType="TIMESTAMP" property="lastTime"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="report_count" jdbcType="INTEGER" property="reportCount"/>
-        <association property="equipmentState" column="device_id"
+        <result column="alarm_value" jdbcType="REAL" property="alarmValue"/>
+        <result column="event_id" jdbcType="BIGINT" property="eventId"/>
+        <association property="equipmentState" column="equipment_state_id"
                      javaType="cn.com.bgy.ifc.entity.po.equipment.EquipmentState">
             <id column="state_id" property="id"/>
             <result column="state_name" property="name"/>
@@ -28,17 +29,34 @@
             <result column="equipment_name" property="name"/>
             <result column="machine_room_id" property="machineRoomId"/>
         </association>
+        <association property="regionComputerRoom" column="machine_room_id"
+                     javaType="cn.com.bgy.ifc.entity.po.project.RegionComputerRoom">
+            <id column="room_id" property="id"/>
+            <result column="room_name" property="name"/>
+        </association>
+        <association property="regionProject" column="project_id"
+                     javaType="cn.com.bgy.ifc.entity.po.project.RegionProject">
+            <id column="pro_id" property="id"/>
+            <result column="pro_name" property="name"/>
+        </association>
+        <association property="regionInfo" column="region_id"
+                     javaType="cn.com.bgy.ifc.entity.po.project.RegionInfo">
+            <id column="info_id" property="id"/>
+            <result column="info_name" property="name"/>
+        </association>
     </resultMap>
-    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
-    insert into equipment_event (id, status, type, 
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.alarm.RealTimeAlarm">
+    insert into real_time_alarm (id, status, type, 
       device_id, first_time, last_time, 
-      description, report_count)
+      description, report_count, event_id,alarm_value
+      )
     values (#{id,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
       #{deviceId,jdbcType=BIGINT}, #{firstTime,jdbcType=TIMESTAMP}, #{lastTime,jdbcType=TIMESTAMP}, 
-      #{description,jdbcType=VARCHAR}, #{reportCount,jdbcType=INTEGER})
+      #{description,jdbcType=VARCHAR}, #{reportCount,jdbcType=INTEGER}, #{eventId,jdbcType=BIGINT},#{alarmValue,jdbcType=REAL}
+      )
   </insert>
-    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
-        insert into equipment_event
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.alarm.RealTimeAlarm">
+        insert into real_time_alarm
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -63,6 +81,12 @@
             </if>
             <if test="reportCount != null">
                 report_count,
+            </if>
+            <if test="eventId != null">
+                event_id,
+            </if>
+            <if test="alarmValue != null">
+                alarm_value,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -90,35 +114,14 @@
             <if test="reportCount != null">
                 #{reportCount,jdbcType=INTEGER},
             </if>
+            <if test="eventId != null">
+                #{eventId,jdbcType=BIGINT},
+            </if>
+            <if test="alarmValue != null">
+                #{alarmValue,jdbcType=REAL},
+            </if>
         </trim>
     </insert>
-
-    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.equipment.EquipmentEventVo"
-            resultMap="BaseResultMap">
-        SELECT
-        e.id,
-        e.status,
-        e.type,
-        e.device_id,
-        s.name AS device_name,
-        e.first_time,
-        e.last_time,
-        e.description,
-        e.report_count
-        FROM equipment_event e
-        LEFT JOIN equipment_state s ON s.id=e.device_id
-        <where>
-            <if test="type != null and type != ''">
-                AND e.type = #{type}
-            </if>
-            <if test="status != null and status != ''or status == 0">
-                AND e.status = #{status}
-            </if>
-            <if test="keyword!='' and keyword!=null">
-                AND (e.description LIKE concat('%',#{keyword},'%') OR s.name LIKE concat('%',#{keyword},'%'))
-            </if>
-        </where>
-    </select>
 
     <select id="findById" parameterType="Long" resultMap="BaseResultMap">
         SELECT
@@ -129,12 +132,29 @@
         first_time,
         last_time,
         description,
-        report_count
-        FROM equipment_event  WHERE id = #{id}
+        report_count,
+        event_id,
+        alarm_value
+        FROM real_time_alarm  WHERE id = #{id}
     </select>
 
-    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
-        UPDATE equipment_event
+    <select id="findByEventId" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+        id,
+        status,
+        type,
+        device_id,
+        first_time,
+        last_time,
+        description,
+        report_count,
+        event_id,
+        alarm_value
+        FROM real_time_alarm  WHERE event_id = #{eventId}
+    </select>
+
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.alarm.RealTimeAlarm">
+        UPDATE real_time_alarm
         <set>
             status= #{status,jdbcType=INTEGER},
             type= #{type,jdbcType=INTEGER},
@@ -143,12 +163,13 @@
             last_time=#{lastTime,jdbcType=TIMESTAMP},
             description=#{description,jdbcType=VARCHAR},
             report_count= #{reportCount,jdbcType=INTEGER},
+            alarm_value=#{alarmValue,jdbcType=REAL},
         </set>
         WHERE id = #{id}
     </update>
 
-    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent">
-        UPDATE equipment_event
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.alarm.RealTimeAlarm">
+        UPDATE real_time_alarm
         <set>
             <if test="status != null">
                 status= #{status,jdbcType=INTEGER},
@@ -171,16 +192,69 @@
             <if test="reportCount != null">
                 report_count= #{reportCount,jdbcType=INTEGER},
             </if>
+            <if test="alarmValue != null">
+                alarm_value=#{alarmValue,jdbcType=REAL},
+            </if>
         </set>
         WHERE id = #{id}
     </update>
 
-    <delete id="deleteBatch" parameterType="java.util.List">
-        <![CDATA[
-       DELETE FROM equipment_event WHERE id IN
-    	]]>
-        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </delete>
+    <select id="queryAlarmCount" resultType="cn.com.bgy.ifc.entity.po.alarm.AlarmCount">
+        SELECT count(case when type=1 then type end ) AS report,
+        count(case when type=2 then type end ) AS hitch,
+        count(case when type=3 then type end ) AS hidden
+        FROM real_time_alarm WHERE status=0
+    </select>
+
+    <select id="queryAlarmList" parameterType="cn.com.bgy.ifc.entity.po.alarm.RealTimeAlarm"
+            resultMap="BaseResultMap">
+        SELECT
+        e.id AS id,
+        e.status,
+        e.type,
+        e.device_id,
+        e.alarm_value,
+        i.name AS device_name,
+        i.id AS equipment_id,
+        i.name AS equipment_name,
+        i.equipment_state_id AS equipment_state_id,
+        e.first_time,
+        e.last_time,
+        e.description,
+        e.report_count,
+        e.event_id,
+        i.machine_room_id,
+        r.id AS room_id,
+        r.name AS room_name,
+        r.project_id AS project_id ,
+        p.id AS pro_id,
+        p.name AS pro_name,
+        s.id AS state_id,
+        s.last_value,
+        u.grade,
+        (CASE WHEN s.value_threshold_max IS NULL THEN c.value_threshold_max ELSE s.value_threshold_max END) AS
+        value_threshold_max ,
+        (CASE WHEN s.value_threshold_min IS NULL THEN c.value_threshold_min ELSE s.value_threshold_min END) AS
+        value_threshold_min ,
+        u.alarm_threshold_max,
+        u.alarm_threshold_min,
+        f.id AS info_id,
+        f.name AS info_name
+        FROM real_time_alarm e
+        INNER JOIN equipment_info i ON i.id=e.device_id
+        LEFT JOIN equipment_state s ON s.id=i.equipment_state_id
+        LEFT JOIN equipment_config c ON c.type=s.type
+        LEFT JOIN equipment_setup u ON u.id=s.id
+        LEFT JOIN region_computer_room r ON r.id=i.machine_room_id
+        LEFT JOIN region_project p ON p.id=r.project_id
+        LEFT JOIN region_info f ON f.id=p.region_id
+        <where>
+            <if test="type != null and type != ''">
+                AND e.type = #{type}
+            </if>
+            <if test="status != null and status != ''or status == 0">
+                AND e.status = #{status}
+            </if>
+        </where>
+    </select>
 </mapper>

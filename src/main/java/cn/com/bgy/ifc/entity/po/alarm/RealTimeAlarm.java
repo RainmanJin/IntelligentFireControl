@@ -1,24 +1,26 @@
-package cn.com.bgy.ifc.entity.po.equipment;
+package cn.com.bgy.ifc.entity.po.alarm;
 
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentInfo;
+import cn.com.bgy.ifc.entity.po.equipment.EquipmentState;
 import cn.com.bgy.ifc.entity.po.project.RegionComputerRoom;
 import cn.com.bgy.ifc.entity.po.project.RegionInfo;
 import cn.com.bgy.ifc.entity.po.project.RegionProject;
 
 import java.util.Date;
 
-public class EquipmentEvent {
+public class RealTimeAlarm {
     /**
-     * 
+     * ID自增
      */
     private Long id;
 
     /**
-     * 事件状态
+     * 状态 未处理:0 已处理:1
      */
     private Integer status;
 
     /**
-     * 事件类型
+     * 告警类型 火警:1 告警:2 隐患:3 
      */
     private Integer type;
 
@@ -26,11 +28,6 @@ public class EquipmentEvent {
      * 设备ID
      */
     private Long deviceId;
-
-    /**
-     * 设备名称
-     */
-    private String deviceName;
 
     /**
      * 第一次产生时间
@@ -53,9 +50,33 @@ public class EquipmentEvent {
     private Integer reportCount;
 
     /**
+     * 物联事件ID
+     */
+    private Long eventId;
+
+    /**
+     * 告警值
+     */
+    private Float alarmValue;
+
+    /**
      * 集成平台设备信息
      */
     private EquipmentInfo equipmentInfo;
+
+    /**
+     * 机房信息
+     */
+    private RegionComputerRoom regionComputerRoom;
+
+    /**
+     * 区域信息
+     */
+    private RegionInfo regionInfo;
+    /**
+     * 项目信息
+     */
+    private RegionProject regionProject;
 
     /**
      * 物联设备信息
@@ -63,48 +84,48 @@ public class EquipmentEvent {
     private EquipmentState equipmentState;
 
     /**
-     * 
-     * @return id 
+     * ID自增
+     * @return id ID自增
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * 
-     * @param id 
+     * ID自增
+     * @param id ID自增
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * 事件状态
-     * @return status 事件状态
+     * 状态 未处理:0 已处理:1
+     * @return status 状态 未处理:0 已处理:1
      */
     public Integer getStatus() {
         return status;
     }
 
     /**
-     * 事件状态
-     * @param status 事件状态
+     * 状态 未处理:0 已处理:1
+     * @param status 状态 未处理:0 已处理:1
      */
     public void setStatus(Integer status) {
         this.status = status;
     }
 
     /**
-     * 事件类型
-     * @return type 事件类型
+     * 告警类型 火警:1 告警:2 隐患:3 
+     * @return type 告警类型 火警:1 告警:2 隐患:3 
      */
     public Integer getType() {
         return type;
     }
 
     /**
-     * 事件类型
-     * @param type 事件类型
+     * 告警类型 火警:1 告警:2 隐患:3 
+     * @param type 告警类型 火警:1 告警:2 隐患:3 
      */
     public void setType(Integer type) {
         this.type = type;
@@ -190,12 +211,20 @@ public class EquipmentEvent {
         this.reportCount = reportCount;
     }
 
-    public String getDeviceName() {
-        return deviceName;
+    /**
+     * 物联事件ID
+     * @return event_id 物联事件ID
+     */
+    public Long getEventId() {
+        return eventId;
     }
 
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+    /**
+     * 物联事件ID
+     * @param eventId 物联事件ID
+     */
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
     }
 
     public EquipmentInfo getEquipmentInfo() {
@@ -206,6 +235,29 @@ public class EquipmentEvent {
         this.equipmentInfo = equipmentInfo;
     }
 
+    public RegionComputerRoom getRegionComputerRoom() {
+        return regionComputerRoom;
+    }
+
+    public void setRegionComputerRoom(RegionComputerRoom regionComputerRoom) {
+        this.regionComputerRoom = regionComputerRoom;
+    }
+
+    public RegionInfo getRegionInfo() {
+        return regionInfo;
+    }
+
+    public void setRegionInfo(RegionInfo regionInfo) {
+        this.regionInfo = regionInfo;
+    }
+
+    public RegionProject getRegionProject() {
+        return regionProject;
+    }
+
+    public void setRegionProject(RegionProject regionProject) {
+        this.regionProject = regionProject;
+    }
 
     public EquipmentState getEquipmentState() {
         return equipmentState;
@@ -215,4 +267,11 @@ public class EquipmentEvent {
         this.equipmentState = equipmentState;
     }
 
+    public Float getAlarmValue() {
+        return alarmValue;
+    }
+
+    public void setAlarmValue(Float alarmValue) {
+        this.alarmValue = alarmValue;
+    }
 }

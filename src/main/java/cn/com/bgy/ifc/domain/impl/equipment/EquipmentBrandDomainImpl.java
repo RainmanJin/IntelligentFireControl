@@ -3,6 +3,7 @@ package cn.com.bgy.ifc.domain.impl.equipment;
 import cn.com.bgy.ifc.bgy.constant.ExternalConstant;
 import cn.com.bgy.ifc.bgy.utils.DbUtil;
 import cn.com.bgy.ifc.bgy.utils.ListUtil;
+import cn.com.bgy.ifc.bgy.utils.TimeUtil;
 import cn.com.bgy.ifc.dao.equipment.EquipmentBrandDao;
 import cn.com.bgy.ifc.domain.interfaces.equipment.EquipmentBrandDomain;
 import cn.com.bgy.ifc.domain.interfaces.system.ExternalInterfaceMsgDomain;
@@ -19,10 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author: ZhangCheng
@@ -169,8 +167,12 @@ public class EquipmentBrandDomainImpl implements EquipmentBrandDomain {
         if (addCount + updateCount + deleteCount != totalCount) {
             throw new RuntimeException("批量同步设备品牌增量数据失败!");
         } else {
+            Date updateTime = new Date();
+            if (list.get(totalCount - 1).getOperTime() != null) {
+                updateTime = TimeUtil.parseStrToDateTime(list.get(totalCount - 1).getOperTime());
+            }
             int msgType = ExternalConstant.MsgTypeValue.BGY_EQUIPMENT_BRAND_OBTAIN.getValue();
-            externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount);
+            externalInterfaceMsgDomain.alterInterfaceMsg(orgId, msgType, totalCount, addCount, updateCount, deleteCount, updateTime);
             return ResponseVO.success().setMsg("同步集成平台设备品牌增量总条数：" + totalCount + "，新增条数：" + addCount + ",修改条数：" + updateCount + ",删除条数：" + deleteCount + ",成功条数：" + totalCount + "，失败条数" + 0 + "");
         }
     }

@@ -66,6 +66,35 @@ public class EquipmentConstant {
     }
 
     /**
+     * 实时告警状态
+     * 火警:1 告警:2 隐患:3
+     */
+    public enum AlarmEnum {
+        //火警
+        FIRE_ALARM(1, "火警"),
+        //告警
+        GIVE_ALARM(2, "告警"),
+        //隐患
+        HIDDEN_DANGER(3, "隐患");
+
+        private Integer value;
+        private String name;
+
+        private AlarmEnum(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    /**
      * 模拟量记录类型
      */
     public enum AnalogQuantityType {

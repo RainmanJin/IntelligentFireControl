@@ -32,7 +32,7 @@ public class AlarmHiddenController {
      */
     @GetMapping("queryPageData")
     public ResponseVO<PageInfo<AlarmVo>> queryPage(Page<EquipmentEvent> page) {
-        Integer type= EquipmentConstant.StateEnum.EARLY_WARNING.getValue();
+        Integer type= EquipmentConstant.AlarmEnum.HIDDEN_DANGER.getValue();
         PageInfo<AlarmVo> pageInfo = alarmService.queryListByPage(page,type);
         return ResponseVO.<PageInfo<AlarmVo>>success().setData(pageInfo);
     }

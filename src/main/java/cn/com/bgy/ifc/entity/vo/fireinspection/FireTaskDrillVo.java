@@ -94,12 +94,12 @@ public class FireTaskDrillVo {
     private Boolean logicRemove;
 
     /**
-     * 消防培训内容
+     * 消防演练内容
      */
     private String content;
 
     /**
-     * 消防培训结果
+     * 消防演练结果
      */
     private String trainResults;
 

@@ -24,4 +24,11 @@ public interface EquipmentInfoDao extends BaseDao<EquipmentInfo> {
     Long queryRoomIdByEquipmentId(Long id);
     //根据苑区ID查询设备信息下拉列表
     List<EquipmentInfo> ListByCourtId( Map<String,Object> map );
+
+    /**
+     * 根据物联设备ID查询设备信息
+     * @param stateId
+     * @return
+     */
+    EquipmentInfo findByStateId(Long stateId);
 }
