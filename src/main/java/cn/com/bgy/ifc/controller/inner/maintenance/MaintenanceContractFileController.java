@@ -179,11 +179,9 @@ public class MaintenanceContractFileController extends BaseController{
     @PostMapping("uploadContract")
     @ResponseBody
     public ResponseVO uploadContract(MultipartFile file, MaintenanceContractFile maintenanceContractFile) {
-
         if (Objects.isNull(file) || file.isEmpty()) {
             return ResponseVO.error().setMsg("文件为空，请重新上传");
         }
-
         try {
             byte[] bytes = file.getBytes();
             int length=file.getOriginalFilename().split("[.]").length;

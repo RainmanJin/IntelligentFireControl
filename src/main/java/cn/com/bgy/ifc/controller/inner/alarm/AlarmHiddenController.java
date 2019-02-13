@@ -1,7 +1,8 @@
 package cn.com.bgy.ifc.controller.inner.alarm;
 
+import cn.com.bgy.ifc.bgy.annotation.RolePermission;
 import cn.com.bgy.ifc.bgy.constant.EquipmentConstant;
-import cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent;
+import cn.com.bgy.ifc.entity.po.alarm.RealTimeAlarm;
 import cn.com.bgy.ifc.entity.vo.ResponseVO;
 import cn.com.bgy.ifc.entity.vo.alarm.AlarmVo;
 import cn.com.bgy.ifc.service.interfaces.inner.alarm.AlarmService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("/alarm/hidden")
+@RolePermission
 public class AlarmHiddenController {
 
     @Autowired
@@ -31,7 +33,7 @@ public class AlarmHiddenController {
      * @return: cn.com.bgy.ifc.entity.vo.ResponseVO<com.github.pagehelper.PageInfo<cn.com.bgy.ifc.entity.po.equipment.EquipmentEvent>>
      */
     @GetMapping("queryPageData")
-    public ResponseVO<PageInfo<AlarmVo>> queryPage(Page<EquipmentEvent> page) {
+    public ResponseVO<PageInfo<AlarmVo>> queryPage(Page<RealTimeAlarm> page) {
         Integer type= EquipmentConstant.AlarmEnum.HIDDEN_DANGER.getValue();
         PageInfo<AlarmVo> pageInfo = alarmService.queryListByPage(page,type);
         return ResponseVO.<PageInfo<AlarmVo>>success().setData(pageInfo);

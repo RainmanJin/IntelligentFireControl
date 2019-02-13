@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.system.SystemFileDao">
+  <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.system.SystemFile">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="receive_id" jdbcType="BIGINT" property="receiveId" />
+    <result column="file_sort" jdbcType="TINYINT" property="fileSort" />
+    <result column="author_id" jdbcType="BIGINT" property="authorId" />
+    <result column="author_name" jdbcType="CHAR" property="authorName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="random_name" jdbcType="CHAR" property="randomName" />
+    <result column="file_type" jdbcType="CHAR" property="fileType" />
+    <result column="file_size" jdbcType="CHAR" property="fileSize" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.system.SystemFile">
+    insert into system_file (id, receive_id, file_sort, 
+      author_id, author_name, create_time, 
+      file_name, random_name, file_type, 
+      file_size)
+    values (#{id,jdbcType=BIGINT}, #{receiveId,jdbcType=BIGINT}, #{fileSort,jdbcType=TINYINT}, 
+      #{authorId,jdbcType=BIGINT}, #{authorName,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{fileName,jdbcType=VARCHAR}, #{randomName,jdbcType=CHAR}, #{fileType,jdbcType=CHAR}, 
+      #{fileSize,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.system.SystemFile">
+    insert into system_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="receiveId != null">
+        receive_id,
+      </if>
+      <if test="fileSort != null">
+        file_sort,
+      </if>
+      <if test="authorId != null">
+        author_id,
+      </if>
+      <if test="authorName != null">
+        author_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="randomName != null">
+        random_name,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="fileSize != null">
+        file_size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="receiveId != null">
+        #{receiveId,jdbcType=BIGINT},
+      </if>
+      <if test="fileSort != null">
+        #{fileSort,jdbcType=TINYINT},
+      </if>
+      <if test="authorId != null">
+        #{authorId,jdbcType=BIGINT},
+      </if>
+      <if test="authorName != null">
+        #{authorName,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="randomName != null">
+        #{randomName,jdbcType=CHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=CHAR},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

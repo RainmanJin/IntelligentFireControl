@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bgy.ifc.dao.systemchecking.SystemCheckingDao">
+    <resultMap id="BaseResultMap" type="cn.com.bgy.ifc.entity.po.systemchecking.SystemChecking">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="inspectors" jdbcType="BIGINT" property="inspectors"/>
+        <result column="inspection_time" jdbcType="TIMESTAMP" property="inspectionTime"/>
+        <result column="test_type" jdbcType="INTEGER" property="testType"/>
+        <result column="has_file" jdbcType="BIT" property="hasFile"/>
+        <result column="logic_remove" jdbcType="BIT" property="logicRemove"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <association property="account" column="inspectors"
+                     javaType="cn.com.bgy.ifc.entity.po.system.Account">
+            <id column="acc_id" property="id"/>
+            <result column="user_name" property="userName"/>
+        </association>
+    </resultMap>
+    <insert id="insert" parameterType="cn.com.bgy.ifc.entity.po.systemchecking.SystemChecking">
+    insert into system_checking (id, project_id, type, 
+      inspectors, inspection_time, test_type, 
+      has_file, logic_remove, create_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, 
+      #{inspectors,jdbcType=BIGINT}, #{inspectionTime,jdbcType=TIMESTAMP}, #{testType,jdbcType=INTEGER}, 
+      #{hasFile,jdbcType=BIT}, #{logicRemove,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="cn.com.bgy.ifc.entity.po.systemchecking.SystemChecking">
+        insert into system_checking
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="inspectors != null">
+                inspectors,
+            </if>
+            <if test="inspectionTime != null">
+                inspection_time,
+            </if>
+            <if test="testType != null">
+                test_type,
+            </if>
+            <if test="hasFile != null">
+                has_file,
+            </if>
+            <if test="logicRemove != null">
+                logic_remove,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="inspectors != null">
+                #{inspectors,jdbcType=BIGINT},
+            </if>
+            <if test="inspectionTime != null">
+                #{inspectionTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="testType != null">
+                #{testType,jdbcType=INTEGER},
+            </if>
+            <if test="hasFile != null">
+                #{hasFile,jdbcType=BIT},
+            </if>
+            <if test="logicRemove != null">
+                #{logicRemove,jdbcType=BIT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="queryListByParam" parameterType="cn.com.bgy.ifc.entity.vo.systemchecking.SystemCheckingVo"
+            resultMap="BaseResultMap">
+        SELECT
+        s.id AS id, s.project_id, s.type,
+        s.inspectors, s.inspection_time, s.test_type,
+        s.has_file, s.logic_remove, s.create_time,
+        u.id AS acc_id,
+        u.user_name
+        FROM system_checking s
+        INNER JOIN account u ON u.id=s.inspectors
+        <where>
+            <if test="type != null ">
+                AND s.type=#{type}
+            </if>
+            <if test="projectId != null ">
+                AND s.project_id=#{projectId}
+            </if>
+            <if test="testType != null ">
+                AND s.test_type=#{testType}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                AND s.inspection_time >=#{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                AND s.inspection_time &lt;= #{endTime}
+            </if>
+            AND s.logic_remove = 0
+        </where>
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+        id, project_id, type,
+        inspectors, inspection_time, test_type,
+        has_file, logic_remove, create_time
+        FROM system_checking  WHERE id = #{id}
+    </select>
+
+    <update id="update" parameterType="cn.com.bgy.ifc.entity.po.systemchecking.SystemChecking">
+        UPDATE system_checking
+        <set>
+            project_id= #{projectId,jdbcType=BIGINT},
+            type=#{type,jdbcType=INTEGER},
+            inspectors=#{inspectors,jdbcType=BIGINT},
+            inspection_time=#{inspectionTime,jdbcType=TIMESTAMP},
+            test_type=#{testType,jdbcType=INTEGER},
+            has_file=#{hasFile,jdbcType=BIT},
+            create_time=#{createTime,jdbcType=TIMESTAMP},
+        </set>
+        WHERE id = #{id}
+    </update>
+    <update id="updateSelective" parameterType="cn.com.bgy.ifc.entity.po.systemchecking.SystemChecking">
+        UPDATE system_checking
+        <set>
+            <if test="projectId != null">
+                project_id= #{projectId,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                type=#{type,jdbcType=INTEGER},
+            </if>
+            <if test="inspectors != null">
+                inspectors=#{inspectors,jdbcType=BIGINT},
+            </if>
+            <if test="inspectionTime != null">
+                inspection_time=#{inspectionTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="testType != null">
+                test_type=#{testType,jdbcType=INTEGER},
+            </if>
+            <if test="hasFile != null">
+                has_file=#{hasFile,jdbcType=BIT},
+            </if>
+            <if test="createTime != null">
+                create_time=#{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logicRemove != null">
+                logic_remove=#{logicRemove,jdbcType=BIT},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteBatch" parameterType="java.util.List">
+        UPDATE system_checking SET logic_remove =1 WHERE id IN
+        <foreach close=")" collection="list" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
+    </update>
+</mapper>
